@@ -638,10 +638,14 @@ bool wxApp::Initialize(int& argc_, wxChar **argv_)
     // this is useful to allow users to enable dark mode for the applications
     // not enabling it themselves by setting the corresponding environment
     // variable
+#if 0
     if ( const int darkMode = wxSystemOptions::GetOptionInt("msw.dark-mode") )
     {
         MSWEnableDarkMode(darkMode > 1 ? DarkMode_Always : DarkMode_Auto);
     }
+#else
+    MSWEnableDarkMode( DarkMode_Auto);
+#endif
 
     callBaseCleanup.Dismiss();
 
