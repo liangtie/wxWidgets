@@ -336,6 +336,7 @@ wxScrollHelperBase::wxScrollHelperBase(wxWindow *win)
 #endif
 
     m_timerAutoScroll = nullptr;
+    m_timerAutoScroll = nullptr;
 
     m_handler = nullptr;
 
