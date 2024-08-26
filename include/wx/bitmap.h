@@ -84,6 +84,10 @@ protected:
 // methods into this class from which both wxBitmapBase (and hence wxBitmap on
 // all platforms where it does inherit from it) and wxBitmap in wxMSW and other
 // exceptional ports (only wxPM and old wxCocoa) inherit.
+
+#define wxDECLARE_VARIANT_OBJECT_EXPORTED(classname,expdecl) \
+    friend expdecl classname& operator<<(classname &object, const wxVariant &variant); \
+    friend expdecl wxVariant& operator<<(wxVariant &variant, const classname &object)
 class WXDLLIMPEXP_CORE wxBitmapHelpers
 {
 public:
