@@ -2,7 +2,6 @@
 // Name:        src/common/gdicmn.cpp
 // Purpose:     Common GDI classes
 // Author:      Julian Smart
-// Modified by:
 // Created:     01/02/97
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
@@ -32,6 +31,7 @@
     #include "wx/math.h"
 #endif
 
+#include <unordered_map>
 
 wxIMPLEMENT_ABSTRACT_CLASS(wxGDIObject, wxObject);
 
@@ -259,6 +259,27 @@ wxRealPoint::wxRealPoint(const wxPoint& pt)
 // wxColourDatabase
 // ============================================================================
 
+// Due to a bug mentioned in wx/hashmap.h we have to use aggregation here and
+// define a simple accessor function below.
+//
+// FIXME-GCC-4.8: Remove this and just inherit from std::unordered_map<>.
+class wxStringToColourHashMap
+{
+public:
+    std::unordered_map<wxString, wxColour> m_colours;
+};
+
+namespace
+{
+
+inline std::unordered_map<wxString, wxColour>&
+GetColours(wxStringToColourHashMap* map)
+{
+    return map->m_colours;
+}
+
+} // anonymous namespace
+
 // ----------------------------------------------------------------------------
 // wxColourDatabase ctor/dtor
 // ----------------------------------------------------------------------------
@@ -266,17 +287,12 @@ wxRealPoint::wxRealPoint(const wxPoint& pt)
 wxColourDatabase::wxColourDatabase ()
 {
     // will be created on demand in Initialize()
-    m_map = NULL;
+    m_map = nullptr;
 }
 
 wxColourDatabase::~wxColourDatabase ()
 {
-    if ( m_map )
-    {
-        WX_CLEAR_HASH_MAP(wxStringToColourHashMap, *m_map);
-
-        delete m_map;
-    }
+    delete m_map;
 }
 
 // Colour database stuff
@@ -375,7 +391,7 @@ void wxColourDatabase::Initialize()
     for ( n = 0; n < WXSIZEOF(wxColourTable); n++ )
     {
         const wxColourDesc& cc = wxColourTable[n];
-        (*m_map)[cc.name] = new wxColour(cc.r, cc.g, cc.b);
+        GetColours(m_map)[cc.name] = wxColour(cc.r, cc.g, cc.b);
     }
 }
 
@@ -400,16 +416,17 @@ void wxColourDatabase::AddColour(const wxString& name, const wxColour& colour)
         colNameAlt.clear();
     }
 
-    wxStringToColourHashMap::iterator it = m_map->find(colName);
-    if ( it == m_map->end() && !colNameAlt.empty() )
-        it = m_map->find(colNameAlt);
-    if ( it != m_map->end() )
+    auto& map = GetColours(m_map);
+    auto it = map.find(colName);
+    if ( it == map.end() && !colNameAlt.empty() )
+        it = map.find(colNameAlt);
+    if ( it != map.end() )
     {
-        *(it->second) = colour;
+        it->second = colour;
     }
     else // new colour
     {
-        (*m_map)[colName] = new wxColour(colour);
+        map[colName] = wxColour(colour);
     }
 }
 
@@ -425,11 +442,12 @@ wxColour wxColourDatabase::Find(const wxString& colour) const
     if ( !colNameAlt.Replace(wxT("GRAY"), wxT("GREY")) )
         colNameAlt.clear();
 
-    wxStringToColourHashMap::iterator it = m_map->find(colName);
-    if ( it == m_map->end() && !colNameAlt.empty() )
-        it = m_map->find(colNameAlt);
-    if ( it != m_map->end() )
-        return *(it->second);
+    const auto& map = GetColours(m_map);
+    auto it = map.find(colName);
+    if ( it == map.end() && !colNameAlt.empty() )
+        it = map.find(colNameAlt);
+    if ( it != map.end() )
+        return it->second;
 
     // we did not find any result in existing colours:
     // we won't use wxString -> wxColour conversion because the
@@ -444,15 +462,29 @@ wxString wxColourDatabase::FindName(const wxColour& colour) const
     wxColourDatabase * const self = wxConstCast(this, wxColourDatabase);
     self->Initialize();
 
-    typedef wxStringToColourHashMap::iterator iterator;
-
-    for ( iterator it = m_map->begin(), en = m_map->end(); it != en; ++it )
+    for ( const auto& kv : GetColours(m_map) )
     {
-        if ( *(it->second) == colour )
-            return it->first;
+        if ( kv.second == colour )
+            return kv.first;
     }
 
     return wxEmptyString;
+}
+
+wxVector<wxString> wxColourDatabase::GetAllNames() const
+{
+    wxColourDatabase * const self = wxConstCast(this, wxColourDatabase);
+    self->Initialize();
+
+    const auto& map = GetColours(m_map);
+
+    wxVector<wxString> names;
+    names.reserve(map.size());
+
+    for ( const auto& kv : map )
+        names.push_back(kv.first);
+
+    return names;
 }
 
 // ============================================================================
@@ -482,7 +514,7 @@ void wxStockGDI::DeleteAll()
 const wxBrush* wxStockGDI::GetBrush(Item item)
 {
     wxBrush* brush = static_cast<wxBrush*>(ms_stockObject[item]);
-    if (brush == NULL)
+    if (brush == nullptr)
     {
         switch (item)
         {
@@ -530,7 +562,7 @@ const wxBrush* wxStockGDI::GetBrush(Item item)
 const wxColour* wxStockGDI::GetColour(Item item)
 {
     wxColour* colour = static_cast<wxColour*>(ms_stockObject[item]);
-    if (colour == NULL)
+    if (colour == nullptr)
     {
         switch (item)
         {
@@ -569,7 +601,7 @@ const wxColour* wxStockGDI::GetColour(Item item)
 const wxCursor* wxStockGDI::GetCursor(Item item)
 {
     wxCursor* cursor = static_cast<wxCursor*>(ms_stockObject[item]);
-    if (cursor == NULL)
+    if (cursor == nullptr)
     {
         switch (item)
         {
@@ -593,7 +625,7 @@ const wxCursor* wxStockGDI::GetCursor(Item item)
 const wxFont* wxStockGDI::GetFont(Item item)
 {
     wxFont* font = static_cast<wxFont*>(ms_stockObject[item]);
-    if (font == NULL)
+    if (font == nullptr)
     {
         switch (item)
         {
@@ -634,7 +666,7 @@ const wxFont* wxStockGDI::GetFont(Item item)
 const wxPen* wxStockGDI::GetPen(Item item)
 {
     wxPen* pen = static_cast<wxPen*>(ms_stockObject[item]);
-    if (pen == NULL)
+    if (pen == nullptr)
     {
         switch (item)
         {
@@ -729,7 +761,7 @@ wxPen *wxPenList::FindOrCreatePen (const wxColour& colour, int width, wxPenStyle
             return pen;
     }
 
-    wxPen* pen = NULL;
+    wxPen* pen = nullptr;
     wxPen penTmp(colour, width, style);
     if (penTmp.IsOk())
     {
@@ -751,7 +783,7 @@ wxBrush *wxBrushList::FindOrCreateBrush (const wxColour& colour, wxBrushStyle st
             return brush;
     }
 
-    wxBrush* brush = NULL;
+    wxBrush* brush = nullptr;
     wxBrush brushTmp(colour, style);
     if (brushTmp.IsOk())
     {
@@ -797,6 +829,8 @@ wxFont *wxFontList::FindOrCreateFont(int pointSize,
     wxList::compatibility_iterator node;
     for (node = list.GetFirst(); node; node = node->GetNext())
     {
+        bool same;
+
         font = (wxFont *)node->GetData();
         if (
              font->GetPointSize () == pointSize &&
@@ -911,13 +945,3 @@ wxSize wxGetDisplayPPI()
     return wxDisplay().GetPPI();
 }
 
-wxResourceCache::~wxResourceCache ()
-{
-    wxList::compatibility_iterator node = GetFirst ();
-    while (node) {
-        wxObject *item = (wxObject *)node->GetData();
-        delete item;
-
-        node = node->GetNext ();
-    }
-}

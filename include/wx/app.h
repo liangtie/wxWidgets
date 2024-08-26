@@ -3,7 +3,6 @@
 // Purpose:     wxAppBase class and macros used for declaration of wxApp
 //              derived class in the user code
 // Author:      Julian Smart
-// Modified by:
 // Created:     01/02/97
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
@@ -424,8 +423,7 @@ public:
     // version does the normal processing (i.e. shows the usual assert failure
     // dialog box)
     //
-    // the arguments are the location of the failed assert (func may be empty
-    // if the compiler doesn't support C99 __FUNCTION__), the text of the
+    // the arguments are the location of the failed assert, the text of the
     // assert itself and the user-specified message
     virtual void OnAssertFailure(const wxChar *file,
                                  int line,
@@ -495,7 +493,7 @@ protected:
     // the one and only global application object
     static wxAppConsole *ms_appInstance;
 
-    // create main loop from AppTraits or return NULL if
+    // create main loop from AppTraits or return nullptr if
     // there is no main loop implementation
     wxEventLoopBase *CreateMainLoop();
 
@@ -506,13 +504,13 @@ protected:
              m_appDisplayName,    // app display name ("My Application")
              m_className;         // class name
 
-    // the class defining the application behaviour, NULL initially and created
-    // by GetTraits() when first needed
-    wxAppTraits *m_traits;
+    // allows customizing the application behaviour, created by GetTraits()
+    // when first needed
+    wxAppTraits *m_traits = nullptr;
 
-    // the main event loop of the application (may be NULL if the loop hasn't
+    // the main event loop of the application (may be null if the loop hasn't
     // been started yet or has already terminated)
-    wxEventLoopBase *m_mainLoop;
+    wxEventLoopBase *m_mainLoop = nullptr;
 
 
     // pending events management vars:
@@ -571,7 +569,7 @@ public:
         // very first initialization function
         //
         // Override: very rarely
-    virtual bool Initialize(int& argc, wxChar **argv) wxOVERRIDE;
+    virtual bool Initialize(int& argc, wxChar **argv) override;
 
         // a platform-dependent version of OnInit(): the code here is likely to
         // depend on the toolkit. default version does nothing.
@@ -586,15 +584,15 @@ public:
         // of the program really starts here
         //
         // Override: rarely in GUI applications, always in console ones.
-    virtual int OnRun() wxOVERRIDE;
+    virtual int OnRun() override;
 
         // a matching function for OnInit()
-    virtual int OnExit() wxOVERRIDE;
+    virtual int OnExit() override;
 
         // very last clean up function
         //
         // Override: very rarely
-    virtual void CleanUp() wxOVERRIDE;
+    virtual void CleanUp() override;
 
 
     // the worker functions - usually not used directly by the user code
@@ -609,10 +607,10 @@ public:
         // parties
         //
         // it should return true if more idle events are needed, false if not
-    virtual bool ProcessIdle() wxOVERRIDE;
+    virtual bool ProcessIdle() override;
 
         // override base class version: GUI apps always use an event loop
-    virtual bool UsesEventLoop() const wxOVERRIDE { return true; }
+    virtual bool UsesEventLoop() const override { return true; }
 
 
     // top level window functions
@@ -626,11 +624,11 @@ public:
 
         // return the "main" top level window (if it hadn't been set previously
         // with SetTopWindow(), will return just some top level window and, if
-        // there are none, will return NULL)
+        // there are none, will return nullptr)
     virtual wxWindow *GetTopWindow() const;
 
         // convenient helper which is safe to use even if there is no wxApp at
-        // all, it will just return NULL in this case
+        // all, it will just return nullptr in this case
     static wxWindow *GetMainTopWindow();
 
         // control the exit behaviour: by default, the program will exit the
@@ -674,13 +672,33 @@ public:
     // Change the theme used by the application, return true on success.
     virtual bool SetNativeTheme(const wxString& WXUNUSED(theme)) { return false; }
 
+    // Request using system appearance (which is automatic for most platforms
+    // but not MSW) or explicitly request dark or light appearance for this
+    // application.
+    enum class Appearance
+    {
+        System,
+        Light,
+        Dark
+    };
+
+    enum class AppearanceResult
+    {
+        Failure,
+        Ok,
+        CannotChange
+    };
+
+    virtual AppearanceResult SetAppearance(Appearance WXUNUSED(appearance))
+        { return AppearanceResult::Failure; }
+
 
     // command line parsing (GUI-specific)
     // ------------------------------------------------------------------------
 
 #if wxUSE_CMDLINE_PARSER
-    virtual bool OnCmdLineParsed(wxCmdLineParser& parser) wxOVERRIDE;
-    virtual void OnInitCmdLine(wxCmdLineParser& parser) wxOVERRIDE;
+    virtual bool OnCmdLineParsed(wxCmdLineParser& parser) override;
+    virtual void OnInitCmdLine(wxCmdLineParser& parser) override;
 #endif
 
     // miscellaneous other stuff
@@ -691,7 +709,7 @@ public:
     // deactivated
     virtual void SetActive(bool isActive, wxWindow *lastFocus);
 
-    virtual bool IsGUI() const wxOVERRIDE { return true; }
+    virtual bool IsGUI() const override { return true; }
 
     // returns non-null pointer only if we have a GUI application object: this
     // is only useful in the rare cases when the same code can be used in both
@@ -701,19 +719,19 @@ public:
     {
         return ms_appInstance && ms_appInstance->IsGUI()
                 ? static_cast<wxAppBase*>(ms_appInstance)
-                : NULL;
+                : nullptr;
     }
 
 protected:
     // override base class method to use GUI traits
-    virtual wxAppTraits *CreateTraits() wxOVERRIDE;
+    virtual wxAppTraits *CreateTraits() override;
 
     // Helper method deleting all existing top level windows: this is used
     // during the application shutdown.
     void DeleteAllTLWs();
 
 
-    // the main top level window (may be NULL)
+    // the main top level window (may be null)
     wxWindow *m_topWindow;
 
     // if Yes, exit the main loop when the last top level window is deleted, if

@@ -459,3 +459,4 @@ CMakePresets.json
 build_win64
 compile_commands.json
 .cache
+.vscode
