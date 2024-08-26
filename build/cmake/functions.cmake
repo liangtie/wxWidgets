@@ -468,7 +468,7 @@ macro(wx_add_library name)
             # configure puts the .dll in the bin directory
             set(runtime_dir "bin")
         else()
-            set(runtime_dir "lib")
+            set(runtime_dir "bin")
         endif()
         wx_install(TARGETS ${name}
             EXPORT wxWidgetsTargets
