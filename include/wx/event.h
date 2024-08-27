@@ -3671,6 +3671,8 @@ public:
     wxEvtHandler();
     virtual ~wxEvtHandler();
 
+    // FIXME -- should be removed , just for building wxPython
+    virtual wxBorder GetDefaultBorderForControl() const { return wxBORDER_THEME; }
 
     // Event handler chain
     // -------------------
