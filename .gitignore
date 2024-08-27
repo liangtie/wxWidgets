@@ -455,7 +455,6 @@
 /utils/wxrc/wxrc_vc[789].sln
 
 /3rdparty/webview2
-CMakePresets.json
 build_win64
 compile_commands.json
 .cache
