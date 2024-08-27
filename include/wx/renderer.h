@@ -433,6 +433,9 @@ public:
     wxDelegateRendererNative()
         : m_rendererNative(GetGeneric()) { }
 
+    // FIXME -- should be removed , just for building wxPython
+    virtual wxSize GetCollapseButtonSize( wxWindow*, wxDC&)  { return wxSize(18, 18); }
+
     wxDelegateRendererNative(wxRendererNative& rendererNative)
         : m_rendererNative(rendererNative) { }
 
