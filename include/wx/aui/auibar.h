@@ -328,16 +328,28 @@ public:
                          wxWindow* wnd,
                          const wxRect& rect,
                          int state) = 0;
-
+// FIXME for wxPython
     virtual wxSize GetLabelSize(
                          wxReadOnlyDC& dc,
                          wxWindow* wnd,
-                         const wxAuiToolBarItem& item) = 0;
+                         const wxAuiToolBarItem& item) {return wxSize();}
 
     virtual wxSize GetToolSize(
                          wxReadOnlyDC& dc,
                          wxWindow* wnd,
-                         const wxAuiToolBarItem& item) = 0;
+                         const wxAuiToolBarItem& item) {return wxSize();}
+
+   virtual wxSize GetLabelSize(
+                wxDC& dc,
+                wxWindow* wnd,
+                const wxAuiToolBarItem& item) {return wxSize();}
+
+    virtual wxSize GetToolSize(
+                wxDC& dc,
+                wxWindow* wnd,
+                const wxAuiToolBarItem& item) {return wxSize();}
+// FIXME for wxPython
+
 
     // Note that these functions work with the size in DIPs, not physical
     // pixels.
