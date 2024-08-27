@@ -48,12 +48,12 @@
             "cacheVariables": {
                 "wxBUILD_SAMPLES": "ALL",
                 "wxUSE_GUI": "ON",
-                "wxUSE_PRIVATE_FONTS": "OFF",  // Based on vcpkg_check_features
+                "wxUSE_PRIVATE_FONTS": "OFF",
                 "wxUSE_MEDIACTRL": "OFF",
                 "wxUSE_SOUND": "OFF",
                 "wxUSE_WEBVIEW": "OFF",
                 "wxUSE_WEBVIEW_EDGE": "OFF",
-                "wxUSE_STACKWALKER": "OFF",  // For ARM architectures
+                "wxUSE_STACKWALKER": "OFF",
                 "wxUSE_WEBREQUEST_CURL": "OFF",
                 "wxUSE_STL": "OFF",
                 "wxUSE_STD_CONTAINERS": "OFF",
@@ -219,4 +219,4 @@
             ]
         }
     ]
-}
+  }
