@@ -1398,6 +1398,8 @@ void wxAuiToolBar::SetOrientation(int orientation)
     {
         m_orientation = wxOrientation(orientation);
         SetArtFlags();
+
+        Realize();
     }
 }
 
@@ -2412,7 +2414,7 @@ void wxAuiToolBar::OnSysColourChanged(wxSysColourChangedEvent& event)
 
 void wxAuiToolBar::OnPaint(wxPaintEvent& WXUNUSED(evt))
 {
-    wxAutoBufferedPaintDC dc(this);
+    wxPaintDC dc(this);
     wxRect cli_rect(wxPoint(0,0), GetClientSize());
 
 
