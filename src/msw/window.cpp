@@ -497,89 +497,37 @@ const wxChar *wxWindowMSW::GetMSWClassName(long style)
 }
 
 // real construction (Init() must have been called before!)
-bool wxWindowMSW::CreateUsingMSWClass(const wxChar* classname,
-                                      wxWindow *parent,
-                                      wxWindowID id,
-                                      const wxPoint& pos,
-                                      const wxSize& size,
-                                      long style,
-                                      const wxString& name)
-{
-    wxCHECK_MSG( parent, false, wxT("can't create wxWindow without parent") );
+bool wxWindowMSW::CreateUsingMSWClass(const wxChar *classname, wxWindow *parent,
+                                      wxWindowID id, const wxPoint &pos,
+                                      const wxSize &size, long style,
+                                      const wxString &name) {
+  wxCHECK_MSG(parent, false, wxT("can't create wxWindow without parent"));
 
-    if ( !CreateBase(parent, id, pos, size, style, wxDefaultValidator, name) )
-        return false;
+  if (!CreateBase(parent, id, pos, size, style, wxDefaultValidator, name))
+    return false;
 
-    parent->AddChild(this);
+  parent->AddChild(this);
 
-    WXDWORD exstyle;
-    DWORD msflags = MSWGetCreateWindowFlags(&exstyle);
+  WXDWORD exstyle;
+  DWORD msflags = MSWGetCreateWindowFlags(&exstyle);
 
 #ifdef __WXUNIVERSAL__
-    // no borders, we draw them ourselves
-    exstyle &= ~(WS_EX_DLGMODALFRAME |
-                 WS_EX_STATICEDGE |
-                 WS_EX_CLIENTEDGE |
-                 WS_EX_WINDOWEDGE);
-    msflags &= ~WS_BORDER;
+  // no borders, we draw them ourselves
+  exstyle &= ~(WS_EX_DLGMODALFRAME | WS_EX_STATICEDGE | WS_EX_CLIENTEDGE |
+               WS_EX_WINDOWEDGE);
+  msflags &= ~WS_BORDER;
 #endif // wxUniversal
 
-    // Enable double buffering by default for all our own, i.e. not the ones
-    // using native controls, classes.
-    //
-    // The loop here is a bogus one just to create a block that we can break
-    // from, it never executes more than once.
-    while ( !classname )
-    {
-        // WS_EX_COMPOSITED seems to be incompatible with WS_EX_TOPMOST, so
-        // don't use it for:
+  if (IsShown()) {
+    msflags |= WS_VISIBLE;
+  }
 
-        // Popup windows that get created with this style themselves: this
-        // seems to work under Windows 10, but doesn't under Windows 7 and
-        // using WS_EX_COMPOSITED for these windows that are temporarily
-        // doesn't seem to be very useful anyhow, so don't bother testing for
-        // the OS version and just always disable it for them.
-        if ( exstyle & WS_EX_TOPMOST )
-            break;
+  if (!MSWCreate(classname, NULL, pos, size, msflags, exstyle))
+    return false;
 
-        // Children of such windows as this doesn't work either (see #23078).
-        wxWindow* const tlw = wxGetTopLevelParent(this);
-        if ( tlw && tlw->HasFlag(wxSTAY_ON_TOP) )
-            break;
+  InheritAttributes();
 
-        // We also allow disabling the use of this style globally by setting
-        // a system option if nothing else (i.e. turning it off for individual
-        // windows) works.
-        if ( wxSystemOptions::GetOptionInt("msw.window.no-composited") )
-            break;
-
-        // Do enable composition for this window.
-
-        exstyle |= WS_EX_COMPOSITED;
-
-        // We have to use the class including CS_[HV]REDRAW bits, as
-        // WS_EX_COMPOSITED doesn't work correctly if the entire window is
-        // not redrawn every time it's drawn.
-        style |= wxFULL_REPAINT_ON_RESIZE;
-
-        break;
-    }
-
-    if ( IsShown() )
-    {
-        msflags |= WS_VISIBLE;
-    }
-
-    // If the class name is not specified, use the one for generic wxWindow.
-    if ( !classname )
-        classname = GetMSWClassName(style);
-
-    if ( !MSWCreate(classname, nullptr, pos, size, msflags, exstyle) )
-        return false;
-
-    InheritAttributes();
-
-    return true;
+  return true;
 }
 
 void wxWindowMSW::SetId(wxWindowID winid)
