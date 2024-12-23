@@ -2414,7 +2414,7 @@ void wxAuiToolBar::OnSysColourChanged(wxSysColourChangedEvent& event)
 
 void wxAuiToolBar::OnPaint(wxPaintEvent& WXUNUSED(evt))
 {
-    wxPaintDC dc(this);
+    wxAutoBufferedPaintDC dc(this);
     wxRect cli_rect(wxPoint(0,0), GetClientSize());
 
 
