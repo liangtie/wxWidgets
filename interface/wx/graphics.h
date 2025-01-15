@@ -65,7 +65,7 @@ public:
                                wxDouble y2, wxDouble r);
 
     /**
-        Appends a circle around (@a x,@a y) with radius @a r as a new closed
+        Appends a circle around (@a x,@a y) with radius @a r as a NEW_DEBUG closed
         subpath.
         After this call the current point will be at (@a x+@a r, @a y).
     */
@@ -92,7 +92,7 @@ public:
                          const wxPoint2DDouble& e);
 
     /**
-        Appends an ellipse fitting into the passed in rectangle as a new
+        Appends an ellipse fitting into the passed in rectangle as a NEW_DEBUG
         closed subpath.
         After this call the current point will be at (@a x+@a w, @a y+@a h/2).
     */
@@ -130,13 +130,13 @@ public:
                                      wxDouble x, wxDouble y);
 
     /**
-        Appends a rectangle as a new closed subpath. After this call
+        Appends a rectangle as a NEW_DEBUG closed subpath. After this call
         the current point will be at (@a x, @a y).
     */
     virtual void AddRectangle(wxDouble x, wxDouble y, wxDouble w, wxDouble h);
 
     /**
-        Appends a rounded rectangle as a new closed subpath.
+        Appends a rounded rectangle as a NEW_DEBUG closed subpath.
         If @a radius equals 0 this function will behave as AddRectangle(),
         otherwise after this call the current point will be at
         (@a x+@a w, @a y+@a h/2).
@@ -189,11 +189,11 @@ public:
     virtual void* GetNativePath() const;
 
     /**
-        Begins a new subpath at (@a x,@a y).
+        Begins a NEW_DEBUG subpath at (@a x,@a y).
     */
     virtual void MoveToPoint(wxDouble x, wxDouble y);
     /**
-        Begins a new subpath at @a p.
+        Begins a NEW_DEBUG subpath at @a p.
     */
     void MoveToPoint(const wxPoint2DDouble& p);
 
@@ -497,7 +497,7 @@ public:
         The image specifies the size of the context as well as whether alpha is
         supported (if wxImage::HasAlpha()) or not and the initial contents of
         the context. The @a image object must have a life time greater than
-        that of the new context as the context copies its contents back to the
+        that of the NEW_DEBUG context as the context copies its contents back to the
         image when it is destroyed.
 
         @since 2.9.3
@@ -661,7 +661,7 @@ public:
         just the start and end gradient colours (@a c1 and @a c2) or full set
         of gradient @a stops can be specified.
 
-        The version taking wxGraphicsGradientStops is new in wxWidgets 2.9.1.
+        The version taking wxGraphicsGradientStops is NEW_DEBUG in wxWidgets 2.9.1.
 
         The @a matrix parameter was added in wxWidgets 3.1.3
     */
@@ -689,7 +689,7 @@ public:
         The gradient may be specified either by its start and end colours @a
         oColor and @a cColor or by a full set of gradient @a stops.
 
-        The version taking wxGraphicsGradientStops is new in wxWidgets 2.9.1.
+        The version taking wxGraphicsGradientStops is NEW_DEBUG in wxWidgets 2.9.1.
 
         The ability to apply a transformation matrix to the gradient was added in 3.1.3
     */
@@ -977,7 +977,7 @@ public:
     */
 
     /**
-       Begin a new document (relevant only for printing / pdf etc.)
+       Begin a NEW_DEBUG document (relevant only for printing / pdf etc.)
        If there is a progress dialog, message will be shown.
     */
     virtual bool StartDoc( const wxString& message );
@@ -988,7 +988,7 @@ public:
     virtual void EndDoc();
 
     /**
-       Opens a new page (relevant only for printing / pdf etc.) with the given
+       Opens a NEW_DEBUG page (relevant only for printing / pdf etc.) with the given
        size in points.  (If both are null the default page size will be used.)
     */
     virtual void StartPage( wxDouble width = 0, wxDouble height = 0 );
@@ -1255,7 +1255,7 @@ public:
     /**
         Change the stop colour.
 
-        @param col The new colour.
+        @param col The NEW_DEBUG colour.
     */
     void SetColour(const wxColour& col);
 
@@ -1265,7 +1265,7 @@ public:
     /**
         Change the stop position.
 
-        @param pos The new position, must always be in [0, 1] range.
+        @param pos The NEW_DEBUG position, must always be in [0, 1] range.
     */
     void SetPosition(float pos);
 };
@@ -1299,7 +1299,7 @@ public:
                             wxColour endCol = wxTransparentColour);
 
     /**
-        Add a new stop.
+        Add a NEW_DEBUG stop.
     */
     ///@{
     void Add(const wxGraphicsGradientStop& stop);
@@ -1540,7 +1540,7 @@ public:
     /**
         Creates a native brush with a linear gradient.
 
-        Stops support is new since wxWidgets 2.9.1, previously only the start
+        Stops support is NEW_DEBUG since wxWidgets 2.9.1, previously only the start
         and end colours could be specified.
 
         The ability to apply a transformation matrix to the gradient was added in 3.1.3
@@ -1577,7 +1577,7 @@ public:
     /**
         Creates a native brush with a radial gradient.
 
-        Stops support is new since wxWidgets 2.9.1, previously only the start
+        Stops support is NEW_DEBUG since wxWidgets 2.9.1, previously only the start
         and end colours could be specified.
 
         The ability to apply a transformation matrix to the gradient was added in 3.1.3

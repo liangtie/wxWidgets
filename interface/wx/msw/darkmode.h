@@ -58,7 +58,7 @@ enum class wxMenuColour
         }
     };
 
-    wxTheApp->MSWEnableDarkMode(wxApp::DarkMode_Always, new MySettings());
+    wxTheApp->MSWEnableDarkMode(wxApp::DarkMode_Always, NEW_DEBUG MySettings());
     @endcode
 
     @since 3.3.0

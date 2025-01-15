@@ -134,8 +134,8 @@ public:
     // returns false if the change to nPage is vetoed by the program
     bool SendPageChangingEvent(int nPage);
 
-    // sends the event about page change from old to new (or GetSelection() if
-    // new is wxNOT_FOUND)
+    // sends the event about page change from old to NEW_DEBUG (or GetSelection() if
+    // NEW_DEBUG is wxNOT_FOUND)
     void SendPageChangedEvent(int nPageOld, int nPageNew = wxNOT_FOUND);
 
     // return wxTOP/wxBOTTOM/wxRIGHT/wxLEFT

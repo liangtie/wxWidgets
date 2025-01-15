@@ -41,9 +41,9 @@ only include it for the other ones:
 #endif
 @endcode
 
-Practically every app should define a new class derived from wxApp. By
+Practically every app should define a NEW_DEBUG class derived from wxApp. By
 overriding wxApp's OnInit() virtual method the program can be initialized,
-e.g. by creating a new main window.
+e.g. by creating a NEW_DEBUG main window.
 
 @code
 class MyApp : public wxApp
@@ -115,7 +115,7 @@ initialization:
 @code
 bool MyApp::OnInit()
 {
-    MyFrame *frame = new MyFrame();
+    MyFrame *frame = NEW_DEBUG MyFrame();
     frame->Show(true);
     return true;
 }
@@ -129,16 +129,16 @@ window. Both have to be bound to the frame with respective calls.
 MyFrame::MyFrame()
         : wxFrame(NULL, wxID_ANY, "Hello World")
 {
-    wxMenu *menuFile = new wxMenu;
+    wxMenu *menuFile = NEW_DEBUG wxMenu;
     menuFile->Append(ID_Hello, "&Hello...\tCtrl-H",
                      "Help string shown in status bar for this menu item");
     menuFile->AppendSeparator();
     menuFile->Append(wxID_EXIT);
 
-    wxMenu *menuHelp = new wxMenu;
+    wxMenu *menuHelp = NEW_DEBUG wxMenu;
     menuHelp->Append(wxID_ABOUT);
 
-    wxMenuBar *menuBar = new wxMenuBar;
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar;
     menuBar->Append(menuFile, "&File");
     menuBar->Append(menuHelp, "&Help");
 
@@ -266,7 +266,7 @@ wxIMPLEMENT_APP(MyApp);
 
 bool MyApp::OnInit()
 {
-    MyFrame *frame = new MyFrame();
+    MyFrame *frame = NEW_DEBUG MyFrame();
     frame->Show(true);
     return true;
 }
@@ -274,16 +274,16 @@ bool MyApp::OnInit()
 MyFrame::MyFrame()
     : wxFrame(NULL, wxID_ANY, "Hello World")
 {
-    wxMenu *menuFile = new wxMenu;
+    wxMenu *menuFile = NEW_DEBUG wxMenu;
     menuFile->Append(ID_Hello, "&Hello...\tCtrl-H",
                      "Help string shown in status bar for this menu item");
     menuFile->AppendSeparator();
     menuFile->Append(wxID_EXIT);
 
-    wxMenu *menuHelp = new wxMenu;
+    wxMenu *menuHelp = NEW_DEBUG wxMenu;
     menuHelp->Append(wxID_ABOUT);
 
-    wxMenuBar *menuBar = new wxMenuBar;
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar;
     menuBar->Append(menuFile, "&File");
     menuBar->Append(menuHelp, "&Help");
 

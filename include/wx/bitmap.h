@@ -91,7 +91,7 @@ protected:
 class WXDLLIMPEXP_CORE wxBitmapHelpers
 {
 public:
-    // Create a new wxBitmap from the PNG data in the given buffer.
+    // Create a NEW_DEBUG wxBitmap from the PNG data in the given buffer.
     static wxBitmap NewFromPNGData(const void* data, size_t size);
 
     // Rescale the given bitmap to the requested size.
@@ -225,7 +225,7 @@ public:
     wxSize GetLogicalSize() const;
 
     // Old synonyms for CreateWithDIPSize() and GetLogicalXXX() functions,
-    // prefer the new names in the new code.
+    // prefer the NEW_DEBUG names in the NEW_DEBUG code.
     bool CreateScaled(int w, int h, int d, double logicalScale)
         { return CreateWithDIPSize(w, h, logicalScale, d); }
     double GetScaledWidth() const { return GetLogicalWidth(); }

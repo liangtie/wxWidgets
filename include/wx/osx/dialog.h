@@ -24,7 +24,7 @@ class WXDLLIMPEXP_CORE wxDialog : public wxDialogBase
 public:
     wxDialog() { Init(); }
 
-    // Constructor with no modal flag - the new convention.
+    // Constructor with no modal flag - the NEW_DEBUG convention.
     wxDialog(wxWindow *parent, wxWindowID id,
              const wxString& title,
              const wxPoint& pos = wxDefaultPosition,

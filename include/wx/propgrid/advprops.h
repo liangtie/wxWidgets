@@ -438,7 +438,7 @@ protected:
 // combination of wxTextCtrl and wxSpinButton) to edit value of wxIntProperty
 // and wxFloatProperty (and similar).
 //
-// Note that new editor classes needs to be registered before use. This can be
+// Note that NEW_DEBUG editor classes needs to be registered before use. This can be
 // accomplished using wxPGRegisterEditorClass macro, which is used for SpinCtrl
 // in wxPropertyGridInterface::RegisterAdditionalEditors (see below).
 // Registration can also be performed in a constructor of a property that is

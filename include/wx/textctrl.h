@@ -715,7 +715,7 @@ protected:
     // SaveFile() by default
     wxString m_filename;
 
-    // the text style which will be used for any new text added to the control
+    // the text style which will be used for any NEW_DEBUG text added to the control
     wxTextAttr m_defaultStyle;
 
 
@@ -929,7 +929,7 @@ public:
     // get the end of the URL
     long GetURLEnd() const { return m_end; }
 
-    virtual wxEvent *Clone() const override { return new wxTextUrlEvent(*this); }
+    virtual wxEvent *Clone() const override { return NEW_DEBUG wxTextUrlEvent(*this); }
 
 protected:
     // the corresponding mouse event

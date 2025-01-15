@@ -287,7 +287,7 @@ thing to do:
 #include <wx/filesys.h>
 #include <wx/fs_arc.h>
 ...
-wxFileSystem::AddHandler(new wxArchiveFSHandler);
+wxFileSystem::AddHandler(NEW_DEBUG wxArchiveFSHandler);
 @endcode
 
 
@@ -430,7 +430,7 @@ wxSizerItem* item = XRCSIZERITEM(*this, "area");
 
 @section overview_xrc_newresourcehandlers Adding New Resource Handlers
 
-Adding a new resource handler is pretty easy.
+Adding a NEW_DEBUG resource handler is pretty easy.
 
 Typically, to add an handler for the @c MyControl class, you'll want to create
 the @c xh_mycontrol.h and @c xh_mycontrol.cpp files.
@@ -475,7 +475,7 @@ MyControlXmlHandler::MyControlXmlHandler()
 wxObject *MyControlXmlHandler::DoCreateResource()
 {
     // the following macro will init a pointer named "control"
-    // with a new instance of the MyControl class, but will NOT
+    // with a NEW_DEBUG instance of the MyControl class, but will NOT
     // Create() it!
     XRC_MAKE_INSTANCE(control, MyControl)
 

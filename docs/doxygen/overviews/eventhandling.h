@@ -202,7 +202,7 @@ void MyFrame::OnSize(wxSizeEvent& event)
 {
     wxSize size = event.GetSize();
 
-    ... update the frame using the new size ...
+    ... update the frame using the NEW_DEBUG size ...
 }
 @endcode
 
@@ -600,7 +600,7 @@ By default the chain is empty, i.e. there is no next handler.
 @subsection overview_events_custom_general General approach
 
 As each event is uniquely defined by its event type, defining a custom event
-starts with defining a new event type for it. This is done using
+starts with defining a NEW_DEBUG event type for it. This is done using
 wxDEFINE_EVENT() macro. As an event type is a variable, it can also be
 declared using wxDECLARE_EVENT() if necessary.
 
@@ -625,8 +625,8 @@ to the two wxEvtHandler mentioned functions: wxPostEvent() and wxQueueEvent().
 
 @subsection overview_events_custom_existing Using Existing Event Classes
 
-If you just want to use a wxCommandEvent with a new event type, use one of the
-generic event table macros listed below, without having to define a new event
+If you just want to use a wxCommandEvent with a NEW_DEBUG event type, use one of the
+generic event table macros listed below, without having to define a NEW_DEBUG event
 class yourself.
 
 Example:
@@ -679,12 +679,12 @@ sending more complex data from one place to another. Apart from defining your
 event class, you also need to define your own event table macro if you still
 need to use event tables (now considered legacy) for handling events of this type.
 See ChessBoardEvent in the event sample for a full working implementation
-of a new wxEvent-derived class.
+of a NEW_DEBUG wxEvent-derived class.
 
 Here is a simple example:
 
 @code
-// create a new event class derived from wxEvent
+// create a NEW_DEBUG event class derived from wxEvent
 class MyPlotEvent: public wxEvent
 {
 public:
@@ -698,7 +698,7 @@ public:
     wxPoint GetPoint() const { return m_pos; }
 
     // implement the base class pure virtual
-    virtual wxEvent *Clone() const { return new MyPlotEvent(*this); }
+    virtual wxEvent *Clone() const { return NEW_DEBUG MyPlotEvent(*this); }
 
 private:
     const wxPoint m_pos;
@@ -717,15 +717,15 @@ wxDECLARE_EVENT(myEVT_PLOT_CLICKED, MyPlotEvent);
 
 // --- Skip this part if you're only going to use Bind() (as recommended) ---
 
-// The following typedef and macro are needed only when the new event class
+// The following typedef and macro are needed only when the NEW_DEBUG event class
 // still needs to be used with the legacy approach to handling events - event
 // table macros or Connect() - to cast the type of a function handling it to
 // the type expected by the legacy event handling machinery.
 typedef void (wxEvtHandler::*MyPlotEventFunction)(MyPlotEvent&);
 #define MyPlotEventHandler(func) wxEVENT_HANDLER_CAST(MyPlotEventFunction, func)
 
-// If the new event is to be used with event tables, a macro for creating
-// event table entries for the new event type must be defined.
+// If the NEW_DEBUG event is to be used with event tables, a macro for creating
+// event table entries for the NEW_DEBUG event type must be defined.
 #define EVT_PLOT_CLICKED(id, func) \
     wx__DECLARE_EVT1(myEVT_PLOT_CLICKED, id, MyPlotEventHandler(func))
 
@@ -820,8 +820,8 @@ equivalents.
 
 <em>TODO: Probably deprecated, Bind() provides a better way to do this</em>
 
-In fact, you don't have to derive a new class from a window class
-if you don't want to. You can derive a new class from wxEvtHandler instead,
+In fact, you don't have to derive a NEW_DEBUG class from a window class
+if you don't want to. You can derive a NEW_DEBUG class from wxEvtHandler instead,
 defining the appropriate event table, and then call wxWindow::SetEventHandler
 (or, preferably, wxWindow::PushEventHandler) to make this
 event handler the object that responds to events. This way, you can avoid
@@ -839,7 +839,7 @@ behaviour of the GUI. For example, you might want to invoke a dialog editor
 in your application that changes aspects of dialog boxes. You can
 grab all the input for an existing dialog box, and edit it 'in situ',
 before restoring its behaviour to normal. So even if the application
-has derived new classes to customize behaviour, your utility can indulge
+has derived NEW_DEBUG classes to customize behaviour, your utility can indulge
 in a spot of body-snatching. It could be a useful technique for on-line
 tutorials, too, where you take a user through a serious of steps and
 don't want them to diverge from the lesson. Here, you can examine the events

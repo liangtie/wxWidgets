@@ -81,7 +81,7 @@ public:
 protected:
     virtual wxGDIImageRefData *CreateData() const wxOVERRIDE
     {
-        return new wxIconRefData;
+        return NEW_DEBUG wxIconRefData;
     }
 
     virtual wxObjectRefData *CloneRefData(const wxObjectRefData *data) const wxOVERRIDE;

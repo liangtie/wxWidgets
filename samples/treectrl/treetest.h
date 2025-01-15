@@ -27,7 +27,7 @@
     #define HAS_GENERIC_TREECTRL
 #endif
 
-// Define a new application type
+// Define a NEW_DEBUG application type
 class MyApp : public wxApp
 {
 public:
@@ -177,7 +177,7 @@ private:
     wxDECLARE_EVENT_TABLE();
 };
 
-// Define a new frame type
+// Define a NEW_DEBUG frame type
 class MyFrame: public wxFrame
 {
 public:

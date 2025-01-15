@@ -89,7 +89,7 @@ public:
     bool Convert(wchar_t* str) const;
 
     /**
-        Convert a wxString and return a new wxString object.
+        Convert a wxString and return a NEW_DEBUG wxString object.
 
         See the Convert(const char*,char*) const overload for more info.
     */

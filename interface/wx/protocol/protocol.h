@@ -64,7 +64,7 @@ public:
     virtual wxProtocolError GetError() const;
 
     /**
-        Creates a new input stream on the specified path.
+        Creates a NEW_DEBUG input stream on the specified path.
 
         You can use all but seek() functionality of wxStream.
         Seek() isn't available on all streams. For example, HTTP or FTP streams
@@ -99,7 +99,7 @@ public:
     virtual void SetUser(const wxString& user);
 
     /**
-        Sets a new default timeout for the network operations.
+        Sets a NEW_DEBUG default timeout for the network operations.
 
         The default timeout is 60 seconds.
 

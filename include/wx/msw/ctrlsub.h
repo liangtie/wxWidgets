@@ -20,7 +20,7 @@ public:
     wxControlWithItems() { }
 
 protected:
-    // preallocate memory for inserting the given new items into the control
+    // preallocate memory for inserting the given NEW_DEBUG items into the control
     // using the wm message (normally either LB_INITSTORAGE or CB_INITSTORAGE)
     void MSWAllocStorage(const wxArrayStringsAdapter& items, unsigned wm);
 

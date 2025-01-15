@@ -22,7 +22,7 @@
         focus and let all controls work but at the price of not allowing the
         parent window to keep focus while the popup is shown, which can also be
         sometimes desirable. This style is currently only implemented in MSW
-        and simply does nothing under the other platforms (it's new since
+        and simply does nothing under the other platforms (it's NEW_DEBUG since
         wxWidgets 3.1.3).
     @endStyleTable
 

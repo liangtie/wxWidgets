@@ -32,7 +32,7 @@ protected:
     // the derived class to deal with the contents of the book control node.
     void DoCreatePages(wxBookCtrlBase* book);
 
-    // Create a new page using the contents of the current node.
+    // Create a NEW_DEBUG page using the contents of the current node.
     //
     // This should be called to handle the book control page node.
     wxObject* DoCreatePage(wxBookCtrlBase* book);

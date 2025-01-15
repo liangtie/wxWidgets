@@ -76,7 +76,7 @@ public:
     // this value
     bool SetText(const wxString& text);
 
-    // save the existing text on top of our stack and make the new text
+    // save the existing text on top of our stack and make the NEW_DEBUG text
     // current; return true if the text really changed
     bool PushText(const wxString& text);
 
@@ -138,7 +138,7 @@ public:
     void SetStatusText(const wxString& text, int number = 0);
     wxString GetStatusText(int number = 0) const;
 
-    // change the currently shown text to the new one and save the current
+    // change the currently shown text to the NEW_DEBUG one and save the current
     // value to be restored by the next call to PopStatusText()
     void PushStatusText(const wxString& text, int number = 0);
     void PopStatusText(int number = 0);

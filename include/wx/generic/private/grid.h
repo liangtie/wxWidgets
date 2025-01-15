@@ -147,9 +147,9 @@ private:
             // which it is not)
             m_columns.erase(m_columns.begin() + count, m_columns.end());
         }
-        else // new columns added
+        else // NEW_DEBUG columns added
         {
-            // add columns for the new elements
+            // add columns for the NEW_DEBUG elements
             for ( unsigned n = countOld; n < count; n++ )
                 m_columns.push_back(wxGridHeaderColumn(GetOwner(), n));
         }

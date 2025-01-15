@@ -287,7 +287,7 @@ protected:
 
     Also note that this class doesn't have any default definition because we
     can't really do anything without knowing the exact image class. We do
-    provide wxPixelDataBase to make it simpler to write new wxPixelData
+    provide wxPixelDataBase to make it simpler to write NEW_DEBUG wxPixelData
     specializations.
  */
 

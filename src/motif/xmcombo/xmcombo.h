@@ -1,9 +1,9 @@
 /*
  * ComboBox.h - Das schon lange schmerzlich vermisste Combo-Box-
  *              Widget -- nun endlich auf fuer Motif!
- * 
+ *
  * Letzte Modifikation: 04.10.1995    Revisionsstand: 1.32a
- * 
+ *
  * (c) 1993, 1994 Harald Albrecht
  * Institut fuer Geometrie und Praktische Mathematik
  * RWTH Aachen, Germany
@@ -21,7 +21,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program (see the file COPYING for more details);
- * if not, write to the Free Software Foundation, Inc., 675 Mass Ave, 
+ * if not, write to the Free Software Foundation, Inc., 675 Mass Ave,
  * Cambridge, MA 02139, USA.
  *
  */
@@ -37,7 +37,7 @@ extern "C" {
 #ifdef XmNselectionCallback
 #undef XmNselectionCallback
 #endif
-    
+
 #define XmNselectionCallback		"selectionCallback"
 #define XmCSelectionCallback		"SelectionCallback"
 #define XmNunselectionCallback		"unselectionCallback"
@@ -116,11 +116,11 @@ typedef struct {
     XmTextBlock text;
 } XmComboBoxTextVerifyCallbackStruct, *XmComboBoxTextVerifyPtr;
 
-/* Callback reasons: new
- * 
+/* Callback reasons: NEW_DEBUG
+ *
  * XmCR_SHOW_LIST	    list is dropping down
  * XmCR_HIDE_LIST	    list is getting hidden
- * 
+ *
  * XmCR_UNSELECT	    unselecting item from list or osfDelete
  */
 #define XmCR_SHOW_LIST	4200	/* ten times "42", that should   */
@@ -184,20 +184,20 @@ extern XmTextPosition XmComboBoxGetInsertionPosition(Widget w);
 extern XmTextPosition XmComboBoxGetLastPosition(Widget w);
 extern int     XmComboBoxGetMaxLength(Widget w);
 extern char *  XmComboBoxGetSelection(Widget w);
-extern Boolean XmComboBoxGetSelectionPosition(Widget w, XmTextPosition *left, 
+extern Boolean XmComboBoxGetSelectionPosition(Widget w, XmTextPosition *left,
                                                XmTextPosition *right);
 extern char *  XmComboBoxGetString(Widget w);
 extern void    XmComboBoxInsert(Widget w, XmTextPosition position, char *value);
 extern Boolean XmComboBoxPaste(Widget w);
 extern Boolean XmComboBoxRemove(Widget w);
-extern void    XmComboBoxReplace(Widget w, XmTextPosition from_pos, 
+extern void    XmComboBoxReplace(Widget w, XmTextPosition from_pos,
                                  XmTextPosition to_pos, char *value);
 extern void    XmComboBoxSetAddMode(Widget w, Boolean state);
-extern void    XmComboBoxSetHighlight(Widget w, XmTextPosition left, 
+extern void    XmComboBoxSetHighlight(Widget w, XmTextPosition left,
                                       XmTextPosition right, XmHighlightMode mode);
 extern void    XmComboBoxSetInsertionPosition(Widget w, XmTextPosition position);
 extern void    XmComboBoxSetMaxLength(Widget w, int max_length);
-extern void    XmComboBoxSetSelection(Widget w, XmTextPosition first, 
+extern void    XmComboBoxSetSelection(Widget w, XmTextPosition first,
                                       XmTextPosition last, Time time);
 extern void    XmComboBoxSetString(Widget w, char *value);
 extern void    XmComboBoxShowPosition(Widget w, XmTextPosition position);

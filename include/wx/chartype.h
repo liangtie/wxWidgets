@@ -245,7 +245,7 @@
    Unicode-friendly analogs of the standard __FILE__, DATE and TIME macros.
 
    These macros exist only for backwards compatibility, there should be no
-   reason to use them in the new code, just use the standard macros instead.
+   reason to use them in the NEW_DEBUG code, just use the standard macros instead.
 
    Also note that we must not use the actual macro names for the two latter
    ones, as doing this would prevent ccache from caching the results of

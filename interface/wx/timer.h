@@ -23,7 +23,7 @@ wxEventType wxEVT_TIMER;
 
     There are three different ways to use this class:
 
-    - You may derive a new class from wxTimer and override the
+    - You may derive a NEW_DEBUG class from wxTimer and override the
       wxTimer::Notify member to perform the required action.
     - You may redirect the notifications to any wxEvtHandler derived object by
       using the non-default constructor or wxTimer::SetOwner.

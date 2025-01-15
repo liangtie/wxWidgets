@@ -183,7 +183,7 @@ public:
         Sets range of allowable values.
 
         Notice that calling this method may change the value of the control if
-        it's not inside the new valid range, e.g. it will become @a minVal if
+        it's not inside the NEW_DEBUG valid range, e.g. it will become @a minVal if
         it is less than it now. However no @c wxEVT_SPINCTRL
         event is generated, even if it the value does change.
 
@@ -270,7 +270,7 @@ public:
     @event{EVT_SPINCTRLDOUBLE(id, func)}
         Generated whenever the numeric value of the spin control is changed,
         that is, when the up/down spin button is clicked, when ENTER is pressed,
-        or the control loses focus and the new value is different from the last.
+        or the control loses focus and the NEW_DEBUG value is different from the last.
         See wxSpinDoubleEvent.
     @endEventTable
 
@@ -440,7 +440,7 @@ public:
     @event{EVT_SPINCTRLDOUBLE(id, func)}
         Generated whenever the numeric value of the spin control is changed,
         that is, when the up/down spin button is clicked or when the control
-        loses focus and the new value is different from the last one.
+        loses focus and the NEW_DEBUG value is different from the last one.
         See wxSpinDoubleEvent.
     @endEventTable
 

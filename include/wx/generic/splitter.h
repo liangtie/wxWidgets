@@ -120,7 +120,7 @@ public:
     // Doesn't actually delete the window.
     bool Unsplit(wxWindow *toRemove = NULL);
 
-    // Replaces one of the windows with another one (neither old nor new
+    // Replaces one of the windows with another one (neither old nor NEW_DEBUG
     // parameter should be NULL)
     bool ReplaceWindow(wxWindow *winOld, wxWindow *winNew);
 
@@ -164,9 +164,9 @@ public:
     int GetMinimumPaneSize() const { return m_minimumPaneSize; }
 
     // NB: the OnXXX() functions below are for backwards compatibility only,
-    //     don't use them in new code but handle the events instead!
+    //     don't use them in NEW_DEBUG code but handle the events instead!
 
-    // called when the sash position is about to change, may return a new value
+    // called when the sash position is about to change, may return a NEW_DEBUG value
     // for the sash or -1 to prevent the change from happening at all
     virtual int OnSashPositionChanging(int newSashPosition);
 
@@ -396,7 +396,7 @@ public:
         return m_data.pt.y;
     }
 
-    virtual wxEvent *Clone() const wxOVERRIDE { return new wxSplitterEvent(*this); }
+    virtual wxEvent *Clone() const wxOVERRIDE { return NEW_DEBUG wxSplitterEvent(*this); }
 
 private:
     friend class WXDLLIMPEXP_FWD_CORE wxSplitterWindow;

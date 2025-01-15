@@ -92,7 +92,7 @@ unsigned int wxCTZ(wxUint32 x);
     Small wrapper around std::lround().
 
     This function exists for compatibility, as it was more convenient than
-    std::round() before C++11. Use std::lround() in the new code.
+    std::round() before C++11. Use std::lround() in the NEW_DEBUG code.
 
     It is defined for all floating point types @c T and can be also used with
     integer types for compatibility, but such use is deprecated -- simply

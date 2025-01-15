@@ -506,7 +506,7 @@ public:\
 \
     virtual wxString GetType() const wxOVERRIDE; \
 \
-    virtual wxVariantData* Clone() const wxOVERRIDE { return new classname##VariantData(m_value); } \
+    virtual wxVariantData* Clone() const wxOVERRIDE { return NEW_DEBUG classname##VariantData(m_value); } \
 \
     DECLARE_WXANY_CONVERSION() \
 protected:\
@@ -522,7 +522,7 @@ wxString classname##VariantData::GetType() const\
 \
 expdecl wxVariant& operator << ( wxVariant &variant, const classname &value )\
 {\
-    classname##VariantData *data = new classname##VariantData( value );\
+    classname##VariantData *data = NEW_DEBUG classname##VariantData( value );\
     variant.SetData( data );\
     return variant;\
 } \

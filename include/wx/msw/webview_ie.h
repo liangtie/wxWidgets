@@ -162,7 +162,7 @@ public:
     MSWSetEmulationLevel(wxWebViewIE_EmulationLevel level = wxWEBVIEWIE_EMU_IE11);
 
     // This function is provided only for compatibility reasons, use
-    // MSWSetEmulationLevel() in the new code instead.
+    // MSWSetEmulationLevel() in the NEW_DEBUG code instead.
     static bool MSWSetModernEmulationLevel(bool modernLevel = true)
     {
         return MSWSetEmulationLevel(modernLevel ? wxWEBVIEWIE_EMU_IE8
@@ -183,7 +183,7 @@ private:
 class WXDLLIMPEXP_WEBVIEW wxWebViewFactoryIE : public wxWebViewFactory
 {
 public:
-    virtual wxWebView* Create() wxOVERRIDE { return new wxWebViewIE; }
+    virtual wxWebView* Create() wxOVERRIDE { return NEW_DEBUG wxWebViewIE; }
     virtual wxWebView* Create(wxWindow* parent,
                               wxWindowID id,
                               const wxString& url = wxWebViewDefaultURLStr,
@@ -191,7 +191,7 @@ public:
                               const wxSize& size = wxDefaultSize,
                               long style = 0,
                               const wxString& name = wxASCII_STR(wxWebViewNameStr)) wxOVERRIDE
-    { return new wxWebViewIE(parent, id, url, pos, size, style, name); }
+    { return NEW_DEBUG wxWebViewIE(parent, id, url, pos, size, style, name); }
     virtual wxVersionInfo GetVersionInfo() wxOVERRIDE;
 };
 

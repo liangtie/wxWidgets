@@ -167,7 +167,7 @@ public:
     // the specified or current item
     void ExtendSelection(int itemTo = -1);
 
-    // make this item the new selection anchor: extending selection with
+    // make this item the NEW_DEBUG selection anchor: extending selection with
     // ExtendSelection() will work with it
     void AnchorSelection(int itemFrom) { m_selAnchor = itemFrom; }
 
@@ -202,7 +202,7 @@ protected:
     virtual wxBorder GetDefaultBorder() const wxOVERRIDE;
 
     // special hook for wxCheckListBox which allows it to update its internal
-    // data when a new item is inserted into the listbox
+    // data when a NEW_DEBUG item is inserted into the listbox
     virtual void OnItemInserted(unsigned int WXUNUSED(pos)) { }
 
 

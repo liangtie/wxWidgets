@@ -237,7 +237,7 @@ private:
 #define IMPLEMENT_WIDGETS_PAGE(classname, label, categories)                \
     WidgetsPage *wxCtorFor##classname(WidgetsBookCtrl *book,                \
                                       wxImageList *imaglist)                \
-        { return new classname(book, imaglist); }                           \
+        { return NEW_DEBUG classname(book, imaglist); }                           \
     WidgetsPageInfo classname::                                             \
         ms_info##classname(wxCtorFor##classname, label, ALL_CTRLS | categories)
 

@@ -29,7 +29,7 @@ XRC file is a XML file with all of its elements in the
 @c http://www.wxwidgets.org/wxxrc namespace. For backward compatibility,
 @c http://www.wxwindows.org/wxxrc namespace is accepted as well (and treated
 as identical to @c http://www.wxwidgets.org/wxxrc), but it shouldn't be used
-in new XRC files.
+in NEW_DEBUG XRC files.
 
 XRC file contains definitions for one or more @em objects -- typically
 windows. The objects may themselves contain child objects.
@@ -64,7 +64,7 @@ components are major, minor and release number of the wxWidgets release when
 the change was introduced, the last one is revision number and is 0 for the
 first incompatible change in given wxWidgets release, 1 for the second and so
 on.  The version changes only if there was an incompatible change introduced;
-merely adding new kind of objects does not constitute incompatible change.
+merely adding NEW_DEBUG kind of objects does not constitute incompatible change.
 
 @c \<resource\> may have arbitrary number of
 @ref overview_xrcformat_objects "object elements" as its children; they are referred
@@ -347,7 +347,7 @@ For example:
 @code
 <object class="tool" name="wxID_NEW">
     <tooltip>New</tooltip>
-    <bitmap>new.png</bitmap>
+    <bitmap>NEW_DEBUG.png</bitmap>
 </object>
 @endcode
 The value is interpreted as path relative to the location of XRC file where the
@@ -370,7 +370,7 @@ one or more relative URLs of a bitmap, separated by @c ';'.
 For example, to specify two bitmaps, to be used in standard and 200% DPI
 scaling respectively, you could write:
 @code
-<bitmap>new.png;new_2x.png</bitmap>
+<bitmap>NEW_DEBUG.png;new_2x.png</bitmap>
 @endcode
 
 Here the first bitmap is special, as its size determines the logical size of
@@ -386,7 +386,7 @@ would work just as well.
 When using SVG file you must also specify @c default_size attribute
 (even if the size is specified in SVG file, it may be different from the size needed here):
 @code
-<bitmap default_size="32,32">new.svg</bitmap>
+<bitmap default_size="32,32">NEW_DEBUG.svg</bitmap>
 @endcode
 
 Alternatively, it is possible to specify the bitmap using wxArtProvider IDs.
@@ -529,7 +529,7 @@ and can be one of the following "sub-properties":
 @row3col{size, @ref overview_xrcformat_type_size,
      The size of the images in the list (default: the size of the first bitmap).}
 @row3col{bitmap, @ref overview_xrcformat_type_bitmap,
-     Adds a new image. Unlike normal object properties, @c bitmap may be used more than once
+     Adds a NEW_DEBUG image. Unlike normal object properties, @c bitmap may be used more than once
      to add multiple images to the list. At least one @c bitmap value is required.}
 @endTable
 
@@ -656,7 +656,7 @@ later only and you need to explicitly register its handler using
 @code
     #include <wx/xrc/xh_aui.h>
 
-    AddHandler(new wxAuiXmlHandler);
+    AddHandler(NEW_DEBUG wxAuiXmlHandler);
 @endcode
 to use it.
 
@@ -801,7 +801,7 @@ Refer to the section @ref xrc_wxtoolbar for more details.
 @code
     #include <wx/xrc/xh_auitoolb.h>
 
-    AddHandler(new wxAuiToolBarXmlHandler);
+    AddHandler(NEW_DEBUG wxAuiToolBarXmlHandler);
 @endcode
 
 @since 3.1.0
@@ -1117,8 +1117,8 @@ Example:
 
 The wxCommandLinkButton contains a main title-like @c label and an optional
 @c note for longer description. The main @c label and the @c note can be
-concatenated into a single string using a new line character between them
-(notice that the @c note part can have more new lines in it).
+concatenated into a single string using a NEW_DEBUG line character between them
+(notice that the @c note part can have more NEW_DEBUG lines in it).
 
 @beginTable
 @hdr3col{property, type, description}
@@ -1875,7 +1875,7 @@ later only and you need to explicitly register its handler using
 @code
     #include <wx/xrc/xh_ribbon.h>
 
-    AddHandler(new wxRibbonXmlHandler);
+    AddHandler(NEW_DEBUG wxRibbonXmlHandler);
 @endcode
 to use it.
 
@@ -1971,7 +1971,7 @@ Notice that you need to explicitly register the handler using
 @code
     #include <wx/xrc/xh_richtext.h>
 
-    AddHandler(new wxRichTextCtrlXmlHandler);
+    AddHandler(NEW_DEBUG wxRichTextCtrlXmlHandler);
 @endcode
 to use it.
 
@@ -2229,7 +2229,7 @@ later only and you need to explicitly register its handler using
 @code
     #include <wx/xrc/xh_styledtextctrl.h>
 
-    AddHandler(new wxStyledTextCtrlXmlHandler);
+    AddHandler(NEW_DEBUG wxStyledTextCtrlXmlHandler);
 @endcode
 to use it.
 
@@ -2306,7 +2306,7 @@ one of three pseudo-classes: @c separator, @c space or @c tool.
 
 The @c separator pseudo-class is used to insert separators into the toolbar and
 has neither properties nor children. Similarly, the @c space pseudo-class is
-used for stretchable spaces (see wxToolBar::AddStretchableSpace(), new since
+used for stretchable spaces (see wxToolBar::AddStretchableSpace(), NEW_DEBUG since
 wxWidgets 2.9.1).
 
 The @c tool pseudo-class objects specify toolbar buttons and have the following
@@ -2979,7 +2979,7 @@ the @ref overview_xrcformat_std_props "standard window properties".
 
 @subsection overview_xrcformat_extending_custom Adding Custom Classes
 
-Finally, XRC allows adding completely new classes in addition to the ones
+Finally, XRC allows adding completely NEW_DEBUG classes in addition to the ones
 listed in this document. A class for which wxXmlResourceHandler is implemented
 can be used as first-class object in XRC simply by passing class name as the
 value of @c class attribute:

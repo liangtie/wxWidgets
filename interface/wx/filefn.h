@@ -278,7 +278,7 @@ bool wxMatchWild(const wxString& pattern,
     @deprecated This function is deprecated, use wxGetCwd() instead.
 
     Copies the current working directory into the buffer if supplied, or copies
-    the working directory into new storage (which you must delete yourself) if
+    the working directory into NEW_DEBUG storage (which you must delete yourself) if
     the buffer is @NULL.
 
     @a sz is the size of the buffer if supplied.
@@ -382,14 +382,14 @@ enum wxPosixPermissions
     wxPOSIX_OTHERS_EXECUTE = wxS_IXOTH,
     ///@}
 
-    /// Default mode for the new files: allow reading/writing them to everybody but
+    /// Default mode for the NEW_DEBUG files: allow reading/writing them to everybody but
     /// the effective file mode will be set after ANDing this value with umask and
     /// so won't include wxS_IW{GRP,OTH} for the default 022 umask value
     wxS_DEFAULT = (wxPOSIX_USER_READ | wxPOSIX_USER_WRITE | \
                    wxPOSIX_GROUP_READ | wxPOSIX_GROUP_WRITE | \
                    wxPOSIX_OTHERS_READ | wxPOSIX_OTHERS_WRITE),
 
-    /// Default mode for the new directories (see wxFileName::Mkdir): allow
+    /// Default mode for the NEW_DEBUG directories (see wxFileName::Mkdir): allow
     /// reading/writing/executing them to everybody, but just like wxS_DEFAULT
     /// the effective directory mode will be set after ANDing this value with umask
     wxS_DIR_DEFAULT = (wxPOSIX_USER_READ | wxPOSIX_USER_WRITE | wxPOSIX_USER_EXECUTE | \

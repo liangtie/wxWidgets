@@ -66,7 +66,7 @@ public:
         @c wxID_CANCEL otherwise.
 
         If the user cancels the dialog (ShowModal returns @c wxID_CANCEL), no font
-        will be created. If the user presses OK, a new wxFont will be created and
+        will be created. If the user presses OK, a NEW_DEBUG wxFont will be created and
         stored in the font dialog's wxFontData structure.
 
         @see GetFontData()

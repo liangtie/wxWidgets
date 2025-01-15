@@ -78,7 +78,7 @@ enum wxPropertySheetDialogFlags
         CreateButtons(wxOK|wxCANCEL|wxHELP);
 
         // Add page
-        wxPanel* panel = new wxPanel(GetBookCtrl(), ...);
+        wxPanel* panel = NEW_DEBUG wxPanel(GetBookCtrl(), ...);
         GetBookCtrl()->AddPage(panel, "General");
 
         LayoutDialog();

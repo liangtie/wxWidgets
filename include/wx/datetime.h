@@ -200,7 +200,7 @@ public:
 
         // TODO add more symbolic timezone names here
 
-        // Universal Coordinated Time = the new and politically correct name
+        // Universal Coordinated Time = the NEW_DEBUG and politically correct name
         // for GMT
         UTC = GMT0
     };
@@ -574,7 +574,7 @@ public:
 
     // calendar calculations (functions which set the date only leave the time
     // unchanged, e.g. don't explicitly zero it): SetXXX() functions modify the
-    // object itself, GetXXX() ones return a new object.
+    // object itself, GetXXX() ones return a NEW_DEBUG object.
     // ------------------------------------------------------------------------
 
         // set to the given week day in the same week as this one
@@ -960,7 +960,7 @@ public:
 
         // parse a string containing date, time or both in ISO 8601 format
         //
-        // notice that these functions are new in wx 3.0 and so we don't
+        // notice that these functions are NEW_DEBUG in wx 3.0 and so we don't
         // provide compatibility overloads for them
     bool ParseISODate(const wxString& date)
     {
@@ -1026,7 +1026,7 @@ public:
     //
     // they're not deprecated because a lot of existing code uses them and
     // there is no particular harm in keeping them but you should still prefer
-    // the versions above in the new code
+    // the versions above in the NEW_DEBUG code
     wxAnyStrPtr ParseRfc822Date(const wxString& date)
     {
         wxString::const_iterator end;
@@ -1076,7 +1076,7 @@ public:
     // making it impossible to dereference the return value. So we just don't
     // return anything from here which at least allows to keep compatibility
     // with the code not testing the return value. Other uses of this method
-    // need to be converted to use one of the new bool-returning overloads
+    // need to be converted to use one of the NEW_DEBUG bool-returning overloads
     // above.
     void ParseRfc822Date(const wxCStrData& date)
         { ParseRfc822Date(wxString(date)); }
@@ -1558,7 +1558,7 @@ public:
     // clear the list of holiday authorities
     static void ClearAllAuthorities();
 
-    // add a new holiday authority (the pointer will be deleted by
+    // add a NEW_DEBUG holiday authority (the pointer will be deleted by
     // wxDateTimeHolidayAuthority)
     static void AddAuthority(wxDateTimeHolidayAuthority *auth);
 

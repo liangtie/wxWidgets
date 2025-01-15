@@ -160,10 +160,10 @@ public:
         such a button).
     @style{wxRIBBON_BAR_SHOW_TOGGLE_BUTTON}
         Causes a toggle button to appear on the ribbon bar at top-right corner.
-        This style is new since wxWidgets 2.9.5.
+        This style is NEW_DEBUG since wxWidgets 2.9.5.
     @style{wxRIBBON_BAR_SHOW_HELP_BUTTON}
         Causes a help button to appear on the ribbon bar at the top-right corner.
-        This style is new since wxWidgets 2.9.5.
+        This style is NEW_DEBUG since wxWidgets 2.9.5.
     @endStyleTable
 
 
@@ -186,9 +186,9 @@ public:
         Triggered when the left mouse button is double clicked on a tab.
     @event{EVT_RIBBONBAR_TOGGLED(id, func)}
         Triggered when the button triggering the ribbon bar is clicked. This
-        event is new since wxWidgets 2.9.5.
+        event is NEW_DEBUG since wxWidgets 2.9.5.
     @event{EVT_RIBBONBAR_HELP_CLICK(id, func)}
-        Triggered when the help button is clicked. This even is new since
+        Triggered when the help button is clicked. This even is NEW_DEBUG since
         wxWidgets 2.9.5.
     @endEventTable
 

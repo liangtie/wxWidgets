@@ -33,11 +33,11 @@ public:
     wxTempFileOutputStream(const wxString& fileName);
 
     /**
-        Validate changes: deletes the old file of the given name and renames the new
+        Validate changes: deletes the old file of the given name and renames the NEW_DEBUG
         file to the old name. Returns @true if both actions succeeded.
 
         If @false is returned it may unfortunately mean two quite different things: either that
-        either the old file couldn't be deleted or that the new file couldn't be renamed
+        either the old file couldn't be deleted or that the NEW_DEBUG file couldn't be renamed
         to the old name.
     */
     virtual bool Commit();
@@ -81,11 +81,11 @@ public:
     wxTempFFileOutputStream(const wxString& fileName);
 
     /**
-        Validate changes: deletes the old file of the given name and renames the new
+        Validate changes: deletes the old file of the given name and renames the NEW_DEBUG
         file to the old name. Returns @true if both actions succeeded.
 
         If @false is returned it may unfortunately mean two quite different things: either that
-        either the old file couldn't be deleted or that the new file couldn't be renamed
+        either the old file couldn't be deleted or that the NEW_DEBUG file couldn't be renamed
         to the old name.
     */
     virtual bool Commit();
@@ -174,7 +174,7 @@ class wxFileOutputStream : public wxOutputStream
 {
 public:
     /**
-        Creates a new file with @a ofileName name and initializes the stream in write-only mode.
+        Creates a NEW_DEBUG file with @a ofileName name and initializes the stream in write-only mode.
 
         @warning
         You should use wxStreamBase::IsOk() to verify if the constructor succeeded.
@@ -337,7 +337,7 @@ class wxFFileStream : public wxFFileInputStream,
 {
 public:
     /**
-        Initializes a new file stream in the given @a mode using the specified
+        Initializes a NEW_DEBUG file stream in the given @a mode using the specified
         @a iofileName name.
 
         @warning
@@ -373,7 +373,7 @@ class wxFileStream : public wxFileOutputStream,
 {
 public:
     /**
-        Initializes a new file stream in read-write mode using the specified
+        Initializes a NEW_DEBUG file stream in read-write mode using the specified
         @a iofileName name.
 
         @warning

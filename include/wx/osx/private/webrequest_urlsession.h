@@ -164,7 +164,7 @@ class wxWebSessionFactoryURLSession : public wxWebSessionFactory
 {
 public:
     wxWebSessionImpl* Create() wxOVERRIDE
-    { return new wxWebSessionURLSession(); }
+    { return NEW_DEBUG wxWebSessionURLSession(); }
 };
 
 #endif // wxUSE_WEBREQUEST_URLSESSION

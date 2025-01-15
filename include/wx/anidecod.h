@@ -49,7 +49,7 @@ public:
     bool ConvertToImage(unsigned int frame, wxImage *image) const wxOVERRIDE;
 
     wxAnimationDecoder *Clone() const wxOVERRIDE
-        { return new wxANIDecoder; }
+        { return NEW_DEBUG wxANIDecoder; }
     wxAnimationType GetType() const wxOVERRIDE
         { return wxANIMATION_TYPE_ANI; }
 

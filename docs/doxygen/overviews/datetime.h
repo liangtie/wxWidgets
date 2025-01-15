@@ -116,7 +116,7 @@ is perfectly valid.
 Here is what can be done:
 
 @li @b Addition: a wxTimeSpan or wxDateSpan can be added to wxDateTime
-    resulting in a new wxDateTime object and also 2 objects of the same span class
+    resulting in a NEW_DEBUG wxDateTime object and also 2 objects of the same span class
     can be added together giving another object of the same class.
 @li @b Subtraction: the same types of operations as above are
     allowed and, additionally, a difference between two wxDateTime objects can be

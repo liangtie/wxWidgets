@@ -112,7 +112,7 @@ public:
     */
 
     // Create the client window class (don't Create() the window here, just
-    // return a new object of a wxMDIClientWindow-derived class)
+    // return a NEW_DEBUG object of a wxMDIClientWindow-derived class)
     //
     // Notice that if you override this method you should use the default
     // constructor and Create() and not the constructor creating the window
@@ -391,7 +391,7 @@ public:
 
 inline wxMDIClientWindow *wxMDIParentFrameBase::OnCreateClient()
 {
-    return new wxMDIClientWindow;
+    return NEW_DEBUG wxMDIClientWindow;
 }
 
 inline bool wxMDIParentFrameBase::TryBefore(wxEvent& event)

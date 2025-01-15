@@ -5,7 +5,7 @@
 #define IDM_ABOUT                       100
 #define IDM_TEST                        101
 
-// Next default values for new objects
+// Next default values for NEW_DEBUG objects
 //
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS

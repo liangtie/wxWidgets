@@ -167,7 +167,7 @@ public:
     void SetWeekDay(wxDateTime::WeekDay wd) { m_wday = wd; }
     wxDateTime::WeekDay GetWeekDay() const { return m_wday; }
 
-    virtual wxEvent *Clone() const wxOVERRIDE { return new wxCalendarEvent(*this); }
+    virtual wxEvent *Clone() const wxOVERRIDE { return NEW_DEBUG wxCalendarEvent(*this); }
 
 private:
     wxDateTime::WeekDay m_wday;
@@ -317,7 +317,7 @@ protected:
     // date: SEL_CHANGED, PAGE_CHANGED if necessary and also one of (deprecated)
     // YEAR/MONTH/DAY_CHANGED ones
     //
-    // returns true if page changed event was generated, false if the new date
+    // returns true if page changed event was generated, false if the NEW_DEBUG date
     // is still in the same month as before
     bool GenerateAllChangeEvents(const wxDateTime& dateOld);
 

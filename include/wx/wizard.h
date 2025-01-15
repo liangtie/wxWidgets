@@ -279,7 +279,7 @@ public:
 
     wxWizardPage*   GetPage() const { return m_page; }
 
-    virtual wxEvent *Clone() const wxOVERRIDE { return new wxWizardEvent(*this); }
+    virtual wxEvent *Clone() const wxOVERRIDE { return NEW_DEBUG wxWizardEvent(*this); }
 
 private:
     bool m_direction;

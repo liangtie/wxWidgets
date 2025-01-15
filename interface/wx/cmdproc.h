@@ -23,7 +23,7 @@ class wxCommand : public wxObject
 public:
     /**
         Constructor. wxCommand is an abstract class, so you will need to derive
-        a new class and call this constructor from your own constructor.
+        a NEW_DEBUG class and call this constructor from your own constructor.
 
         @param canUndo
             Tells the command processor whether this command is undo-able. You
@@ -93,7 +93,7 @@ public:
     @class wxCommandProcessor
 
     wxCommandProcessor is a class that maintains a history of wxCommands, with
-    undo/redo functionality built-in. Derive a new class from this if you want
+    undo/redo functionality built-in. Derive a NEW_DEBUG class from this if you want
     different behaviour.
 
     @library{wxcore}
@@ -229,7 +229,7 @@ public:
     void SetUndoAccelerator(const wxString& accel);
 
     /**
-        Submits a new command to the command processor.
+        Submits a NEW_DEBUG command to the command processor.
 
         The command processor calls wxCommand::Do() to execute the command;
         if it succeeds, the command is stored in the history list, and the

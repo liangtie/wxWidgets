@@ -31,7 +31,7 @@ class WXDLLIMPEXP_CORE RowRanges
 public:
     /**
         Adds a row index to this group by adding it to an existing RowRange
-        or by creating a new one.
+        or by creating a NEW_DEBUG one.
     */
     void Add(unsigned int row);
 
@@ -69,7 +69,7 @@ private:
     wxVector<RowRange> m_ranges;
 
     /**
-        If a new row index was inserted, Cleanup() checks if the neighbour
+        If a NEW_DEBUG row index was inserted, Cleanup() checks if the neighbour
         ranges of idx can includes the same row indices and discards
         unnecessary RowRange objects.
     */

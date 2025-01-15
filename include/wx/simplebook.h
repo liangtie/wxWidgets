@@ -74,7 +74,7 @@ public:
 
     // Methods specific to this class.
 
-    // A method allowing to add a new page without any label (which is unused
+    // A method allowing to add a NEW_DEBUG page without any label (which is unused
     // by this control) and show it immediately.
     bool ShowNewPage(wxWindow* page)
     {
@@ -183,7 +183,7 @@ protected:
 
     virtual wxBookCtrlEvent* CreatePageChangingEvent() const wxOVERRIDE
     {
-        return new wxBookCtrlEvent(wxEVT_BOOKCTRL_PAGE_CHANGING,
+        return NEW_DEBUG wxBookCtrlEvent(wxEVT_BOOKCTRL_PAGE_CHANGING,
                                    GetId());
     }
 
@@ -219,7 +219,7 @@ protected:
             page->ShowWithEffect(m_showEffect, m_showTimeout);
 
             // Unlike simple Show(), ShowWithEffect() doesn't necessarily give
-            // focus to the window, but we do expect the new page to have focus.
+            // focus to the window, but we do expect the NEW_DEBUG page to have focus.
             page->SetFocus();
         }
         else

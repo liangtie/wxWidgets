@@ -1603,7 +1603,7 @@ public:
         // is only used for wxWin itself or for user code which wants to call
         // platform-specific APIs
     virtual WXWidget GetHandle() const = 0;
-        // associate the window with a new native handle
+        // associate the window with a NEW_DEBUG native handle
     virtual void AssociateHandle(WXWidget WXUNUSED(handle)) { }
         // dissociate the current native handle from the window
     virtual void DissociateHandle() { }
@@ -1614,7 +1614,7 @@ public:
     wxPalette GetPalette() const { return m_palette; }
 
         // When palette is changed tell the DC to set the system palette to the
-        // new one.
+        // NEW_DEBUG one.
     void SetPalette(const wxPalette& pal);
 
         // return true if we have a specific palette
@@ -1860,7 +1860,7 @@ protected:
     wxBorder GetDefaultBorderForControl() const { return wxBORDER_THEME; }
 #endif // WXWIN_COMPATIBILITY_3_2
 
-    // Get the default size for the new window if no explicit size given. TLWs
+    // Get the default size for the NEW_DEBUG window if no explicit size given. TLWs
     // have their own default size so this is just for non top-level windows.
     static int WidthDefault(int w) { return w == wxDefaultCoord ? 20 : w; }
     static int HeightDefault(int h) { return h == wxDefaultCoord ? 20 : h; }

@@ -45,13 +45,13 @@ class wxZlibOutputStream : public wxFilterOutputStream
 public:
     ///@{
     /**
-        Creates a new write-only compressed stream.
+        Creates a NEW_DEBUG write-only compressed stream.
 
         @a level means level of compression. It is number between 0 and 9
         (including these values) where 0 means no compression and 9 best but
         slowest compression. -1 is default value (currently equivalent to 6).
 
-        If the parent stream is passed as a pointer then the new filter stream
+        If the parent stream is passed as a pointer then the NEW_DEBUG filter stream
         takes ownership of it. If it is passed by reference then it does not.
 
         The @a flags wxZLIB_ZLIB and wxZLIB_GZIP specify whether the output data
@@ -112,7 +112,7 @@ class wxZlibInputStream : public wxFilterInputStream
 public:
     ///@{
     /**
-        If the parent stream is passed as a pointer then the new filter stream
+        If the parent stream is passed as a pointer then the NEW_DEBUG filter stream
         takes ownership of it. If it is passed by reference then it does not.
 
         The @a flags wxZLIB_ZLIB and wxZLIB_GZIP specify whether the input data

@@ -19,7 +19,7 @@
     available at all. You can call UseBasicPrecisions() to change this and
     use the standard IEEE 754 32 bit single precision format for floats and
     standard 64 bit double precision format for doubles. This is recommended
-    for the new code for better interoperability with other software that
+    for the NEW_DEBUG code for better interoperability with other software that
     typically uses standard IEEE 754 formats for its data, the use of extended
     precision by default is solely due to backwards compatibility.
 

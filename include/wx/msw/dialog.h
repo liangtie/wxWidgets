@@ -77,7 +77,7 @@ private:
     void ShowGripper(bool show);
     void ResizeGripper();
 
-    // this function is used to adjust Z-order of new children relative to the
+    // this function is used to adjust Z-order of NEW_DEBUG children relative to the
     // gripper if we have one
     void OnWindowCreate(wxWindowCreateEvent& event);
 

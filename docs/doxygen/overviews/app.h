@@ -24,7 +24,7 @@ Note that the program's command line arguments, represented by @e argc and
 
 An application closes by destroying all windows. Because all frames must be
 destroyed for the application to exit, it is advisable to use parent frames
-wherever possible when creating new frames, so that deleting the top level
+wherever possible when creating NEW_DEBUG frames, so that deleting the top level
 frame will automatically delete child frames. The alternative is to explicitly
 delete child frames in the top-level frame's wxCloseEvent handler.
 
@@ -45,7 +45,7 @@ wxIMPLEMENT_APP(DerivedApp);
 
 bool DerivedApp::OnInit()
 {
-    wxFrame *the_frame = new wxFrame(NULL, ID_MYFRAME, argv[0]);
+    wxFrame *the_frame = NEW_DEBUG wxFrame(NULL, ID_MYFRAME, argv[0]);
     ...
     the_frame->Show(true);
 
@@ -109,7 +109,7 @@ public:
 bool MyApp::OnInit()
 {
     ...
-    m_helpCtrl = new wxCHMHelpController;
+    m_helpCtrl = NEW_DEBUG wxCHMHelpController;
     ...
 }
 

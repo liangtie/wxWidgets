@@ -108,7 +108,7 @@ public:
                 const wxString& name = wxAnimationCtrlNameStr);
 
     /**
-        Create a new animation object compatible with this control.
+        Create a NEW_DEBUG animation object compatible with this control.
 
         A wxAnimation object created using this function is always compatible
         with controls of this type, see wxAnimation::IsCompatibleWith().
@@ -120,7 +120,7 @@ public:
     wxAnimation CreateAnimation() const;
 
     /**
-        Create a new animation object compatible with this control.
+        Create a NEW_DEBUG animation object compatible with this control.
 
         This method does the same thing as CreateAnimation() but is static,
         i.e. can be called without creating any wxAnimationCtrl objects.
@@ -316,7 +316,7 @@ class wxAnimation : public wxObject
 {
 public:
     /**
-       Constructs a new empty animation object.
+       Constructs a NEW_DEBUG empty animation object.
 
        Call Load() to initialize it.
 
@@ -325,7 +325,7 @@ public:
     wxAnimation();
 
     /**
-       Constructs a new animation object and load the animation data from the
+       Constructs a NEW_DEBUG animation object and load the animation data from the
        given filename.
 
         @param name
@@ -423,12 +423,12 @@ public:
     static inline wxAnimationDecoderList& GetHandlers();
 
     /**
-       Add a new decoder to the list of animation decoders.
+       Add a NEW_DEBUG decoder to the list of animation decoders.
      */
     static void AddHandler(wxAnimationDecoder *handler);
 
     /**
-       Insert a new decoder to the front of the list of animation decoders.
+       Insert a NEW_DEBUG decoder to the front of the list of animation decoders.
      */
     static void InsertHandler(wxAnimationDecoder *handler);
 

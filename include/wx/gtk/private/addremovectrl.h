@@ -27,7 +27,7 @@ public:
                     wxAddRemoveCtrl* parent,
                     wxWindow* ctrlItems)
         : wxAddRemoveImplBase(adaptor, parent, ctrlItems),
-          m_tbar(new wxToolBar(parent, wxID_ANY))
+          m_tbar(NEW_DEBUG wxToolBar(parent, wxID_ANY))
     {
         m_tbar->AddTool(wxID_ADD, wxString(), GetNamedBitmap("list-add"));
         m_tbar->AddTool(wxID_REMOVE, wxString(), GetNamedBitmap("list-remove"));
@@ -41,7 +41,7 @@ public:
         gtk_style_context_set_junction_sides(context, GTK_JUNCTION_TOP);
 #endif // GTK+3
 
-        wxSizer* const sizerTop = new wxBoxSizer(wxVERTICAL);
+        wxSizer* const sizerTop = NEW_DEBUG wxBoxSizer(wxVERTICAL);
         sizerTop->Add(ctrlItems, wxSizerFlags(1).Expand());
         sizerTop->Add(m_tbar, wxSizerFlags().Expand());
         parent->SetSizer(sizerTop);

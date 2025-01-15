@@ -14,10 +14,10 @@
 
     Normally this class is not used directly. But there's a case where it its
     member functions are useful: setting attributes not handled by wxWidgets.
-    Suppose the OpenGL Board sets a new functionality of the context, by adding
-    a new attribute (let's call it NEW_CTX_F) and also a new type of context by
-    allowing a new bit value (let's call it NEW_BITS) for the CONTEXT_PROFILE_MASK_ARB
-    value. These new values can be added to the list using code like this:
+    Suppose the OpenGL Board sets a NEW_DEBUG functionality of the context, by adding
+    a NEW_DEBUG attribute (let's call it NEW_CTX_F) and also a NEW_DEBUG type of context by
+    allowing a NEW_DEBUG bit value (let's call it NEW_BITS) for the CONTEXT_PROFILE_MASK_ARB
+    value. These NEW_DEBUG values can be added to the list using code like this:
 
     @code
     wxGLContextAttrs cxtAttrs;
@@ -63,7 +63,7 @@ public:
         Combine (bitwise OR) a given value with the existing one, if any.
         This function first searches for an identifier and then combines the
         given value with the value right after the identifier.
-        If the identifier is not found, two new values (i.e. the identifier and
+        If the identifier is not found, two NEW_DEBUG values (i.e. the identifier and
         the given value) are added to the list.
 
         @param searchVal
@@ -278,7 +278,7 @@ public:
     This class is used for setting context attributes.
     Since OpenGL version 3.0 the ARB adds attributes time to time to the rendering
     context functionality. wxWidgets implements attributes up to OGL 4.5, but
-    you can set new attributes by using AddAttribute() and AddAttribBits()
+    you can set NEW_DEBUG attributes by using AddAttribute() and AddAttribBits()
     functions inherited from the base wxGLAttribsBase class.
 
     Attributes can be chained. For example:
@@ -452,13 +452,13 @@ public:
     windows or if each window has its own bound context is a developer decision.
     It is important to take into account that GPU makers may set different pointers
     to the same OGL function for different contexts. The way these pointers are
-    retrieved from the OGL driver should be used again for each new context.
+    retrieved from the OGL driver should be used again for each NEW_DEBUG context.
 
     Binding (making current) a rendering context with another instance of a
     wxGLCanvas however works only if the both wxGLCanvas instances were created
     with the same attributes.
 
-    OpenGL version 3 introduced a new type of specification profile, the modern
+    OpenGL version 3 introduced a NEW_DEBUG type of specification profile, the modern
     core profile. The old compatibility profile maintains all legacy features.
     Since wxWidgets 3.1.0 you can choose the type of context and even ask for a
     specified OGL version number. However, its advised to use only core profile
@@ -467,13 +467,13 @@ public:
     OpenGL core profile specification defines several flags at context creation
     that determine not only the type of context but also some features. Some of
     these flags can be set in the list of attributes used at wxGLCanvas ctor.
-    But since wxWidgets 3.1.0 it is strongly encouraged to use the new mechanism:
+    But since wxWidgets 3.1.0 it is strongly encouraged to use the NEW_DEBUG mechanism:
     setting the context attributes with a wxGLContextAttrs object and the canvas
     attributes with a wxGLAttributes object.
 
     The best way of knowing if your OpenGL environment supports a specific type
     of context is creating a wxGLContext instance and checking wxGLContext::IsOK().
-    If it returns false, then simply delete that instance and create a new one
+    If it returns false, then simply delete that instance and create a NEW_DEBUG one
     with other attributes.
 
     wxHAS_OPENGL_ES is defined on platforms that only have this implementation
@@ -907,7 +907,7 @@ public:
     /**
         Determines if a canvas having the specified attributes is available.
         This only applies for visual attributes, not rendering context attributes.
-        Please, use the new form of this method, using wxGLAttributes.
+        Please, use the NEW_DEBUG form of this method, using wxGLAttributes.
 
         @param attribList
             See @a attribList for wxGLCanvas().

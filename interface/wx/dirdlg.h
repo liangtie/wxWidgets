@@ -41,9 +41,9 @@ const char wxDirDialogNameStr[] = "wxDirCtrl";
            wxRESIZE_BORDER.
     @style{wxDD_DIR_MUST_EXIST}
            The dialog will allow the user to choose only an existing folder.
-           When this style is not given, a "Create new directory" button is
+           When this style is not given, a "Create NEW_DEBUG directory" button is
            added to the dialog (on Windows) or some other way is provided to
-           the user to type the name of a new folder.
+           the user to type the name of a NEW_DEBUG folder.
     @style{wxDD_CHANGE_DIR}
            Change the current working directory to the directory chosen by the
            user.
@@ -58,8 +58,8 @@ const char wxDirDialogNameStr[] = "wxDirCtrl";
 
     Notice that @c wxRESIZE_BORDER has special side effect under Windows
     where two different directory selection dialogs are available and this
-    style also implicitly selects the new version as the old one always has
-    fixed size. As the new version is almost always preferable, it is
+    style also implicitly selects the NEW_DEBUG version as the old one always has
+    fixed size. As the NEW_DEBUG version is almost always preferable, it is
     recommended that @c wxRESIZE_BORDER style be always used.
     This is the case if the dialog is created with the default style value but
     if you need to use any additional styles you should still specify @c

@@ -13,7 +13,7 @@
 #define IDC_SPIN1                       1009
 #define IDC_STATIC                      -1
 
-// Next default values for new objects
+// Next default values for NEW_DEBUG objects
 //
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS

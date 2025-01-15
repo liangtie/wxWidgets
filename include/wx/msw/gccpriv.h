@@ -94,7 +94,7 @@
     Unfortunately this means that they are not available when using -std=c++98
     (not very common) or -std=c++11 (much more so), but we still need them even
     in this case. As the intention behind using -std=c++11 is probably to get
-    the new C++11 features and not disable the use of POSIX functions, we just
+    the NEW_DEBUG C++11 features and not disable the use of POSIX functions, we just
     manually declare the functions we need in this case if necessary.
  */
 #ifdef __MINGW32_TOOLCHAIN__

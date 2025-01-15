@@ -16,7 +16,7 @@
 
 // The template argument T is typically a pointer to some opaque type. While
 // wxTreeItemId and wxDataViewItem use a pointer to void, this is dangerous and
-// not recommended for the new item id classes.
+// not recommended for the NEW_DEBUG item id classes.
 template <typename T>
 class wxItemId
 {
@@ -41,7 +41,7 @@ public:
     void Unset() { m_pItem = NULL; }
 
     // This field is public *only* for compatibility with the old wxTreeItemId
-    // implementation and must not be used in any new code.
+    // implementation and must not be used in any NEW_DEBUG code.
 //private:
     Type m_pItem;
 };

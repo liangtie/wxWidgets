@@ -104,7 +104,7 @@ Finally, a few structure fields, notable @c wxCmdLineEntryDesc::shortName,
   need to update your code if you access these files directly.
 
 - wxWindow::IsEnabled() now returns false if a window parent (and not
-  necessarily the window itself) is disabled, new function IsThisEnabled()
+  necessarily the window itself) is disabled, NEW_DEBUG function IsThisEnabled()
   with the same behaviour as old IsEnabled() was added.
 
 - Generating wxNavigationKeyEvent events doesn't work any more under wxGTK (and
@@ -113,7 +113,7 @@ Finally, a few structure fields, notable @c wxCmdLineEntryDesc::shortName,
 
 - Sizers distribute only the extra space between the stretchable items
   according to their proportions and not all available space. We believe the
-  new behaviour corresponds better to user expectations but if you did rely
+  NEW_DEBUG behaviour corresponds better to user expectations but if you did rely
   on the old behaviour you will have to update your code to set the minimal
   sizes of the sizer items to be in the same proportion as the items
   proportions to return to the old behaviour.
@@ -186,7 +186,7 @@ Finally, a few structure fields, notable @c wxCmdLineEntryDesc::shortName,
   it.
 
 - wxDataViewCustomRenderer::Activate() and
-  wxDataViewCustomRenderer::LeftClick() were replaced with the new
+  wxDataViewCustomRenderer::LeftClick() were replaced with the NEW_DEBUG
   wxDataViewCustomRenderer::ActivateCell() method. You will need to change it
   in your derived renderer class accordingly.
 

@@ -89,7 +89,7 @@ protected:
         wxPoint* points_alloc = NULL;
         if ( m_mirror )
         {
-            points_alloc = new wxPoint[n];
+            points_alloc = NEW_DEBUG wxPoint[n];
             for ( int i = 0; i < n; i++ )
             {
                 points_alloc[i].x = points[i].y;
@@ -276,7 +276,7 @@ class WXDLLIMPEXP_CORE wxMirrorDC : public wxDC
 {
 public:
     wxMirrorDC(wxDC& dc, bool mirror)
-        : wxDC(new wxMirrorDCImpl(this, *dc.GetImpl(), mirror))
+        : wxDC(NEW_DEBUG wxMirrorDCImpl(this, *dc.GetImpl(), mirror))
     {
         m_mirror = mirror;
     }

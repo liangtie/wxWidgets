@@ -41,7 +41,7 @@ struct GLData
 };
 
 
-// Define a new application type
+// Define a NEW_DEBUG application type
 class MyApp : public wxApp
 {
 public:
@@ -49,7 +49,7 @@ public:
 };
 
 
-// Define a new frame type
+// Define a NEW_DEBUG frame type
 class TestGLCanvas;
 
 

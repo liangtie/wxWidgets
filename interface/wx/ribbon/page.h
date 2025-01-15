@@ -70,7 +70,7 @@ public:
         wxRibbonBar when the page is created, or the art provider changed on the
         bar.
 
-        The new art provider will be propagated to the children of the page.
+        The NEW_DEBUG art provider will be propagated to the children of the page.
     */
     void SetArtProvider(wxRibbonArtProvider* art);
 

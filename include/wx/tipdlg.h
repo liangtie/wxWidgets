@@ -27,7 +27,7 @@
 // ----------------------------------------------------------------------------
 
 // the abstract base class: it provides the tips, i.e. implements the GetTip()
-// function which returns the new tip each time it's called. To support this,
+// function which returns the NEW_DEBUG tip each time it's called. To support this,
 // wxTipProvider evidently needs some internal state which is the tip "index"
 // and which should be saved/restored by the program to not always show one and
 // the same tip (of course, you may use random starting position as well...)

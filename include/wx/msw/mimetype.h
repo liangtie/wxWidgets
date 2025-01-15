@@ -128,10 +128,10 @@ public:
 
     size_t EnumAllFileTypes(wxArrayString& mimetypes);
 
-    // create a new filetype association
+    // create a NEW_DEBUG filetype association
     wxFileType *Associate(const wxFileTypeInfo& ftInfo);
 
-    // create a new filetype with the given name and extension
+    // create a NEW_DEBUG filetype with the given name and extension
     wxFileType *CreateFileType(const wxString& filetype, const wxString& ext);
 };
 

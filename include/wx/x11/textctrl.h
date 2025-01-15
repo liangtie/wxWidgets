@@ -340,7 +340,7 @@ private:
 
 // if the action starts with either of these prefixes and the rest of the
 // string is one of the movement commands, it means to select/delete text from
-// the current cursor position to the new one
+// the current cursor position to the NEW_DEBUG one
 #define wxACTION_TEXT_PREFIX_SEL    wxT("sel")
 #define wxACTION_TEXT_PREFIX_DEL    wxT("del")
 

@@ -20,7 +20,7 @@
     it from completing file generation, the user may interrupt it (especially if file
     generation takes long time) and, finally, any other external interrupts (power
     supply failure or a disk error) will leave you without either the original file
-    or the new one.
+    or the NEW_DEBUG one.
 
     wxTempFFile addresses this problem by creating a temporary file which is meant to
     replace the original file - but only after it is fully written. So, if the user
@@ -69,11 +69,11 @@ public:
     ~wxTempFFile();
 
     /**
-        Validate changes: deletes the old file of name m_strName and renames the new
+        Validate changes: deletes the old file of name m_strName and renames the NEW_DEBUG
         file to the old name. Returns @true if both actions succeeded.
 
         If @false is returned it may unfortunately mean two quite different things:
-        either that the old file couldn't be deleted or that the new file
+        either that the old file couldn't be deleted or that the NEW_DEBUG file
         couldn't be renamed to the old name.
     */
     bool Commit();
@@ -217,7 +217,7 @@ public:
 
         IsOpened() will return @false after call to Detach().
 
-        @return The FILE pointer (this is new since wxWidgets 3.0.0, in the
+        @return The FILE pointer (this is NEW_DEBUG since wxWidgets 3.0.0, in the
         previous versions this method didn't return anything).
     */
     FILE* Detach();

@@ -49,7 +49,7 @@ public:
         return m_refData && static_cast<wxGDIRefData *>(m_refData)->IsOk();
     }
 
-    // don't use in the new code, use IsOk() instead
+    // don't use in the NEW_DEBUG code, use IsOk() instead
     bool IsNull() const { return m_refData == NULL; }
 
     // older version, for backwards compatibility only (but not deprecated

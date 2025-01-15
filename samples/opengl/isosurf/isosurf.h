@@ -29,7 +29,7 @@
 #define MAXVERTS     10000
 
 
-// Define a new application type
+// Define a NEW_DEBUG application type
 class MyApp : public wxApp
 {
 public:

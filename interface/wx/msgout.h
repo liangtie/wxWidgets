@@ -100,7 +100,7 @@ class wxMessageOutputStderr : public wxMessageOutput
 {
 public:
     /**
-        Create a new message output object associated with standard error
+        Create a NEW_DEBUG message output object associated with standard error
         stream by default.
 
         @param fp
@@ -139,7 +139,7 @@ class wxMessageOutputBest : public wxMessageOutputStderr
 {
 public:
     /**
-        Create a new message output object.
+        Create a NEW_DEBUG message output object.
 
         @param flags
             May be either @c wxMSGOUT_PREFER_STDERR (default) meaning that

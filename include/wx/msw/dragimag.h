@@ -34,7 +34,7 @@
 
     CaptureMouse();
 
-    m_dragImage = new wxDragImage(* this, itemId);
+    m_dragImage = NEW_DEBUG wxDragImage(* this, itemId);
     m_dragImage->BeginDrag(wxPoint(0, 0), this);
     m_dragImage->Move(pt, this);
     m_dragImage->Show(this);
@@ -208,7 +208,7 @@ public:
     WXHIMAGELIST GetCursorHIMAGELIST() const { return m_hCursorImageList; }
 #endif
 
-    // don't use in new code, use versions without hot spot parameter
+    // don't use in NEW_DEBUG code, use versions without hot spot parameter
 #if WXWIN_COMPATIBILITY_2_8
     wxDEPRECATED_CONSTRUCTOR( wxDragImage(const wxBitmap& image, const wxCursor& cursor, const wxPoint& cursorHotspot) );
     wxDEPRECATED_CONSTRUCTOR( wxDragImage(const wxString& str, const wxCursor& cursor, const wxPoint& cursorHotspot) );

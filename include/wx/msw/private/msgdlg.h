@@ -32,7 +32,7 @@ namespace wxMSWMessageDialog
         enum { MAX_BUTTONS = 4  };
 
         wxMSWTaskDialogConfig()
-            : buttons(new TASKDIALOG_BUTTON[MAX_BUTTONS]),
+            : buttons(NEW_DEBUG TASKDIALOG_BUTTON[MAX_BUTTONS]),
               parent(NULL),
               iconId(0),
               style(0),

@@ -41,7 +41,7 @@ class wxSecretValueGenericImpl : public wxSecretValueImpl
 public:
     wxSecretValueGenericImpl(size_t size, const void *data)
         : m_size(size),
-          m_data(new char[size])
+          m_data(NEW_DEBUG char[size])
     {
         memcpy(m_data, data, size);
     }

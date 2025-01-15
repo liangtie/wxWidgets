@@ -53,7 +53,7 @@ enum wxDLFlags
                                     // filename extension.
 
     // this flag is obsolete, don't use
-    wxDL_NOSHARE    = 0x00000010,   // load new DLL, don't reuse already loaded
+    wxDL_NOSHARE    = 0x00000010,   // load NEW_DEBUG DLL, don't reuse already loaded
                                     // (only for wxPluginManager)
 
     wxDL_QUIET      = 0x00000020,   // don't log an error if failed to load

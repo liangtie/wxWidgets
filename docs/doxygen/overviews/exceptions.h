@@ -85,14 +85,14 @@ is an actual error. Typically this results in writing code like the following:
 void TestNewDocument()
 {
     wxUIActionSimulator ui;
-    ui.Char('n', wxMOD_CONTROL); // simulate creating a new file
+    ui.Char('n', wxMOD_CONTROL); // simulate creating a NEW_DEBUG file
 
     // Let wxWidgets dispatch Ctrl+N event, invoke the handler and create the
-    // new document.
+    // NEW_DEBUG document.
     try {
         wxYield();
     } catch ( ... ) {
-        // Handle exceptions as failure in the new document creation test.
+        // Handle exceptions as failure in the NEW_DEBUG document creation test.
     }
 }
 @endcode

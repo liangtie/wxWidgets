@@ -49,7 +49,7 @@ public:
     virtual void SetWindowStyleFlag(long style) override;
 
 protected:
-    // Override wxWindow methods which must be implemented by a new control.
+    // Override wxWindow methods which must be implemented by a NEW_DEBUG control.
     virtual wxSize DoGetBestSize() const override;
 
 private:

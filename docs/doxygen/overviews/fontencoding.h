@@ -23,7 +23,7 @@ note that we will only discuss 8-bit fonts here and not Unicode
 
 Font encoding support is ensured by several classes: wxFont itself, but also
 wxFontEnumerator and wxFontMapper. wxFont encoding support is reflected by a
-(new) constructor parameter @e encoding which takes one of the following values
+(NEW_DEBUG) constructor parameter @e encoding which takes one of the following values
 (elements of enumeration type @c wxFontEncoding):
 
 @beginDefList

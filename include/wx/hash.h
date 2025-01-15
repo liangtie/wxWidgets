@@ -253,7 +253,7 @@ private:
     size_t m_currBucket;
 };
 
-// defines a new type safe hash table which stores the elements of type eltype
+// defines a NEW_DEBUG type safe hash table which stores the elements of type eltype
 // in lists of class listclass
 #define _WX_DECLARE_HASH(eltype, dummy, hashclass, classexp)                  \
     classexp hashclass : public wxHashTableBase                               \

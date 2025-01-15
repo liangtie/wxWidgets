@@ -241,7 +241,7 @@ public:
     @style{wxTB_RIGHT}
         Align the toolbar at the right side of parent window.
     @style{wxTB_DEFAULT_STYLE}
-        The @c wxTB_HORIZONTAL style. This style is new since wxWidgets 2.9.5.
+        The @c wxTB_HORIZONTAL style. This style is NEW_DEBUG since wxWidgets 2.9.5.
     @endStyleTable
 
     See also @ref overview_windowstyles. Note that the wxMSW native toolbar
@@ -332,7 +332,7 @@ public:
     virtual ~wxToolBar();
 
     /**
-        Adds a new check (or toggle) tool to the toolbar. The parameters are the
+        Adds a NEW_DEBUG check (or toggle) tool to the toolbar. The parameters are the
         same as in AddTool().
 
         @see AddTool()
@@ -360,7 +360,7 @@ public:
                                           const wxString& label = wxEmptyString);
 
     /**
-        Adds a new radio tool to the toolbar. Consecutive radio tools form a
+        Adds a NEW_DEBUG radio tool to the toolbar. Consecutive radio tools form a
         radio group such that exactly one button in the group is pressed at any
         moment, in other words whenever a button in the group is pressed the
         previously pressed button is automatically released. You should avoid
@@ -1018,7 +1018,7 @@ public:
 
 
     /**
-       Factory function to create a new toolbar tool.
+       Factory function to create a NEW_DEBUG toolbar tool.
     */
     virtual wxToolBarToolBase *CreateTool(int toolId,
                                           const wxString& label,
@@ -1029,13 +1029,13 @@ public:
                                           const wxString& shortHelp = wxEmptyString,
                                           const wxString& longHelp = wxEmptyString);
     /**
-       Factory function to create a new control toolbar tool.
+       Factory function to create a NEW_DEBUG control toolbar tool.
     */
     virtual wxToolBarToolBase *CreateTool(wxControl *control,
                                           const wxString& label);
 
     /**
-       Factory function to create a new separator toolbar tool.
+       Factory function to create a NEW_DEBUG separator toolbar tool.
     */
     wxToolBarToolBase *CreateSeparator();
 };

@@ -364,7 +364,7 @@ class wxBrushList
 {
 public:
     /**
-        Finds a brush with the specified attributes and returns it, else creates a new
+        Finds a brush with the specified attributes and returns it, else creates a NEW_DEBUG
         brush, adds it to the brush list, and returns it.
 
         @param colour

@@ -16,14 +16,14 @@
 #include "wx/listbox.h"
 #include "wx/string.h"
 
-// Define a new application type
+// Define a NEW_DEBUG application type
 class MyApp : public wxApp
 {
 public:
     bool OnInit() wxOVERRIDE;
 };
 
-// Define a new frame type
+// Define a NEW_DEBUG frame type
 class MyFrame : public wxFrame
 {
 public:
@@ -79,7 +79,7 @@ private:
         StyleValidator(long* style) { m_style = style; }
 
         virtual bool Validate(wxWindow *WXUNUSED(parent)) wxOVERRIDE { return true; }
-        virtual wxObject* Clone() const wxOVERRIDE { return new StyleValidator(*this); }
+        virtual wxObject* Clone() const wxOVERRIDE { return NEW_DEBUG StyleValidator(*this); }
 
         // Called to transfer data to the window
         virtual bool TransferToWindow() wxOVERRIDE;
@@ -166,7 +166,7 @@ public:
     MyComboBoxValidator(wxString* var) { m_var=var; }
 
     virtual bool Validate(wxWindow* parent) wxOVERRIDE;
-    virtual wxObject* Clone() const wxOVERRIDE { return new MyComboBoxValidator(*this); }
+    virtual wxObject* Clone() const wxOVERRIDE { return NEW_DEBUG MyComboBoxValidator(*this); }
 
     // Called to transfer data to the window
     virtual bool TransferToWindow() wxOVERRIDE;

@@ -28,7 +28,7 @@ const unsigned char wxALPHA_OPAQUE = 0xff;
     A colour is an object representing a combination of Red, Green, and Blue
     (RGB) intensity values and an Alpha value, and is used to determine
     drawing colours. See the entry for wxColourDatabase for how a pointer to a predefined,
-    named colour may be returned instead of creating a new colour.
+    named colour may be returned instead of creating a NEW_DEBUG colour.
 
     Valid RGB values are in the range 0 to 255.
 
@@ -53,7 +53,7 @@ const unsigned char wxALPHA_OPAQUE = 0xff;
 
     @stdobjects
     - ::wxNullColour - An empty, invalid colour.
-    - ::wxTransparentColour - Valid but fully transparent colour (new in 2.9.1).
+    - ::wxTransparentColour - Valid but fully transparent colour (NEW_DEBUG in 2.9.1).
     - ::wxBLACK
     - ::wxBLUE
     - ::wxCYAN
@@ -340,8 +340,8 @@ public:
     static unsigned char AlphaBlend(unsigned char fg, unsigned char bg, double alpha);
 
     /**
-        Utility function that simply darkens or lightens a color, based on the specified 
-        percentage @a ialpha. @a ialpha of 0 would be make the color completely black, 
+        Utility function that simply darkens or lightens a color, based on the specified
+        percentage @a ialpha. @a ialpha of 0 would be make the color completely black,
         200 completely white and 100 would not change the color.
         @since 2.9.0
     */

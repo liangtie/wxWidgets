@@ -352,7 +352,7 @@ public:
 
     nodetype *Append( T *object )
     {
-        nodetype *node = new nodetype( this, m_nodeLast, NULL, object );
+        nodetype *node = NEW_DEBUG nodetype( this, m_nodeLast, NULL, object );
 
         if ( !m_nodeFirst )
         {
@@ -399,7 +399,7 @@ public:
             prev = NULL;
             next = m_nodeFirst;
         }
-        nodetype *node = new nodetype( this, prev, next, object );
+        nodetype *node = NEW_DEBUG nodetype( this, prev, next, object );
         if ( !m_nodeFirst )
             m_nodeLast = node;
         if ( prev == NULL )

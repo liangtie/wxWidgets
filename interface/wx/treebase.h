@@ -53,7 +53,7 @@ bool operator!=(const wxTreeItemId& left, const wxTreeItemId& right);
 
     Also please note that because the objects of this class are deleted by the
     tree using the operator @c delete, they must always be allocated on the heap
-    using @c new.
+    using @c NEW_DEBUG.
 
     @library{wxcore}
     @category{containers}

@@ -125,7 +125,7 @@ public:
     virtual bool DoSetAttribute(const wxString& name, wxVariant& value);
 
     /**
-        Returns what would be the new value of the property after adding
+        Returns what would be the NEW_DEBUG value of the property after adding
         SpinCtrl editor step to the current value. Current value range
         and wrapping (if enabled) are taken into account.
         This member has to be implemented in derived properties.
@@ -802,7 +802,7 @@ public:
 
     void EnableCustomNewAction();
 
-    /** Sets tooltip text for button allowing the user to enter new string.
+    /** Sets tooltip text for button allowing the user to enter NEW_DEBUG string.
         @since 3.1.3
     */
     void SetNewButtonText(const wxString& text);
@@ -836,7 +836,7 @@ protected:
     wxWindow*           m_elbSubPanel;
     wxWindow*           m_lastFocused;
 
-    /** A new item, edited by user, is pending at this index.
+    /** A NEW_DEBUG item, edited by user, is pending at this index.
         It will be committed once list ctrl item editing is done.
     */
     int             m_itemPendingAtIndex;

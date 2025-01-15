@@ -102,13 +102,13 @@ public:
     wxZlibClassFactory();
 
     wxFilterInputStream *NewStream(wxInputStream& stream) const wxOVERRIDE
-        { return new wxZlibInputStream(stream); }
+        { return NEW_DEBUG wxZlibInputStream(stream); }
     wxFilterOutputStream *NewStream(wxOutputStream& stream) const wxOVERRIDE
-        { return new wxZlibOutputStream(stream, -1); }
+        { return NEW_DEBUG wxZlibOutputStream(stream, -1); }
     wxFilterInputStream *NewStream(wxInputStream *stream) const wxOVERRIDE
-        { return new wxZlibInputStream(stream); }
+        { return NEW_DEBUG wxZlibInputStream(stream); }
     wxFilterOutputStream *NewStream(wxOutputStream *stream) const wxOVERRIDE
-        { return new wxZlibOutputStream(stream, -1); }
+        { return NEW_DEBUG wxZlibOutputStream(stream, -1); }
 
     const wxChar * const *GetProtocols(wxStreamProtocolType type
                                        = wxSTREAM_PROTOCOL) const wxOVERRIDE;
@@ -123,13 +123,13 @@ public:
     wxGzipClassFactory();
 
     wxFilterInputStream *NewStream(wxInputStream& stream) const wxOVERRIDE
-        { return new wxZlibInputStream(stream); }
+        { return NEW_DEBUG wxZlibInputStream(stream); }
     wxFilterOutputStream *NewStream(wxOutputStream& stream) const wxOVERRIDE
-        { return new wxZlibOutputStream(stream, -1); }
+        { return NEW_DEBUG wxZlibOutputStream(stream, -1); }
     wxFilterInputStream *NewStream(wxInputStream *stream) const wxOVERRIDE
-        { return new wxZlibInputStream(stream); }
+        { return NEW_DEBUG wxZlibInputStream(stream); }
     wxFilterOutputStream *NewStream(wxOutputStream *stream) const wxOVERRIDE
-        { return new wxZlibOutputStream(stream, -1); }
+        { return NEW_DEBUG wxZlibOutputStream(stream, -1); }
 
     const wxChar * const *GetProtocols(wxStreamProtocolType type
                                        = wxSTREAM_PROTOCOL) const wxOVERRIDE;

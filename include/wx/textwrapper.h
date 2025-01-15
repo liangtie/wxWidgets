@@ -34,7 +34,7 @@ protected:
     // line may be empty
     virtual void OnOutputLine(const wxString& line) = 0;
 
-    // called at the start of every new line (except the very first one)
+    // called at the start of every NEW_DEBUG line (except the very first one)
     virtual void OnNewLine() { }
 
 private:
@@ -87,7 +87,7 @@ public:
 
     wxSizer *CreateSizer(const wxString& text, int widthMax)
     {
-        m_sizer = new wxBoxSizer(wxVERTICAL);
+        m_sizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
         Wrap(m_win, text, widthMax);
         return m_sizer;
     }
@@ -97,7 +97,7 @@ public:
 protected:
     virtual wxWindow *OnCreateLine(const wxString& line)
     {
-        return new wxStaticText(m_win, wxID_ANY,
+        return NEW_DEBUG wxStaticText(m_win, wxID_ANY,
                                 wxControl::EscapeMnemonics(line));
     }
 

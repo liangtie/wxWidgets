@@ -32,7 +32,7 @@ protected:
     virtual void DoSetBackgroundBitmap(const wxBitmap& bmp) wxOVERRIDE
     {
         delete m_backgroundBrush;
-        m_backgroundBrush = bmp.IsOk() ? new wxBrush(bmp) : NULL;
+        m_backgroundBrush = bmp.IsOk() ? NEW_DEBUG wxBrush(bmp) : NULL;
 
         // Our transparent children should use our background if we have it,
         // otherwise try to restore m_inheritBgCol to some reasonable value: true

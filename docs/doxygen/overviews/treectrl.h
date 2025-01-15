@@ -77,6 +77,6 @@ Finally, the tree control has a keyboard interface: the cursor navigation
 to go to the first/last sibling of the current item. '+', '-' and '*' expand,
 collapse and toggle the current branch. Note, however, that DEL and INS keys do
 nothing by default, but it is common to associate them with deleting an item
-from a tree and inserting a new one into it.
+from a tree and inserting a NEW_DEBUG one into it.
 
 */

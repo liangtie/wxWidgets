@@ -592,7 +592,7 @@ public:
     virtual void BeginEdit(int row, int col, wxGrid* grid) = 0;
 
     /**
-        Create a new object which is the copy of this one.
+        Create a NEW_DEBUG object which is the copy of this one.
     */
     virtual wxGridCellEditor* Clone() const = 0;
 
@@ -615,9 +615,9 @@ public:
         its string form and possibly saved internally using its real type by
         BeginEdit()). If it isn't, it just returns @false, otherwise it must do
         the following:
-            - Save the new value internally so that ApplyEdit() could apply it.
+            - Save the NEW_DEBUG value internally so that ApplyEdit() could apply it.
             - Fill @a newval (which is never @NULL) with the string
-            representation of the new value.
+            representation of the NEW_DEBUG value.
             - Return @true
 
         Notice that it must @em not modify the grid as the change could still
@@ -684,13 +684,13 @@ public:
 
     /**
        Return @true to allow the given key to start editing: the base class
-       version only checks that the event has no modifiers. 
+       version only checks that the event has no modifiers.
 
        If the key is F2 (special), editing will always start and this
        method will not be called at all (but StartingKey() will)
     */
     virtual bool IsAcceptedKey(wxKeyEvent& event);
-    
+
 
     /**
        Returns the value currently in the editor control.
@@ -716,7 +716,7 @@ public:
        Get the wxControl used by this editor.
 
        This function is preserved for compatibility, but GetWindow() should be
-       preferred in the new code as the associated window doesn't need to be of
+       preferred in the NEW_DEBUG code as the associated window doesn't need to be of
        a wxControl-derived class.
 
        Note that if SetWindow() had been called with an object not deriving
@@ -729,7 +729,7 @@ public:
        value.
 
        This function is preserved for compatibility, but SetWindow() should be
-       preferred in the new code, see GetControl().
+       preferred in the NEW_DEBUG code, see GetControl().
     */
     void SetControl(wxControl* control);
 
@@ -742,7 +742,7 @@ public:
         activated (by any way described by wxGridActivationSource).
 
         To create such editor, this method must be overridden to return
-        wxGridActivationResult::DoChange() passing it the new value of the
+        wxGridActivationResult::DoChange() passing it the NEW_DEBUG value of the
         cell. If the change is not vetoed by wxEVT_GRID_CELL_CHANGING handler,
         DoActivate() will be called to actually change the value, so it must be
         overridden as well if TryActivate() is overridden.
@@ -925,7 +925,7 @@ public:
 
         This method can be called before the editor is used for the first time,
         or later, in which case it replaces the previously specified strings
-        with the new ones.
+        with the NEW_DEBUG ones.
     */
     virtual void SetParameters(const wxString& params);
 };
@@ -1255,7 +1255,7 @@ public:
                    const wxFont& font, int hAlign, int vAlign);
 
     /**
-        Creates a new copy of this object.
+        Creates a NEW_DEBUG copy of this object.
     */
     wxGridCellAttr* Clone() const;
 
@@ -1467,7 +1467,7 @@ public:
         wxGridFitMode::Overflow() or wxGridFitMode::Clip() argument depending
         on whether @a allow is @true or @false.
 
-        Prefer using SetFitMode() directly instead in the new code.
+        Prefer using SetFitMode() directly instead in the NEW_DEBUG code.
      */
     void SetOverflow(bool allow = true);
 
@@ -1494,7 +1494,7 @@ public:
         Returns true if the cells using this attribute overflow into the
         neighbouring cells.
 
-        Prefer using GetFitMode() in the new code.
+        Prefer using GetFitMode() in the NEW_DEBUG code.
      */
     bool GetOverflow() const;
 
@@ -2510,7 +2510,7 @@ public:
         Insert additional rows into the table.
 
         @param pos
-            The position of the first new row.
+            The position of the first NEW_DEBUG row.
         @param numRows
             The number of rows to insert.
      */
@@ -3815,7 +3815,7 @@ public:
     bool IsReadOnly(int row, int col) const;
 
     /**
-        Register a new data type.
+        Register a NEW_DEBUG data type.
 
         The data types allow to naturally associate specific renderers and
         editors to the cells containing values of the given type. For example,
@@ -3836,11 +3836,11 @@ public:
         to be used for this cell.
 
         @param typeName
-            Name of the new type. May be any string, but if the type name is
+            Name of the NEW_DEBUG type. May be any string, but if the type name is
             the same as the name of an already registered type, including one
             of the standard ones (which are @c wxGRID_VALUE_STRING, @c
             wxGRID_VALUE_BOOL, @c wxGRID_VALUE_NUMBER, @c wxGRID_VALUE_FLOAT,
-            @c wxGRID_VALUE_CHOICE and @c wxGRID_VALUE_DATE), then the new
+            @c wxGRID_VALUE_CHOICE and @c wxGRID_VALUE_DATE), then the NEW_DEBUG
             registration information replaces the previously used renderer and
             editor.
         @param renderer
@@ -3860,7 +3860,7 @@ public:
         control value.
 
         This is called automatically when the grid cursor moves from the
-        current cell to a new cell. It is also a good idea to call this
+        current cell to a NEW_DEBUG cell. It is also a good idea to call this
         function when closing a grid since any edits to the final cell location
         will not be saved otherwise.
     */
@@ -4088,7 +4088,7 @@ public:
         This is identical to calling GetCellFitMode() and using
         wxGridFitMode::IsOverflow() on the returned value.
 
-        Prefer using GetCellFitMode() directly in the new code.
+        Prefer using GetCellFitMode() directly in the NEW_DEBUG code.
     */
     bool GetCellOverflow(int row, int col) const;
 
@@ -4135,7 +4135,7 @@ public:
         This is identical to calling GetDefaultCellFitMode() and using
         wxGridFitMode::IsOverflow() on the returned value.
 
-        Prefer using GetDefaultCellFitMode() directly in the new code.
+        Prefer using GetDefaultCellFitMode() directly in the NEW_DEBUG code.
     */
     bool GetDefaultCellOverflow() const;
 
@@ -4197,7 +4197,7 @@ public:
     /**
         Sets the overflow permission of the cell.
 
-        Prefer using SetCellFitMode() in the new code.
+        Prefer using SetCellFitMode() in the NEW_DEBUG code.
     */
     void SetCellOverflow(int row, int col, bool allow);
 
@@ -4235,7 +4235,7 @@ public:
         @param col
             The column index.
         @param width
-            The new column width in pixels, 0 to hide the column or -1 to fit
+            The NEW_DEBUG column width in pixels, 0 to hide the column or -1 to fit
             the column width to its label width.
     */
     void SetColSize(int col, int width);
@@ -4279,7 +4279,7 @@ public:
     /**
         Sets the default overflow permission of the cells.
 
-        Prefer using SetDefaultCellFitMode() in the new code.
+        Prefer using SetDefaultCellFitMode() in the NEW_DEBUG code.
     */
     void SetDefaultCellOverflow( bool allow );
 
@@ -4456,7 +4456,7 @@ public:
             Pointer to variable receiving the number of columns, must not be
             @NULL.
         @return
-            The kind of this cell span (the return value is new in wxWidgets
+            The kind of this cell span (the return value is NEW_DEBUG in wxWidgets
             2.9.1, this function was void in previous wxWidgets versions).
      */
     CellSpan GetCellSize( int row, int col, int *num_rows, int *num_cols ) const;
@@ -5055,7 +5055,7 @@ public:
         array and GetSelectedCols() returns an array containing one element).
 
         The function can be slow for the big grids, use GetSelectedBlocks()
-        in the new code.
+        in the NEW_DEBUG code.
     */
     wxGridCellCoordsArray GetSelectedCells() const;
 
@@ -5069,7 +5069,7 @@ public:
         individually, please see GetSelectedCells() for more details.
 
         The function can be slow for the big grids, use GetSelectedBlocks()
-        in the new code.
+        in the NEW_DEBUG code.
     */
     wxArrayInt GetSelectedCols() const;
 
@@ -5083,7 +5083,7 @@ public:
         please see GetSelectedCells() for more details.
 
         The function can be slow for the big grids, use GetSelectedBlocks()
-        in the new code.
+        in the NEW_DEBUG code.
     */
     wxArrayInt GetSelectedRows() const;
 
@@ -5100,7 +5100,7 @@ public:
         representation in wxGrid.
 
         The function can be slow for the big grids, use GetSelectedBlocks()
-        in the new code.
+        in the NEW_DEBUG code.
 
         @see GetSelectionBlockTopLeft()
     */
@@ -5113,7 +5113,7 @@ public:
         representation in wxGrid.
 
         The function can be slow for the big grids, use GetSelectedBlocks()
-        in the new code.
+        in the NEW_DEBUG code.
 
         @see GetSelectionBlockBottomRight()
     */
@@ -5207,9 +5207,9 @@ public:
     /**
         Set the selection behaviour of the grid.
 
-        The existing selection is converted to conform to the new mode if
+        The existing selection is converted to conform to the NEW_DEBUG mode if
         possible and discarded otherwise (e.g. any individual selected cells
-        are deselected if the new mode allows only the selection of the entire
+        are deselected if the NEW_DEBUG mode allows only the selection of the entire
         rows or columns).
     */
     void SetSelectionMode(wxGridSelectionModes selmode);
@@ -5448,7 +5448,7 @@ public:
         the mouse position, which is expressed in device coordinates, to
         logical ones.
 
-        The parameter @a gridWindow is new since wxWidgets 3.1.3. If it is
+        The parameter @a gridWindow is NEW_DEBUG since wxWidgets 3.1.3. If it is
         specified, i.e. non-@NULL, the coordinates must be in this window
         coordinate system and only the cells of this window are considered,
         i.e. the function returns @c wxNOT_FOUND if the coordinates are out of
@@ -5480,7 +5480,7 @@ public:
         Returns the grid row that corresponds to the logical @a y coordinate.
 
 
-        The parameter @a gridWindow is new since wxWidgets 3.1.3. If it is
+        The parameter @a gridWindow is NEW_DEBUG since wxWidgets 3.1.3. If it is
         specified, i.e. non-@NULL, only the cells of this window are
         considered, i.e. the function returns @c wxNOT_FOUND if @a y is out of
         bounds.
@@ -5499,7 +5499,7 @@ public:
     ///@{
 
     /**
-        Appends one or more new columns to the right of the grid.
+        Appends one or more NEW_DEBUG columns to the right of the grid.
 
         The @a updateLabels argument is not used at present. If you are using a
         derived grid table class you will need to override
@@ -5511,7 +5511,7 @@ public:
     bool AppendCols(int numCols = 1, bool updateLabels = true);
 
     /**
-        Appends one or more new rows to the bottom of the grid.
+        Appends one or more NEW_DEBUG rows to the bottom of the grid.
 
         The @a updateLabels argument is not used at present. If you are using a
         derived grid table class you will need to override
@@ -5712,7 +5712,7 @@ public:
     /**
         Returns the attribute for the given cell creating one if necessary.
 
-        If the cell already has an attribute, it is returned. Otherwise a new
+        If the cell already has an attribute, it is returned. Otherwise a NEW_DEBUG
         attribute is created, associated with the cell and returned. In any
         case the caller must call DecRef() on the returned pointer.
 
@@ -5742,12 +5742,12 @@ public:
     wxGridTableBase *GetTable() const;
 
     /**
-        Inserts one or more new columns into a grid with the first new column
+        Inserts one or more NEW_DEBUG columns into a grid with the first NEW_DEBUG column
         at the specified position.
 
         Notice that inserting the columns in the grid requires grid table
         cooperation: when this method is called, grid object begins by
-        requesting the underlying grid table to insert new columns. If this is
+        requesting the underlying grid table to insert NEW_DEBUG columns. If this is
         successful the table notifies the grid and the grid updates the
         display. For a default grid (one where you have called CreateGrid())
         this process is automatic. If you are using a custom grid table
@@ -5767,7 +5767,7 @@ public:
     bool InsertCols(int pos = 0, int numCols = 1, bool updateLabels = true);
 
     /**
-        Inserts one or more new rows into a grid with the first new row at the
+        Inserts one or more NEW_DEBUG rows into a grid with the first NEW_DEBUG row at the
         specified position.
 
         Notice that you must implement wxGridTableBase::InsertRows() if you use
@@ -6174,7 +6174,7 @@ protected:
     @code
     void MyFrame::Foo()
     {
-        m_grid = new wxGrid(this, ...);
+        m_grid = NEW_DEBUG wxGrid(this, ...);
 
         wxGridUpdateLocker noUpdates(m_grid);
         m_grid-AppendColumn();
@@ -6239,14 +6239,14 @@ public:
 
     @beginEventTable{wxGridEvent}
     @event{EVT_GRID_CELL_CHANGING(func)}
-        The user is about to change the data in a cell. The new cell value as
+        The user is about to change the data in a cell. The NEW_DEBUG cell value as
         string is available from GetString() event object method. This event
         can be vetoed if the change is not allowed.
         Processes a @c wxEVT_GRID_CELL_CHANGING event type.
     @event{EVT_GRID_CELL_CHANGED(func)}
         The user changed the data in a cell. The old cell value as string is
         available from GetString() event object method. Notice that vetoing
-        this event still works for backwards compatibility reasons but any new
+        this event still works for backwards compatibility reasons but any NEW_DEBUG
         code should only veto EVT_GRID_CELL_CHANGING event and not this one.
         Processes a @c wxEVT_GRID_CELL_CHANGED event type.
     @event{EVT_GRID_CELL_LEFT_CLICK(func)}
@@ -6284,7 +6284,7 @@ public:
         program via a call to wxGrid::SetGridCursor() or wxGrid::GoToCell().
         The event can be vetoed to prevent this from happening and
         wxGrid::GetGridCursorCoords() still returns the previous current cell
-        coordinates during the event handler execution, while the new ones are
+        coordinates during the event handler execution, while the NEW_DEBUG ones are
         available via the event object GetRow() and GetCol() functions.
         Processes a @c wxEVT_GRID_SELECT_CELL event type.
     @event{EVT_GRID_ROW_MOVE(func)}
@@ -6294,7 +6294,7 @@ public:
         (but notice that if you don't want to allow it at all, you simply
         shouldn't call wxGrid::EnableDragRowMove() in the first place), vetoed
         but handled in some way in the handler, e.g. by really moving the
-        row to the new position at the associated table level, or allowed to
+        row to the NEW_DEBUG position at the associated table level, or allowed to
         proceed in which case wxGrid::SetRowPos() is used to reorder the
         rows display order without affecting the use of the row indices
         otherwise.
@@ -6307,7 +6307,7 @@ public:
         (but notice that if you don't want to allow it at all, you simply
         shouldn't call wxGrid::EnableDragColMove() in the first place), vetoed
         but handled in some way in the handler, e.g. by really moving the
-        column to the new position at the associated table level, or allowed to
+        column to the NEW_DEBUG position at the associated table level, or allowed to
         proceed in which case wxGrid::SetColPos() is used to reorder the
         columns display order without affecting the use of the column indices
         otherwise.
@@ -6319,14 +6319,14 @@ public:
         itself has no special support for sorting and it's up to the handler of
         this event to update the associated table. But if the event is handled
         (and not vetoed) the grid supposes that the table was indeed resorted
-        and updates the column to indicate the new sort order and refreshes
+        and updates the column to indicate the NEW_DEBUG sort order and refreshes
         itself.
         This event macro corresponds to @c wxEVT_GRID_COL_SORT event type.
     @event{EVT_GRID_TABBING(func)}
         This event is generated when the user presses TAB or Shift-TAB in the
         grid. It can be used to customize the simple default TAB handling
         logic, e.g. to go to the next non-empty cell instead of just the next
-        cell. See also wxGrid::SetTabBehaviour(). This event is new since
+        cell. See also wxGrid::SetTabBehaviour(). This event is NEW_DEBUG since
         wxWidgets 2.9.5.
     @endEventTable
 
@@ -6416,7 +6416,7 @@ public:
         when the user double clicks the row divider. The default
         implementation simply resizes the row to fit the row label (but
         not its contents as this could be too slow for big grids). This macro
-        corresponds to @c wxEVT_GRID_ROW_AUTO_SIZE event type and is new since
+        corresponds to @c wxEVT_GRID_ROW_AUTO_SIZE event type and is NEW_DEBUG since
         wxWidgets 3.1.7.
     @event{EVT_GRID_COL_SIZE(func)}
         Same as EVT_GRID_CMD_COL_SIZE() but uses `wxID_ANY` id.
@@ -6425,7 +6425,7 @@ public:
         when the user double clicks the column divider. The default
         implementation simply resizes the column to fit the column label (but
         not its contents as this could be too slow for big grids). This macro
-        corresponds to @c wxEVT_GRID_COL_AUTO_SIZE event type and is new since
+        corresponds to @c wxEVT_GRID_COL_AUTO_SIZE event type and is NEW_DEBUG since
         wxWidgets 2.9.5.
     @event{EVT_GRID_ROW_SIZE(func)}
         Same as EVT_GRID_CMD_ROW_SIZE() but uses `wxID_ANY` id.
@@ -6635,7 +6635,7 @@ public:
         Returns the edit control.
 
         This function is preserved for compatibility, but GetWindow() should be
-        preferred in the new code as the associated window doesn't need to be of
+        preferred in the NEW_DEBUG code as the associated window doesn't need to be of
         a wxControl-derived class.
 
         Note that if SetWindow() had been called with an object not deriving
@@ -6664,7 +6664,7 @@ public:
         Sets the edit control.
 
         This function is preserved for compatibility, but SetWindow() should be
-        preferred in the new code, see GetControl().
+        preferred in the NEW_DEBUG code, see GetControl().
     */
     void SetControl(wxControl* ctrl);
 

@@ -144,7 +144,7 @@ public:
         {
             // a previous version of the program could have saved the window
             // size which used to be big enough, but which is not big enough
-            // any more for the new version, so check that the size we restore
+            // any more for the NEW_DEBUG version, so check that the size we restore
             // doesn't cut off parts of the window
             wxSize size = m_rectScreen.GetSize();
             size.IncTo(tlw->GetBestSize());

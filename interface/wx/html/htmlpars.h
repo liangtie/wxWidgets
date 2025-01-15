@@ -319,7 +319,7 @@ protected:
     /**
         This may (and may not) be overwritten in derived class.
 
-        This method is called each time new tag is about to be added.
+        This method is called each time NEW_DEBUG tag is about to be added.
         @a tag contains information about the tag. (See wxHtmlTag for details.)
 
         Default (wxHtmlParser) behaviour is this: first it finds a handler capable

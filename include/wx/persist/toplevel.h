@@ -67,7 +67,7 @@ private:
 
 inline wxPersistentObject *wxCreatePersistentObject(wxTopLevelWindow *tlw)
 {
-    return new wxPersistentTLW(tlw);
+    return NEW_DEBUG wxPersistentTLW(tlw);
 }
 
 #endif // _WX_PERSIST_TOPLEVEL_H_

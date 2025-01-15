@@ -111,7 +111,7 @@ public:
     @class wxHtmlWindow
 
     wxHtmlWindow is probably the only class you will directly use unless you
-    want to do something special (like adding new tag handlers or MIME filters).
+    want to do something special (like adding NEW_DEBUG tag handlers or MIME filters).
 
     The purpose of this class is to display rich content pages (either local
     file or downloaded via HTTP protocol) in a window based on a subset of the
@@ -320,7 +320,7 @@ public:
         - wxHTML_OPEN: Open the URL.
         - wxHTML_BLOCK: Deny access to the URL, wxHtmlParser::OpenURL will return @NULL.
         - wxHTML_REDIRECT: Don't open url, redirect to another URL.
-          OnOpeningURL() must fill *redirect with the new URL.
+          OnOpeningURL() must fill *redirect with the NEW_DEBUG URL.
           OnOpeningURL() will be called again on returned URL.
     */
     virtual wxHtmlOpeningStatus OnOpeningURL(wxHtmlURLType type,

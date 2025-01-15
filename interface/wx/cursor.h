@@ -57,7 +57,7 @@
         wxBitmap down_bitmap(down_bits, 32, 32);
         wxBitmap down_mask_bitmap(down_mask, 32, 32);
 
-        down_bitmap.SetMask(new wxMask(down_mask_bitmap));
+        down_bitmap.SetMask(NEW_DEBUG wxMask(down_mask_bitmap));
         wxImage down_image = down_bitmap.ConvertToImage();
         down_image.SetOption(wxIMAGE_OPTION_CUR_HOTSPOT_X, 6);
         down_image.SetOption(wxIMAGE_OPTION_CUR_HOTSPOT_Y, 14);
@@ -142,7 +142,7 @@ public:
               and then the black/white cursors 'CURS' in the resource chain are scanned
               through. Note that resource forks are deprecated on macOS so this
               is only available for legacy reasons and should not be used in
-              new code.
+              NEW_DEBUG code.
             - under GTK, it defaults to @c wxBITMAP_TYPE_XPM.
               See the wxCursor(const wxImage& image) ctor for more info.
             - under X11, it defaults to @c wxBITMAP_TYPE_XPM.

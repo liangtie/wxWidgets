@@ -1046,7 +1046,7 @@ public:
         to display colour picker dialog when 'custom' selection is made).
 
         If the event causes value to be changed, SetValueInEvent() should be called
-        to set the new value.
+        to set the NEW_DEBUG value.
 
         The parameter @a event is the associated wxEvent.
 
@@ -1061,8 +1061,8 @@ public:
 
     /**
         Called after value of a child property has been altered. Must return
-        new value of the whole property (after any alterations warranted by
-        child's new value).
+        NEW_DEBUG value of the whole property (after any alterations warranted by
+        child's NEW_DEBUG value).
 
         Note that this function is usually called at the time that value of
         this property, or given child property, is still pending for change,
@@ -1137,7 +1137,7 @@ public:
         {
             WX_PG_DOGETVALIDATOR_ENTRY()
 
-            wxMyValidator* validator = new wxMyValidator(...);
+            wxMyValidator* validator = NEW_DEBUG wxMyValidator(...);
 
             ... prepare validator...
 
@@ -1254,7 +1254,7 @@ public:
     virtual wxVariant DoGetAttribute( const wxString& name ) const;
 
     /**
-        Returns instance of a new wxPGEditorDialogAdapter instance, which is
+        Returns instance of a NEW_DEBUG wxPGEditorDialogAdapter instance, which is
         used when user presses the (optional) button next to the editor control;
 
         Default implementation returns @NULL (i.e. no action is generated when
@@ -1272,13 +1272,13 @@ public:
     virtual void OnValidationFailure( wxVariant& pendingValue );
 
     /**
-        Append a new choice to property's list of choices.
+        Append a NEW_DEBUG choice to property's list of choices.
 
         @param label
             Label for added choice.
 
         @param value
-            Value for new choice. Do not specify if you wish this
+            Value for NEW_DEBUG choice. Do not specify if you wish this
             to equal choice index.
 
         @return
@@ -1721,16 +1721,16 @@ public:
     wxPGProperty* InsertChild( int index, wxPGProperty* childProperty );
 
     /**
-        Inserts a new choice to property's list of choices.
+        Inserts a NEW_DEBUG choice to property's list of choices.
 
         @param label
-            Text for new choice
+            Text for NEW_DEBUG choice
 
         @param index
             Insertion position. Use wxNOT_FOUND to append.
 
         @param value
-            Value for new choice. Do not specify if you wish this
+            Value for NEW_DEBUG choice. Do not specify if you wish this
             to equal choice index.
     */
     int InsertChoice( const wxString& label, int index, int value = wxPG_INVALID_VALUE );
@@ -1881,7 +1881,7 @@ public:
     void SetCommonValue( int commonValue );
 
     /**
-        Sets new set of choices for the property.
+        Sets NEW_DEBUG set of choices for the property.
 
         @remarks This operation deselects the property and clears its
                  value.
@@ -1966,7 +1966,7 @@ public:
     void SetModifiedStatus( bool modified );
 
     /**
-        Sets new (base) name for property.
+        Sets NEW_DEBUG (base) name for property.
     */
     void SetName( const wxString& newName );
 
@@ -2114,7 +2114,7 @@ protected:
 
             // If has private child properties then create them here.
             // For example:
-            //     AddPrivateChild( new wxStringProperty("Subprop 1",
+            //     AddPrivateChild( NEW_DEBUG wxStringProperty("Subprop 1",
             //                                           wxPG_LABEL,
             //                                           value.GetSubProp1()));
         }
@@ -2140,7 +2140,7 @@ protected:
 
         @param srcData
             If unmodCellData did not match, valid cell data from this
-            is merged into cell (usually generating new exclusive copy
+            is merged into cell (usually generating NEW_DEBUG exclusive copy
             of cell's data).
 
         @param unmodCellData
@@ -2165,7 +2165,7 @@ protected:
         Clear cells associated with property.
 
         @param ignoreWithFlags
-            Cells will not be cleared for properties having these flags set. 
+            Cells will not be cleared for properties having these flags set.
 
         @param recursively
             If @true, apply this operation recursively in child properties.
@@ -2671,7 +2671,7 @@ public:
         Constructor overload taking wxChar strings.
 
         This constructor is provided mostly for compatibility, prefer to use
-        one of the other constructor overloads in the new code.
+        one of the other constructor overloads in the NEW_DEBUG code.
 
         @param labels
             Labels for choices, @NULL-terminated.
@@ -2724,7 +2724,7 @@ public:
         Adds to current.
 
         This overload is provided mostly for compatibility, prefer to use one
-        of the other ones in the new code.
+        of the other ones in the NEW_DEBUG code.
 
         @param labels
             Labels for added choices, @NULL-terminated.

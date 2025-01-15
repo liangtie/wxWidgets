@@ -110,7 +110,7 @@
         // Do something with it
         DoSomethingWithString(value.As<wxString>());
 
-        // Write back new value to property
+        // Write back NEW_DEBUG value to property
         value = "New Value";
         property->SetValue(value);
 
@@ -583,7 +583,7 @@ public:
 /**
     @class wxVariantData
 
-    The wxVariantData class is used to implement a new type for wxVariant.
+    The wxVariantData class is used to implement a NEW_DEBUG type for wxVariant.
     Derive from wxVariantData, and override the pure virtual functions.
 
     wxVariantData is @ref overview_refcount "reference counted", but you don't

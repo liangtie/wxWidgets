@@ -343,7 +343,7 @@ public:
     // just raises the ref count)
     wxImage Copy() const;
 
-    // return the new image with size width*height
+    // return the NEW_DEBUG image with size width*height
     wxImage GetSubImage( const wxRect& rect) const;
 
     // Paste the image or part of this image into an image of the given size at the pos
@@ -360,7 +360,7 @@ public:
     void Paste(const wxImage& image, int x, int y,
                wxImageAlphaBlendMode alphaBlend = wxIMAGE_ALPHA_BLEND_OVER);
 
-    // return the new image with size width*height
+    // return the NEW_DEBUG image with size width*height
     wxImage Scale( int width, int height,
                    wxImageResizeQuality quality = wxIMAGE_QUALITY_NORMAL ) const;
 
@@ -691,7 +691,7 @@ private:
         Clone_SwapOrientation = 1
     };
 
-    // Returns a new blank image with the same dimensions (or with width and
+    // Returns a NEW_DEBUG blank image with the same dimensions (or with width and
     // height swapped if Clone_SwapOrientation flag is given), alpha, and mask
     // as this image itself. This is used by several functions creating
     // modified versions of this image.

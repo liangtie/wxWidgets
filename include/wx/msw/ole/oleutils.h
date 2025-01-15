@@ -129,7 +129,7 @@ public:
 #endif
     virtual bool Write(wxString& str) const wxOVERRIDE;
 
-    wxVariantData* Clone() const wxOVERRIDE { return new wxVariantDataCurrency(m_value); }
+    wxVariantData* Clone() const wxOVERRIDE { return NEW_DEBUG wxVariantDataCurrency(m_value); }
     virtual wxString GetType() const wxOVERRIDE { return wxS("currency"); }
 
     DECLARE_WXANY_CONVERSION()
@@ -155,7 +155,7 @@ public:
 #endif
     virtual bool Write(wxString& str) const wxOVERRIDE;
 
-    wxVariantData* Clone() const wxOVERRIDE { return new wxVariantDataErrorCode(m_value); }
+    wxVariantData* Clone() const wxOVERRIDE { return NEW_DEBUG wxVariantDataErrorCode(m_value); }
     virtual wxString GetType() const wxOVERRIDE { return wxS("errorcode"); }
 
     DECLARE_WXANY_CONVERSION()
@@ -183,7 +183,7 @@ public:
 #endif
     virtual bool Write(wxString& str) const wxOVERRIDE;
 
-    wxVariantData* Clone() const wxOVERRIDE { return new wxVariantDataSafeArray(m_value); }
+    wxVariantData* Clone() const wxOVERRIDE { return NEW_DEBUG wxVariantDataSafeArray(m_value); }
     virtual wxString GetType() const wxOVERRIDE { return wxS("safearray"); }
 
     DECLARE_WXANY_CONVERSION()

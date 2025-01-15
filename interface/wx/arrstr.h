@@ -11,7 +11,7 @@
     wxArrayString is an efficient container for storing wxString objects.
 
     It has the same features as all wxArray classes, i.e. it dynamically expands
-    when new items are added to it (so it is as easy to use as a linked list),
+    when NEW_DEBUG items are added to it (so it is as easy to use as a linked list),
     but the access time to the elements is constant, instead of being linear in
     number of elements as in the case of linked lists. It is also very size
     efficient and doesn't take more space than a C array @e wxString[] type
@@ -42,7 +42,7 @@
 
     It also has the full set of <tt>std::vector<wxString></tt> compatible
     methods, including nested @c iterator and @c const_iterator classes which
-    should be used in the new code for forward compatibility with the future
+    should be used in the NEW_DEBUG code for forward compatibility with the future
     wxWidgets versions.
 
     @library{wxbase}
@@ -104,8 +104,8 @@ public:
     ~wxArrayString();
 
     /**
-        Appends the given number of @a copies of the new item @a str to the
-        array and returns the index of the first new item in the array.
+        Appends the given number of @a copies of the NEW_DEBUG item @a str to the
+        array and returns the index of the first NEW_DEBUG item in the array.
 
         @see Insert()
     */

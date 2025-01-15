@@ -104,8 +104,8 @@ private:
                   const wxString& name);
 
     // update the image to correspond to the current m_icon or m_bitmapBundle
-    // value, resize the control if the new size is different from the old one
-    // and update its style if the new "is icon" value differs from the old one
+    // value, resize the control if the NEW_DEBUG size is different from the old one
+    // and update its style if the NEW_DEBUG "is icon" value differs from the old one
     void DoUpdateImage(const wxSize& sizeOld, bool wasIcon);
 
     // draw the bitmap ourselves here if the OS can't do it correctly (if it

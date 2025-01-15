@@ -28,7 +28,7 @@ and illustrates some of the formatting functions.
 @code
 // Create a wxGrid object
 
-grid = new wxGrid( this,
+grid = NEW_DEBUG wxGrid( this,
                     -1,
                     wxPoint( 0, 0 ),
                     wxSize( 400, 300 ) );
@@ -91,7 +91,7 @@ Here is a list of classes related to wxGrid:
 @li wxGridCellFloatEditor: Editor for cells containing floating point numbers.
 @li wxGridCellBoolEditor: Editor for boolean-valued cells.
 @li wxGridCellChoiceEditor: Editor allowing to choose one of the predefined
-    strings (and possibly enter new one).
+    strings (and possibly enter NEW_DEBUG one).
 @li wxGridCellDateEditor: Editor for cells containing dates without time component.
 @li wxGridEvent: The event sent by most of wxGrid actions.
 @li wxGridSizeEvent: The special event sent when a grid column or row is

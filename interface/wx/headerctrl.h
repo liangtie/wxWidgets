@@ -129,10 +129,10 @@ enum
         This event can be vetoed to prevent the column from being reordered,
         otherwise the end reorder message will be generated later.
     @event{EVT_HEADER_END_REORDER(id, func)}
-        The user dropped the column in its new location. The event can be
-        vetoed to prevent the column from being placed at the new position
+        The user dropped the column in its NEW_DEBUG location. The event can be
+        vetoed to prevent the column from being placed at the NEW_DEBUG position
         or handled to update the display of the data in the associated
-        control to match the new column location (available from
+        control to match the NEW_DEBUG column location (available from
         wxHeaderCtrlEvent::GetNewOrder()).
     @event{EVT_HEADER_DRAGGING_CANCELLED(id, func)}
         The resizing or reordering operation currently in progress was
@@ -205,7 +205,7 @@ public:
         Set the number of columns in the control.
 
         The control will use GetColumn() to get information about all the
-        new columns and refresh itself, i.e. this method also has the same
+        NEW_DEBUG columns and refresh itself, i.e. this method also has the same
         effect as calling UpdateColumn() for all columns but it should only be
         used if the number of columns really changed.
      */
@@ -233,7 +233,7 @@ public:
 
         When the value returned by GetColumn() changes, this method must be
         called to notify the control about the change and update the visual
-        display to match the new column data.
+        display to match the NEW_DEBUG column data.
 
         @param idx
             The column index, must be less than GetColumnCount().
@@ -318,7 +318,7 @@ public:
         @param idx
             The index of the column to move.
         @param pos
-            The new position for the column @a idx.
+            The NEW_DEBUG position for the column @a idx.
      */
     static void MoveColumnInOrderArray(wxArrayInt& order,
                                        unsigned int idx,
@@ -440,7 +440,7 @@ protected:
         @param idx
             The index of the column whose visibility was toggled.
         @param show
-            The new visibility value, @true if the column is now shown or
+            The NEW_DEBUG visibility value, @true if the column is now shown or
             @false if it is not hidden.
      */
     virtual void UpdateColumnVisibility(unsigned int idx, bool show);
@@ -451,7 +451,7 @@ protected:
 
         This method is only called from ShowCustomizeDialog() when the user
         changes the order of columns. In particular it is @em not called if a
-        single column changes place because the user dragged it to the new
+        single column changes place because the user dragged it to the NEW_DEBUG
         location, the EVT_HEADER_END_REORDER event handler should be used to
         react to this.
 
@@ -464,7 +464,7 @@ protected:
         this method is called.
 
         @param order
-            The new column order. This array uses the same convention as
+            The NEW_DEBUG column order. This array uses the same convention as
             SetColumnsOrder().
      */
     virtual void UpdateColumnsOrder(const wxArrayInt& order);
@@ -522,7 +522,7 @@ protected:
 
         @return
             @true to indicate that the column was resized, i.e. GetColumn() now
-            returns the new width value, and so must be refreshed or @false
+            returns the NEW_DEBUG width value, and so must be refreshed or @false
             meaning that the control didn't reach to the separator double click.
      */
     virtual bool UpdateColumnWidthToFit(unsigned int idx, int widthTitle);
@@ -589,7 +589,7 @@ public:
             implicit conversion from wxString to wxHeaderColumn a string
             can be passed directly here.
         @param idx
-            The position of the new column, from 0 to GetColumnCount(). Using
+            The position of the NEW_DEBUG column, from 0 to GetColumnCount(). Using
             GetColumnCount() means to append the column to the end.
 
         @see AppendColumn()
@@ -712,12 +712,12 @@ public:
     void SetWidth(int width);
 
     /**
-        Return the new order of the column.
+        Return the NEW_DEBUG order of the column.
 
         This method can only be called for a reorder event for which it
-        indicates the tentative new position for the column GetColumn()
+        indicates the tentative NEW_DEBUG position for the column GetColumn()
         selected by the user. If the event is not vetoed, this will become the
-        new column position in wxHeaderCtrl::GetColumnsOrder().
+        NEW_DEBUG column position in wxHeaderCtrl::GetColumnsOrder().
      */
     unsigned int GetNewOrder() const;
     void SetNewOrder(unsigned int order);

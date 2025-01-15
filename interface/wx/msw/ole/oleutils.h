@@ -51,7 +51,7 @@ enum wxOleConvertVariantFlags
     // set wxVariant to currency type
     if ( SUCCEEDED(VarCyFromR8(123.45, &cy)) )  // set cy to 123.45
     {
-        variant.SetData(new wxVariantDataCurrency(cy));
+        variant.SetData(NEW_DEBUG wxVariantDataCurrency(cy));
 
         // or instead of the line above you could write:
         // wxVariantDataCurrency wxCy;
@@ -250,7 +250,7 @@ public:
         }
     }
 
-    range.PutProperty("Value", wxVariant(new wxVariantDataSafeArray(safeArray.Detach())));
+    range.PutProperty("Value", wxVariant(NEW_DEBUG wxVariantDataSafeArray(safeArray.Detach())));
     @endcode
 
     If you want to receive a @c SAFEARRAY in a wxVariant as a result of an wxAutomationObject

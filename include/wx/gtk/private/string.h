@@ -71,7 +71,7 @@ public:
         gchar *new_key = g_utf8_collate_key( new_key_lower, -1);
         g_free( new_key_lower );
 
-        wxSharedPtr<wxGtkCollatableString> new_ptr( new wxGtkCollatableString( new_label, new_key ) );
+        wxSharedPtr<wxGtkCollatableString> new_ptr( NEW_DEBUG wxGtkCollatableString( new_label, new_key ) );
 
         wxVector< wxSharedPtr<wxGtkCollatableString> >::iterator iter;
         for (iter = m_list.begin(); iter != m_list.end(); ++iter)

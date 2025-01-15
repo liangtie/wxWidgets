@@ -30,7 +30,7 @@ public:
     // Override to return the associated control.
     virtual wxWindow* GetItemsCtrl() const = 0;
 
-    // Override to return whether a new item can be added to the control.
+    // Override to return whether a NEW_DEBUG item can be added to the control.
     virtual bool CanAdd() const = 0;
 
     // Override to return whether the currently selected item (if any) can be

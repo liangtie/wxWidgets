@@ -14,10 +14,10 @@
     top-level control for creating a ribbon interface - that is wxRibbonBar.
 
     Ribbon controls often have a region which is "transparent", and shows the
-    contents of the ribbon page or panel behind it. If implementing a new
+    contents of the ribbon page or panel behind it. If implementing a NEW_DEBUG
     ribbon control, then it may be useful to realise that this effect is done
     by the art provider when painting the background of the control, and hence
-    in the paint handler for the new control, you should call a draw background
+    in the paint handler for the NEW_DEBUG control, you should call a draw background
     method on the art provider (wxRibbonArtProvider::DrawButtonBarBackground()
     and wxRibbonArtProvider::DrawToolBarBackground() typically just redraw what
     is behind the rectangle being painted) if you want transparent regions.
@@ -37,7 +37,7 @@ public:
         Constructor.
 
         If @a parent is a wxRibbonControl with a non-NULL art provider, then
-        the art provider of new control is set to that of @a parent.
+        the art provider of NEW_DEBUG control is set to that of @a parent.
     */
     wxRibbonControl(wxWindow *parent, wxWindowID id,
                     const wxPoint& pos = wxDefaultPosition,

@@ -73,7 +73,7 @@ public:
     bool IsMain() const;
 
 #if wxUSE_EVENTLOOP_SOURCE
-    // create a new event loop source wrapping the given file descriptor and
+    // create a NEW_DEBUG event loop source wrapping the given file descriptor and
     // monitor it for events occurring on this descriptor in all event loops
     static wxEventLoopSource *
       AddSourceForFD(int fd, wxEventLoopSourceHandler *handler, int flags);
@@ -153,7 +153,7 @@ public:
 
     // more selective version of Yield()
     //
-    // notice that it is virtual for backwards-compatibility but new code
+    // notice that it is virtual for backwards-compatibility but NEW_DEBUG code
     // should override DoYieldFor() and not YieldFor() itself
     virtual bool YieldFor(long eventsToProcess);
 
@@ -244,7 +244,7 @@ protected:
     // terminating when Exit() is called
     virtual int DoRun() override;
 
-    // may be overridden to perform some action at the start of each new event
+    // may be overridden to perform some action at the start of each NEW_DEBUG event
     // loop iteration
     virtual void OnNextIteration() { }
 
@@ -253,7 +253,7 @@ protected:
     int m_exitcode;
 
 private:
-    // process all already pending events and dispatch a new one (blocking
+    // process all already pending events and dispatch a NEW_DEBUG one (blocking
     // until it appears in the event queue if necessary)
     //
     // returns the return value of Dispatch()
@@ -372,7 +372,7 @@ class WXDLLIMPEXP_CORE wxModalEventLoop : public wxGUIEventLoop
 public:
     wxModalEventLoop(wxWindow *winModal)
     {
-        m_windowDisabler = new wxWindowDisabler(winModal);
+        m_windowDisabler = NEW_DEBUG wxWindowDisabler(winModal);
     }
 
 protected:
@@ -426,7 +426,7 @@ public:
         m_evtLoopNew = nullptr;
         if (!wxEventLoop::GetActive())
         {
-            m_evtLoopNew = new wxEventLoop;
+            m_evtLoopNew = NEW_DEBUG wxEventLoop;
             wxEventLoop::SetActive(m_evtLoopNew);
         }
     }

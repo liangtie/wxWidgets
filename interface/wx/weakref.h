@@ -56,7 +56,7 @@ public:
     Example:
 
     @code
-    wxWindow *wnd = new wxWindow( parent, wxID_ANY, "wxWindow" );
+    wxWindow *wnd = NEW_DEBUG wxWindow( parent, wxID_ANY, "wxWindow" );
     wxWeakRef<wxWindow> wr = wnd;
     wxWindowRef wr2 = wnd;        // Same as above, but using a typedef
     // Do things with window

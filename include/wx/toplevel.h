@@ -224,7 +224,7 @@ public:
     void CentreOnScreen(int dir = wxBOTH) { DoCentre(dir | wxCENTRE_ON_SCREEN); }
     void CenterOnScreen(int dir = wxBOTH) { CentreOnScreen(dir); }
 
-    // Get the default size for a new top level window. This is used when
+    // Get the default size for a NEW_DEBUG top level window. This is used when
     // creating a wxTLW under some platforms if no explicit size given.
     static wxSize GetDefaultSize();
 

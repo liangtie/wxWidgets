@@ -145,7 +145,7 @@ public:
         }
         else if (ret != m_iocp)
         {
-            wxFAIL_MSG(_("Unexpectedly new I/O completion port was created"));
+            wxFAIL_MSG(_("Unexpectedly NEW_DEBUG I/O completion port was created"));
             return false;
         }
 

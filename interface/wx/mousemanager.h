@@ -131,7 +131,7 @@ protected:
         Must be overridden to handle item drop.
 
         This method is called when the mouse is released after dragging the
-        item. Normally the item should be positioned at the new location.
+        item. Normally the item should be positioned at the NEW_DEBUG location.
 
         @param item
             The item which was dragged and now dropped.

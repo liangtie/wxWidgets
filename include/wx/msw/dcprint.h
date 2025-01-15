@@ -77,7 +77,7 @@ class WXDLLIMPEXP_CORE wxPrinterDCFromHDC: public wxPrinterDC
 {
 public:
     wxPrinterDCFromHDC( WXHDC theDC )
-        : wxPrinterDC(new wxPrinterDCImpl(this, theDC))
+        : wxPrinterDC(NEW_DEBUG wxPrinterDCImpl(this, theDC))
     {
     }
 };

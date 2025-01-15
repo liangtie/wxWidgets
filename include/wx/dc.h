@@ -385,7 +385,7 @@ public:
 
 #if WXWIN_COMPATIBILITY_3_0
     // This method is kept for backwards compatibility but shouldn't be used
-    // nor overridden in the new code, implement DoGetClippingRect() above
+    // nor overridden in the NEW_DEBUG code, implement DoGetClippingRect() above
     // instead.
     wxDEPRECATED_BUT_USED_INTERNALLY(
         virtual void DoGetClippingBox(wxCoord *x, wxCoord *y,
@@ -606,7 +606,7 @@ private:
 protected:
     // This method exists for backwards compatibility only (while it's not
     // documented, there are derived classes using it outside wxWidgets
-    // itself), don't use it in any new code and just call wxDCImpl version of
+    // itself), don't use it in any NEW_DEBUG code and just call wxDCImpl version of
     // DestroyClippingRegion() to reset the clipping information instead.
     void ResetClipping()
     {

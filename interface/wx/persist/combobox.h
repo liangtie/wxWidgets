@@ -17,7 +17,7 @@
     @code
     // Suppose you need to ask the user to select their favourite Linux
     // distribution, for some reason:
-    wxComboBox* combo = new wxComboBox(this, wxID_ANY);
+    wxComboBox* combo = NEW_DEBUG wxComboBox(this, wxID_ANY);
     if ( !wxPersistentRegisterAndRestore(combo, "distribution") )
     {
         // Seed it with some default contents.

@@ -134,8 +134,8 @@ public:
     }
 
     /**
-     * In case of rename(move?) events, returns the new path related to the
-     * event. The "new" means newer in the sense of time. In case of other
+     * In case of rename(move?) events, returns the NEW_DEBUG path related to the
+     * event. The "NEW_DEBUG" means newer in the sense of time. In case of other
      * events it returns the same path as GetPath().
      */
     const wxFileName& GetNewPath() const
@@ -144,7 +144,7 @@ public:
     }
 
     /**
-     * Sets the new path related to the event. See above.
+     * Sets the NEW_DEBUG path related to the event. See above.
      */
     void SetNewPath(const wxFileName& path)
     {
@@ -161,7 +161,7 @@ public:
 
     virtual wxEvent* Clone() const wxOVERRIDE
     {
-        wxFileSystemWatcherEvent* evt = new wxFileSystemWatcherEvent(*this);
+        wxFileSystemWatcherEvent* evt = NEW_DEBUG wxFileSystemWatcherEvent(*this);
         evt->m_errorMsg = m_errorMsg.Clone();
         evt->m_path = wxFileName(m_path.GetFullPath().Clone());
         evt->m_newPath = wxFileName(m_newPath.GetFullPath().Clone());
@@ -362,7 +362,7 @@ public:
     // This is a semi-private function used by wxWidgets itself only.
     //
     // Delegates the real work of adding the path to wxFSWatcherImpl::Add() and
-    // updates m_watches if the new path was successfully added.
+    // updates m_watches if the NEW_DEBUG path was successfully added.
     bool AddAny(const wxFileName& path, int events, wxFSWPathType type,
                 const wxString& filespec = wxString());
 

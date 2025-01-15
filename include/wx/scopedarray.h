@@ -25,7 +25,7 @@ public:
     typedef T element_type;
 
     explicit wxScopedArray(T * array = NULL) : m_array(array) { }
-    explicit wxScopedArray(size_t count) : m_array(new T[count]) { }
+    explicit wxScopedArray(size_t count) : m_array(NEW_DEBUG T[count]) { }
 
     ~wxScopedArray() { delete [] m_array; }
 

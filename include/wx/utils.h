@@ -352,7 +352,7 @@ enum
     // is done by default)
     wxEXEC_SHOW_CONSOLE   = 2,
 
-    // deprecated synonym for wxEXEC_SHOW_CONSOLE, use the new name as it's
+    // deprecated synonym for wxEXEC_SHOW_CONSOLE, use the NEW_DEBUG name as it's
     // more clear
     wxEXEC_NOHIDE = wxEXEC_SHOW_CONSOLE,
 
@@ -868,7 +868,7 @@ WXDLLIMPEXP_CORE bool wxYieldIfNeeded();
                        const wxChar* resourceType = wxUserResourceStr,
                        WXHINSTANCE module = NULL);
 
-    // This function allocates a new buffer and makes a copy of the resource
+    // This function allocates a NEW_DEBUG buffer and makes a copy of the resource
     // data, remember to delete[] the buffer. And avoid using it entirely if
     // the overload above can be used.
     //

@@ -19,7 +19,7 @@
     @code
         wxHashTable table(wxKEY_STRING);
 
-        wxPoint *point = new wxPoint(100, 200);
+        wxPoint *point = NEW_DEBUG wxPoint(100, 200);
         table.Put("point 1", point);
 
         ....
@@ -31,7 +31,7 @@
     When no data has been stored, the hash table takes only a little more space
     than this array (default size is 1000). When a data item is added, an integer
     is constructed from the integer or string key that is within the bounds of the array.
-    If the array element is @NULL, a new (keyed) list is created for the element.
+    If the array element is @NULL, a NEW_DEBUG (keyed) list is created for the element.
     Then the data object is appended to the list, storing the key in case other
     data objects need to be stored in the list also (when a 'collision' occurs).
 

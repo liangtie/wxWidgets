@@ -59,7 +59,7 @@ public:
     This is an abstract base class which serves as a common interface to
     archive output streams such as wxZipOutputStream.
 
-    wxArchiveOutputStream::PutNextEntry is used to create a new entry in the
+    wxArchiveOutputStream::PutNextEntry is used to create a NEW_DEBUG entry in the
     output archive, then the entry's data is written to the wxArchiveOutputStream.
     Another call to PutNextEntry() closes the current entry and begins the next.
 
@@ -86,7 +86,7 @@ public:
 
     /**
         Close the current entry.
-        It is called implicitly whenever another new entry is created with CopyEntry()
+        It is called implicitly whenever another NEW_DEBUG entry is created with CopyEntry()
         or PutNextEntry(), or when the archive is closed.
     */
     virtual bool CloseEntry() = 0;
@@ -111,7 +111,7 @@ public:
     virtual bool CopyArchiveMetaData(wxArchiveInputStream& stream) = 0;
 
     /**
-        Takes ownership of @a entry and uses it to create a new entry in the
+        Takes ownership of @a entry and uses it to create a NEW_DEBUG entry in the
         archive. @a entry is then opened in the input stream @a stream
         and its contents copied to this stream.
 
@@ -127,7 +127,7 @@ public:
                            wxArchiveInputStream& stream) = 0;
 
     /**
-        Create a new directory entry (see wxArchiveEntry::IsDir) with the given
+        Create a NEW_DEBUG directory entry (see wxArchiveEntry::IsDir) with the given
         name and timestamp.
 
         PutNextEntry() can also be used to create directory entries, by supplying
@@ -137,13 +137,13 @@ public:
                                  const wxDateTime& dt = wxDateTime::Now()) = 0;
 
     /**
-        Takes ownership of entry and uses it to create a new entry in the archive.
+        Takes ownership of entry and uses it to create a NEW_DEBUG entry in the archive.
         The entry's data can then be written by writing to this wxArchiveOutputStream.
     */
     virtual bool PutNextEntry(wxArchiveEntry* entry) = 0;
 
     /**
-        Create a new entry with the given name, timestamp and size. The entry's
+        Create a NEW_DEBUG entry with the given name, timestamp and size. The entry's
         data can then be written by writing to this wxArchiveOutputStream.
     */
     virtual bool PutNextEntry(const wxString& name,
@@ -311,7 +311,7 @@ public:
     @code
         factory = wxArchiveClassFactory::Find(filename, wxSTREAM_FILEEXT);
         if (factory)
-            stream = factory->NewStream(new wxFFileInputStream(filename));
+            stream = factory->NewStream(NEW_DEBUG wxFFileInputStream(filename));
     @endcode
 
     wxArchiveClassFactory::Find can also search for a factory by MIME type
@@ -416,15 +416,15 @@ public:
     virtual const wxChar** GetProtocols(wxStreamProtocolType type = wxSTREAM_PROTOCOL) const = 0;
 
     /**
-        Create a new wxArchiveEntry object of the appropriate type.
+        Create a NEW_DEBUG wxArchiveEntry object of the appropriate type.
     */
     wxArchiveEntry* NewEntry() const;
 
     ///@{
     /**
-        Create a new input or output stream to read or write an archive.
+        Create a NEW_DEBUG input or output stream to read or write an archive.
 
-        If the parent stream is passed as a pointer then the new archive stream
+        If the parent stream is passed as a pointer then the NEW_DEBUG archive stream
         takes ownership of it. If it is passed by reference then it does not.
     */
     wxArchiveInputStream* NewStream(wxInputStream& stream) const;

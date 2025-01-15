@@ -200,7 +200,7 @@ protected:
 
             wxObject* Clone() const override
             {
-                return new MyMultiplierValidator(*this);
+                return NEW_DEBUG MyMultiplierValidator(*this);
             }
         };
         @endcode
@@ -251,7 +251,7 @@ protected:
                 // this is not needed.
 
                 // Associate it with the text control:
-                new wxTextCtrl(this, ..., val);
+                NEW_DEBUG wxTextCtrl(this, ..., val);
             }
 
         private:
@@ -315,11 +315,11 @@ public:
     This function can be used to create wxIntegerValidator object without
     explicitly specifying its type, e.g. write just:
     @code
-        new wxTextCtrl(..., wxMakeIntegerValidator(&m_var));
+        NEW_DEBUG wxTextCtrl(..., wxMakeIntegerValidator(&m_var));
     @endcode
     instead of more verbose
     @code
-        new wxTextCtrl(..., wxIntegerValidator<unsigned long>(&m_var));
+        NEW_DEBUG wxTextCtrl(..., wxIntegerValidator<unsigned long>(&m_var));
     @endcode
 
     @since 2.9.2
@@ -369,7 +369,7 @@ wxMakeIntegerValidator(T *value, int style = wxNUM_VAL_DEFAULT);
                 val.SetRange(0, 100);
 
                 // Associate it with the text control:
-                new wxTextCtrl(this, ..., val);
+                NEW_DEBUG wxTextCtrl(this, ..., val);
             }
 
         private:

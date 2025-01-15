@@ -16,7 +16,7 @@
     i.e. exactly one of the buttons in the group is checked, and the other ones
     are unchecked automatically. Such groups are created implicitly, but can
     also be started explicitly by using @c wxRB_GROUP style: a button with this
-    style starts a new group and will become the initial selection in this
+    style starts a NEW_DEBUG group and will become the initial selection in this
     group. Alternatively, a radio button may be excluded from the group that it
     would otherwise belong to by using @c wxRB_SINGLE style.
 
@@ -27,7 +27,7 @@
 
     @beginStyleTable
     @style{wxRB_GROUP}
-           Marks the beginning of a new group of radio buttons.
+           Marks the beginning of a NEW_DEBUG group of radio buttons.
     @style{wxRB_SINGLE}
            Creates a radio button which is not part of any radio button group.
            When this style is used, no other radio buttons will be turned off

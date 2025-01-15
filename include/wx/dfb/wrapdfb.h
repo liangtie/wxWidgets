@@ -253,7 +253,7 @@ struct wxIDirectFBSurface : public wxDfbWrapper<IDirectFBSurface>
     {
         IDirectFBSurface *s;
         if ( Check(m_ptr->GetSubSurface(m_ptr, rect, &s)) )
-            return new wxIDirectFBSurface(s);
+            return NEW_DEBUG wxIDirectFBSurface(s);
         else
             return NULL;
     }
@@ -262,7 +262,7 @@ struct wxIDirectFBSurface : public wxDfbWrapper<IDirectFBSurface>
     {
         IDirectFBPalette *s;
         if ( Check(m_ptr->GetPalette(m_ptr, &s)) )
-            return new wxIDirectFBPalette(s);
+            return NEW_DEBUG wxIDirectFBPalette(s);
         else
             return NULL;
     }
@@ -298,7 +298,7 @@ struct wxIDirectFBSurface : public wxDfbWrapper<IDirectFBSurface>
     int GetDepth();
 
     /**
-        Creates a new surface by cloning this one. New surface will have same
+        Creates a NEW_DEBUG surface by cloning this one. New surface will have same
         capabilities, pixel format and pixel data as the existing one.
 
         @see CreateCompatible
@@ -413,7 +413,7 @@ struct wxIDirectFBWindow : public wxDfbWrapper<IDirectFBWindow>
     {
         IDirectFBSurface *s;
         if ( Check(m_ptr->GetSurface(m_ptr, &s)) )
-            return new wxIDirectFBSurface(s);
+            return NEW_DEBUG wxIDirectFBSurface(s);
         else
             return NULL;
     }
@@ -441,7 +441,7 @@ struct wxIDirectFBDisplayLayer : public wxDfbWrapper<IDirectFBDisplayLayer>
     {
         IDirectFBWindow *w;
         if ( Check(m_ptr->CreateWindow(m_ptr, desc, &w)) )
-            return new wxIDirectFBWindow(w);
+            return NEW_DEBUG wxIDirectFBWindow(w);
         else
             return NULL;
     }
@@ -483,7 +483,7 @@ struct wxIDirectFB : public wxDfbWrapper<IDirectFB>
     {
         IDirectFBSurface *s;
         if ( Check(m_ptr->CreateSurface(m_ptr, desc, &s)) )
-            return new wxIDirectFBSurface(s);
+            return NEW_DEBUG wxIDirectFBSurface(s);
         else
             return NULL;
     }
@@ -492,7 +492,7 @@ struct wxIDirectFB : public wxDfbWrapper<IDirectFB>
     {
         IDirectFBEventBuffer *b;
         if ( Check(m_ptr->CreateEventBuffer(m_ptr, &b)) )
-            return new wxIDirectFBEventBuffer(b);
+            return NEW_DEBUG wxIDirectFBEventBuffer(b);
         else
             return NULL;
     }
@@ -502,7 +502,7 @@ struct wxIDirectFB : public wxDfbWrapper<IDirectFB>
     {
         IDirectFBFont *f;
         if ( Check(m_ptr->CreateFont(m_ptr, filename, desc, &f)) )
-            return new wxIDirectFBFont(f);
+            return NEW_DEBUG wxIDirectFBFont(f);
         else
             return NULL;
     }
@@ -512,7 +512,7 @@ struct wxIDirectFB : public wxDfbWrapper<IDirectFB>
     {
         IDirectFBDisplayLayer *l;
         if ( Check(m_ptr->GetDisplayLayer(m_ptr, id, &l)) )
-            return new wxIDirectFBDisplayLayer(l);
+            return NEW_DEBUG wxIDirectFBDisplayLayer(l);
         else
             return NULL;
     }

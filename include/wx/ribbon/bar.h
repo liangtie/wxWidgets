@@ -63,7 +63,7 @@ public:
         , m_page(page)
     {
     }
-    wxEvent *Clone() const wxOVERRIDE { return new wxRibbonBarEvent(*this); }
+    wxEvent *Clone() const wxOVERRIDE { return NEW_DEBUG wxRibbonBarEvent(*this); }
 
     wxRibbonPage* GetPage() {return m_page;}
     void SetPage(wxRibbonPage* page) {m_page = page;}

@@ -26,7 +26,7 @@
 #define WX_OSX_BRIDGE __bridge
 #else
 #define WX_OSX_BRIDGE_RETAINED
-#define WX_OSX_BRIDGE 
+#define WX_OSX_BRIDGE
 #endif
 
 // #include <CoreFoundation/CFBase.h>
@@ -224,7 +224,7 @@ public:
         @abstract   Copies a ref holder of the same type
         @param otherRef The other ref holder to copy.
         @discussion Ownership will be shared by the original ref and the newly created ref. That is,
-                    the object will be explicitly retained by this new ref.
+                    the object will be explicitly retained by this NEW_DEBUG ref.
     */
     wxCFRef(const wxCFRef& otherRef)
     :   m_ptr(wxCFRetain(otherRef.m_ptr))
@@ -235,7 +235,7 @@ public:
         @templatefield otherRefType     Any type held by another wxCFRef.
         @param otherRef The other ref holder to copy.
         @discussion Ownership will be shared by the original ref and the newly created ref. That is,
-                    the object will be explicitly retained by this new ref.
+                    the object will be explicitly retained by this NEW_DEBUG ref.
     */
     template <class otherRefType>
     wxCFRef(const wxCFRef<otherRefType>& otherRef)
@@ -247,7 +247,7 @@ public:
         @templatefield otherRefType     Any type held by a wxCFWeakRef.
         @param otherRef The weak ref holder to copy.
         @discussion Ownership will be taken by this newly created ref. That is,
-                    the object will be explicitly retained by this new ref.
+                    the object will be explicitly retained by this NEW_DEBUG ref.
                     Ownership is most likely shared with some other ref as well.
     */
     template <class otherRefType>
@@ -267,7 +267,7 @@ public:
         @abstract   Assigns the other ref's pointer to us when the otherRef is the same type.
         @param otherRef The other ref holder to copy.
         @discussion The incoming pointer is retained, the original pointer is released, and this object
-                    is made to point to the new pointer.
+                    is made to point to the NEW_DEBUG pointer.
     */
     wxCFRef& operator=(const wxCFRef& otherRef)
     {
@@ -285,7 +285,7 @@ public:
         @templatefield otherRefType     Any type held by another wxCFRef
         @param otherRef The other ref holder to copy.
         @discussion The incoming pointer is retained, the original pointer is released, and this object
-                    is made to point to the new pointer.
+                    is made to point to the NEW_DEBUG pointer.
     */
     template <class otherRefType>
     wxCFRef& operator=(const wxCFRef<otherRefType>& otherRef)
@@ -333,11 +333,11 @@ public:
     }
 
     /*! @method     reset
-        @abstract   Sets this to a new reference
+        @abstract   Sets this to a NEW_DEBUG reference
         @templatefield otherType    Any type.
         @param p        The raw pointer to assume ownership of
         @discussion The existing reference is released (like destruction).  It is assumed that the caller
-                    has a strong reference to the new p and intends to transfer ownership of that reference
+                    has a strong reference to the NEW_DEBUG p and intends to transfer ownership of that reference
                     to this ref holder.  Take care to call CFRetain if you received the object from a Get method.
                     This method is templated and takes an otherType *p.  This prevents implicit conversion
                     using an operator refType() in a different ref-holding class type.
@@ -356,7 +356,7 @@ public:
         m_ptr = NULL;
         return p;
     }
-    
+
     // Autorelease the pointer, i.e. during the next cleanup it will be released
     refType autorelease()
     {

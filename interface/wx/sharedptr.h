@@ -109,7 +109,7 @@ public:
 
         If the reference count of the previously owned pointer was 1 it will be deleted.
 
-        @param ptr  The new raw pointer.
+        @param ptr  The NEW_DEBUG raw pointer.
         @param d    Deleter - a functor that is called instead of delete to
                     free the @a ptr raw pointer when its reference count drops to
                     zero.

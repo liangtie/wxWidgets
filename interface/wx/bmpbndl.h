@@ -128,7 +128,7 @@ public:
 
         Similarly to the constructor from wxBitmap, this constructor only
         exists for interoperability with the existing code using wxImage and
-        can be replaced with more readable FromImage() in the new code.
+        can be replaced with more readable FromImage() in the NEW_DEBUG code.
      */
     wxBitmapBundle(const wxImage& image);
 
@@ -138,7 +138,7 @@ public:
         This constructor overload exists only for compatibility with the
         existing code passing XPM data (e.g. @c foo_xpm after including @c
         foo.xpm) directly to the functions expecting a bitmap. Don't use it in
-        the new code, as it is likely to be deprecated in the future.
+        the NEW_DEBUG code, as it is likely to be deprecated in the future.
 
         @since 3.2.0
      */
@@ -382,7 +382,7 @@ public:
     wxSize GetPreferredLogicalSizeFor(const wxWindow* window) const;
 
     /**
-        Get bitmap of the specified size, creating a new bitmap from the closest
+        Get bitmap of the specified size, creating a NEW_DEBUG bitmap from the closest
         available size by rescaling it if necessary.
 
         This function is mostly used by wxWidgets itself and not the
@@ -477,7 +477,7 @@ public:
             }
         };
 
-        toolBar->AddTool(wxID_OPEN, wxBitmapBundle::FromImpl(new MyCustomBitmapBundleImpl());
+        toolBar->AddTool(wxID_OPEN, wxBitmapBundle::FromImpl(NEW_DEBUG MyCustomBitmapBundleImpl());
     @endcode
 
     Full (but still very simple) example of using it can be found in the

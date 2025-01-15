@@ -240,7 +240,7 @@ public:
         return wxDefaultSize;
     }
 
-    // create a new object which is the copy of this one
+    // create a NEW_DEBUG object which is the copy of this one
     virtual wxGridCellRenderer *Clone() const = 0;
 
 protected:
@@ -434,9 +434,9 @@ public:
     virtual void BeginEdit(int row, int col, wxGrid* grid) = 0;
 
     // Returns false if nothing changed, otherwise returns true and return the
-    // new value in its string form in the newval output parameter.
+    // NEW_DEBUG value in its string form in the newval output parameter.
     //
-    // This should also store the new value in its real type internally so that
+    // This should also store the NEW_DEBUG value in its real type internally so that
     // it could be used by ApplyEdit() but it must not modify the grid as the
     // change could still be vetoed.
     virtual bool EndEdit(int row, int col, const wxGrid *grid,
@@ -475,7 +475,7 @@ public:
     // Final cleanup
     virtual void Destroy();
 
-    // create a new object which is the copy of this one
+    // create a NEW_DEBUG object which is the copy of this one
     virtual wxGridCellEditor *Clone() const = 0;
 
     // added GetValue so we can get the value which is in the control
@@ -483,7 +483,7 @@ public:
 
 
     // These functions exist only for backward compatibility, use Get and
-    // SetWindow() instead in the new code.
+    // SetWindow() instead in the NEW_DEBUG code.
     wxControl* GetControl() { return wxDynamicCast(m_control, wxControl); }
     void SetControl(wxControl* control) { m_control = control; }
 
@@ -767,7 +767,7 @@ public:
         SetAlignment(hAlign, vAlign);
     }
 
-    // creates a new copy of this object
+    // creates a NEW_DEBUG copy of this object
     wxGridCellAttr *Clone() const;
     void MergeWith(wxGridCellAttr *mergefrom);
 
@@ -902,7 +902,7 @@ typedef wxObjectDataPtr<wxGridCellAttr> wxGridCellAttrPtr;
 // ----------------------------------------------------------------------------
 
 // implementation note: we separate it from wxGridTableBase because we wish to
-// avoid deriving a new table class if possible, and sometimes it will be
+// avoid deriving a NEW_DEBUG table class if possible, and sometimes it will be
 // enough to just derive another wxGridCellAttrProvider instead
 //
 // the default implementation is reasonably efficient for the generic case,
@@ -1540,7 +1540,7 @@ public:
 
     // this is basically equivalent to
     //
-    //   AssignTable(new wxGridStringTable(numRows, numCols), selmode)
+    //   AssignTable(NEW_DEBUG wxGridStringTable(numRows, numCols), selmode)
     //
     bool CreateGrid( int numRows, int numCols,
                      wxGridSelectionModes selmode = wxGridSelectCells );
@@ -1995,7 +1995,7 @@ public:
     // happens, call this function to force it
     void RefreshAttr(int row, int col);
 
-    // returns the attribute we may modify in place: a new one if this cell
+    // returns the attribute we may modify in place: a NEW_DEBUG one if this cell
     // doesn't have any yet or the existing one if it does
     //
     // DecRef() must be called on the returned pointer, as usual
@@ -2394,7 +2394,7 @@ public:
     // ------ For compatibility with previous wxGrid only...
     //
     //  ************************************************
-    //  **  Don't use these in new code because they  **
+    //  **  Don't use these in NEW_DEBUG code because they  **
     //  **  are liable to disappear in a future       **
     //  **  revision                                  **
     //  ************************************************
@@ -3302,7 +3302,7 @@ public:
     wxPoint GetPosition() const { return wxPoint( m_x, m_y ); }
     bool Selecting() const { return m_selecting; }
 
-    virtual wxEvent *Clone() const wxOVERRIDE { return new wxGridEvent(*this); }
+    virtual wxEvent *Clone() const wxOVERRIDE { return NEW_DEBUG wxGridEvent(*this); }
 
 protected:
     int         m_row;
@@ -3362,7 +3362,7 @@ public:
     int GetRowOrCol() const { return m_rowOrCol; }
     wxPoint GetPosition() const { return wxPoint( m_x, m_y ); }
 
-    virtual wxEvent *Clone() const wxOVERRIDE { return new wxGridSizeEvent(*this); }
+    virtual wxEvent *Clone() const wxOVERRIDE { return NEW_DEBUG wxGridSizeEvent(*this); }
 
 protected:
     int         m_rowOrCol;
@@ -3426,7 +3426,7 @@ public:
     int GetRightCol() const { return m_bottomRight.GetCol(); }
     bool Selecting() const { return m_selecting; }
 
-    virtual wxEvent *Clone() const wxOVERRIDE { return new wxGridRangeSelectEvent(*this); }
+    virtual wxEvent *Clone() const wxOVERRIDE { return NEW_DEBUG wxGridRangeSelectEvent(*this); }
 
 protected:
     void Init(const wxGridCellCoords& topLeft,
@@ -3468,11 +3468,11 @@ public:
     void SetWindow(wxWindow* window)    { m_window = window; }
 
     // These functions exist only for backward compatibility, use Get and
-    // SetWindow() instead in the new code.
+    // SetWindow() instead in the NEW_DEBUG code.
     wxControl* GetControl()             { return wxDynamicCast(m_window, wxControl); }
     void SetControl(wxControl* ctrl)    { m_window = ctrl; }
 
-    virtual wxEvent *Clone() const wxOVERRIDE { return new wxGridEditorCreatedEvent(*this); }
+    virtual wxEvent *Clone() const wxOVERRIDE { return NEW_DEBUG wxGridEditorCreatedEvent(*this); }
 
 private:
     int m_row;

@@ -244,9 +244,9 @@ private:
 inline wxDC* wxAutoBufferedPaintDCFactory(wxWindow* window)
 {
     if ( window->IsDoubleBuffered() )
-        return new wxPaintDC(window);
+        return NEW_DEBUG wxPaintDC(window);
     else
-        return new wxBufferedPaintDC(window);
+        return NEW_DEBUG wxBufferedPaintDC(window);
 }
 
 #endif  // _WX_DCBUFFER_H_

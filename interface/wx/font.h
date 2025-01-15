@@ -106,7 +106,7 @@ enum wxFontSymbolicSize
 };
 
 /**
-    The font flag bits for the new font ctor accepting one combined flags word.
+    The font flag bits for the NEW_DEBUG font ctor accepting one combined flags word.
 */
 enum wxFontFlag
 {
@@ -860,7 +860,7 @@ public:
         @name Similar fonts creation
 
         The functions in this section either modify the font in place or create
-        a new font similar to the given one but with its weight, style or size
+        a NEW_DEBUG font similar to the given one but with its weight, style or size
         changed.
      */
     ///@{
@@ -1018,7 +1018,7 @@ public:
     /**
         @name Setters
 
-        These functions internally recreate the native font object with the new
+        These functions internally recreate the native font object with the NEW_DEBUG
         specified property.
     */
     ///@{
@@ -1117,7 +1117,7 @@ public:
 
         This is a legacy version of the function only supporting integer point
         sizes. It can still be used, but to avoid unnecessarily restricting the
-        font size in points to integer values, consider using the new (added in
+        font size in points to integer values, consider using the NEW_DEBUG (added in
         wxWidgets 3.1.2) SetFractionalPointSize() function instead.
      */
     virtual void SetPointSize(int pointSize);
@@ -1291,7 +1291,7 @@ public:
     ///@{
     /**
         This function takes the same parameters as the relative
-        @ref wxFont::wxFont "wxFont constructor" and returns a new font
+        @ref wxFont::wxFont "wxFont constructor" and returns a NEW_DEBUG font
         object allocated on the heap.
 
         Their use is discouraged, use wxFont constructor from wxFontInfo

@@ -20,7 +20,7 @@
     If you get an error saying "wxUSE_FOO must be defined", it means that you
     are not using the correct up-to-date version of setup.h. If you're building
     using makefiles under MSW, also remove setup.h under the build directory
-    (lib/$(COMPILER)_{lib,dll}/msw[u][d][dll]/wx) so that the new setup.h is
+    (lib/$(COMPILER)_{lib,dll}/msw[u][d][dll]/wx) so that the NEW_DEBUG setup.h is
     copied there.
 
     If you get an error of the form "wxFoo requires wxBar", then the settings

@@ -193,9 +193,9 @@ class wxSocketServer : public wxSocketBase
 {
 public:
     /**
-        Constructs a new server and tries to bind to the specified @e address.
+        Constructs a NEW_DEBUG server and tries to bind to the specified @e address.
 
-        Before trying to accept new connections, remember to test whether it succeeded
+        Before trying to accept NEW_DEBUG connections, remember to test whether it succeeded
         with wxSocketBase:IsOk().
 
         @param address
@@ -212,7 +212,7 @@ public:
     virtual ~wxSocketServer();
 
     /**
-        Accepts an incoming connection request, and creates a new wxSocketBase
+        Accepts an incoming connection request, and creates a NEW_DEBUG wxSocketBase
         object which represents the server-side of the connection.
 
         If @a wait is @true and there are no pending connections to be
@@ -536,14 +536,14 @@ enum wxSocketError
     A brief note on how to use these events:
 
     The @b wxSOCKET_INPUT event will be issued whenever there is data available
-    for reading. This will be the case if the input queue was empty and new data
+    for reading. This will be the case if the input queue was empty and NEW_DEBUG data
     arrives, or if the application has read some data yet there is still more data
     available. This means that the application does not need to read all available
     data in response to a @b wxSOCKET_INPUT event, as more events will be produced
     as necessary.
 
     The @b wxSOCKET_OUTPUT event is issued when a socket is first connected with
-    Connect() or accepted with Accept(). After that, new events will be generated
+    Connect() or accepted with Accept(). After that, NEW_DEBUG events will be generated
     only after an output operation fails with @b wxSOCKET_WOULDBLOCK and buffer space
     becomes available again. This means that the application should assume that it can
     write data to the socket until an @b wxSOCKET_WOULDBLOCK error occurs; after this,
@@ -551,7 +551,7 @@ enum wxSocketError
     another @b wxSOCKET_OUTPUT event.
 
     The @b wxSOCKET_CONNECTION event is issued when a delayed connection request completes
-    successfully (client) or when a new connection arrives at the incoming queue (server).
+    successfully (client) or when a NEW_DEBUG connection arrives at the incoming queue (server).
 
     The @b wxSOCKET_LOST event is issued when a close indication is received for the socket.
     This means that the connection broke down or that it was closed by the peer. Also, this
@@ -592,7 +592,7 @@ enum wxSocketEventFlags
     example you want no wait on Read(), but you do want to wait on Write(), then
     use wxSOCKET_NOWAIT_READ and wxSOCKET_NOWAIT_WRITE.
 
-    If @b wxSOCKET_NOWAIT_READ (this flag is new since wxWidgets 2.9.5) is
+    If @b wxSOCKET_NOWAIT_READ (this flag is NEW_DEBUG since wxWidgets 2.9.5) is
     specified, Read operations will return immediately. Read operations will
     retrieve only available data. This is the same as issuing exactly one
     nonblocking low-level call to @b recv(). Note that @e nonblocking here
@@ -603,7 +603,7 @@ enum wxSocketEventFlags
     impact Write operations, allowing Read and Write operations to be set
     differently.
 
-    If @b wxSOCKET_NOWAIT_WRITE (this flag is new since wxWidgets 2.9.5) is
+    If @b wxSOCKET_NOWAIT_WRITE (this flag is NEW_DEBUG since wxWidgets 2.9.5) is
     specified, Write operations will return immediately. Write operations will
     write as much data as possible, depending on how much space is available in
     the output buffer. This is the same as issuing exactly one nonblocking
@@ -625,7 +625,7 @@ enum wxSocketEventFlags
     for all on just Read operations, but not on Write operations, (or vice versa),
     use wxSOCKET_WAITALL_READ or wxSOCKET_WAITALL_WRITE.
 
-    If @b wxSOCKET_WAITALL_READ (this flag is new since wxWidgets 2.9.5) is
+    If @b wxSOCKET_WAITALL_READ (this flag is NEW_DEBUG since wxWidgets 2.9.5) is
     specified, Read operations won't return until ALL the data has been read
     (or until an error occurs), blocking if necessary, and issuing several low
     level calls if necessary. This is the same as having a loop which makes as
@@ -636,7 +636,7 @@ enum wxSocketEventFlags
     impact on Write operations, allowing Read and Write operations to have
     different settings.
 
-    If @b wxSOCKET_WAITALL_WRITE (this flag is new since wxWidgets 2.9.5) is
+    If @b wxSOCKET_WAITALL_WRITE (this flag is NEW_DEBUG since wxWidgets 2.9.5) is
     specified, Write() and WriteMsg() calls won't return until ALL the data has
     been written (or until an error occurs), blocking if necessary, and issuing
     several low level calls if necessary. This is the same as having a loop
@@ -862,7 +862,7 @@ public:
         @remarks
         For wxSocketClient, IsOk() won't return @true unless the client is connected to a server.
         For wxSocketServer, IsOk() will return @true if the server could bind to the specified address
-        and is already listening for new connections.
+        and is already listening for NEW_DEBUG connections.
         IsOk() does not check for IO errors; use Error() instead for that purpose.
     */
     bool IsOk() const;
@@ -1248,7 +1248,7 @@ public:
     /**
         Wait until the socket becomes writable.
 
-        This might mean that the socket is ready to send new data, or for streamed
+        This might mean that the socket is ready to send NEW_DEBUG data, or for streamed
         sockets, that the connection has been closed, so that a write operation is
         guaranteed to complete immediately (unless the @b wxSOCKET_WAITALL flag is set,
         in which case the operation might still block).

@@ -30,7 +30,7 @@ void WXDLLIMPEXP_CORE wxExit();
 bool WXDLLIMPEXP_CORE wxYield();
 
 // Represents the application. Derive OnInit and declare
-// a new App object to start application
+// a NEW_DEBUG App object to start application
 class WXDLLIMPEXP_CORE wxApp: public wxAppBase
 {
     wxDECLARE_DYNAMIC_CLASS(wxApp);

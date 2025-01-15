@@ -31,7 +31,7 @@
 
     CaptureMouse();
 
-    m_dragImage = new wxDragImage(* this, itemId);
+    m_dragImage = NEW_DEBUG wxDragImage(* this, itemId);
     m_dragImage->BeginDrag(wxPoint(0, 0), this);
     m_dragImage->Move(pt, this);
     m_dragImage->Show(this);

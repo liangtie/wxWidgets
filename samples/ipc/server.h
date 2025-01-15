@@ -18,7 +18,7 @@ enum
     ID_SERVERNAME,
 };
 
-// Define a new application
+// Define a NEW_DEBUG application
 class MyServer;
 class MyFrame;
 
@@ -34,7 +34,7 @@ protected:
 
 wxDECLARE_APP(MyApp);
 
-// Define a new frame
+// Define a NEW_DEBUG frame
 class MyFrame : public wxFrame
 {
 public:

@@ -15,20 +15,20 @@
 enum wxAutomationInstanceFlags
 {
     /**
-        Only use the existing instance, never create a new one.
+        Only use the existing instance, never create a NEW_DEBUG one.
 
-        This flag can be used to forbid the creation of a new instance if none
+        This flag can be used to forbid the creation of a NEW_DEBUG instance if none
         is currently running.
      */
     wxAutomationInstance_UseExistingOnly = 0,
 
     /**
-        Create a new instance if there are no existing ones.
+        Create a NEW_DEBUG instance if there are no existing ones.
 
         This flag corresponds to the default behaviour of
         wxAutomationObject::GetInstance() and means that if getting an existing
         instance failed, we should call wxAutomationObject::CreateInstance() to
-        create a new one.
+        create a NEW_DEBUG one.
      */
     wxAutomationInstance_CreateIfNeeded = 1,
 
@@ -118,7 +118,7 @@ public:
     //@}
 
     /**
-        Creates a new object based on the @a progID, returning @true if the object was
+        Creates a NEW_DEBUG object based on the @a progID, returning @true if the object was
         successfully created,
         or @false if not.
 
@@ -149,7 +149,7 @@ public:
         attaches the @c IDispatch pointer to this object.
 
         If attaching to an existing object failed and @a flags includes
-        ::wxAutomationInstance_CreateIfNeeded flag, a new object will be created.
+        ::wxAutomationInstance_CreateIfNeeded flag, a NEW_DEBUG object will be created.
         Otherwise this function will normally log an error message which may be
         undesirable if the object may or may not exist. The
         ::wxAutomationInstance_SilentIfNone flag can be used to prevent the error

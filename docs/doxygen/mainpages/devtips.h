@@ -169,7 +169,7 @@ Microsoft Windows SDK documentation.
 @section page_multiplatform_allocatingobjects Allocating and Deleting wxWidgets Objects
 
 In general, classes derived from wxWindow must dynamically allocated with
-@e new and deleted with @e delete. If you delete a window, all of its children
+@e NEW_DEBUG and deleted with @e delete. If you delete a window, all of its children
 and descendants will be automatically deleted, so you don't need to delete
 these descendants explicitly.
 

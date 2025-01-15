@@ -668,7 +668,7 @@ public:
 
     /**
         Finds a pen with the specified attributes and returns it, else creates a
-        new pen, adds it to the pen list, and returns it.
+        NEW_DEBUG pen, adds it to the pen list, and returns it.
 
         @param colour
             Colour object.

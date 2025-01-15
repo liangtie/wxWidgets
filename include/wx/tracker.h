@@ -66,7 +66,7 @@ protected:
     wxTrackable() : m_first(NULL) { }
 
     // copy ctor and assignment operator intentionally do not copy m_first: the
-    // objects which track the original trackable shouldn't track the new copy
+    // objects which track the original trackable shouldn't track the NEW_DEBUG copy
     wxTrackable(const wxTrackable& WXUNUSED(other)) : m_first(NULL) { }
     wxTrackable& operator=(const wxTrackable& WXUNUSED(other)) { return *this; }
 

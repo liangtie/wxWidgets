@@ -162,7 +162,7 @@ public:
     // Same as Append(), but appends under given parent property.
     wxPGProperty* AppendIn( wxPGPropArg id, wxPGProperty* newproperty );
 
-    // In order to add new items into a property with fixed children (for
+    // In order to add NEW_DEBUG items into a property with fixed children (for
     // instance, wxFlagsProperty), you need to call this method. After
     // populating has been finished, you need to call EndAddChildren.
     void BeginAddChildren( wxPGPropArg id );
@@ -516,14 +516,14 @@ public:
     // Example of use:
     //  // append category
     //  wxPGProperty* my_cat_id = propertygrid->Append(
-    //     new wxPropertyCategory("My Category") );
+    //     NEW_DEBUG wxPropertyCategory("My Category") );
     //  ...
     //  // insert into category - using second variant
     //  wxPGProperty* my_item_id_1 = propertygrid->Insert(
-    //     my_cat_id, 0, new wxStringProperty("My String 1") );
+    //     my_cat_id, 0, NEW_DEBUG wxStringProperty("My String 1") );
     // // insert before to first item - using first variant
     //  wxPGProperty* my_item_id_2 = propertygrid->Insert(
-    //     my_item_id, new wxStringProperty("My String 2") );
+    //     my_item_id, NEW_DEBUG wxStringProperty("My String 2") );
     wxPGProperty* Insert( wxPGPropArg priorThis, wxPGProperty* newproperty );
 
     // Inserts property to the property container.

@@ -229,7 +229,7 @@ public:
         , m_bar(bar), m_button(button)
     {
     }
-    wxEvent *Clone() const wxOVERRIDE { return new wxRibbonButtonBarEvent(*this); }
+    wxEvent *Clone() const wxOVERRIDE { return NEW_DEBUG wxRibbonButtonBarEvent(*this); }
 
     wxRibbonButtonBar* GetBar() {return m_bar;}
     wxRibbonButtonBarButtonBase *GetButton() { return m_button; }

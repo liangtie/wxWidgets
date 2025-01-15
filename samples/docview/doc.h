@@ -83,7 +83,7 @@ public:
     DocumentOstream& SaveObject(DocumentOstream& stream) wxOVERRIDE;
     DocumentIstream& LoadObject(DocumentIstream& stream) wxOVERRIDE;
 
-    // add a new segment to the document
+    // add a NEW_DEBUG segment to the document
     void AddDoodleSegment(const DoodleSegment& segment);
 
     // remove the last segment, if any, and copy it in the provided pointer if
@@ -129,12 +129,12 @@ private:
     DoodleSegment m_segment;
 };
 
-// The command for adding a new segment
+// The command for adding a NEW_DEBUG segment
 class DrawingAddSegmentCommand : public DrawingCommand
 {
 public:
     DrawingAddSegmentCommand(DrawingDocument *doc, const DoodleSegment& segment)
-        : DrawingCommand(doc, "Add new segment", segment)
+        : DrawingCommand(doc, "Add NEW_DEBUG segment", segment)
     {
     }
 

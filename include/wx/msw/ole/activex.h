@@ -221,7 +221,7 @@ private:
 
 public:
     virtual wxEvent *Clone() const wxOVERRIDE
-    { return new wxActiveXEvent(*this); }
+    { return NEW_DEBUG wxActiveXEvent(*this); }
 
     size_t ParamCount() const;
 

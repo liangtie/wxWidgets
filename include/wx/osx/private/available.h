@@ -10,7 +10,7 @@
 #ifndef _WX_OSX_PRIVATE_AVAILABLE_H_
 #define _WX_OSX_PRIVATE_AVAILABLE_H_
 
-// Xcode 9 adds new @available keyword and the corresponding __builtin_available
+// Xcode 9 adds NEW_DEBUG @available keyword and the corresponding __builtin_available
 // builtin which should be used instead of manual checks for API availability
 // as using this builtin suppresses the compiler -Wunguarded-availability
 // warnings, so use it if possible for the implementation of our own macro.

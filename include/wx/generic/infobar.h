@@ -92,7 +92,7 @@ protected:
     virtual wxBorder GetDefaultBorder() const wxOVERRIDE { return wxBORDER_NONE; }
 
 
-    // update the parent to take our new or changed size into account (notably
+    // update the parent to take our NEW_DEBUG or changed size into account (notably
     // should be called when we're shown or hidden)
     void UpdateParent();
 

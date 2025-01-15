@@ -534,7 +534,7 @@ bool wxLaunchDefaultApplication(const wxString& document, int flags = 0);
 /**
     Opens the @a url in user's default browser.
 
-    If the @a flags parameter contains @c wxBROWSER_NEW_WINDOW flag, a new
+    If the @a flags parameter contains @c wxBROWSER_NEW_WINDOW flag, a NEW_DEBUG
     window is opened for the URL (currently this is only supported under
     Windows).
 
@@ -635,9 +635,9 @@ wxLoadUserResource(const void **outData,
         for the standard resources types like @c RT_RCDATA.
     @param pLen Filled with the length of the returned buffer if it is
         non-@NULL. This parameter should be used if NUL characters can occur in
-        the resource data. It is new since wxWidgets 2.9.1
+        the resource data. It is NEW_DEBUG since wxWidgets 2.9.1
     @param module The @c HINSTANCE of the module to load the resources from.
-        The current module is used by default. This parameter is new since
+        The current module is used by default. This parameter is NEW_DEBUG since
         wxWidgets 2.9.1.
     @return A pointer to the data to be <tt>delete[]</tt>d by caller on success
         or @NULL on error.
@@ -1165,7 +1165,7 @@ wxLinuxDistributionInfo wxGetLinuxDistributionInfo();
 struct wxExecuteEnv
 {
     /**
-        The initial working directory for the new process.
+        The initial working directory for the NEW_DEBUG process.
 
         If this field is empty, the current working directory of this process
         is used.
@@ -1210,7 +1210,7 @@ enum
     wxEXEC_SHOW_CONSOLE   = 2,
 
     /**
-        Make the new process a group leader.
+        Make the NEW_DEBUG process a group leader.
 
         Under Unix, if the process is the group leader then passing
         wxKILL_CHILDREN to wxKill() kills all children as well as pid.
@@ -1284,7 +1284,7 @@ enum
     For asynchronous execution, however, the return value is the process id and
     zero value indicates that the command could not be executed. As an added
     complication, the return value of -1 in this case indicates that we didn't
-    launch a new process, but connected to the running one (this can only
+    launch a NEW_DEBUG process, but connected to the running one (this can only
     happen when using DDE under Windows for command execution). In particular,
     in this case only, the calling code will not get the notification about
     process termination.
@@ -1304,7 +1304,7 @@ enum
     other systems.
 
     Under Unix the flag @c wxEXEC_MAKE_GROUP_LEADER may be used to ensure that
-    the new process is a group leader (this will create a new session if
+    the NEW_DEBUG process is a group leader (this will create a NEW_DEBUG session if
     needed). Calling wxKill() passing wxKILL_CHILDREN will kill this process as
     well as all of its children (except those which have started their own
     session). Under MSW, this flag can be used with console processes only and

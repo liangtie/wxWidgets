@@ -272,7 +272,7 @@ typedef wxPGIterator<const wxPGProperty, const wxPropertyGridPageState> wxProper
 
 // -----------------------------------------------------------------------
 
-// Base class to derive new viterators.
+// Base class to derive NEW_DEBUG viterators.
 class WXDLLIMPEXP_PROPGRID wxPGVIteratorBase : public wxObjectRefData
 {
     friend class wxPGVIterator;

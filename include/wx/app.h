@@ -239,7 +239,7 @@ public:
 
     // returns the main event loop instance, i.e. the event loop which is started
     // by OnRun() and which dispatches all events sent from the native toolkit
-    // to the application (except when new event loops are temporarily set-up).
+    // to the application (except when NEW_DEBUG event loops are temporarily set-up).
     // The returned value maybe NULL. Put initialization code which needs a
     // non-NULL main event loop into OnEventLoopEnter().
     wxEventLoopBase* GetMainLoop() const
@@ -432,7 +432,7 @@ public:
                                  const wxChar *msg);
 
     // old version of the function without func parameter, for compatibility
-    // only, override OnAssertFailure() in the new code
+    // only, override OnAssertFailure() in the NEW_DEBUG code
     virtual void OnAssert(const wxChar *file,
                           int line,
                           const wxChar *cond,
@@ -830,7 +830,7 @@ WXDLLIMPEXP_BASE void wxWakeUpIdle();
 // ----------------------------------------------------------------------------
 
 // Having a global instance of this class allows wxApp to be aware of the app
-// creator function. wxApp can then call this function to create a new app
+// creator function. wxApp can then call this function to create a NEW_DEBUG app
 // object. Convoluted, but necessary.
 
 class WXDLLIMPEXP_BASE wxAppInitializer
@@ -905,7 +905,7 @@ public:
     {                                                                       \
         wxAppConsole::CheckBuildOptions(WX_BUILD_OPTIONS_SIGNATURE,         \
                                         "your program");                    \
-        return new appname;                                                 \
+        return NEW_DEBUG appname;                                                 \
     }                                                                       \
     wxAppInitializer                                                        \
         wxTheAppInitializer((wxAppInitializerFunction) wxCreateApp)

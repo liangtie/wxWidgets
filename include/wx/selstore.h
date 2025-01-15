@@ -47,7 +47,7 @@ public:
     // special case of SetItemCount(0)
     void Clear() { m_itemsSel.Clear(); m_count = 0; m_defaultState = false; }
 
-    // must be called when new items are inserted/added
+    // must be called when NEW_DEBUG items are inserted/added
     void OnItemsInserted(unsigned item, unsigned numItems);
 
     // must be called when an items is deleted

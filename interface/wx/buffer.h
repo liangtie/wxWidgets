@@ -297,10 +297,10 @@ public:
     wxMemoryBuffer(const wxMemoryBuffer& src);
 
     /**
-        Create a new buffer.
+        Create a NEW_DEBUG buffer.
 
         @param size
-            size of the new buffer, 1KiB by default.
+            size of the NEW_DEBUG buffer, 1KiB by default.
     */
     wxMemoryBuffer(size_t size = 1024);
 
@@ -336,7 +336,7 @@ public:
     /**
         Ensure that the buffer is big enough and return a pointer to the start
         of the empty space in the buffer. This pointer can be used to directly
-        write data into the buffer, this new data will be appended to the
+        write data into the buffer, this NEW_DEBUG data will be appended to the
         existing data.
 
         @param sizeNeeded
@@ -396,7 +396,7 @@ public:
         you must have used GetAppendBuf() to initialise.
 
         @param sizeUsed
-            This is the amount of new data that has been
+            This is the amount of NEW_DEBUG data that has been
             appended.
     */
     void UngetAppendBuf(size_t sizeUsed);

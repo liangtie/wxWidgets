@@ -150,7 +150,7 @@ public:
         , m_panel(panel)
     {
     }
-    wxEvent *Clone() const wxOVERRIDE { return new wxRibbonPanelEvent(*this); }
+    wxEvent *Clone() const wxOVERRIDE { return NEW_DEBUG wxRibbonPanelEvent(*this); }
 
     wxRibbonPanel* GetPanel() {return m_panel;}
     void SetPanel(wxRibbonPanel* panel) {m_panel = panel;}

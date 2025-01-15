@@ -17,7 +17,7 @@
     @code
     void MyFrame::Foo()
         {
-            m_text = new wxTextCtrl(this, ...);
+            m_text = NEW_DEBUG wxTextCtrl(this, ...);
 
             wxWindowUpdateLocker noUpdates(m_text);
             m_text-AppendText();

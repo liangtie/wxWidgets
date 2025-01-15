@@ -34,7 +34,7 @@ enum
     wxImageList is used principally in conjunction with wxTreeCtrl and
     wxListCtrl classes.
 
-    Use of this class is not recommended in the new code as it doesn't support
+    Use of this class is not recommended in the NEW_DEBUG code as it doesn't support
     showing DPI-dependent bitmaps. Please use wxWithImages::SetImages() instead
     of wxWithImages::SetImageList().
 
@@ -77,7 +77,7 @@ public:
                 int initialCount = 1);
 
     /**
-        Adds a new image or images using a bitmap and optional mask bitmap.
+        Adds a NEW_DEBUG image or images using a bitmap and optional mask bitmap.
 
         The logical size of the bitmap should be the same as the size specified
         when constructing wxImageList. If the logical width of the bitmap is
@@ -89,13 +89,13 @@ public:
         @param mask
             Monochrome mask bitmap, representing the transparent areas of the image.
 
-        @return The new zero-based image index.
+        @return The NEW_DEBUG zero-based image index.
     */
     int Add(const wxBitmap& bitmap,
             const wxBitmap& mask = wxNullBitmap);
 
     /**
-        Adds a new image or images using a bitmap and mask colour.
+        Adds a NEW_DEBUG image or images using a bitmap and mask colour.
 
         The logical size of the bitmap should be the same as the size specified
         when constructing wxImageList. If the logical width of the bitmap is
@@ -107,12 +107,12 @@ public:
         @param maskColour
             Colour indicating which parts of the image are transparent.
 
-        @return The new zero-based image index.
+        @return The NEW_DEBUG zero-based image index.
     */
     int Add(const wxBitmap& bitmap, const wxColour& maskColour);
 
     /**
-        Adds a new image using an icon.
+        Adds a NEW_DEBUG image using an icon.
 
         The logical size of the icon should be the same as the size specified
         when constructing wxImageList.
@@ -120,7 +120,7 @@ public:
         @param icon
             Icon to use as the image.
 
-        @return The new zero-based image index.
+        @return The NEW_DEBUG zero-based image index.
 
         @onlyfor{wxmsw,wxosx}
     */
@@ -225,7 +225,7 @@ public:
     bool RemoveAll();
 
     /**
-        Replaces the existing image with the new image.
+        Replaces the existing image with the NEW_DEBUG image.
 
         @param index
             The index of the bitmap to be replaced.
@@ -243,7 +243,7 @@ public:
                  const wxBitmap& mask = wxNullBitmap);
 
     /**
-        Replaces the existing image with the new image.
+        Replaces the existing image with the NEW_DEBUG image.
 
         @param index
             The index of the bitmap to be replaced.

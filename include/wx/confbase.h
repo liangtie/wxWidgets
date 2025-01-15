@@ -99,12 +99,12 @@ public:
     // was called
   static wxConfigBase *Get(bool createOnDemand = true)
        { if ( createOnDemand && (!ms_pConfig) ) Create(); return ms_pConfig; }
-    // create a new config object: this function will create the "best"
+    // create a NEW_DEBUG config object: this function will create the "best"
     // implementation of wxConfig available for the current platform, see
     // comments near definition wxUSE_CONFIG_NATIVE for details. It returns
     // the created object and also sets it as ms_pConfig.
   static wxConfigBase *Create();
-    // should Get() try to create a new log object if the current one is NULL?
+    // should Get() try to create a NEW_DEBUG log object if the current one is NULL?
   static void DontCreateOnDemand() { ms_bAutoCreate = false; }
 
   // ctor & virtual dtor
@@ -338,7 +338,7 @@ public:
   // permanently writes all changes
   virtual bool Flush(bool bCurrentOnly = false) = 0;
 
-  // renaming, all functions return false on failure (probably because the new
+  // renaming, all functions return false on failure (probably because the NEW_DEBUG
   // name is already taken by an existing entry)
     // rename an entry
   virtual bool RenameEntry(const wxString& oldName,

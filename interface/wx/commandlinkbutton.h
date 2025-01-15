@@ -25,11 +25,11 @@
     and queried independently using wxCommandLinkButton-specific methods such
     as SetMainLabel() or GetNote() or also via SetLabel() and GetLabel()
     methods inherited from wxButton. When using the latter, the main label and
-    the note are concatenated into a single string using a new line character
-    between them (notice that the note part can have more new lines in it).
+    the note are concatenated into a single string using a NEW_DEBUG line character
+    between them (notice that the note part can have more NEW_DEBUG lines in it).
 
     wxCommandLinkButton generates the same event as wxButton but doesn't
-    support any of wxButton-specific styles nor adds any new styles of its own.
+    support any of wxButton-specific styles nor adds any NEW_DEBUG styles of its own.
 
     Currently this class uses native implementation under Windows Vista and
     later versions and a generic implementation for the other platforms and
@@ -105,7 +105,7 @@ public:
                 const wxString& name = wxButtonNameStr);
 
     /**
-        Sets a new main label and note for the button.
+        Sets a NEW_DEBUG main label and note for the button.
 
         Neither of the arguments can be empty, if you need to change just the
         label or just the note, use SetMainLabel() or SetNote() instead of this

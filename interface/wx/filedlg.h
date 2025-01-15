@@ -47,7 +47,7 @@ const char wxFileSelectorDefaultWildcardStr[];
             if (wxMessageBox(_("Current content has not been saved! Proceed?"), _("Please confirm"),
                              wxICON_QUESTION | wxYES_NO, this) == wxNO )
                 return;
-            //else: proceed asking to the user the new file to open
+            //else: proceed asking to the user the NEW_DEBUG file to open
         }
 
         wxFileDialog
@@ -132,8 +132,8 @@ const char wxFileSelectorDefaultWildcardStr[];
     SetCustomizeHook() with this custom hook object.
 
     The first approach is somewhat simpler and more flexible, as it allows to
-    create any kind of custom controls, but is not supported by the "new style"
-    (where "new" means used since Windows Vista, i.e. circa 2007) file dialogs
+    create any kind of custom controls, but is not supported by the "NEW_DEBUG style"
+    (where "NEW_DEBUG" means used since Windows Vista, i.e. circa 2007) file dialogs
     under MSW. Because of this, calling SetExtraControlCreator() in wxMSW
     forces the use of old style (Windows XP) dialogs, that may look out of
     place. The second approach is implemented by the MSW dialogs natively and
@@ -150,7 +150,7 @@ const char wxFileSelectorDefaultWildcardStr[];
         COM threading model is used. This is the case by default, but if the
         application initializes COM on its own using multi-threaded model, old
         style dialogs are used, at least when they must have a parent, as the
-        new style dialog doesn't support this threading model.
+        NEW_DEBUG style dialog doesn't support this threading model.
 
     @beginStyleTable
     @style{wxFD_DEFAULT_STYLE}
@@ -433,7 +433,7 @@ public:
         SetExtraControlCreator() can be called only once, before calling ShowModal().
 
         The @c creator function should take pointer to parent window (file dialog)
-        and should return a window allocated with operator new.
+        and should return a window allocated with operator NEW_DEBUG.
 
         @note Using SetExtraControlCreator() in wxMSW forces the use of "old
             style" (Windows XP-like) file dialogs, instead of the newer

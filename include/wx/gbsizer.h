@@ -163,14 +163,14 @@ public:
     void GetSpan(int& rowspan, int& colspan) const;
 
     // If the item is already a member of a sizer then first ensure that there
-    // is no other item that would intersect with this one at the new
-    // position, then set the new position.  Returns true if the change is
+    // is no other item that would intersect with this one at the NEW_DEBUG
+    // position, then set the NEW_DEBUG position.  Returns true if the change is
     // successful and after the next Layout the item will be moved.
     bool SetPos( const wxGBPosition& pos );
 
     // If the item is already a member of a sizer then first ensure that there
-    // is no other item that would intersect with this one with its new
-    // spanning size, then set the new spanning.  Returns true if the change
+    // is no other item that would intersect with this one with its NEW_DEBUG
+    // spanning size, then set the NEW_DEBUG spanning.  Returns true if the change
     // is successful and after the next Layout the item will be resized.
     bool SetSpan( const wxGBSpan& span );
 

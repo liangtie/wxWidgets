@@ -18,7 +18,7 @@ class wxStringInputStream : public wxInputStream
 {
 public:
     /**
-        Creates a new read-only stream using the specified string.
+        Creates a NEW_DEBUG read-only stream using the specified string.
 
         Note that the string is copied by the stream so if the original string is
         modified after using this constructor, changes to it are not reflected
@@ -45,7 +45,7 @@ class wxStringOutputStream : public wxOutputStream
 {
 public:
     /**
-        Construct a new stream object writing the data to a string.
+        Construct a NEW_DEBUG stream object writing the data to a string.
 
         If the provided pointer is non-@NULL, data will be written to it.
         Otherwise, an internal string is used for the data written to this

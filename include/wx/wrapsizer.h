@@ -16,7 +16,7 @@
 enum
 {
     wxEXTEND_LAST_ON_EACH_LINE = 1,
-    // don't leave spacers in the beginning of a new row
+    // don't leave spacers in the beginning of a NEW_DEBUG row
     wxREMOVE_LEADING_SPACES = 2,
 
     wxWRAPSIZER_DEFAULT_FLAGS = wxEXTEND_LAST_ON_EACH_LINE |

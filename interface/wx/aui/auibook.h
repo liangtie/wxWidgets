@@ -142,7 +142,7 @@ public:
                  const wxBitmapBundle& bitmap = wxBitmapBundle());
 
     /**
-        Adds a new page.
+        Adds a NEW_DEBUG page.
 
         The page must have the book control itself as the parent and must not
         have been added to this control previously.
@@ -150,13 +150,13 @@ public:
         The call to this function may generate the page changing events.
 
         @param page
-            Specifies the new page.
+            Specifies the NEW_DEBUG page.
         @param text
-            Specifies the text for the new page.
+            Specifies the text for the NEW_DEBUG page.
         @param select
             Specifies whether the page should be selected.
         @param imageId
-            Specifies the optional image index for the new page.
+            Specifies the optional image index for the NEW_DEBUG page.
 
         @return @true if successful, @false otherwise.
 
@@ -278,18 +278,18 @@ public:
                     const wxBitmapBundle& bitmap = wxBitmapBundle());
 
     /**
-        Inserts a new page at the specified position.
+        Inserts a NEW_DEBUG page at the specified position.
 
         @param index
-            Specifies the position for the new page.
+            Specifies the position for the NEW_DEBUG page.
         @param page
-            Specifies the new page.
+            Specifies the NEW_DEBUG page.
         @param text
-            Specifies the text for the new page.
+            Specifies the text for the NEW_DEBUG page.
         @param select
             Specifies whether the page should be selected.
         @param imageId
-            Specifies the optional image index for the new page.
+            Specifies the optional image index for the NEW_DEBUG page.
 
         @return @true if successful, @false otherwise.
 
@@ -581,11 +581,11 @@ protected:
     By default, a wxAuiNotebook uses an instance of this class called
     wxAuiDefaultTabArt which provides bitmap art and a colour scheme that is
     adapted to the major platforms' look. You can either derive from that class
-    to alter its behaviour or write a completely new tab art class.
+    to alter its behaviour or write a completely NEW_DEBUG tab art class.
 
-    Another example of creating a new wxAuiNotebook tab bar is wxAuiSimpleTabArt.
+    Another example of creating a NEW_DEBUG wxAuiNotebook tab bar is wxAuiSimpleTabArt.
 
-    Call wxAuiNotebook::SetArtProvider() to make use of this new tab art.
+    Call wxAuiNotebook::SetArtProvider() to make use of this NEW_DEBUG tab art.
 
     @library{wxaui}
     @category{aui}
@@ -860,7 +860,7 @@ protected:
     Another standard tab art provider for wxAuiNotebook.
 
     wxAuiSimpleTabArt is derived from wxAuiTabArt demonstrating how to write a
-    completely new tab art class. It can also be used as alternative to
+    completely NEW_DEBUG tab art class. It can also be used as alternative to
     wxAuiDefaultTabArt.
 
     @genericAppearance{auisimpletabart}

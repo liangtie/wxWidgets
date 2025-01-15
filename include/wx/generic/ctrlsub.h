@@ -44,7 +44,7 @@ public:
     }
 
 protected:
-    // preallocate memory for numItems new items: this should be called from
+    // preallocate memory for numItems NEW_DEBUG items: this should be called from
     // the derived classes DoInsertItems() to speed up appending big numbers of
     // items with client data; it is safe to call even if we don't use client
     // data at all and does nothing in this case
@@ -54,7 +54,7 @@ protected:
             m_itemsClientData.reserve(m_itemsClientData.size() + numItems);
     }
 
-    // this must be called by derived classes when a new item is added to the
+    // this must be called by derived classes when a NEW_DEBUG item is added to the
     // control to add storage for the corresponding client data pointer (before
     // inserting many items, call AllocClientData())
     void InsertNewItemClientData(unsigned int pos,

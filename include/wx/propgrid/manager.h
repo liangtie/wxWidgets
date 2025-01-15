@@ -188,7 +188,7 @@ public:
     // Destructor.
     virtual ~wxPropertyGridManager();
 
-    // Creates new property page. Note that the first page is not created
+    // Creates NEW_DEBUG property page. Note that the first page is not created
     // automatically.
     // label - A label for the page. This may be shown as a toolbar tooltip etc.
     // bmp - Bitmap bundle image for toolbar. If it's null then a built-in
@@ -373,7 +373,7 @@ public:
     wxToolBar* GetToolBar() const { return m_pToolbar; }
 #endif // wxUSE_TOOLBAR
 
-    // Creates new property page. Note that the first page is not created
+    // Creates NEW_DEBUG property page. Note that the first page is not created
     // automatically.
     // index - Add to this position. -1 will add as the last item.
     // label - A label for the page. This may be shown as a toolbar tooltip etc.
@@ -597,7 +597,7 @@ protected:
 
     virtual bool ProcessEvent( wxEvent& event ) wxOVERRIDE;
 
-    // Recalculates new positions for components, according to the
+    // Recalculates NEW_DEBUG positions for components, according to the
     // given size.
     void RecalculatePositions( int width, int height );
 

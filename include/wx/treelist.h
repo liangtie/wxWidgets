@@ -152,7 +152,7 @@ public:
     // ---------------
 
     // Add a column with the given title and attributes, returns the index of
-    // the new column or -1 on failure.
+    // the NEW_DEBUG column or -1 on failure.
     int AppendColumn(const wxString& title,
                      int width = wxCOL_WIDTH_AUTOSIZE,
                      wxAlignment align = wxALIGN_LEFT,
@@ -186,7 +186,7 @@ public:
     // Item methods
     // ------------
 
-    // Adding items. The parent and text of the first column of the new item
+    // Adding items. The parent and text of the first column of the NEW_DEBUG item
     // must always be specified, the rest is optional.
     //
     // Each item can have two images: one used for closed state and another for
@@ -194,7 +194,7 @@ public:
     // have children. And both are not set by default.
     //
     // It is also possible to associate arbitrary client data pointer with the
-    // new item. It will be deleted by the control when the item is deleted
+    // NEW_DEBUG item. It will be deleted by the control when the item is deleted
     // (either by an explicit DeleteItem() call or because the entire control
     // is destroyed).
 
@@ -471,7 +471,7 @@ public:
     // COLUMN_SORTED event.
     unsigned GetColumn() const { return m_column; }
 
-    virtual wxEvent* Clone() const wxOVERRIDE { return new wxTreeListEvent(*this); }
+    virtual wxEvent* Clone() const wxOVERRIDE { return NEW_DEBUG wxTreeListEvent(*this); }
 
 private:
     // Common part of all ctors.

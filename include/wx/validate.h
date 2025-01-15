@@ -45,7 +45,7 @@ public:
 
     // Make a clone of this validator (or return NULL) - currently necessary
     // if you're passing a reference to a validator.
-    // Another possibility is to always pass a pointer to a new validator
+    // Another possibility is to always pass a pointer to a NEW_DEBUG validator
     // (so the calling code can use a copy constructor of the relevant class).
     virtual wxObject *Clone() const
         { return NULL; }

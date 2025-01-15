@@ -364,7 +364,7 @@ public:
     // Called when wxHtmlWindow wants to fetch data from an URL (e.g. when
     // loading a page or loading an image). The data are downloaded if and only if
     // OnOpeningURL returns true. If OnOpeningURL returns wxHTML_REDIRECT,
-    // it must set *redirect to the new URL
+    // it must set *redirect to the NEW_DEBUG URL
     virtual wxHtmlOpeningStatus OnOpeningURL(wxHtmlURLType WXUNUSED(type),
                                              const wxString& WXUNUSED(url),
                                              wxString *WXUNUSED(redirect)) const
@@ -420,8 +420,8 @@ protected:
     void OnMouseCaptureLost(wxMouseCaptureLostEvent& event);
 #endif // wxUSE_CLIPBOARD
 
-    // Returns new filter (will be stored into m_DefaultFilter variable)
-    virtual wxHtmlFilter *GetDefaultFilter() {return new wxHtmlFilterPlainText;}
+    // Returns NEW_DEBUG filter (will be stored into m_DefaultFilter variable)
+    virtual wxHtmlFilter *GetDefaultFilter() {return NEW_DEBUG wxHtmlFilterPlainText;}
 
     // cleans static variables
     static void CleanUpStatics();
@@ -595,7 +595,7 @@ public:
     bool GetLinkClicked() const { return m_bLinkWasClicked; }
 
     // default copy ctor, assignment operator and dtor are ok
-    virtual wxEvent *Clone() const wxOVERRIDE { return new wxHtmlCellEvent(*this); }
+    virtual wxEvent *Clone() const wxOVERRIDE { return NEW_DEBUG wxHtmlCellEvent(*this); }
 
 private:
     wxHtmlCell *m_cell;
@@ -626,7 +626,7 @@ public:
     const wxHtmlLinkInfo &GetLinkInfo() const { return m_linkInfo; }
 
     // default copy ctor, assignment operator and dtor are ok
-    virtual wxEvent *Clone() const wxOVERRIDE { return new wxHtmlLinkEvent(*this); }
+    virtual wxEvent *Clone() const wxOVERRIDE { return NEW_DEBUG wxHtmlLinkEvent(*this); }
 
 private:
     wxHtmlLinkInfo m_linkInfo;

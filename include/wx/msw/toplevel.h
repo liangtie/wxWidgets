@@ -130,12 +130,12 @@ protected:
     // common part of all ctors
     void Init();
 
-    // create a new frame, return false if it couldn't be created
+    // create a NEW_DEBUG frame, return false if it couldn't be created
     bool CreateFrame(const wxString& title,
                      const wxPoint& pos,
                      const wxSize& size);
 
-    // create a new dialog using the given dialog template from resources,
+    // create a NEW_DEBUG dialog using the given dialog template from resources,
     // return false if it couldn't be created
     bool CreateDialog(const void *dlgTemplate,
                       const wxString& title,

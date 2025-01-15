@@ -67,7 +67,7 @@ public:
 
             if ( it == items.end() )
             {
-                // This is a genuinely new item, so just insert it front.
+                // This is a genuinely NEW_DEBUG item, so just insert it front.
                 items.insert(items.begin(), value);
 
                 if ( items.size() > MaxSavedItemsCount )
@@ -95,7 +95,7 @@ public:
 
 inline wxPersistentObject *wxCreatePersistentObject(wxComboBox* combobox)
 {
-    return new wxPersistentComboBox(combobox);
+    return NEW_DEBUG wxPersistentComboBox(combobox);
 }
 
 #endif // wxUSE_COMBOBOX

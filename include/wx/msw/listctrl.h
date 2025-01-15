@@ -306,7 +306,7 @@ public:
     // Request the subitem number as well at the given coordinate.
     long HitTest(const wxPoint& point, int& flags, long* ptrSubItem = nullptr) const;
 
-    // Inserts an item, returning the index of the new item if successful,
+    // Inserts an item, returning the index of the NEW_DEBUG item if successful,
     // -1 otherwise.
     long InsertItem(const wxListItem& info);
 

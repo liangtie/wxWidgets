@@ -80,7 +80,7 @@ public:
     static wxTimerScheduler& Get()
     {
         if ( !ms_instance )
-            ms_instance = new wxTimerScheduler;
+            ms_instance = NEW_DEBUG wxTimerScheduler;
 
         return *ms_instance;
     }

@@ -35,7 +35,7 @@ public:
     wxDEPRECATED(void SetBrowser(const wxString& browsername = wxEmptyString, bool isNetscape = false) );
 #endif
 
-    // Set viewer: new name for SetBrowser
+    // Set viewer: NEW_DEBUG name for SetBrowser
     virtual void SetViewer(const wxString& viewer = wxEmptyString,
                             long flags = wxHELP_NETSCAPE) wxOVERRIDE;
 

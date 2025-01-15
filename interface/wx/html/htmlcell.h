@@ -519,7 +519,7 @@ public:
     int GetIndentUnits(int ind) const;
 
     /**
-        Inserts a new cell into the container.
+        Inserts a NEW_DEBUG cell into the container.
 
         Note that the container takes ownership of the cell and will delete it
         when it itself is destroyed.
@@ -538,7 +538,7 @@ public:
         During wxHtmlCell::Layout each line is aligned according to @a al value.
 
         @param al
-            new horizontal alignment. May be one of these values:
+            NEW_DEBUG horizontal alignment. May be one of these values:
             - wxHTML_ALIGN_LEFT: lines are left-aligned (default)
             - wxHTML_ALIGN_JUSTIFY: lines are justified
             - wxHTML_ALIGN_CENTER: lines are centered
@@ -550,7 +550,7 @@ public:
         Sets the container's @e vertical alignment. This is per-line alignment!
 
         @param al
-            new vertical alignment. May be one of these values:
+            NEW_DEBUG vertical alignment. May be one of these values:
             - wxHTML_ALIGN_BOTTOM: cells are over the line (default)
             - wxHTML_ALIGN_CENTER: cells are centered on line
             - wxHTML_ALIGN_TOP: cells are under the line

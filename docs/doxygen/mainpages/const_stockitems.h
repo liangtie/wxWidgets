@@ -57,7 +57,7 @@ Also note that you can retrieve stock bitmaps using wxArtProvider.
 @stock{wxID_JUSTIFY_RIGHT,Align Right,justify-right}
 @stock{wxID_LAST,&Last,goto-last-ltr}
 @stock{wxID_NETWORK,&Network,network}
-@stock{wxID_NEW,&New,new}
+@stock{wxID_NEW,&New,NEW_DEBUG}
 @stock{wxID_NO,&No,no}
 @stock{wxID_OK,&OK,ok}
 @stock{wxID_OPEN,&Open...,open}

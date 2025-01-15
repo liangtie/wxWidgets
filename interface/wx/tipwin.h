@@ -30,7 +30,7 @@ public:
         @param parent
             The parent window, must be non-@NULL
         @param text
-            The text to show, may contain the new line characters
+            The text to show, may contain the NEW_DEBUG line characters
         @param maxLength
             The length of each line, in pixels. Set to a very large
             value to avoid wrapping lines

@@ -105,7 +105,7 @@ protected:
     // Converts seconds to HH:mm:ss format.
     static wxString GetFormattedTime(unsigned long timeInSec);
 
-    // Create a new event loop if there is no currently running one.
+    // Create a NEW_DEBUG event loop if there is no currently running one.
     void EnsureActiveEventLoopExists();
 
     // callback for optional abort button

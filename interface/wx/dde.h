@@ -14,7 +14,7 @@
     The bulk of a DDE (Dynamic Data Exchange) conversation is controlled by calling
     members in a wxDDEConnection object or by overriding its members.
 
-    An application should normally derive a new connection class from
+    An application should normally derive a NEW_DEBUG connection class from
     wxDDEConnection, in order to override the communication event handlers to
     do something interesting.
 
@@ -39,7 +39,7 @@ public:
         his or her own derived connection object, the
         wxDDEServer::OnAcceptConnection() and/or
         wxDDEClient::OnMakeConnection() members should be replaced by functions
-        which construct the new connection object.
+        which construct the NEW_DEBUG connection object.
 
         A default buffer will be associated with this connection.
     */
@@ -52,7 +52,7 @@ public:
         his or her own derived connection object, the
         wxDDEServer::OnAcceptConnection() and/or
         wxDDEClient::OnMakeConnection() members should be replaced by functions
-        which construct the new connection object.
+        which construct the NEW_DEBUG connection object.
 
         @param buffer
             Buffer for this connection object to use in transactions.
@@ -256,7 +256,7 @@ public:
         The advantage of deriving your own connection class is that it will
         enable you to intercept messages initiated by the server, such as
         wxDDEConnection::OnAdvise(). You may also want to store
-        application-specific data in instances of the new class.
+        application-specific data in instances of the NEW_DEBUG class.
     */
     wxConnectionBase* OnMakeConnection();
 

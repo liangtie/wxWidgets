@@ -62,7 +62,7 @@ public:
 
 inline wxPersistentObject *wxCreatePersistentObject(wxSplitterWindow* splitter)
 {
-    return new wxPersistentSplitter(splitter);
+    return NEW_DEBUG wxPersistentSplitter(splitter);
 }
 
 #endif // _WX_PERSIST_SPLITTER_H_

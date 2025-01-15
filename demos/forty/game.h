@@ -74,7 +74,7 @@ public:
 
     void Layout();
     void NewPlayer(int wins, int games, int score);
-    void Deal(); // Shuffle and deal a new game
+    void Deal(); // Shuffle and deal a NEW_DEBUG game
     bool CanYouGo(int x, int y); // can card under (x,y) go somewhere?
     bool HaveYouWon(); // have you won the game?
 

@@ -40,7 +40,7 @@
     fail. You can use the preprocessor macro @c wxHAS_XLOCALE_SUPPORT to test if
     full xlocale API is available or only skeleton C locale support is present.
 
-    Notice that wxXLocale is new in wxWidgets 2.9.0 and is not compiled in if
+    Notice that wxXLocale is NEW_DEBUG in wxWidgets 2.9.0 and is not compiled in if
     @c wxUSE_XLOCALE was set to 0 during the library compilation.
 
 

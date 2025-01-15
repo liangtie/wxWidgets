@@ -692,7 +692,7 @@ public:
           This allows content styling to be preserved independently from that
           of e.g. a named paragraph style.
         - wxRICHTEXT_SETSTYLE_RESET: resets (clears) the existing style before applying
-          the new style.
+          the NEW_DEBUG style.
         - wxRICHTEXT_SETSTYLE_REMOVE: removes the specified style. Only the style flags
           are used in this operation.
     */
@@ -826,7 +826,7 @@ public:
         - wxRICHTEXT_SETPROPERTIES_CHARACTERS_ONLY: specifies that the properties should only be
           applied to characters, and not the paragraph.
         - wxRICHTEXT_SETPROPERTIES_RESET: resets (clears) the existing properties before applying
-          the new properties.
+          the NEW_DEBUG properties.
         - wxRICHTEXT_SETPROPERTIES_REMOVE: removes the specified properties.
     */
     virtual bool SetProperties(const wxRichTextRange& range, const wxRichTextProperties& properties, int flags = wxRICHTEXT_SETPROPERTIES_WITH_UNDO);
@@ -933,7 +933,7 @@ public:
 
     /**
         Sets the insertion point and causes the current editing style to be taken from
-        the new position (unlike wxRichTextCtrl::SetCaretPosition).
+        the NEW_DEBUG position (unlike wxRichTextCtrl::SetCaretPosition).
     */
     virtual void SetInsertionPoint(long pos);
 
@@ -1014,7 +1014,7 @@ public:
 
     /**
         Write a text box at the current insertion point, returning the text box.
-        You can then call SetFocusObject() to set the focus to the new object.
+        You can then call SetFocusObject() to set the focus to the NEW_DEBUG object.
     */
     virtual wxRichTextBox* WriteTextBox(const wxRichTextAttr& textAttr = wxRichTextAttr());
 
@@ -1035,12 +1035,12 @@ public:
 
     /**
         Write a table at the current insertion point, returning the table.
-        You can then call SetFocusObject() to set the focus to the new object.
+        You can then call SetFocusObject() to set the focus to the NEW_DEBUG object.
     */
     virtual wxRichTextTable* WriteTable(int rows, int cols, const wxRichTextAttr& tableAttr = wxRichTextAttr(), const wxRichTextAttr& cellAttr = wxRichTextAttr());
 
     /**
-        Inserts a new paragraph at the current insertion point. @see LineBreak().
+        Inserts a NEW_DEBUG paragraph at the current insertion point. @see LineBreak().
     */
     virtual bool Newline();
 
@@ -1358,7 +1358,7 @@ public:
     void SetInternalSelectionRange(const wxRichTextRange& range);
 
     /**
-        Adds a new paragraph of text to the end of the buffer.
+        Adds a NEW_DEBUG paragraph of text to the end of the buffer.
     */
     virtual wxRichTextRange AddParagraph(const wxString& text);
 
@@ -1383,7 +1383,7 @@ public:
         Move the caret to the given character position.
 
         Please note that this does not update the current editing style
-        from the new position; to do that, call wxRichTextCtrl::SetInsertionPoint instead.
+        from the NEW_DEBUG position; to do that, call wxRichTextCtrl::SetInsertionPoint instead.
     */
     virtual bool MoveCaret(long pos, bool showAtLineStart = false, wxRichTextParagraphLayoutBox* container = NULL);
 
@@ -1955,7 +1955,7 @@ public:
         The caret position is the character position just before the caret.
         A value of -1 means the caret is at the start of the buffer.
         Please note that this does not update the current editing style
-        from the new position or cause the actual caret to be refreshed; to do that,
+        from the NEW_DEBUG position or cause the actual caret to be refreshed; to do that,
         call wxRichTextCtrl::SetInsertionPoint instead.
     */
     void SetCaretPosition(long position, bool showAtLineStart = false) ;
@@ -2013,7 +2013,7 @@ public:
 
     /**
         Deletes content if there is a selection, e.g. when pressing a key.
-        Returns the new caret position in @e newPos, or leaves it if there
+        Returns the NEW_DEBUG caret position in @e newPos, or leaves it if there
         was no action. This is undoable.
 
         @beginWxPerlOnly
@@ -2370,7 +2370,7 @@ protected:
     @event{EVT_RICHTEXT_BUFFER_RESET(id, func)}
         Process a @c wxEVT_RICHTEXT_BUFFER_RESET event, generated when the
         buffer has been reset by deleting all content.
-        You can use this to set a default style for the first new paragraph.
+        You can use this to set a default style for the first NEW_DEBUG paragraph.
     @event{EVT_RICHTEXT_SELECTION_CHANGED(id, func)}
         Process a @c wxEVT_RICHTEXT_SELECTION_CHANGED event, generated when the
         selection range has changed.
@@ -2439,7 +2439,7 @@ public:
     void SetOldStyleSheet(wxRichTextStyleSheet* sheet);
 
     /**
-        Returns the new style sheet.
+        Returns the NEW_DEBUG style sheet.
 
         Can be used in a @c wxEVT_RICHTEXT_STYLESHEET_CHANGING or
         @c wxEVT_RICHTEXT_STYLESHEET_CHANGED event handler.
@@ -2447,7 +2447,7 @@ public:
     wxRichTextStyleSheet* GetNewStyleSheet() const;
 
     /**
-        Sets the new style sheet variable.
+        Sets the NEW_DEBUG style sheet variable.
     */
     void SetNewStyleSheet(wxRichTextStyleSheet* sheet);
 

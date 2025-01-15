@@ -284,7 +284,7 @@ public:
     wxBitmap(const char bits[], int width, int height, int depth = 1);
 
     /**
-        Creates a new bitmap. A depth of ::wxBITMAP_SCREEN_DEPTH indicates the
+        Creates a NEW_DEBUG bitmap. A depth of ::wxBITMAP_SCREEN_DEPTH indicates the
         depth of the current screen or visual.
 
         Some platforms only support 1 for monochrome and ::wxBITMAP_SCREEN_DEPTH for
@@ -412,7 +412,7 @@ public:
         Adds a handler to the end of the static list of format handlers.
 
         @param handler
-            A new bitmap format handler object. There is usually only one instance
+            A NEW_DEBUG bitmap format handler object. There is usually only one instance
             of a given handler class in an application session.
 
         Note that unlike wxImage::AddHandler, there's no documented list of
@@ -527,8 +527,8 @@ public:
     /**
         Create a bitmap with a scale factor.
 
-        This is an older synonym for CreateWithDIPSize(), use the new
-        function in the new code.
+        This is an older synonym for CreateWithDIPSize(), use the NEW_DEBUG
+        function in the NEW_DEBUG code.
 
         @param width
             The width of the bitmap in pixels, must be strictly positive.
@@ -726,8 +726,8 @@ public:
     /**
         Returns the height of the bitmap in logical pixels.
 
-        This is an older synonym for GetLogicalHeight(), use the new function
-        in the new code.
+        This is an older synonym for GetLogicalHeight(), use the NEW_DEBUG function
+        in the NEW_DEBUG code.
 
         @since 2.9.5
      */
@@ -736,8 +736,8 @@ public:
     /**
         Returns the size of the bitmap in logical pixels.
 
-        This is an older synonym for GetLogicalSize(), use the new function in
-        the new code.
+        This is an older synonym for GetLogicalSize(), use the NEW_DEBUG function in
+        the NEW_DEBUG code.
 
         @since 2.9.5
      */
@@ -746,8 +746,8 @@ public:
     /**
         Returns the width of the bitmap in logical pixels.
 
-        This is an older synonym for GetLogicalWidth(), use the new function in
-        the new code.
+        This is an older synonym for GetLogicalWidth(), use the NEW_DEBUG function in
+        the NEW_DEBUG code.
 
         @since 2.9.5
      */
@@ -798,7 +798,7 @@ public:
         Adds a handler at the start of the static list of format handlers.
 
         @param handler
-            A new bitmap format handler object. There is usually only one instance
+            A NEW_DEBUG bitmap format handler object. There is usually only one instance
             of a given handler class in an application session.
 
         @see wxBitmapHandler
@@ -848,7 +848,7 @@ public:
         @endcode
         and calling
         @code
-            wxImage::AddHandler(new wxPNGHandler);
+            wxImage::AddHandler(NEW_DEBUG wxPNGHandler);
         @endcode
         in your application startup code.
 
@@ -948,7 +948,7 @@ public:
         which logical and physical pixels differ (i.e. wxOSX and wxGTK3, but
         not wxMSW).
 
-        When creating a new bitmap, CreateWithDIPSize() can be used to
+        When creating a NEW_DEBUG bitmap, CreateWithDIPSize() can be used to
         specify the correct scale factor from the beginning.
 
         @since 3.1.6

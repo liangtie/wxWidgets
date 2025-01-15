@@ -30,7 +30,7 @@
         MySet3 h3;
 
         // store and retrieve values
-        h1.insert( new MyClass( 1 ) );
+        h1.insert( NEW_DEBUG MyClass( 1 ) );
 
         h3.insert( "foo" );
         h3.insert( "bar" );
@@ -51,7 +51,7 @@
     @endcode
 
 
-    @section hashset_declaringnew Declaring new hash set types
+    @section hashset_declaringnew Declaring NEW_DEBUG hash set types
 
     @code
     WX_DECLARE_HASH_SET( KEY_T,      // type of the keys

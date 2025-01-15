@@ -637,7 +637,7 @@ public:
         canveto_flag = true;
         dc = NULL;
     }
-    wxEvent *Clone() const wxOVERRIDE { return new wxAuiManagerEvent(*this); }
+    wxEvent *Clone() const wxOVERRIDE { return NEW_DEBUG wxAuiManagerEvent(*this); }
 
     void SetManager(wxAuiManager* mgr) { manager = mgr; }
     void SetPane(wxAuiPaneInfo* p) { pane = p; }

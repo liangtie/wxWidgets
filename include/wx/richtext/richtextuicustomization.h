@@ -19,7 +19,7 @@
     @class wxRichTextUICustomization
     The base class for functionality to plug in to various rich text control dialogs,
     currently allowing the application to respond to Help button clicks without the
-    need to derive new dialog classes.
+    need to derive NEW_DEBUG dialog classes.
 
     The application will typically have calls like this in its initialisation:
 

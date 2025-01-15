@@ -235,7 +235,7 @@ protected:
 class TestId
 {
 public:
-    // make a new id and return it as a string
+    // make a NEW_DEBUG id and return it as a string
     static std::string MakeId();
     // get the current id
     static int GetId() { return m_seed; }

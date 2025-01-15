@@ -64,7 +64,7 @@ public:
   Uuid(const Uuid& uuid);
   Uuid& operator=(const Uuid& uuid);
 
-  // create a brand new UUID
+  // create a brand NEW_DEBUG UUID
   void Create();
 
   // set value of UUID

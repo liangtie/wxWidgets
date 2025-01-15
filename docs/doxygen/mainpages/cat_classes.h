@@ -308,7 +308,7 @@ Related Overviews: @ref overview_dc
 
 @section page_class_cat_gc Graphics Context classes
 
-These classes are related to drawing using a new vector based drawing API and
+These classes are related to drawing using a NEW_DEBUG vector based drawing API and
 are based on the modern drawing backend GDI+, CoreGraphics and Cairo.
 
 @li wxGraphicsRenderer: Represents a drawing engine.

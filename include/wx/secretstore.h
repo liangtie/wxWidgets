@@ -19,7 +19,7 @@
 // Initial version of wxSecretStore required passing user name to Load(), which
 // didn't make much sense without support for multiple usernames per service,
 // so the API was changed to load the username too. Test for this symbol to
-// distinguish between the old and the new API, it wasn't defined before the
+// distinguish between the old and the NEW_DEBUG API, it wasn't defined before the
 // API change.
 #define wxHAS_SECRETSTORE_LOAD_USERNAME
 
@@ -89,7 +89,7 @@ public:
 
 private:
     // This method is implemented in platform-specific code and must return a
-    // new heap-allocated object initialized with the given data.
+    // NEW_DEBUG heap-allocated object initialized with the given data.
     static wxSecretValueImpl*
     NewImpl(size_t size, const void *data, const char* contentType);
 
@@ -141,7 +141,7 @@ public:
     // The service name should be user readable and unique.
     //
     // If a secret with the same service name already exists, it will be
-    // overwritten with the new value.
+    // overwritten with the NEW_DEBUG value.
     //
     // Returns false after logging an error message if an error occurs,
     // otherwise returns true indicating that the secret has been stored.

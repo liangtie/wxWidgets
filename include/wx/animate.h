@@ -88,7 +88,7 @@ private:
 #define wxAC_NO_AUTORESIZE       (0x0010)
 
 // default style does not include wxAC_NO_AUTORESIZE, that is, the control
-// auto-resizes by default to fit the new animation when SetAnimation() is called
+// auto-resizes by default to fit the NEW_DEBUG animation when SetAnimation() is called
 #define wxAC_DEFAULT_STYLE       (wxBORDER_NONE)
 
 class WXDLLIMPEXP_CORE wxAnimationCtrlBase : public wxControl

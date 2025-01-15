@@ -105,7 +105,7 @@ public:
     };
     ...
     wxTextCtrl *text = ...;
-    text->AutoComplete(new MyTextCompleter);
+    text->AutoComplete(NEW_DEBUG MyTextCompleter);
     @endcode
 
     @library{wxcore}

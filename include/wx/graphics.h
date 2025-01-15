@@ -108,7 +108,7 @@ class WXDLLIMPEXP_FWD_CORE wxGraphicsBitmap;
  * in direction of positive y axis.
  */
 
-// Base class of all objects used for drawing in the new graphics API, the always point back to their
+// Base class of all objects used for drawing in the NEW_DEBUG graphics API, the always point back to their
 // originating rendering engine, there is no dynamic unloading of a renderer currently allowed,
 // these references are not counted
 
@@ -483,7 +483,7 @@ public:
     // These are the path primitives from which everything else can be constructed
     //
 
-    // begins a new subpath at (x,y)
+    // begins a NEW_DEBUG subpath at (x,y)
     virtual void MoveToPoint( wxDouble x, wxDouble y );
     void MoveToPoint( const wxPoint2DDouble& p);
 
@@ -517,10 +517,10 @@ public:
     // adds a quadratic Bezier curve from the current point, using a control point and an end point
     virtual void AddQuadCurveToPoint( wxDouble cx, wxDouble cy, wxDouble x, wxDouble y );
 
-    // appends a rectangle as a new closed subpath
+    // appends a rectangle as a NEW_DEBUG closed subpath
     virtual void AddRectangle( wxDouble x, wxDouble y, wxDouble w, wxDouble h );
 
-    // appends an ellipsis as a new closed subpath fitting the passed rectangle
+    // appends an ellipsis as a NEW_DEBUG closed subpath fitting the passed rectangle
     virtual void AddCircle( wxDouble x, wxDouble y, wxDouble r );
 
     // appends a an arc to two tangents connecting (current) to (x1,y1) and (x1,y1) to (x2,y2), also a straight line from (current) to (x1,y1)
@@ -604,13 +604,13 @@ public:
     // Return the window this context is associated with, if any.
     wxWindow* GetWindow() const { return m_window; }
 
-    // begin a new document (relevant only for printing / pdf etc) if there is a progress dialog, message will be shown
+    // begin a NEW_DEBUG document (relevant only for printing / pdf etc) if there is a progress dialog, message will be shown
     virtual bool StartDoc( const wxString& message );
 
     // done with that document (relevant only for printing / pdf etc)
     virtual void EndDoc();
 
-    // opens a new page  (relevant only for printing / pdf etc) with the given size in points
+    // opens a NEW_DEBUG page  (relevant only for printing / pdf etc) with the given size in points
     // (if both are null the default page size will be used)
     virtual void StartPage( wxDouble width = 0, wxDouble height = 0 );
 

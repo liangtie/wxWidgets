@@ -289,7 +289,7 @@ public:
 
     void SetDataBuffer(const wxMemoryBuffer& dataBuf) { m_dataBuf = dataBuf; }
 
-    wxEvent* Clone() const wxOVERRIDE { return new wxWebRequestEvent(*this); }
+    wxEvent* Clone() const wxOVERRIDE { return NEW_DEBUG wxWebRequestEvent(*this); }
 
 private:
     wxWebRequest::State m_state;

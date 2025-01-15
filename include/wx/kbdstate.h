@@ -107,7 +107,7 @@ public:
 
     // for backwards compatibility with the existing code accessing these
     // members of wxKeyEvent directly, these variables are public, however you
-    // should not use them in any new code, please use the accessors instead
+    // should not use them in any NEW_DEBUG code, please use the accessors instead
 public:
     bool m_controlDown     : 1;
     bool m_shiftDown       : 1;

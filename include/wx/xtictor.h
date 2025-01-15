@@ -31,7 +31,7 @@ public:
     virtual bool Create(wxObject * &o, wxAny *args) = 0;
 };
 
-// a direct constructor bridge calls the operator new for this class and
+// a direct constructor bridge calls the operator NEW_DEBUG for this class and
 // passes all params to the constructor. Needed for classes that cannot be
 // instantiated using alloc-create semantics
 class WXDLLIMPEXP_BASE wxObjectAllocator : public wxObjectAllocatorAndCreator
@@ -84,7 +84,7 @@ struct wxDirectConstructorBridge_0 : public wxObjectAllocator
 {
     bool Create(wxObject * &o, wxAny *args)
     {
-        o = new Class( );
+        o = NEW_DEBUG Class( );
         return o != NULL;
     }
 };
@@ -123,7 +123,7 @@ struct wxDirectConstructorBridge_1 : public wxObjectAllocator
 {
     bool Create(wxObject * &o, wxAny *args)
     {
-        o = new Class(
+        o = NEW_DEBUG Class(
             (args[0]).As(static_cast<T0*>(NULL))
             );
         return o != NULL;
@@ -167,7 +167,7 @@ struct wxDirectConstructorBridge_2 : public wxObjectAllocator
 {
     bool Create(wxObject * &o, wxAny *args)
     {
-        o = new Class(
+        o = NEW_DEBUG Class(
             (args[0]).As(static_cast<T0*>(NULL)),
             (args[1]).As(static_cast<T1*>(NULL))
             );
@@ -213,7 +213,7 @@ struct wxDirectConstructorBridge_3 : public wxObjectAllocator
 {
     bool Create(wxObject * &o, wxAny *args)
     {
-        o = new Class(
+        o = NEW_DEBUG Class(
             (args[0]).As(static_cast<T0*>(NULL)),
             (args[1]).As(static_cast<T1*>(NULL)),
             (args[2]).As(static_cast<T2*>(NULL))
@@ -262,7 +262,7 @@ struct wxDirectConstructorBridge_4 : public wxObjectAllocator
 {
     bool Create(wxObject * &o, wxAny *args)
     {
-        o = new Class(
+        o = NEW_DEBUG Class(
             (args[0]).As(static_cast<T0*>(NULL)),
             (args[1]).As(static_cast<T1*>(NULL)),
             (args[2]).As(static_cast<T2*>(NULL)),
@@ -314,7 +314,7 @@ struct wxDirectConstructorBridge_5 : public wxObjectAllocator
 {
     bool Create(wxObject * &o, wxAny *args)
     {
-        o = new Class(
+        o = NEW_DEBUG Class(
             (args[0]).As(static_cast<T0*>(NULL)),
             (args[1]).As(static_cast<T1*>(NULL)),
             (args[2]).As(static_cast<T2*>(NULL)),
@@ -368,7 +368,7 @@ struct wxDirectConstructorBridge_6 : public wxObjectAllocator
 {
     bool Create(wxObject * &o, wxAny *args)
     {
-        o = new Class(
+        o = NEW_DEBUG Class(
             (args[0]).As(static_cast<T0*>(NULL)),
             (args[1]).As(static_cast<T1*>(NULL)),
             (args[2]).As(static_cast<T2*>(NULL)),
@@ -424,7 +424,7 @@ struct wxDirectConstructorBridge_7 : public wxObjectAllocator
 {
     bool Create(wxObject * &o, wxAny *args)
     {
-        o = new Class(
+        o = NEW_DEBUG Class(
             (args[0]).As(static_cast<T0*>(NULL)),
             (args[1]).As(static_cast<T1*>(NULL)),
             (args[2]).As(static_cast<T2*>(NULL)),
@@ -484,7 +484,7 @@ struct wxDirectConstructorBridge_8 : public wxObjectAllocator
 {
     bool Create(wxObject * &o, wxAny *args)
     {
-        o = new Class(
+        o = NEW_DEBUG Class(
             (args[0]).As(static_cast<T0*>(NULL)),
             (args[1]).As(static_cast<T1*>(NULL)),
             (args[2]).As(static_cast<T2*>(NULL)),

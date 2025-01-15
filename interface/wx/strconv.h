@@ -13,7 +13,7 @@
     Unicode.
 
     This is an abstract base class which defines the operations implemented by
-    all different conversion classes. The derived classes don't add any new
+    all different conversion classes. The derived classes don't add any NEW_DEBUG
     operations of their own (except, possibly, some non-default constructors)
     and so you should simply use this class ToWChar() and FromWChar() (or
     cMB2WC() and cWC2MB()) methods with the objects of the derived class.
@@ -41,7 +41,7 @@ public:
 
     /**
         This pure virtual function is overridden in each of the derived classes
-        to return a new copy of the object it is called on.
+        to return a NEW_DEBUG copy of the object it is called on.
 
         It is used for copying the conversion objects while preserving their
         dynamic type.
@@ -131,7 +131,7 @@ public:
         size_t dstLen = conv.ToWChar(NULL, 0, src);
         if ( dstLen == wxCONV_FAILED )
             ... handle error ...
-        wchar_t *dst = new wchar_t[dstLen];
+        wchar_t *dst = NEW_DEBUG wchar_t[dstLen];
         if ( conv.ToWChar(dst, dstLen, src) == wxCONV_FAILED )
             ... handle error ...
         @endcode
@@ -331,7 +331,7 @@ public:
                 ... handle error ...
             // allocate 1 more character for the trailing NUL and also pass
             // the size of the buffer to the function now
-            wchar_t *out = new wchar_t[lenConv + 1];
+            wchar_t *out = NEW_DEBUG wchar_t[lenConv + 1];
             if ( conv.MB2WC(out, in, lenConv + 1) == wxCONV_FAILED )
                 ... handle error ...
         @endcode

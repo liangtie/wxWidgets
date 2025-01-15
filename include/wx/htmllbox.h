@@ -160,7 +160,7 @@ private:
 
     // Converts physical coordinates stored in @a pos into coordinates
     // relative to the root cell of the item under mouse cursor, if any. If no
-    // cell is found under the cursor, returns false.  Otherwise stores the new
+    // cell is found under the cursor, returns false.  Otherwise stores the NEW_DEBUG
     // coordinates back into @a pos and pointer to the cell under cursor into
     // @a cell and returns true.
     bool PhysicalCoordsToCell(wxPoint& pos, wxHtmlCell*& cell) const;

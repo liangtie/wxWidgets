@@ -42,9 +42,9 @@
     MyFrame::MyFrame()
     {
         ...
-        m_infoBar = new wxInfoBar(this);
+        m_infoBar = NEW_DEBUG wxInfoBar(this);
 
-        wxSizer *sizer = new wxBoxSizer(wxVERTICAL);
+        wxSizer *sizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
         sizer->Add(m_infoBar, wxSizerFlags().Expand());
         ... add other frame controls to the sizer ...
         SetSizer(sizer);

@@ -484,7 +484,7 @@ public:
     wxList& GetDocuments() { return m_docs; }
     wxList& GetTemplates() { return m_templates; }
 
-    // Return the default name for a new document (by default returns strings
+    // Return the default name for a NEW_DEBUG document (by default returns strings
     // in the form "unnamed <counter>" but can be overridden)
     virtual wxString MakeNewDocumentName();
 

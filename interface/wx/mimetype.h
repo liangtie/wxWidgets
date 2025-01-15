@@ -99,7 +99,7 @@ public:
 
 
     /**
-       Create a new association using the fields of wxFileTypeInfo (at least
+       Create a NEW_DEBUG association using the fields of wxFileTypeInfo (at least
        the MIME type and the extension should be set).
     */
     wxFileType *Associate(const wxFileTypeInfo& ftInfo);

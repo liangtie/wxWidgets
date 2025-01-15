@@ -213,7 +213,7 @@ public:
     void SetFont(const wxFont &c) { m_font = c; }
 
     // default copy ctor, assignment operator and dtor are ok
-    virtual wxEvent *Clone() const wxOVERRIDE { return new wxFontPickerEvent(*this); }
+    virtual wxEvent *Clone() const wxOVERRIDE { return NEW_DEBUG wxFontPickerEvent(*this); }
 
 private:
     wxFont m_font;

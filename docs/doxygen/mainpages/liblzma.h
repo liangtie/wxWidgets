@@ -119,7 +119,7 @@ When building wxWidgets with MSVC project files, you must update them to use
 liblzma. For this, start by copying build\\msw\\wx_setup.props file to
 build\\msw\\wx_local.props, if you don't have the latter file yet. Then open
 this file in your favourite editor and locate the @c Link tag inside an @c
-ItemDefinitionGroup tag and add a new @c AdditionalIncludeDirectories line
+ItemDefinitionGroup tag and add a NEW_DEBUG @c AdditionalIncludeDirectories line
 inside the @c ClCompile tag as well as add @c liblzma.lib to the @c
 AdditionalDependencies tag under @c Link itself. The result should look like
 the following, assuming liblzma sources are in c:\\src\\liblzma:

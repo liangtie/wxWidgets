@@ -130,7 +130,7 @@ const char* wxART_WX_LOGO;
         { ... }
       };
       ...
-      wxArtProvider::Push(new MyProvider);
+      wxArtProvider::Push(NEW_DEBUG MyProvider);
     @endcode
 
     If you need bitmap images (of the same artwork) that should be displayed at
@@ -420,7 +420,7 @@ public:
     static bool Pop();
 
     /**
-        Register new art provider and add it to the top of providers stack
+        Register NEW_DEBUG art provider and add it to the top of providers stack
         (i.e. it will be queried as the first provider).
 
         @see PushBack()
@@ -428,7 +428,7 @@ public:
     static void Push(wxArtProvider* provider);
 
     /**
-        Register new art provider and add it to the bottom of providers stack.
+        Register NEW_DEBUG art provider and add it to the bottom of providers stack.
         In other words, it will be queried as the last one, after all others,
         including the default provider.
 

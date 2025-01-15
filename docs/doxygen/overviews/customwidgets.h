@@ -19,13 +19,13 @@ easier and faster.
 However there are situations where you need to show some particular kind of
 data which is not suited to any existing control. In these cases rather than
 hacking an existing control for something it has not been conceived for, it's
-better to write a new widget.
+better to write a NEW_DEBUG widget.
 
 
 
 @section overview_customwidgets_how Writing a Custom Widget
 
-There are at least two very different ways to implement a new widget.
+There are at least two very different ways to implement a NEW_DEBUG widget.
 
 The first is to build it upon wxWidgets existing classes, thus deriving it from
 wxControl or wxWindow. In this way you'll get a @b generic widget. This method

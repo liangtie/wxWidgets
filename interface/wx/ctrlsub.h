@@ -217,7 +217,7 @@ public:
         @param item
             String to add.
         @param clientData
-            Pointer to client data to associate with the new item.
+            Pointer to client data to associate with the NEW_DEBUG item.
 
         @return The return value is the index of the newly inserted item.
                 Note that this may be different from the last one if the
@@ -232,7 +232,7 @@ public:
         @param item
             String to add.
         @param clientData
-            Pointer to client data to associate with the new item.
+            Pointer to client data to associate with the NEW_DEBUG item.
 
         @return The return value is the index of the newly inserted item.
                 Note that this may be different from the last one if the
@@ -272,7 +272,7 @@ public:
             Array of strings to insert.
         @param clientData
             Array of client data pointers of the same size as @a items to
-            associate with the new items.
+            associate with the NEW_DEBUG items.
     */
     int Append(const wxArrayString& items, void **clientData);
 
@@ -286,7 +286,7 @@ public:
             Array of strings to insert.
         @param clientData
             Array of client data pointers of the same size as @a items to
-            associate with the new items.
+            associate with the NEW_DEBUG items.
     */
     int Append(const wxArrayString& items, wxClientData **clientData);
 
@@ -315,7 +315,7 @@ public:
             Array of strings of size @a n.
         @param clientData
             Array of client data pointers of size @a n to associate with the
-            new items.
+            NEW_DEBUG items.
     */
     int Append(unsigned int n, const wxString* items,
                void** clientData);
@@ -332,7 +332,7 @@ public:
             Array of strings of size @a n.
         @param clientData
             Array of client data pointers of size @a n to associate with the
-            new items.
+            NEW_DEBUG items.
     */
     int Append(unsigned int n, const wxString* items,
                 wxClientData** clientData);
@@ -497,7 +497,7 @@ public:
         @param pos
             Position to insert item before, zero based.
         @param clientData
-            Pointer to client data to associate with the new item.
+            Pointer to client data to associate with the NEW_DEBUG item.
 
         @return The return value is the index of the newly inserted item.
                 If the insertion failed for some reason, -1 is returned.
@@ -512,7 +512,7 @@ public:
         @param pos
             Position to insert item before, zero based.
         @param clientData
-            Pointer to client data to associate with the new item.
+            Pointer to client data to associate with the NEW_DEBUG item.
 
         @return The return value is the index of the newly inserted item.
                 If the insertion failed for some reason, -1 is returned.
@@ -557,7 +557,7 @@ public:
             Position to insert the items before, zero based.
         @param clientData
             Array of client data pointers of the same size as @a items to
-            associate with the new items.
+            associate with the NEW_DEBUG items.
         @return The return value is the index of the last inserted item.
                 If the insertion failed for some reason, -1 is returned.
     */
@@ -576,7 +576,7 @@ public:
             Position to insert the items before, zero based.
         @param clientData
             Array of client data pointers of the same size as @a items to
-            associate with the new items.
+            associate with the NEW_DEBUG items.
         @return The return value is the index of the last inserted item.
                 If the insertion failed for some reason, -1 is returned.
     */
@@ -612,10 +612,10 @@ public:
         @param items
             Array of strings of size @a n.
         @param pos
-            Position to insert the new items before, zero based.
+            Position to insert the NEW_DEBUG items before, zero based.
         @param clientData
             Array of client data pointers of size @a n to associate with the
-            new items.
+            NEW_DEBUG items.
         @return The return value is the index of the last inserted item.
                 If the insertion failed for some reason, -1 is returned.
     */
@@ -634,10 +634,10 @@ public:
         @param items
             Array of strings of size @a n.
         @param pos
-            Position to insert the new items before, zero based.
+            Position to insert the NEW_DEBUG items before, zero based.
         @param clientData
             Array of client data pointers of size @a n to associate with the
-            new items.
+            NEW_DEBUG items.
         @return The return value is the index of the last inserted item.
                 If the insertion failed for some reason, -1 is returned.
     */
@@ -678,7 +678,7 @@ public:
             Array of strings to insert.
         @param clientData
             Array of client data pointers of the same size as @a items to
-            associate with the new items.
+            associate with the NEW_DEBUG items.
     */
     void Set(const wxArrayString& items, void **clientData);
 
@@ -692,7 +692,7 @@ public:
             Array of strings to insert.
         @param clientData
             Array of client data pointers of the same size as @a items to
-            associate with the new items.
+            associate with the NEW_DEBUG items.
     */
     void Set(const wxArrayString& items, wxClientData **clientData);
 
@@ -721,7 +721,7 @@ public:
             Array of strings of size @a n.
         @param clientData
             Array of client data pointers of size @a n to associate with the
-            new items.
+            NEW_DEBUG items.
     */
     void Set(unsigned int n, const wxString* items, void** clientData);
 
@@ -737,7 +737,7 @@ public:
             Array of strings of size @a n.
         @param clientData
             Array of client data pointers of size @a n to associate with the
-            new items.
+            NEW_DEBUG items.
     */
     void Set(unsigned int n, const wxString* items, wxClientData** clientData);
     ///@}

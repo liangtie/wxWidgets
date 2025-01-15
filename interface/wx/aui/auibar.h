@@ -621,7 +621,7 @@ public:
     @style{wxAUI_TB_NO_TOOLTIPS}
         Do not show tooltips for the toolbar items.
     @style{wxAUI_TB_NO_AUTORESIZE}
-        Do not automatically resize the toolbar when new tools are added.
+        Do not automatically resize the toolbar when NEW_DEBUG tools are added.
     @style{wxAUI_TB_GRIPPER}
         Show the toolbar's gripper control. If the toolbar is added to
         an AUI pane that contains a gripper, this style will be automatically

@@ -226,7 +226,7 @@ public:
         }
         else
         {
-            m_gi = new GeometryInfo;
+            m_gi = NEW_DEBUG GeometryInfo;
         }
     }
 

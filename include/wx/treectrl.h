@@ -252,7 +252,7 @@ public:
                                  int image = -1, int selImage = -1,
                                  wxTreeItemData *data = nullptr) = 0;
 
-        // insert a new item in as the first child of the parent
+        // insert a NEW_DEBUG item in as the first child of the parent
     wxTreeItemId PrependItem(const wxTreeItemId& parent,
                              const wxString& text,
                              int image = -1, int selImage = -1,
@@ -261,7 +261,7 @@ public:
         return DoInsertItem(parent, 0u, text, image, selImage, data);
     }
 
-        // insert a new item after a given one
+        // insert a NEW_DEBUG item after a given one
     wxTreeItemId InsertItem(const wxTreeItemId& parent,
                             const wxTreeItemId& idPrevious,
                             const wxString& text,
@@ -271,7 +271,7 @@ public:
         return DoInsertAfter(parent, idPrevious, text, image, selImage, data);
     }
 
-        // insert a new item before the one with the given index
+        // insert a NEW_DEBUG item before the one with the given index
     wxTreeItemId InsertItem(const wxTreeItemId& parent,
                             size_t pos,
                             const wxString& text,
@@ -281,7 +281,7 @@ public:
         return DoInsertItem(parent, pos, text, image, selImage, data);
     }
 
-        // insert a new item in as the last child of the parent
+        // insert a NEW_DEBUG item in as the last child of the parent
     wxTreeItemId AppendItem(const wxTreeItemId& parent,
                             const wxString& text,
                             int image = -1, int selImage = -1,

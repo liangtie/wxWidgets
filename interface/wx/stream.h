@@ -119,7 +119,7 @@ protected:
         @param mode
             One of the ::wxSeekMode enumeration values.
 
-        @return The new stream position or ::wxInvalidOffset on error.
+        @return The NEW_DEBUG stream position or ::wxInvalidOffset on error.
     */
     virtual wxFileOffset OnSysSeek(wxFileOffset pos, wxSeekMode mode);
 
@@ -158,7 +158,7 @@ public:
     };
 
     /**
-        Constructor, creates a new stream buffer using @a stream as a parent stream
+        Constructor, creates a NEW_DEBUG stream buffer using @a stream as a parent stream
         and mode as the IO mode.
 
         @param stream
@@ -214,7 +214,7 @@ public:
     wxStreamBuffer(size_t bufsize, wxOutputStream& stream);
 
     /**
-        Constructor; creates a new empty stream buffer which won't flush any data
+        Constructor; creates a NEW_DEBUG empty stream buffer which won't flush any data
         to a stream. mode specifies the type of the buffer (read, write, read_write).
 
         This stream buffer has the advantage to be stream independent and to work
@@ -234,7 +234,7 @@ public:
         Copy constructor.
 
         This method initializes the stream buffer with the data of the specified
-        stream buffer. The new stream buffer has the same attributes, size, position
+        stream buffer. The NEW_DEBUG stream buffer has the same attributes, size, position
         and they share the same buffer. This will cause problems if the stream to
         which the stream buffer belong is destroyed and the newly cloned stream
         buffer continues to be used, trying to call functions in the (destroyed)
@@ -364,7 +364,7 @@ public:
         - @b wxFromCurrent: The position is counted from the current position of the stream.
         - @b wxFromEnd: The position is counted from the end of the stream.
 
-        @return Upon successful completion, it returns the new offset as
+        @return Upon successful completion, it returns the NEW_DEBUG offset as
                 measured in bytes from the beginning of the stream.
                 Otherwise, it returns ::wxInvalidOffset.
     */
@@ -388,7 +388,7 @@ public:
     void SetBufferIO(void* start, void* end, bool takeOwnership = false);
 
     /**
-        Destroys or invalidates the previous IO buffer and allocates a new one of the
+        Destroys or invalidates the previous IO buffer and allocates a NEW_DEBUG one of the
         specified size.
 
         @warning
@@ -507,7 +507,7 @@ public:
         @param mode
             One of wxFromStart, wxFromEnd, wxFromCurrent.
 
-        @return The new stream position or ::wxInvalidOffset on error.
+        @return The NEW_DEBUG stream position or ::wxInvalidOffset on error.
     */
     virtual wxFileOffset SeekO(wxFileOffset pos, wxSeekMode mode = wxFromStart);
 
@@ -672,7 +672,7 @@ public:
         @param mode
             One of wxFromStart, wxFromEnd, wxFromCurrent.
 
-        @return The new stream position or ::wxInvalidOffset on error.
+        @return The NEW_DEBUG stream position or ::wxInvalidOffset on error.
     */
     virtual wxFileOffset SeekI(wxFileOffset pos, wxSeekMode mode = wxFromStart);
 
@@ -838,7 +838,7 @@ enum wxStreamProtocolType
     @code
         factory = wxFilterClassFactory::Find(filename, wxSTREAM_FILEEXT);
         if (factory)
-            stream = factory->NewStream(new wxFFileInputStream(filename));
+            stream = factory->NewStream(NEW_DEBUG wxFFileInputStream(filename));
     @endcode
 
     wxFilterClassFactory::Find can also search for a factory by MIME type,
@@ -924,9 +924,9 @@ public:
 
     ///@{
     /**
-        Create a new input or output stream to decompress or compress a given stream.
+        Create a NEW_DEBUG input or output stream to decompress or compress a given stream.
 
-        If the parent stream is passed as a pointer then the new filter stream
+        If the parent stream is passed as a pointer then the NEW_DEBUG filter stream
         takes ownership of it. If it is passed by reference then it does not.
     */
     virtual wxFilterInputStream*  NewStream(wxInputStream& stream) const = 0;
@@ -991,7 +991,7 @@ public:
     /**
         Initializes a "filter" stream.
 
-        If the parent stream is passed as a pointer then the new filter stream
+        If the parent stream is passed as a pointer then the NEW_DEBUG filter stream
         takes ownership of it. If it is passed by reference then it does not.
     */
     wxFilterOutputStream(wxOutputStream& stream);
@@ -1024,7 +1024,7 @@ public:
     /**
         Initializes a "filter" stream.
 
-        If the parent stream is passed as a pointer then the new filter stream
+        If the parent stream is passed as a pointer then the NEW_DEBUG filter stream
         takes ownership of it. If it is passed by reference then it does not.
     */
     wxFilterInputStream(wxInputStream& stream);
@@ -1122,7 +1122,7 @@ public:
     /**
         Initializes a wrapper stream.
 
-        If the parent stream is passed as a pointer then the new wrapper stream
+        If the parent stream is passed as a pointer then the NEW_DEBUG wrapper stream
         takes ownership of it. If it is passed by reference then it does not.
     */
     wxWrapperInputStream(wxInputStream& stream);

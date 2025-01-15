@@ -56,7 +56,7 @@ enum wxTipKind
     Using this class is very simple, to give a standard warning for a password
     text control if the password was entered correctly you could simply do:
     @code
-    wxTextCtrl* password = new wxTextCtrl(..., wxTE_PASSWORD);
+    wxTextCtrl* password = NEW_DEBUG wxTextCtrl(..., wxTE_PASSWORD);
     ...
     wxRichToolTip tip("Caps Lock is on",
                       "You might have made an error in your password\n"
@@ -96,7 +96,7 @@ public:
     /**
         Constructor must specify the tooltip title and main message.
 
-        The main message can contain embedded new lines. Both the title and
+        The main message can contain embedded NEW_DEBUG lines. Both the title and
         message must be non-empty.
 
         Additional attributes can be set later.
@@ -144,7 +144,7 @@ public:
         Notice that the tooltip will always be hidden if the user presses a key
         or clicks a mouse button.
 
-        Parameter @a millisecondsDelay is new since wxWidgets 2.9.5.
+        Parameter @a millisecondsDelay is NEW_DEBUG since wxWidgets 2.9.5.
      */
     void SetTimeout(unsigned millisecondsTimeout, unsigned millisecondsDelay = 0);
 
@@ -187,7 +187,7 @@ public:
         wxTextCtrl and @a rect is @NULL. This limitation may be removed in the
         future.
 
-        Parameter @a rect is new since wxWidgets 2.9.5.
+        Parameter @a rect is NEW_DEBUG since wxWidgets 2.9.5.
      */
     void ShowFor(wxWindow* win, const wxRect* rect = NULL);
 

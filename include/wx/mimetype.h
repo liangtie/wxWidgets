@@ -82,7 +82,7 @@ public:
     {
     }
 
-    // add a new verb with the command or replace the old value
+    // add a NEW_DEBUG verb with the command or replace the old value
     void AddOrReplaceVerb(const wxString& verb, const wxString& cmd);
     void Add(const wxString& s)
     {
@@ -457,7 +457,7 @@ public:
 
     // create or remove associations
 
-        // create a new association using the fields of wxFileTypeInfo (at least
+        // create a NEW_DEBUG association using the fields of wxFileTypeInfo (at least
         // the MIME type and the extension should be set)
         // if the other fields are empty, the existing values should be left alone
     wxFileType *Associate(const wxFileTypeInfo& ftInfo);

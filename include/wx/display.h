@@ -145,12 +145,12 @@ public:
     static void InvalidateCache();
 
 private:
-    // returns the factory used to implement our static methods and create new
+    // returns the factory used to implement our static methods and create NEW_DEBUG
     // displays
     static wxDisplayFactory& Factory();
 
     // creates the factory object, called by Factory() when it is called for
-    // the first time and should return a pointer allocated with new (the
+    // the first time and should return a pointer allocated with NEW_DEBUG (the
     // caller will delete it)
     //
     // this method must be implemented in platform-specific code if

@@ -169,7 +169,7 @@ enum
 
     Example of reordering columns:
     @code
-        wxListCtrl *list = new wxListCtrl(...);
+        wxListCtrl *list = NEW_DEBUG wxListCtrl(...);
         for ( int i = 0; i < 3; i++ )
             list->InsertColumn(i, wxString::Format("Column %d", i));
 
@@ -292,10 +292,10 @@ enum
            Processes a @c wxEVT_LIST_CACHE_HINT event type.
     @event{EVT_LIST_ITEM_CHECKED(id, func)}
            The item has been checked.
-           Processes a @c wxEVT_LIST_ITEM_CHECKED event type (new since wxWidgets 3.1.0).
+           Processes a @c wxEVT_LIST_ITEM_CHECKED event type (NEW_DEBUG since wxWidgets 3.1.0).
     @event{EVT_LIST_ITEM_UNCHECKED(id, func)}
            The item has been unchecked.
-           Processes a @c wxEVT_LIST_ITEM_UNCHECKED event type (new since wxWidgets 3.1.0).
+           Processes a @c wxEVT_LIST_ITEM_UNCHECKED event type (NEW_DEBUG since wxWidgets 3.1.0).
     @endEventTable
 
     @note Under wxMSW this control uses wxSystemThemedControl for an explorer
@@ -353,9 +353,9 @@ public:
     virtual ~wxListCtrl();
 
     /**
-        Adds a new column to the list control in report view mode.
+        Adds a NEW_DEBUG column to the list control in report view mode.
 
-        This is just a convenient wrapper for InsertColumn() which adds the new
+        This is just a convenient wrapper for InsertColumn() which adds the NEW_DEBUG
         column after all the existing ones without having to specify its
         position explicitly.
 
@@ -379,7 +379,7 @@ public:
         Sets the image list associated with the control and takes ownership of it.
 
         Not that it is recommended to use SetNormalImages() or SetSmallImages()
-        instead of this function in the new code.
+        instead of this function in the NEW_DEBUG code.
 
         After calling this function the control will, unlike when using
         SetImageList(), delete the list when destroyed. @a which must be one of
@@ -731,7 +731,7 @@ public:
             Item (zero-based) index.
         @param col
             Item column (zero-based) index. Column 0 is the default. This
-            parameter is new in wxWidgets 2.9.1.
+            parameter is NEW_DEBUG in wxWidgets 2.9.1.
     */
     wxString GetItemText(long item, int col = 0) const;
 
@@ -915,7 +915,7 @@ public:
     /**
         For report view mode (only), inserts a column.
 
-        Insert a new column in the list control in report view mode at the
+        Insert a NEW_DEBUG column in the list control in report view mode at the
         given position specifying its most common attributes.
 
         Notice that to set the image for the column you need to use
@@ -925,7 +925,7 @@ public:
         @param col
             The index where the column should be inserted. Valid indices are
             from 0 up to GetColumnCount() inclusive and the latter can be used
-            to append the new column after the last existing one.
+            to append the NEW_DEBUG column after the last existing one.
         @param heading
             The string specifying the column heading.
         @param format
@@ -947,7 +947,7 @@ public:
                       int width = wxLIST_AUTOSIZE);
 
     /**
-        Inserts an item, returning the index of the new item if successful, -1 otherwise.
+        Inserts an item, returning the index of the NEW_DEBUG item if successful, -1 otherwise.
 
         @param info
             wxListItem object
@@ -958,7 +958,7 @@ public:
         Insert a string item.
 
         @param index
-            Index of the new item, supplied by the application
+            Index of the NEW_DEBUG item, supplied by the application
         @param label
             String label
 
@@ -972,7 +972,7 @@ public:
         Insert an image item.
 
         @param index
-            Index of the new item, supplied by the application
+            Index of the NEW_DEBUG item, supplied by the application
         @param imageIndex
             Index into the image list associated with this control and view style
 
@@ -986,7 +986,7 @@ public:
         Insert an image/string item.
 
         @param index
-            Index of the new item, supplied by the application
+            Index of the NEW_DEBUG item, supplied by the application
         @param label
             String label
         @param imageIndex
@@ -1051,7 +1051,7 @@ public:
 
         @note If alternate row colouring is enabled, then call
         EnableAlternateRowColours() again after changing the background colour. This
-        will update the alternate row color to match the new background colour.
+        will update the alternate row color to match the NEW_DEBUG background colour.
     */
     virtual bool SetBackgroundColour(const wxColour& col);
 
@@ -1119,7 +1119,7 @@ public:
         Sets the image list associated with the control.
 
         Not that it is recommended to use SetNormalImages() or SetSmallImages()
-        instead of this function in the new code.
+        instead of this function in the NEW_DEBUG code.
 
         @a which must be one of @c wxIMAGE_LIST_NORMAL, @c wxIMAGE_LIST_SMALL,
         @c wxIMAGE_LIST_STATE (support for the last one is unimplemented).
@@ -1144,7 +1144,7 @@ public:
         SetSmallImages() are used.
 
         This function should be preferred to calling SetImageList() or
-        AssignImageList() with @c wxIMAGE_LIST_NORMAL argument in the new code,
+        AssignImageList() with @c wxIMAGE_LIST_NORMAL argument in the NEW_DEBUG code,
         as using wxBitmapBundle makes it possible to specify multiple versions
         of the icons, allowing the control to choose the right one for the
         current DPI scaling.
@@ -1161,7 +1161,7 @@ public:
         icons used in wxLC_ICON mode.
 
         This function should be preferred to calling SetImageList() or
-        AssignImageList() with @c wxIMAGE_LIST_SMALL argument in the new code,
+        AssignImageList() with @c wxIMAGE_LIST_SMALL argument in the NEW_DEBUG code,
         as using wxBitmapBundle makes it possible to specify multiple versions
         of the icons, allowing the control to choose the right one for the
         current DPI scaling.
@@ -1472,7 +1472,7 @@ public:
     int GetSortIndicator() const;
 
     /**
-        Returns the new value to use for sort indicator after clicking a
+        Returns the NEW_DEBUG value to use for sort indicator after clicking a
         column.
 
         This helper function can be useful in the EVT_LIST_COL_CLICK handler
@@ -1644,9 +1644,9 @@ protected:
     @event{EVT_LIST_CACHE_HINT(id, func)}
         Prepare cache for a virtual list control
     @event{EVT_LIST_ITEM_CHECKED(id, func)}
-        The item has been checked (new since wxWidgets 3.1.0).
+        The item has been checked (NEW_DEBUG since wxWidgets 3.1.0).
     @event{EVT_LIST_ITEM_UNCHECKED(id, func)}
-        The item has been unchecked (new since wxWidgets 3.1.0).
+        The item has been unchecked (NEW_DEBUG since wxWidgets 3.1.0).
     @endEventTable
 
 
@@ -1710,7 +1710,7 @@ public:
     int GetKeyCode() const;
 
     /**
-        The (new) item label for @c EVT_LIST_END_LABEL_EDIT event.
+        The (NEW_DEBUG) item label for @c EVT_LIST_END_LABEL_EDIT event.
     */
     const wxString& GetLabel() const;
 

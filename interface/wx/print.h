@@ -42,7 +42,7 @@ enum wxPrinterError
     This is the default implementation of the preview control bar, a panel
     with buttons and a zoom control.
 
-    You can derive a new class from this and override some or all member functions
+    You can derive a NEW_DEBUG class from this and override some or all member functions
     to change the behaviour and appearance; or you can leave it as it is.
 
     @library{wxcore}
@@ -394,7 +394,7 @@ public:
         It must be called from the preview window's OnPaint member.
 
         The implementation simply blits the preview bitmap onto
-        the canvas, creating a new preview bitmap if none exists.
+        the canvas, creating a NEW_DEBUG preview bitmap if none exists.
     */
     virtual bool PaintPage(wxPreviewCanvas* canvas, wxDC& dc);
 
@@ -552,7 +552,7 @@ public:
 
     This class encapsulates the functionality of printing out an application document.
 
-    A new class must be derived and members overridden to respond to calls such as
+    A NEW_DEBUG class must be derived and members overridden to respond to calls such as
     OnPrintPage() and HasPage() and to render the print image onto an associated wxDC.
     Instances of this class are passed to wxPrinter::Print() or
     to a wxPrintPreview object to initiate printing or previewing.
@@ -911,7 +911,7 @@ public:
 
     /**
         Set the device origin of the associated wxDC so that the current logical point
-        becomes the new logical origin.
+        becomes the NEW_DEBUG logical origin.
     */
     void SetLogicalOrigin(wxCoord x, wxCoord y);
 };

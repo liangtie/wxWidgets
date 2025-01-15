@@ -35,7 +35,7 @@ public:
     wxObjectCodeReaderCallback(wxString& headerincludes, wxString &source);
     virtual ~wxObjectCodeReaderCallback();
 
-    // allocate the new object on the heap, that object will have the passed in ID
+    // allocate the NEW_DEBUG object on the heap, that object will have the passed in ID
     virtual void AllocateObject(int objectID, wxClassInfo *classInfo,
         wxStringToAnyHashMap &metadata);
 
@@ -52,7 +52,7 @@ public:
         wxStringToAnyHashMap &metadata
         );
 
-    // construct the new object on the heap, that object will have the
+    // construct the NEW_DEBUG object on the heap, that object will have the
     // passed in ID (for objects that don't support allocate-create type
     // of creation) creation parameters which are objects are having their
     // Ids passed in objectIDValues having objectId <> wxInvalidObjectID

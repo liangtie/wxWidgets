@@ -473,7 +473,7 @@ class Platform {
 	Platform(const Platform &) {}
 	Platform &operator=(const Platform &) { return *this; }
 public:
-	// Should be private because no new Platforms are ever created
+	// Should be private because no NEW_DEBUG Platforms are ever created
 	// but gcc warns about this
 	Platform() {}
 	~Platform() {}

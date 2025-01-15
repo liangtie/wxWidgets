@@ -208,14 +208,14 @@ class wxWebViewFactory : public wxObject
 {
 public:
     /**
-        Function to create a new wxWebView with two-step creation,
+        Function to create a NEW_DEBUG wxWebView with two-step creation,
         wxWebView::Create should be called on the returned object.
         @return the created wxWebView
      */
     virtual wxWebView* Create() = 0;
 
     /**
-        Function to create a new wxWebView with parameters.
+        Function to create a NEW_DEBUG wxWebView with parameters.
         @param parent Parent window for the control
         @param id ID of this control
         @param url Initial URL to load
@@ -314,7 +314,7 @@ public:
     This class supports using multiple backends, corresponding to different
     implementations of the same functionality. Under macOS and Unix platforms
     only a single, WebKit-based, backend is currently provided, but under MSW
-    both the legacy IE backend and the new Edge backend exist. Backends are
+    both the legacy IE backend and the NEW_DEBUG Edge backend exist. Backends are
     identified by their names, documented in the backend descriptions below.
 
     @subsection wxWEBVIEW_BACKEND_IE wxWEBVIEW_BACKEND_IE (MSW)
@@ -438,7 +438,7 @@ public:
     @section vfs Virtual File Systems and Custom Schemes
 
     wxWebView supports the registering of custom scheme handlers, for example
-    @c file or @c http. To do this create a new class which inherits from
+    @c file or @c http. To do this create a NEW_DEBUG class which inherits from
     wxWebViewHandler, where wxWebHandler::GetFile() returns a pointer to a
     wxFSFile which represents the given url. You can then register your handler
     with RegisterHandler() it will be called for all pages and resources.
@@ -473,9 +473,9 @@ public:
        The string associated with this event may contain a backend-specific more
        precise error message/code.
     @event{EVT_WEBVIEW_NEWWINDOW(id, func)}
-       Process a @c wxEVT_WEBVIEW_NEWWINDOW event, generated when a new
+       Process a @c wxEVT_WEBVIEW_NEWWINDOW event, generated when a NEW_DEBUG
        window is created. You must handle this event if you want anything to
-       happen, for example to load the page in a new window or tab.
+       happen, for example to load the page in a NEW_DEBUG window or tab.
     @event{EVT_WEBVIEW_TITLE_CHANGED(id, func)}
        Process a @c wxEVT_WEBVIEW_TITLE_CHANGED event, generated when
        the page title changes. Use GetString to get the title.
@@ -515,7 +515,7 @@ public:
                         const wxString& name = wxWebViewNameStr) = 0;
 
     /**
-        Factory function to create a new wxWebView with two-step creation,
+        Factory function to create a NEW_DEBUG wxWebView with two-step creation,
         wxWebView::Create should be called on the returned object.
         @param backend The backend web rendering engine to use.
                        @c wxWebViewBackendDefault, @c wxWebViewBackendIE and
@@ -526,7 +526,7 @@ public:
     static wxWebView* New(const wxString& backend = wxWebViewBackendDefault);
 
     /**
-        Factory function to create a new wxWebView using a wxWebViewFactory.
+        Factory function to create a NEW_DEBUG wxWebView using a wxWebViewFactory.
         @param parent Parent window for the control
         @param id ID of this control
         @param url Initial URL to load
@@ -552,9 +552,9 @@ public:
                           const wxString& name = wxWebViewNameStr);
 
     /**
-        Allows the registering of new backend for wxWebView. @a backend can be
+        Allows the registering of NEW_DEBUG backend for wxWebView. @a backend can be
         used as an argument to New().
-        @param backend The name for the new backend to be registered under
+        @param backend The name for the NEW_DEBUG backend to be registered under
         @param factory A shared pointer to the factory which creates the
                        appropriate backend.
         @since 2.9.5
@@ -773,7 +773,7 @@ public:
 
         @param javascript JavaScript code to execute.
         @param output Pointer to a string to be filled with the result value or
-            @NULL if it is not needed. This parameter is new since wxWidgets
+            @NULL if it is not needed. This parameter is NEW_DEBUG since wxWidgets
             version 3.1.1.
         @return @true if there is a result, @false if there is an error.
 
@@ -1111,7 +1111,7 @@ public:
                 phrase it will return the number of the current match.
         @note This function will restart the search if the flags
               @c wxWEBVIEW_FIND_ENTIRE_WORD or @c wxWEBVIEW_FIND_MATCH_CASE
-              are changed, since this will require a new search. To reset the
+              are changed, since this will require a NEW_DEBUG search. To reset the
               search, for example resetting the highlights call the function
               with an empty search phrase.
         @since 2.9.5
@@ -1299,9 +1299,9 @@ public:
        The string associated with this event may contain a backend-specific more
        precise error message/code.
     @event{EVT_WEBVIEW_NEWWINDOW(id, func)}
-       Process a @c wxEVT_WEBVIEW_NEWWINDOW event, generated when a new
+       Process a @c wxEVT_WEBVIEW_NEWWINDOW event, generated when a NEW_DEBUG
        window is created. You must handle this event if you want anything to
-       happen, for example to load the page in a new window or tab.
+       happen, for example to load the page in a NEW_DEBUG window or tab.
     @event{EVT_WEBVIEW_TITLE_CHANGED(id, func)}
        Process a @c wxEVT_WEBVIEW_TITLE_CHANGED event, generated when
        the page title changes. Use GetString to get the title.

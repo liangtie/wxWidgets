@@ -89,7 +89,7 @@ public:
     wxHtmlHelpData();
 
     /**
-        Adds new book.
+        Adds NEW_DEBUG book.
 
         @a book_url is URL (not filename!) of HTML help project (hhp) or ZIP file
         that contains arbitrary number of .hhp projects (this zip file can have

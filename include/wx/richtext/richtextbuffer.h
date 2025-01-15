@@ -242,7 +242,7 @@ enum wxRichTextHitTestFlags
 // the current indentation will be used
 #define wxRICHTEXT_SETSTYLE_SPECIFY_LEVEL   0x20
 
-// Resets the existing style before applying the new style
+// Resets the existing style before applying the NEW_DEBUG style
 #define wxRICHTEXT_SETSTYLE_RESET           0x40
 
 // Removes the given style instead of applying it
@@ -265,7 +265,7 @@ enum wxRichTextHitTestFlags
 // and not the paragraph.
 #define wxRICHTEXT_SETPROPERTIES_CHARACTERS_ONLY 0x04
 
-// Resets the existing properties before applying the new properties.
+// Resets the existing properties before applying the NEW_DEBUG properties.
 #define wxRICHTEXT_SETPROPERTIES_RESET           0x08
 
 // Removes the given properties instead of applying them.
@@ -3015,7 +3015,7 @@ public:
     void Dereference();
 
     /**
-        Moves the object recursively, by adding the offset from old to new.
+        Moves the object recursively, by adding the offset from old to NEW_DEBUG.
     */
     virtual void Move(const wxPoint& pt);
 
@@ -3210,7 +3210,7 @@ public:
     bool Defragment(wxRichTextDrawingContext& context, const wxRichTextRange& range = wxRICHTEXT_ALL);
 
     /**
-        Moves the object recursively, by adding the offset from old to new.
+        Moves the object recursively, by adding the offset from old to NEW_DEBUG.
     */
     virtual void Move(const wxPoint& pt) wxOVERRIDE;
 
@@ -3332,7 +3332,7 @@ public:
                                                         const wxRichTextAttr& textAttr);
 
     /**
-        Returns the style that is appropriate for a new paragraph at this position.
+        Returns the style that is appropriate for a NEW_DEBUG paragraph at this position.
         If the previous paragraph has a paragraph style name, looks up the next-paragraph
         style.
     */
@@ -3492,7 +3492,7 @@ public:
           This allows content styling to be preserved independently from that
           of e.g. a named paragraph style.
         - wxRICHTEXT_SETSTYLE_RESET: resets (clears) the existing style before applying
-          the new style.
+          the NEW_DEBUG style.
         - wxRICHTEXT_SETSTYLE_REMOVE: removes the specified style.
           Only the style flags are used in this operation.
     */
@@ -3660,7 +3660,7 @@ public:
         - wxRICHTEXT_SETPROPERTIES_CHARACTERS_ONLY: specifies that the properties should only be
           applied to characters, and not the paragraph.
         - wxRICHTEXT_SETPROPERTIES_RESET: resets (clears) the existing properties before applying
-          the new properties.
+          the NEW_DEBUG properties.
         - wxRICHTEXT_SETPROPERTIES_REMOVE: removes the specified properties.
     */
     virtual bool SetProperties(const wxRichTextRange& range, const wxRichTextProperties& properties, int flags = wxRICHTEXT_SETPROPERTIES_WITH_UNDO);
@@ -3686,7 +3686,7 @@ public:
     */
     virtual bool HasParagraphAttributes(const wxRichTextRange& range, const wxRichTextAttr& style) const;
 
-    virtual wxRichTextObject* Clone() const wxOVERRIDE { return new wxRichTextParagraphLayoutBox(*this); }
+    virtual wxRichTextObject* Clone() const wxOVERRIDE { return NEW_DEBUG wxRichTextParagraphLayoutBox(*this); }
 
     /**
         Prepares the content just before insertion (or after buffer reset).
@@ -3733,7 +3733,7 @@ public:
         This is not cumulative - setting the default style will replace the previous
         default style.
 
-        Setting it to a default attribute object makes new content take on the 'basic' style.
+        Setting it to a default attribute object makes NEW_DEBUG content take on the 'basic' style.
     */
     virtual bool SetDefaultStyle(const wxRichTextAttr& style);
 
@@ -3868,7 +3868,7 @@ public:
 
 // Operations
 
-    virtual wxRichTextObject* Clone() const wxOVERRIDE { return new wxRichTextBox(*this); }
+    virtual wxRichTextObject* Clone() const wxOVERRIDE { return NEW_DEBUG wxRichTextBox(*this); }
 
     void Copy(const wxRichTextBox& obj);
 
@@ -3976,7 +3976,7 @@ public:
      */
     virtual bool UpdateField(wxRichTextBuffer* buffer);
 
-    virtual wxRichTextObject* Clone() const wxOVERRIDE { return new wxRichTextField(*this); }
+    virtual wxRichTextObject* Clone() const wxOVERRIDE { return NEW_DEBUG wxRichTextField(*this); }
 
     void Copy(const wxRichTextField& obj);
 
@@ -4097,7 +4097,7 @@ WX_DECLARE_STRING_HASH_MAP(wxRichTextFieldType*, wxRichTextFieldTypeHashMap);
 
     @beginStyleTable
     @style{wxRICHTEXT_FIELD_STYLE_COMPOSITE}
-           Creates a composite field; you will probably need to derive a new class to implement UpdateField.
+           Creates a composite field; you will probably need to derive a NEW_DEBUG class to implement UpdateField.
     @style{wxRICHTEXT_FIELD_STYLE_RECTANGLE}
            Shows a rounded rectangle background.
     @style{wxRICHTEXT_FIELD_STYLE_NO_BORDER}
@@ -4454,7 +4454,7 @@ public:
     */
     void Copy(const wxRichTextLine& obj);
 
-    virtual wxRichTextLine* Clone() const { return new wxRichTextLine(*this); }
+    virtual wxRichTextLine* Clone() const { return NEW_DEBUG wxRichTextLine(*this); }
 
 protected:
 
@@ -4539,7 +4539,7 @@ public:
     */
     void Copy(const wxRichTextParagraph& obj);
 
-    virtual wxRichTextObject* Clone() const wxOVERRIDE { return new wxRichTextParagraph(*this); }
+    virtual wxRichTextObject* Clone() const wxOVERRIDE { return NEW_DEBUG wxRichTextParagraph(*this); }
 
     /**
         Clears the cached lines.
@@ -4763,7 +4763,7 @@ public:
     void Copy(const wxRichTextPlainText& obj);
 
     // Clones the text object.
-    virtual wxRichTextObject* Clone() const wxOVERRIDE { return new wxRichTextPlainText(*this); }
+    virtual wxRichTextObject* Clone() const wxOVERRIDE { return NEW_DEBUG wxRichTextPlainText(*this); }
 
 private:
     bool DrawTabbedString(wxDC& dc, const wxRichTextAttr& attr, const wxRect& rect, wxString& str, wxCoord& x, wxCoord& y, bool selected);
@@ -5059,7 +5059,7 @@ public:
     /**
         Clones the image object.
     */
-    virtual wxRichTextObject* Clone() const wxOVERRIDE { return new wxRichTextImage(*this); }
+    virtual wxRichTextObject* Clone() const wxOVERRIDE { return NEW_DEBUG wxRichTextImage(*this); }
 
     /**
         Creates a cached image at the required size.
@@ -5622,7 +5622,7 @@ public:
     /**
         Clones the buffer.
     */
-    virtual wxRichTextObject* Clone() const wxOVERRIDE { return new wxRichTextBuffer(*this); }
+    virtual wxRichTextObject* Clone() const wxOVERRIDE { return NEW_DEBUG wxRichTextBuffer(*this); }
 
     /**
         Submits a command to insert paragraphs.
@@ -5803,7 +5803,7 @@ public:
         Sets @a renderer as the object to be used to render certain aspects of the
         content, such as bullets.
 
-        You can override default rendering by deriving a new class from
+        You can override default rendering by deriving a NEW_DEBUG class from
         wxRichTextRenderer or wxRichTextStdRenderer, overriding one or more
         virtual functions, and setting an instance of the class using this function.
     */
@@ -5985,7 +5985,7 @@ public:
 
 // Operations
 
-    virtual wxRichTextObject* Clone() const wxOVERRIDE { return new wxRichTextCell(*this); }
+    virtual wxRichTextObject* Clone() const wxOVERRIDE { return NEW_DEBUG wxRichTextCell(*this); }
 
     void Copy(const wxRichTextCell& obj);
 
@@ -6169,7 +6169,7 @@ public:
     virtual bool AddColumns(int startCol, int noCols = 1, const wxRichTextAttr& attr = wxRichTextAttr());
 
     // Makes a clone of this object.
-    virtual wxRichTextObject* Clone() const wxOVERRIDE { return new wxRichTextTable(*this); }
+    virtual wxRichTextObject* Clone() const wxOVERRIDE { return NEW_DEBUG wxRichTextTable(*this); }
 
     // Copies this object.
     void Copy(const wxRichTextTable& obj);
@@ -6440,7 +6440,7 @@ public:
     void ApplyParagraphs(const wxRichTextParagraphLayoutBox& fragment);
 
     /**
-        Returns the new fragments.
+        Returns the NEW_DEBUG fragments.
     */
     wxRichTextParagraphLayoutBox& GetNewParagraphs() { return m_newParagraphs; }
 
@@ -6483,7 +6483,7 @@ public:
     void MakeObject(wxRichTextObject* obj) { m_objectAddress.Create(m_buffer, obj); }
 
     /**
-        Sets the existing and new objects, for use with wxRICHTEXT_CHANGE_OBJECT.
+        Sets the existing and NEW_DEBUG objects, for use with wxRICHTEXT_CHANGE_OBJECT.
     */
     void SetOldAndNewObjects(wxRichTextObject* oldObj, wxRichTextObject* newObj) { SetObject(oldObj); StoreObject(newObj); }
 
@@ -6568,7 +6568,7 @@ protected:
     // Control
     wxRichTextCtrl*                 m_ctrl;
 
-    // Stores the new paragraphs
+    // Stores the NEW_DEBUG paragraphs
     wxRichTextParagraphLayoutBox    m_newParagraphs;
 
     // Stores the old paragraphs
@@ -6918,7 +6918,7 @@ public:
     wxRichTextBuffer* GetRichTextBuffer();
 
     /**
-        Returns the id for the new data format.
+        Returns the id for the NEW_DEBUG data format.
     */
     static const wxChar* GetRichTextBufferFormatId() { return ms_richTextBufferFormatId; }
 

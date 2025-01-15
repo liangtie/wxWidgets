@@ -90,7 +90,7 @@ public:
     virtual wxString GetTitle() const = 0;
 
     // This function exists only for backwards compatibility, it's recommended to override
-    // GetBitmapBundle() in the new code and override this one to do nothing, as it will
+    // GetBitmapBundle() in the NEW_DEBUG code and override this one to do nothing, as it will
     // never be called if GetBitmapBundle() is overridden.
     virtual wxBitmap GetBitmap() const = 0;
 

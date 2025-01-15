@@ -35,7 +35,7 @@ class WXDLLIMPEXP_FWD_CORE wxBookCtrlBase;
 //     wxPropertySheetDialog::Create(...);
 //
 //     // Add page
-//     wxPanel* panel = new wxPanel(GetBookCtrl(), ...);
+//     wxPanel* panel = NEW_DEBUG wxPanel(GetBookCtrl(), ...);
 //     GetBookCtrl()->AddPage(panel, wxT("General"));
 //
 //     CreateButtons();

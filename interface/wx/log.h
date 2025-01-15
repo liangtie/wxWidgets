@@ -181,7 +181,7 @@ protected:
         This function formats the time stamp part of the log message.
 
         @deprecated This function only exists for compatibility, please
-        override FormatTimeMS() in the new code.
+        override FormatTimeMS() in the NEW_DEBUG code.
 
         Override this function if you need to customize just the time stamp.
 
@@ -270,7 +270,7 @@ public:
     ///@{
 
     /**
-        Instructs wxLog to not create new log targets on the fly if there is none
+        Instructs wxLog to not create NEW_DEBUG log targets on the fly if there is none
         currently (see GetActiveTarget()).
 
         (Almost) for internal use only: it is supposed to be called by the
@@ -302,8 +302,8 @@ public:
         Sets the specified log target as the active one.
 
         Returns the pointer to the previous active log target (may be @NULL).
-        To suppress logging use a new instance of wxLogNull not @NULL.  If the
-        active log target is set to @NULL a new default log target will be
+        To suppress logging use a NEW_DEBUG instance of wxLogNull not @NULL.  If the
+        active log target is set to @NULL a NEW_DEBUG default log target will be
         created when logging occurs.
 
         @see SetThreadActiveTarget()
@@ -328,7 +328,7 @@ public:
         was compiled with threads support.
 
         @param logger
-            The new thread-specific log target, possibly @NULL.
+            The NEW_DEBUG thread-specific log target, possibly @NULL.
         @return
             The previous thread-specific log target, initially @NULL.
 
@@ -527,7 +527,7 @@ public:
         Sets the specified formatter as the active one.
 
         @param formatter
-            The new formatter. If @NULL, reset to the default formatter.
+            The NEW_DEBUG formatter. If @NULL, reset to the default formatter.
 
         Returns the pointer to the previous formatter. You must delete it
         if you don't plan to attach it again to a wxLog object later.
@@ -557,7 +557,7 @@ public:
         This function should only be called from the DoLog() implementations in
         the derived classes if they need to call DoLogRecord() on another log
         object (they can, of course, just use wxLog::DoLogRecord() call syntax
-        to call it on the object itself). It should not be used for logging new
+        to call it on the object itself). It should not be used for logging NEW_DEBUG
         messages which can be only sent to the currently active logger using
         OnLog() which also checks if the logging (for this level) is enabled
         while this method just directly calls DoLog().
@@ -572,7 +572,7 @@ public:
             if ( m_logOld && IsPassingMessages() )
                 m_logOld->LogRecord(level, msg, info);
 
-            // and also send it to the new one
+            // and also send it to the NEW_DEBUG one
             if ( m_logNew && m_logNew != this )
                 m_logNew->LogRecord(level, msg, info);
         }
@@ -588,7 +588,7 @@ protected:
 
         The functions which should be overridden by custom log targets.
 
-        When defining a new log target, you have a choice between overriding
+        When defining a NEW_DEBUG log target, you have a choice between overriding
         DoLogRecord(), which provides maximal flexibility, DoLogTextAtLevel()
         which can be used if you don't intend to change the default log
         messages formatting but want to handle log messages of different levels
@@ -597,7 +597,7 @@ protected:
     ///@{
 
     /**
-        Called to log a new record.
+        Called to log a NEW_DEBUG record.
 
         Any log message created by wxLogXXX() functions is passed to this
         method of the active log target. The default implementation prepends
@@ -641,7 +641,7 @@ protected:
 /**
     @class wxLogChain
 
-    This simple class allows you to chain log sinks, that is to install a new sink but
+    This simple class allows you to chain log sinks, that is to install a NEW_DEBUG sink but
     keep passing log messages to the old one instead of replacing it completely as
     wxLog::SetActiveTarget does.
 
@@ -652,7 +652,7 @@ protected:
     Example of usage:
 
     @code
-    wxLogChain *logChain = new wxLogChain(new wxLogStderr);
+    wxLogChain *logChain = NEW_DEBUG wxLogChain(NEW_DEBUG wxLogStderr);
 
     // all the log messages are sent to stderr and also processed as usually
     ...
@@ -721,7 +721,7 @@ public:
 /**
     @class wxLogInterposer
 
-    A special version of wxLogChain which uses itself as the new log target.
+    A special version of wxLogChain which uses itself as the NEW_DEBUG log target.
     It forwards log messages to the previously installed one in addition to
     processing them itself.
 
@@ -857,7 +857,7 @@ public:
     all the logged messages in a string (except the debug messages which are output
     in the usual way immediately as we're presumably not interested in collecting
     them for later). The messages from different log function calls are separated
-    by the new lines.
+    by the NEW_DEBUG lines.
 
     All the messages collected so far can be shown to the user (and the current
     buffer cleared) by calling the overloaded wxLogBuffer::Flush method.
@@ -882,7 +882,7 @@ public:
 
     /**
         Returns the current buffer contains. Messages from different log function calls
-        are separated with the new lines in the buffer.
+        are separated with the NEW_DEBUG lines in the buffer.
         The buffer can be cleared by Flush() which will also show the current
         contents to the user.
     */
@@ -1441,7 +1441,7 @@ void wxVLogError(const char* formatString, va_list argPtr);
     The predefined string trace masks used by wxWidgets are:
 
     @beginDefList
-    @itemdef{ wxTRACE_MemAlloc, Trace memory allocation (new/delete) }
+    @itemdef{ wxTRACE_MemAlloc, Trace memory allocation (NEW_DEBUG/delete) }
     @itemdef{ wxTRACE_Messages, Trace window messages/X callbacks }
     @itemdef{ wxTRACE_ResAlloc, Trace GDI resource allocation }
     @itemdef{ wxTRACE_RefCount, Trace various ref counting operations }
@@ -1473,7 +1473,7 @@ void wxVLogTrace(const char* mask, const char* formatString, va_list argPtr);
     The following bitmasks are defined for wxTraceMask:
 
     @beginDefList
-    @itemdef{ wxTraceMemAlloc, Trace memory allocation (new/delete) }
+    @itemdef{ wxTraceMemAlloc, Trace memory allocation (NEW_DEBUG/delete) }
     @itemdef{ wxTraceMessages, Trace window messages/X callbacks }
     @itemdef{ wxTraceResAlloc, Trace GDI resource allocation }
     @itemdef{ wxTraceRefCount, Trace various ref counting operations }

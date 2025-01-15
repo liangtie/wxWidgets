@@ -94,7 +94,7 @@ To create a working client, the programmer must:
 @li Derive a class from wxClient, overriding OnMakeConnection to create and
     return an instance of the derived connection class.
 @li Create an instance of your client object.
-@li When appropriate, create a new connection using wxClient::MakeConnection,
+@li When appropriate, create a NEW_DEBUG connection using wxClient::MakeConnection,
     with arguments host name (processed in Unix only, use 'localhost' for local
     computer), service name, and topic name for this connection. The client
     object will call OnMakeConnection to create a connection object of the
@@ -172,7 +172,7 @@ public:
 
     wxConnectionBase* OnMakeConnection(void)
     {
-        return new MyConnection;
+        return NEW_DEBUG MyConnection;
     }
 };
 @endcode
@@ -193,8 +193,8 @@ wxString server = "4242";
 wxString hostName;
 wxGetHostName(hostName);
 
-// Create a new client
-MyClient *client = new MyClient;
+// Create a NEW_DEBUG client
+MyClient *client = NEW_DEBUG MyClient;
 connection = (MyConnection *)client->MakeConnection(hostName, server, "IPC TEST");
 
 if (!connection)

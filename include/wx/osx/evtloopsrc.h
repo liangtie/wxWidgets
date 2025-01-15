@@ -19,7 +19,7 @@ typedef struct __CFSocket* CFSocketRef;
 class WXDLLIMPEXP_BASE wxCFEventLoopSource : public wxEventLoopSource
 {
 public:
-    // Create a new source in uninitialized state, call InitSocketRef() later
+    // Create a NEW_DEBUG source in uninitialized state, call InitSocketRef() later
     // to associate it with the socket it is going to use.
     wxCFEventLoopSource(wxEventLoopSourceHandler *handler, int flags)
         : wxEventLoopSource(handler, flags)

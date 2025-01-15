@@ -31,22 +31,22 @@
     // define the second pointer class
     wxDEFINE_SCOPED_ARRAY(char, wxCharArray)
 
-    // create an object with a new pointer to MyClass
-    wxMyClassPtr theObj(new MyClass());
+    // create an object with a NEW_DEBUG pointer to MyClass
+    wxMyClassPtr theObj(NEW_DEBUG MyClass());
     // reset the pointer (deletes the previous one)
-    theObj.reset(new MyClass());
+    theObj.reset(NEW_DEBUG MyClass());
 
     // access the pointer
     theObj->MyFunc();
 
-    // create an object with a new array of chars
-    wxCharArray theCharObj(new char[100]);
+    // create an object with a NEW_DEBUG array of chars
+    wxCharArray theCharObj(NEW_DEBUG char[100]);
 
     // access the array
     theCharObj[0] = "!";
     @endcode
 
-    <b>Declaring new smart pointer types:</b>
+    <b>Declaring NEW_DEBUG smart pointer types:</b>
     @code
     wxDECLAR_SCOPED_ARRAY( TYPE,        // type of the values
                            CLASSNAME ); // name of the class
@@ -57,7 +57,7 @@
 
     The memory used by the object is deleted when the smart pointer goes out of
     scope. The first argument of the macro is the pointer type, the second is the
-    name of the new smart pointer class being created. Below we will use wxScopedArray
+    name of the NEW_DEBUG smart pointer class being created. Below we will use wxScopedArray
     to represent the scoped pointer array class, but the user may create the class with
     any legal name.
 
@@ -125,12 +125,12 @@ public:
         If @a array is @NULL, reset() must presumably be called later.
 
         @param array
-            An array allocated using @c new[] or @NULL.
+            An array allocated using @c NEW_DEBUG[] or @NULL.
      */
     explicit wxScopedArray(T * array = NULL);
 
     /**
-        Constructor allocating a new array of the specified size.
+        Constructor allocating a NEW_DEBUG array of the specified size.
 
         @param count
             The number of elements to allocate.
@@ -157,7 +157,7 @@ public:
         The previously stored array is deleted.
 
         @param array
-            An array allocated using @c new[] or @NULL.
+            An array allocated using @c NEW_DEBUG[] or @NULL.
      */
     void reset(T *array = NULL);
 

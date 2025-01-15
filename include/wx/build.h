@@ -55,7 +55,7 @@
     // All the changes since ABI version 1002 so far have been insignificant,
     // so just check for this value, first used for g++ 3.4 and used by default
     // by all g++ 4 versions, as checking for the exact ABI version simply
-    // results in run-time breakage whenever a new gcc version is released,
+    // results in run-time breakage whenever a NEW_DEBUG gcc version is released,
     // even if there are no real problems.
     #if __GXX_ABI_VERSION >= 1002
         #define __WX_BO_COMPILER \

@@ -82,7 +82,7 @@ private:
     };
 
     // Implementation of the public SetIcon() which may also be used when we
-    // don't know if we should add a new icon or modify the existing one.
+    // don't know if we should add a NEW_DEBUG icon or modify the existing one.
     bool DoSetIcon(const wxBitmapBundle& icon,
                    const wxString& tooltip,
                    Operation operation);

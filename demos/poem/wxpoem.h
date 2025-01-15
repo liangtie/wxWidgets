@@ -17,7 +17,7 @@
 #define _WXPOEM_H_
 
 
-// Define a new application
+// Define a NEW_DEBUG application
 class MyApp: public wxApp
 {
 public:
@@ -27,7 +27,7 @@ public:
 
 wxDECLARE_APP(MyApp);
 
-// Define a new canvas which can receive some events
+// Define a NEW_DEBUG canvas which can receive some events
 class MyCanvas: public wxWindow
 {
 public:
@@ -44,7 +44,7 @@ private:
     wxDECLARE_EVENT_TABLE();
 };
 
-// Define a new frame
+// Define a NEW_DEBUG frame
 class MainWindow: public wxFrame
 {
 public:

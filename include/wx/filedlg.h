@@ -162,7 +162,7 @@ public:
 
     // Extra controls support is deprecated now as it doesn't allow to use the
     // contemporary file dialogs under MSW, use wxFileDialogCustomize-based
-    // API above instead in the new code.
+    // API above instead in the NEW_DEBUG code.
 
     // this function is called with wxFileDialog as parameter and should
     // create the window containing the extra controls we want to show in it

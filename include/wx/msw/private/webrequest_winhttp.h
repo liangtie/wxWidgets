@@ -166,7 +166,7 @@ class wxWebSessionFactoryWinHTTP : public wxWebSessionFactory
 public:
     wxWebSessionImpl* Create() wxOVERRIDE
     {
-        return new wxWebSessionWinHTTP();
+        return NEW_DEBUG wxWebSessionWinHTTP();
     }
 
     bool Initialize() wxOVERRIDE

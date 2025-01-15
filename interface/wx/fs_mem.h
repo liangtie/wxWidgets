@@ -25,7 +25,7 @@
 
     void MyFrame::OnAbout(wxCommandEvent&)
     {
-        wxFileSystem::AddHandler(new wxMemoryFSHandler);
+        wxFileSystem::AddHandler(NEW_DEBUG wxMemoryFSHandler);
         wxMemoryFSHandler::AddFile("logo.png", wxBITMAP(logo), wxBITMAP_TYPE_PNG);
         wxMemoryFSHandler::AddFile("about.htm",
                                 "<html><body>About: "
@@ -33,15 +33,15 @@
 
         wxDialog dlg(this, -1, wxString(_("About")));
         wxBoxSizer *topsizer;
-        topsizer = new wxBoxSizer(wxVERTICAL);
+        topsizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     #ifdef USE_WEBVIEW
         wxWebView* browser = wxWebView::New(&dlg, wxID_ANY, wxWebViewDefaultURLStr,
                                  wxDefaultPosition, wxSize(380, 160));
-        browser->RegisterHandler(wxSharedPtr<wxWebViewHandler>(new wxWebViewFSHandler("memory")));
+        browser->RegisterHandler(wxSharedPtr<wxWebViewHandler>(NEW_DEBUG wxWebViewFSHandler("memory")));
         browser->LoadURL("memory:about.htm");
     #else // Use wxHtml
         wxHtmlWindow *browser;
-        browser = new wxHtmlWindow(&dlg, -1, wxDefaultPosition,
+        browser = NEW_DEBUG wxHtmlWindow(&dlg, -1, wxDefaultPosition,
                                    wxSize(380, 160), wxHW_SCROLLBAR_NEVER);
         browser->SetBorders(0);
         browser->LoadPage("memory:about.htm");
@@ -49,8 +49,8 @@
                     browser->GetInternalRepresentation()->GetHeight());
     #endif
         topsizer->Add(browser, 1, wxALL, 10);
-        topsizer->Add(new wxStaticLine(&dlg, -1), 0, wxEXPAND | wxLEFT | wxRIGHT, 10);
-        topsizer->Add(new wxButton(&dlg, wxID_OK, "Ok"),
+        topsizer->Add(NEW_DEBUG wxStaticLine(&dlg, -1), 0, wxEXPAND | wxLEFT | wxRIGHT, 10);
+        topsizer->Add(NEW_DEBUG wxButton(&dlg, wxID_OK, "Ok"),
                     0, wxALL | wxALIGN_RIGHT, 15);
         dlg.SetAutoLayout(true);
         dlg.SetSizer(topsizer);

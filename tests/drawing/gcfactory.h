@@ -47,7 +47,7 @@ public:
     //  the same result for whichever platform
     virtual bool PlatformIndependent() const = 0;
 
-    // Builds a new context of @c expected_size, expecting to save it as
+    // Builds a NEW_DEBUG context of @c expected_size, expecting to save it as
     //  @c target_file_name
     // NB: only one context is created as a time, so that the implementer
     //  can keep internal state if necessary

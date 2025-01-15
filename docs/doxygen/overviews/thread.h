@@ -16,7 +16,7 @@
 
 @tableofcontents
 
-@note In the new code, it is highly recommended to use concurrency classes
+@note In the NEW_DEBUG code, it is highly recommended to use concurrency classes
       provided in C++11 and newer, instead of their wxWidgets counterparts.
       The warning about not using GUI classes from non-GUI threads still applies.
 

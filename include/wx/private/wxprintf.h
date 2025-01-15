@@ -892,7 +892,7 @@ struct wxPrintfConvSpecParser
                 spec->m_pos--;
 
                 // We could be reusing an already existing argument, only
-                // increment their number if it's really a new one.
+                // increment their number if it's really a NEW_DEBUG one.
                 if ( spec->m_pos >= nargs )
                 {
                     nargs = spec->m_pos + 1;

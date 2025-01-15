@@ -150,7 +150,7 @@ public:
 
     A class of events sent when a file system event occurs. Types of events
     reported may vary depending on a platform, however all platforms report
-    at least creation of new file/directory and access, modification, move
+    at least creation of NEW_DEBUG file/directory and access, modification, move
     (rename) or deletion of an existing one.
 
     @library{wxbase}
@@ -181,7 +181,7 @@ public:
     const wxFileName& GetPath() const;
 
     /**
-        Returns the new path of the renamed file/directory if this is a rename
+        Returns the NEW_DEBUG path of the renamed file/directory if this is a rename
         event.
 
         Otherwise it returns the same path as GetPath().
@@ -248,7 +248,7 @@ enum wxFSWFlags
         File or directory was renamed.
 
         Notice that under MSW this event is sometimes -- although not always --
-        followed by a ::wxFSW_EVENT_MODIFY for the new file.
+        followed by a ::wxFSW_EVENT_MODIFY for the NEW_DEBUG file.
 
         Under macOS this event is only detected when watching entire trees. When
         watching directories, separate ::wxFSW_EVENT_CREATE and

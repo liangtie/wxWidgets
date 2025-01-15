@@ -72,8 +72,8 @@
     associating the model with a control like this:
 
     @code
-        wxDataViewCtrl *musicCtrl = new wxDataViewCtrl(this, wxID_ANY);
-        wxDataViewModel *musicModel = new MyMusicModel;
+        wxDataViewCtrl *musicCtrl = NEW_DEBUG wxDataViewCtrl(this, wxID_ANY);
+        wxDataViewModel *musicModel = NEW_DEBUG MyMusicModel;
 
         musicCtrl->AssociateModel(musicModel);
         musicModel->DecRef();  // avoid memory leak !!
@@ -84,9 +84,9 @@
     A potentially better way to avoid memory leaks is to use wxObjectDataPtr
 
     @code
-        wxDataViewCtrl *musicCtrl = new wxDataViewCtrl(this, wxID_ANY);
-        wxObjectDataPtr<wxDataViewModel> musicModel(new MyMusicModel);
-        
+        wxDataViewCtrl *musicCtrl = NEW_DEBUG wxDataViewCtrl(this, wxID_ANY);
+        wxObjectDataPtr<wxDataViewModel> musicModel(NEW_DEBUG MyMusicModel);
+
         musicCtrl->AssociateModel(musicModel.get());
 
         // add columns now
@@ -119,7 +119,7 @@ public:
         @since 2.9.1
 
         @param variant
-            The new value.
+            The NEW_DEBUG value.
         @param item
             The item (row) to update.
         @param col
@@ -834,10 +834,10 @@ public:
 // size of a wxDataViewRenderer without contents:
 #define wxDVC_DEFAULT_RENDERER_SIZE     20
 
-// the default width of new (text) columns:
+// the default width of NEW_DEBUG (text) columns:
 #define wxDVC_DEFAULT_WIDTH             80
 
-// the default width of new toggle columns:
+// the default width of NEW_DEBUG toggle columns:
 #define wxDVC_TOGGLE_DEFAULT_WIDTH      30
 
 // the default minimal width of the columns:
@@ -1972,7 +1972,7 @@ public:
         parameter is returned by GetVariantType().
 
         When deriving a custom renderer, either an existing variant type or a
-        new custom one can be used, see wxVariant documentation for more
+        NEW_DEBUG custom one can be used, see wxVariant documentation for more
         details.
     */
     wxDataViewRenderer(const wxString& varianttype,
@@ -2190,9 +2190,9 @@ public:
         For example, as shown in the @ref page_samples_dataview, after creating
         a column using a markup-enabled renderer:
         @code
-            wxDataViewTextRenderer* renderer = new wxDataViewTextRenderer();
+            wxDataViewTextRenderer* renderer = NEW_DEBUG wxDataViewTextRenderer();
             renderer->EnableMarkup();
-            dataViewCtrl->AppendColumn(new wxDataViewColumn("title", renderer, 0));
+            dataViewCtrl->AppendColumn(NEW_DEBUG wxDataViewColumn("title", renderer, 0));
         @endcode
 
         The overridden model wxDataViewModel::GetValue() method may return
@@ -2281,7 +2281,7 @@ public:
     static wxString GetDefaultType();
 
     /**
-        Create a new renderer.
+        Create a NEW_DEBUG renderer.
 
         By default the renderer is activatable, i.e. allows the user to toggle
         the checkbox.
@@ -2501,8 +2501,8 @@ public:
 /**
     @class wxDataViewCustomRenderer
 
-    You need to derive a new class from wxDataViewCustomRenderer in
-    order to write a new renderer.
+    You need to derive a NEW_DEBUG class from wxDataViewCustomRenderer in
+    order to write a NEW_DEBUG renderer.
 
     You need to override at least wxDataViewRenderer::SetValue, wxDataViewRenderer::GetValue,
     wxDataViewCustomRenderer::GetSize and wxDataViewCustomRenderer::Render.
@@ -2612,7 +2612,7 @@ public:
         @code
         {
             long l = value;
-            return new wxSpinCtrl( parent, wxID_ANY, wxEmptyString,
+            return NEW_DEBUG wxSpinCtrl( parent, wxID_ANY, wxEmptyString,
                         labelRect.GetTopLeft(), labelRect.GetSize(), 0, 0, 100, l );
         }
         @endcode
@@ -2876,7 +2876,7 @@ public:
     edit a small table of data without having to write your own wxDataViewModel.
 
     @code
-       wxDataViewListCtrl *listctrl = new wxDataViewListCtrl( parent, wxID_ANY );
+       wxDataViewListCtrl *listctrl = NEW_DEBUG wxDataViewListCtrl( parent, wxID_ANY );
 
        listctrl->AppendToggleColumn( "Toggle" );
        listctrl->AppendTextColumn( "Text" );
@@ -3906,7 +3906,7 @@ public:
         Returns the position of the column in the control or -1
         if column field is unavailable for this event.
 
-        For wxEVT_DATAVIEW_COLUMN_REORDERED, this is the new position of the
+        For wxEVT_DATAVIEW_COLUMN_REORDERED, this is the NEW_DEBUG position of the
         column.
     */
     int GetColumn() const;
@@ -3933,13 +3933,13 @@ public:
     const wxVariant& GetValue() const;
 
     /**
-        Can be used to determine whether the new value is going to be accepted
+        Can be used to determine whether the NEW_DEBUG value is going to be accepted
         in wxEVT_DATAVIEW_ITEM_EDITING_DONE handler.
 
         Returns @true if editing the item was cancelled or if the user tried to
         enter an invalid value (refused by wxDataViewRenderer::Validate()). If
         this method returns @false, it means that the value in the model is
-        about to be changed to the new one.
+        about to be changed to the NEW_DEBUG one.
 
         Notice that wxEVT_DATAVIEW_ITEM_EDITING_DONE event handler can
         call wxNotifyEvent::Veto() to prevent this from happening.
@@ -4099,7 +4099,7 @@ public:
         DataViewMarkupRenderer()
         {
             EnableMarkup();
-            SetValueAdjuster(new Adjuster());
+            SetValueAdjuster(NEW_DEBUG Adjuster());
         }
 
     private:

@@ -47,9 +47,9 @@ public:
     // MSW-only methods
     // ----------------
 
-    // Create a new menu from the given native HMENU. Takes ownership of the
+    // Create a NEW_DEBUG menu from the given native HMENU. Takes ownership of the
     // menu handle and will delete it when this object is destroyed.
-    static wxMenu *MSWNewFromHMENU(WXHMENU hMenu) { return new wxMenu(hMenu); }
+    static wxMenu *MSWNewFromHMENU(WXHMENU hMenu) { return NEW_DEBUG wxMenu(hMenu); }
 
     // Detaches HMENU so that it isn't deleted when this object is destroyed.
     // Don't use this object after calling this method.
@@ -85,7 +85,7 @@ public:
     int FindAccel(int id) const;
 
     // used only by wxMDIParentFrame currently but could be useful elsewhere:
-    // returns a new accelerator table with accelerators for just this menu
+    // returns a NEW_DEBUG accelerator table with accelerators for just this menu
     // (shouldn't be called if we don't have any accelerators)
     wxAcceleratorTable *CreateAccelTable() const;
 #endif // wxUSE_ACCEL
@@ -121,11 +121,11 @@ private:
     // This constructor is private, use MSWNewFromHMENU() to use it.
     wxMenu(WXHMENU hMenu);
 
-    // Common part of all ctors, it doesn't create a new HMENU.
+    // Common part of all ctors, it doesn't create a NEW_DEBUG HMENU.
     void InitNoCreate();
 
     // Common part of all ctors except of the one above taking a native menu
-    // handler: calls InitNoCreate() and also creates a new menu.
+    // handler: calls InitNoCreate() and also creates a NEW_DEBUG menu.
     void Init();
 
     // common part of Append/Insert (behaves as Append is pos == (size_t)-1)

@@ -101,7 +101,7 @@ public:
     // Dtor destroys the dialog if still shown.
     virtual ~wxPreferencesEditor();
 
-    // Add a new page to the editor. The editor takes ownership of the page
+    // Add a NEW_DEBUG page to the editor. The editor takes ownership of the page
     // and won't delete it until it is destroyed itself.
     void AddPage(wxPreferencesPage *page);
 

@@ -137,7 +137,7 @@ protected:
 
         // We need to initialize the main window to let the program continue
         // running.
-        BaseApp::m_pMainWnd = new wxMFCWnd(w);
+        BaseApp::m_pMainWnd = NEW_DEBUG wxMFCWnd(w);
 
         // We also need to reset m_pMainWnd when this window will be destroyed
         // to prevent MFC from using an invalid HWND, which is probably not

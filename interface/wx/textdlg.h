@@ -212,7 +212,7 @@ public:
     @c default_value. The user may type in text and press OK to return this
     text, or press Cancel to return the empty string.
 
-    If @c centre is @true, the message text (which may include new line
+    If @c centre is @true, the message text (which may include NEW_DEBUG line
     characters) is centred; if @false, the message is left-justified.
 
     This function is a wrapper around wxTextEntryDialog and while it is usually

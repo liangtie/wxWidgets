@@ -20,7 +20,7 @@
 /*
  * Paper type: see defs.h for wxPaperSize enum.
  * A wxPrintPaperType can have an id and a name, or just a name and wxPAPER_NONE,
- * so you can add further paper types without needing new ids.
+ * so you can add further paper types without needing NEW_DEBUG ids.
  */
 
 #ifdef __WXMSW__

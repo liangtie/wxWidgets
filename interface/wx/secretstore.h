@@ -252,7 +252,7 @@ public:
 
         @param errmsg If not @NULL, this parameter is filled with a
             user-readable error message explaining why the secret store can't
-            be used (this argument is new since wxWidgets 3.1.4)
+            be used (this argument is NEW_DEBUG since wxWidgets 3.1.4)
      */
     bool IsOk(wxString* errmsg = NULL) const;
 
@@ -262,7 +262,7 @@ public:
         The service name should be user readable and unique.
 
         If a secret with the same service name already exists, it will be
-        overwritten with the new value. In particular, notice that it is not
+        overwritten with the NEW_DEBUG value. In particular, notice that it is not
         currently allowed to store passwords for different usernames for the
         same service, even if the underlying platform API supports this (as is
         the case for macOS but not MSW).

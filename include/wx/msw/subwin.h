@@ -31,7 +31,7 @@ public:
 
         m_count = n;
         m_hwnds = (HWND *)calloc(n, sizeof(HWND));
-        m_ids = new wxWindowIDRef[n];
+        m_ids = NEW_DEBUG wxWindowIDRef[n];
     }
 
     // non-virtual dtor, this class is not supposed to be used polymorphically

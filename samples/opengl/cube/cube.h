@@ -27,7 +27,7 @@ private:
     GLuint m_textures[6];
 };
 
-// Define a new application type
+// Define a NEW_DEBUG application type
 class MyApp : public wxApp
 {
 public:
@@ -48,7 +48,7 @@ private:
     TestGLContext *m_glStereoContext;
 };
 
-// Define a new frame type
+// Define a NEW_DEBUG frame type
 class MyFrame : public wxFrame
 {
 public:

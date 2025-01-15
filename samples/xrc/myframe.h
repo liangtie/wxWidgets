@@ -23,7 +23,7 @@
 // Class definition: MyFrame
 //-----------------------------------------------------------------------------
 
-// Define a new frame type: this is going to be our main frame
+// Define a NEW_DEBUG frame type: this is going to be our main frame
 class MyFrame : public wxFrame
 {
 

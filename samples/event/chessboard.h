@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 // Name:        samples/event/chessboard.h
-// Purpose:     Part of wxWidgets event sample, shows how to create a new wxEvent class
+// Purpose:     Part of wxWidgets event sample, shows how to create a NEW_DEBUG wxEvent class
 // Author:      PB <pbfordev@gmail.com>
 // Created:     2019-10-29
 // Copyright:   (c) 2019 wxWidgets development team
@@ -45,7 +45,7 @@ public:
     void SetFileTo(char file)    { m_fileTo = file; }
     void SetRankTo(wxUint8 rank) { m_rankTo = rank; }
 
-    virtual wxEvent* Clone() const wxOVERRIDE { return new ChessBoardEvent(*this); }
+    virtual wxEvent* Clone() const wxOVERRIDE { return NEW_DEBUG ChessBoardEvent(*this); }
 private:
     char  m_file;
     wxUint8 m_rank;
@@ -54,12 +54,12 @@ private:
 };
 
 
-// Declare new event types,
+// Declare NEW_DEBUG event types,
 // the matching definitions are in chessboard.cpp.
 wxDECLARE_EVENT(myEVT_CHESSBOARD_CLICKED, ChessBoardEvent);
 wxDECLARE_EVENT(myEVT_CHESSBOARD_DRAGGED, ChessBoardEvent);
 
-// The following typedef and macro are needed only when the new event
+// The following typedef and macro are needed only when the NEW_DEBUG event
 // class is to be used with event table macros or the legacy Connect(),
 // to cast the type of a function handling it to the type expected by
 // the event table machinery, see its use in EVT_CHESSBOARD_xxx below.
@@ -67,7 +67,7 @@ wxDECLARE_EVENT(myEVT_CHESSBOARD_DRAGGED, ChessBoardEvent);
 typedef void (wxEvtHandler::*ChessBoardEventFunction)(ChessBoardEvent&);
 #define ChessBoardEventHandler(func) wxEVENT_HANDLER_CAST(ChessBoardEventFunction, func)
 
-// These defines are needed only if the new event is to be used with
+// These defines are needed only if the NEW_DEBUG event is to be used with
 // event tables, i.e., when only Bind() is going to be used you do not need them.
 #define EVT_CHESSBOARD_CLICKED(id, func) \
     wx__DECLARE_EVT1(myEVT_CHESSBOARD_CLICKED, id, ChessBoardEventHandler(func))

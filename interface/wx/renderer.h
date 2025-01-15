@@ -667,7 +667,7 @@ public:
     program and the renderer have different versions they are never compatible with
     each other because the version is only changed when an existing virtual
     function is modified or removed. The age, on the other hand, is incremented
-    each time a new virtual method is added and so, at least for the compilers
+    each time a NEW_DEBUG virtual method is added and so, at least for the compilers
     using a common C++ object model, the calling program is compatible with any
     renderer which has the age greater or equal to its age. This verification is
     done by IsCompatible() method.

@@ -73,7 +73,7 @@ public:
     // delete all created sink items
     virtual void Clear() = 0;
 
-    // create a new sink item
+    // create a NEW_DEBUG sink item
     virtual wxOSXDataSinkItem* CreateItem() = 0;
 
     // flush the created sink items into the system sink representation

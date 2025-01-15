@@ -70,7 +70,7 @@ public:
     {
         m_dragSource = NULL;
     }
-    wxEvent *Clone() const wxOVERRIDE { return new wxAuiNotebookEvent(*this); }
+    wxEvent *Clone() const wxOVERRIDE { return NEW_DEBUG wxAuiNotebookEvent(*this); }
 
     void SetDragSource(wxAuiNotebook* s) { m_dragSource = s; }
     wxAuiNotebook* GetDragSource() const { return m_dragSource; }
@@ -375,7 +375,7 @@ protected:
 
     // these can be overridden
 
-    // update the height, return true if it was done or false if the new height
+    // update the height, return true if it was done or false if the NEW_DEBUG height
     // calculated by CalculateTabCtrlHeight() is the same as the old one
     virtual bool UpdateTabCtrlHeight();
 

@@ -142,7 +142,7 @@ struct WXDLLIMPEXP_CORE wxThemeInfo
         wxThemeUserFor##themename() { wxThemeUse##themename = true; }       \
     } wxThemeDoUse##themename
 
-// to declare a new theme, this macro must be used in the class declaration
+// to declare a NEW_DEBUG theme, this macro must be used in the class declaration
 #define WX_DECLARE_THEME(themename)                                         \
     private:                                                                \
         static wxThemeInfo ms_info##themename;                              \
@@ -153,7 +153,7 @@ struct WXDLLIMPEXP_CORE wxThemeInfo
 // and this one must be inserted in the source file
 #define WX_IMPLEMENT_THEME(classname, themename, themedesc)                 \
     WXDLLIMPEXP_DATA_CORE(bool) wxThemeUse##themename = true;                    \
-    wxTheme *wxCtorFor##themename() { return new classname; }               \
+    wxTheme *wxCtorFor##themename() { return NEW_DEBUG classname; }               \
     wxThemeInfo classname::ms_info##themename(wxCtorFor##themename,         \
                                               wxT( #themename ), themedesc)
 

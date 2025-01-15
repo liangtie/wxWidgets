@@ -28,7 +28,7 @@ class wxIdManager
 public:
     /**
         Called directly by wxWindow::NewControlId(), this function will create
-        a new ID or range of IDs.
+        a NEW_DEBUG ID or range of IDs.
         The IDs will be reserved until assigned to a wxWindowIDRef() or unreserved
         with UnreserveControlId().
         Only ID values that are not assigned to a wxWindowIDRef() need to be unreserved.

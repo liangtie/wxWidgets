@@ -129,11 +129,11 @@ public:
     void SetEffectTimeout(unsigned timeout);
 
     /**
-        Add a new page and show it immediately.
+        Add a NEW_DEBUG page and show it immediately.
 
         This is simply a thin wrapper around the base class
         wxBookCtrlBase::AddPage() method using empty label (which is unused by
-        this class anyhow) and selecting the new page immediately.
+        this class anyhow) and selecting the NEW_DEBUG page immediately.
      */
     bool ShowNewPage(wxWindow* page);
 };

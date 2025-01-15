@@ -169,7 +169,7 @@ inline size_t wxStrlen(const wxScopedWCharBuffer& s) { return wxStrlen(s.data())
 inline size_t wxStrlen(const wxString& s) { return s.length(); }
 inline size_t wxStrlen(const wxCStrData& s) { return s.AsString().length(); }
 
-// this is a function new in 2.9 so we don't care about backwards compatibility and
+// this is a function NEW_DEBUG in 2.9 so we don't care about backwards compatibility and
 // so don't need to support wxScopedCharBuffer/wxScopedWCharBuffer overloads
 #if defined(wxCRT_StrnlenA)
 inline size_t wxStrnlen(const char *str, size_t maxlen) { return wxCRT_StrnlenA(str, maxlen); }
@@ -259,7 +259,7 @@ inline wchar_t *wxStrncpy(wchar_t *dest, const char *src, size_t n)
     { return wxCRT_StrncpyW(dest, wxConvLibc.cMB2WC(src), n); }
 #endif // wxNO_IMPLICIT_WXSTRING_ENCODING
 
-// this is a function new in 2.9 so we don't care about backwards compatibility and
+// this is a function NEW_DEBUG in 2.9 so we don't care about backwards compatibility and
 // so don't need to support wchar_t/char overloads
 inline size_t wxStrlcpy(char *dest, const char *src, size_t n)
 {

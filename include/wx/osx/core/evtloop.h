@@ -55,7 +55,7 @@ protected:
     // terminating when Exit() is called
     virtual int DoRun() wxOVERRIDE;
 
-    // may be overridden to perform some action at the start of each new event
+    // may be overridden to perform some action at the start of each NEW_DEBUG event
     // loop iteration
     virtual void OnNextIteration() {}
 
@@ -97,7 +97,7 @@ protected:
     bool m_shouldWaitForEvent;
 #endif
 private:
-    // process all already pending events and dispatch a new one (blocking
+    // process all already pending events and dispatch a NEW_DEBUG one (blocking
     // until it appears in the event queue if necessary)
     //
     // returns the return value of DoDispatchTimeout()

@@ -50,7 +50,7 @@ enum wxTextFileType
       For the sequential access functions the current line number is maintained: it is
       returned by wxTextFile::GetCurrentLine and may be changed with wxTextFile::GoToLine.
     - Add/remove lines to the file: wxTextFile::AddLine and wxTextFile::InsertLine
-      add new lines while wxTextFile::RemoveLine deletes the existing ones.
+      add NEW_DEBUG lines while wxTextFile::RemoveLine deletes the existing ones.
       wxTextFile::Clear resets the file to empty.
     - Save your changes: notice that the changes you make to the file will @b not be
       saved automatically; calling wxTextFile::Close or doing nothing discards them!

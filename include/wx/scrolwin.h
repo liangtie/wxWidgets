@@ -87,7 +87,7 @@ public:
 
     // Set up the DC according to the scroll position.
     //
-    // For historical reasons, we have DoPrepareDC() but new code should
+    // For historical reasons, we have DoPrepareDC() but NEW_DEBUG code should
     // implement DoPrepareReadOnlyDC() instead, which ought to be pure virtual
     // if it hasn't been added later.
     virtual void DoPrepareReadOnlyDC(wxReadOnlyDC& WXUNUSED(dc))
@@ -139,7 +139,7 @@ public:
     // scroll to the given (in logical coords) position
     //
     // notice that for backwards compatibility reasons Scroll() is virtual as
-    // the existing code could override it but new code should override
+    // the existing code could override it but NEW_DEBUG code should override
     // DoScroll() instead
     virtual void Scroll(int x, int y) { DoScroll(x, y); }
     virtual void Scroll(const wxPoint& pt) { DoScroll(pt.x, pt.y); }

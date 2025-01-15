@@ -174,7 +174,7 @@ public:
         return true;
     }
 
-    // adds a new page to the control
+    // adds a NEW_DEBUG page to the control
     virtual bool AddPage(wxWindow *page,
                          const wxString& text,
                          bool bSelect = false,
@@ -273,11 +273,11 @@ protected:
     // CreatePageChangingEvent() and MakeChangedEvent(), but as it might not
     // use it, these functions are not pure virtual
 
-    // called to notify the control about a new current page
+    // called to notify the control about a NEW_DEBUG current page
     virtual void UpdateSelectedPage(size_t WXUNUSED(newsel))
         { wxFAIL_MSG(wxT("Override this function!")); }
 
-    // create a new "page changing" event
+    // create a NEW_DEBUG "page changing" event
     virtual wxBookCtrlEvent* CreatePageChangingEvent() const
         { wxFAIL_MSG(wxT("Override this function!")); return NULL; }
 
@@ -402,7 +402,7 @@ public:
         m_nOldSel = event.m_nOldSel;
     }
 
-    virtual wxEvent *Clone() const wxOVERRIDE { return new wxBookCtrlEvent(*this); }
+    virtual wxEvent *Clone() const wxOVERRIDE { return NEW_DEBUG wxBookCtrlEvent(*this); }
 
     // accessors
         // the currently selected page (wxNOT_FOUND if none)

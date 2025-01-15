@@ -227,7 +227,7 @@ public:
     It relies on the application's event handler to do that.
     This is because the application may have to handle other consequences of the resize,
     or it may wish to veto it altogether. The event handler should look at the drag
-    rectangle: see wxSashEvent::GetDragRect to see what the new size of the window
+    rectangle: see wxSashEvent::GetDragRect to see what the NEW_DEBUG size of the window
     would be if the resize were to be applied.
     It should also call wxSashEvent::GetDragStatus to see whether the drag was
     OK or out of the current allowed range.
@@ -255,7 +255,7 @@ public:
     wxSashEvent(int id = 0, wxSashEdgePosition edge = wxSASH_NONE);
 
     /**
-        Returns the rectangle representing the new size the window would be if the
+        Returns the rectangle representing the NEW_DEBUG size the window would be if the
         resize was applied. It is up to the application to set the window size if required.
     */
     wxRect GetDragRect() const;

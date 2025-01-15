@@ -57,7 +57,7 @@ public:
     ~wxPreferencesEditor();
 
     /**
-        Add a new page to the editor.
+        Add a NEW_DEBUG page to the editor.
 
         The editor takes ownership of the page and will delete it from its
         destructor (but not sooner).

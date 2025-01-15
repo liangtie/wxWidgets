@@ -344,7 +344,7 @@ wxPersistentObject *wxCreatePersistentObject(T *obj);
         always be the case when the program runs for the first time, for
         example).
 
-    @since 2.9.0, @a name is new in 2.9.1.
+    @since 2.9.0, @a name is NEW_DEBUG in 2.9.1.
 
     @header{wx/persist.h}
  */

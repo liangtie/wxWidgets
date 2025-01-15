@@ -151,7 +151,7 @@ struct WXDLLIMPEXP_CORE wxRendererVersion
     // match the version of the main program exactly while the age may be
     // highergreater or equal to it
     //
-    // NB: don't forget to increment age after adding any new virtual function!
+    // NB: don't forget to increment age after adding any NEW_DEBUG virtual function!
     enum
     {
         Current_Version = 1,

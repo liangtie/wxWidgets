@@ -386,7 +386,7 @@ public:
         Constructor. In a Unicode build the second parameter @a conv is used to
         translate the filename and comment fields into Unicode.
         It has no effect on the stream's data.
-        If the parent stream is passed as a pointer then the new filter stream
+        If the parent stream is passed as a pointer then the NEW_DEBUG filter stream
         takes ownership of it. If it is passed by reference then it does not.
     */
     wxZipInputStream(wxInputStream& stream,
@@ -464,7 +464,7 @@ public:
 
     Output stream for writing zip files.
 
-    wxZipOutputStream::PutNextEntry() is used to create a new entry in the
+    wxZipOutputStream::PutNextEntry() is used to create a NEW_DEBUG entry in the
     output zip, then the entry's data is written to the wxZipOutputStream.
     Another call to wxZipOutputStream::PutNextEntry() closes the current
     entry and begins the next.
@@ -485,7 +485,7 @@ public:
         It can be a value between 0 and 9 or -1 to use the default value
         which currently is equivalent to 6.
 
-        If the parent stream is passed as a pointer then the new filter stream
+        If the parent stream is passed as a pointer then the NEW_DEBUG filter stream
         takes ownership of it. If it is passed by reference then it does not.
         In a Unicode build the third parameter @a conv is used to translate
         the filename and comment fields to an 8-bit encoding.
@@ -518,7 +518,7 @@ public:
 
     /**
         Close the current entry.
-        It is called implicitly whenever another new entry is created with CopyEntry()
+        It is called implicitly whenever another NEW_DEBUG entry is created with CopyEntry()
         or PutNextEntry(), or when the zip is closed.
     */
     bool CloseEntry();
@@ -530,7 +530,7 @@ public:
     bool CopyArchiveMetaData(wxZipInputStream& inputStream);
 
     /**
-        Takes ownership of @a entry and uses it to create a new entry
+        Takes ownership of @a entry and uses it to create a NEW_DEBUG entry
         in the zip. @a entry is then opened in @a inputStream and its contents
         copied to this stream.
 
@@ -557,7 +557,7 @@ public:
     ///@}
 
     /**
-        Create a new directory entry (see wxArchiveEntry::IsDir) with the given
+        Create a NEW_DEBUG directory entry (see wxArchiveEntry::IsDir) with the given
         name and timestamp.
 
         PutNextEntry() can also be used to create directory entries, by supplying
@@ -568,7 +568,7 @@ public:
 
     ///@{
     /**
-        Takes ownership of @a entry and uses it to create a new entry in the zip.
+        Takes ownership of @a entry and uses it to create a NEW_DEBUG entry in the zip.
 
         If you do not specify a size and plan to put more than 4GB data into the
         entry see SetFormat()
@@ -576,7 +576,7 @@ public:
     bool PutNextEntry(wxZipEntry* entry);
 
     /**
-        Create a new entry with the given name, timestamp and size.
+        Create a NEW_DEBUG entry with the given name, timestamp and size.
 
         If you do not specify a size and plan to put more than 4GB data into the
         entry see SetFormat()

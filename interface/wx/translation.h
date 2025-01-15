@@ -404,7 +404,7 @@ public:
     enable this loader before calling wxTranslations::AddAvailableCatalog():
 
     @code
-    wxTranslations::Get()->SetLoader(new wxResourceTranslationsLoader);
+    wxTranslations::Get()->SetLoader(NEW_DEBUG wxResourceTranslationsLoader);
     @endcode
 
     Translations are stored in resources as compiled MO files, with type

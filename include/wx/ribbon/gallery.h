@@ -140,7 +140,7 @@ public:
         m_item = e.m_item;
     }
 #endif
-    wxEvent *Clone() const wxOVERRIDE { return new wxRibbonGalleryEvent(*this); }
+    wxEvent *Clone() const wxOVERRIDE { return NEW_DEBUG wxRibbonGalleryEvent(*this); }
 
     wxRibbonGallery* GetGallery() {return m_gallery;}
     wxRibbonGalleryItem* GetGalleryItem() {return m_item;}

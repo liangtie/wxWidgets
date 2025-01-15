@@ -746,7 +746,7 @@ public:
         accept both arguments.
 
         Also, both Add() and Subtract() have both const and non-const version.
-        The first one returns a new object which represents the sum/difference
+        The first one returns a NEW_DEBUG object which represents the sum/difference
         of the original one with the argument while the second form modifies
         the object to which it is applied. The operators "-=" and "+=" are
         defined to be equivalent to the second forms of these functions.
@@ -1666,7 +1666,7 @@ public:
     /**
         Returns the sum of two date spans.
 
-        @return A new wxDateSpan object with the result.
+        @return A NEW_DEBUG wxDateSpan object with the result.
     */
     wxDateSpan Add(const wxDateSpan& other) const;
     /**
@@ -1752,7 +1752,7 @@ public:
         product is computed by multiplying each of the components by the
         @a factor.
 
-        @return A new wxDateSpan object with the result.
+        @return A NEW_DEBUG wxDateSpan object with the result.
     */
     wxDateSpan Multiply(int factor) const;
     /**
@@ -1804,7 +1804,7 @@ public:
     /**
         Returns the difference of two date spans.
 
-        @return A new wxDateSpan object with the result.
+        @return A NEW_DEBUG wxDateSpan object with the result.
     */
     wxDateSpan Subtract(const wxDateSpan& other) const;
     /**
@@ -1915,7 +1915,7 @@ public:
     /**
         Returns the sum of two time spans.
 
-        @return A new wxDateSpan object with the result.
+        @return A NEW_DEBUG wxDateSpan object with the result.
     */
     wxTimeSpan Add(const wxTimeSpan& diff) const;
     /**
@@ -2064,7 +2064,7 @@ public:
     /**
         Returns the product of this time span by @a n.
 
-        @return A new wxTimeSpan object with the result.
+        @return A NEW_DEBUG wxTimeSpan object with the result.
     */
     wxTimeSpan Multiply(int n) const;
     /**
@@ -2101,7 +2101,7 @@ public:
     /**
         Returns the difference of two time spans.
 
-        @return A new wxDateSpan object with the result.
+        @return A NEW_DEBUG wxDateSpan object with the result.
     */
     wxTimeSpan Subtract(const wxTimeSpan& diff) const;
     /**

@@ -271,8 +271,8 @@ public:
         return Select(flags, &m_timeout);
     }
 
-    // just a wrapper for accept(): it is called to create a new wxSocketImpl
-    // corresponding to a new server connection represented by the given
+    // just a wrapper for accept(): it is called to create a NEW_DEBUG wxSocketImpl
+    // corresponding to a NEW_DEBUG server connection represented by the given
     // wxSocketBase, returns NULL on error (including immediately if there are
     // no pending connections as our sockets are non-blocking)
     wxSocketImpl *Accept(wxSocketBase& wxsocket);

@@ -46,7 +46,7 @@ public:
 
     wxString GetHotKey() const { return m_hotKey; }
 
-    // compatibility only, don't use in new code
+    // compatibility only, don't use in NEW_DEBUG code
     wxMenuItem(wxMenu *parentMenu,
                int id,
                const wxString& text,

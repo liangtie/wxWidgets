@@ -76,7 +76,7 @@ public:
         m_isDropdownClicked = false;
         m_toolId = -1;
     }
-    wxEvent *Clone() const wxOVERRIDE { return new wxAuiToolBarEvent(*this); }
+    wxEvent *Clone() const wxOVERRIDE { return NEW_DEBUG wxAuiToolBarEvent(*this); }
 
     bool IsDropDownClicked() const  { return m_isDropdownClicked; }
     void SetDropDownClicked(bool c) { m_isDropdownClicked = c;    }

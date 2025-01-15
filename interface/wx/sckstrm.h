@@ -21,7 +21,7 @@ class wxSocketOutputStream : public wxOutputStream
 {
 public:
     /**
-        Creates a new write-only socket stream using the specified initialized
+        Creates a NEW_DEBUG write-only socket stream using the specified initialized
         socket connection.
     */
     wxSocketOutputStream(wxSocketBase& s);
@@ -45,7 +45,7 @@ class wxSocketInputStream : public wxInputStream
 {
 public:
     /**
-        Creates a new read-only socket stream using the specified initialized
+        Creates a NEW_DEBUG read-only socket stream using the specified initialized
         socket connection.
     */
     wxSocketInputStream(wxSocketBase& s);

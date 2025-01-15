@@ -227,7 +227,7 @@ protected:
     void SetDiskStart(int start)                { m_DiskStart = (wxUint16)start; }
     void SetInternalAttributes(int attr)        { m_InternalAttributes = (wxUint16)attr; }
 
-    virtual wxZipEntry *ZipClone() const        { return new wxZipEntry(*this); }
+    virtual wxZipEntry *ZipClone() const        { return NEW_DEBUG wxZipEntry(*this); }
 
     void Notify();
 
@@ -483,15 +483,15 @@ public:
     wxZipClassFactory();
 
     wxZipEntry *NewEntry() const
-        { return new wxZipEntry; }
+        { return NEW_DEBUG wxZipEntry; }
     wxZipInputStream *NewStream(wxInputStream& stream) const
-        { return new wxZipInputStream(stream, GetConv()); }
+        { return NEW_DEBUG wxZipInputStream(stream, GetConv()); }
     wxZipOutputStream *NewStream(wxOutputStream& stream) const
-        { return new wxZipOutputStream(stream, -1, GetConv()); }
+        { return NEW_DEBUG wxZipOutputStream(stream, -1, GetConv()); }
     wxZipInputStream *NewStream(wxInputStream *stream) const
-        { return new wxZipInputStream(stream, GetConv()); }
+        { return NEW_DEBUG wxZipInputStream(stream, GetConv()); }
     wxZipOutputStream *NewStream(wxOutputStream *stream) const
-        { return new wxZipOutputStream(stream, -1, GetConv()); }
+        { return NEW_DEBUG wxZipOutputStream(stream, -1, GetConv()); }
 
     wxString GetInternalName(const wxString& name,
                              wxPathFormat format = wxPATH_NATIVE) const wxOVERRIDE

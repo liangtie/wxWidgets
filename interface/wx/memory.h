@@ -56,7 +56,7 @@ public:
     /**
         Returns @true if debug mode is on.
 
-        If debug mode is on, the wxObject new and delete operators store or use
+        If debug mode is on, the wxObject NEW_DEBUG and delete operators store or use
         information about memory allocation. Otherwise, a straight malloc and
         free will be performed by these operators.
 
@@ -122,7 +122,7 @@ public:
     /**
         Sets the debug mode on or off.
 
-        If debug mode is on, the wxObject new and delete operators store or use
+        If debug mode is on, the wxObject NEW_DEBUG and delete operators store or use
         information about memory allocation. Otherwise, a straight malloc and free
         will be performed by these operators.
 

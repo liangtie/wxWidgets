@@ -120,7 +120,7 @@ private:
 class WXDLLIMPEXP_WEBVIEW wxWebViewFactoryEdge : public wxWebViewFactory
 {
 public:
-    virtual wxWebView* Create() wxOVERRIDE { return new wxWebViewEdge; }
+    virtual wxWebView* Create() wxOVERRIDE { return NEW_DEBUG wxWebViewEdge; }
     virtual wxWebView* Create(wxWindow* parent,
         wxWindowID id,
         const wxString& url = wxWebViewDefaultURLStr,
@@ -129,7 +129,7 @@ public:
         long style = 0,
         const wxString& name = wxWebViewNameStr) wxOVERRIDE
     {
-        return new wxWebViewEdge(parent, id, url, pos, size, style, name);
+        return NEW_DEBUG wxWebViewEdge(parent, id, url, pos, size, style, name);
     }
     virtual bool IsAvailable() wxOVERRIDE;
     virtual wxVersionInfo GetVersionInfo() wxOVERRIDE;

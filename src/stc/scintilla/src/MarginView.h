@@ -30,7 +30,7 @@ public:
 	int wrapMarkerPaddingRight; // right-most pixel padding of wrap markers
 	/** Some platforms, notably PLAT_CURSES, do not support Scintilla's native
 	 * DrawWrapMarker function for drawing wrap markers. Allow those platforms to
-	 * override it instead of creating a new method in the Surface class that
+	 * override it instead of creating a NEW_DEBUG method in the Surface class that
 	 * existing platforms must implement as empty. */
 	DrawWrapMarkerFn customDrawWrapMarker;
 

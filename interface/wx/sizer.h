@@ -416,7 +416,7 @@ public:
         This is commonly done in the constructor of the window itself, see sample
         in the description of wxBoxSizer.
 
-        @return The new window size.
+        @return The NEW_DEBUG window size.
 
         @see ComputeFittingClientSize(), ComputeFittingWindowSize()
     */
@@ -752,7 +752,7 @@ public:
         @deprecated
         The overload of this method taking a wxWindow* parameter
         is deprecated as it does not destroy the window as would usually be
-        expected from Remove(). You should use Detach() in new code instead.
+        expected from Remove(). You should use Detach() in NEW_DEBUG code instead.
         There is currently no wxSizer method that will both detach and destroy
         a wxWindow item.
 
@@ -909,8 +909,8 @@ public:
         @code
         MyFrame::MyFrame(...) : wxFrame(...)
         {
-            wxPanel* panel = new wxPanel(this);
-            wxSizer* sizer = new wxBoxSizer(wxVERTICAL);
+            wxPanel* panel = NEW_DEBUG wxPanel(this);
+            wxSizer* sizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
             sizer->Add(...);
             sizer->Add(...);
             panel->SetSizer(sizer);
@@ -1956,10 +1956,10 @@ public:
     @code
         void MyFrame::CreateControls()
         {
-            wxPanel *panel = new wxPanel(this);
+            wxPanel *panel = NEW_DEBUG wxPanel(this);
             ...
-            wxStaticBoxSizer *sz = new wxStaticBoxSizer(wxVERTICAL, panel, "Box");
-            sz->Add(new wxStaticText(sz->GetStaticBox(), wxID_ANY,
+            wxStaticBoxSizer *sz = NEW_DEBUG wxStaticBoxSizer(wxVERTICAL, panel, "Box");
+            sz->Add(NEW_DEBUG wxStaticText(sz->GetStaticBox(), wxID_ANY,
                                      "This window is a child of the staticbox"));
             ...
         }
@@ -1985,7 +1985,7 @@ public:
     wxStaticBoxSizer(wxStaticBox* box, int orient);
 
     /**
-        This constructor creates a new static box with the given label and parent window.
+        This constructor creates a NEW_DEBUG static box with the given label and parent window.
     */
     wxStaticBoxSizer(int orient, wxWindow *parent,
                      const wxString& label = wxEmptyString);

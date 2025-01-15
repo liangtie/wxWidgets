@@ -79,7 +79,7 @@ public:
 
     /**
         This function exists only for backwards compatibility, it's recommended to override
-        GetBitmapBundle() in the new code and override this one to do nothing, as it will
+        GetBitmapBundle() in the NEW_DEBUG code and override this one to do nothing, as it will
         never be called if GetBitmapBundle() is overridden.
     */
     virtual wxBitmap GetBitmap() const = 0;
@@ -396,7 +396,7 @@ public:
     methods in a trivial way, i.e. by just storing the information in the
     object itself. It is used by and with wxHeaderCtrlSimple, e.g.
     @code
-        wxHeaderCtrlSimple * header = new wxHeaderCtrlSimple(...);
+        wxHeaderCtrlSimple * header = NEW_DEBUG wxHeaderCtrlSimple(...);
         wxHeaderColumnSimple col("Title");
         col.SetWidth(100);
         col.SetSortable(100);

@@ -127,13 +127,13 @@ public:
     wxLZMAClassFactory();
 
     wxFilterInputStream *NewStream(wxInputStream& stream) const wxOVERRIDE
-        { return new wxLZMAInputStream(stream); }
+        { return NEW_DEBUG wxLZMAInputStream(stream); }
     wxFilterOutputStream *NewStream(wxOutputStream& stream) const wxOVERRIDE
-        { return new wxLZMAOutputStream(stream, -1); }
+        { return NEW_DEBUG wxLZMAOutputStream(stream, -1); }
     wxFilterInputStream *NewStream(wxInputStream *stream) const wxOVERRIDE
-        { return new wxLZMAInputStream(stream); }
+        { return NEW_DEBUG wxLZMAInputStream(stream); }
     wxFilterOutputStream *NewStream(wxOutputStream *stream) const wxOVERRIDE
-        { return new wxLZMAOutputStream(stream, -1); }
+        { return NEW_DEBUG wxLZMAOutputStream(stream, -1); }
 
     const wxChar * const *GetProtocols(wxStreamProtocolType type
                                        = wxSTREAM_PROTOCOL) const wxOVERRIDE;

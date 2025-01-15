@@ -283,7 +283,7 @@ problems:
    @c char*. Of course, modifying the string via the pointer returned by this
    method has never been possible but unfortunately it was occasionally useful
    to use a @c const_cast here to pass the value to const-incorrect functions.
-   This can be done either using new wxString::char_str() (and matching
+   This can be done either using NEW_DEBUG wxString::char_str() (and matching
    wchar_str()) method or by writing a double cast:
    @code (char *)(const char *)s.c_str() @endcode
 
@@ -325,7 +325,7 @@ The simplest way to ensure that this doesn't happen is to avoid conversions to
 @c char* completely by using wxString throughout your program. However if the
 program never manipulates 8 bit strings internally, using @c char* pointers is
 safe as well. So the existing code needs to be reviewed when upgrading to
-wxWidgets 3.0 and the new code should be used with this in mind and ideally
+wxWidgets 3.0 and the NEW_DEBUG code should be used with this in mind and ideally
 avoiding implicit conversions to @c char*.
 
 

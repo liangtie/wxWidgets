@@ -129,7 +129,7 @@ public:
         { return GetTypeInfo()->GetTypeName(); }
 
     // return a heap allocated duplicate
-    //virtual wxVariantData* Clone() const { return new wxVariantDataT<T>( Get() ); }
+    //virtual wxVariantData* Clone() const { return NEW_DEBUG wxVariantDataT<T>( Get() ); }
 
     // returns the type info of the contentc
     virtual const wxTypeInfo* GetTypeInfo() const { return wxGetTypeInfo( (T*) NULL ); }
@@ -153,7 +153,7 @@ public:
 
     template<typename T>
         wxVariantBase(const T& data, const wxString& name = wxEmptyString) :
-            m_data(new wxVariantDataT<T>(data)), m_name(name) {}
+            m_data(NEW_DEBUG wxVariantDataT<T>(data)), m_name(name) {}
 
     virtual ~wxVariantBase();
 
@@ -161,7 +161,7 @@ public:
     void operator= (const wxVariantBase& variant);
 
     // Assignment using data, e.g.
-    // myVariant = new wxStringVariantData("hello");
+    // myVariant = NEW_DEBUG wxStringVariantData("hello");
     void operator= (wxVariantData* variantData);
 
     bool operator== (const wxVariantBase& variant) const;

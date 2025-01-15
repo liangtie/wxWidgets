@@ -50,7 +50,7 @@
         }
         else
         {
-            char *data = new char[size];
+            char *data = NEW_DEBUG char[size];
             if ( !in->Read(data, size) )
             {
                 wxLogError("Read error: %d", ftp.GetError());
@@ -310,7 +310,7 @@ public:
 
     //@{
     /**
-        Creates a new input stream on the specified path.
+        Creates a NEW_DEBUG input stream on the specified path.
 
         You can use all but the seek functionality of wxStreamBase.
         wxStreamBase::Seek() isn't available on all streams. For example, HTTP or FTP

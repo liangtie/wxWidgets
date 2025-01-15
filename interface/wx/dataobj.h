@@ -367,7 +367,7 @@ public:
 
     /**
         This function is called to allocate @a size bytes of memory from
-        SetData(). The default version just uses the operator new.
+        SetData(). The default version just uses the operator NEW_DEBUG.
     */
     virtual void* Alloc(size_t size);
 
@@ -423,9 +423,9 @@ public:
     @code
     MyDropTarget::MyDropTarget()
     {
-        wxDataObjectComposite* dataobj = new wxDataObjectComposite();
-        dataobj->Add(new wxBitmapDataObject(), true);
-        dataobj->Add(new wxFileDataObject());
+        wxDataObjectComposite* dataobj = NEW_DEBUG wxDataObjectComposite();
+        dataobj->Add(NEW_DEBUG wxBitmapDataObject(), true);
+        dataobj->Add(NEW_DEBUG wxFileDataObject());
         SetDataObject(dataobj);
     }
 
@@ -585,7 +585,7 @@ public:
 
     wxBitmapDataObject is a specialization of wxDataObject for bitmap data. It
     can be used without change to paste data into the wxClipboard or a
-    wxDropSource. A user may wish to derive a new class from this class for
+    wxDropSource. A user may wish to derive a NEW_DEBUG class from this class for
     providing a bitmap on-demand in order to minimize memory consumption when
     offering data in several formats, such as a bitmap and GIF.
 
@@ -668,7 +668,7 @@ public:
     when you need to put an URL on or retrieve it from the clipboard:
 
     @code
-    wxTheClipboard->SetData(new wxURLDataObject(url));
+    wxTheClipboard->SetData(NEW_DEBUG wxURLDataObject(url));
     @endcode
 
     @note The actual base class of this class is not always wxDataObject
@@ -707,7 +707,7 @@ public:
 
     wxTextDataObject is a specialization of wxDataObjectSimple for text data.
     It can be used without change to paste data into the wxClipboard or a
-    wxDropSource. A user may wish to derive a new class from this class for
+    wxDropSource. A user may wish to derive a NEW_DEBUG class from this class for
     providing text on-demand in order to minimize memory consumption when
     offering data in several formats, such as plain text and RTF because by
     default the text is stored in a string in this class, but it might as well

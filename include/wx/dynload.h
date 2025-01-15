@@ -128,7 +128,7 @@ public:
         return m_entry->GetSymbol( symbol, success );
     }
 
-    static void CreateManifest() { ms_manifest = new wxDLManifest(wxKEY_STRING); }
+    static void CreateManifest() { ms_manifest = NEW_DEBUG wxDLManifest(wxKEY_STRING); }
     static void ClearManifest() { delete ms_manifest; ms_manifest = NULL; }
 
 private:

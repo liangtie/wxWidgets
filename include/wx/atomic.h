@@ -17,7 +17,7 @@
 // get the value of wxUSE_THREADS configuration flag
 #include "wx/defs.h"
 
-// these functions return the new value, after the operation
+// these functions return the NEW_DEBUG value, after the operation
 
 #if wxUSE_THREADS
 

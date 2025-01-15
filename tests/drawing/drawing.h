@@ -27,8 +27,8 @@ public:
     GraphicsContextDrawingTestCase()
         : m_drawingPluginsLoaded(false)
     {
-        wxImage::AddHandler (new wxPNGHandler());
-        wxImage::AddHandler (new wxBMPHandler());
+        wxImage::AddHandler (NEW_DEBUG wxPNGHandler());
+        wxImage::AddHandler (NEW_DEBUG wxBMPHandler());
     }
     ~GraphicsContextDrawingTestCase() {
         ms_referenceDirectory.clear();

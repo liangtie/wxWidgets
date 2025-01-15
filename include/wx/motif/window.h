@@ -305,7 +305,7 @@ private:
 // ----------------------------------------------------------------------------
 // A little class to switch off `size optimization' while an instance of the
 // object exists: this may be useful to temporarily disable the optimisation
-// which consists to do nothing when the new size is equal to the old size -
+// which consists to do nothing when the NEW_DEBUG size is equal to the old size -
 // although quite useful usually to avoid flicker, sometimes it leads to
 // undesired effects.
 //

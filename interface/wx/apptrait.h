@@ -57,7 +57,7 @@ public:
 
     /**
         Creates a wxLog class for the application to use for logging errors.
-        The default implementation returns a new wxLogGui class.
+        The default implementation returns a NEW_DEBUG wxLogGui class.
 
         @see wxLog
     */

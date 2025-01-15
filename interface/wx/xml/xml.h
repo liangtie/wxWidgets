@@ -80,7 +80,7 @@ public:
 
         @param parent
             The parent node to which append this node instance.
-            If this argument is @NULL this new node will be floating and it can
+            If this argument is @NULL this NEW_DEBUG node will be floating and it can
             be appended later to another one using the AddChild() or InsertChild()
             functions. Otherwise the child is added to the XML tree by this
             constructor and it shouldn't be done again.
@@ -275,7 +275,7 @@ public:
 
     /**
         Inserts the @a child node immediately before @a followingNode in the
-        children list. Once inserted, the XML tree takes ownership of the new
+        children list. Once inserted, the XML tree takes ownership of the NEW_DEBUG
         child and there is no need to delete it.
 
         @return @true if @a followingNode has been found and the @a child
@@ -293,7 +293,7 @@ public:
 
     /**
         Inserts the @a child node immediately after @a precedingNode in the
-        children list. Once inserted, the XML tree takes ownership of the new
+        children list. Once inserted, the XML tree takes ownership of the NEW_DEBUG
         child and there is no need to delete it.
 
         @return @true if @a precedingNode has been found and the @a child
@@ -314,7 +314,7 @@ public:
 
     /**
         Returns @true if the content of this node is a string containing only
-        whitespaces (spaces, tabs, new lines, etc).
+        whitespaces (spaces, tabs, NEW_DEBUG lines, etc).
 
         Note that this function is locale-independent since the parsing of XML
         documents must always produce the exact same tree regardless of the
@@ -664,14 +664,14 @@ enum wxXmlDocumentLoadFlag
     // Create a document and add the root node.
     wxXmlDocument xmlDoc;
 
-    wxXmlNode* root = new wxXmlNode(NULL, wxXML_ELEMENT_NODE, "Root");
+    wxXmlNode* root = NEW_DEBUG wxXmlNode(NULL, wxXML_ELEMENT_NODE, "Root");
     xmlDoc.SetRoot(root);
 
     // Add some XML.
-    wxXmlNode* library = new wxXmlNode (root, wxXML_ELEMENT_NODE, "Library");
+    wxXmlNode* library = NEW_DEBUG wxXmlNode (root, wxXML_ELEMENT_NODE, "Library");
     library->AddAttribute("type", "CrossPlatformList");
-    wxXmlNode* name = new wxXmlNode(library, wxXML_ELEMENT_NODE, "Name");
-    name->AddChild(new wxXmlNode(wxXML_TEXT_NODE, "", "wxWidgets"));
+    wxXmlNode* name = NEW_DEBUG wxXmlNode(library, wxXML_ELEMENT_NODE, "Name");
+    name->AddChild(NEW_DEBUG wxXmlNode(wxXML_TEXT_NODE, "", "wxWidgets"));
 
     // Write the output to a wxString.
     wxStringOutputStream stream;

@@ -227,7 +227,7 @@ protected:
             *h = size.y;
     }
 
-    // calculate the new scroll position based on scroll event type
+    // calculate the NEW_DEBUG scroll position based on scroll event type
     size_t GetNewScrollPosition(wxScrollWinEvent& event) const;
 
     // replacement implementation of wxWindow::Layout virtual method.  To
@@ -550,7 +550,7 @@ public:
 // wxVScrolledWindow in 2.6 or 2.8. Originally, wxVScrolledWindow referred
 // to scrolling "lines". We use "units" in wxVarScrollHelperBase to avoid
 // implying any orientation (since the functions are used for both horizontal
-// and vertical scrolling in derived classes). And in the new
+// and vertical scrolling in derived classes). And in the NEW_DEBUG
 // wxVScrolledWindow and wxHScrolledWindow classes, we refer to them as
 // "rows" and "columns", respectively. This is to help clear some confusion
 // in not only those classes, but also in wxHVScrolledWindow where functions

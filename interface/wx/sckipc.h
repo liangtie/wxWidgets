@@ -134,7 +134,7 @@ public:
         The advantage of deriving your own connection class is that it will
         enable you to intercept messages initiated by the server, such
         as wxTCPConnection::OnAdvise(). You may also want to store
-        application-specific data in instances of the new class.
+        application-specific data in instances of the NEW_DEBUG class.
     */
     virtual wxConnectionBase* OnMakeConnection();
 
@@ -160,7 +160,7 @@ public:
     The bulk of a conversation is controlled by calling members in a
     @b wxTCPConnection object or by overriding its members.
 
-    An application should normally derive a new connection class from
+    An application should normally derive a NEW_DEBUG connection class from
     wxTCPConnection, in order to override the communication event handlers
     to do something interesting.
 
@@ -182,7 +182,7 @@ public:
 
         However, if the user defines his or her own derived connection object,
         the wxTCPServer::OnAcceptConnection and/or wxTCPClient::OnMakeConnection
-        members should be replaced by functions which construct the new connection object.
+        members should be replaced by functions which construct the NEW_DEBUG connection object.
 
         If the arguments of the wxTCPConnection constructor are void, then a default
         buffer is associated with the connection. Otherwise, the programmer must

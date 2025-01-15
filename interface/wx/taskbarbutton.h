@@ -204,7 +204,7 @@ public:
     virtual void SetProgressRange(int range);
 
     /**
-        Update the progress indicator, setting the progress to the new value .
+        Update the progress indicator, setting the progress to the NEW_DEBUG value .
 
         @param value Must be in the range from 0 to the argument to the last
         SetProgressRange() call. When it is equal to the range, the progress
@@ -593,7 +593,7 @@ typedef wxVector<wxTaskBarJumpListCategory*> wxTaskBarJumpListCategories;
     @class wxTaskBarJumpList
 
     This class is a transparent wrapper around Windows Jump Lists. Jump
-    Lists, as a new feature since Windows 7, are lists of recently opened
+    Lists, as a NEW_DEBUG feature since Windows 7, are lists of recently opened
     items, such as files, folders, or websites, which are organized by the
     program that the user use to open them. Jump Lists don't just show
     shortcuts to files. Sometimes they can also provide quick access to tasks.
@@ -648,7 +648,7 @@ public:
     /**
         Accesses the built in tasks category.
 
-        With the returned tasks category, you can append an new task, remove
+        With the returned tasks category, you can append an NEW_DEBUG task, remove
         an existing task, modify the task item etc.
     */
     wxTaskBarJumpListCategory& GetTasks() const;
@@ -674,7 +674,7 @@ public:
     const wxTaskBarJumpListCategories& GetCustomCategories() const;
 
     /**
-        Add an new custom category.
+        Add an NEW_DEBUG custom category.
 
         @param category
             A wxTaskBarJumpListCategory object. It will be owned by the

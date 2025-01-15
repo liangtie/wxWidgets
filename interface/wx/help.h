@@ -120,7 +120,7 @@ public:
 
     /**
         For wxHtmlHelpController, returns the latest frame size and position
-        settings and whether a new frame is drawn with each invocation.
+        settings and whether a NEW_DEBUG frame is drawn with each invocation.
         For all other help controllers, this function does nothing and just returns @NULL.
 
         @param size
@@ -128,7 +128,7 @@ public:
         @param pos
             The most recent frame position.
         @param newFrameEachTime
-            @true if a new frame is drawn with each invocation.
+            @true if a NEW_DEBUG frame is drawn with each invocation.
     */
     virtual wxFrame* GetFrameParameters(wxSize* size = NULL,
                                         wxPoint* pos = NULL,
@@ -290,7 +290,7 @@ public:
       more advanced features, so it is recommended that you use the specific API
       for this class instead. Note that if you use .zip or .htb formats for your
       books, you must add this line to your application initialization:
-      @code wxFileSystem::AddHandler(new wxArchiveFSHandler); @endcode
+      @code wxFileSystem::AddHandler(NEW_DEBUG wxArchiveFSHandler); @endcode
       or nothing will be shown in your help window.
 
     @library{wxcore}

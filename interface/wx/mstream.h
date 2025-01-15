@@ -38,7 +38,7 @@ class wxMemoryOutputStream : public wxOutputStream
 {
 public:
     /**
-        If @a data is @NULL, then it will initialize a new empty buffer which will
+        If @a data is @NULL, then it will initialize a NEW_DEBUG empty buffer which will
         grow if required.
 
         @warning
@@ -99,20 +99,20 @@ class wxMemoryInputStream : public wxInputStream
 {
 public:
     /**
-        Initializes a new read-only memory stream which will use the specified
+        Initializes a NEW_DEBUG read-only memory stream which will use the specified
         buffer data of length len. The stream does not take ownership of the buffer,
         i.e. the buffer will not be deleted in its destructor.
     */
     wxMemoryInputStream(const void* data, size_t len);
 
     /**
-        Creates a new read-only memory stream, initializing it with the data from
+        Creates a NEW_DEBUG read-only memory stream, initializing it with the data from
         the given output stream @a stream.
     */
     wxMemoryInputStream(const wxMemoryOutputStream& stream);
 
     /**
-        Creates a new read-only memory stream, initializing it with the
+        Creates a NEW_DEBUG read-only memory stream, initializing it with the
         data from the given input stream @a stream.
 
         The @a len argument specifies the amount of data to read from the

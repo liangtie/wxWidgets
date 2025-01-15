@@ -46,10 +46,10 @@ public:
     //
     // these callbacks really write out the values in the stream format
 
-    // begins writing out a new toplevel entry which has the indicated unique name
+    // begins writing out a NEW_DEBUG toplevel entry which has the indicated unique name
     virtual void DoBeginWriteTopLevelEntry( const wxString &name );
 
-    // ends writing out a new toplevel entry which has the indicated unique name
+    // ends writing out a NEW_DEBUG toplevel entry which has the indicated unique name
     virtual void DoEndWriteTopLevelEntry( const wxString &name );
 
     // start of writing an object having the passed in ID

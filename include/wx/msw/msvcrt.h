@@ -9,14 +9,14 @@
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
-// Note that this file globally redefines "new" keyword breaking the use of
-// placement new in any code parsed after it. If you run into this problem, the
+// Note that this file globally redefines "NEW_DEBUG" keyword breaking the use of
+// placement NEW_DEBUG in any code parsed after it. If you run into this problem, the
 // solutions are, in order of preference:
 //
 // 1. Don't include this header at all. Use better tools for memory debugging.
 // 2. Predefine __NO_VC_CRTDBG__ before including it (basically the same as 1).
-// 3. Do "#undef new" before and "#define new WXDEBUG_NEW" in your own code
-//    before/after using placement new or before/after including third part
+// 3. Do "#undef NEW_DEBUG" before and "#define NEW_DEBUG WXDEBUG_NEW" in your own code
+//    before/after using placement NEW_DEBUG or before/after including third part
 //    headers using it.
 
 // the goal of this file is to define wxCrtSetDbgFlag() macro which may be
@@ -40,9 +40,9 @@
 #endif
 
 #ifdef wxUSE_VC_CRTDBG
-    // Need to undef new if including crtdbg.h which may redefine new itself
-    #ifdef new
-        #undef new
+    // Need to undef NEW_DEBUG if including crtdbg.h which may redefine NEW_DEBUG itself
+    #ifdef NEW_DEBUG
+        #undef NEW_DEBUG
     #endif
 
     #include <stdlib.h>
@@ -59,14 +59,14 @@
     #include <crtdbg.h>
 
     #undef WXDEBUG_NEW
-    #define WXDEBUG_NEW new(_NORMAL_BLOCK, __FILE__, __LINE__)
+    #define WXDEBUG_NEW NEW_DEBUG(_NORMAL_BLOCK, __FILE__, __LINE__)
 
-    // this define works around a bug with inline declarations of new, see
+    // this define works around a bug with inline declarations of NEW_DEBUG, see
     //
     //      http://support.microsoft.com/kb/q140858/
     //
     // for the details
-    #define new  WXDEBUG_NEW
+    #define NEW_DEBUG  WXDEBUG_NEW
 
     #define wxCrtSetDbgFlag(flag) \
         _CrtSetDbgFlag(_CrtSetDbgFlag(_CRTDBG_REPORT_FLAG) | (flag))

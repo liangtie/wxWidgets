@@ -174,7 +174,7 @@ public:
     bool Hide();
 
     /**
-        Call this to move the image to a new position. The image will only be
+        Call this to move the image to a NEW_DEBUG position. The image will only be
         shown if Show() has been called previously (for example at the start of
         the drag).
 
@@ -204,7 +204,7 @@ public:
         behaviour.
 
         The default implementation copies the window contents to the backing
-        bitmap. A new implementation will normally copy information from
+        bitmap. A NEW_DEBUG implementation will normally copy information from
         another source, such as from its own backing bitmap if it has one, or
         directly from internal data structures.
 

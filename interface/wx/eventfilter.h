@@ -71,7 +71,7 @@
     Notice that wxApp derives from wxEventFilter and is registered as an event
     filter during its creation so you may also override FilterEvent() method in
     your wxApp-derived class and, in fact, this is often the most convenient
-    way to do it. However creating a new class deriving directly from
+    way to do it. However creating a NEW_DEBUG class deriving directly from
     wxEventFilter allows isolating the event filtering code in its own
     separate class and also having several independent filters, if necessary.
 

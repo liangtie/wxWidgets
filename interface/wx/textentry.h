@@ -166,7 +166,7 @@ public:
     virtual bool CanUndo() const;
 
     /**
-        Sets the new text control value.
+        Sets the NEW_DEBUG text control value.
 
         It also marks the control as not-modified which means that IsModified()
         would return @false immediately after the call to ChangeValue().
@@ -182,7 +182,7 @@ public:
         @since 2.7.1
 
         @param value
-            The new value to set. It may contain newline characters if the text
+            The NEW_DEBUG value to set. It may contain newline characters if the text
             control is multi-line.
     */
     virtual void ChangeValue(const wxString& value);
@@ -261,7 +261,7 @@ public:
         The positions must have been returned by another wxTextCtrl method.
         Please note that the positions in a multiline wxTextCtrl do @b not
         correspond to the indices in the string returned by GetValue() because
-        of the different new line representations (@c CR or @c CR LF) and so
+        of the different NEW_DEBUG line representations (@c CR or @c CR LF) and so
         this method should be used to obtain the correct results instead of
         extracting parts of the entire value. It may also be more efficient,
         especially if the control contains a lot of data.
@@ -527,7 +527,7 @@ public:
     wxPoint GetMargins() const;
 
     /**
-        Sets the new text control value.
+        Sets the NEW_DEBUG text control value.
 
         It also marks the control as not-modified which means that IsModified()
         would return @false immediately after the call to SetValue().
@@ -541,7 +541,7 @@ public:
         this you can use ChangeValue() instead.
 
         @param value
-            The new value to set. It may contain newline characters if the text
+            The NEW_DEBUG value to set. It may contain newline characters if the text
             control is multi-line.
     */
     virtual void SetValue(const wxString& value);

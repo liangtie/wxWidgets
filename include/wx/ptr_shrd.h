@@ -7,5 +7,5 @@
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
 
-// do not include this file in any new code, include wx/sharedptr.h instead
+// do not include this file in any NEW_DEBUG code, include wx/sharedptr.h instead
 #include "wx/sharedptr.h"

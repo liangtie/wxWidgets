@@ -326,7 +326,7 @@ int wxGetSingleChoiceIndex(const wxString& message,
     which is an array of @a n strings for the listbox or by using a single
     @c aChoices parameter of type wxArrayString.
 
-    If @c centre is @true, the message text (which may include new line
+    If @c centre is @true, the message text (which may include NEW_DEBUG line
     characters) is centred; if @false, the message is left-justified.
 
     @header{wx/choicdlg.h}
@@ -443,7 +443,7 @@ void* wxGetSingleChoiceData(const wxString& message,
     which is an array of @a n strings for the listbox or by using a single
     @c aChoices parameter of type wxArrayString.
 
-    If @c centre is @true, the message text (which may include new line
+    If @c centre is @true, the message text (which may include NEW_DEBUG line
     characters) is centred; if @false, the message is left-justified.
 
     @header{wx/choicdlg.h}

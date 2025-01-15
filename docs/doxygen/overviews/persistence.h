@@ -106,7 +106,7 @@ And here is an example of using a notebook control which automatically
 remembers the last open page without using the helper function:
 
 @code
-    wxNotebook *book = new wxNotebook(parent, wxID_ANY);
+    wxNotebook *book = NEW_DEBUG wxNotebook(parent, wxID_ANY);
     book->SetName("MyBook"); // do not use the default name
     book->AddPage(...);
     book->AddPage(...);
@@ -123,7 +123,7 @@ remembers the last open page without using the helper function:
 User-defined classes can be easily integrated with wxPersistenceManager. To add
 support for your custom class @c MyWidget you just need to:
 
--# Define a new @c MyPersistentWidget class inheriting from
+-# Define a NEW_DEBUG @c MyPersistentWidget class inheriting from
    wxPersistentWindow<MyWidget>.
 -# Implement its pure virtual GetKind() method returning a unique string
    identifying all @c MyWidget objects, typically something like @c "widget"
@@ -131,7 +131,7 @@ support for your custom class @c MyWidget you just need to:
    and restore the widget settings using wxPersistentObject::SaveValue() and
    wxPersistentObject::RestoreValue() methods.
 -# Define wxCreatePersistentObject() overload taking @c MyWidget * and
-   returning a new @c MyPersistentWidget object.
+   returning a NEW_DEBUG @c MyPersistentWidget object.
 
 If you want to add persistence support for a class not deriving from wxWindow,
 you need to derive @c MyPersistentWidget directly from wxPersistentObject and

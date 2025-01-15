@@ -17,6 +17,7 @@
 #include "wx/clntdata.h"
 #include "wx/math.h"
 
+
 #if wxUSE_GUI
     #include "wx/gdicmn.h"
     #include "wx/cursor.h"

@@ -57,7 +57,7 @@ method.
 
 Dynamic arrays resemble C arrays but with two important differences: they
 provide run-time range checking in debug builds and they automatically expand
-the allocated memory when there is no more space for new items. They come in
+the allocated memory when there is no more space for NEW_DEBUG items. They come in
 two sorts: the "plain" arrays which store either built-in types such as "char",
 "int" or "bool" or the pointers to arbitrary objects, or "object arrays" which
 own the object pointers to which they store.
@@ -68,7 +68,7 @@ implemented using the macros: WX_DECLARE_LIST() and WX_DEFINE_LIST() for the
 linked lists and WX_DECLARE_ARRAY(), WX_DECLARE_OBJARRAY() and
 WX_DEFINE_OBJARRAY() for the dynamic arrays.
 
-The "DECLARE" macro declares a new container class containing the elements of
+The "DECLARE" macro declares a NEW_DEBUG container class containing the elements of
 given type and is needed for all three types of container classes: lists,
 arrays and objarrays. The "DEFINE" classes must be inserted in your program in
 a place where the @e full declaration of container element class is in scope
@@ -84,7 +84,7 @@ documentation.
 Finally, wxWidgets predefines several commonly used container classes. wxList
 is defined for compatibility with previous versions as a list containing
 wxObjects and wxStringList as a list of C-style strings (char *), both of these
-classes are deprecated and should not be used in new programs. The following
+classes are deprecated and should not be used in NEW_DEBUG programs. The following
 array classes are defined: wxArrayInt, wxArrayLong, wxArrayPtrVoid and
 wxArrayString. The first three store elements of corresponding types, but
 wxArrayString is somewhat special: it is an optimized version of wxArray which

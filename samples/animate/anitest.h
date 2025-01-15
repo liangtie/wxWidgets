@@ -10,14 +10,14 @@
 
 #include "wx/animate.h"
 
-// Define a new application
+// Define a NEW_DEBUG application
 class MyApp : public wxApp
 {
 public:
     bool OnInit() wxOVERRIDE;
 };
 
-// Define a new frame
+// Define a NEW_DEBUG frame
 class MyFrame : public wxFrame
 {
 public:

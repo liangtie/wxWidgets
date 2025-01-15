@@ -50,7 +50,7 @@ public:
     void SetPath(const wxString &p) { m_path = p; }
 
     // default copy ctor, assignment operator and dtor are ok
-    virtual wxEvent *Clone() const wxOVERRIDE { return new wxFileDirPickerEvent(*this); }
+    virtual wxEvent *Clone() const wxOVERRIDE { return NEW_DEBUG wxFileDirPickerEvent(*this); }
 
 private:
     wxString m_path;
@@ -289,7 +289,7 @@ protected:
                                             const wxString& message,
                                             const wxString& wildcard) wxOVERRIDE
     {
-        return new wxFilePickerWidget(parent, wxID_ANY,
+        return NEW_DEBUG wxFilePickerWidget(parent, wxID_ANY,
                                       wxGetTranslation(wxFilePickerWidgetLabel),
                                       path, message, wildcard,
                                       wxDefaultPosition, wxDefaultSize,
@@ -388,7 +388,7 @@ protected:
                                             const wxString& message,
                                             const wxString& WXUNUSED(wildcard)) wxOVERRIDE
     {
-        return new wxDirPickerWidget(parent, wxID_ANY,
+        return NEW_DEBUG wxDirPickerWidget(parent, wxID_ANY,
                                      wxGetTranslation(wxDirPickerWidgetLabel),
                                      path, message,
                                      wxDefaultPosition, wxDefaultSize,

@@ -51,7 +51,7 @@ enum
         // m_embeddedHtmlHelp is a wxHtmlHelpController
 
         // Create embedded HTML Help window
-        m_embeddedHelpWindow = new wxHtmlHelpWindow;
+        m_embeddedHelpWindow = NEW_DEBUG wxHtmlHelpWindow;
         m_embeddedHtmlHelp.UseConfig(config, rootPath); // Set your own config object here
         m_embeddedHtmlHelp.SetHelpWindow(m_embeddedHelpWindow);
         m_embeddedHelpWindow->Create(this, wxID_ANY, wxDefaultPosition, GetClientSize(),
@@ -159,7 +159,7 @@ public:
                             const wxString& path = wxEmptyString);
 
     /**
-        Refresh all panels. This is necessary if a new book was added.
+        Refresh all panels. This is necessary if a NEW_DEBUG book was added.
     */
     void RefreshLists();
 

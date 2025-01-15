@@ -92,7 +92,7 @@ private :
 
 #define _DEFAULT_CONSTRUCTOR(name)                                          \
 wxObject* wxConstructorFor##name()                                          \
-{ return new name; }
+{ return NEW_DEBUG name; }
 
 #define _DEFAULT_CONVERTERS(name)                                          \
 wxObject* wxVariantOfPtrToObjectConverter##name ( const wxAny &data )        \
@@ -275,7 +275,7 @@ template<typename iter, typename collection_t > void wxListCollectionToAnyList(
     for ( iter current = coll.GetFirst(); current;
          current = current->GetNext() )
     {
-        value.Append( new wxAny(current->GetData()) );
+        value.Append( NEW_DEBUG wxAny(current->GetData()) );
     }
 }
 
@@ -284,7 +284,7 @@ template<typename collection_t> void wxArrayCollectionToVariantArray(
 {
     for( size_t i = 0; i < coll.GetCount(); i++ )
     {
-        value.Append( new wxAny(coll[i]) );
+        value.Append( NEW_DEBUG wxAny(coll[i]) );
     }
 }
 

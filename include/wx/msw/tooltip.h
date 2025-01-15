@@ -48,7 +48,7 @@ public:
     static void SetAutoPop(long milliseconds);
         // set the delay between subsequent tooltips to appear
     static void SetReshow(long milliseconds);
-        // set maximum width for the new tooltips: -1 disables wrapping
+        // set maximum width for the NEW_DEBUG tooltips: -1 disables wrapping
         // entirely, 0 restores the default behaviour
     static void SetMaxWidth(int width);
 
@@ -98,7 +98,7 @@ private:
     // to be used in wxModule for deleting tooltip ctrl window when exiting mainloop
     static void DeleteToolTipCtrl();
 
-    // new tooltip maximum width, defaults to min(display width, 400)
+    // NEW_DEBUG tooltip maximum width, defaults to min(display width, 400)
     static int ms_maxWidth;
 
     // remove this tooltip from the tooltip control

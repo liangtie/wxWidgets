@@ -117,7 +117,7 @@ private:
 /////////////////////////////////////////////////////////////////////////////
 // wxArchiveOutputStream
 //
-// PutNextEntry is used to create a new entry in the output archive, then
+// PutNextEntry is used to create a NEW_DEBUG entry in the output archive, then
 // the entry's data is written to the wxArchiveOutputStream.
 //
 // Only one entry can be open for output at a time; another call to
@@ -195,7 +195,7 @@ public:
 
     wxArchiveIterator(Arc& arc) {
         typename Arc::entry_type* entry = arc.GetNextEntry();
-        m_rep = entry ? new Rep(arc, entry) : NULL;
+        m_rep = entry ? NEW_DEBUG Rep(arc, entry) : NULL;
     }
 
     wxArchiveIterator(const wxArchiveIterator& it) : m_rep(it.m_rep) {
@@ -274,7 +274,7 @@ private:
             }
             if (m_ref > 1) {
                 m_ref--;
-                return new Rep(m_arc, entry);
+                return NEW_DEBUG Rep(m_arc, entry);
             }
             delete m_entry;
             m_entry = entry;

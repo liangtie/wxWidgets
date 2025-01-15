@@ -159,7 +159,7 @@ public:
     wxPGProperty* AppendIn( wxPGPropArg id, wxPGProperty* newProperty );
 
     /**
-        In order to add new items into a property with private children (for
+        In order to add NEW_DEBUG items into a property with private children (for
         instance, wxFlagsProperty), you need to call this method.
         After populating has been finished, you need to call EndAddChildren().
 
@@ -255,7 +255,7 @@ public:
         Disables a property.
 
         @remarks
-        Property is refreshed with new settings.
+        Property is refreshed with NEW_DEBUG settings.
 
         @see EnableProperty(), wxPGProperty::Enable()
     */
@@ -278,7 +278,7 @@ public:
             If @false, property is disabled instead.
 
         @remarks
-        Property is refreshed with new settings.
+        Property is refreshed with NEW_DEBUG settings.
 
         @see wxPGProperty::Enable()
     */
@@ -638,15 +638,15 @@ public:
         @code
 
             // append category
-            wxPGProperty* my_cat_id = propertygrid->Append( new wxPropertyCategory("My Category") );
+            wxPGProperty* my_cat_id = propertygrid->Append( NEW_DEBUG wxPropertyCategory("My Category") );
 
             ...
 
             // insert into category - using second variant
-            wxPGProperty* my_item_id_1 = propertygrid->Insert( my_cat_id, 0, new wxStringProperty("My String 1") );
+            wxPGProperty* my_item_id_1 = propertygrid->Insert( my_cat_id, 0, NEW_DEBUG wxStringProperty("My String 1") );
 
             // insert before to first item - using first variant
-            wxPGProperty* my_item_id_2 = propertygrid->Insert( my_item_id, new wxStringProperty("My String 2") );
+            wxPGProperty* my_item_id_2 = propertygrid->Insert( my_item_id, NEW_DEBUG wxStringProperty("My String 2") );
 
         @endcode
     */
@@ -711,7 +711,7 @@ public:
         editor of a property, if it is not the sole mean to edit the value.
 
         @remarks
-        Property is refreshed with new settings.
+        Property is refreshed with NEW_DEBUG settings.
     */
     void LimitPropertyEditing( wxPGPropArg id, bool limit = true );
 
@@ -880,7 +880,7 @@ public:
         @remarks
         - Setting attribute's value to wxNullVariant will simply remove it
         from property's set of attributes.
-        - Property is refreshed with new settings.
+        - Property is refreshed with NEW_DEBUG settings.
     */
     void SetPropertyAttribute( wxPGPropArg id, const wxString& attrName,
                                wxVariant value, long argFlags = 0 );
@@ -891,7 +891,7 @@ public:
         added to the grid.
 
         @remarks
-        Properties are refreshed with new settings.
+        Properties are refreshed with NEW_DEBUG settings.
     */
     void SetPropertyAttributeAll( const wxString& attrName, wxVariant value );
 
@@ -911,7 +911,7 @@ public:
 
         @remarks
         - If category is tried to set recursively, only its children are affected.
-        - Property is redrawn with new colour.
+        - Property is redrawn with NEW_DEBUG colour.
     */
     void SetPropertyBackgroundColour( wxPGPropArg id,
                                       const wxColour& colour,
@@ -951,7 +951,7 @@ public:
 
         @remarks
         - If category is tried to set recursively, only its children are affected.
-        - Property is redrawn with new colours.
+        - Property is redrawn with NEW_DEBUG colours.
     */
     void SetPropertyColoursToDefault(wxPGPropArg id, int flags = wxPG_DONT_RECURSE);
 
@@ -1013,7 +1013,7 @@ public:
         @remarks
         - This is mainly for use with textctrl editor. Only some other
         editors fully support it.
-        - Property is refreshed with new settings.
+        - Property is refreshed with NEW_DEBUG settings.
     */
     void SetPropertyReadOnly( wxPGPropArg id, bool set = true,
                               int flags = wxPG_RECURSE );
@@ -1088,7 +1088,7 @@ public:
 
         @remarks
         - If category is tried to set recursively, only its children are affected.
-        - Property is redrawn with new colour.
+        - Property is redrawn with NEW_DEBUG colour.
     */
     void SetPropertyTextColour( wxPGPropArg id,
                                 const wxColour& colour,

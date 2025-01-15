@@ -49,12 +49,12 @@ public:
         return false;
     }
 
-    // Take into account the new radio item about to be added at the given
+    // Take into account the NEW_DEBUG radio item about to be added at the given
     // position. The are two cases to handle:
     // - If item precedes the range, the range indices have to be updated.
     // - If item falls inside the range, this range is extended to include
     //   the item.
-    // Returns true if this item starts a new radio group, false if it extends
+    // Returns true if this item starts a NEW_DEBUG radio group, false if it extends
     // an existing one.
     bool UpdateOnInsertRadio(int pos)
     {
@@ -89,7 +89,7 @@ public:
         if ( inExistingGroup )
             return false;
 
-        // Make a new range for the group this item will belong to.
+        // Make a NEW_DEBUG range for the group this item will belong to.
         Range r;
         r.start = pos;
         r.end = pos;
@@ -98,11 +98,11 @@ public:
         return true;
     }
 
-    // Take into account the new non-radio item about to be added at the given
+    // Take into account the NEW_DEBUG non-radio item about to be added at the given
     // position. The are two cases to handle:
     // - If item precedes the range, the range indices have to be updated.
     // - If item falls inside the range, this range has to be split into
-    //    two new ranges.
+    //    two NEW_DEBUG ranges.
     // Returns true if existing group has been split into two subgroups.
     bool UpdateOnInsertNonRadio(int pos)
     {
@@ -130,7 +130,7 @@ public:
                 // it breaks the range into two parts: one ending before
                 // the item and one started after it.
 
-                // The new range after the item has to be stored and added to the list
+                // The NEW_DEBUG range after the item has to be stored and added to the list
                 // after finishing the iteration through the ranges.
                 newRange.start = pos + 1; // start after the item
                 newRange.end = r.end + 1; // inherits current end "moved up" by one item

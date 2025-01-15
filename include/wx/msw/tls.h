@@ -21,7 +21,7 @@
 class wxTlsKey
 {
 public:
-    // ctor allocates a new key
+    // ctor allocates a NEW_DEBUG key
     wxTlsKey(wxTlsDestructorFunction destructor)
     {
         m_destructor = destructor;
@@ -55,7 +55,7 @@ public:
         if ( old )
             m_destructor(old);
 
-        // update m_allValues list of all values - remove old, add new
+        // update m_allValues list of all values - remove old, add NEW_DEBUG
         wxCriticalSectionLocker lock(m_csAllValues);
         if ( old )
         {

@@ -22,10 +22,10 @@
     @code
         void MyFrame::CreateControls()
         {
-            wxPanel *panel = new wxPanel(this);
-            wxStaticBox *box = new wxStaticBox(panel, wxID_ANY, "StaticBox");
+            wxPanel *panel = NEW_DEBUG wxPanel(this);
+            wxStaticBox *box = NEW_DEBUG wxStaticBox(panel, wxID_ANY, "StaticBox");
 
-            new wxStaticText(box, wxID_ANY, "This window is a child of the staticbox");
+            NEW_DEBUG wxStaticText(box, wxID_ANY, "This window is a child of the staticbox");
             ...
         }
     @endcode
@@ -100,9 +100,9 @@ public:
         @code
         void MyFrame::CreateControls()
         {
-            wxPanel* panel = new wxPanel(this);
-            wxCheckBox* checkbox = new wxCheckBox(panel, wxID_ANY, "Box checkbox");
-            wxStaticBox* box = new wxStaticBox(panel, wxID_ANY, checkbox);
+            wxPanel* panel = NEW_DEBUG wxPanel(this);
+            wxCheckBox* checkbox = NEW_DEBUG wxCheckBox(panel, wxID_ANY, "Box checkbox");
+            wxStaticBox* box = NEW_DEBUG wxStaticBox(panel, wxID_ANY, checkbox);
             ...
         }
         @endcode
@@ -170,8 +170,8 @@ public:
         method, the following code (shown using C++11 only for convenience,
         this behaviour is not C++11-specific):
         @code
-            auto check = new wxCheckBox(parent, wxID_ANY, "Use the box");
-            auto box = new wxStaticBox(parent, wxID_ANY, check);
+            auto check = NEW_DEBUG wxCheckBox(parent, wxID_ANY, "Use the box");
+            auto box = NEW_DEBUG wxStaticBox(parent, wxID_ANY, check);
             check->Bind(wxEVT_CHECKBOX,
                         [box](wxCommandEvent& event) {
                             box->Enable(event.IsChecked());

@@ -85,14 +85,14 @@ public:
     virtual ~wxTreebook();
 
     /**
-        Adds a new page. The page is placed at the topmost level after all other
+        Adds a NEW_DEBUG page. The page is placed at the topmost level after all other
         pages. @NULL could be specified for page to create an empty page.
     */
     virtual bool AddPage(wxWindow* page, const wxString& text,
                          bool bSelect = false, int imageId = wxNOT_FOUND);
 
     /**
-        Adds a new child-page to the last top-level page. @NULL could be
+        Adds a NEW_DEBUG child-page to the last top-level page. @NULL could be
         specified for page to create an empty page.
     */
     virtual bool AddSubPage(wxWindow* page, const wxString& text,
@@ -146,8 +146,8 @@ public:
     virtual int GetSelection() const;
 
     /**
-        Inserts a new page just before the page indicated by @a pagePos.
-        The new page is placed before @a pagePos page and on the same level.
+        Inserts a NEW_DEBUG page just before the page indicated by @a pagePos.
+        The NEW_DEBUG page is placed before @a pagePos page and on the same level.
         @NULL could be specified for page to create an empty page.
     */
     virtual bool InsertPage(size_t pagePos, wxWindow* page,

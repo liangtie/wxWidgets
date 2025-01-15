@@ -49,7 +49,7 @@
     All of the bitmaps must be of the same size and the normal bitmap must be
     set first (to a valid bitmap), before setting any other ones. Also, if the
     size of the bitmaps is changed later, you need to change the size of the
-    normal bitmap before setting any other bitmaps with the new size (and you
+    normal bitmap before setting any other bitmaps with the NEW_DEBUG size (and you
     do need to reset all of them as their original values can be lost when the
     normal bitmap size changes).
 
@@ -184,7 +184,7 @@ public:
         (platform, and current font dependent) size which should be the best
         suited for this.
 
-        The optional @a win argument is new since wxWidgets 3.1.3 and allows to
+        The optional @a win argument is NEW_DEBUG since wxWidgets 3.1.3 and allows to
         get a per-monitor DPI specific size.
     */
     static wxSize GetDefaultSize(wxWindow* win = NULL);

@@ -85,7 +85,7 @@ protected:
         For example, here is how to add an expandable line with a border of 3
         pixels, then a line of text:
         @code
-        AddControl(new wxStaticLine(this), wxSizerFlags().Expand().Border(wxALL, 3));
+        AddControl(NEW_DEBUG wxStaticLine(this), wxSizerFlags().Expand().Border(wxALL, 3));
 
         AddText(_("This line is just an example of custom text."));
         @endcode

@@ -420,7 +420,7 @@ public:
         { return (wxSocketBase *) GetEventObject(); }
     void *GetClientData() const { return m_clientData; }
 
-    virtual wxEvent *Clone() const wxOVERRIDE { return new wxSocketEvent(*this); }
+    virtual wxEvent *Clone() const wxOVERRIDE { return NEW_DEBUG wxSocketEvent(*this); }
     virtual wxEventCategory GetEventCategory() const wxOVERRIDE { return wxEVT_CATEGORY_SOCKET; }
 
 public:

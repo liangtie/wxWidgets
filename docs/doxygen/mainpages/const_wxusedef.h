@@ -136,7 +136,7 @@ library:
 @itemdef{wxUSE_GEOMETRY, Use common geometry classes}
 @itemdef{wxUSE_GIF, Use GIF wxImageHandler}
 @itemdef{wxUSE_GLCANVAS, Enables OpenGL support.}
-@itemdef{wxUSE_GLOBAL_MEMORY_OPERATORS, Override global operators @c new and @c delete to use wxWidgets memory leak detection}
+@itemdef{wxUSE_GLOBAL_MEMORY_OPERATORS, Override global operators @c NEW_DEBUG and @c delete to use wxWidgets memory leak detection}
 @itemdef{wxUSE_GRAPHICS_CONTEXT, Use wxGraphicsContext and related classes.}
 @itemdef{wxUSE_GRID, Use wxGrid and related classes.}
 @itemdef{wxUSE_HELP, Use wxHelpController and related classes.}
@@ -177,10 +177,10 @@ library:
 @itemdef{wxUSE_MINIFRAME, Use wxMiniFrame class.}
 @itemdef{wxUSE_MOUSEWHEEL, Support mouse wheel events.}
 @itemdef{wxUSE_MSGDLG, Use wxMessageDialog class and wxMessageBox function.}
-@itemdef{wxUSE_NANOSVG, Use NanoSVG for rasterizing SVG (this option is new since wxWidgets 3.1.7).}
+@itemdef{wxUSE_NANOSVG, Use NanoSVG for rasterizing SVG (this option is NEW_DEBUG since wxWidgets 3.1.7).}
 @itemdef{wxUSE_NANOSVG_EXTERNAL, Use an external NanoSVG library when wxUSE_NANOSVG is enabled.}
 @itemdef{wxUSE_NANOSVG_EXTERNAL_ENABLE_IMPL, When the external NanoSVG library is header only, define this to enable its implementation.}
-@itemdef{wxUSE_NATIVE_DATAVIEWCTRL, Use native wxDataViewCtrl class (this option is new since wxWidgets 3.1.4).}
+@itemdef{wxUSE_NATIVE_DATAVIEWCTRL, Use native wxDataViewCtrl class (this option is NEW_DEBUG since wxWidgets 3.1.4).}
 @itemdef{wxUSE_NATIVE_STATUSBAR, Use native wxStatusBar class.}
 @itemdef{wxUSE_NOTEBOOK, Use wxNotebook and related classes.}
 @itemdef{wxUSE_NUMBERDLG, Use wxNumberEntryDialog class.}
@@ -356,7 +356,7 @@ compilers. See also wxUSE_NO_MANIFEST.}
 @itemdef{wxUSE_WINRT, Enable WinRT support.}
 @itemdef{wxUSE_WXDIB, Use wxDIB class.}
 @itemdef{wxUSE_WINSOCK2, Include @c <winsock2.h> instead of @c <winsock.h>.
-Turned on automatically if wxUSE_IPV6 is on (this option is new since
+Turned on automatically if wxUSE_IPV6 is on (this option is NEW_DEBUG since
 wxWidgets 3.1.3).}
 @endDefList
 

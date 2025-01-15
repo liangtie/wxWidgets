@@ -21,13 +21,13 @@ class wxPosition
 public:
 
     /**
-        Construct a new wxPosition, setting the row and column to the
+        Construct a NEW_DEBUG wxPosition, setting the row and column to the
         default value of (0, 0).
     */
     wxPosition();
 
     /**
-        Construct a new wxPosition, setting the row and column to the
+        Construct a NEW_DEBUG wxPosition, setting the row and column to the
         value of (@a row, @a col).
     */
     wxPosition(int row, int col);
@@ -53,12 +53,12 @@ public:
     void SetCol(int column);
 
     /**
-        Set a new column value.
+        Set a NEW_DEBUG column value.
     */
     void SetColumn(int column);
 
     /**
-        Set a new row value.
+        Set a NEW_DEBUG row value.
     */
     void SetRow(int row);
 

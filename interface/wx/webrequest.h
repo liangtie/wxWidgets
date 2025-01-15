@@ -118,7 +118,7 @@
     @event{wxEVT_WEBREQUEST_STATE(id, func)}
         The request state changed.
     @event{wxEVT_WEBREQUEST_DATA(id, func)}
-        A new block of data has been downloaded.
+        A NEW_DEBUG block of data has been downloaded.
     @endEventTable
 
     @since 3.1.5
@@ -350,7 +350,7 @@ public:
 
         Example of use:
         @code
-        std::unique_ptr<wxInputStream> stream(new wxFileInputStream("some_file.dat"));
+        std::unique_ptr<wxInputStream> stream(NEW_DEBUG wxFileInputStream("some_file.dat"));
         if ( !stream->IsOk() ) {
             // Handle error (due to e.g. file not found) here.
             ...
@@ -515,7 +515,7 @@ class wxWebCredentials
 {
 public:
     /**
-        Create the new credentials object.
+        Create the NEW_DEBUG credentials object.
 
         Note that the password is a wxSecretValue object, to construct it from
         a string you need to explicitly use wxSecretValue ctor.
@@ -656,7 +656,7 @@ class wxWebSession
 {
 public:
     /**
-        Create a new request for the specified URL.
+        Create a NEW_DEBUG request for the specified URL.
 
         The specified objects will be notified via wxWebRequestEvent objects
         when the request state changes, e.g. when it is completed. It must be
@@ -672,7 +672,7 @@ public:
         @param id
             Optional id sent with events
         @return
-            The new request object, use wxWebRequest::IsOk() to check if its
+            The NEW_DEBUG request object, use wxWebRequest::IsOk() to check if its
             creation has succeeded.
     */
     wxWebRequest
@@ -718,7 +718,7 @@ public:
     static wxWebSession& GetDefault();
 
     /**
-        Creates a new wxWebSession object.
+        Creates a NEW_DEBUG wxWebSession object.
 
         @a backend may be specified explicitly by using of the predefined @c
         wxWebSessionBackendWinHTTP, @c wxWebSessionBackendURLSession or @c

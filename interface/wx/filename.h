@@ -96,7 +96,7 @@ enum wxPathNormalize
         This includes all normalization flags except for @c wxPATH_NORM_CASE
         and notably does include @c wxPATH_NORM_ENV_VARS which may yield
         unexpected results, as described above. Because of this, this flag is
-        deprecated and shouldn't be used in the new code and the existing code
+        deprecated and shouldn't be used in the NEW_DEBUG code and the existing code
         should be reviewed to check if expanding environment variables is
         really needed.
      */
@@ -585,7 +585,7 @@ public:
         Calls the static overload of this function with the full path of this
         object.
 
-        @since 2.9.4 (@a flags is new since 2.9.5)
+        @since 2.9.4 (@a flags is NEW_DEBUG since 2.9.5)
      */
     bool Exists(int flags = wxFILE_EXISTS_ANY) const;
 
@@ -603,7 +603,7 @@ public:
 
         Alternatively you may check for the existence of a file system entry of
         a specific type by passing the appropriate @a flags (this parameter is
-        new since wxWidgets 2.9.5). E.g. to test for a symbolic link existence
+        NEW_DEBUG since wxWidgets 2.9.5). E.g. to test for a symbolic link existence
         you could use ::wxFILE_EXISTS_SYMLINK.
 
         @since 2.9.4
@@ -718,7 +718,7 @@ public:
         convention the same B, KB, MB, GB and TB suffixes are used but in their
         correct SI meaning, i.e. as multiples of 1000 and not 1024.
 
-        Support for the different size conventions is new in wxWidgets 2.9.1,
+        Support for the different size conventions is NEW_DEBUG in wxWidgets 2.9.1,
         in previous versions only the traditional convention was implemented.
     */
     wxString
@@ -971,7 +971,7 @@ public:
     /**
         Returns @true if the directory component of this instance
         is an existing directory and this process has write permissions on it.
-        Write permissions on a directory mean that you can create new files in the
+        Write permissions on a directory mean that you can create NEW_DEBUG files in the
         directory.
     */
     bool IsDirWritable() const;
@@ -979,7 +979,7 @@ public:
     /**
         Returns @true if the  given @a dir is an existing directory and this
         process has write permissions on it.
-        Write permissions on a directory mean that you can create new files in the
+        Write permissions on a directory mean that you can create NEW_DEBUG files in the
         directory.
     */
     static bool IsDirWritable(const wxString& dir);
@@ -1339,7 +1339,7 @@ public:
         Sets permissions for this file or directory.
 
         @param permissions
-            The new permissions: this should be a combination of
+            The NEW_DEBUG permissions: this should be a combination of
             ::wxPosixPermissions enum elements.
 
         @since 3.0
@@ -1501,12 +1501,12 @@ public:
     bool operator==(const wxString& filename) const;
 
     /**
-        Assigns the new value to this filename object.
+        Assigns the NEW_DEBUG value to this filename object.
     */
     wxFileName& operator=(const wxFileName& filename);
 
     /**
-        Assigns the new value to this filename object.
+        Assigns the NEW_DEBUG value to this filename object.
     */
     wxFileName& operator=(const wxString& filename);
 };

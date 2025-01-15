@@ -118,20 +118,20 @@ public:
         Add a tool to the tool bar.
 
         @param tool_id
-            ID of the new tool (used for event callbacks).
+            ID of the NEW_DEBUG tool (used for event callbacks).
         @param bitmap
-            Bitmap to use as the foreground for the new tool. Does not have
+            Bitmap to use as the foreground for the NEW_DEBUG tool. Does not have
             to be the same size as other tool bitmaps, but should be similar
             as otherwise it will look visually odd.
         @param bitmap_disabled
             Bitmap to use when the tool is disabled. If left as wxNullBitmap,
             then a bitmap will be automatically generated from @a bitmap.
         @param help_string
-            The UI help string to associate with the new tool.
+            The UI help string to associate with the NEW_DEBUG tool.
         @param kind
             The kind of tool to add.
         @param clientData
-            Client data to associate with the new tool.
+            Client data to associate with the NEW_DEBUG tool.
 
         @return An opaque pointer which can be used only with other tool bar
             methods.
@@ -217,23 +217,23 @@ public:
         Insert a tool to the tool bar at the specified position.
 
         @param pos
-            Position of the new tool (number of tools and separators from the
+            Position of the NEW_DEBUG tool (number of tools and separators from the
             beginning of the toolbar).
         @param tool_id
-            ID of the new tool (used for event callbacks).
+            ID of the NEW_DEBUG tool (used for event callbacks).
         @param bitmap
-            Bitmap to use as the foreground for the new tool. Does not have
+            Bitmap to use as the foreground for the NEW_DEBUG tool. Does not have
             to be the same size as other tool bitmaps, but should be similar
             as otherwise it will look visually odd.
         @param bitmap_disabled
             Bitmap to use when the tool is disabled. If left as wxNullBitmap,
             then a bitmap will be automatically generated from @a bitmap.
         @param help_string
-            The UI help string to associate with the new tool.
+            The UI help string to associate with the NEW_DEBUG tool.
         @param kind
             The kind of tool to add.
         @param clientData
-            Client data to associate with the new tool.
+            Client data to associate with the NEW_DEBUG tool.
 
         @return An opaque pointer which can be used only with other tool bar
             methods.

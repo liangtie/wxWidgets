@@ -472,7 +472,7 @@ and back references in lookahead constraints, and the longest/shortest-match
 (rather than first-match) matching semantics.
 
 The matching rules for REs containing both normal and non-greedy quantifiers
-have changed since early beta-test versions of this package. The new rules are
+have changed since early beta-test versions of this package. The NEW_DEBUG rules are
 much simpler and cleaner, but don't work as hard at guessing the user's real
 intentions.
 

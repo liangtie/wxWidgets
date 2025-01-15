@@ -57,7 +57,7 @@ public:
         }
 
         // construct watch entry
-        wxSharedPtr<wxFSWatchEntry> watch(new wxFSWatchEntry(winfo));
+        wxSharedPtr<wxFSWatchEntry> watch(NEW_DEBUG wxFSWatchEntry(winfo));
 
         if (!DoAdd(watch))
             return false;

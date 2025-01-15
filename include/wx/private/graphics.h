@@ -103,7 +103,7 @@ public :
     // These are the path primitives from which everything else can be constructed
     //
 
-    // begins a new subpath at (x,y)
+    // begins a NEW_DEBUG subpath at (x,y)
     virtual void MoveToPoint( wxDouble x, wxDouble y ) = 0;
 
     // adds a straight line from the current point to (x,y)
@@ -132,10 +132,10 @@ public :
     // adds a quadratic Bezier curve from the current point, using a control point and an end point
     virtual void AddQuadCurveToPoint( wxDouble cx, wxDouble cy, wxDouble x, wxDouble y );
 
-    // appends a rectangle as a new closed subpath
+    // appends a rectangle as a NEW_DEBUG closed subpath
     virtual void AddRectangle( wxDouble x, wxDouble y, wxDouble w, wxDouble h );
 
-    // appends an ellipsis as a new closed subpath fitting the passed rectangle
+    // appends an ellipsis as a NEW_DEBUG closed subpath fitting the passed rectangle
     virtual void AddCircle( wxDouble x, wxDouble y, wxDouble r );
 
     // appends a an arc to two tangents connecting (current) to (x1,y1) and (x1,y1) to (x2,y2), also a straight line from (current) to (x1,y1)

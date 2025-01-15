@@ -52,7 +52,7 @@ public:
                         const wxString& strTest,
                         const wxString& strDesc);
 
-    // add a new record to the user .mailcap/.mime.types files
+    // add a NEW_DEBUG record to the user .mailcap/.mime.types files
     wxFileType *Associate(const wxFileTypeInfo& ftInfo);
     // remove association
     bool Unassociate(wxFileType *ft);

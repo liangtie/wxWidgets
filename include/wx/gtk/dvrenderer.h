@@ -45,9 +45,9 @@ public:
     // than one GTK cell renderer
     virtual void GtkPackIntoColumn(GtkTreeViewColumn *column);
 
-    // called when the cell value was edited by user with the new value
+    // called when the cell value was edited by user with the NEW_DEBUG value
     //
-    // it uses GtkGetValueFromString() to parse the new value, then validates
+    // it uses GtkGetValueFromString() to parse the NEW_DEBUG value, then validates
     // it by calling Validate() and notifies the model about the change if it
     // passes validation
     void GtkOnTextEdited(const char *itempath, const wxString& value);

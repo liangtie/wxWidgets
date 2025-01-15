@@ -209,7 +209,7 @@ enum wxRibbonButtonKind
     @c wxRibbonMSWArtProvider, or @c wxRibbonOSXArtProvider - whichever is most appropriate
     to the current platform. These art providers are all slightly configurable with
     regard to colours and fonts, but for larger modifications, you can derive from
-    one of these classes, or write a completely new art provider class.
+    one of these classes, or write a completely NEW_DEBUG art provider class.
     Call wxRibbonBar::SetArtProvider to change the art provider being used.
 
     @library{wxribbon}
@@ -231,7 +231,7 @@ public:
     virtual ~wxRibbonArtProvider();
 
     /**
-        Create a new art provider which is a clone of this one.
+        Create a NEW_DEBUG art provider which is a clone of this one.
     */
     virtual wxRibbonArtProvider* Clone() const = 0;
 
@@ -906,7 +906,7 @@ public:
         when a page is resized. To optimise the drawing of page backgrounds, as
         small an area as possible should be returned. Of course, if the way in
         which a background is drawn means that the entire background needs to
-        be repainted on resize, then the entire new size should be returned.
+        be repainted on resize, then the entire NEW_DEBUG size should be returned.
 
         @param dc
             A device context to use when one is required for size calculations.

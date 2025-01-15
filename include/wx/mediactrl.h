@@ -109,7 +109,7 @@ public:
     // Required for wxEvtHandler::AddPendingEvent
     // ------------------------------------------------------------------------
     virtual wxEvent *Clone() const wxOVERRIDE
-    {   return new wxMediaEvent(*this);     }
+    {   return NEW_DEBUG wxMediaEvent(*this);     }
 
 
     // Put this class on wxWidget's RTTI table

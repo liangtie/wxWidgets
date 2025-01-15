@@ -76,7 +76,7 @@ public:
     virtual wxFontInstance *GetFontInstance(float ptSize, bool aa);
 
 protected:
-    /// Called to create a new instance of the font by GetFontInstance() if
+    /// Called to create a NEW_DEBUG instance of the font by GetFontInstance() if
     /// it wasn't found it cache.
     virtual wxFontInstance *CreateFontInstance(float ptSize, bool aa) = 0;
 

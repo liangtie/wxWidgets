@@ -125,7 +125,7 @@ public:
         Sets the bitmap label.
 
         @param label
-            The new bitmap.
+            The NEW_DEBUG bitmap.
 
         @see GetBitmap()
     */
@@ -135,7 +135,7 @@ public:
         Sets the label to the given icon.
 
         @param label
-            The new icon.
+            The NEW_DEBUG icon.
     */
     virtual void SetIcon(const wxIcon& label);
 

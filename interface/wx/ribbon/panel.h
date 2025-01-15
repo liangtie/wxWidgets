@@ -255,7 +255,7 @@ public:
         wxRibbonPage when the panel is created, or the art provider changed on the
         page.
 
-        The new art provider will be propagated to the children of the panel.
+        The NEW_DEBUG art provider will be propagated to the children of the panel.
     */
     void SetArtProvider(wxRibbonArtProvider* art);
 

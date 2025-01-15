@@ -77,9 +77,9 @@ void wxGenerateFileActivatedEvent( wxFileCtrlBase *fileCtrl, wxWindow *wnd, cons
 
 // Some documentation
 // On wxEVT_FILECTRL_FILTERCHANGED, only the value returned by GetFilterIndex is
-// valid and it represents the (new) current filter index for the wxFileCtrl.
+// valid and it represents the (NEW_DEBUG) current filter index for the wxFileCtrl.
 // On wxEVT_FILECTRL_FOLDERCHANGED, only the value returned by GetDirectory is
-// valid and it represents the (new) current directory for the wxFileCtrl.
+// valid and it represents the (NEW_DEBUG) current directory for the wxFileCtrl.
 // On wxEVT_FILECTRL_FILEACTIVATED, GetDirectory returns the current directory
 // for the wxFileCtrl and GetFiles returns the names of the file(s) activated.
 // On wxEVT_FILECTRL_SELECTIONCHANGED, GetDirectory returns the current directory
@@ -98,7 +98,7 @@ public:
     }
 
     // no need for the copy constructor as the default one will be fine.
-    virtual wxEvent *Clone() const wxOVERRIDE { return new wxFileCtrlEvent( *this ); }
+    virtual wxEvent *Clone() const wxOVERRIDE { return NEW_DEBUG wxFileCtrlEvent( *this ); }
 
     void SetFiles( const wxArrayString &files ) { m_files = files; }
     void SetDirectory( const wxString &directory ) { m_directory = directory; }

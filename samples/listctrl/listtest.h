@@ -16,7 +16,7 @@
     #define USE_CONTEXT_MENU 1
 #endif
 
-// Define a new application type
+// Define a NEW_DEBUG application type
 class MyApp: public wxApp
 {
 public:
@@ -95,7 +95,7 @@ private:
     wxDECLARE_EVENT_TABLE();
 };
 
-// Define a new frame type
+// Define a NEW_DEBUG frame type
 class MyFrame: public wxFrame
 {
 public:
@@ -164,7 +164,7 @@ protected:
     wxTextCtrl *m_logWindow;
 
 private:
-    // recreate the list control with the new flags
+    // recreate the list control with the NEW_DEBUG flags
     void RecreateList(long flags, bool withText = true);
 
     // fill the control with items depending on the view

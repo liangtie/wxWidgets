@@ -46,7 +46,7 @@ wxClipboard::SetData function or to wxDropSource and call
 wxDropSource::DoDragDrop function.
 
 The only (but important) difference is that the object for the clipboard
-transfer must always be created on the heap (i.e. using @c new) and it will be
+transfer must always be created on the heap (i.e. using @c NEW_DEBUG) and it will be
 freed by the clipboard when it is no longer needed (indeed, it is not known in
 advance when, if ever, the data will be pasted from the clipboard). On the
 other hand, the object for drag and drop operation must only exist while

@@ -11,7 +11,7 @@
 
 @tableofcontents
 
-When creating a new wxWindow-derived class or adding a menu item, its ID must
+When creating a NEW_DEBUG wxWindow-derived class or adding a menu item, its ID must
 be specified. An ID is just a unique (at least locally, i.e. inside the same
 top level window) integer allowing to find the window or menu item later and to
 distinguish between events from different objects.
@@ -49,7 +49,7 @@ all, they are not needed when using wxEvtHandler::Bind() for event handling
 
 A wxWindowID is just the integer type for a window ID.  It should be used
 almost everywhere.  To help keep track of the count for the automatically
-generated IDs, a new type, wxWindowIDRef exists, that can take the place of
+generated IDs, a NEW_DEBUG type, wxWindowIDRef exists, that can take the place of
 wxWindowID where needed. When an ID is first created, it is marked as reserved.
 When assigning it to a wxWindowIDRef, the usage count of the ID is increased,
 or set to 1 if it is currently reserved.  Assigning the same ID to several

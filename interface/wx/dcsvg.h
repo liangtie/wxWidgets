@@ -77,13 +77,13 @@ public:
         wxSVGBitmapEmbedHandler class to embed the bitmaps in the generated SVG
         instead of storing them in separate files like this:
         @code
-        mySVGFileDC->SetBitmapHandler(new wxSVGBitmapEmbedHandler());
+        mySVGFileDC->SetBitmapHandler(NEW_DEBUG wxSVGBitmapEmbedHandler());
         @endcode
 
         or derive your own bitmap handler class and use it if you need to
         customize the bitmap handling further.
 
-        @param handler The new bitmap handler. If non-NULL, this object takes
+        @param handler The NEW_DEBUG bitmap handler. If non-NULL, this object takes
             ownership of this handler and will delete it when it is not needed
             any more.
 
@@ -132,7 +132,7 @@ public:
 /**
     Abstract base class for handling bitmaps inside a wxSVGFileDC.
 
-    To use it you need to derive a new class from it and override
+    To use it you need to derive a NEW_DEBUG class from it and override
     ProcessBitmap() to generate a properly a formed SVG image element (see
     http://www.w3.org/TR/SVG/struct.html#ImageElement).
 

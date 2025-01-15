@@ -33,20 +33,20 @@ example, you can expect later 3.2.x releases, such as 3.2.1 and 3.2.2 to be
 backward compatible with their predecessor.
 
 When it becomes necessary to make changes which are not wholly backward
-compatible, the stable branch is forked, creating a new development branch of
+compatible, the stable branch is forked, creating a NEW_DEBUG development branch of
 wxWidgets. This development branch will have an odd number for @e minor, for
 example 3.3.x. Releases from this branch are known as development snapshots.
 
 The stable branch and the development branch will then be developed in parallel
 for some time. When it is no longer useful to continue developing the stable
-branch, the development branch is renamed and becomes a new stable branch, for
+branch, the development branch is renamed and becomes a NEW_DEBUG stable branch, for
 example: 3.4.0. And the process begins again. This is how the tension between
 keeping the interface stable, and allowing the library to evolve is managed.
 
 You can expect the versions with the same major and even minor version number
 to be compatible, but between minor versions there will be incompatibilities.
 Compatibility is not broken gratuitously however, so many applications will
-require no changes or only small changes to work with the new version.
+require no changes or only small changes to work with the NEW_DEBUG version.
 
 
 @section overview_backwardcompat_sourcecompat Source Level Compatibility
@@ -56,7 +56,7 @@ releases from the same branch at the source level. This means that, for
 example, if you develop your application using wxWidgets 3.2.0 then it should
 also compile fine with all later 3.2.x versions.
 
-The converse is also true providing you avoid any new features not present in
+The converse is also true providing you avoid any NEW_DEBUG features not present in
 the earlier version. For example if you develop using 3.3.1 your program will
 compile fine with wxWidgets 3.2.0 providing you don't use any 3.3.1 specific
 features.
@@ -66,7 +66,7 @@ For some platforms binary compatibility is also supported, see
 
 Between minor versions, for example between 2.8.x, 3.0.x and 3.2.x, there will
 be some incompatibilities. Wherever possible the old way of doing something is
-kept alongside the new for a time wrapped inside:
+kept alongside the NEW_DEBUG for a time wrapped inside:
 
 @code
 #if WXWIN_COMPATIBILITY_3_0
@@ -147,12 +147,12 @@ version that is being targeted, as a number with two decimal digits for each
 component, for example @c wxABI_VERSION=30200 for 3.2.0.
 
 Setting @c wxABI_VERSION should prevent the application from implicitly
-depending on a later version of wxWidgets, and also disables any new features
+depending on a later version of wxWidgets, and also disables any NEW_DEBUG features
 in the API, giving a compile time check that the source is compatible with the
 versions of wxWidgets being targeted.
 
 Uses of @c wxABI_VERSION are stripped out of the wxWidgets sources when each
-new development branch is created. Therefore it is only useful to help achieve
+NEW_DEBUG development branch is created. Therefore it is only useful to help achieve
 compatibility with earlier versions with the same major and even minor version
 numbers. It won't, for example, help you write code compatible with 3.0.x using
 wxWidgets 3.2.x.

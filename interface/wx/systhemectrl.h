@@ -51,13 +51,13 @@
    later. I.e. instead of
    @code
         // THIS CODE IS WRONG, DO NOT DO IT LIKE THIS
-        wxTreeCtrl* tree = new wxTreeCtrl(parent, wxID_ANY);
+        wxTreeCtrl* tree = NEW_DEBUG wxTreeCtrl(parent, wxID_ANY);
         tree->EnableSystemTheme(false);
    @endcode
    prefer the following version:
    @code
         // Use default ctor to create the object, avoiding creating the window.
-        wxTreeCtrl* tree = new wxTreeCtrl();
+        wxTreeCtrl* tree = NEW_DEBUG wxTreeCtrl();
 
         // Then disable the system theme used by default.
         tree->EnableSystemTheme(false);

@@ -65,7 +65,7 @@ enum wxDialogLayoutAdaptationMode
     @code
     void AskUser()
     {
-        MyAskDialog *dlg = new MyAskDialog(...);
+        MyAskDialog *dlg = NEW_DEBUG MyAskDialog(...);
         if ( dlg->ShowModal() == wxID_OK )
             // ...
         //else: dialog was cancelled or some another button pressed
@@ -112,7 +112,7 @@ enum wxDialogLayoutAdaptationMode
            The dialog stays on top of all other windows.
     @style{wxNO_3D}
            This style is obsolete and doesn't do anything any more, don't use
-           it in any new code.
+           it in any NEW_DEBUG code.
     @style{wxDIALOG_NO_PARENT}
            By default, a dialog created with a @NULL parent window will be
            given the @ref wxApp::GetTopWindow() "application's top level window"
@@ -293,9 +293,9 @@ public:
        Splits text up at newlines and places the lines into wxStaticText
        objects with the specified maximum width in a vertical wxBoxSizer.
 
-       If @a widthMax has its default value of -1, only explicit new line
+       If @a widthMax has its default value of -1, only explicit NEW_DEBUG line
        characters in @a message are taken into account. Otherwise, lines are
-       broken either after a new line or wrapped, at word boundary, if their
+       broken either after a NEW_DEBUG line or wrapped, at word boundary, if their
        width would become bigger than the specified maximal width.
 
        @param message The text to be displayed.
@@ -640,7 +640,7 @@ public:
         the dialog on stack):
 
         @code
-        wxWindowPtr<wxDialog> dlg(new wxMessageDialog(this, "Hello!"));
+        wxWindowPtr<wxDialog> dlg(NEW_DEBUG wxMessageDialog(this, "Hello!"));
 
         dlg->ShowWindowModalThenDo([this,dlg](int retcode){
             if ( retcode == wxID_OK )

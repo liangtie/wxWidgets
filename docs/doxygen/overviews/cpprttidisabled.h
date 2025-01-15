@@ -33,7 +33,7 @@ used in another one.
 
 @section overview_cpp_rtti_disabled_bind Bind() Issues
 
-wxWidgets 2.9.0 introduced a new @ref overview_events_bind system, using
+wxWidgets 2.9.0 introduced a NEW_DEBUG @ref overview_events_bind system, using
 wxEvtHandler::Bind<>() and Unbind<>(). This functionality uses templates
 behind the scenes and therefore is vulnerable to breakage in shared library
 builds, as described above.

@@ -52,7 +52,7 @@
     @beginEventEmissionTable{wxCommandEvent}
     @event{EVT_COMBOBOX(id, func)}
            Process a @c wxEVT_COMBOBOX event, when an item on
-           the list is selected. Note that calling GetValue() returns the new
+           the list is selected. Note that calling GetValue() returns the NEW_DEBUG
            value of selection.
     @event{EVT_TEXT(id, func)}
            Process a @c wxEVT_TEXT event, when the combobox text
@@ -309,7 +309,7 @@ public:
 
         Notice that if the item is the currently selected one, i.e. if its text
         is displayed in the text part of the combobox, then the text is also
-        replaced with the new @a text.
+        replaced with the NEW_DEBUG @a text.
      */
     virtual void SetString(unsigned int n, const wxString& text);
 

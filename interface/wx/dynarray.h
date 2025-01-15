@@ -7,14 +7,14 @@
 
 /**
     The legacy dynamic array class, existing for compatibility only and @e NOT
-    to be used in the new code.
+    to be used in the NEW_DEBUG code.
 
     This section describes the so called @e "dynamic arrays". This is a C
     array-like type safe data structure i.e. the member access time is constant
     (and not linear according to the number of container elements as for linked
     lists). However, these arrays are dynamic in the sense that they will
     automatically allocate more memory if there is not enough of it for adding
-    a new element. They also perform range checking on the index values but in
+    a NEW_DEBUG element. They also perform range checking on the index values but in
     debug mode only, so please be sure to compile your application in debug
     mode to use it (see @ref overview_debugging for details). So, unlike the
     arrays in some other languages, attempt to access an element beyond the
@@ -35,11 +35,11 @@
     wxWidgets has three different kinds of array. All of them derive from
     wxBaseArray class which works with untyped data and cannot be used
     directly. The standard macros WX_DEFINE_ARRAY(), WX_DEFINE_SORTED_ARRAY()
-    and WX_DEFINE_OBJARRAY() are used to define a new class deriving from it.
+    and WX_DEFINE_OBJARRAY() are used to define a NEW_DEBUG class deriving from it.
     The classes declared will be called in this documentation wxArray,
     wxSortedArray and wxObjArray but you should keep in mind that no classes
     with such names actually exist, each time you use one of the
-    WX_DEFINE_XXXARRAY() macros, you define a class with a new name. In fact,
+    WX_DEFINE_XXXARRAY() macros, you define a class with a NEW_DEBUG name. In fact,
     these names are "template" names and each usage of one of the macros
     mentioned above creates a template specialization for the given element
     type.
@@ -76,7 +76,7 @@
     when they are removed from the array (invoking the correct destructor) and
     copies them using the objects copy constructor. In order to implement this
     behaviour the definition of the wxObjArray arrays is split in two parts:
-    first, you should declare the new wxObjArray class using the
+    first, you should declare the NEW_DEBUG wxObjArray class using the
     WX_DECLARE_OBJARRAY() macro and then you must include the file defining the
     implementation of template type: @<wx/arrimpl.cpp@> and define the array
     class with the WX_DEFINE_OBJARRAY() macro from a point where the full (as
@@ -91,7 +91,7 @@
     class MyDirectory;
     class MyFile;
 
-    // This defines two new types: ArrayOfDirectories and ArrayOfFiles which
+    // This defines two NEW_DEBUG types: ArrayOfDirectories and ArrayOfFiles which
     // can be now used as shown below.
     WX_DECLARE_OBJARRAY(MyDirectory, ArrayOfDirectories);
     WX_DECLARE_OBJARRAY(MyFile,      ArrayOfFiles);
@@ -321,7 +321,7 @@ public:
 
         Automatic array memory management is quite trivial: the array starts by
         preallocating some minimal amount of memory (defined by
-        @c WX_ARRAY_DEFAULT_INITIAL_SIZE) and when further new items exhaust
+        @c WX_ARRAY_DEFAULT_INITIAL_SIZE) and when further NEW_DEBUG items exhaust
         already allocated memory it reallocates it adding 50% of the currently
         allocated amount, but no more than some maximal number which is defined
         by the @c ARRAY_MAXSIZE_INCREMENT constant. Of course, this may lead to
@@ -345,9 +345,9 @@ public:
     void Alloc(size_t count);
 
     /**
-        Frees all memory unused by the array. If the program knows that no new
+        Frees all memory unused by the array. If the program knows that no NEW_DEBUG
         items will be added to the array it may call Shrink() to reduce its
-        memory usage. However, if a new item is added to the array, some extra
+        memory usage. However, if a NEW_DEBUG item is added to the array, some extra
         memory will be allocated again.
     */
     void Shrink();
@@ -675,7 +675,7 @@ public:
 
 ///@{
 /**
-    This macro declares a new object array class named @a name and containing
+    This macro declares a NEW_DEBUG object array class named @a name and containing
     the elements of type @e T.
 
     An exported array is used when compiling wxWidgets as a DLL under Windows,
@@ -699,7 +699,7 @@ public:
 
 ///@{
 /**
-    This macro defines a new array class named @a name and containing the
+    This macro defines a NEW_DEBUG array class named @a name and containing the
     elements of type @a T.
 
     An exported array is used when compiling wxWidgets as a DLL under Windows
@@ -764,7 +764,7 @@ public:
 
 ///@{
 /**
-    This macro defines a new sorted array class named @a name and containing
+    This macro defines a NEW_DEBUG sorted array class named @a name and containing
     the elements of type @e T.
 
     An exported array is used when compiling wxWidgets as a DLL under Windows

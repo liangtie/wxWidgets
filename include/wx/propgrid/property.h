@@ -283,7 +283,7 @@ public:
 
 private:
     virtual wxObjectRefData *CreateRefData() const wxOVERRIDE
-        { return new wxPGCellData(); }
+        { return NEW_DEBUG wxPGCellData(); }
 
     virtual wxObjectRefData *CloneRefData(const wxObjectRefData *data) const wxOVERRIDE;
 };
@@ -859,7 +859,7 @@ public:
     void EnsureData()
     {
         if ( m_data == wxPGChoicesEmptyData )
-            m_data = new wxPGChoicesData();
+            m_data = NEW_DEBUG wxPGChoicesData();
     }
 
     // Gets a unsigned number identifying this list.
@@ -1128,7 +1128,7 @@ public:
     // wxEVT_CHOICE to display colour picker dialog when
     // 'custom' selection is made).
     // If the event causes value to be changed, SetValueInEvent()
-    // should be called to set the new value.
+    // should be called to set the NEW_DEBUG value.
     // event - Associated wxEvent.
     // Should return true if any changes in value should be reported.
     // If property uses choice control, and displays a dialog on some choice
@@ -1139,8 +1139,8 @@ public:
                           wxEvent& event );
 
     // Called after value of a child property has been altered. Must return
-    // new value of the whole property (after any alterations warranted by
-    // child's new value).
+    // NEW_DEBUG value of the whole property (after any alterations warranted by
+    // child's NEW_DEBUG value).
     // Note that this function is usually called at the time that value of
     // this property, or given child property, is still pending for change,
     // and as such, result of GetValue() or m_value should not be relied
@@ -1236,7 +1236,7 @@ public:
     // Default implementation simply return NULL variant.
     virtual wxVariant DoGetAttribute( const wxString& name ) const;
 
-    // Returns instance of a new wxPGEditorDialogAdapter instance, which is
+    // Returns instance of a NEW_DEBUG wxPGEditorDialogAdapter instance, which is
     // used when user presses the (optional) button next to the editor control;
     // Default implementation returns NULL (ie. no action is generated when
     // button is pressed).
@@ -1248,7 +1248,7 @@ public:
     // may use it to revert property into pre-change state.
     virtual void OnValidationFailure( wxVariant& pendingValue );
 
-    // Append a new choice to property's list of choices.
+    // Append a NEW_DEBUG choice to property's list of choices.
     int AddChoice( const wxString& label, int value = wxPG_INVALID_VALUE )
     {
         return InsertChoice(label, wxNOT_FOUND, value);
@@ -1488,7 +1488,7 @@ public:
     // wxPropertyGrid is not automatically refreshed by this function.
     wxPGProperty* InsertChild( int index, wxPGProperty* childProperty );
 
-    // Inserts a new choice to property's list of choices.
+    // Inserts a NEW_DEBUG choice to property's list of choices.
     int InsertChoice( const wxString& label, int index, int value = wxPG_INVALID_VALUE );
 
     // Returns true if this property is actually a wxPropertyCategory.
@@ -1734,7 +1734,7 @@ public:
     // property names must still remain unique.
     void SetLabel( const wxString& label );
 
-    // Sets new (base) name for property.
+    // Sets NEW_DEBUG (base) name for property.
     void SetName( const wxString& newName );
 
     // Changes what sort of parent this property is for its children.
@@ -1800,7 +1800,7 @@ public:
     // Gets managed client object of a property.
     wxClientData *GetClientObject() const { return m_clientObject; }
 
-    // Sets new set of choices for the property.
+    // Sets NEW_DEBUG set of choices for the property.
     // This operation deselects the property and clears its
     // value.
     bool SetChoices( const wxPGChoices& choices );
@@ -1931,7 +1931,7 @@ protected:
     // preparedCell - Pre-prepared cell that is used for those which cell data
     //   before this matched unmodCellData.
     // srcData - If unmodCellData did not match, valid cell data from this
-    //   is merged into cell (usually generating new exclusive copy
+    //   is merged into cell (usually generating NEW_DEBUG exclusive copy
     //   of cell's data).
     // unmodCellData - If cell's cell data matches this, its cell is now set to
     //   preparedCell.
@@ -2020,7 +2020,7 @@ protected:
                     wxPropertyGrid* propgrid);
 
     // Call after fixed sub-properties added/removed after creation.
-    // if oldSelInd >= 0 and < new max items, then selection is
+    // if oldSelInd >= 0 and < NEW_DEBUG max items, then selection is
     // moved to it.
     void SubPropsChanged( int oldSelInd = -1 );
 

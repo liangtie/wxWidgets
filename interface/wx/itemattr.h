@@ -88,17 +88,17 @@ public:
     bool IsDefault() const;
 
     /**
-        Sets a new background colour.
+        Sets a NEW_DEBUG background colour.
     */
     void SetBackgroundColour(const wxColour& colour);
 
     /**
-        Sets a new font.
+        Sets a NEW_DEBUG font.
     */
     void SetFont(const wxFont& font);
 
     /**
-        Sets a new text colour.
+        Sets a NEW_DEBUG text colour.
     */
     void SetTextColour(const wxColour& colour);
 };

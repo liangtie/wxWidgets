@@ -47,7 +47,7 @@ public:
 
     // And another one from XPM data, as it's relatively common to pass it to
     // various functions that take wxBitmapBundle in the existing code. It is
-    // not formally deprecated, but should be avoided in any new code and can
+    // not formally deprecated, but should be avoided in any NEW_DEBUG code and can
     // become deprecated in the future.
     wxBitmapBundle(const char* const* xpm);
 
@@ -130,7 +130,7 @@ public:
     wxSize GetPreferredBitmapSizeFor(const wxWindow* window) const;
     wxSize GetPreferredLogicalSizeFor(const wxWindow* window) const;
 
-    // Get bitmap of the specified size, creating a new bitmap from the closest
+    // Get bitmap of the specified size, creating a NEW_DEBUG bitmap from the closest
     // available size by rescaling it if necessary.
     //
     // If size == wxDefaultSize, GetDefaultSize() is used for it instead.

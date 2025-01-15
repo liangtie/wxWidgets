@@ -310,9 +310,9 @@ struct wxComboCtrlFeatures
     Here's how you would create and populate it in a dialog constructor:
 
     @code
-    wxComboCtrl* comboCtrl = new wxComboCtrl(this, wxID_ANY, wxEmptyString);
+    wxComboCtrl* comboCtrl = NEW_DEBUG wxComboCtrl(this, wxID_ANY, wxEmptyString);
 
-    wxListViewComboPopup* popupCtrl = new wxListViewComboPopup();
+    wxListViewComboPopup* popupCtrl = NEW_DEBUG wxListViewComboPopup();
 
     // It is important to call SetPopupControl() as soon as possible
     comboCtrl->SetPopupControl(popupCtrl);
@@ -742,7 +742,7 @@ public:
         Sets the insertion point in the text field.
 
         @param pos
-            The new insertion point.
+            The NEW_DEBUG insertion point.
     */
     virtual void SetInsertionPoint(long pos);
 
@@ -767,10 +767,10 @@ public:
 
         @code
             // Create the combo control using its default ctor.
-            wxComboCtrl* combo = new wxComboCtrl();
+            wxComboCtrl* combo = NEW_DEBUG wxComboCtrl();
 
             // Create the custom main control using its default ctor too.
-            SomeWindow* main = new SomeWindow();
+            SomeWindow* main = NEW_DEBUG SomeWindow();
 
             // Set the custom main control before creating the combo.
             combo->SetMainControl(main);
@@ -878,7 +878,7 @@ public:
         For example:
 
         @code
-            wxComboCtrl* comboCtrl = new wxComboCtrl();
+            wxComboCtrl* comboCtrl = NEW_DEBUG wxComboCtrl();
 
             // Let's make the text right-aligned
             comboCtrl->SetTextCtrlStyle(wxTE_RIGHT);

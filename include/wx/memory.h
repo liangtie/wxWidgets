@@ -24,7 +24,7 @@ WXDLLIMPEXP_BASE void wxDebugFree(void * buf, bool isVect = false);
 
 //**********************************************************************************
 /*
-  The global operator new used for everything apart from getting
+  The global operator NEW_DEBUG used for everything apart from getting
   dynamic storage within this function itself.
 */
 
@@ -34,10 +34,10 @@ WXDLLIMPEXP_BASE void wxDebugFree(void * buf, bool isVect = false);
 
 #if wxUSE_GLOBAL_MEMORY_OPERATORS
 
-// Undefine temporarily (new is #defined in object.h) because we want to
-// declare some new operators.
-#ifdef new
-    #undef new
+// Undefine temporarily (NEW_DEBUG is #defined in object.h) because we want to
+// declare some NEW_DEBUG operators.
+#ifdef NEW_DEBUG
+    #undef NEW_DEBUG
 #endif
 
 #if defined(__SUNCC__)
@@ -51,16 +51,16 @@ WXDLLIMPEXP_BASE void wxDebugFree(void * buf, bool isVect = false);
     #define wxUSE_ARRAY_MEMORY_OPERATORS 1
 #endif
 
-// devik 2000-8-29: All new/delete ops are now inline because they can't
+// devik 2000-8-29: All NEW_DEBUG/delete ops are now inline because they can't
 // be marked as dllexport/dllimport. It then leads to weird bugs when
 // used on MSW as DLL
 #if defined(__WINDOWS__) && (defined(WXUSINGDLL) || defined(WXMAKINGDLL_BASE))
-inline void * operator new (size_t size, wxChar * fileName, int lineNum)
+inline void * operator NEW_DEBUG (size_t size, wxChar * fileName, int lineNum)
 {
     return wxDebugAlloc(size, fileName, lineNum, false, false);
 }
 
-inline void * operator new (size_t size)
+inline void * operator NEW_DEBUG (size_t size)
 {
     return wxDebugAlloc(size, NULL, 0, false);
 }
@@ -71,12 +71,12 @@ inline void operator delete (void * buf)
 }
 
 #if wxUSE_ARRAY_MEMORY_OPERATORS
-inline void * operator new[] (size_t size)
+inline void * operator NEW_DEBUG[] (size_t size)
 {
     return wxDebugAlloc(size, NULL, 0, false, true);
 }
 
-inline void * operator new[] (size_t size, wxChar * fileName, int lineNum)
+inline void * operator NEW_DEBUG[] (size_t size, wxChar * fileName, int lineNum)
 {
     return wxDebugAlloc(size, fileName, lineNum, false, true);
 }
@@ -89,16 +89,16 @@ inline void operator delete[] (void * buf)
 
 #else
 
-void * operator new (size_t size, wxChar * fileName, int lineNum);
+void * operator NEW_DEBUG (size_t size, wxChar * fileName, int lineNum);
 
-void * operator new (size_t size);
+void * operator NEW_DEBUG (size_t size);
 
 void operator delete (void * buf);
 
 #if wxUSE_ARRAY_MEMORY_OPERATORS
-void * operator new[] (size_t size);
+void * operator NEW_DEBUG[] (size_t size);
 
-void * operator new[] (size_t size, wxChar * fileName, int lineNum);
+void * operator NEW_DEBUG[] (size_t size, wxChar * fileName, int lineNum);
 
 void operator delete[] (void * buf);
 #endif // wxUSE_ARRAY_MEMORY_OPERATORS
@@ -268,7 +268,7 @@ public:
     static wxMemStruct * SetHead (wxMemStruct * st) { return (m_head = st); }
     static wxMemStruct * SetTail (wxMemStruct * st) { return (m_tail = st); }
 
-    // If this is set then every new operation checks the validity
+    // If this is set then every NEW_DEBUG operation checks the validity
     // of the all previous nodes in the list.
     static bool GetCheckPrevious () { return m_checkPrevious; }
     static void SetCheckPrevious (bool value) { m_checkPrevious = value; }
@@ -304,7 +304,7 @@ private:
     static wxMemStruct*         m_tail;
 
     // Set to false if we're not checking all previous nodes when
-    // we do a new. Set to true when we are.
+    // we do a NEW_DEBUG. Set to true when we are.
     static bool                 m_checkPrevious;
 
     // Holds a pointer to an optional application function to call at shutdown.

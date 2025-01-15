@@ -12,7 +12,7 @@
     of wxWidgets itself) to define initialization and cleanup functions that are
     automatically called on wxWidgets startup and exit.
 
-    To define a new kind of module, derive a class from wxModule, override the
+    To define a NEW_DEBUG kind of module, derive a class from wxModule, override the
     wxModule::OnInit and wxModule::OnExit functions, and add the
     wxDECLARE_DYNAMIC_CLASS and wxIMPLEMENT_DYNAMIC_CLASS to header and implementation
     files (which can be the same file).

@@ -29,7 +29,7 @@ public:
 	RGBAImage *image;
 	/** Some platforms, notably PLAT_CURSES, do not support Scintilla's native
 	 * Draw function for drawing line markers. Allow those platforms to override
-	 * it instead of creating a new method(s) in the Surface class that existing
+	 * it instead of creating a NEW_DEBUG method(s) in the Surface class that existing
 	 * platforms must implement as empty. */
 	DrawLineMarkerFn customDraw;
 	LineMarker() {

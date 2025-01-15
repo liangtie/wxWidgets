@@ -500,7 +500,7 @@ public:
 
         Note that for more sophisticated scrolling applications, for example
         where scroll steps may be variable according to the position in the
-        document, it will be necessary to derive a new class from wxWindow,
+        document, it will be necessary to derive a NEW_DEBUG class from wxWindow,
         overriding OnSize() and adjusting the scrollbars appropriately.
 
         @param pixelsPerUnitX

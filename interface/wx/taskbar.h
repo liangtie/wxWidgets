@@ -173,7 +173,7 @@ protected:
 
         Override this function in order to provide popup menu associated with
         the icon if you don't want to override GetPopupMenu(), i.e. if you
-        prefer creating a new menu every time instead of reusing the same menu.
+        prefer creating a NEW_DEBUG menu every time instead of reusing the same menu.
 
         If CreatePopupMenu() returns @NULL (this happens by default), no menu
         is shown, otherwise the menu is displayed and then deleted by the

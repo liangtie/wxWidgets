@@ -320,7 +320,7 @@ public:
     bool ProcessMenuEvent(wxMenu* menu, wxMenuEvent& event, wxWindow* win);
 
 
-    // compatibility: these functions are deprecated, use the new ones instead
+    // compatibility: these functions are deprecated, use the NEW_DEBUG ones instead
     // -----------------------------------------------------------------------
 
     // use the versions taking wxItem_XXX now instead, they're more readable

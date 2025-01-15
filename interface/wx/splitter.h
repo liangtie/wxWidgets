@@ -75,7 +75,7 @@ enum
         This can happen e.g. when the window is resized and the sash is moved
         according to the gravity setting.
         This event is sent when the window is resized and allows the application to select
-        the desired new sash position. If it doesn't process the event, the position
+        the desired NEW_DEBUG sash position. If it doesn't process the event, the position
         is determined by the gravity setting.
         Processes a @c wxEVT_SPLITTER_SASH_POS_RESIZE event and is only
         available in wxWidgets 3.1.6 or newer.
@@ -261,7 +261,7 @@ public:
         user. It may return @false to prevent the change or @true to allow it.
 
         @param newSashPosition
-            The new sash position (always positive or zero)
+            The NEW_DEBUG sash position (always positive or zero)
 
         @remarks The default implementation of this function verifies that the
                  sizes of both  panes of the splitter are greater than
@@ -525,7 +525,7 @@ public:
                     wxSplitterWindow* splitter = NULL);
 
     /**
-        Returns the new sash position.
+        Returns the NEW_DEBUG sash position.
 
         May only be called while processing
         @c wxEVT_SPLITTER_SASH_POS_CHANGING,
@@ -561,9 +561,9 @@ public:
 
     /**
         In the case of @c wxEVT_SPLITTER_SASH_POS_CHANGED events,
-        sets the new sash position.
+        sets the NEW_DEBUG sash position.
         In the case of @c wxEVT_SPLITTER_SASH_POS_CHANGING events,
-        sets the new tracking bar position so visual feedback during dragging will
+        sets the NEW_DEBUG tracking bar position so visual feedback during dragging will
         represent that change that will actually take place. Set to -1 from
         the event handler code to prevent repositioning.
 
@@ -607,7 +607,7 @@ public:
 
 
     /**
-        Returns the new size which is set after the update.
+        Returns the NEW_DEBUG size which is set after the update.
         The size value is already adjusted to the orientation
         of the sash. So for a vertical sash it's the width
         and for a horizontal sash it's the height.

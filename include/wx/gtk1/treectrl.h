@@ -259,20 +259,20 @@ public:
                          int image = -1, int selectedImage = -1,
                          wxTreeItemData *data = NULL);
 
-        // insert a new item in as the first child of the parent
+        // insert a NEW_DEBUG item in as the first child of the parent
     wxTreeItemId PrependItem(const wxTreeItemId& parent,
                              const wxString& text,
                              int image = -1, int selectedImage = -1,
                              wxTreeItemData *data = NULL);
 
-        // insert a new item after a given one
+        // insert a NEW_DEBUG item after a given one
     wxTreeItemId InsertItem(const wxTreeItemId& parent,
                             const wxTreeItemId& idPrevious,
                             const wxString& text,
                             int image = -1, int selectedImage = -1,
                             wxTreeItemData *data = NULL);
 
-        // insert a new item in as the last child of the parent
+        // insert a NEW_DEBUG item in as the last child of the parent
     wxTreeItemId AppendItem(const wxTreeItemId& parent,
                             const wxString& text,
                             int image = -1, int selectedImage = -1,
@@ -350,7 +350,7 @@ protected:
 
     // the common part of all ctors
     void Init();
-    // insert a new item in as the last child of the parent
+    // insert a NEW_DEBUG item in as the last child of the parent
     wxTreeItemId p_InsertItem(GtkTreeItem *p,
                               const wxString& text,
                               int image, int selectedImage,

@@ -36,7 +36,7 @@ enum wxRibbonGalleryButtonState
         This event is available since wxWidgets 2.9.2.
     @event{EVT_RIBBONGALLERY_HOVER_CHANGED(id, func)}
         Triggered when the item being hovered over by the user changes. The
-        item in the event will be the new item being hovered, or NULL if there
+        item in the event will be the NEW_DEBUG item being hovered, or NULL if there
         is no longer an item being hovered. Note that the ID is that of the
         gallery, not of the item.
     @endEventTable

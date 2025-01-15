@@ -39,7 +39,7 @@ protected:
     BOOL InitMainWnd() wxOVERRIDE
     {
         // Demonstrate creation of an initial MFC main window.
-        m_pMainWnd = new CMainWindow();
+        m_pMainWnd = NEW_DEBUG CMainWindow();
         m_pMainWnd->ShowWindow( m_nCmdShow );
         m_pMainWnd->UpdateWindow();
 

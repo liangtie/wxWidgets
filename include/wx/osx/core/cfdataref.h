@@ -52,7 +52,7 @@ public:
         @abstract   Copies a ref holder of the same type
         @param otherRef The other ref holder to copy.
         @discussion Ownership will be shared by the original ref and the newly created ref. That is,
-                    the object will be explicitly retained by this new ref.
+                    the object will be explicitly retained by this NEW_DEBUG ref.
     */
     wxCFDataRef(const wxCFDataRef& otherRef)
     :  super_type( otherRef )

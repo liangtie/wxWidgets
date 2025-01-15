@@ -92,7 +92,7 @@ public:
 
 inline wxPersistentObject *wxCreatePersistentObject(wxTreebook *book)
 {
-    return new wxPersistentTreeBookCtrl(book);
+    return NEW_DEBUG wxPersistentTreeBookCtrl(book);
 }
 
 #endif // wxUSE_TREEBOOK

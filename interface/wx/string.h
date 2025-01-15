@@ -473,7 +473,7 @@ public:
 
     /**
         Returns the length of the string (same as Len).
-        This is a wxWidgets 1.xx compatibility function; you should not use it in new
+        This is a wxWidgets 1.xx compatibility function; you should not use it in NEW_DEBUG
         code.
     */
     size_t Length() const;
@@ -485,7 +485,7 @@ public:
 
     /**
         Returns @true if the string is empty (same as wxString::IsEmpty).
-        This is a wxWidgets 1.xx compatibility function; you should not use it in new
+        This is a wxWidgets 1.xx compatibility function; you should not use it in NEW_DEBUG
         code.
     */
     bool IsNull() const;
@@ -532,7 +532,7 @@ public:
     /**
         Returns a writable buffer of at least @a len bytes.
 
-        It returns a pointer to a new memory block, and the existing data will not be copied.
+        It returns a pointer to a NEW_DEBUG memory block, and the existing data will not be copied.
         Call UngetWriteBuf() as soon as possible to put the string back into a reasonable state.
 
         This method is deprecated, please use wxStringBuffer or wxStringBufferLength instead.
@@ -544,7 +544,7 @@ public:
         normally), after GetWriteBuf() was called.
 
         The version of the function without the @a len parameter will calculate the
-        new string length itself assuming that the string is terminated by the first
+        NEW_DEBUG string length itself assuming that the string is terminated by the first
         @c NUL character in it while the second one will use the specified length
         and thus is the only version which should be used with the strings with
         embedded @c NULs (it is also slightly more efficient as @c strlen()
@@ -568,7 +568,7 @@ public:
         Returns the last character.
 
         This is a wxWidgets 1.xx compatibility function;
-        you should not use it in new code.
+        you should not use it in NEW_DEBUG code.
     */
     wxUniChar Last() const;
 
@@ -576,7 +576,7 @@ public:
         Returns a reference to the last character (writable).
 
         This is a wxWidgets 1.xx compatibility function;
-        you should not use it in new code.
+        you should not use it in NEW_DEBUG code.
     */
     wxUniCharRef Last();
 
@@ -751,7 +751,7 @@ public:
 
         @param replaceWith
             The character used to replace any non-ASCII characters, default to
-            underscore (@c "_"). This parameter is new since wxWidgets 3.1.0.
+            underscore (@c "_"). This parameter is NEW_DEBUG since wxWidgets 3.1.0.
     */
     const TYPE ToAscii(char replaceWith = '_') const;
 
@@ -774,7 +774,7 @@ public:
         but using ToStdString() may make the code more clear.
 
         @param conv
-            The converter to be used. This parameter is new in wxWidgets 3.1.1.
+            The converter to be used. This parameter is NEW_DEBUG in wxWidgets 3.1.1.
 
         @since 2.9.1
     */
@@ -847,7 +847,7 @@ public:
     wxString& Prepend(const wxString& str);
 
     /**
-        Concatenation: returns a new string equal to the concatenation of the operands.
+        Concatenation: returns a NEW_DEBUG string equal to the concatenation of the operands.
     */
     wxString operator +(const wxString& x, const wxString& y);
 
@@ -1070,7 +1070,7 @@ public:
         @member_group_name{caseconv, Case conversion}
 
         The MakeXXX() variants modify the string in place, while the other functions
-        return a new string which contains the original text converted to the upper or
+        return a NEW_DEBUG string which contains the original text converted to the upper or
         lower case and leave the original string unchanged.
     */
     ///@{
@@ -1094,7 +1094,7 @@ public:
 
     /**
         Same as MakeLower.
-        This is a wxWidgets 1.xx compatibility function; you should not use it in new
+        This is a wxWidgets 1.xx compatibility function; you should not use it in NEW_DEBUG
         code.
     */
     void LowerCase();
@@ -1135,7 +1135,7 @@ public:
     /**
         The same as MakeUpper().
 
-        This is a wxWidgets 1.xx compatibility function; you should not use it in new
+        This is a wxWidgets 1.xx compatibility function; you should not use it in NEW_DEBUG
         code.
     */
     void UpperCase();
@@ -1169,7 +1169,7 @@ public:
         Same as Find().
 
         This is a wxWidgets 1.xx compatibility function;
-        you should not use it in new code.
+        you should not use it in NEW_DEBUG code.
     */
     int First(wxUniChar ch) const;
 
@@ -1177,7 +1177,7 @@ public:
         Same as Find().
 
         This is a wxWidgets 1.xx compatibility function;
-        you should not use it in new code.
+        you should not use it in NEW_DEBUG code.
     */
     int First(const wxString& str) const;
 
@@ -1439,7 +1439,7 @@ public:
         Preallocate enough space for wxString to store @a nLen characters.
 
         Please note that this method does the same thing as the standard
-        reserve() one and shouldn't be used in new code.
+        reserve() one and shouldn't be used in NEW_DEBUG code.
 
         This function may be used to increase speed when the string is
         constructed by repeated concatenation as in
@@ -1519,7 +1519,7 @@ public:
     /**
         Returns @true if target appears anywhere in wxString; else @false.
 
-        This is a wxWidgets 1.xx compatibility function; you should not use it in new code.
+        This is a wxWidgets 1.xx compatibility function; you should not use it in NEW_DEBUG code.
     */
     bool Contains(const wxString& str) const;
 
@@ -1533,7 +1533,7 @@ public:
     /**
         Returns the number of occurrences of @e ch in the string.
 
-        This is a wxWidgets 1.xx compatibility function; you should not use it in new code.
+        This is a wxWidgets 1.xx compatibility function; you should not use it in NEW_DEBUG code.
     */
     int Freq(wxUniChar ch) const;
 
@@ -1541,7 +1541,7 @@ public:
         Returns @true if the string contains only ASCII characters.
         See wxUniChar::IsAscii for more details.
 
-        This is a wxWidgets 1.xx compatibility function; you should not use it in new
+        This is a wxWidgets 1.xx compatibility function; you should not use it in NEW_DEBUG
         code.
     */
     bool IsAscii() const;
@@ -1549,14 +1549,14 @@ public:
     /**
         Returns @true if the string is an integer (with possible sign).
 
-        This is a wxWidgets 1.xx compatibility function; you should not use it in new code.
+        This is a wxWidgets 1.xx compatibility function; you should not use it in NEW_DEBUG code.
     */
     bool IsNumber() const;
 
     /**
         Returns @true if the string is a word.
 
-        This is a wxWidgets 1.xx compatibility function; you should not use it in new code.
+        This is a wxWidgets 1.xx compatibility function; you should not use it in NEW_DEBUG code.
     */
     bool IsWord() const;
 
@@ -1572,14 +1572,14 @@ public:
         Removes all characters from the string starting at @a pos.
         Use Truncate() as a more readable alternative.
 
-        This is a wxWidgets 1.xx compatibility function; you should not use it in new code.
+        This is a wxWidgets 1.xx compatibility function; you should not use it in NEW_DEBUG code.
     */
     wxString& Remove(size_t pos);
 
     /**
         Removes @a len characters from the string, starting at @a pos.
 
-        This is a wxWidgets 1.xx compatibility function; you should not use it in new code.
+        This is a wxWidgets 1.xx compatibility function; you should not use it in NEW_DEBUG code.
     */
     wxString& Remove(size_t pos, size_t len);
 
@@ -1593,7 +1593,7 @@ public:
 
         This is the same as Trim() except that it doesn't change this string.
 
-        This is a wxWidgets 1.xx compatibility function; you should not use it in new code.
+        This is a wxWidgets 1.xx compatibility function; you should not use it in NEW_DEBUG code.
     */
     wxString Strip(stripType s = trailing) const;
 
@@ -1867,7 +1867,7 @@ public:
             The value to format.
         @param precision
             The number of fractional digits to use in or -1 to use the most
-            appropriate format. This parameter is new in wxWidgets 2.9.2.
+            appropriate format. This parameter is NEW_DEBUG in wxWidgets 2.9.2.
 
         @since 2.9.1
 

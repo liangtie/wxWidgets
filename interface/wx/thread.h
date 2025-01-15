@@ -82,7 +82,7 @@ enum wxCondError
 
         // create and run the thread but notice that it won't be able to
         // exit (and signal its exit) before we unlock the mutex below
-        MySignallingThread *thread = new MySignallingThread(&mutex, &condition);
+        MySignallingThread *thread = NEW_DEBUG MySignallingThread(&mutex, &condition);
 
         thread->Run();
 
@@ -389,7 +389,7 @@ public:
                 }
 
                 // signal to main thread that download is complete
-                wxQueueEvent(GetEventHandler(), new wxThreadEvent());
+                wxQueueEvent(GetEventHandler(), NEW_DEBUG wxThreadEvent());
             }
 
             // TestDestroy() returned true (which means the main thread asked us
@@ -531,7 +531,7 @@ public:
     wxThreadError Create(unsigned int stackSize = 0);
 
     /**
-        Creates a new thread of the given @a kind.
+        Creates a NEW_DEBUG thread of the given @a kind.
 
         The thread object is created in the suspended state, and you
         should call @ref wxThread::Run "GetThread()->Run()" to start running it.
@@ -698,7 +698,7 @@ enum wxThreadError
     /** No error */
     wxTHREAD_NO_ERROR = 0,
 
-    /** No resource left to create a new thread. */
+    /** No resource left to create a NEW_DEBUG thread. */
     wxTHREAD_NO_RESOURCE,
 
     /** The thread is already running. */
@@ -741,7 +741,7 @@ enum wxThreadError
     By default wxThreads in wxWidgets use the @b detached behaviour.
     Detached threads delete themselves once they have completed, either by themselves
     when they complete processing or through a call to Delete(), and thus
-    @b must be created on the heap (through the new operator, for example).
+    @b must be created on the heap (through the NEW_DEBUG operator, for example).
 
     Typically you'll want to store the instances of the detached wxThreads you
     allocate, so that you can call functions on them.
@@ -749,7 +749,7 @@ enum wxThreadError
     when accessing them:
 
     @code
-    // declare a new type of event, to be used by our MyThread class:
+    // declare a NEW_DEBUG type of event, to be used by our MyThread class:
     wxDECLARE_EVENT(wxEVT_COMMAND_MYTHREAD_COMPLETED, wxThreadEvent);
     wxDECLARE_EVENT(wxEVT_COMMAND_MYTHREAD_UPDATE, wxThreadEvent);
     class MyFrame;
@@ -813,7 +813,7 @@ enum wxThreadError
 
     void MyFrame::DoStartThread()
     {
-        m_pThread = new MyThread(this);
+        m_pThread = NEW_DEBUG MyThread(this);
 
         if ( m_pThread->Run() != wxTHREAD_NO_ERROR )
         {
@@ -834,13 +834,13 @@ enum wxThreadError
         {
             // ... do a bit of work...
 
-            wxQueueEvent(m_pHandler, new wxThreadEvent(wxEVT_COMMAND_MYTHREAD_UPDATE));
+            wxQueueEvent(m_pHandler, NEW_DEBUG wxThreadEvent(wxEVT_COMMAND_MYTHREAD_UPDATE));
         }
 
         // signal the event handler that this thread is going to be destroyed
         // NOTE: here we assume that using the m_pHandler pointer is safe,
         //       (in this case this is assured by the MyFrame destructor)
-        wxQueueEvent(m_pHandler, new wxThreadEvent(wxEVT_COMMAND_MYTHREAD_COMPLETED));
+        wxQueueEvent(m_pHandler, NEW_DEBUG wxThreadEvent(wxEVT_COMMAND_MYTHREAD_COMPLETED));
 
         return (wxThread::ExitCode)0;     // success
     }
@@ -1016,7 +1016,7 @@ public:
     typedef void* ExitCode;
 
     /**
-        This constructor creates a new detached (default) or joinable C++
+        This constructor creates a NEW_DEBUG detached (default) or joinable C++
         thread object. It does not create or start execution of the real thread -
         for this you should use the Run() method.
 
@@ -1038,7 +1038,7 @@ public:
     virtual ~wxThread();
 
     /**
-        Creates a new thread.
+        Creates a NEW_DEBUG thread.
 
         The thread object is created in the suspended state, and you should call Run()
         to start running it. You may optionally specify the stack size to be allocated
@@ -1079,7 +1079,7 @@ public:
             As described in wxThreadWait documentation, wxTHREAD_WAIT_BLOCK
             should be used as the wait mode even although currently
             wxTHREAD_WAIT_YIELD is for compatibility reasons. This parameter is
-            new in wxWidgets 2.9.2.
+            NEW_DEBUG in wxWidgets 2.9.2.
 
         @note
             This function works on a joinable thread but in that case makes
@@ -1318,7 +1318,7 @@ public:
             As described in wxThreadWait documentation, wxTHREAD_WAIT_BLOCK
             should be used as the wait mode even although currently
             wxTHREAD_WAIT_YIELD is for compatibility reasons. This parameter is
-            new in wxWidgets 2.9.2.
+            NEW_DEBUG in wxWidgets 2.9.2.
 
         See @ref thread_deletion for a broader explanation of this routine.
     */
@@ -1619,7 +1619,7 @@ enum wxMutexError
 
     For example, when several threads use the data stored in the linked list,
     modifications to the list should only be allowed to one thread at a time
-    because during a new node addition the list integrity is temporarily broken
+    because during a NEW_DEBUG node addition the list integrity is temporarily broken
     (this is also called @e program @e invariant).
 
     @code

@@ -85,7 +85,7 @@ The following code is an example taken from the sample, and adds text and
 styles to a rich text control programmatically.
 
 @code
-wxRichTextCtrl* richTextCtrl = new wxRichTextCtrl(
+wxRichTextCtrl* richTextCtrl = NEW_DEBUG wxRichTextCtrl(
     splitter, wxID_ANY, wxEmptyString, wxDefaultPosition,
     wxSize(200, 200), wxVSCROLL | wxHSCROLL | wxBORDER_NONE | wxWANTS_CHARS);
 

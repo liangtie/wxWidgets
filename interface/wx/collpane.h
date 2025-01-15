@@ -67,15 +67,15 @@ wxEventType wxEVT_COLLAPSIBLEPANE_CHANGED;
     Usage sample:
 
     @code
-    wxCollapsiblePane *collpane = new wxCollapsiblePane(this, wxID_ANY, "Details:");
+    wxCollapsiblePane *collpane = NEW_DEBUG wxCollapsiblePane(this, wxID_ANY, "Details:");
 
     // add the pane with a zero proportion value to the 'sz' sizer which contains it
     sz->Add(collpane, 0, wxGROW|wxALL, 5);
 
     // now add a test label in the collapsible pane using a sizer to layout it:
     wxWindow *win = collpane->GetPane();
-    wxSizer *paneSz = new wxBoxSizer(wxVERTICAL);
-    paneSz->Add(new wxStaticText(win, wxID_ANY, "test!"), 1, wxGROW|wxALL, 2);
+    wxSizer *paneSz = NEW_DEBUG wxBoxSizer(wxVERTICAL);
+    paneSz->Add(NEW_DEBUG wxStaticText(win, wxID_ANY, "test!"), 1, wxGROW|wxALL, 2);
     win->SetSizer(paneSz);
     paneSz->SetSizeHints(win);
     @endcode

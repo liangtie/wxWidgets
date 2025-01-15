@@ -228,7 +228,7 @@ extern const wxTreeListItem wxTLI_LAST;
         selection of this item has just changed (it may have been either
         selected or deselected) but notice that the selection of other items
         could have changed as well, use wxTreeListCtrl::GetSelections() to
-        retrieve the new selection if necessary.
+        retrieve the NEW_DEBUG selection if necessary.
     @event{EVT_TREELIST_ITEM_EXPANDING(id, func)}
         Process @c wxEVT_TREELIST_ITEM_EXPANDING event notifying about
         the given branch being expanded. This event is sent before the
@@ -240,7 +240,7 @@ extern const wxTreeListItem wxTLI_LAST;
     @event{EVT_TREELIST_ITEM_CHECKED(id, func)}
         Process @c wxEVT_TREELIST_ITEM_CHECKED event notifying about
         the user checking or unchecking the item. You can use
-        wxTreeListCtrl::GetCheckedState() to retrieve the new item state and
+        wxTreeListCtrl::GetCheckedState() to retrieve the NEW_DEBUG item state and
         wxTreeListEvent::GetOldCheckedState() to get the previous one.
     @event{EVT_TREELIST_ITEM_ACTIVATED(id, func)}
         Process @c wxEVT_TREELIST_ITEM_ACTIVATED event notifying about
@@ -374,7 +374,7 @@ public:
             user to resize the column and wxCOL_SORTABLE to allow the user to
             resort the control contents by clicking on this column.
         @return
-            Index of the new column or -1 on failure.
+            Index of the NEW_DEBUG column or -1 on failure.
      */
     int AppendColumn(const wxString& title,
                      int width = wxCOL_WIDTH_AUTOSIZE,
@@ -430,7 +430,7 @@ public:
     /**
         @name Adding and removing items.
 
-        When adding items, the parent and text of the first column of the new item
+        When adding items, the parent and text of the first column of the NEW_DEBUG item
         must always be specified, the rest is optional.
 
         Each item can have two images: one used for closed state and another
@@ -438,7 +438,7 @@ public:
         don't have children. And both are not set by default.
 
         It is also possible to associate arbitrary client data pointer with the
-        new item. It will be deleted by the control when the item is deleted
+        NEW_DEBUG item. It will be deleted by the control when the item is deleted
         (either by an explicit DeleteItem() call or because the entire control
         is destroyed).
      */
@@ -452,7 +452,7 @@ public:
                               wxClientData* data = NULL);
 
     /**
-        Insert a new item into the tree.
+        Insert a NEW_DEBUG item into the tree.
 
         @param parent
             The item parent. Must be valid, may be GetRootItem().
@@ -926,7 +926,7 @@ public:
         This method can be used with @c wxEVT_TREELIST_ITEM_CHECKED
         events only.
 
-        Notice that the new state of the item can be retrieved using
+        Notice that the NEW_DEBUG state of the item can be retrieved using
         wxTreeListCtrl::GetCheckedState().
      */
     wxCheckBoxState GetOldCheckedState() const;

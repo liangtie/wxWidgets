@@ -89,7 +89,7 @@ public:     // public to avoid getters/setters
     //   bool IsContainer() const
     //    { return m_children.GetCount()>0; }
     // doesn't work with wxGTK when MyMusicTreeModel::AddToClassical is called
-    // AND the classical node was removed (a new node temporary without children
+    // AND the classical node was removed (a NEW_DEBUG node temporary without children
     // would be added to the control)
     bool m_container;
 

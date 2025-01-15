@@ -33,7 +33,7 @@ public:
             destroyEditor(m_textCtrl->GetHandle(), m_currentModelIndex);
 
         m_currentModelIndex = index;
-        m_textCtrl = new wxQtListTextCtrl(m_parent, parent);
+        m_textCtrl = NEW_DEBUG wxQtListTextCtrl(m_parent, parent);
         m_textCtrl->SetFocus();
         return m_textCtrl->GetHandle();
     }

@@ -147,7 +147,7 @@ public:
   bool  Open(AccessMode mode = Write);
     // create the key: will fail if the key already exists and !bOkIfExists
   bool  Create(bool bOkIfExists = true);
-    // rename a value from old name to new one
+    // rename a value from old name to NEW_DEBUG one
   bool  RenameValue(const wxString& szValueOld, const wxString& szValueNew);
     // rename the key
   bool  Rename(const wxString& szNewName);

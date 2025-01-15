@@ -53,7 +53,7 @@ public:
     {
         // notifications are never disabled in this implementation, there is no
         // need for this as WSAAsyncSelect() only sends notification once when
-        // the new data becomes available anyhow, so there is no need to do
+        // the NEW_DEBUG data becomes available anyhow, so there is no need to do
         // anything here
     }
 

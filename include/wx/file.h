@@ -60,7 +60,7 @@ public:
   wxFile(int lfd) { m_fd = lfd; m_lasterror = 0; }
 
   // open/close
-    // create a new file (with the default value of bOverwrite, it will fail if
+    // create a NEW_DEBUG file (with the default value of bOverwrite, it will fail if
     // the file already exists, otherwise it will overwrite it and succeed)
   bool Create(const wxString& fileName, bool bOverwrite = false,
               int access = wxS_DEFAULT);

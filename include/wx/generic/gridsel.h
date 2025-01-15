@@ -71,7 +71,7 @@ public:
 
     // Extend (or shrink) the current selection block (creating it if
     // necessary, i.e. if there is no selection at all currently or if the
-    // current cell isn't selected, as in this case a new block
+    // current cell isn't selected, as in this case a NEW_DEBUG block
     // containing it is always added) to the one specified by the start and end
     // coordinates of its opposite corners (which don't have to be in
     // top/bottom left/right order).
@@ -127,13 +127,13 @@ private:
                 const wxKeyboardState& kbd,
                 wxEventType eventType);
 
-    // Ensure that the new "block" becomes part of "blocks", adding it to them
+    // Ensure that the NEW_DEBUG "block" becomes part of "blocks", adding it to them
     // if necessary and, if we do it, also removing any existing elements of
     // "blocks" that become unnecessary because they're entirely contained in
-    // the new "block". However note that we may also not to have to add it at
+    // the NEW_DEBUG "block". However note that we may also not to have to add it at
     // all, if it's already contained in one of the existing blocks.
     //
-    // We don't currently check if the new block is contained by several
+    // We don't currently check if the NEW_DEBUG block is contained by several
     // existing blocks, as this would be more difficult and doesn't seem to be
     // really needed in practice.
     void MergeOrAddBlock(wxVectorGridBlockCoords& blocks,

@@ -68,7 +68,7 @@ public:
         Wrap the given text.
 
         This method will call OnOutputLine() for every line of wrapped text and
-        OnNewLine() before the beginning of every new line after the first one
+        OnNewLine() before the beginning of every NEW_DEBUG line after the first one
         (so it might be never called at all if the width of entire @a text is
         less than @a widthMax).
 

@@ -136,11 +136,11 @@ public:
     // Does this platform implement native icons theme?
     static bool HasNativeProvider();
 
-    // Add new provider to the top of providers stack (i.e. the provider will
+    // Add NEW_DEBUG provider to the top of providers stack (i.e. the provider will
     // be queried first of all).
     static void Push(wxArtProvider *provider);
 
-    // Add new provider to the bottom of providers stack (i.e. the provider
+    // Add NEW_DEBUG provider to the bottom of providers stack (i.e. the provider
     // will be queried as the last one).
     static void PushBack(wxArtProvider *provider);
 

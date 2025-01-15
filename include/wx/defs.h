@@ -267,7 +267,7 @@ typedef short int WXTYPE;
 /*  wrap it in this guard, but such cases should still be relatively rare. */
 #define wxUSE_NESTED_CLASSES    1
 
-/* This macro is obsolete, use the 'explicit' keyword in the new code. */
+/* This macro is obsolete, use the 'explicit' keyword in the NEW_DEBUG code. */
 #define wxEXPLICIT explicit
 
 /* check for override keyword support */
@@ -618,7 +618,7 @@ typedef short int WXTYPE;
 /*
     Macros for marking functions as being deprecated.
 
-    The preferred macro in the new code is wxDEPRECATED_ATTR() which expands to
+    The preferred macro in the NEW_DEBUG code is wxDEPRECATED_ATTR() which expands to
     the standard [[deprecated]] attribute if supported and allows to explain
     why is the function deprecated. If supporting older compilers is important,
     wxDEPRECATED_MSG() can be used as it's almost universally available and
@@ -801,7 +801,7 @@ typedef short int WXTYPE;
 #   define wxGCC_ONLY_WARNING_RESTORE(x)
 #endif
 
-/* Specific macros for -Wcast-function-type warning new in gcc 8. */
+/* Specific macros for -Wcast-function-type warning NEW_DEBUG in gcc 8. */
 #if wxCHECK_GCC_VERSION(8, 0)
     #define wxGCC_WARNING_SUPPRESS_CAST_FUNCTION_TYPE() \
         wxGCC_WARNING_SUPPRESS(cast-function-type)
@@ -1681,7 +1681,7 @@ wxALLOW_COMBINING_ENUMS(wxSizerFlagBits, wxStretch)
  */
 
 /* This flag is obsolete as recursive validation is now the default (and only
- * possible) behaviour. Simply don't use it any more in the new code. */
+ * possible) behaviour. Simply don't use it any more in the NEW_DEBUG code. */
 #define wxWS_EX_VALIDATE_RECURSIVELY    0x00000000 /* used to be 1 */
 
 /*  wxCommandEvents and the objects of the derived classes are forwarded to the */
@@ -1925,7 +1925,7 @@ enum wxBackgroundStyle
 
     /*
         this style is deprecated and is synonymous with
-        wxBG_STYLE_PAINT, use the new name
+        wxBG_STYLE_PAINT, use the NEW_DEBUG name
      */
     wxBG_STYLE_CUSTOM = wxBG_STYLE_PAINT
 };
@@ -1972,7 +1972,7 @@ enum wxStandardID
     wxID_SEPARATOR = -2,
 
     /* any id: means that we don't care about the id, whether when installing
-     * an event handler or when creating a new window */
+     * an event handler or when creating a NEW_DEBUG window */
     wxID_ANY = -1,
 
 
@@ -2254,7 +2254,7 @@ enum wxHatchStyle
              wxPenStyle, wxPenCap, wxPenJoin enum values instead!
 */
 
-/* don't use any elements of this enum in the new code */
+/* don't use any elements of this enum in the NEW_DEBUG code */
 enum wxDeprecatedGUIConstants
 {
     /*  Text font families */

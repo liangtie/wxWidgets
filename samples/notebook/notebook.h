@@ -22,7 +22,7 @@
     #define USE_LOG 0
 #endif
 
-// Define a new application
+// Define a NEW_DEBUG application
 class MyApp : public wxApp
 {
 public:

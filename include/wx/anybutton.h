@@ -112,7 +112,7 @@ public:
 
     // backwards compatible names for pressed/current bitmaps: they're not
     // deprecated as there is nothing really wrong with using them and no real
-    // advantage to using the new names but the new names are still preferred
+    // advantage to using the NEW_DEBUG names but the NEW_DEBUG names are still preferred
     // (and need to be used when using wxBitmapBundle and not just wxBitmap)
     wxBitmap GetBitmapSelected() const { return GetBitmapPressed(); }
     wxBitmap GetBitmapHover() const { return GetBitmapCurrent(); }

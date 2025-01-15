@@ -161,7 +161,7 @@ enum
 
 // For compatibility, define the old name for this class. There is no need to
 // deprecate it as it doesn't cost us anything to keep this typedef, but the
-// new code should prefer to use the new wxItemAttr name.
+// NEW_DEBUG code should prefer to use the NEW_DEBUG wxItemAttr name.
 typedef wxItemAttr wxListItemAttr;
 
 // ----------------------------------------------------------------------------
@@ -188,7 +188,7 @@ public:
     {
         // copy list item attributes
         if ( item.HasAttributes() )
-            m_attr = new wxItemAttr(*item.GetAttributes());
+            m_attr = NEW_DEBUG wxItemAttr(*item.GetAttributes());
     }
 
     wxListItem& operator=(const wxListItem& item)
@@ -205,7 +205,7 @@ public:
             m_data = item.m_data;
             m_format = item.m_format;
             m_width = item.m_width;
-            m_attr = item.m_attr ? new wxItemAttr(*item.m_attr) : NULL;
+            m_attr = item.m_attr ? NEW_DEBUG wxItemAttr(*item.m_attr) : NULL;
         }
 
         return *this;
@@ -296,7 +296,7 @@ protected:
     wxItemAttr& Attributes()
     {
         if ( !m_attr )
-            m_attr = new wxItemAttr;
+            m_attr = NEW_DEBUG wxItemAttr;
 
         return *m_attr;
     }
@@ -368,14 +368,14 @@ public:
 
     // All these methods can only be used in report view mode.
 
-    // Appends a new column.
+    // Appends a NEW_DEBUG column.
     //
     // Returns the index of the newly inserted column or -1 on error.
     long AppendColumn(const wxString& heading,
                       wxListColumnFormat format = wxLIST_FORMAT_LEFT,
                       int width = -1);
 
-    // Add a new column to the control at the position "col".
+    // Add a NEW_DEBUG column to the control at the position "col".
     //
     // Returns the index of the newly inserted column or -1 on error.
     long InsertColumn(long col, const wxListItem& info);
@@ -562,7 +562,7 @@ public:
     bool IsEditCancelled() const { return m_editCancelled; }
     void SetEditCanceled(bool editCancelled) { m_editCancelled = editCancelled; }
 
-    virtual wxEvent *Clone() const wxOVERRIDE { return new wxListEvent(*this); }
+    virtual wxEvent *Clone() const wxOVERRIDE { return NEW_DEBUG wxListEvent(*this); }
 
 //protected: -- not for backwards compatibility
     int           m_code;

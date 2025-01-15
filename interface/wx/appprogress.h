@@ -57,7 +57,7 @@ public:
         Set the progress value in taskbar button of parent window.
 
         @param value
-            The new value of the progress meter. It should be less than or equal
+            The NEW_DEBUG value of the progress meter. It should be less than or equal
             to the range.
      */
     void SetValue(int value);

@@ -54,7 +54,7 @@ wxObject::IsKindOf uses the linked list of wxClassInfo. It takes a wxClassInfo
 argument, so use CLASSINFO(className) to return an appropriate wxClassInfo
 pointer to use in this function.
 
-The function wxCreateDynamicObject can be used to construct a new object of a
+The function wxCreateDynamicObject can be used to construct a NEW_DEBUG object of a
 given type, by supplying a string name. If you have a pointer to the
 wxClassInfo object instead, then you can simply call wxClassInfo::CreateObject.
 
@@ -75,7 +75,7 @@ record runtime information about a class, including:
 The wxDECLARE_... macros declare a static wxClassInfo variable in a class, which
 is initialized by macros of the form wxIMPLEMENT_... in the implementation C++
 file. Classes whose instances may be constructed dynamically are given a global
-constructor function which returns a new object.
+constructor function which returns a NEW_DEBUG object.
 
 You can get the wxClassInfo for a class by using the CLASSINFO macro, e.g.
 CLASSINFO(wxFrame). You can get the wxClassInfo for an object using

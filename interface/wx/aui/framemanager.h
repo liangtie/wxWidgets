@@ -77,8 +77,8 @@ enum wxAuiManagerOption
     Panes can be added quite easily:
 
     @code
-    wxTextCtrl* text1 = new wxTextCtrl(this, -1);
-    wxTextCtrl* text2 = new wxTextCtrl(this, -1);
+    wxTextCtrl* text1 = NEW_DEBUG wxTextCtrl(this, -1);
+    wxTextCtrl* text2 = NEW_DEBUG wxTextCtrl(this, -1);
     m_mgr.AddPane(text1, wxLEFT, "Pane Caption");
     m_mgr.AddPane(text2, wxBOTTOM, "Pane Caption");
     m_mgr.Update();
@@ -158,7 +158,7 @@ enum wxAuiManagerOption
     @event{EVT_AUI_PANE_RESTORE(func)}
         Triggered when a pane is restored.
     @event{EVT_AUI_PANE_ACTIVATED(func)}
-        Triggered when a pane is made 'active'. This event is new since
+        Triggered when a pane is made 'active'. This event is NEW_DEBUG since
         wxWidgets 2.9.4.
     @event{EVT_AUI_RENDER(func)}
         This event can be caught to override the default renderer in order to
@@ -444,15 +444,15 @@ public:
     void SetArtProvider(wxAuiDockArt* art_provider);
 
     /**
-        When a user creates a new dock by dragging a window into a docked position,
+        When a user creates a NEW_DEBUG dock by dragging a window into a docked position,
         often times the large size of the window will create a dock that is unwieldy
-        large. wxAuiManager by default limits the size of any new dock to 1/3 of the
+        large. wxAuiManager by default limits the size of any NEW_DEBUG dock to 1/3 of the
         window size.  For horizontal docks, this would be 1/3 of the window height.
         For vertical docks, 1/3 of the width.
 
         Calling this function will adjust this constraint value. The numbers must be
         between 0.0 and 1.0.  For instance, calling SetDockSizeContraint with
-        0.5, 0.5 will cause new docks to be limited to half of the size of the
+        0.5, 0.5 will cause NEW_DEBUG docks to be limited to half of the size of the
         entire managed window.
     */
     void SetDockSizeConstraint(double widthpct, double heightpct);
@@ -1057,7 +1057,7 @@ public:
     @event{EVT_AUI_PANE_RESTORE(func)}
         Triggered when a pane is restored.
     @event{EVT_AUI_PANE_ACTIVATED(func)}
-        Triggered when a pane is made 'active'. This event is new since
+        Triggered when a pane is made 'active'. This event is NEW_DEBUG since
         wxWidgets 2.9.4.
     @event{EVT_AUI_RENDER(func)}
         This event can be caught to override the default renderer in order to

@@ -592,7 +592,7 @@ enum wxStandardID
 
     /**
         Any id: means that we don't care about the id, whether when installing
-        an event handler or when creating a new window.
+        an event handler or when creating a NEW_DEBUG window.
     */
     wxID_ANY = -1,
 
@@ -1038,7 +1038,7 @@ enum wxKeyCode
 
     /** This special key code was used to represent the key used for keyboard shortcuts. Under macOS,
       * this key maps to the 'Command' (aka logo or 'Apple') key, whereas on Linux/Windows/others
-      * this is the Control key, with the new semantic of WXK_CONTROL, WXK_COMMAND is not needed anymore
+      * this is the Control key, with the NEW_DEBUG semantic of WXK_CONTROL, WXK_COMMAND is not needed anymore
       */
     WXK_COMMAND,
 
@@ -1641,7 +1641,7 @@ typedef double wxDouble;
     them.
 
     @code
-        MyClass *ptr = new MyClass;
+        MyClass *ptr = NEW_DEBUG MyClass;
         ...
         wxDELETE(ptr);
         wxASSERT(!ptr);
@@ -1659,7 +1659,7 @@ template <typename T> void wxDELETE(T*& ptr);
     non-array pointers, use wxDELETE() for them.
 
     @code
-        MyClass *array = new MyClass[17];
+        MyClass *array = NEW_DEBUG MyClass[17];
         ...
         wxDELETEA(array);
         wxASSERT(!array);

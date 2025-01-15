@@ -42,7 +42,7 @@ private:
 #endif // wxUSE_GRAPHICS_CONTEXT
 
     // Keep track of the DPI used in this window. So when per-monitor dpi
-    // awareness is enabled, both old and new DPI are known for
+    // awareness is enabled, both old and NEW_DEBUG DPI are known for
     // wxDPIChangedEvent and wxWindow::MSWUpdateOnDPIChange.
     wxSize m_activeDPI;
 

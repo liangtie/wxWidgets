@@ -13,7 +13,7 @@
     @c wxWHITE_BRUSH will draw the background colour (i.e. 0) whereas all other
     colours will draw the foreground colour (i.e. 1).
 
-    A bitmap must be selected into the new memory DC before it may be used for
+    A bitmap must be selected into the NEW_DEBUG memory DC before it may be used for
     anything. Typical usage is as follows:
 
     @code
@@ -66,7 +66,7 @@ class wxMemoryDC : public wxDC
 {
 public:
     /**
-        Constructs a new memory device context.
+        Constructs a NEW_DEBUG memory device context.
 
         Use the wxDC::IsOk() member to test whether the constructor was
         successful in creating a usable device context. Don't forget to select
@@ -75,7 +75,7 @@ public:
     wxMemoryDC();
 
     /**
-        Constructs a new memory device context having the same characteristics
+        Constructs a NEW_DEBUG memory device context having the same characteristics
         as the given existing device context.
 
         This constructor creates a memory device context @e compatible with @a
@@ -86,7 +86,7 @@ public:
     wxMemoryDC(wxDC *dc);
 
     /**
-        Constructs a new memory device context and calls SelectObject() with
+        Constructs a NEW_DEBUG memory device context and calls SelectObject() with
         the given bitmap.
 
         Use the wxDC::IsOk() member to test whether the constructor was

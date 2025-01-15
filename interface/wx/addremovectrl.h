@@ -40,7 +40,7 @@ public:
     virtual wxWindow* GetItemsCtrl() const = 0;
 
     /**
-        Override to return whether a new item can be added to the control.
+        Override to return whether a NEW_DEBUG item can be added to the control.
 
         A typical implementation would simply always return @true, but it is
         also possible to return @false if the list is "full" and can't contain
@@ -60,7 +60,7 @@ public:
     /**
         Called when an item should be added.
 
-        A typical implementation would either add a new item to the list
+        A typical implementation would either add a NEW_DEBUG item to the list
         control and start editing it in place or ask the user for the item to
         add first and then add it to the control returned by GetItemsCtrl().
 
@@ -102,16 +102,16 @@ public:
     used to actually add items to or remove them from the control containing
     the items when the corresponding button is pressed. The
     @ref page_samples_dialogs "dialogs sample" shows how to do it: first you
-    need to derive a new class from wxAddRemoveAdaptor and implement its pure
+    need to derive a NEW_DEBUG class from wxAddRemoveAdaptor and implement its pure
     virtual methods and then you must call SetAdaptor() with a newly allocated
     object of this class. You also must create the control containing the items
     with wxAddRemoveCtrl as parent. Here are the different steps in pseudocode:
     @code
-        wxAddRemoveCtrl* ctrl = new wxAddRemoveCtrl(parent);
+        wxAddRemoveCtrl* ctrl = NEW_DEBUG wxAddRemoveCtrl(parent);
 
         // This can be any kind of control for which OnAdd() and OnRemove()
         // below can be made to work.
-        wxListBox* lbox = new wxListBox(ctrl, ...);
+        wxListBox* lbox = NEW_DEBUG wxListBox(ctrl, ...);
 
         class ListBoxAdaptor : public wxAddRemoveAdaptor
         {
@@ -122,14 +122,14 @@ public:
 
             virtual bool CanAdd() const { return true; }
             virtual bool CanRemove() const { return m_lbox->GetSelection() != wxNOT_FOUND; }
-            virtual void OnAdd() { ... get the new item from user and add it ... }
+            virtual void OnAdd() { ... get the NEW_DEBUG item from user and add it ... }
             virtual void OnRemove() { m_lbox->Delete(m_lbox->GetSelection()); }
 
         private:
             wxListBox* m_lbox;
         };
 
-        ctrl->SetAdaptor(new ListBoxAdaptor(lbox));
+        ctrl->SetAdaptor(NEW_DEBUG ListBoxAdaptor(lbox));
     @endcode
 
     @since 3.1.0

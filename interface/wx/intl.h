@@ -23,7 +23,7 @@ enum wxLayoutDirection
 
     @beginWxPerlOnly
     In wxPerl @c Wx::LanguageInfo has only one method:
-    - Wx::LanguageInfo->new(language, canonicalName, WinLang, WinSubLang, Description)
+    - Wx::LanguageInfo->NEW_DEBUG(language, canonicalName, WinLang, WinSubLang, Description)
     @endWxPerlOnly
 */
 struct wxLanguageInfo
@@ -312,7 +312,7 @@ enum wxLocaleForm
       # use the functions
       print gettext( "Panic!" );
 
-      button = Wx::Button-new( window, -1, gettext( "Label" ) );
+      button = Wx::Button-NEW_DEBUG( window, -1, gettext( "Label" ) );
     @endcode
 
     If you need to translate a lot of strings, then adding gettext( ) around
@@ -363,7 +363,7 @@ public:
         The call of this function has several global side effects which you should
         understand: first of all, the application locale is changed - note that this
         will affect many of standard C library functions such as printf() or strftime().
-        Second, this wxLocale object becomes the new current global locale for the
+        Second, this wxLocale object becomes the NEW_DEBUG current global locale for the
         application and so all subsequent calls to ::wxGetTranslation() will try to
         translate the messages using the message catalogs for this locale.
     */
@@ -560,7 +560,7 @@ public:
     /**
         Get the values of a locale datum in the OS locale.
 
-        This function shouldn't be used in the new code, use
+        This function shouldn't be used in the NEW_DEBUG code, use
         wxUILocale::GetInfo() instead.
 
         This function is similar to GetInfo() and, in fact, identical to it
@@ -582,7 +582,7 @@ public:
         understand: first of all, the application locale is changed - note that
         this will affect many of standard C library functions such as printf()
         or strftime().
-        Second, this wxLocale object becomes the new current global locale for
+        Second, this wxLocale object becomes the NEW_DEBUG current global locale for
         the application and so all subsequent calls to wxGetTranslation() will
         try to translate the messages using the message catalogs for this locale.
 

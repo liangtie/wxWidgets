@@ -131,7 +131,7 @@ public:
   {
       wxFAIL_MSG( "This method shouldn't be called, if it is, it probably "
                   "means that you didn't update your old code overriding "
-                  "OnExecute() to use the new parameter types (\"const void *\" "
+                  "OnExecute() to use the NEW_DEBUG parameter types (\"const void *\" "
                   "instead of \"wxChar *\" and \"size_t\" instead of \"int\"), "
                   "you must do it or your code wouldn't be executed at all!" );
       return false;

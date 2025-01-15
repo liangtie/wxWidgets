@@ -29,10 +29,10 @@ typedef unsigned long   WXLCID;
 // Flags used with wxAutomationObject::GetInstance()
 enum wxAutomationInstanceFlags
 {
-    // Only use the existing instance, never create a new one.
+    // Only use the existing instance, never create a NEW_DEBUG one.
     wxAutomationInstance_UseExistingOnly = 0,
 
-    // Create a new instance if there are no existing ones.
+    // Create a NEW_DEBUG instance if there are no existing ones.
     wxAutomationInstance_CreateIfNeeded = 1,
 
     // Do not log errors if we failed to get the existing instance because none
@@ -61,7 +61,7 @@ public:
     bool GetInstance(const wxString& progId,
                      int flags = wxAutomationInstance_CreateIfNeeded) const;
 
-    // Get a dispatch pointer from a new instance of the class
+    // Get a dispatch pointer from a NEW_DEBUG instance of the class
     bool CreateInstance(const wxString& progId) const;
 
     // Low-level invocation function. Pass either an array of variants,

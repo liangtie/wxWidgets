@@ -211,7 +211,7 @@ public:
         , m_bar(bar)
     {
     }
-    wxEvent *Clone() const wxOVERRIDE { return new wxRibbonToolBarEvent(*this); }
+    wxEvent *Clone() const wxOVERRIDE { return NEW_DEBUG wxRibbonToolBarEvent(*this); }
 
     wxRibbonToolBar* GetBar() {return m_bar;}
     void SetBar(wxRibbonToolBar* bar) {m_bar = bar;}

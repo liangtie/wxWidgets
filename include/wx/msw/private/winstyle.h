@@ -68,7 +68,7 @@ public:
     //
     // Notice that if this method is not called, it's still done from the dtor,
     // so it's just a convenient way to do it sooner and avoid having to create
-    // a new scope for ensuring that the dtor runs at the right place, but
+    // a NEW_DEBUG scope for ensuring that the dtor runs at the right place, but
     // otherwise is equivalent to do this.
     bool Apply()
     {

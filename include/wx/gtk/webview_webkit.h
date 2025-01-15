@@ -153,7 +153,7 @@ public:
     //callback, mainly when loading a VFS page
     bool m_guard;
     //This flag is use to indicate when a navigation event is the result of a
-    //create-web-view signal and so we need to send a new window event
+    //create-web-view signal and so we need to send a NEW_DEBUG window event
     bool m_creating;
 
 #if wxUSE_WEBVIEW_WEBKIT2
@@ -212,7 +212,7 @@ private:
 class WXDLLIMPEXP_WEBVIEW wxWebViewFactoryWebKit : public wxWebViewFactory
 {
 public:
-    virtual wxWebView* Create() wxOVERRIDE { return new wxWebViewWebKit; }
+    virtual wxWebView* Create() wxOVERRIDE { return NEW_DEBUG wxWebViewWebKit; }
     virtual wxWebView* Create(wxWindow* parent,
                               wxWindowID id,
                               const wxString& url = wxWebViewDefaultURLStr,
@@ -220,7 +220,7 @@ public:
                               const wxSize& size = wxDefaultSize,
                               long style = 0,
                               const wxString& name = wxASCII_STR(wxWebViewNameStr)) wxOVERRIDE
-    { return new wxWebViewWebKit(parent, id, url, pos, size, style, name); }
+    { return NEW_DEBUG wxWebViewWebKit(parent, id, url, pos, size, style, name); }
 #if wxUSE_WEBVIEW_WEBKIT2
     virtual wxVersionInfo GetVersionInfo() wxOVERRIDE;
 #endif

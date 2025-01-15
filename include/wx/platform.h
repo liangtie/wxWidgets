@@ -504,7 +504,7 @@
 #include "wx/chkconf.h"
 
 
-/* These macros exist only for compatibility, don't use them in the new code */
+/* These macros exist only for compatibility, don't use them in the NEW_DEBUG code */
 #define wxUSE_IOSTREAMH 0
 #define wxSTD std::
 

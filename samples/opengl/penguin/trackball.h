@@ -54,9 +54,9 @@ trackball(float q[4], float p1x, float p1y, float p2x, float p2y);
  * Given two quaternions, add them together to get a third quaternion.
  * Adding quaternions to get a compound rotation is analogous to adding
  * translations to get a compound translation.  When incrementally
- * adding rotations, the first argument here should be the new
+ * adding rotations, the first argument here should be the NEW_DEBUG
  * rotation, the second and third the total rotation (which will be
- * over-written with the resulting new total rotation).
+ * over-written with the resulting NEW_DEBUG total rotation).
  */
 void
 add_quats(float *q1, float *q2, float *dest);

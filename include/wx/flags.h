@@ -28,7 +28,7 @@ public:
     // integral value val
     wxBitset(unsigned long val) { m_data = val ; }
 
-    // copies the content in the new wxBitset<> object from another one
+    // copies the content in the NEW_DEBUG wxBitset<> object from another one
     wxBitset(const wxBitset &src) { m_data = src.m_data; }
 
     // creates a wxBitset<> object that has the specific flag set
@@ -68,7 +68,7 @@ public:
         return *this;
     }
 
-    // bitwise or operator, returns a new bitset that has all bits set that set are in
+    // bitwise or operator, returns a NEW_DEBUG bitset that has all bits set that set are in
     // bitset2 or in this bitset
     wxBitset operator |(const wxBitset &bitset2) const // union
     {
@@ -77,7 +77,7 @@ public:
         return s;
     }
 
-    // bitwise exclusive-or operator, returns a new bitset that has all bits set that are set either in
+    // bitwise exclusive-or operator, returns a NEW_DEBUG bitset that has all bits set that are set either in
     // bitset2 or in this bitset but not in both
     wxBitset operator ^(const wxBitset &bitset2) const // difference
     {
@@ -86,7 +86,7 @@ public:
         return s;
     }
 
-    // bitwise and operator, returns a new bitset that has all bits set that are set both in
+    // bitwise and operator, returns a NEW_DEBUG bitset that has all bits set that are set both in
     // bitset2 and in this bitset
     wxBitset operator &(const wxBitset &bitset2) const // intersection
     {

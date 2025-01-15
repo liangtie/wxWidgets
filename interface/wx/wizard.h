@@ -232,10 +232,10 @@ public:
         calls to it can, in turn, be chained:
 
         @code
-        wxWizardPageSimple* firstPage = new FirstPage;
-        (*firstPage).Chain(new SecondPage)
-                    .Chain(new ThirdPage)
-                    .Chain(new LastPage);
+        wxWizardPageSimple* firstPage = NEW_DEBUG FirstPage;
+        (*firstPage).Chain(NEW_DEBUG SecondPage)
+                    .Chain(NEW_DEBUG ThirdPage)
+                    .Chain(NEW_DEBUG LastPage);
         @endcode
 
         This makes this method the simplest way to define the order of changes
@@ -254,8 +254,8 @@ public:
         Example:
 
         @code
-        wxRadioboxPage *page3 = new wxRadioboxPage(wizard);
-        wxValidationPage *page4 = new wxValidationPage(wizard);
+        wxRadioboxPage *page3 = NEW_DEBUG wxRadioboxPage(wizard);
+        wxValidationPage *page4 = NEW_DEBUG wxValidationPage(wizard);
 
         wxWizardPageSimple::Chain(page3, page4);
         @endcode
@@ -418,7 +418,7 @@ public:
         given @e firstPage, i.e. this page, its next page and so on.
 
         This method may be called more than once and it will only change the page size
-        if the size required by the new page is bigger than the previously set one.
+        if the size required by the NEW_DEBUG page is bigger than the previously set one.
         This is useful if the decision about which pages to show is taken during
         run-time, as in this case, the wizard won't be able to get to all pages starting
         from a single one and you should call @e Fit separately for the others.

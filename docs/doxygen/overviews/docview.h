@@ -110,7 +110,7 @@ to open, edit and save files. But probably the majority of applications are
 document-based.
 
 See the example application in @c samples/docview. To use the abstract
-wxDocument class, you need to derive a new class and override at least the
+wxDocument class, you need to derive a NEW_DEBUG class and override at least the
 member functions SaveObject and LoadObject. SaveObject and LoadObject will be
 called by the framework when the document needs to be saved or loaded.
 
@@ -135,7 +135,7 @@ wxDocManager classes.
 
 See the example application in @c samples/docview.
 
-To use the abstract wxView class, you need to derive a new class and override
+To use the abstract wxView class, you need to derive a NEW_DEBUG class and override
 at least the member functions OnCreate, OnDraw, OnUpdate and OnClose. You will
 probably want to respond to menu commands from the frame containing the view.
 
@@ -181,7 +181,7 @@ and cooperates with the wxView, wxDocument and wxDocManager classes.
 
 See the example application in @c samples/docview.
 
-To use the wxDocTemplate class, you do not need to derive a new class. Just
+To use the wxDocTemplate class, you do not need to derive a NEW_DEBUG class. Just
 pass relevant information to the constructor including
 CLASSINFO(YourDocumentClass) and CLASSINFO(YourViewClass) to allow dynamic
 instance creation.
@@ -256,7 +256,7 @@ The wxWidgets document/view framework handles Undo and Redo by use of wxCommand
 and wxCommandProcessor objects. You might find further uses for wxCommand, such
 as implementing a macro facility that stores, loads and replays commands.
 
-An application can derive a new class for every command, or, more likely, use
+An application can derive a NEW_DEBUG class for every command, or, more likely, use
 one class parameterized with an integer or string command identifier.
 
 
@@ -264,7 +264,7 @@ one class parameterized with an integer or string command identifier.
 @section overview_docview_wxcommandproc wxCommandProcessor Overview
 
 wxCommandProcessor is a class that maintains a history of wxCommand instances,
-with undo/redo functionality built-in. Derive a new class from this if you want
+with undo/redo functionality built-in. Derive a NEW_DEBUG class from this if you want
 different behaviour.
 
 

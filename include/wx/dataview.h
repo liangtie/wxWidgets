@@ -73,10 +73,10 @@ extern WXDLLIMPEXP_DATA_CORE(const char) wxDataViewCtrlNameStr[];
 // size of a wxDataViewRenderer without contents:
 #define wxDVC_DEFAULT_RENDERER_SIZE     20
 
-// the default width of new (text) columns:
+// the default width of NEW_DEBUG (text) columns:
 #define wxDVC_DEFAULT_WIDTH             80
 
-// the default width of new toggle columns:
+// the default width of NEW_DEBUG toggle columns:
 #define wxDVC_TOGGLE_DEFAULT_WIDTH      30
 
 // the default minimal width of the columns:
@@ -949,7 +949,7 @@ public:
     void InitData(wxDataObjectComposite* obj, wxDataFormat format);
 #endif // wxUSE_DRAG_AND_DROP
 
-    virtual wxEvent *Clone() const wxOVERRIDE { return new wxDataViewEvent(*this); }
+    virtual wxEvent *Clone() const wxOVERRIDE { return NEW_DEBUG wxDataViewEvent(*this); }
 
     // These methods shouldn't be used outside of wxWidgets and wxWidgets
     // itself doesn't use them any longer either as it constructs the events

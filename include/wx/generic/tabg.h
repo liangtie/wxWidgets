@@ -132,7 +132,7 @@ public:
   virtual bool OnTabPreActivate(int WXUNUSED(activateId), int WXUNUSED(deactivateId) ) { return true; }
 
   // Allows use of application-supplied wxTabControl classes.
-  virtual wxTabControl *OnCreateTabControl(void) { return new wxTabControl(this); }
+  virtual wxTabControl *OnCreateTabControl(void) { return NEW_DEBUG wxTabControl(this); }
 
   void SetHighlightColour(const wxColour& col);
   void SetShadowColour(const wxColour& col);

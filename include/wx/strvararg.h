@@ -987,7 +987,7 @@ private:
 //     arguments at the moment.
 //     If you need more variadic arguments, you need to
 //        1) increase the value of _WX_VARARG_MAX_ARGS
-//        2) add _WX_VARARG_JOIN_* and _WX_VARARG_ITER_* up to the new
+//        2) add _WX_VARARG_JOIN_* and _WX_VARARG_ITER_* up to the NEW_DEBUG
 //           _WX_VARARG_MAX_ARGS value to the lists below
 //     If you need more fixed arguments, you need to
 //        1) increase the value of _WX_VARARG_MAX_FIXED_ARGS

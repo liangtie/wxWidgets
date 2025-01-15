@@ -41,7 +41,7 @@ other wxWidgets controls:
     // Assumes code is in frame/dialog constructor
 
     // Construct wxPropertyGrid control
-    wxPropertyGrid* pg = new wxPropertyGrid(
+    wxPropertyGrid* pg = NEW_DEBUG wxPropertyGrid(
         this, // parent
         PGID, // id
         wxDefaultPosition, // position
@@ -60,12 +60,12 @@ other wxWidgets controls:
 
 @endcode
 
-  (for complete list of new window styles, see @ref propgrid_window_styles)
+  (for complete list of NEW_DEBUG window styles, see @ref propgrid_window_styles)
 
   wxPropertyGrid is usually populated with lines like this:
 
 @code
-    pg->Append( new wxStringProperty("Label", "Name", "Initial Value") );
+    pg->Append( NEW_DEBUG wxStringProperty("Label", "Name", "Initial Value") );
 @endcode
 
 Naturally, wxStringProperty is a property class. Only the first function argument (label)
@@ -80,29 +80,29 @@ To demonstrate other common property classes, here's another code snippet:
 @code
 
     // Add int property
-    pg->Append( new wxIntProperty("IntProperty", wxPG_LABEL, 12345678) );
+    pg->Append( NEW_DEBUG wxIntProperty("IntProperty", wxPG_LABEL, 12345678) );
 
     // Add float property (value type is actually double)
-    pg->Append( new wxFloatProperty("FloatProperty", wxPG_LABEL, 12345.678) );
+    pg->Append( NEW_DEBUG wxFloatProperty("FloatProperty", wxPG_LABEL, 12345.678) );
 
     // Add a bool property
-    pg->Append( new wxBoolProperty("BoolProperty", wxPG_LABEL, false) );
+    pg->Append( NEW_DEBUG wxBoolProperty("BoolProperty", wxPG_LABEL, false) );
 
     // A string property that can be edited in a separate editor dialog.
-    pg->Append( new wxLongStringProperty("LongStringProperty",
+    pg->Append( NEW_DEBUG wxLongStringProperty("LongStringProperty",
                                          wxPG_LABEL,
                                          "This is much longer string than the "
                                          "first one. Edit it by clicking the button."));
 
     // String editor with dir selector button.
-    pg->Append( new wxDirProperty("DirProperty", wxPG_LABEL, ::wxGetUserHome()) );
+    pg->Append( NEW_DEBUG wxDirProperty("DirProperty", wxPG_LABEL, ::wxGetUserHome()) );
 
     // wxArrayStringProperty embeds a wxArrayString.
-    pg->Append( new wxArrayStringProperty("Label of ArrayStringProperty",
+    pg->Append( NEW_DEBUG wxArrayStringProperty("Label of ArrayStringProperty",
                                           "NameOfArrayStringProp"));
 
     // A file selector property.
-    pg->Append( new wxFileProperty("FileProperty", wxPG_LABEL, wxEmptyString) );
+    pg->Append( NEW_DEBUG wxFileProperty("FileProperty", wxPG_LABEL, wxEmptyString) );
 
     // Extra: set wild card for file property (format same as in wxFileDialog).
     pg->SetPropertyAttribute( "FileProperty",
@@ -124,7 +124,7 @@ argument, using which you can refer to properties either by their pointer
 
 @code
     // Add a file selector property.
-    wxPGProperty* prop = pg->Append( new wxFileProperty("FileProperty",
+    wxPGProperty* prop = pg->Append( NEW_DEBUG wxFileProperty("FileProperty",
                                      wxPG_LABEL,
                                      wxEmptyString) );
 
@@ -166,21 +166,21 @@ or wxPropertyGridInterface::AppendIn.
 @code
 
     // One way to add category (similar to how other properties are added)
-    pg->Append( new wxPropertyCategory("Main") );
+    pg->Append( NEW_DEBUG wxPropertyCategory("Main") );
 
     // All these are added to "Main" category
-    pg->Append( new wxStringProperty("Name") );
-    pg->Append( new wxIntProperty("Age",wxPG_LABEL,25) );
-    pg->Append( new wxIntProperty("Height",wxPG_LABEL,180) );
-    pg->Append( new wxIntProperty("Weight") );
+    pg->Append( NEW_DEBUG wxStringProperty("Name") );
+    pg->Append( NEW_DEBUG wxIntProperty("Age",wxPG_LABEL,25) );
+    pg->Append( NEW_DEBUG wxIntProperty("Height",wxPG_LABEL,180) );
+    pg->Append( NEW_DEBUG wxIntProperty("Weight") );
 
     // Another one
-    pg->Append( new wxPropertyCategory("Attributes") );
+    pg->Append( NEW_DEBUG wxPropertyCategory("Attributes") );
 
     // All these are added to "Attributes" category
-    pg->Append( new wxIntProperty("Intelligence") );
-    pg->Append( new wxIntProperty("Agility") );
-    pg->Append( new wxIntProperty("Strength") );
+    pg->Append( NEW_DEBUG wxIntProperty("Intelligence") );
+    pg->Append( NEW_DEBUG wxIntProperty("Agility") );
+    pg->Append( NEW_DEBUG wxIntProperty("Strength") );
 
 @endcode
 
@@ -204,34 +204,34 @@ or wxPropertyGridInterface::AppendIn.
 Sample:
 
 @code
-    wxPGProperty* carProp = pg->Append(new wxStringProperty("Car",
+    wxPGProperty* carProp = pg->Append(NEW_DEBUG wxStringProperty("Car",
                                          wxPG_LABEL,
                                          "<composed>"));
 
-    pg->AppendIn(carProp, new wxStringProperty("Model",
+    pg->AppendIn(carProp, NEW_DEBUG wxStringProperty("Model",
                                                 wxPG_LABEL,
                                                 "Lamborghini Diablo SV"));
 
-    pg->AppendIn(carProp, new wxIntProperty("Engine Size (cc)",
+    pg->AppendIn(carProp, NEW_DEBUG wxIntProperty("Engine Size (cc)",
                                             wxPG_LABEL,
                                             5707) );
 
     wxPGProperty* speedsProp = pg->AppendIn(carProp,
-                                            new wxStringProperty("Speeds",
+                                            NEW_DEBUG wxStringProperty("Speeds",
                                               wxPG_LABEL,
                                               "<composed>"));
 
-    pg->AppendIn( speedsProp, new wxIntProperty("Max. Speed (mph)",
+    pg->AppendIn( speedsProp, NEW_DEBUG wxIntProperty("Max. Speed (mph)",
                                                 wxPG_LABEL,290) );
-    pg->AppendIn( speedsProp, new wxFloatProperty("0-100 mph (sec)",
+    pg->AppendIn( speedsProp, NEW_DEBUG wxFloatProperty("0-100 mph (sec)",
                                                   wxPG_LABEL,3.9) );
-    pg->AppendIn( speedsProp, new wxFloatProperty("1/4 mile (sec)",
+    pg->AppendIn( speedsProp, NEW_DEBUG wxFloatProperty("1/4 mile (sec)",
                                                   wxPG_LABEL,8.6) );
 
     // This is how child property can be referred to by name
     pg->SetPropertyValue( "Car.Speeds.Max. Speed (mph)", 300 );
 
-    pg->AppendIn(carProp, new wxIntProperty("Price ($)",
+    pg->AppendIn(carProp, NEW_DEBUG wxIntProperty("Price ($)",
                                             wxPG_LABEL,
                                             300000) );
 
@@ -266,7 +266,7 @@ A very simple example:
     arrDiet.Add("Carnivore");
     arrDiet.Add("Omnivore");
 
-    pg->Append( new wxEnumProperty("Diet",
+    pg->Append( NEW_DEBUG wxEnumProperty("Diet",
                                    wxPG_LABEL,
                                    arrDiet) );
 
@@ -276,7 +276,7 @@ A very simple example:
     const wxChar* arrayDiet[] =
     { wxT("Herbivore"), wxT("Carnivore"), wxT("Omnivore"), NULL };
 
-    pg->Append( new wxEnumProperty("Diet",
+    pg->Append( NEW_DEBUG wxEnumProperty("Diet",
                                    wxPG_LABEL,
                                    arrayDiet) );
 
@@ -301,7 +301,7 @@ Here's extended example using values as well:
 
     // Note that the initial value (the last argument) is the actual value,
     // not index or anything like that. Thus, our value selects "Omnivore".
-    pg->Append( new wxEnumProperty("Diet",
+    pg->Append( NEW_DEBUG wxEnumProperty("Diet",
                                    wxPG_LABEL,
                                    arrDiet,
                                    arrIds,
@@ -328,13 +328,13 @@ Here's extended example using values as well:
     // Let's add an item with bitmap, too
     chs.Add("None of the above", wxBitmap(), 60);
 
-    pg->Append( new wxEnumProperty("Primary Diet",
+    pg->Append( NEW_DEBUG wxEnumProperty("Primary Diet",
                                    wxPG_LABEL,
                                    chs) );
 
     // Add same choices to another property as well - this is efficient due
     // to reference counting
-    pg->Append( new wxEnumProperty("Secondary Diet",
+    pg->Append( NEW_DEBUG wxEnumProperty("Secondary Diet",
                                    wxPG_LABEL,
                                    chs) );
 @endcode
@@ -358,7 +358,7 @@ wxFlagsProperty has similar construction:
     long flags_prop_values[] = { wxICONIZE, wxCAPTION, wxMINIMIZE_BOX,
         wxMAXIMIZE_BOX };
 
-    pg->Append( new wxFlagsProperty("Window Style",
+    pg->Append( NEW_DEBUG wxFlagsProperty("Window Style",
                                     wxPG_LABEL,
                                     flags_prop_labels,
                                     flags_prop_values,
@@ -384,38 +384,38 @@ To use them, you have to include <wx/propgrid/advprops.h>.
 ...
 
     // Date property.
-    pg->Append( new wxDateProperty("MyDateProperty",
+    pg->Append( NEW_DEBUG wxDateProperty("MyDateProperty",
                                    wxPG_LABEL,
                                    wxDateTime::Now()) );
 
     // Image file property. Wild card is auto-generated from available
     // image handlers, so it is not set this time.
-    pg->Append( new wxImageFileProperty("Label of ImageFileProperty",
+    pg->Append( NEW_DEBUG wxImageFileProperty("Label of ImageFileProperty",
                                         "NameOfImageFileProp") );
 
     // Font property has sub-properties. Note that we give window's font as
     // initial value.
-    pg->Append( new wxFontProperty("Font",
+    pg->Append( NEW_DEBUG wxFontProperty("Font",
                                    wxPG_LABEL,
                                    GetFont()) );
 
     // Colour property with arbitrary colour.
-    pg->Append( new wxColourProperty("My Colour 1",
+    pg->Append( NEW_DEBUG wxColourProperty("My Colour 1",
                                      wxPG_LABEL,
                                      wxColour(242,109,0) ) );
 
     // System colour property.
-    pg->Append( new wxSystemColourProperty("My SysColour 1",
+    pg->Append( NEW_DEBUG wxSystemColourProperty("My SysColour 1",
                                            wxPG_LABEL,
                                            wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOW)) );
 
     // System colour property with custom colour.
-    pg->Append( new wxSystemColourProperty("My SysColour 2",
+    pg->Append( NEW_DEBUG wxSystemColourProperty("My SysColour 2",
                                            wxPG_LABEL,
                                            wxColour(0,200,160) ) );
 
     // Cursor property
-    pg->Append( new wxCursorProperty("My Cursor",
+    pg->Append( NEW_DEBUG wxCursorProperty("My Cursor",
                                      wxPG_LABEL,
                                      wxCURSOR_ARROW));
 
@@ -787,7 +787,7 @@ colour selection dialog.
 
 @code
 
-    wxPGProperty* colProp = new wxColourProperty("Text Colour");
+    wxPGProperty* colProp = NEW_DEBUG wxColourProperty("Text Colour");
     pg->Append(colProp);
     pg->SetPropertyEditor(colProp, wxPGEditor_TextCtrlAndButton);
 
@@ -1035,7 +1035,7 @@ without warnings or errors.
     still exists for those who really need to achieve the same effect.
 
   - wxArrayStringProperty default delimiter is now comma (','), and it can
-    be changed by setting the new "Delimiter" attribute.
+    be changed by setting the NEW_DEBUG "Delimiter" attribute.
 
 @subsection propgrid_compat_propdev Property and Editor Sub-classing Changes
 

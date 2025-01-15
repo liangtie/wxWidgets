@@ -36,7 +36,7 @@
          discouraged because it is more complicated than simply providing a
          vector of bitmaps and it doesn't allow specifying multiple images or
          using SVG, which is required for good high DPI support. Please don't
-         use AssignImageList() and SetImageList() in the new code and use
+         use AssignImageList() and SetImageList() in the NEW_DEBUG code and use
          SetImages() instead.
 */
 class wxWithImages
@@ -77,7 +77,7 @@ public:
         This function allows to specify the images to use in multiple different
         resolutions, letting the control to select the appropriate one for its
         DPI scaling. For this reason, it should be preferred to using the
-        functions taking wxImageList, which has a fixed size, in the new code.
+        functions taking wxImageList, which has a fixed size, in the NEW_DEBUG code.
 
         @param images Non empty vector of bitmap bundles. Valid image indexes
             for the items in this control are determined by the size of this
@@ -91,7 +91,7 @@ public:
         Sets the image list for the page control and takes ownership of the list.
 
         This function exists for compatibility only, please use SetImages() in
-        the new code.
+        the NEW_DEBUG code.
 
         @see wxImageList, SetImageList()
     */
@@ -102,7 +102,7 @@ public:
        list, you must delete it yourself.
 
        This function exists for compatibility only, please use SetImages() in
-       the new code.
+       the NEW_DEBUG code.
 
        @see wxImageList, AssignImageList()
     */
@@ -111,7 +111,7 @@ public:
     /**
         Returns the associated image list, may be @NULL.
 
-        Note that the new code should use GetUpdatedImageListFor() instead.
+        Note that the NEW_DEBUG code should use GetUpdatedImageListFor() instead.
 
         @see wxImageList, SetImageList()
     */

@@ -146,7 +146,7 @@
 #endif
 
 /* Advanced library doesn't exist any longer, but its macros are preserved for
-   compatibility. Do not use them in the new code. */
+   compatibility. Do not use them in the NEW_DEBUG code. */
 #define WXDLLIMPEXP_ADV WXDLLIMPEXP_CORE
 #define WXDLLIMPEXP_DATA_ADV(type) WXDLLIMPEXP_DATA_CORE(type)
 

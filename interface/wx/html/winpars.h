@@ -24,7 +24,7 @@ public:
         You must override this method. In most common case its body consists
         only of lines of the following type:
         @code
-        parser -> AddTagHandler(new MyHandler);
+        parser -> AddTagHandler(NEW_DEBUG MyHandler);
         @endcode
 
         It's recommended to use the @b TAGS_MODULE_* macros.
@@ -150,7 +150,7 @@ public:
         Returns pointer to the currently opened container (see @ref overview_html_cells).
         Common use:
         @code
-        m_WParser -> GetContainer() -> InsertCell(new ...);
+        m_WParser -> GetContainer() -> InsertCell(NEW_DEBUG ...);
         @endcode
     */
     wxHtmlContainerCell* GetContainer() const;
@@ -229,7 +229,7 @@ public:
     wxHtmlWindowInterface* GetWindowInterface();
 
     /**
-        Opens new container and returns pointer to it (see @ref overview_html_cells).
+        Opens NEW_DEBUG container and returns pointer to it (see @ref overview_html_cells).
     */
     wxHtmlContainerCell* OpenContainer();
 

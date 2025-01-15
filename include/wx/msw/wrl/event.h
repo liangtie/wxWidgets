@@ -86,7 +86,7 @@ template <
 >
 wxCOMPtr<baseT> Callback_impl(lambdaT&& lambda, HRESULT(LT::*)(argTs...) const)
 {
-    return wxCOMPtr<baseT>(new CInvokableLambda<baseT, argTs...>(lambda));
+    return wxCOMPtr<baseT>(NEW_DEBUG CInvokableLambda<baseT, argTs...>(lambda));
 }
 
 template <typename baseT, typename lambdaT>
@@ -98,7 +98,7 @@ wxCOMPtr<baseT> Callback(lambdaT&& lambda)
 template <typename baseT, typename contextT, typename ...argTs>
 wxCOMPtr<baseT> Callback(contextT* ctx, HRESULT(contextT::* mthd)(argTs...))
 {
-    return wxCOMPtr<baseT>(new CInvokableMethod<baseT, contextT, argTs...>(ctx, mthd));
+    return wxCOMPtr<baseT>(NEW_DEBUG CInvokableMethod<baseT, contextT, argTs...>(ctx, mthd));
 }
 
 #endif // _WX_MSW_PRIVATE_WRL_H_

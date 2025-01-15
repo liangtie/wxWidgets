@@ -15,7 +15,7 @@
 
 #include "wx/cpp.h"    /* for wxSTRINGIZE */
 
-/*  the constants below must be changed with each new version */
+/*  the constants below must be changed with each NEW_DEBUG version */
 /*  ---------------------------------------------------------------------------- */
 
 /*

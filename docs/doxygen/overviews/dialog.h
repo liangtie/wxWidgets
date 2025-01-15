@@ -67,9 +67,9 @@ wxDialog::ShowModal:
 @li If that search failed too, wxWidgets finds 'loose' standard buttons (in any
     kind of sizer) and adds them to a wxStdDialogButtonSizer. If no standard
     buttons were found, the whole dialog content will scroll.
-@li All the children apart from standard buttons are reparented onto a new
+@li All the children apart from standard buttons are reparented onto a NEW_DEBUG
     ::wxScrolledWindow object, using the old top-level sizer for the scrolled
-    window and creating a new top-level sizer to lay out the scrolled window
+    window and creating a NEW_DEBUG top-level sizer to lay out the scrolled window
     and standard button sizer.
 
 
@@ -103,7 +103,7 @@ fool-proof, and may fail in the following situations:
 @li The dialog implementation makes assumptions about the window hierarchy,
     for example getting the parent of a control and casting to the dialog class.
 @li The dialog does custom painting and/or event handling not handled by the scrolled window.
-    If this problem can be solved globally, you can derive a new adapter class from
+    If this problem can be solved globally, you can derive a NEW_DEBUG adapter class from
     wxStandardDialogLayoutAdapter and override its CreateScrolledWindow function to return
     an instance of your own class.
 @li The dialog has unusual layout, for example a vertical sizer containing a mixture of

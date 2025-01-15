@@ -22,18 +22,18 @@ public:
                     wxWindow* ctrlItems)
         : wxAddRemoveImplWithButtons(adaptor, parent, ctrlItems)
     {
-        m_btnAdd = new wxButton(parent, wxID_ADD, GetAddButtonLabel(),
+        m_btnAdd = NEW_DEBUG wxButton(parent, wxID_ADD, GetAddButtonLabel(),
                                 wxDefaultPosition, wxDefaultSize,
                                 wxBU_EXACTFIT | wxBORDER_NONE);
-        m_btnRemove = new wxButton(parent, wxID_REMOVE, GetRemoveButtonLabel(),
+        m_btnRemove = NEW_DEBUG wxButton(parent, wxID_REMOVE, GetRemoveButtonLabel(),
                                    wxDefaultPosition, wxDefaultSize,
                                    wxBU_EXACTFIT | wxBORDER_NONE);
 
-        wxSizer* const sizerBtns = new wxBoxSizer(wxVERTICAL);
+        wxSizer* const sizerBtns = NEW_DEBUG wxBoxSizer(wxVERTICAL);
         sizerBtns->Add(m_btnAdd, wxSizerFlags().Expand());
         sizerBtns->Add(m_btnRemove, wxSizerFlags().Expand());
 
-        wxSizer* const sizerTop = new wxBoxSizer(wxHORIZONTAL);
+        wxSizer* const sizerTop = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
         sizerTop->Add(ctrlItems, wxSizerFlags(1).Expand());
         sizerTop->Add(sizerBtns, wxSizerFlags().Centre().Border(wxLEFT));
         parent->SetSizer(sizerTop);

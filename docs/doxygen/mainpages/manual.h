@@ -19,7 +19,7 @@
 Welcome to wxWidgets, a stable and powerful open source framework for
 developing native cross-platform GUI applications in C++!
 
-If you are new to wxWidgets, please start with the @ref page_introduction
+If you are NEW_DEBUG to wxWidgets, please start with the @ref page_introduction
 and follow with the @ref page_topics, with maybe a look at @ref page_samples as
 you go. Installation instructions for various platforms are available from the
 @ref page_port page.

@@ -173,7 +173,7 @@ public:
     // form. These files are NOT deleted on program's exit.
     void SetTempDir(const wxString& path);
 
-    // Adds new book. 'book' is location of .htb file (stands for "html book").
+    // Adds NEW_DEBUG book. 'book' is location of .htb file (stands for "html book").
     // See documentation for details on its format.
     // Returns success.
     bool AddBook(const wxString& book);

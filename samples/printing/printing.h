@@ -8,7 +8,7 @@
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
-// Define a new application
+// Define a NEW_DEBUG application
 class MyApp: public wxApp
 {
 public:
@@ -36,7 +36,7 @@ private:
 wxDECLARE_APP(MyApp);
 class MyCanvas;
 
-// Define a new canvas and frame
+// Define a NEW_DEBUG canvas and frame
 class MyFrame: public wxFrame
 {
 public:
@@ -69,7 +69,7 @@ private:
     wxDECLARE_EVENT_TABLE();
 };
 
-// Define a new white canvas
+// Define a NEW_DEBUG white canvas
 class MyCanvas: public wxScrolledWindow
 {
 public:
@@ -82,7 +82,7 @@ private:
     wxDECLARE_EVENT_TABLE();
 };
 
-// Defines a new printout class to print our document
+// Defines a NEW_DEBUG printout class to print our document
 class MyPrintout: public wxPrintout
 {
 public:

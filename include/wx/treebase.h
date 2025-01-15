@@ -198,7 +198,7 @@ public:
                 const wxTreeItemId &item = wxTreeItemId());
     wxTreeEvent(const wxTreeEvent& event);
 
-    virtual wxEvent *Clone() const wxOVERRIDE { return new wxTreeEvent(*this); }
+    virtual wxEvent *Clone() const wxOVERRIDE { return NEW_DEBUG wxTreeEvent(*this); }
 
     // accessors
         // get the item on which the operation was performed or the newly
@@ -294,10 +294,10 @@ wxDECLARE_EXPORTED_EVENT( WXDLLIMPEXP_CORE, wxEVT_TREE_ITEM_MENU, wxTreeEvent );
 #define EVT_TREE_END_DRAG(id, fn) wx__DECLARE_TREEEVT(END_DRAG, id, fn)
 
 // GetItem() returns the itme whose label is being edited, GetLabel() returns
-// the current item label for BEGIN and the would be new one for END.
+// the current item label for BEGIN and the would be NEW_DEBUG one for END.
 //
 // Vetoing BEGIN event means that label editing won't happen at all,
-// vetoing END means that the new value is discarded and the old one kept
+// vetoing END means that the NEW_DEBUG value is discarded and the old one kept
 #define EVT_TREE_BEGIN_LABEL_EDIT(id, fn) wx__DECLARE_TREEEVT(BEGIN_LABEL_EDIT, id, fn)
 #define EVT_TREE_END_LABEL_EDIT(id, fn) wx__DECLARE_TREEEVT(END_LABEL_EDIT, id, fn)
 

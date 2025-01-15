@@ -35,7 +35,7 @@ disk files, or non-seekable streams such as pipes and sockets (see
 
 @section overview_archive_create Creating an Archive
 
-Call wxArchiveOutputStream::PutNextEntry() to create each new entry in the
+Call wxArchiveOutputStream::PutNextEntry() to create each NEW_DEBUG entry in the
 archive, then write the entry's data. Another call to PutNextEntry() closes the
 current entry and begins the next. For example:
 
@@ -85,7 +85,7 @@ while (entry.reset(zip.GetNextEntry()), entry.get() != NULL)
 
 @section overview_archive_modify Modifying an Archive
 
-To modify an existing archive, write a new copy of the archive to a new file,
+To modify an existing archive, write a NEW_DEBUG copy of the archive to a NEW_DEBUG file,
 making any necessary changes along the way and transferring any unchanged
 entries using wxArchiveOutputStream::CopyEntry().
 
@@ -101,7 +101,7 @@ archive. wxTempFileOutputStream can be helpful to do this.
 For example to delete all entries matching the pattern "*.txt":
 
 @code
-auto_ptr<wxFFileInputStream> in(new wxFFileInputStream(wxT("test.zip")));
+auto_ptr<wxFFileInputStream> in(NEW_DEBUG wxFFileInputStream(wxT("test.zip")));
 wxTempFileOutputStream out(wxT("test.zip"));
 
 wxZipInputStream inzip(*in);
@@ -260,7 +260,7 @@ const wxArchiveClassFactory *factory;
 factory = wxArchiveClassFactory::Find(filename, wxSTREAM_FILEEXT);
 
 if (factory)
-    stream = factory->NewStream(new wxFFileInputStream(filename));
+    stream = factory->NewStream(NEW_DEBUG wxFFileInputStream(filename));
 @endcode
 
 @e Find() does not give away ownership of the returned pointer, so it does not
@@ -273,7 +273,7 @@ These can be found using wxFilterClassFactory::Find().
 For example, to list the contents of archive @e filename:
 
 @code
-auto_ptr<wxInputStream> in(new wxFFileInputStream(filename));
+auto_ptr<wxInputStream> in(NEW_DEBUG wxFFileInputStream(filename));
 
 if (in->IsOk())
 {

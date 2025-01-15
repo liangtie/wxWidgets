@@ -27,7 +27,7 @@ public:
         : m_ref(NULL)
     {
         if (ptr)
-            m_ref = new reftype(ptr);
+            m_ref = NEW_DEBUG reftype(ptr);
     }
 
     template<typename Deleter>
@@ -35,7 +35,7 @@ public:
         : m_ref(NULL)
     {
         if (ptr)
-            m_ref = new reftype_with_deleter<Deleter>(ptr, d);
+            m_ref = NEW_DEBUG reftype_with_deleter<Deleter>(ptr, d);
     }
 
     ~wxSharedPtr()                           { Release(); }
@@ -57,7 +57,7 @@ public:
         {
             Release();
             if (ptr)
-                m_ref = new reftype(ptr);
+                m_ref = NEW_DEBUG reftype(ptr);
         }
         return *this;
     }
@@ -96,7 +96,7 @@ public:
     {
         Release();
         if (ptr)
-            m_ref = new reftype(ptr);
+            m_ref = NEW_DEBUG reftype(ptr);
     }
 
     template<typename Deleter>
@@ -104,7 +104,7 @@ public:
     {
         Release();
         if (ptr)
-            m_ref = new reftype_with_deleter<Deleter>(ptr, d);
+            m_ref = NEW_DEBUG reftype_with_deleter<Deleter>(ptr, d);
     }
 
     bool unique()   const    { return (m_ref ? m_ref->m_count == 1 : true); }

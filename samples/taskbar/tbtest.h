@@ -32,7 +32,7 @@ public:
 };
 
 
-// Define a new application
+// Define a NEW_DEBUG application
 class MyApp : public wxApp
 {
 public:

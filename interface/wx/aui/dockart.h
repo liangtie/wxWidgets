@@ -187,8 +187,8 @@ enum wxAuiButtonId
     By default, a wxAuiManager uses an instance of this class called
     wxAuiDefaultDockArt which provides bitmap art and a colour scheme that is
     adapted to the major platforms' look. You can either derive from that class
-    to alter its behaviour or write a completely new dock art class.
-    Call wxAuiManager::SetArtProvider to force wxAUI to use your new dock art provider.
+    to alter its behaviour or write a completely NEW_DEBUG dock art class.
+    Call wxAuiManager::SetArtProvider to force wxAUI to use your NEW_DEBUG dock art provider.
 
     @library{wxaui}
     @category{aui}

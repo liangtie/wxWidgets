@@ -244,7 +244,7 @@ public:
     ///@{
 
     /**
-        Adds a new page.
+        Adds a NEW_DEBUG page.
 
         The page must have the book control itself as the parent and must not
         have been added to this control previously.
@@ -255,13 +255,13 @@ public:
         this case and so it wouldn't make sense to e.g. veto such event).
 
         @param page
-            Specifies the new page.
+            Specifies the NEW_DEBUG page.
         @param text
-            Specifies the text for the new page.
+            Specifies the text for the NEW_DEBUG page.
         @param select
             Specifies whether the page should be selected.
         @param imageId
-            Specifies the optional image index for the new page.
+            Specifies the optional image index for the NEW_DEBUG page.
 
         @return @true if successful, @false otherwise.
 
@@ -290,18 +290,18 @@ public:
     virtual bool DeletePage(size_t page);
 
     /**
-        Inserts a new page at the specified position.
+        Inserts a NEW_DEBUG page at the specified position.
 
         @param index
-            Specifies the position for the new page.
+            Specifies the position for the NEW_DEBUG page.
         @param page
-            Specifies the new page.
+            Specifies the NEW_DEBUG page.
         @param text
-            Specifies the text for the new page.
+            Specifies the text for the NEW_DEBUG page.
         @param select
             Specifies whether the page should be selected.
         @param imageId
-            Specifies the optional image index for the new page.
+            Specifies the optional image index for the NEW_DEBUG page.
 
         @return @true if successful, @false otherwise.
 

@@ -235,7 +235,7 @@ public:
     virtual ~wxTreeCtrl();
 
     /**
-        Adds the root node to the tree, returning the new item.
+        Adds the root node to the tree, returning the NEW_DEBUG item.
 
         The @a image and @a selImage parameters are an index within the normal
         image list specifying the image to use for unselected and selected
@@ -248,7 +248,7 @@ public:
 
     /**
         Appends an item to the end of the branch identified by @a parent, return
-        a new item id.
+        a NEW_DEBUG item id.
 
         The @a image and @a selImage parameters are an index within the normal
         image list specifying the image to use for unselected and selected
@@ -811,7 +811,7 @@ public:
                                const wxTreeItemId& item2);
 
     /**
-        Appends an item as the first child of @a parent, return a new item id.
+        Appends an item as the first child of @a parent, return a NEW_DEBUG item id.
 
         The @a image and @a selImage parameters are an index within the normal
         image list specifying the image to use for unselected and selected
@@ -982,7 +982,7 @@ public:
 
     /**
         Sets the mode flags associated with the display of the tree control. The
-        new mode takes effect immediately.
+        NEW_DEBUG mode takes effect immediately.
 
         @note Generic only; MSW ignores changes.
     */
@@ -1119,7 +1119,7 @@ public:
 
         Note that the item may be invalid for wxEVT_TREE_SEL_CHANGED events
         when the previously selected item has been deselected and there is no
-        new selection any longer, as it notably happens when deleting all tree
+        NEW_DEBUG selection any longer, as it notably happens when deleting all tree
         control items.
     */
     wxTreeItemId GetItem() const;

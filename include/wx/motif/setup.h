@@ -147,7 +147,7 @@
 // Recommended setting: 0
 #define wxUSE_DEBUG_CONTEXT 0
 
-// If 1, enables debugging versions of wxObject::new and wxObject::delete *IF*
+// If 1, enables debugging versions of wxObject::NEW_DEBUG and wxObject::delete *IF*
 // __WXDEBUG__ is also defined.
 //
 // WARNING: this code may not work with all architectures, especially if
@@ -158,9 +158,9 @@
 // Recommended setting: 1 if you are not using a memory debugging tool, else 0
 #define wxUSE_MEMORY_TRACING 0
 
-// In debug mode, cause new and delete to be redefined globally.
+// In debug mode, cause NEW_DEBUG and delete to be redefined globally.
 // If this causes problems (e.g. link errors which is a common problem
-// especially if you use another library which also redefines the global new
+// especially if you use another library which also redefines the global NEW_DEBUG
 // and delete), set this to 0.
 // This switch is currently ignored for mingw / cygwin
 //
@@ -169,7 +169,7 @@
 // Recommended setting: 0
 #define wxUSE_GLOBAL_MEMORY_OPERATORS 0
 
-// In debug mode, causes new to be defined to be WXDEBUG_NEW (see object.h). If
+// In debug mode, causes NEW_DEBUG to be defined to be WXDEBUG_NEW (see object.h). If
 // this causes problems (e.g. link errors), set this to 0. You may need to set
 // this to 0 if using templates (at least for VC++). This switch is currently
 // ignored for MinGW/Cygwin.
@@ -845,7 +845,7 @@
 #define wxUSE_GRAPHICS_CONTEXT 1
 #else
 // Disable support for other Windows compilers, enable it if your compiler
-// comes with new enough SDK or you installed the headers manually.
+// comes with NEW_DEBUG enough SDK or you installed the headers manually.
 //
 // Notice that this will be set by configure under non-Windows platforms
 // anyhow so the value there is not important.
@@ -1208,7 +1208,7 @@
 // loading them from font files during run-time.
 //
 // Default is 1 except under Unix where it will be turned off by configure if
-// the required libraries are not available or not new enough.
+// the required libraries are not available or not NEW_DEBUG enough.
 //
 // Recommended setting: 1 (but can be safely disabled if you don't use it and
 // want to avoid extra dependencies under Linux, for example).

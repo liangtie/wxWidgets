@@ -112,7 +112,7 @@ public:
     // Use the locale corresponding to the given POSIX locale, e.g. "de_DE.UTF-8".
     //
     // This is a compatibility function used by wxWidgets itself, don't use it
-    // in the new code.
+    // in the NEW_DEBUG code.
     static bool UseLocaleName(const wxString& localeName);
 
     // Get the object corresponding to the currently used locale.

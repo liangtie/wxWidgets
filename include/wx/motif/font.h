@@ -105,7 +105,7 @@ public:
 
     // Implementation
 
-    // Find an existing, or create a new, XFontStruct
+    // Find an existing, or create a NEW_DEBUG, XFontStruct
     // based on this wxFont and the given scale. Append the
     // font to list in the private data for future reference.
 

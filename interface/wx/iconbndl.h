@@ -94,14 +94,14 @@ public:
     /**
         Adds all the icons contained in the file to the bundle; if the
         collection already contains icons with the same width and height, they
-        are replaced by the new ones.
+        are replaced by the NEW_DEBUG ones.
     */
     void AddIcon(const wxString& file, wxBitmapType type = wxBITMAP_TYPE_ANY);
 
     /**
         Adds all the icons contained in the stream to the bundle; if the
         collection already contains icons with the same width and height, they
-        are replaced by the new ones.
+        are replaced by the NEW_DEBUG ones.
 
         Notice that, as well as in the constructor loading the icon bundle from
         stream, the @a stream must be seekable, at least if more than one icon
@@ -125,7 +125,7 @@ public:
     /**
         Adds the icon to the collection; if the collection already
         contains an icon with the same width and height, it is
-        replaced by the new one.
+        replaced by the NEW_DEBUG one.
     */
     void AddIcon(const wxIcon& icon);
 

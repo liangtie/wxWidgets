@@ -84,15 +84,15 @@ public:
     // parsing-related methods. These methods are called by tag handlers:
 
     // Returns pointer to actual container. Common use in tag handler is :
-    // m_WParser->GetContainer()->InsertCell(new ...);
+    // m_WParser->GetContainer()->InsertCell(NEW_DEBUG ...);
     wxHtmlContainerCell *GetContainer() const {return m_Container;}
 
-    // opens new container. This container is sub-container of opened
+    // opens NEW_DEBUG container. This container is sub-container of opened
     // container. Sets GetContainer to newly created container
     // and returns it.
     wxHtmlContainerCell *OpenContainer();
 
-    // works like OpenContainer except that new container is not created
+    // works like OpenContainer except that NEW_DEBUG container is not created
     // but c is used. You can use this to directly set actual container
     wxHtmlContainerCell *SetContainer(wxHtmlContainerCell *c);
 
@@ -169,7 +169,7 @@ private:
     void FlushWordBuf(wxChar *temp, int& len);
     void AddWord(wxHtmlWordCell *word);
     void AddWord(const wxString& word)
-        { AddWord(new wxHtmlWordCell(word, *(GetDC()))); }
+        { AddWord(NEW_DEBUG wxHtmlWordCell(word, *(GetDC()))); }
     void AddPreBlock(const wxString& text);
 
     bool m_tmpLastWasSpace;
@@ -297,7 +297,7 @@ public:
     virtual void OnExit() wxOVERRIDE;
 
     // This is called by wxHtmlWinParser.
-    // The method must simply call parser->AddTagHandler(new
+    // The method must simply call parser->AddTagHandler(NEW_DEBUG
     // <handler_class_name>); for each handler
     virtual void FillHandlersTable(wxHtmlWinParser * WXUNUSED(parser)) { }
 };

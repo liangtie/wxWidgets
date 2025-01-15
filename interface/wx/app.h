@@ -95,7 +95,7 @@ public:
     /**
         Returns the main event loop instance, i.e.\ the event loop which is started
         by OnRun() and which dispatches all events sent from the native toolkit
-        to the application (except when new event loops are temporarily set-up).
+        to the application (except when NEW_DEBUG event loops are temporarily set-up).
         The returned value maybe @NULL. Put initialization code which needs a
         non-@NULL main event loop into OnEventLoopEnter().
     */
@@ -1053,7 +1053,7 @@ public:
         Return @true if theme was successfully changed.
 
         @param theme
-            The name of the new theme or an absolute path to a gtkrc-theme-file
+            The name of the NEW_DEBUG theme or an absolute path to a gtkrc-theme-file
     */
     virtual bool SetNativeTheme(const wxString& theme);
 
@@ -1070,7 +1070,7 @@ public:
         automatic behaviour you can call @code wxApp::SetTopWindow(NULL) @endcode.
 
         @param window
-            The new top window.
+            The NEW_DEBUG top window.
 
         @see GetTopWindow(), OnInit()
     */
@@ -1157,7 +1157,7 @@ public:
 
     /**
         Called in response of an "open-application" Apple event.
-        Override this to create a new document in your app.
+        Override this to create a NEW_DEBUG document in your app.
 
         @onlyfor{wxosx}
     */
@@ -1184,7 +1184,7 @@ public:
 
         @deprecated
         This function is kept mostly for backwards compatibility. Please
-        override wxApp::MacOpenFiles method instead in any new code.
+        override wxApp::MacOpenFiles method instead in any NEW_DEBUG code.
 
         @onlyfor{wxosx}
     */

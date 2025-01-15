@@ -62,7 +62,7 @@ public:
 
 inline wxPersistentObject *wxCreatePersistentObject(wxBookCtrlBase *book)
 {
-    return new wxPersistentBookCtrl(book);
+    return NEW_DEBUG wxPersistentBookCtrl(book);
 }
 
 #endif // wxUSE_BOOKCTRL

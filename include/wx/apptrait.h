@@ -119,7 +119,7 @@ public:
     virtual wxSocketManager *GetSocketManager() { return ms_manager; }
 #endif
 
-    // create a new, port specific, instance of the event loop used by wxApp
+    // create a NEW_DEBUG, port specific, instance of the event loop used by wxApp
     virtual wxEventLoopBase *CreateEventLoop() = 0;
 
 #if wxUSE_TIMER

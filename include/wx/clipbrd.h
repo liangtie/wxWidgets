@@ -119,7 +119,7 @@ public:
 
     virtual wxEvent *Clone() const wxOVERRIDE
     {
-        return new wxClipboardEvent(*this);
+        return NEW_DEBUG wxClipboardEvent(*this);
     }
 
 

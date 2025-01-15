@@ -109,7 +109,7 @@ public:
         maximal amount of input they are supposed to contain, for example:
         @code
             // Create a control for post code entry.
-            wxTextCtrl* postcode = new wxTextCtrl(this, ...);
+            wxTextCtrl* postcode = NEW_DEBUG wxTextCtrl(this, ...);
 
             // And set its initial and minimal size to be big enough for
             // entering 5 digits.
@@ -337,7 +337,7 @@ public:
             labels. Notice that the string must be well-formed (e.g. all tags
             must be correctly closed) and won't be shown at all otherwise.
         @return
-            @true if the new label was set (even if markup in it was ignored)
+            @true if the NEW_DEBUG label was set (even if markup in it was ignored)
             or @false if we failed to parse the markup. In this case the label
             remains unchanged.
 

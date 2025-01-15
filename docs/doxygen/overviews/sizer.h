@@ -160,7 +160,7 @@ wxGridSizer is a two-dimensional sizer. All children are given the same size,
 which is the minimal size required by the biggest child, in this case the text
 control in the left bottom border. Either the number of columns or the number
 or rows is fixed and the grid sizer will grow in the respectively other
-orientation if new children are added:
+orientation if NEW_DEBUG children are added:
 
 @image html overview_sizer_10.png
 
@@ -234,24 +234,24 @@ MyDialog::MyDialog(wxFrame *parent, wxWindowID id, const wxString &title )
 : wxDialog(parent, id, title, wxDefaultPosition, wxDefaultSize,
            wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER)
 {
-    wxBoxSizer *topsizer = new wxBoxSizer( wxVERTICAL );
+    wxBoxSizer *topsizer = NEW_DEBUG wxBoxSizer( wxVERTICAL );
 
     // create text ctrl with minimal size 100x60
     topsizer->Add(
-        new wxTextCtrl( this, -1, "My text.", wxDefaultPosition, wxSize(100,60), wxTE_MULTILINE),
+        NEW_DEBUG wxTextCtrl( this, -1, "My text.", wxDefaultPosition, wxSize(100,60), wxTE_MULTILINE),
         1,            // make vertically stretchable
         wxEXPAND |    // make horizontally stretchable
         wxALL,        //   and make border all around
         10 );         // set border width to 10
 
-    wxBoxSizer *button_sizer = new wxBoxSizer( wxHORIZONTAL );
+    wxBoxSizer *button_sizer = NEW_DEBUG wxBoxSizer( wxHORIZONTAL );
     button_sizer->Add(
-        new wxButton( this, wxID_OK, "OK" ),
+        NEW_DEBUG wxButton( this, wxID_OK, "OK" ),
         0,           // make horizontally unstretchable
         wxALL,       // make border all around (implicit top alignment)
         10 );        // set border width to 10
     button_sizer->Add(
-        new wxButton( this, wxID_CANCEL, "Cancel" ),
+        NEW_DEBUG wxButton( this, wxID_CANCEL, "Cancel" ),
         0,           // make horizontally unstretchable
         wxALL,       // make border all around (implicit top alignment)
         10 );        // set border width to 10
@@ -280,24 +280,24 @@ MyDialog::MyDialog(wxFrame *parent, wxWindowID id, const wxString &title )
 : wxDialog(parent, id, title, wxDefaultPosition, wxDefaultSize,
            wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER)
 {
-    wxBoxSizer *topsizer = new wxBoxSizer( wxVERTICAL );
+    wxBoxSizer *topsizer = NEW_DEBUG wxBoxSizer( wxVERTICAL );
 
     // create text ctrl with minimal size 100x60 that is horizontally and
     // vertically stretchable with a border width of 10
     topsizer->Add(
-        new wxTextCtrl( this, -1, "My text.", wxDefaultPosition, wxSize(100,60), wxTE_MULTILINE),
+        NEW_DEBUG wxTextCtrl( this, -1, "My text.", wxDefaultPosition, wxSize(100,60), wxTE_MULTILINE),
         wxSizerFlags(1).Align().Expand().Border(wxALL, 10));
 
-    wxBoxSizer *button_sizer = new wxBoxSizer( wxHORIZONTAL );
+    wxBoxSizer *button_sizer = NEW_DEBUG wxBoxSizer( wxHORIZONTAL );
 
     //create two buttons that are horizontally unstretchable,
     // with an all-around border with a width of 10 and implicit top alignment
     button_sizer->Add(
-        new wxButton( this, wxID_OK, "OK" ),
+        NEW_DEBUG wxButton( this, wxID_OK, "OK" ),
         wxSizerFlags(0).Align().Border(wxALL, 10));
 
     button_sizer->Add(
-        new wxButton( this, wxID_CANCEL, "Cancel" ),
+        NEW_DEBUG wxButton( this, wxID_CANCEL, "Cancel" ),
         wxSizerFlags(0).Align().Border(wxALL, 10));
 
     //create a sizer with no border and centered horizontally
@@ -320,7 +320,7 @@ As a convenience, wxDialog::CreateButtonSizer() can be used to create this sizer
 
 wxWrapSizer is a sizer that lays out its items in a single line, like a box
 sizer -- as long as there is space available in that direction. Once all available
-space in the primary direction has been used, a new line is added and items
+space in the primary direction has been used, a NEW_DEBUG line is added and items
 are added there.
 
 wxGridBagSizer is a rather special kind of sizer which, unlike the other

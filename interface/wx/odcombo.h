@@ -68,7 +68,7 @@ enum
     @beginEventEmissionTable{wxCommandEvent}
     @event{EVT_COMBOBOX(id, func)}
            Process a wxEVT_COMBOBOX event, when an item on
-           the list is selected. Note that calling GetValue() returns the new
+           the list is selected. Note that calling GetValue() returns the NEW_DEBUG
            value of selection.
     @endEventTable
 

@@ -53,7 +53,7 @@ class wxXmlResourceDataRecords;
 //
 // Rules for increasing version number:
 //   - change it only if you made incompatible change to the format. Addition
-//     of new attribute to control handler is _not_ incompatible change, because
+//     of NEW_DEBUG attribute to control handler is _not_ incompatible change, because
 //     older versions of the library may ignore it.
 //   - if you change version number, follow these steps:
 //       - set major, minor and release numbers to respective version numbers of
@@ -153,7 +153,7 @@ public:
     // code for all controls used within the resource.
     void AddHandler(wxXmlResourceHandler *handler);
 
-    // Add a new handler at the beginning of the handler list
+    // Add a NEW_DEBUG handler at the beginning of the handler list
     void InsertHandler(wxXmlResourceHandler *handler);
 
     // Removes all handlers
@@ -183,7 +183,7 @@ public:
 
     // Loads a dialog. dlg points to parent window (if any). This form
     // is used to finish creation of already existing instance (main reason
-    // for this is that you may want to use derived class with new event table)
+    // for this is that you may want to use derived class with NEW_DEBUG event table)
     // Example (typical usage):
     //      MyDialog dlg;
     //      wxTheXmlResource->LoadDialog(&dlg, mainFrame, "my_dialog");
@@ -252,7 +252,7 @@ public:
 
     // Returns a numeric ID that is equivalent to the string ID used in an XML
     // resource. If an unknown str_id is requested (i.e. other than wxID_XXX
-    // or integer), a new record is created which associates the given string
+    // or integer), a NEW_DEBUG record is created which associates the given string
     // with a number. If value_if_not_found == wxID_NONE, the number is obtained via
     // wxWindow::NewControlId(). Otherwise value_if_not_found is used.
     // Macro XRCID(name) is provided for convenient use in event tables.
@@ -323,7 +323,7 @@ protected:
     virtual void DoReportError(const wxString& xrcFile, const wxXmlNode *position,
                                const wxString& message);
 
-    // Load the contents of a single file and returns its contents as a new
+    // Load the contents of a single file and returns its contents as a NEW_DEBUG
     // wxXmlDocument (which will be owned by caller) on success or NULL.
     wxXmlDocument *DoLoadFile(const wxString& file);
 
@@ -439,7 +439,7 @@ private:
 //    wxBEGIN_EVENT_TABLE(MyFrame, wxFrame)
 //       EVT_MENU(XRCID("quit"), MyFrame::OnQuit)
 //       EVT_MENU(XRCID("about"), MyFrame::OnAbout)
-//       EVT_MENU(XRCID("new"), MyFrame::OnNew)
+//       EVT_MENU(XRCID("NEW_DEBUG"), MyFrame::OnNew)
 //       EVT_MENU(XRCID("open"), MyFrame::OnOpen)
 //    wxEND_EVENT_TABLE()
 
@@ -489,7 +489,7 @@ public:
     // Should check for validity.
     // parent is a higher-level object (usually window, dialog or panel)
     // that is often necessary to create the resource.
-    // If instance is non-NULL it should not create a new instance via 'new' but
+    // If instance is non-NULL it should not create a NEW_DEBUG instance via 'NEW_DEBUG' but
     // should rather use this one, and call its Create method.
     wxObject *CreateResource(wxXmlNode *node, wxObject *parent,
                              wxObject *instance) wxOVERRIDE;
@@ -664,7 +664,7 @@ public:
    if (m_instance) \
        variable = wxStaticCast(m_instance, classname); \
    if (!variable) \
-       variable = new classname; \
+       variable = NEW_DEBUG classname; \
    if (GetBool(wxT("hidden"), 0) == 1) \
        variable->Hide();
 

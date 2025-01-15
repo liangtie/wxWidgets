@@ -120,7 +120,7 @@ public:
     wxObjectWriter();
     virtual ~wxObjectWriter();
 
-    // with this call you start writing out a new top-level object
+    // with this call you start writing out a NEW_DEBUG top-level object
     void WriteObject(const wxObject *object, const wxClassInfo *classInfo,
                      wxObjectWriterCallback *writercallback, const wxString &name,
                      const wxStringToAnyHashMap &metadata);
@@ -144,10 +144,10 @@ public:
     //
     // these callbacks really write out the values in the stream format
 
-    // begins writing out a new toplevel entry which has the indicated unique name
+    // begins writing out a NEW_DEBUG toplevel entry which has the indicated unique name
     virtual void DoBeginWriteTopLevelEntry( const wxString &name ) = 0;
 
-    // ends writing out a new toplevel entry which has the indicated unique name
+    // ends writing out a NEW_DEBUG toplevel entry which has the indicated unique name
     virtual void DoEndWriteTopLevelEntry( const wxString &name ) = 0;
 
     // start of writing an object having the passed in ID
@@ -251,7 +251,7 @@ class WXDLLIMPEXP_BASE wxObjectReaderCallback
 public:
     virtual ~wxObjectReaderCallback() {}
 
-    // allocate the new object on the heap, that object will have the passed in ID
+    // allocate the NEW_DEBUG object on the heap, that object will have the passed in ID
     virtual void AllocateObject(int objectID, wxClassInfo *classInfo,
                                 wxStringToAnyHashMap &metadata) = 0;
 
@@ -267,7 +267,7 @@ public:
         const wxClassInfo **objectClassInfos,
         wxStringToAnyHashMap &metadata) = 0;
 
-    // construct the new object on the heap, that object will have the passed in ID
+    // construct the NEW_DEBUG object on the heap, that object will have the passed in ID
     // (for objects that don't support allocate-create type of creation)
     // creation parameters which are objects are having their Ids passed in
     // objectIDValues having objectId <> wxInvalidObjectID
@@ -335,7 +335,7 @@ public:
     // returns the object having the corresponding ID fully constructed
     wxObject *GetObject(int objectID);
 
-    // allocate the new object on the heap, that object will have the passed in ID
+    // allocate the NEW_DEBUG object on the heap, that object will have the passed in ID
     virtual void AllocateObject(int objectID, wxClassInfo *classInfo,
         wxStringToAnyHashMap &metadata);
 
@@ -352,7 +352,7 @@ public:
         wxStringToAnyHashMap &metadata
         );
 
-    // construct the new object on the heap, that object will have the
+    // construct the NEW_DEBUG object on the heap, that object will have the
     // passed in ID (for objects that don't support allocate-create type of
     // creation) creation parameters which are objects are having their Ids
     // passed in objectIDValues having objectId <> wxInvalidObjectID

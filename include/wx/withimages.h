@@ -152,7 +152,7 @@ public:
     }
 
     // Overload provided to facilitate transition from the existing code using
-    // wxImageList::GetSize() -- don't use it in the new code.
+    // wxImageList::GetSize() -- don't use it in the NEW_DEBUG code.
     void GetImageLogicalSize(const wxWindow* window, int iconIndex,
                              int& width, int& height) const
     {

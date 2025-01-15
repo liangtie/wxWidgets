@@ -85,7 +85,7 @@
     #else /* !HAVE_UNIX98_PRINTF */
         /*
             The only compiler with positional parameters support under Windows
-            is VC++ 8.0 which provides a new xxprintf_p() functions family.
+            is VC++ 8.0 which provides a NEW_DEBUG xxprintf_p() functions family.
             The 2003 PSDK includes a slightly earlier version of VC8 than the
             main release and does not have the printf_p functions.
          */

@@ -137,7 +137,7 @@ public:
             Accelerator</code>. In the latter case, the part of the string
             before the TAB is ignored. Notice that the latter format is only
             supported for the compatibility with the previous wxWidgets
-            versions and the new code should pass only the accelerator string
+            versions and the NEW_DEBUG code should pass only the accelerator string
             itself to this function.
 
         @return @true if the given string correctly initialized this object
@@ -208,7 +208,7 @@ public:
         The wxPerl constructor accepts a list of either
         Wx::AcceleratorEntry objects or references to 3-element arrays
         [flags, keyCode, cmd] , like the parameters of
-        Wx::AcceleratorEntry::new.
+        Wx::AcceleratorEntry::NEW_DEBUG.
         @endWxPerlOnly
     */
     wxAcceleratorTable(int n, const wxAcceleratorEntry entries[]);

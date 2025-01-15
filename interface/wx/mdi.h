@@ -20,7 +20,7 @@
 
     The wxMDIClientWindow class is usually adequate without further derivation, and
     it is created automatically when the MDI parent frame is created. If the application
-    needs to derive a new class, the function wxMDIParentFrame::OnCreateClient() must
+    needs to derive a NEW_DEBUG class, the function wxMDIParentFrame::OnCreateClient() must
     be overridden in order to give an opportunity to use a different class of client
     window.
 
@@ -279,7 +279,7 @@ public:
         treats virtual functions called from constructors. For example:
 
         @code
-        frame = new MyParentFrame;
+        frame = NEW_DEBUG MyParentFrame;
         frame->Create(parent, myParentFrameId, "My Parent Frame");
         @endcode
 

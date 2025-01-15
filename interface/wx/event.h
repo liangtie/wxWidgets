@@ -129,10 +129,10 @@ public:
 
         All wxWidgets events implement a copy constructor, so the easiest way of
         implementing the Clone function is to implement a copy constructor for
-        a new event (call it MyEvent) and then define the Clone function like this:
+        a NEW_DEBUG event (call it MyEvent) and then define the Clone function like this:
 
         @code
-        wxEvent *Clone() const { return new MyEvent(*this); }
+        wxEvent *Clone() const { return NEW_DEBUG MyEvent(*this); }
         @endcode
     */
     virtual wxEvent* Clone() const = 0;
@@ -427,7 +427,7 @@ public:
         @code
             void FunctionInAWorkerThread(const wxString& str)
             {
-                wxCommandEvent* evt = new wxCommandEvent;
+                wxCommandEvent* evt = NEW_DEBUG wxCommandEvent;
 
                 // NOT evt->SetString(str) as this would be a shallow copy
                 evt->SetString(str.c_str()); // make a deep copy
@@ -576,8 +576,8 @@ public:
         wxWidgets implementation to dispatch incoming user interface events to the
         framework (and application).
 
-        However, you might need to call it if implementing new functionality
-        (such as a new control) where you define new event types, as opposed to
+        However, you might need to call it if implementing NEW_DEBUG functionality
+        (such as a NEW_DEBUG control) where you define NEW_DEBUG event types, as opposed to
         allowing the user to override virtual functions.
 
         Notice that you don't usually need to override ProcessEvent() to
@@ -708,7 +708,7 @@ public:
         event type.
 
         Notice that Bind() provides a more flexible and safer way to do the
-        same thing as Connect(), please use it in any new code -- while
+        same thing as Connect(), please use it in any NEW_DEBUG code -- while
         Connect() is not formally deprecated due to its existing widespread
         usage, it has no advantages compared to Bind() and has a number of
         drawbacks, including:
@@ -1042,8 +1042,8 @@ public:
         Returns user-supplied client data.
 
         @remarks Normally, any extra data the programmer wishes to associate with
-                 the object should be made available by deriving a new class with
-                 new data members.
+                 the object should be made available by deriving a NEW_DEBUG class with
+                 NEW_DEBUG data members.
 
         @see SetClientData()
     */
@@ -1063,8 +1063,8 @@ public:
             Data to be associated with the event handler.
 
         @remarks Normally, any extra data the programmer wishes to associate
-                 with the object should be made available by deriving a new
-                 class with new data members. You must not call this method
+                 with the object should be made available by deriving a NEW_DEBUG
+                 class with NEW_DEBUG data members. You must not call this method
                  and SetClientObject on the same class - only one of them.
 
         @see GetClientData()
@@ -1914,7 +1914,7 @@ public:
     when the user changes the colour settings or when the system theme changes
     (e.g.\ automatic dark mode switching on macOS).
 
-    Event handlers for this event can access the new system colour settings through
+    Event handlers for this event can access the NEW_DEBUG system colour settings through
     wxSystemSettings::GetColour().
 
     @remarks
@@ -2075,7 +2075,7 @@ public:
         or a boolean value representing the value of a checkbox.
 
         For a menu item, this method returns -1 if the item is not checkable or
-        a boolean value (true or false) for checkable items indicating the new
+        a boolean value (true or false) for checkable items indicating the NEW_DEBUG
         state of the item.
     */
     int GetInt() const;
@@ -2716,7 +2716,7 @@ enum wxMouseWheelAxis
     @event{EVT_MOUSE_EVENTS(func)}
         Process all mouse events.
     @event{EVT_MAGNIFY(func)}
-        Process a @c wxEVT_MAGNIFY event (new since wxWidgets 3.1.0).
+        Process a @c wxEVT_MAGNIFY event (NEW_DEBUG since wxWidgets 3.1.0).
     @endEventTable
 
     @library{wxcore}
@@ -3440,7 +3440,7 @@ public:
     call @c event.Skip() in it in order to allow the base class handler to
     execute, as many controls rely on processing this event in order to update
     their appearance when the DPI changes. However the default handler for the
-    top level window itself only sets the new window size, by scaling the
+    top level window itself only sets the NEW_DEBUG window size, by scaling the
     current size by the DPI ratio -- e.g. doubling it if the DPI has changed
     from normal to "high", i.e. 200%, one -- and also ensuring that the window
     is still bigger than its best size, as returned by wxWindow::GetBestSize().
@@ -3477,16 +3477,16 @@ public:
     wxSize GetOldDPI() const;
 
     /**
-        Returns the new DPI.
+        Returns the NEW_DEBUG DPI.
     */
     wxSize GetNewDPI() const;
 
     /**
-        Rescale a value in pixels to match the new DPI.
+        Rescale a value in pixels to match the NEW_DEBUG DPI.
 
         This is a convenience function to use in wxEVT_DPI_CHANGED event
-        handlers, as they often need to update some sizes to the new DPI.
-        It simply calls wxMulDivInt32() with new and old DPI values, but
+        handlers, as they often need to update some sizes to the NEW_DEBUG DPI.
+        It simply calls wxMulDivInt32() with NEW_DEBUG and old DPI values, but
         is more readable and less error-prone.
 
         For example, the returned value will be twice bigger than the original
@@ -3497,7 +3497,7 @@ public:
     wxSize Scale(wxSize sz) const;
 
     /**
-        Rescale horizontal component to match the new DPI.
+        Rescale horizontal component to match the NEW_DEBUG DPI.
 
         This is the same as Scale(), but for the horizontal component only.
 
@@ -3506,7 +3506,7 @@ public:
     int ScaleX(int x) const;
 
     /**
-        Rescale vertical component to match the new DPI.
+        Rescale vertical component to match the NEW_DEBUG DPI.
 
         This is the same as Scale(), but for the vertical component only.
 
@@ -4249,7 +4249,7 @@ public:
         more to the application windows.
 
         If no window calls this function during OnIdle, then the application will
-        remain in a passive event loop (not calling OnIdle) until a new event is
+        remain in a passive event loop (not calling OnIdle) until a NEW_DEBUG event is
         posted to the application by the windowing system.
 
         @see MoreRequested()
@@ -4850,7 +4850,7 @@ public:
     /**
         Returns the entire size of the window generating the size change event.
 
-        This is the new total size of the window, i.e. the same size as would
+        This is the NEW_DEBUG total size of the window, i.e. the same size as would
         be returned by wxWindow::GetSize() if it were called now. Use
         wxWindow::GetClientSize() if you catch this event in a top level window
         such as wxFrame to find the size available for the window contents.
@@ -4953,7 +4953,7 @@ wxEventType wxEVT_NULL;
 wxEventType wxEVT_ANY;
 
 /**
-    Generates a new unique event type.
+    Generates a NEW_DEBUG unique event type.
 
     Usually this function is only used by wxDEFINE_EVENT() and not called
     directly.
@@ -4961,9 +4961,9 @@ wxEventType wxEVT_ANY;
 wxEventType wxNewEventType();
 
 /**
-    Define a new event type associated with the specified event class.
+    Define a NEW_DEBUG event type associated with the specified event class.
 
-    This macro defines a new unique event type @a name associated with the
+    This macro defines a NEW_DEBUG unique event type @a name associated with the
     event class @a cls.
 
     For example:
@@ -5032,7 +5032,7 @@ wxEventType wxNewEventType();
     class MyEvent : public wxEvent { ... };
 
     // note that this is not necessary unless using old compilers: for the
-    // reasonably new ones just use &func instead of MyEventHandler(func)
+    // reasonably NEW_DEBUG ones just use &func instead of MyEventHandler(func)
     typedef void (wxEvtHandler::*MyEventFunction)(MyEvent&);
     #define MyEventHandler(func) wxEVENT_HANDLER_CAST(MyEventFunction, func)
 

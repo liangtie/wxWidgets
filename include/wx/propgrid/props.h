@@ -903,7 +903,7 @@ protected:
     wxWindow*           m_elbSubPanel;
     wxWindow*           m_lastFocused;
 
-    // A new item, edited by user, is pending at this index.
+    // A NEW_DEBUG item, edited by user, is pending at this index.
     // It will be committed once list ctrl item editing is done.
     int             m_itemPendingAtIndex;
 

@@ -44,7 +44,7 @@ public:
     wxFileSystem();
 
     /**
-        This static function adds a new handler into the list of handlers
+        This static function adds a NEW_DEBUG handler into the list of handlers
         which provide access to virtual FS.
 
         @a handler must be a heap-allocated object which will be deleted
@@ -52,7 +52,7 @@ public:
 
         Typical example of use:
         @code
-        wxFileSystem::AddHandler(new wxZipFSHandler);
+        wxFileSystem::AddHandler(NEW_DEBUG wxZipFSHandler);
         @endcode
 
         @note If two handlers for the same protocol are added, the last
@@ -88,10 +88,10 @@ public:
         @endcode
 
         @param location
-            the new location. Its meaning depends on the value of is_dir
+            the NEW_DEBUG location. Its meaning depends on the value of is_dir
         @param is_dir
-            if @true location is new directory.
-            If @false (the default) location is file in the new directory.
+            if @true location is NEW_DEBUG directory.
+            If @false (the default) location is file in the NEW_DEBUG directory.
     */
     void ChangePathTo(const wxString& location, bool is_dir = false);
 

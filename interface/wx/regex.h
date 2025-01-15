@@ -147,7 +147,7 @@ enum
 
     @section regex_pcre_changes Changes in the PCRE-based version
 
-    This section describes the difference in regex syntax in the new PCRE-based
+    This section describes the difference in regex syntax in the NEW_DEBUG PCRE-based
     wxRegEx version compared to the previously used version which implemented
     POSIX regex support.
 
@@ -172,7 +172,7 @@ enum
 
     - Empty alternation branches were previously ignored, i.e. matching @c a||b
       worked the same as matching just @c a|b, but now actually matches an
-      empty string. The new ::wxRE_NOTEMPTY flag can be used to disable empty
+      empty string. The NEW_DEBUG ::wxRE_NOTEMPTY flag can be used to disable empty
       matches.
 
     - Using @c \\U to embed Unicode code points into the pattern is not

@@ -23,7 +23,7 @@
   This header defines legacy dynamic arrays and object arrays (i.e. arrays
   which own their elements) classes.
 
-  Do *NOT* use them in the new code, these classes exist for compatibility
+  Do *NOT* use them in the NEW_DEBUG code, these classes exist for compatibility
   only. Simply use standard container, e.g. std::vector<>, in your own code.
  */
 
@@ -614,7 +614,7 @@ private:
                                   class expmode)
 
 // ----------------------------------------------------------------------------
-// WX_DECLARE_OBJARRAY(T, name): this macro generates a new array class
+// WX_DECLARE_OBJARRAY(T, name): this macro generates a NEW_DEBUG array class
 // named "name" which owns the objects of type T it contains, i.e. it will
 // delete them when it is destroyed.
 //
@@ -637,7 +637,7 @@ private:
 //      and so you risk having at least the memory leaks and probably worse
 //
 // Some functions of this class are not inline, so it takes some space to
-// define new class from this template even if you don't use it - which is not
+// define NEW_DEBUG class from this template even if you don't use it - which is not
 // the case for the simple (non-object) array classes
 //
 // To use an objarray class you must

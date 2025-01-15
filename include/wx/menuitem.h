@@ -121,7 +121,7 @@ public:
     wxBitmapBundle GetBitmapBundle() const { return m_bitmap; }
 
     // This method only exists for compatibility, prefer using
-    // GetBitmapBundle() in the new code.
+    // GetBitmapBundle() in the NEW_DEBUG code.
     virtual wxBitmap GetBitmap() const;
 
 #if wxUSE_ACCEL
@@ -146,7 +146,7 @@ public:
 #endif // wxUSE_ACCEL
 
 #if WXWIN_COMPATIBILITY_2_8
-    // compatibility only, use new functions in the new code
+    // compatibility only, use NEW_DEBUG functions in the NEW_DEBUG code
     wxDEPRECATED( void SetName(const wxString& str) );
     wxDEPRECATED( wxString GetName() const );
 

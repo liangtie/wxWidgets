@@ -126,7 +126,7 @@ public:
 
     virtual wxSocketImpl *CreateSocket(wxSocketBase& wxsocket) wxOVERRIDE
     {
-        return new wxSocketImplUnix(wxsocket);
+        return NEW_DEBUG wxSocketImplUnix(wxsocket);
     }
 
     virtual void Install_Callback(wxSocketImpl *socket_, wxSocketNotify event) wxOVERRIDE;

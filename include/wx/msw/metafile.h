@@ -115,13 +115,13 @@ public:
     // Don't supply origin and extent
     // Supply them to wxMakeMetaFilePlaceable instead.
     wxMetafileDC(const wxString& file)
-        : wxDC(new wxMetafileDCImpl( this, file ))
+        : wxDC(NEW_DEBUG wxMetafileDCImpl( this, file ))
         { }
 
     // Supply origin and extent (recommended).
     // Then don't need to supply them to wxMakeMetaFilePlaceable.
     wxMetafileDC(const wxString& file, int xext, int yext, int xorg, int yorg)
-        : wxDC(new wxMetafileDCImpl( this, file, xext, yext, xorg, yorg ))
+        : wxDC(NEW_DEBUG wxMetafileDCImpl( this, file, xext, yext, xorg, yorg ))
         { }
 
     wxMetafile *GetMetafile() const

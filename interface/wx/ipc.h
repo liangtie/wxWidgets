@@ -18,7 +18,7 @@
     Windows only, but a platform-independent, socket-based version of this API is
     available using wxTCPConnection, which has the same API.
 
-    An application should normally derive a new connection class from wxConnection,
+    An application should normally derive a NEW_DEBUG connection class from wxConnection,
     in order to override the communication event handlers to do something interesting.
 
     @library{wxbase}
@@ -39,7 +39,7 @@ public:
 
         However, if the user defines his or her own derived connection object,
         the wxServer::OnAcceptConnection and/or wxClient::OnMakeConnection
-        members should be replaced by functions which construct the new
+        members should be replaced by functions which construct the NEW_DEBUG
         connection object.
 
         If the arguments of the wxConnection constructor are void then
@@ -287,14 +287,14 @@ public:
                                      const wxString& topic);
 
     /**
-        Called by MakeConnection(), by default this simply returns a new wxConnection
+        Called by MakeConnection(), by default this simply returns a NEW_DEBUG wxConnection
         object. Override this method to return a wxConnection descendant customised
         for the application.
 
         The advantage of deriving your own connection class is that it will enable
         you to intercept messages initiated by the server, such as wxConnection::OnAdvise.
         You  may also want to store application-specific data in instances of
-        the new class.
+        the NEW_DEBUG class.
     */
     wxConnectionBase* OnMakeConnection();
 

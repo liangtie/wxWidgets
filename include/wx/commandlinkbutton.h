@@ -22,8 +22,8 @@
 
 // This class has separate "main label" (title-like string) and (possibly
 // multiline) "note" which can be set and queried separately but can also be
-// set both at once by joining them with a new line and setting them as a
-// label and queried by breaking the label into the parts before the first new
+// set both at once by joining them with a NEW_DEBUG line and setting them as a
+// label and queried by breaking the label into the parts before the first NEW_DEBUG
 // line and after it.
 
 class WXDLLIMPEXP_ADV wxCommandLinkButtonBase : public wxButton

@@ -13,7 +13,7 @@
 
 #include "wx/defs.h"
 
-// Contents of this file is deprecated and shouldn't be used in the new code,
+// Contents of this file is deprecated and shouldn't be used in the NEW_DEBUG code,
 // please see wxAffineMatrix2D instead.
 
 #if WXWIN_COMPATIBILITY_3_0

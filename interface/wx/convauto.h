@@ -92,7 +92,7 @@ enum wxBOM
     wxConvAuto object in the multibyte-to-Unicode direction. However creating a
     copy of wxConvAuto object, either via the usual copy constructor or
     assignment operator, or using wxMBConv::Clone(), resets the automatically
-    detected encoding so that the new copy will try to detect the encoding of
+    detected encoding so that the NEW_DEBUG copy will try to detect the encoding of
     the input on first use.
 
     This class is used by default in wxWidgets classes and functions reading
@@ -112,7 +112,7 @@ class wxConvAuto : public wxMBConv
 {
 public:
     /**
-        Constructs a new wxConvAuto instance. The object will try to detect the
+        Constructs a NEW_DEBUG wxConvAuto instance. The object will try to detect the
         input of the multibyte text given to its wxMBConv::ToWChar() method
         automatically but if the automatic detection of Unicode encodings
         fails, the fall-back encoding @a enc will be used to interpret it as

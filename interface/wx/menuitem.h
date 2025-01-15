@@ -79,7 +79,7 @@ public:
         helpMenu->Append(wxID_ABOUT, "", "My custom help string");
 
         // use all stock properties except for the bitmap:
-        wxMenuItem *mymenu = new wxMenuItem(helpMenu, wxID_ABOUT);
+        wxMenuItem *mymenu = NEW_DEBUG wxMenuItem(helpMenu, wxID_ABOUT);
         mymenu->SetBitmap(wxArtProvider::GetBitmap(wxART_WARNING));
         helpMenu->Append(mymenu);
         @endcode
@@ -164,7 +164,7 @@ public:
         Returns the item bitmap.
 
         This method exists only for compatibility, please use GetBitmapBundle()
-        in the new code.
+        in the NEW_DEBUG code.
     */
     wxBitmap GetBitmap() const;
 

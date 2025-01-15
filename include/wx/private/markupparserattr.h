@@ -183,7 +183,7 @@ protected:
     // the string.
     //
     // It may be called from OnAttrStart() to get the old attributes used
-    // before and from OnAttrEnd() to get the new attributes that will be used
+    // before and from OnAttrEnd() to get the NEW_DEBUG attributes that will be used
     // from now on but is mostly meant to be used from overridden OnText()
     // implementations.
     const Attr& GetAttr() const { return m_attrs.top(); }
@@ -204,7 +204,7 @@ private:
     }
 
     // Apply the given function to the font currently on top of the font stack,
-    // push the new font on the stack and call OnAttrStart() with it.
+    // push the NEW_DEBUG font on the stack and call OnAttrStart() with it.
     void DoChangeFont(wxFont (wxFont::*func)() const)
     {
         DoSetFont((GetFont().*func)());

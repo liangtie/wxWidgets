@@ -45,7 +45,7 @@
     Append(), Insert() or Delete(), inherited from wxItemContainer work as
     expected for this class, Set() somewhat unexpectedly resets the order of
     the items as it clears the control first, also clearing the order as a side
-    effect, before adding the new items.
+    effect, before adding the NEW_DEBUG items.
 
     @since 2.9.0
 
@@ -346,11 +346,11 @@ public:
                 MyRearrangeDialog(wxWindow *parent, ...)
                     : wxRearrangeDialog(parent, ...)
                 {
-                    wxPanel *panel = new wxPanel(this);
-                    wxSizer *sizer = new wxBoxSizer(wxHORIZONTAL);
-                    sizer->Add(new wxStaticText(panel, wxID_ANY,
+                    wxPanel *panel = NEW_DEBUG wxPanel(this);
+                    wxSizer *sizer = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
+                    sizer->Add(NEW_DEBUG wxStaticText(panel, wxID_ANY,
                                                 "Column width in pixels:"));
-                    sizer->Add(new wxTextCtrl(panel, wxID_ANY, ""));
+                    sizer->Add(NEW_DEBUG wxTextCtrl(panel, wxID_ANY, ""));
                     panel->SetSizer(sizer);
                     AddExtraControls(panel);
                 }

@@ -63,12 +63,12 @@ public:
   void Destroy();
 
   // Adds a bitmap, and optionally a mask bitmap.
-  // Note that wxImageList creates *new* bitmaps, so you may delete
+  // Note that wxImageList creates *NEW_DEBUG* bitmaps, so you may delete
   // 'bitmap' and 'mask' after calling Add.
   int Add(const wxBitmap& bitmap, const wxBitmap& mask = wxNullBitmap);
 
   // Adds a bitmap, using the specified colour to create the mask bitmap
-  // Note that wxImageList creates *new* bitmaps, so you may delete
+  // Note that wxImageList creates *NEW_DEBUG* bitmaps, so you may delete
   // 'bitmap' after calling Add.
   int Add(const wxBitmap& bitmap, const wxColour& maskColour);
 
@@ -76,7 +76,7 @@ public:
   int Add(const wxIcon& icon);
 
   // Replaces a bitmap, optionally passing a mask bitmap.
-  // Note that wxImageList creates new bitmaps, so you may delete
+  // Note that wxImageList creates NEW_DEBUG bitmaps, so you may delete
   // 'bitmap' and 'mask' after calling Replace.
   bool Replace(int index, const wxBitmap& bitmap, const wxBitmap& mask = wxNullBitmap);
 
@@ -114,7 +114,7 @@ public:
   // TODO: Drag-and-drop related functionality.
 
 #if 0
-  // Creates a new drag image by combining the given image (typically a mouse cursor image)
+  // Creates a NEW_DEBUG drag image by combining the given image (typically a mouse cursor image)
   // with the current drag image.
   bool SetDragCursorImage(int index, const wxPoint& hotSpot);
 
@@ -165,7 +165,7 @@ public:
 
   1) Starting to drag:
 
-  wxImageList *dragImageList = new wxImageList(16, 16, true);
+  wxImageList *dragImageList = NEW_DEBUG wxImageList(16, 16, true);
   dragImageList->Add(myDragImage); // Provide an image to combine with the current cursor
   dragImageList->BeginDrag(0, wxPoint(0, 0));
   wxShowCursor(false);        // wxShowCursor not yet implemented in wxWin

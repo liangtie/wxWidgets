@@ -114,7 +114,7 @@ public:
                                     wxPathFormat format = wxPATH_NATIVE,
                                     bool *pIsDir = NULL);
 
-    wxTarEntry *Clone() const { return new wxTarEntry(*this); }
+    wxTarEntry *Clone() const { return NEW_DEBUG wxTarEntry(*this); }
 
     void SetNotifier(wxTarNotifier& WXUNUSED(notifier)) { }
 
@@ -314,15 +314,15 @@ public:
     wxTarClassFactory();
 
     wxTarEntry *NewEntry() const
-        { return new wxTarEntry; }
+        { return NEW_DEBUG wxTarEntry; }
     wxTarInputStream *NewStream(wxInputStream& stream) const
-        { return new wxTarInputStream(stream, GetConv()); }
+        { return NEW_DEBUG wxTarInputStream(stream, GetConv()); }
     wxTarOutputStream *NewStream(wxOutputStream& stream) const
-        { return new wxTarOutputStream(stream, wxTAR_PAX, GetConv()); }
+        { return NEW_DEBUG wxTarOutputStream(stream, wxTAR_PAX, GetConv()); }
     wxTarInputStream *NewStream(wxInputStream *stream) const
-        { return new wxTarInputStream(stream, GetConv()); }
+        { return NEW_DEBUG wxTarInputStream(stream, GetConv()); }
     wxTarOutputStream *NewStream(wxOutputStream *stream) const
-        { return new wxTarOutputStream(stream, wxTAR_PAX, GetConv()); }
+        { return NEW_DEBUG wxTarOutputStream(stream, wxTAR_PAX, GetConv()); }
 
     wxString GetInternalName(const wxString& name,
                              wxPathFormat format = wxPATH_NATIVE) const wxOVERRIDE

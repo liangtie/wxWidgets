@@ -163,7 +163,7 @@ public:
     Here's some example code for creating and populating a wxPropertyGridManager:
 
     @code
-        wxPropertyGridManager* pgMan = new wxPropertyGridManager(this, PGID,
+        wxPropertyGridManager* pgMan = NEW_DEBUG wxPropertyGridManager(this, PGID,
             wxDefaultPosition, wxDefaultSize,
             // These and other similar styles are automatically
             // passed to the embedded wxPropertyGrid.
@@ -182,17 +182,17 @@ public:
 
         page = pgMan->AddPage("First Page");
 
-        page->Append( new wxPropertyCategory("Category A1") );
+        page->Append( NEW_DEBUG wxPropertyCategory("Category A1") );
 
-        page->Append( new wxIntProperty("Number",wxPG_LABEL,1) );
+        page->Append( NEW_DEBUG wxIntProperty("Number",wxPG_LABEL,1) );
 
-        page->Append( new wxColourProperty("Colour",wxPG_LABEL,*wxWHITE) );
+        page->Append( NEW_DEBUG wxColourProperty("Colour",wxPG_LABEL,*wxWHITE) );
 
         page = pgMan->AddPage("Second Page");
 
         page->Append( "Text",wxPG_LABEL,"(no text)" );
 
-        page->Append( new wxFontProperty("Font",wxPG_LABEL) );
+        page->Append( NEW_DEBUG wxFontProperty("Font",wxPG_LABEL) );
 
         // Display a header above the grid
         pgMan->ShowHeader();
@@ -237,7 +237,7 @@ public:
     virtual ~wxPropertyGridManager();
 
     /**
-        Creates new property page. Note that the first page is not created
+        Creates NEW_DEBUG property page. Note that the first page is not created
         automatically.
 
         @param label
@@ -392,7 +392,7 @@ public:
     wxToolBar* GetToolBar() const;
 
     /**
-        Creates new property page. Note that the first page is not created
+        Creates NEW_DEBUG property page. Note that the first page is not created
         automatically.
 
         @param index

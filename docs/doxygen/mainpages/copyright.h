@@ -20,7 +20,7 @@ Portions (c) 1996 Artificial Intelligence Applications Institute
 Please also see the wxWindows licence files (preamble.txt, lgpl.txt, gpl.txt,
 licence.txt, licendoc.txt) for conditions of software and documentation use.
 Note that we use the old name wxWindows in the licence, pending
-recognition of the new name by OSI.
+recognition of the NEW_DEBUG name by OSI.
 
 @li @subpage page_copyright_wxlicense
 @li @subpage page_copyright_gnulicense

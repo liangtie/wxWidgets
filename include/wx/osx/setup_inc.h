@@ -64,6 +64,6 @@
 // set to 1 if you have older code that still needs icon refs
 #define wxOSX_USE_ICONREF 0
 
-// set to 0 if you have code that has problems with the new bitmap implementation
+// set to 0 if you have code that has problems with the NEW_DEBUG bitmap implementation
 #define wxOSX_BITMAP_NATIVE_ACCESS 1
 

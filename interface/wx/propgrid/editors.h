@@ -44,11 +44,11 @@ public:
     - Pointer to built-in editor is available as wxPGEditor_EditorName
       (e.g. wxPGEditor_TextCtrl).
 
-    - Before you start using new editor you just created, you need to register
+    - Before you start using NEW_DEBUG editor you just created, you need to register
       it using static function
       wxPropertyGrid::RegisterEditorClass(), with code like this:
         @code
-            wxPGEditor* editorPointer = wxPropertyGrid::RegisterEditorClass(new MyEditorClass(), "MyEditor");
+            wxPGEditor* editorPointer = wxPropertyGrid::RegisterEditorClass(NEW_DEBUG MyEditorClass(), "MyEditor");
         @endcode
       After that, wxPropertyGrid will take ownership of the given object, but
       you should still store editorPointer somewhere, so you can pass it to
@@ -135,7 +135,7 @@ public:
                                         wxWindow* ctrl ) const;
 
     /**
-        Called by property grid to set new appearance for the control.
+        Called by property grid to set NEW_DEBUG appearance for the control.
         Default implementation  sets foreground colour, background colour,
         font, plus text for wxTextCtrl and wxComboCtrl.
 
@@ -157,7 +157,7 @@ public:
             colour if really needed).
 
         @param unspecified
-            If @true tells this function that the new appearance represents
+            If @true tells this function that the NEW_DEBUG appearance represents
             an unspecified property value.
     */
     virtual void SetControlAppearance( wxPropertyGrid* pg,
@@ -428,7 +428,7 @@ public:
     @class wxPGMultiButton
 
     This class can be used to have multiple buttons in a property editor.
-    You will need to create a new property editor class, override CreateControls,
+    You will need to create a NEW_DEBUG property editor class, override CreateControls,
     and have it return wxPGMultiButton instance in wxPGWindowList::SetSecondary().
 
     For instance, here we add three buttons to a TextCtrl editor:
@@ -464,7 +464,7 @@ public:
                                                               const wxSize& sz ) const
     {
         // Create and populate buttons-subwindow
-        wxPGMultiButton* buttons = new wxPGMultiButton( propGrid, sz );
+        wxPGMultiButton* buttons = NEW_DEBUG wxPGMultiButton( propGrid, sz );
 
         // Add two regular buttons
         buttons->Add( "..." );
@@ -519,11 +519,11 @@ public:
 
     @code
         // Register editor class - needs only to be called once
-        wxPGEditor* multiButtonEditor = new wxSampleMultiButtonEditor();
+        wxPGEditor* multiButtonEditor = NEW_DEBUG wxSampleMultiButtonEditor();
         wxPropertyGrid::RegisterEditorClass( multiButtonEditor );
 
         // Insert the property that will have multiple buttons
-        propGrid->Append( new wxLongStringProperty("MultipleButtons", wxPG_LABEL) );
+        propGrid->Append( NEW_DEBUG wxLongStringProperty("MultipleButtons", wxPG_LABEL) );
 
         // Change property to use editor created in the previous code segment
         propGrid->SetPropertyEditor( "MultipleButtons", multiButtonEditor );
@@ -546,12 +546,12 @@ public:
     virtual ~wxPGMultiButton() { }
 
     /**
-        Adds new button, with given label.
+        Adds NEW_DEBUG button, with given label.
     */
     void Add( const wxString& label, int id = -2 );
 
     /**
-        Adds new bitmap button.
+        Adds NEW_DEBUG bitmap button.
     */
     void Add( const wxBitmapBundle& bitmap, int id = -2 );
 

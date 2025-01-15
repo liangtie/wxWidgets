@@ -48,7 +48,7 @@ public:
                                int row, int col) wxOVERRIDE;
 
     virtual wxGridCellRenderer *Clone() const wxOVERRIDE
-        { return new wxGridCellStringRenderer(*this); }
+        { return NEW_DEBUG wxGridCellStringRenderer(*this); }
 
 protected:
     // calc the string extent for given string/font
@@ -97,7 +97,7 @@ public:
     virtual void SetParameters(const wxString& params) wxOVERRIDE;
 
     virtual wxGridCellRenderer *Clone() const wxOVERRIDE
-        { return new wxGridCellNumberRenderer(*this); }
+        { return NEW_DEBUG wxGridCellNumberRenderer(*this); }
 
 protected:
     wxString GetString(const wxGrid& grid, int row, int col);
@@ -148,7 +148,7 @@ public:
     virtual void SetParameters(const wxString& params) wxOVERRIDE;
 
     virtual wxGridCellRenderer *Clone() const wxOVERRIDE
-        { return new wxGridCellFloatRenderer(*this); }
+        { return NEW_DEBUG wxGridCellFloatRenderer(*this); }
 
 protected:
     wxString GetString(const wxGrid& grid, int row, int col);
@@ -195,7 +195,7 @@ public:
                                   wxDC& dc) wxOVERRIDE;
 
     virtual wxGridCellRenderer *Clone() const wxOVERRIDE
-        { return new wxGridCellBoolRenderer(*this); }
+        { return NEW_DEBUG wxGridCellBoolRenderer(*this); }
 };
 
 
@@ -236,7 +236,7 @@ public:
                                   wxDC& dc) wxOVERRIDE;
 
     virtual wxGridCellRenderer *Clone() const wxOVERRIDE
-        { return new wxGridCellDateRenderer(*this); }
+        { return NEW_DEBUG wxGridCellDateRenderer(*this); }
 
     // output strptime()-like format string
     virtual void SetParameters(const wxString& params) wxOVERRIDE;
@@ -267,7 +267,7 @@ public:
     }
 
     virtual wxGridCellRenderer *Clone() const wxOVERRIDE
-        { return new wxGridCellDateTimeRenderer(*this); }
+        { return NEW_DEBUG wxGridCellDateTimeRenderer(*this); }
 
 protected:
     virtual void
@@ -296,7 +296,7 @@ public:
 
     virtual wxGridCellRenderer *Clone() const wxOVERRIDE
     {
-        return new wxGridCellChoiceRenderer(*this);
+        return NEW_DEBUG wxGridCellChoiceRenderer(*this);
     }
 
 protected:
@@ -333,7 +333,7 @@ public:
                                int row, int col) wxOVERRIDE;
 
     virtual wxGridCellRenderer *Clone() const wxOVERRIDE
-        { return new wxGridCellEnumRenderer(*this); }
+        { return NEW_DEBUG wxGridCellEnumRenderer(*this); }
 
 protected:
     wxString GetString(const wxGrid& grid, int row, int col);
@@ -378,7 +378,7 @@ public:
                               int height) wxOVERRIDE;
 
     virtual wxGridCellRenderer *Clone() const wxOVERRIDE
-        { return new wxGridCellAutoWrapStringRenderer(*this); }
+        { return NEW_DEBUG wxGridCellAutoWrapStringRenderer(*this); }
 
 private:
     wxArrayString GetTextLines( wxGrid& grid,

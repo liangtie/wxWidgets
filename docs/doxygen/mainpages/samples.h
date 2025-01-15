@@ -256,7 +256,7 @@ Finally, the last part is used for dragging text from it to either one of the
 listboxes (only one will accept it) or another application. The last
 functionality available from the main frame is to paste a bitmap from the
 clipboard (or, in the case of the Windows version, also a metafile) - it will be
-shown in a new frame.
+shown in a NEW_DEBUG frame.
 
 So far, everything we mentioned was implemented with minimal amount of code
 using standard wxWidgets classes. The more advanced features are demonstrated
@@ -369,7 +369,7 @@ Eight HTML samples cover all features of the HTML sub-library.
 and also shows most supported HTML tags.
 
 @li @b Widget shows how you can embed ordinary controls or windows within an
-HTML page. It also nicely explains how to write new tag handlers and extend
+HTML page. It also nicely explains how to write NEW_DEBUG tag handlers and extend
 the library to work with unsupported tags.
 
 @li @b About may give you an idea how to write good-looking About boxes.
@@ -524,7 +524,7 @@ It replaces the old @c dynamic sample.
 
 @sampleabout{how to mix MFC and wxWidgets code}
 It pops up an initial wxWidgets frame, with a menu item
-that allows a new MFC window to be created.
+that allows a NEW_DEBUG MFC window to be created.
 
 For build instructions please read IMPORTANT NOTES in @c mfctest.cpp.
 
@@ -713,7 +713,7 @@ The server binds to the local address, using TCP port number 3000,
 sets up an event handler to be notified of incoming connection requests
 (@b wxSOCKET_CONNECTION events), and sits there, waiting for clients
 (@e listening, in socket parlance). For each accepted connection,
-a new wxSocketBase object is created. These
+a NEW_DEBUG wxSocketBase object is created. These
 socket objects are independent from the server that created them, so
 they set up their own event handler, and then request to be notified
 of @b wxSOCKET_INPUT (incoming data) or @b wxSOCKET_LOST

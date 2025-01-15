@@ -177,7 +177,7 @@ public:
 
     // called after OnDrop() returns TRUE: you will usually just call
     // GetData() from here and, probably, also refresh something to update the
-    // new data and, finally, return the code indicating how did the operation
+    // NEW_DEBUG data and, finally, return the code indicating how did the operation
     // complete (returning default value in case of success and wxDragError on
     // failure is usually ok)
     virtual wxDragResult OnData(wxCoord x, wxCoord y, wxDragResult def) = 0;

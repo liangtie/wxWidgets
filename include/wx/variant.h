@@ -116,7 +116,7 @@ public:
     void operator= (const wxVariant& variant);
 
     // Assignment using data, e.g.
-    // myVariant = new wxStringVariantData("hello");
+    // myVariant = NEW_DEBUG wxStringVariantData("hello");
     void operator= (wxVariantData* variantData);
 
     bool operator== (const wxVariant& variant) const;
@@ -461,7 +461,7 @@ bool CLASSNAME::GetAsAny(wxAny* any) const \
 } \
 wxVariantData* CLASSNAME::VariantDataFactory(const wxAny& any) \
 { \
-    return new CLASSNAME(any.As<T>()); \
+    return NEW_DEBUG CLASSNAME(any.As<T>()); \
 } \
 REGISTER_WXANY_CONVERSION(T, CLASSNAME)
 
@@ -498,7 +498,7 @@ public:\
     virtual wxString GetType() const wxOVERRIDE; \
     virtual wxClassInfo* GetValueClassInfo() wxOVERRIDE; \
 \
-    virtual wxVariantData* Clone() const wxOVERRIDE { return new classname##VariantData(m_value); } \
+    virtual wxVariantData* Clone() const wxOVERRIDE { return NEW_DEBUG classname##VariantData(m_value); } \
 \
     DECLARE_WXANY_CONVERSION() \
 protected:\
@@ -526,7 +526,7 @@ expdecl classname& operator << ( classname &value, const wxVariant &variant )\
 \
 expdecl wxVariant& operator << ( wxVariant &variant, const classname &value )\
 {\
-    classname##VariantData *data = new classname##VariantData( value );\
+    classname##VariantData *data = NEW_DEBUG classname##VariantData( value );\
     variant.SetData( data );\
     return variant;\
 } \

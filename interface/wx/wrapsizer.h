@@ -18,7 +18,7 @@ enum
 
     A wrap sizer lays out its items in a single line, like a box sizer -- as long
     as there is space available in that direction.
-    Once all available space in the primary direction has been used, a new line
+    Once all available space in the primary direction has been used, a NEW_DEBUG line
     is added and items are added there.
 
     So a wrap sizer has a primary orientation for adding items, and adds lines

@@ -140,7 +140,7 @@ public:
     virtual ~wxRichTextCharacterStyleDefinition() {}
 
     /// Clones the object
-    virtual wxRichTextStyleDefinition* Clone() const wxOVERRIDE { return new wxRichTextCharacterStyleDefinition(*this); }
+    virtual wxRichTextStyleDefinition* Clone() const wxOVERRIDE { return NEW_DEBUG wxRichTextCharacterStyleDefinition(*this); }
 
 protected:
 };
@@ -178,7 +178,7 @@ public:
     bool operator ==(const wxRichTextParagraphStyleDefinition& def) const;
 
     /// Clones the object
-    virtual wxRichTextStyleDefinition* Clone() const wxOVERRIDE { return new wxRichTextParagraphStyleDefinition(*this); }
+    virtual wxRichTextStyleDefinition* Clone() const wxOVERRIDE { return NEW_DEBUG wxRichTextParagraphStyleDefinition(*this); }
 
 protected:
 
@@ -215,7 +215,7 @@ public:
     bool operator ==(const wxRichTextListStyleDefinition& def) const;
 
     /// Clones the object
-    virtual wxRichTextStyleDefinition* Clone() const wxOVERRIDE { return new wxRichTextListStyleDefinition(*this); }
+    virtual wxRichTextStyleDefinition* Clone() const wxOVERRIDE { return NEW_DEBUG wxRichTextListStyleDefinition(*this); }
 
     /// Sets/gets the attributes for the given level
     void SetLevelAttributes(int i, const wxRichTextAttr& attr);
@@ -281,7 +281,7 @@ public:
     bool operator ==(const wxRichTextBoxStyleDefinition& def) const;
 
     /// Clones the object
-    virtual wxRichTextStyleDefinition* Clone() const wxOVERRIDE { return new wxRichTextBoxStyleDefinition(*this); }
+    virtual wxRichTextStyleDefinition* Clone() const wxOVERRIDE { return NEW_DEBUG wxRichTextBoxStyleDefinition(*this); }
 
 protected:
 };

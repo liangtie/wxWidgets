@@ -96,7 +96,7 @@ public:
     void AddHandler(wxXmlResourceHandler* handler);
 
     /**
-       Add a new handler at the beginning of the handler list.
+       Add a NEW_DEBUG handler at the beginning of the handler list.
      */
     void InsertHandler(wxXmlResourceHandler *handler);
 
@@ -191,7 +191,7 @@ public:
         Returns a numeric ID that is equivalent to the string ID used in an XML resource.
 
         If an unknown @a str_id is requested (i.e. other than wxID_XXX or integer),
-        a new record is created which associates the given string with a number.
+        a NEW_DEBUG record is created which associates the given string with a number.
 
         If @a value_if_not_found is @c wxID_NONE, the number is obtained via
         wxNewId(). Otherwise @a value_if_not_found is used.
@@ -245,7 +245,7 @@ public:
         @code
         const char* const xrc_data = ...; // Retrieve it from wherever.
         wxMemoryInputStream mis(xrc_data, strlen(xrc_data));
-        wxScopedPtr<wxXmlDocument> xmlDoc(new wxXmlDocument(mis, "UTF-8"));
+        wxScopedPtr<wxXmlDocument> xmlDoc(NEW_DEBUG wxXmlDocument(mis, "UTF-8"));
         if ( !xmlDoc->IsOk() )
         {
             ... handle invalid XML here ...
@@ -314,7 +314,7 @@ public:
         Loads a dialog. @a parent points to parent window (if any).
 
         This form is used to finish creation of an already existing instance (the main
-        reason for this is that you may want to use derived class with a new event table).
+        reason for this is that you may want to use derived class with a NEW_DEBUG event table).
         Example:
 
         @code
@@ -335,7 +335,7 @@ public:
 
         This form is used to finish creation of an already existing instance
         (the main reason for this is that you may want to use derived class
-        with a new event table).
+        with a NEW_DEBUG event table).
     */
     bool LoadFrame(wxFrame* frame, wxWindow* parent,
                    const wxString& name);
@@ -527,8 +527,8 @@ public:
         (usually window, dialog or panel) that is often necessary to
         create the resource.
 
-        If @b instance is non-@NULL it should not create a new instance via
-        'new' but should rather use this one, and call its Create method.
+        If @b instance is non-@NULL it should not create a NEW_DEBUG instance via
+        'NEW_DEBUG' but should rather use this one, and call its Create method.
     */
     wxObject* CreateResource(wxXmlNode* node, wxObject* parent,
                              wxObject* instance);
@@ -707,7 +707,7 @@ protected:
         Creates an image list from the @a param markup data.
 
         @return
-            The new instance of wxImageList or @NULL if no data is found.
+            The NEW_DEBUG instance of wxImageList or @NULL if no data is found.
 
         @since 2.9.1
     */

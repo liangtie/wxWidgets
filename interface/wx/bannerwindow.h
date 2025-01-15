@@ -23,14 +23,14 @@
         ... create the frame itself ...
 
         // Create and initialize the banner.
-        wxBannerWindow* banner = new wxBannerWindow(this, wxTOP);
+        wxBannerWindow* banner = NEW_DEBUG wxBannerWindow(this, wxTOP);
         banner->SetText("Welcome to my wonderful program",
                         "  Before doing anything else, you need to connect to "
                         "the online server.\n"
                         "  Please enter your credentials in the controls below.");
 
         // And position it along the top edge of the window.
-        wxSizer* sizer = new wxBoxSizer(wxVERTICAL);
+        wxSizer* sizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
         sizer->Add(banner, wxSizerFlags().Expand());
 
         ... add the rest of the window contents to the same sizer ...

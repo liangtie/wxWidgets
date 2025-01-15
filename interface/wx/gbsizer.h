@@ -22,7 +22,7 @@ public:
     */
     wxGBPosition();
     /**
-        Construct a new wxGBPosition, setting the row and column.
+        Construct a NEW_DEBUG wxGBPosition, setting the row and column.
     */
     wxGBPosition(int row, int col);
 
@@ -37,12 +37,12 @@ public:
     int GetRow() const;
 
     /**
-        Set a new column value.
+        Set a NEW_DEBUG column value.
     */
     void SetCol(int col);
 
     /**
-        Set a new row value.
+        Set a NEW_DEBUG row value.
     */
     void SetRow(int row);
 
@@ -285,16 +285,16 @@ public:
 
     /**
         If the item is already a member of a sizer then first ensure that there
-        is no other item that would intersect with this one at the new
-        position, then set the new position. Returns @true if the change is
+        is no other item that would intersect with this one at the NEW_DEBUG
+        position, then set the NEW_DEBUG position. Returns @true if the change is
         successful and after the next Layout the item will be moved.
     */
     bool SetPos(const wxGBPosition& pos);
 
     /**
         If the item is already a member of a sizer then first ensure that there
-        is no other item that would intersect with this one with its new
-        spanning size, then set the new spanning. Returns @true if the change
+        is no other item that would intersect with this one with its NEW_DEBUG
+        spanning size, then set the NEW_DEBUG spanning. Returns @true if the change
         is successful and after the next Layout the item will be resized.
     */
     bool SetSpan(const wxGBSpan& span);
@@ -324,7 +324,7 @@ public:
     */
     wxGBSpan();
     /**
-        Construct a new wxGBSpan, setting the @a rowspan and @a colspan.
+        Construct a NEW_DEBUG wxGBSpan, setting the @a rowspan and @a colspan.
     */
     wxGBSpan(int rowspan, int colspan);
 
@@ -339,12 +339,12 @@ public:
     int GetRowspan() const;
 
     /**
-        Set a new colspan value.
+        Set a NEW_DEBUG colspan value.
     */
     void SetColspan(int colspan);
 
     /**
-        Set a new rowspan value.
+        Set a NEW_DEBUG rowspan value.
     */
     void SetRowspan(int rowspan);
 

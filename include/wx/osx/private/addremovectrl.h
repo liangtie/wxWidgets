@@ -34,13 +34,13 @@ public:
         // "Network" panes of the "System Preferences") use under OS X 10.8.
         const wxSize sizeBtn(25, 23);
 
-        m_btnAdd = new wxBitmapButton(parent, wxID_ADD,
+        m_btnAdd = NEW_DEBUG wxBitmapButton(parent, wxID_ADD,
                                       wxArtProvider::GetBitmap("NSAddTemplate"),
                                       wxDefaultPosition,
                                       sizeBtn,
                                       wxBORDER_SIMPLE);
 
-        m_btnRemove = new wxBitmapButton(parent, wxID_REMOVE,
+        m_btnRemove = NEW_DEBUG wxBitmapButton(parent, wxID_REMOVE,
                                       wxArtProvider::GetBitmap("NSRemoveTemplate"),
                                       wxDefaultPosition,
                                       sizeBtn,
@@ -48,7 +48,7 @@ public:
 
         // Under OS X the space to the right of the buttons is actually
         // occupied by an inactive gradient button, so create one.
-        m_btnPlaceholder = new wxButton(parent, wxID_ANY, "",
+        m_btnPlaceholder = NEW_DEBUG wxButton(parent, wxID_ANY, "",
                                         wxDefaultPosition,
                                         sizeBtn,
                                         wxBORDER_SIMPLE);

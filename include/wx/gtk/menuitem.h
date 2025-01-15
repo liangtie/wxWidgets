@@ -46,7 +46,7 @@ public:
 #endif // wxUSE_ACCEL
 
 #if WXWIN_COMPATIBILITY_2_8
-    // compatibility only, don't use in new code
+    // compatibility only, don't use in NEW_DEBUG code
     wxDEPRECATED_CONSTRUCTOR(
     wxMenuItem(wxMenu *parentMenu,
                int id,

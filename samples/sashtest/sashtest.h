@@ -10,7 +10,7 @@
 
 #include "wx/toolbar.h"
 
-// Define a new application
+// Define a NEW_DEBUG application
 class MyApp: public wxApp
 {
   public:
@@ -27,7 +27,7 @@ class MyCanvas: public wxScrolledWindow
     wxDECLARE_EVENT_TABLE();
 };
 
-// Define a new frame
+// Define a NEW_DEBUG frame
 class MyFrame: public wxMDIParentFrame
 {
   public:

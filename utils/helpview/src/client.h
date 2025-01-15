@@ -8,7 +8,7 @@
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
-// Define a new application
+// Define a NEW_DEBUG application
 class MyApp: public wxApp
 {
 public:
@@ -24,7 +24,7 @@ public:
 
 wxDECLARE_APP(MyApp);
 
-// Define a new frame
+// Define a NEW_DEBUG frame
 class MyFrame: public wxFrame
 {
 public:

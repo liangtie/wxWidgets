@@ -143,7 +143,7 @@ enum AdjustFlags
     This is the protocol with the doxygen document of wxWidgets.
 
     By default, screenshots are generated under the subdirectory "screenshots"
-    of current working directory. During updating or adding new screenshots,
+    of current working directory. During updating or adding NEW_DEBUG screenshots,
     first make sure screenshots are generated correctly, and then copy them to
     the "docs/doxygen/images" folder directly.
 
@@ -190,7 +190,7 @@ enum AdjustFlags
     before any modification.
 
     If you need the class to do something special for you, consider introducing
-    a new flag and implement it in them. For an operation performed on multiple
+    a NEW_DEBUG flag and implement it in them. For an operation performed on multiple
     controls, implement its logic in CaptureAll(), otherwise in the private
     member Capture().
 
@@ -388,7 +388,7 @@ private:
         |    2    |   label   |    3    |
         +---------+-----------+---------+
 
-        So, there will be a side effect: the control is moved to a new
+        So, there will be a side effect: the control is moved to a NEW_DEBUG
         position. So after taking the screenshot, Capture(Control & ctrl)
         should call PutBack(wxWindow * ctrl) to put it back.
 

@@ -125,7 +125,7 @@ public:
     // A note about these "modifier" methods: they return copies of this object
     // and not a reference to the object itself (after modifying it) because
     // this object is likely to be temporary and will be destroyed soon, while
-    // the new temporary created by these objects is bound to a const reference
+    // the NEW_DEBUG temporary created by these objects is bound to a const reference
     // inside WX_TEST_IMPL_ADD_EXPECTATION() macro ensuring that its lifetime
     // is prolonged until we can check if the expectations were met.
     //

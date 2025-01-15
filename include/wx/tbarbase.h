@@ -345,7 +345,7 @@ public:
     }
 
 
-    // insert the new tool at the given position, if pos == GetToolsCount(), it
+    // insert the NEW_DEBUG tool at the given position, if pos == GetToolsCount(), it
     // is equivalent to AddTool()
     virtual wxToolBarToolBase *InsertTool
                                (
@@ -497,7 +497,7 @@ public:
 
 #if WXWIN_COMPATIBILITY_2_8
     // the old versions of the various methods kept for compatibility
-    // don't use in the new code!
+    // don't use in the NEW_DEBUG code!
     // --------------------------------------------------------------
     wxDEPRECATED_INLINE(
     wxToolBarToolBase *AddTool(int toolid,
@@ -623,7 +623,7 @@ protected:
     // to implement in derived classes
     // -------------------------------
 
-    // create a new toolbar tool and add it to the toolbar, this is typically
+    // create a NEW_DEBUG toolbar tool and add it to the toolbar, this is typically
     // implemented by just calling InsertTool()
     virtual wxToolBarToolBase *DoAddTool
                                (

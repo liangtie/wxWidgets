@@ -23,7 +23,7 @@
 // Class definition: MyApp
 //-----------------------------------------------------------------------------
 
-// Define a new application type, each program should derive a class from wxApp
+// Define a NEW_DEBUG application type, each program should derive a class from wxApp
 class MyApp : public wxApp
 {
 

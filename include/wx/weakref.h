@@ -114,7 +114,7 @@ protected:
 
         Release();
 
-        // Now set new trackable object
+        // Now set NEW_DEBUG trackable object
         if ( pobj )
         {
             // Add ourselves to object tracker list
@@ -190,7 +190,7 @@ protected:
 
         Release();
 
-        // Now set new trackable object
+        // Now set NEW_DEBUG trackable object
         if ( pobj )
         {
             // Add ourselves to object tracker list

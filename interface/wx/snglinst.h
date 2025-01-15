@@ -22,7 +22,7 @@
     @code
     bool MyApp::OnInit()
     {
-        m_checker = new wxSingleInstanceChecker;
+        m_checker = NEW_DEBUG wxSingleInstanceChecker;
         if ( m_checker->IsAnotherRunning() )
         {
             wxLogError(_("Another program instance is already running, aborting."));

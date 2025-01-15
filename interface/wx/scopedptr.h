@@ -40,22 +40,22 @@
     // define the second pointer class
     wxDEFINE_SCOPED_ARRAY(char, wxCharArray)
 
-    // create an object with a new pointer to MyClass
-    wxMyClassPtr theObj(new MyClass());
+    // create an object with a NEW_DEBUG pointer to MyClass
+    wxMyClassPtr theObj(NEW_DEBUG MyClass());
     // reset the pointer (deletes the previous one)
-    theObj.reset(new MyClass());
+    theObj.reset(NEW_DEBUG MyClass());
 
     // access the pointer
     theObj->MyFunc();
 
-    // create an object with a new array of chars
-    wxCharArray theCharObj(new char[100]);
+    // create an object with a NEW_DEBUG array of chars
+    wxCharArray theCharObj(NEW_DEBUG char[100]);
 
     // access the array
     theCharObj[0] = "!";
     @endcode
 
-    @section scopedptr_newpointers Declaring new smart pointer types
+    @section scopedptr_newpointers Declaring NEW_DEBUG smart pointer types
 
     To declare the smart pointer class @c CLASSNAME containing pointer to
     a (possibly incomplete) type @c TYPE you should use
@@ -70,7 +70,7 @@
     to implement the scoped pointer class.
 
     The first argument of these macro is the pointer type, the second is the name
-    of the new smart pointer class being created. Below we will use wxScopedPtr
+    of the NEW_DEBUG smart pointer class being created. Below we will use wxScopedPtr
     to represent the scoped pointer class, but the user may create the class with
     any legal name.
 
@@ -207,7 +207,7 @@ public:
         Constructor takes ownership of the pointer.
 
         @param ptr
-            Pointer allocated with @c new or @NULL.
+            Pointer allocated with @c NEW_DEBUG or @NULL.
     */
     wxScopedPtr(T* ptr = NULL);
 

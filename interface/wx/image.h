@@ -40,7 +40,7 @@ enum wxImageResizeQuality
 
     /**
     Use surrounding pixels to calculate an average that will be used for
-    new pixels. This method is typically used when reducing the size of
+    NEW_DEBUG pixels. This method is typically used when reducing the size of
     an image.
     */
     wxIMAGE_QUALITY_BOX_AVERAGE,
@@ -54,7 +54,7 @@ enum wxImageResizeQuality
     /**
     Best image resizing algorithm. Since version 2.9.2 this results in
     wxIMAGE_QUALITY_BOX_AVERAGE being used when reducing the size of the
-    image (meaning that both the new width and height will be smaller than
+    image (meaning that both the NEW_DEBUG width and height will be smaller than
     the original size). Otherwise wxIMAGE_QUALITY_BICUBIC is used.
     */
     wxIMAGE_QUALITY_HIGH
@@ -403,7 +403,7 @@ const unsigned char wxIMAGE_ALPHA_THRESHOLD = 0x80;
 
     An image can be created from data, or using wxBitmap::ConvertToImage.
     An image can be loaded from a file in a variety of formats, and is extensible
-    to new formats via image format handlers. Functions are available to set and
+    to NEW_DEBUG formats via image format handlers. Functions are available to set and
     get image bits, so it can be used for basic image manipulation.
 
     A wxImage cannot (currently) be drawn directly to a wxDC.
@@ -830,7 +830,7 @@ public:
         @param y
             The vertical position of the position to copy the data to.
         @param alphaBlend
-            This parameter (new in wx 3.1.5) determines whether the alpha values
+            This parameter (NEW_DEBUG in wx 3.1.5) determines whether the alpha values
             of the original image replace (default) or are composed with the
             alpha channel of this image. Notice that alpha blending overrides
             the mask handling.
@@ -861,8 +861,8 @@ public:
         Changes the size of the image in-place without scaling it by adding either a
         border with the given colour or cropping as necessary.
 
-        The image is pasted into a new image with the given @a size and background
-        colour at the position @a pos relative to the upper left of the new image.
+        The image is pasted into a NEW_DEBUG image with the given @a size and background
+        colour at the position @a pos relative to the upper left of the NEW_DEBUG image.
 
         If @a red = green = blue = -1 then use either the  current mask colour
         if set or find, use, and set a suitable mask colour for any newly exposed
@@ -992,8 +992,8 @@ public:
         Returns a resized version of this image without scaling it by adding either a
         border with the given colour or cropping as necessary.
 
-        The image is pasted into a new image with the given @a size and background
-        colour at the position @a pos relative to the upper left of the new image.
+        The image is pasted into a NEW_DEBUG image with the given @a size and background
+        colour at the position @a pos relative to the upper left of the NEW_DEBUG image.
 
         If @a red = green = blue = -1 then the areas of the larger image not covered
         by this image are made transparent by filling them with the image mask colour
@@ -1711,7 +1711,7 @@ public:
         are doing.
 
         The data must have been allocated with @c malloc(), @b NOT with
-        @c operator new.
+        @c operator NEW_DEBUG.
 
         If @a static_data is @false, after this call the pointer to the data is
         owned by the wxImage object, that will be responsible for deleting it.
@@ -1881,7 +1881,7 @@ public:
 
         Typical example of use:
         @code
-            wxImage::AddHandler(new wxPNGHandler);
+            wxImage::AddHandler(NEW_DEBUG wxPNGHandler);
         @endcode
 
         See @ref image_handlers for a list of the available handlers. You can
@@ -1973,7 +1973,7 @@ public:
         Adds a handler at the start of the static list of format handlers.
 
         @param handler
-            A new image format handler object. There is usually only one instance
+            A NEW_DEBUG image format handler object. There is usually only one instance
             of a given handler class in an application session.
 
         @see wxImageHandler

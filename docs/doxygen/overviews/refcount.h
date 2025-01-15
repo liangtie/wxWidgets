@@ -97,10 +97,10 @@ Reference counting can be implemented easily using wxObject or using the
 intermediate wxRefCounter class directly.  Alternatively, you can also use the
 wxObjectDataPtr<T> template.
 
-First, derive a new class from wxRefCounter (or wxObjectRefData when using a
+First, derive a NEW_DEBUG class from wxRefCounter (or wxObjectRefData when using a
 wxObject derived class) and put the memory-consuming data in it.
 
-Then derive a new class from wxObject and implement there the public interface
+Then derive a NEW_DEBUG class from wxObject and implement there the public interface
 which will be seen by the user of your class. You'll probably want to add a
 function to your class which does the cast from wxObjectRefData to your
 class-specific shared data. For example:

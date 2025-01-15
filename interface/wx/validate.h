@@ -93,7 +93,7 @@ public:
 
         E.g.
         @code
-        new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0,
+        NEW_DEBUG wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0,
                        wxTextValidator(wxFILTER_ALPHA, &g_data.m_string));
         @endcode
         will automatically link the wxTextValidator instance with the wxTextCtrl

@@ -39,7 +39,7 @@
     // for the key existence if necessary.
     wxRegKey key(wxRegKey::HKCU, "Software\\MyKey");
 
-    // Create a new value "MyValue" and set it to 12.
+    // Create a NEW_DEBUG value "MyValue" and set it to 12.
     key.SetValue("MyValue", 12);
 
     // Read the value back.
@@ -69,13 +69,13 @@ public:
     /**
         Default constructor, initializes to @c HKEY_CLASSES_ROOT.
 
-        The @a viewMode parameter is new since wxWidgets 2.9.2.
+        The @a viewMode parameter is NEW_DEBUG since wxWidgets 2.9.2.
     */
     wxRegKey(WOW64ViewMode viewMode = WOW64ViewMode_Default);
     /**
         The constructor to set the full name of the key.
 
-        The @a viewMode parameter is new since wxWidgets 2.9.2.
+        The @a viewMode parameter is NEW_DEBUG since wxWidgets 2.9.2.
     */
     wxRegKey(const wxString& strKey,
         WOW64ViewMode viewMode = WOW64ViewMode_Default);
@@ -83,7 +83,7 @@ public:
         The constructor to set the full name of the key using one of the
         standard keys, that is, HKCR, HKCU, HKLM, HKUSR, HKPD (obsolete),
         HKCC or HKDD (obsolete).
-        The @a viewMode parameter is new since wxWidgets 2.9.2.
+        The @a viewMode parameter is NEW_DEBUG since wxWidgets 2.9.2.
     */
     wxRegKey(StdKey keyParent, const wxString& strKey,
         WOW64ViewMode viewMode = WOW64ViewMode_Default);

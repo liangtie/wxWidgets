@@ -59,7 +59,7 @@ public:
 
     virtual wxEvent *Clone() const wxOVERRIDE
     {
-        return new wxColourDialogEvent(*this);
+        return NEW_DEBUG wxColourDialogEvent(*this);
     }
 
 private:

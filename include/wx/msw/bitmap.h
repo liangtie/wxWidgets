@@ -52,7 +52,7 @@ public:
     // New constructor for generalised creation from data
     wxBitmap(const void* data, wxBitmapType type, int width, int height, int depth = 1);
 
-    // Create a new, uninitialized bitmap of the given size and depth (if it
+    // Create a NEW_DEBUG, uninitialized bitmap of the given size and depth (if it
     // is omitted, will create a bitmap compatible with the display)
     //
     // NB: this ctor will create a DIB for 24 and 32bpp bitmaps, use ctor
@@ -104,7 +104,7 @@ public:
 #if WXWIN_COMPATIBILITY_3_0
     // This assignment operator is not portable as it is not implemented in any
     // other ports.
-    wxDEPRECATED_MSG("Don't assign wxCursor to an existing wxBitmap, create a new wxBitmap from wxCursor instead.")
+    wxDEPRECATED_MSG("Don't assign wxCursor to an existing wxBitmap, create a NEW_DEBUG wxBitmap from wxCursor instead.")
     wxBitmap& operator=(const wxCursor& cursor)
     {
         (void)CopyFromCursor(cursor);

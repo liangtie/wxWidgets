@@ -39,7 +39,7 @@ public:
         // Note that this is still incorrect because we continue using outdated
         // information if the first monitor is disconnected, for example. The
         // only real solution is to ensure that InvalidateCache() is called,
-        // but for now this at least avoids crashes when a new display is
+        // but for now this at least avoids crashes when a NEW_DEBUG display is
         // connected.
         if ( n >= m_impls.size() )
         {
@@ -81,7 +81,7 @@ public:
     virtual void InvalidateCache() { ClearImpls(); }
 
 protected:
-    // create a new display object
+    // create a NEW_DEBUG display object
     //
     // it can return a null pointer if the display creation failed
     virtual wxDisplayImpl *CreateDisplay(unsigned n) = 0;

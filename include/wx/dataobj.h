@@ -508,7 +508,7 @@ public:
     void TakeData(size_t size, void *data);
 
     // this function is called to allocate "size" bytes of memory from
-    // SetData(). The default version uses operator new[].
+    // SetData(). The default version uses operator NEW_DEBUG[].
     virtual void *Alloc(size_t size);
 
     // this function is called when the data is freed, you may override it to

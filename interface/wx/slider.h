@@ -45,9 +45,9 @@
     @style{wxSL_AUTOTICKS}
            Displays tick marks (Windows, GTK+ 2.16 and later).
     @style{wxSL_MIN_MAX_LABELS}
-           Displays minimum, maximum labels (new since wxWidgets 2.9.1).
+           Displays minimum, maximum labels (NEW_DEBUG since wxWidgets 2.9.1).
     @style{wxSL_VALUE_LABEL}
-           Displays value label (new since wxWidgets 2.9.1).
+           Displays value label (NEW_DEBUG since wxWidgets 2.9.1).
     @style{wxSL_LABELS}
            Displays minimum, maximum and value labels (same as wxSL_VALUE_LABEL
            and wxSL_MIN_MAX_LABELS together).
@@ -317,7 +317,7 @@ public:
         Sets the minimum slider value.
 
         @param minValue
-            The new bottom end of the slider range.
+            The NEW_DEBUG bottom end of the slider range.
 
         @see GetMin(), SetRange()
     */
@@ -327,7 +327,7 @@ public:
         Sets the maximum slider value.
 
         @param maxValue
-            The new top end of the slider range.
+            The NEW_DEBUG top end of the slider range.
 
         @see GetMax(), SetRange()
     */

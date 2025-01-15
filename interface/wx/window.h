@@ -412,7 +412,7 @@ public:
         on it, e.g. a common pattern to avoid showing the contents of a window
         before it is fully initialized is:
         @code
-            wxPanel* panel = new wxPanel(); // Note: default constructor used.
+            wxPanel* panel = NEW_DEBUG wxPanel(); // Note: default constructor used.
             panel->Hide(); // Can be called before actually creating it.
             panel->Create(parent, wxID_ANY, ...); // Won't be shown yet.
             ... create all the panel children ...
@@ -425,7 +425,7 @@ public:
             // Suppose we have this function (which would typically be in a
             // different translation unit (file) from the rest of the code).
             wxWindow* MyCreateWindowObjectFunction() {
-                return new MyCustomClassDerivingFromWindow();
+                return NEW_DEBUG MyCustomClassDerivingFromWindow();
             }
 
             // Then we can create a window of MyCustomClassDerivingFromWindow
@@ -3052,7 +3052,7 @@ public:
         A window can be created initially disabled by calling this method on it
         @e before calling Create() to create the actual underlying window, e.g.
         @code
-            wxWindow* w = new MyWindow(); // Note: default ctor is used here.
+            wxWindow* w = NEW_DEBUG MyWindow(); // Note: default ctor is used here.
             w->Enable(false);
             w->Create(parent, ... all the usual non-default ctor arguments ...);
         @endcode
@@ -3282,7 +3282,7 @@ public:
 
     /**
         Deletes the current validator (if any) and sets the window validator, having
-        called wxValidator::Clone to create a new validator of this type.
+        called wxValidator::Clone to create a NEW_DEBUG validator of this type.
     */
     virtual void SetValidator(const wxValidator& validator);
 
@@ -3788,9 +3788,9 @@ public:
               Wayland intentionally doesn't provide the required functionality.
 
         @param x
-            The new x position for the cursor.
+            The NEW_DEBUG x position for the cursor.
         @param y
-            The new y position for the cursor.
+            The NEW_DEBUG y position for the cursor.
     */
     virtual void WarpPointer(int x, int y);
 
@@ -4210,7 +4210,7 @@ public:
     static wxWindow* GetCapture();
 
     /**
-        Create a new ID or range of IDs that are not currently in use.
+        Create a NEW_DEBUG ID or range of IDs that are not currently in use.
         The IDs will be reserved until assigned to a wxWindow ID
         or unreserved with UnreserveControlId().
 
@@ -4261,7 +4261,7 @@ public:
         @code
         MyFrame::MyFrame(...)
         {
-            auto p = new wxPanel(this);
+            auto p = NEW_DEBUG wxPanel(this);
         #ifdef __WXMSW__
             p->MSWDisableComposited();
         #endif
@@ -4349,7 +4349,7 @@ protected:
         contents at this width.
 
         Currently this method is not used by wxWidgets yet, however it is
-        planned that it will be used by the new sizer classes implementing
+        planned that it will be used by the NEW_DEBUG sizer classes implementing
         height-for-width layout strategy in the future.
 
         Notice that implementing this method or even implementing both it and

@@ -2464,73 +2464,73 @@
 /// Move caret down one line.
 #define wxSTC_CMD_LINEDOWN 2300
 
-/// Move caret down one line extending selection to new caret position.
+/// Move caret down one line extending selection to NEW_DEBUG caret position.
 #define wxSTC_CMD_LINEDOWNEXTEND 2301
 
 /// Move caret up one line.
 #define wxSTC_CMD_LINEUP 2302
 
-/// Move caret up one line extending selection to new caret position.
+/// Move caret up one line extending selection to NEW_DEBUG caret position.
 #define wxSTC_CMD_LINEUPEXTEND 2303
 
 /// Move caret left one character.
 #define wxSTC_CMD_CHARLEFT 2304
 
-/// Move caret left one character extending selection to new caret position.
+/// Move caret left one character extending selection to NEW_DEBUG caret position.
 #define wxSTC_CMD_CHARLEFTEXTEND 2305
 
 /// Move caret right one character.
 #define wxSTC_CMD_CHARRIGHT 2306
 
-/// Move caret right one character extending selection to new caret position.
+/// Move caret right one character extending selection to NEW_DEBUG caret position.
 #define wxSTC_CMD_CHARRIGHTEXTEND 2307
 
 /// Move caret left one word.
 #define wxSTC_CMD_WORDLEFT 2308
 
-/// Move caret left one word extending selection to new caret position.
+/// Move caret left one word extending selection to NEW_DEBUG caret position.
 #define wxSTC_CMD_WORDLEFTEXTEND 2309
 
 /// Move caret right one word.
 #define wxSTC_CMD_WORDRIGHT 2310
 
-/// Move caret right one word extending selection to new caret position.
+/// Move caret right one word extending selection to NEW_DEBUG caret position.
 #define wxSTC_CMD_WORDRIGHTEXTEND 2311
 
 /// Move caret to first position on line.
 #define wxSTC_CMD_HOME 2312
 
-/// Move caret to first position on line extending selection to new caret position.
+/// Move caret to first position on line extending selection to NEW_DEBUG caret position.
 #define wxSTC_CMD_HOMEEXTEND 2313
 
 /// Move caret to last position on line.
 #define wxSTC_CMD_LINEEND 2314
 
-/// Move caret to last position on line extending selection to new caret position.
+/// Move caret to last position on line extending selection to NEW_DEBUG caret position.
 #define wxSTC_CMD_LINEENDEXTEND 2315
 
 /// Move caret to first position in document.
 #define wxSTC_CMD_DOCUMENTSTART 2316
 
-/// Move caret to first position in document extending selection to new caret position.
+/// Move caret to first position in document extending selection to NEW_DEBUG caret position.
 #define wxSTC_CMD_DOCUMENTSTARTEXTEND 2317
 
 /// Move caret to last position in document.
 #define wxSTC_CMD_DOCUMENTEND 2318
 
-/// Move caret to last position in document extending selection to new caret position.
+/// Move caret to last position in document extending selection to NEW_DEBUG caret position.
 #define wxSTC_CMD_DOCUMENTENDEXTEND 2319
 
 /// Move caret one page up.
 #define wxSTC_CMD_PAGEUP 2320
 
-/// Move caret one page up extending selection to new caret position.
+/// Move caret one page up extending selection to NEW_DEBUG caret position.
 #define wxSTC_CMD_PAGEUPEXTEND 2321
 
 /// Move caret one page down.
 #define wxSTC_CMD_PAGEDOWN 2322
 
-/// Move caret one page down extending selection to new caret position.
+/// Move caret one page down extending selection to NEW_DEBUG caret position.
 #define wxSTC_CMD_PAGEDOWNEXTEND 2323
 
 /// Switch from insert to overtype mode or the reverse.
@@ -2549,7 +2549,7 @@
 /// Dedent the selected lines.
 #define wxSTC_CMD_BACKTAB 2328
 
-/// Insert a new line, may use a CRLF, CR or LF depending on EOL mode.
+/// Insert a NEW_DEBUG line, may use a CRLF, CR or LF depending on EOL mode.
 #define wxSTC_CMD_NEWLINE 2329
 
 /// Insert a Form Feed character.
@@ -2559,7 +2559,7 @@
 /// If already there move to first character on line.
 #define wxSTC_CMD_VCHOME 2331
 
-/// Like VCHome but extending selection to new caret position.
+/// Like VCHome but extending selection to NEW_DEBUG caret position.
 #define wxSTC_CMD_VCHOMEEXTEND 2332
 
 /// Magnify the displayed text by increasing the sizes by 1 point.
@@ -2609,13 +2609,13 @@
 #define wxSTC_CMD_HOMEDISPLAY 2345
 
 /// Move caret to first position on display line extending selection to
-/// new caret position.
+/// NEW_DEBUG caret position.
 #define wxSTC_CMD_HOMEDISPLAYEXTEND 2346
 
 /// Move caret to last position on display line.
 #define wxSTC_CMD_LINEENDDISPLAY 2347
 
-/// Move caret to last position on display line extending selection to new
+/// Move caret to last position on display line extending selection to NEW_DEBUG
 /// caret position.
 #define wxSTC_CMD_LINEENDDISPLAYEXTEND 2348
 
@@ -2650,14 +2650,14 @@
 #define wxSTC_CMD_WORDPARTLEFT 2390
 
 /// Move to the previous change in capitalisation extending selection
-/// to new caret position.
+/// to NEW_DEBUG caret position.
 #define wxSTC_CMD_WORDPARTLEFTEXTEND 2391
 
 /// Move to the change next in capitalisation.
 #define wxSTC_CMD_WORDPARTRIGHT 2392
 
 /// Move to the next change in capitalisation extending selection
-/// to new caret position.
+/// to NEW_DEBUG caret position.
 #define wxSTC_CMD_WORDPARTRIGHTEXTEND 2393
 
 /// Delete back from the current position to the start of the line.
@@ -2678,57 +2678,57 @@
 /// Extend selection up one paragraph (delimited by empty lines).
 #define wxSTC_CMD_PARAUPEXTEND 2416
 
-/// Move caret down one line, extending rectangular selection to new caret position.
+/// Move caret down one line, extending rectangular selection to NEW_DEBUG caret position.
 #define wxSTC_CMD_LINEDOWNRECTEXTEND 2426
 
-/// Move caret up one line, extending rectangular selection to new caret position.
+/// Move caret up one line, extending rectangular selection to NEW_DEBUG caret position.
 #define wxSTC_CMD_LINEUPRECTEXTEND 2427
 
-/// Move caret left one character, extending rectangular selection to new caret position.
+/// Move caret left one character, extending rectangular selection to NEW_DEBUG caret position.
 #define wxSTC_CMD_CHARLEFTRECTEXTEND 2428
 
-/// Move caret right one character, extending rectangular selection to new caret position.
+/// Move caret right one character, extending rectangular selection to NEW_DEBUG caret position.
 #define wxSTC_CMD_CHARRIGHTRECTEXTEND 2429
 
-/// Move caret to first position on line, extending rectangular selection to new caret position.
+/// Move caret to first position on line, extending rectangular selection to NEW_DEBUG caret position.
 #define wxSTC_CMD_HOMERECTEXTEND 2430
 
 /// Move caret to before first visible character on line.
 /// If already there move to first character on line.
-/// In either case, extend rectangular selection to new caret position.
+/// In either case, extend rectangular selection to NEW_DEBUG caret position.
 #define wxSTC_CMD_VCHOMERECTEXTEND 2431
 
-/// Move caret to last position on line, extending rectangular selection to new caret position.
+/// Move caret to last position on line, extending rectangular selection to NEW_DEBUG caret position.
 #define wxSTC_CMD_LINEENDRECTEXTEND 2432
 
-/// Move caret one page up, extending rectangular selection to new caret position.
+/// Move caret one page up, extending rectangular selection to NEW_DEBUG caret position.
 #define wxSTC_CMD_PAGEUPRECTEXTEND 2433
 
-/// Move caret one page down, extending rectangular selection to new caret position.
+/// Move caret one page down, extending rectangular selection to NEW_DEBUG caret position.
 #define wxSTC_CMD_PAGEDOWNRECTEXTEND 2434
 
 /// Move caret to top of page, or one page up if already at top of page.
 #define wxSTC_CMD_STUTTEREDPAGEUP 2435
 
-/// Move caret to top of page, or one page up if already at top of page, extending selection to new caret position.
+/// Move caret to top of page, or one page up if already at top of page, extending selection to NEW_DEBUG caret position.
 #define wxSTC_CMD_STUTTEREDPAGEUPEXTEND 2436
 
 /// Move caret to bottom of page, or one page down if already at bottom of page.
 #define wxSTC_CMD_STUTTEREDPAGEDOWN 2437
 
-/// Move caret to bottom of page, or one page down if already at bottom of page, extending selection to new caret position.
+/// Move caret to bottom of page, or one page down if already at bottom of page, extending selection to NEW_DEBUG caret position.
 #define wxSTC_CMD_STUTTEREDPAGEDOWNEXTEND 2438
 
 /// Move caret left one word, position cursor at end of word.
 #define wxSTC_CMD_WORDLEFTEND 2439
 
-/// Move caret left one word, position cursor at end of word, extending selection to new caret position.
+/// Move caret left one word, position cursor at end of word, extending selection to NEW_DEBUG caret position.
 #define wxSTC_CMD_WORDLEFTENDEXTEND 2440
 
 /// Move caret right one word, position cursor at end of word.
 #define wxSTC_CMD_WORDRIGHTEND 2441
 
-/// Move caret right one word, position cursor at end of word, extending selection to new caret position.
+/// Move caret right one word, position cursor at end of word, extending selection to NEW_DEBUG caret position.
 #define wxSTC_CMD_WORDRIGHTENDEXTEND 2442
 
 /// Centre current line in window.
@@ -2750,7 +2750,7 @@
 /// If already there move to first character on display line.
 #define wxSTC_CMD_VCHOMEDISPLAY 2652
 
-/// Like VCHomeDisplay but extending selection to new caret position.
+/// Like VCHomeDisplay but extending selection to NEW_DEBUG caret position.
 #define wxSTC_CMD_VCHOMEDISPLAYEXTEND 2653
 
 //}}}
@@ -5886,7 +5886,7 @@ public:
     void LineDown();
 
     /**
-        Move caret down one line extending selection to new caret position.
+        Move caret down one line extending selection to NEW_DEBUG caret position.
     */
     void LineDownExtend();
 
@@ -5896,7 +5896,7 @@ public:
     void LineUp();
 
     /**
-        Move caret up one line extending selection to new caret position.
+        Move caret up one line extending selection to NEW_DEBUG caret position.
     */
     void LineUpExtend();
 
@@ -5906,7 +5906,7 @@ public:
     void CharLeft();
 
     /**
-        Move caret left one character extending selection to new caret position.
+        Move caret left one character extending selection to NEW_DEBUG caret position.
     */
     void CharLeftExtend();
 
@@ -5916,7 +5916,7 @@ public:
     void CharRight();
 
     /**
-        Move caret right one character extending selection to new caret position.
+        Move caret right one character extending selection to NEW_DEBUG caret position.
     */
     void CharRightExtend();
 
@@ -5926,7 +5926,7 @@ public:
     void WordLeft();
 
     /**
-        Move caret left one word extending selection to new caret position.
+        Move caret left one word extending selection to NEW_DEBUG caret position.
     */
     void WordLeftExtend();
 
@@ -5936,7 +5936,7 @@ public:
     void WordRight();
 
     /**
-        Move caret right one word extending selection to new caret position.
+        Move caret right one word extending selection to NEW_DEBUG caret position.
     */
     void WordRightExtend();
 
@@ -5946,7 +5946,7 @@ public:
     void Home();
 
     /**
-        Move caret to first position on line extending selection to new caret position.
+        Move caret to first position on line extending selection to NEW_DEBUG caret position.
     */
     void HomeExtend();
 
@@ -5956,7 +5956,7 @@ public:
     void LineEnd();
 
     /**
-        Move caret to last position on line extending selection to new caret position.
+        Move caret to last position on line extending selection to NEW_DEBUG caret position.
     */
     void LineEndExtend();
 
@@ -5966,7 +5966,7 @@ public:
     void DocumentStart();
 
     /**
-        Move caret to first position in document extending selection to new caret position.
+        Move caret to first position in document extending selection to NEW_DEBUG caret position.
     */
     void DocumentStartExtend();
 
@@ -5976,7 +5976,7 @@ public:
     void DocumentEnd();
 
     /**
-        Move caret to last position in document extending selection to new caret position.
+        Move caret to last position in document extending selection to NEW_DEBUG caret position.
     */
     void DocumentEndExtend();
 
@@ -5986,7 +5986,7 @@ public:
     void PageUp();
 
     /**
-        Move caret one page up extending selection to new caret position.
+        Move caret one page up extending selection to NEW_DEBUG caret position.
     */
     void PageUpExtend();
 
@@ -5996,7 +5996,7 @@ public:
     void PageDown();
 
     /**
-        Move caret one page down extending selection to new caret position.
+        Move caret one page down extending selection to NEW_DEBUG caret position.
     */
     void PageDownExtend();
 
@@ -6027,7 +6027,7 @@ public:
     void BackTab();
 
     /**
-        Insert a new line, may use a CRLF, CR or LF depending on EOL mode.
+        Insert a NEW_DEBUG line, may use a CRLF, CR or LF depending on EOL mode.
     */
     void NewLine();
 
@@ -6043,7 +6043,7 @@ public:
     void VCHome();
 
     /**
-        Like VCHome but extending selection to new caret position.
+        Like VCHome but extending selection to NEW_DEBUG caret position.
     */
     void VCHomeExtend();
 
@@ -6115,7 +6115,7 @@ public:
 
     /**
         Move caret to first position on display line extending selection to
-        new caret position.
+        NEW_DEBUG caret position.
     */
     void HomeDisplayExtend();
 
@@ -6125,7 +6125,7 @@ public:
     void LineEndDisplay();
 
     /**
-        Move caret to last position on display line extending selection to new
+        Move caret to last position on display line extending selection to NEW_DEBUG
         caret position.
     */
     void LineEndDisplayExtend();
@@ -6178,7 +6178,7 @@ public:
 
     /**
         Move to the previous change in capitalisation extending selection
-        to new caret position.
+        to NEW_DEBUG caret position.
     */
     void WordPartLeftExtend();
 
@@ -6189,7 +6189,7 @@ public:
 
     /**
         Move to the next change in capitalisation extending selection
-        to new caret position.
+        to NEW_DEBUG caret position.
     */
     void WordPartRightExtend();
 
@@ -6224,49 +6224,49 @@ public:
     void ParaUpExtend();
 
     /**
-        Move caret down one line, extending rectangular selection to new caret position.
+        Move caret down one line, extending rectangular selection to NEW_DEBUG caret position.
     */
     void LineDownRectExtend();
 
     /**
-        Move caret up one line, extending rectangular selection to new caret position.
+        Move caret up one line, extending rectangular selection to NEW_DEBUG caret position.
     */
     void LineUpRectExtend();
 
     /**
-        Move caret left one character, extending rectangular selection to new caret position.
+        Move caret left one character, extending rectangular selection to NEW_DEBUG caret position.
     */
     void CharLeftRectExtend();
 
     /**
-        Move caret right one character, extending rectangular selection to new caret position.
+        Move caret right one character, extending rectangular selection to NEW_DEBUG caret position.
     */
     void CharRightRectExtend();
 
     /**
-        Move caret to first position on line, extending rectangular selection to new caret position.
+        Move caret to first position on line, extending rectangular selection to NEW_DEBUG caret position.
     */
     void HomeRectExtend();
 
     /**
         Move caret to before first visible character on line.
         If already there move to first character on line.
-        In either case, extend rectangular selection to new caret position.
+        In either case, extend rectangular selection to NEW_DEBUG caret position.
     */
     void VCHomeRectExtend();
 
     /**
-        Move caret to last position on line, extending rectangular selection to new caret position.
+        Move caret to last position on line, extending rectangular selection to NEW_DEBUG caret position.
     */
     void LineEndRectExtend();
 
     /**
-        Move caret one page up, extending rectangular selection to new caret position.
+        Move caret one page up, extending rectangular selection to NEW_DEBUG caret position.
     */
     void PageUpRectExtend();
 
     /**
-        Move caret one page down, extending rectangular selection to new caret position.
+        Move caret one page down, extending rectangular selection to NEW_DEBUG caret position.
     */
     void PageDownRectExtend();
 
@@ -6276,7 +6276,7 @@ public:
     void StutteredPageUp();
 
     /**
-        Move caret to top of page, or one page up if already at top of page, extending selection to new caret position.
+        Move caret to top of page, or one page up if already at top of page, extending selection to NEW_DEBUG caret position.
     */
     void StutteredPageUpExtend();
 
@@ -6286,7 +6286,7 @@ public:
     void StutteredPageDown();
 
     /**
-        Move caret to bottom of page, or one page down if already at bottom of page, extending selection to new caret position.
+        Move caret to bottom of page, or one page down if already at bottom of page, extending selection to NEW_DEBUG caret position.
     */
     void StutteredPageDownExtend();
 
@@ -6296,7 +6296,7 @@ public:
     void WordLeftEnd();
 
     /**
-        Move caret left one word, position cursor at end of word, extending selection to new caret position.
+        Move caret left one word, position cursor at end of word, extending selection to NEW_DEBUG caret position.
     */
     void WordLeftEndExtend();
 
@@ -6306,7 +6306,7 @@ public:
     void WordRightEnd();
 
     /**
-        Move caret right one word, position cursor at end of word, extending selection to new caret position.
+        Move caret right one word, position cursor at end of word, extending selection to NEW_DEBUG caret position.
     */
     void WordRightEndExtend();
 
@@ -6339,7 +6339,7 @@ public:
     void VCHomeDisplay();
 
     /**
-        Like VCHomeDisplay but extending selection to new caret position.
+        Like VCHomeDisplay but extending selection to NEW_DEBUG caret position.
 
         @since 3.1.0
     */
@@ -6528,7 +6528,7 @@ public:
     void SetDocPointer(void* docPointer);
 
     /**
-        Create a new document object.
+        Create a NEW_DEBUG document object.
         Starts with reference count of 1 and not selected into editor.
     */
     void* CreateDocument();
@@ -6911,7 +6911,7 @@ public:
     void SetEdgeColour(const wxColour& edgeColour);
 
     /**
-        Add a new vertical edge to the view.
+        Add a NEW_DEBUG vertical edge to the view.
 
         @since 3.1.1
     */
@@ -7155,7 +7155,7 @@ public:
     /**
         @member_group_name{DeprecatedMessages, Deprecated items}
 
-        These methods should not be used in new code.
+        These methods should not be used in NEW_DEBUG code.
     */
     //@{
 
@@ -8004,7 +8004,7 @@ public:
 
     - Generated when the text of the document has changed.
 
-    - This an older style event and should probably not be used in new code. Use
+    - This an older style event and should probably not be used in NEW_DEBUG code. Use
     @c wxEVT_STC_MODIFIED instead.
 
     - Valid event functions: none.

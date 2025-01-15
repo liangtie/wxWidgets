@@ -259,10 +259,10 @@ private:
 
 private:
     // If m_graphics_changed is true, close the current <g> element and start a
-    // new one for the last pen/brush change.
+    // NEW_DEBUG one for the last pen/brush change.
     void NewGraphicsIfNeeded();
 
-    // Open a new graphics group setting up all the attributes according to
+    // Open a NEW_DEBUG graphics group setting up all the attributes according to
     // their current values in wxDC.
     void DoStartNewGraphics();
 
@@ -299,7 +299,7 @@ public:
                 int height = 240,
                 double dpi = 72.0,
                 const wxString& title = wxString())
-        : wxDC(new wxSVGFileDCImpl(this, filename, width, height, dpi, title))
+        : wxDC(NEW_DEBUG wxSVGFileDCImpl(this, filename, width, height, dpi, title))
     {
     }
 

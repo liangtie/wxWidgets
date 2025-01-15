@@ -67,28 +67,28 @@ public:
     // page (usually the first child page of a node) is shown when this page is
     // selected
 
-    // Inserts a new page just before the page indicated by page.
-    // The new page is placed on the same level as page.
+    // Inserts a NEW_DEBUG page just before the page indicated by page.
+    // The NEW_DEBUG page is placed on the same level as page.
     virtual bool InsertPage(size_t pos,
                             wxWindow *page,
                             const wxString& text,
                             bool bSelect = false,
                             int imageId = NO_IMAGE) wxOVERRIDE;
 
-    // Inserts a new sub-page to the end of children of the page at given pos.
+    // Inserts a NEW_DEBUG sub-page to the end of children of the page at given pos.
     virtual bool InsertSubPage(size_t pos,
                                wxWindow *page,
                                const wxString& text,
                                bool bSelect = false,
                                int imageId = NO_IMAGE);
 
-    // Adds a new page at top level after all other pages.
+    // Adds a NEW_DEBUG page at top level after all other pages.
     virtual bool AddPage(wxWindow *page,
                          const wxString& text,
                          bool bSelect = false,
                          int imageId = NO_IMAGE) wxOVERRIDE;
 
-    // Adds a new child-page to the last top-level page inserted.
+    // Adds a NEW_DEBUG child-page to the last top-level page inserted.
     // Useful when constructing 1 level tree structure.
     virtual bool AddSubPage(wxWindow *page,
                             const wxString& text,

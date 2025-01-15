@@ -413,7 +413,7 @@ public:
     // appropriate return value is then put in result, which must be non-null)
     // or false if it wasn't.
     //
-    // This function should be overridden in any new code instead of
+    // This function should be overridden in any NEW_DEBUG code instead of
     // MSWWindowProc() even if currently most of the code overrides
     // MSWWindowProc() as it had been written before this function was added.
     virtual bool MSWHandleMessage(WXLRESULT *result,
@@ -785,7 +785,7 @@ protected:
                                     int width, int height, bool bRepaint);
 
 #if wxUSE_DEFERRED_SIZING
-    // this function is called after the window was resized to its new size
+    // this function is called after the window was resized to its NEW_DEBUG size
     virtual void MSWEndDeferWindowPos()
     {
         m_pendingPosition = wxDefaultPosition;
@@ -808,7 +808,7 @@ private:
     wxDECLARE_EVENT_TABLE();
 };
 
-// window creation helper class: before creating a new HWND, instantiate an
+// window creation helper class: before creating a NEW_DEBUG HWND, instantiate an
 // object of this class on stack - this allows to process the messages sent to
 // the window even before CreateWindow() returns
 class wxWindowCreationHook

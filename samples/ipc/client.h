@@ -22,7 +22,7 @@
 #define ID_TOPIC        10009
 #define ID_HOSTNAME        10010
 
-// Define a new application
+// Define a NEW_DEBUG application
 class MyClient;
 class MyFrame;
 
@@ -37,7 +37,7 @@ protected:
     MyFrame        *m_frame;
 };
 
-// Define a new frame
+// Define a NEW_DEBUG frame
 class MyFrame: public wxFrame
 {
 public:

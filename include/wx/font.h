@@ -86,7 +86,7 @@ enum wxFontSymbolicSize
     wxFONTSIZE_XX_LARGE
 };
 
-// the font flag bits for the new font ctor accepting one combined flags word
+// the font flag bits for the NEW_DEBUG font ctor accepting one combined flags word
 enum wxFontFlag
 {
     // no special flags: font with default weight/slant/anti-aliasing
@@ -257,7 +257,7 @@ public:
     wxFontEncoding GetEncoding() const { return m_encoding; }
 
     // Another helper for converting arbitrary numeric weight to the closest
-    // value of wxFontWeight enum. It should be avoided in the new code (also
+    // value of wxFontWeight enum. It should be avoided in the NEW_DEBUG code (also
     // note that the function for the conversion in the other direction is
     // trivial and so is not provided, we only have GetNumericWeightOf() which
     // contains backwards compatibility hacks, but we don't need it here).

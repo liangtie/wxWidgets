@@ -13,7 +13,7 @@
 wxWidgets defines a special identifier value @c wxID_ANY which is used in
 the following two situations:
 
-@li when creating a new window you may specify @c wxID_ANY to let
+@li when creating a NEW_DEBUG window you may specify @c wxID_ANY to let
     wxWidgets assign an unused identifier to it automatically
 @li when installing an event handler using wxEvtHandler::Bind,
     wxEvtHandler::Connect or the event table macros,

@@ -52,10 +52,10 @@ public:
 //   calling wxPropertyGrid::RegisterAdditionalEditors() prior use.
 // - Pointer to builtin editor is available as wxPGEditor_EditorName
 //   (e.g. wxPGEditor_TextCtrl).
-// - To add new editor you need to register it first using static function
+// - To add NEW_DEBUG editor you need to register it first using static function
 //   wxPropertyGrid::RegisterEditorClass(), with code like this:
 //      wxPGEditor *editorPointer = wxPropertyGrid::RegisterEditorClass(
-//                                     new MyEditorClass(), "MyEditor");
+//                                     NEW_DEBUG MyEditorClass(), "MyEditor");
 //   After that, wxPropertyGrid will take ownership of the given object, but
 //   you should still store editorPointer somewhere, so you can pass it to
 //   wxPGProperty::SetEditor(), or return it from
@@ -128,14 +128,14 @@ public:
                                       wxPGProperty* property,
                                       wxWindow* ctrl ) const;
 
-    // Sets new appearance for the control. Default implementation
+    // Sets NEW_DEBUG appearance for the control. Default implementation
     // sets foreground colour, background colour, font, plus text
     // for wxTextCtrl and wxComboCtrl.
     // appearance - New appearance to be applied.
     // oldAppearance - Previously applied appearance. Used to detect
     //   which control attributes need to be changed (e.g. so we only
     //   change background colour if really needed).
-    // unspecified - true if the new appearance represents an unspecified
+    // unspecified - true if the NEW_DEBUG appearance represents an unspecified
     // property value.
     virtual void SetControlAppearance( wxPropertyGrid* pg,
                                        wxPGProperty* property,
@@ -403,7 +403,7 @@ public:
     if ( wxPGEditor_##EDITOR == NULL ) \
     { \
         wxPGEditor_##EDITOR = wxPropertyGrid::RegisterEditorClass( \
-                new wxPG##EDITOR##Editor ); \
+                NEW_DEBUG wxPG##EDITOR##Editor ); \
     }
 
 // -----------------------------------------------------------------------
@@ -451,7 +451,7 @@ private:
 
 
 // This class can be used to have multiple buttons in a property editor.
-// You will need to create a new property editor class, override
+// You will need to create a NEW_DEBUG property editor class, override
 // CreateControls, and have it return wxPGMultiButton instance in
 // wxPGWindowList::SetSecondary().
 class WXDLLIMPEXP_PROPGRID wxPGMultiButton : public wxWindow

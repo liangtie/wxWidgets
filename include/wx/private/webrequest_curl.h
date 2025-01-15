@@ -194,7 +194,7 @@ class wxWebSessionFactoryCURL : public wxWebSessionFactory
 {
 public:
     wxWebSessionImpl* Create() wxOVERRIDE
-    { return new wxWebSessionCURL(); }
+    { return NEW_DEBUG wxWebSessionCURL(); }
 };
 
 #endif // wxUSE_WEBREQUEST_CURL

@@ -52,7 +52,7 @@ class WXDLLIMPEXP_BASE const_iterator                                    \
 // based on the value of wxUSE_EXTENDED_RTTI symbol,
 // only one of the RTTI system will be compiled:
 // - the "old" one (defined by rtti.h) or
-// - the "new" one (defined by xti.h)
+// - the "NEW_DEBUG" one (defined by xti.h)
 #include "wx/xti.h"
 #include "wx/rtti.h"
 
@@ -166,12 +166,12 @@ inline T *wxCheckCast(const void *ptr)
 // ----------------------------------------------------------------------------
 
 /*
-    Which new/delete operator variants do we want?
+    Which NEW_DEBUG/delete operator variants do we want?
 
-    _WX_WANT_NEW_SIZET_WXCHAR_INT             = void *operator new (size_t size, wxChar *fileName = 0, int lineNum = 0)
+    _WX_WANT_NEW_SIZET_WXCHAR_INT             = void *operator NEW_DEBUG (size_t size, wxChar *fileName = 0, int lineNum = 0)
     _WX_WANT_DELETE_VOID                      = void operator delete (void * buf)
     _WX_WANT_DELETE_VOID_WXCHAR_INT           = void operator delete(void *buf, wxChar*, int)
-    _WX_WANT_ARRAY_NEW_SIZET_WXCHAR_INT       = void *operator new[] (size_t size, wxChar *fileName , int lineNum = 0)
+    _WX_WANT_ARRAY_NEW_SIZET_WXCHAR_INT       = void *operator NEW_DEBUG[] (size_t size, wxChar *fileName , int lineNum = 0)
     _WX_WANT_ARRAY_DELETE_VOID                = void operator delete[] (void *buf)
     _WX_WANT_ARRAY_DELETE_VOID_WXCHAR_INT     = void operator delete[] (void* buf, wxChar*, int )
 */
@@ -244,8 +244,8 @@ private:
     // our refcount:
     int m_count;
 
-    // It doesn't make sense to copy the reference counted objects, a new ref
-    // counter should be created for a new object instead and compilation
+    // It doesn't make sense to copy the reference counted objects, a NEW_DEBUG ref
+    // counter should be created for a NEW_DEBUG object instead and compilation
     // errors in the code using wxRefCounter due to the lack of copy ctor often
     // indicate a problem, e.g. a forgotten copy ctor implementation somewhere.
     wxDECLARE_NO_COPY_CLASS(wxRefCounter);
@@ -398,10 +398,10 @@ public:
 
     bool IsKindOf(const wxClassInfo *info) const;
 
-    // Turn on the correct set of new and delete operators
+    // Turn on the correct set of NEW_DEBUG and delete operators
 
 #ifdef _WX_WANT_NEW_SIZET_WXCHAR_INT
-    void *operator new ( size_t size, const wxChar *fileName = NULL, int lineNum = 0 );
+    void *operator NEW_DEBUG ( size_t size, const wxChar *fileName = NULL, int lineNum = 0 );
 #endif
 
 #ifdef _WX_WANT_DELETE_VOID
@@ -413,7 +413,7 @@ public:
 #endif
 
 #ifdef _WX_WANT_ARRAY_NEW_SIZET_WXCHAR_INT
-    void *operator new[] ( size_t size, const wxChar *fileName = NULL, int lineNum = 0 );
+    void *operator NEW_DEBUG[] ( size_t size, const wxChar *fileName = NULL, int lineNum = 0 );
 #endif
 
 #ifdef _WX_WANT_ARRAY_DELETE_VOID
@@ -460,10 +460,10 @@ protected:
     // both methods must be implemented if AllocExclusive() is used, not pure
     // virtual only because of the backwards compatibility reasons
 
-    // create a new m_refData
+    // create a NEW_DEBUG m_refData
     virtual wxObjectRefData *CreateRefData() const;
 
-    // create a new m_refData initialized with the given one
+    // create a NEW_DEBUG m_refData initialized with the given one
     virtual wxObjectRefData *CloneRefData(const wxObjectRefData *data) const;
 
     wxObjectRefData *m_refData;
@@ -481,12 +481,12 @@ inline wxObject *wxCheckDynamicCast(wxObject *obj, wxClassInfo *classInfo)
 // ----------------------------------------------------------------------------
 
 #if wxUSE_DEBUG_NEW_ALWAYS
-    #define WXDEBUG_NEW new(__TFILE__,__LINE__)
+    #define WXDEBUG_NEW NEW_DEBUG(__TFILE__,__LINE__)
 
     #if wxUSE_GLOBAL_MEMORY_OPERATORS
-        #define new WXDEBUG_NEW
+        #define NEW_DEBUG WXDEBUG_NEW
     #elif defined(__VISUALC__)
-        // Including this file redefines new and allows leak reports to
+        // Including this file redefines NEW_DEBUG and allows leak reports to
         // contain line numbers
         #include "wx/msw/msvcrt.h"
     #endif

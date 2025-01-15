@@ -53,7 +53,7 @@ enum
     @code
     // using wxConfig instead of writing wxFileConfig or wxRegConfig enhances
     // portability of the code
-    wxConfig *config = new wxConfig("MyAppName");
+    wxConfig *config = NEW_DEBUG wxConfig("MyAppName");
 
     wxString str;
     if ( config->Read("LastPrompt", &str) ) {
@@ -126,7 +126,7 @@ enum
     demonstration, it doesn't do anything sensible!):
 
     @code
-    wxConfig *config = new wxConfig("FooBarApp");
+    wxConfig *config = NEW_DEBUG wxConfig("FooBarApp");
 
     // right now the current path is '/'
     conf->Write("RootEntry", 1);
@@ -303,7 +303,7 @@ public:
             @c wxCONFIG_USE_SUBDIR flag, which changes the default local
             configuration file to "~/.appname/appname" should be used. Notice
             that this flag is ignored if @a localFilename is provided.
-            @c wxCONFIG_USE_SUBDIR is new since wxWidgets version 2.8.2.
+            @c wxCONFIG_USE_SUBDIR is NEW_DEBUG since wxWidgets version 2.8.2.
             @n For wxFileConfig, you can also add
             @c wxCONFIG_USE_NO_ESCAPE_CHARACTERS which will turn off character
             escaping for the values of entries stored in the config file: for
@@ -747,7 +747,7 @@ public:
         case with the configuration files used by wxFileConfig), this function
         uses the C locale for writing out the number, i.e. it will always use a
         period as the decimal separator, irrespectively of the current locale.
-        This behaviour is new since wxWidgets 2.9.1 as the current locale was
+        This behaviour is NEW_DEBUG since wxWidgets 2.9.1 as the current locale was
         used before, but the change should be transparent because both C and
         current locales are tried when reading the numbers back.
     */
@@ -776,14 +776,14 @@ public:
         These functions allow renaming entries or subgroups of the current
         group. They will return @false on error, typically because either the
         entry/group with the original name doesn't exist, because the
-        entry/group with the new name already exists or because the function is
+        entry/group with the NEW_DEBUG name already exists or because the function is
         not supported in this wxConfig implementation.
     */
     ///@{
 
     /**
         Renames an entry in the current group. The entries names (both the old
-        and the new one) shouldn't contain backslashes, i.e. only simple names
+        and the NEW_DEBUG one) shouldn't contain backslashes, i.e. only simple names
         and not arbitrary paths are accepted by this function.
 
         @return @false if @a oldName doesn't exist or if @a newName already
@@ -794,7 +794,7 @@ public:
 
     /**
         Renames a subgroup of the current group. The subgroup names (both the
-        old and the new one) shouldn't contain backslashes, i.e. only simple
+        old and the NEW_DEBUG one) shouldn't contain backslashes, i.e. only simple
         names and not arbitrary paths are accepted by this function.
 
         @return @false if @a oldName doesn't exist or if @a newName already
@@ -899,7 +899,7 @@ public:
 
 
     /**
-        Create a new config object and sets it as the current one.
+        Create a NEW_DEBUG config object and sets it as the current one.
 
         This function will create the most appropriate implementation of
         wxConfig available for the current platform. By default this means that
@@ -924,8 +924,8 @@ public:
 
     /**
         Calling this function will prevent @e Get() from automatically creating
-        a new config object if the current one is @NULL. It might be useful to
-        call it near the program end to prevent "accidental" creation of a new
+        a NEW_DEBUG config object if the current one is @NULL. It might be useful to
+        call it near the program end to prevent "accidental" creation of a NEW_DEBUG
         config object.
     */
     static void DontCreateOnDemand();

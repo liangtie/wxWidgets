@@ -109,7 +109,7 @@ public:
                                          long style = wxSTB_DEFAULT_STYLE,
                                          wxWindowID winid = 0,
                                          const wxString& name = wxASCII_STR(wxStatusLineNameStr));
-    // return a new status bar
+    // return a NEW_DEBUG status bar
     virtual wxStatusBar *OnCreateStatusBar(int number,
                                            long style,
                                            wxWindowID winid,
@@ -139,7 +139,7 @@ public:
     virtual wxToolBar* CreateToolBar(long style = -1,
                                      wxWindowID winid = wxID_ANY,
                                      const wxString& name = wxASCII_STR(wxToolBarNameStr));
-    // return a new toolbar
+    // return a NEW_DEBUG toolbar
     virtual wxToolBar *OnCreateToolBar(long style,
                                        wxWindowID winid,
                                        const wxString& name );

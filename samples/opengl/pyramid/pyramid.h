@@ -10,7 +10,7 @@
 #ifndef PYRSAMLE_H
 #define PYRSAMLE_H
 
-// Define a new application
+// Define a NEW_DEBUG application
 class MyApp: public wxApp
 {
 public:

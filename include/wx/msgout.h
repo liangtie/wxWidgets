@@ -78,7 +78,7 @@ protected:
     // with it (in which case it's returned unchanged)
     wxString AppendLineFeedIfNeeded(const wxString& str);
 
-    // Prepare the given string for output by appending a new line to it, if
+    // Prepare the given string for output by appending a NEW_DEBUG line to it, if
     // necessary, and converting it to a narrow string using our conversion
     // object.
     wxCharBuffer PrepareForOutput(const wxString& str);

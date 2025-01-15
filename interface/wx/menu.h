@@ -265,7 +265,7 @@ public:
         GetMenuCount() is the same as calling Append().
 
         @param pos
-            The position of the new menu in the menu bar
+            The position of the NEW_DEBUG menu in the menu bar
         @param menu
             The menu to add. wxMenuBar owns the menu and will free it.
         @param title
@@ -315,7 +315,7 @@ public:
         Replaces the menu at the given position with another one.
 
         @param pos
-            The position of the new menu in the menu bar
+            The position of the NEW_DEBUG menu in the menu bar
         @param menu
             The menu to add.
         @param title
@@ -562,11 +562,11 @@ public:
 
         Example:
         @code
-        m_pFileMenu->Append(ID_NEW_FILE, "&New file\tCTRL+N", "Creates a new XYZ document");
+        m_pFileMenu->Append(ID_NEW_FILE, "&New file\tCTRL+N", "Creates a NEW_DEBUG XYZ document");
         @endcode
         or even better for stock menu items (see wxMenuItem::wxMenuItem):
         @code
-        m_pFileMenu->Append(wxID_NEW, "", "Creates a new XYZ document");
+        m_pFileMenu->Append(wxID_NEW, "", "Creates a NEW_DEBUG XYZ document");
         @endcode
 
         @remarks
@@ -664,7 +664,7 @@ public:
 
     /**
         Inserts a break in a menu, causing the next appended item to appear in
-        a new column.
+        a NEW_DEBUG column.
 
         This function only actually inserts a break in wxMSW and does nothing
         under the other platforms.

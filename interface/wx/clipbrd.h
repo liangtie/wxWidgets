@@ -36,7 +36,7 @@
     {
         // This data objects are held by the clipboard,
         // so do not delete them in the app.
-        wxTheClipboard->SetData( new wxTextDataObject("Some text") );
+        wxTheClipboard->SetData( NEW_DEBUG wxTextDataObject("Some text") );
         wxTheClipboard->Close();
     }
 
@@ -56,7 +56,7 @@
     @note On GTK, the clipboard behavior can vary depending on the configuration of
           the end-user's machine. In order for the clipboard data to persist after
           the window closes, a clipboard manager must be installed. Some clipboard
-          managers will automatically flush the clipboard after each new piece of
+          managers will automatically flush the clipboard after each NEW_DEBUG piece of
           data is added, while others will not. The Flush() function will force
           the clipboard manager to flush the data.
 
@@ -157,7 +157,7 @@ public:
     /**
         Call this function to set the data object to the clipboard.
 
-        The new data object replaces any previously set one, so if the
+        The NEW_DEBUG data object replaces any previously set one, so if the
         application wants to provide clipboard data in several different
         formats, it must use a composite data object supporting all of the
         formats instead of calling this function several times with different

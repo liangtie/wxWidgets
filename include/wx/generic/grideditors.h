@@ -85,7 +85,7 @@ public:
 #endif
 
     virtual wxGridCellEditor *Clone() const wxOVERRIDE
-        { return new wxGridCellTextEditor(*this); }
+        { return NEW_DEBUG wxGridCellTextEditor(*this); }
 
     // added GetValue so we can get the value which is in the control
     virtual wxString GetValue() const wxOVERRIDE;
@@ -148,7 +148,7 @@ public:
     virtual void SetParameters(const wxString& params) wxOVERRIDE;
 
     virtual wxGridCellEditor *Clone() const wxOVERRIDE
-        { return new wxGridCellNumberEditor(*this); }
+        { return NEW_DEBUG wxGridCellNumberEditor(*this); }
 
     // added GetValue so we can get the value which is in the control
     virtual wxString GetValue() const wxOVERRIDE;
@@ -243,7 +243,7 @@ public:
     virtual void StartingKey(wxKeyEvent& event) wxOVERRIDE;
 
     virtual wxGridCellEditor *Clone() const wxOVERRIDE
-        { return new wxGridCellFloatEditor(*this); }
+        { return NEW_DEBUG wxGridCellFloatEditor(*this); }
 
     // parameters string format is "width[,precision[,format]]"
     // format to choose between f|e|g|E|G (f is used by default)
@@ -304,7 +304,7 @@ public:
     virtual void StartingKey(wxKeyEvent& event) wxOVERRIDE;
 
     virtual wxGridCellEditor *Clone() const wxOVERRIDE
-        { return new wxGridCellBoolEditor(*this); }
+        { return NEW_DEBUG wxGridCellBoolEditor(*this); }
 
     // added GetValue so we can get the value which is in the control, see
     // also UseStringValues()
@@ -382,7 +382,7 @@ public:
     virtual void SetParameters(const wxString& params) wxOVERRIDE;
 
     virtual wxGridCellEditor *Clone() const wxOVERRIDE
-        { return new wxGridCellChoiceEditor(*this); }
+        { return NEW_DEBUG wxGridCellChoiceEditor(*this); }
 
     // added GetValue so we can get the value which is in the control
     virtual wxString GetValue() const wxOVERRIDE;
@@ -415,7 +415,7 @@ public:
     virtual ~wxGridCellEnumEditor() {}
 
     virtual wxGridCellEditor* Clone() const wxOVERRIDE
-        { return new wxGridCellEnumEditor(*this); }
+        { return NEW_DEBUG wxGridCellEnumEditor(*this); }
 
     virtual void BeginEdit(int row, int col, wxGrid* grid) wxOVERRIDE;
     virtual bool EndEdit(int row, int col, const wxGrid* grid,
@@ -446,7 +446,7 @@ public:
                         wxEvtHandler* evtHandler) wxOVERRIDE;
 
     virtual wxGridCellEditor *Clone() const wxOVERRIDE
-        { return new wxGridCellAutoWrapStringEditor(*this); }
+        { return NEW_DEBUG wxGridCellAutoWrapStringEditor(*this); }
 };
 
 #if wxUSE_DATEPICKCTRL
@@ -479,7 +479,7 @@ public:
     virtual void Reset() wxOVERRIDE;
 
     virtual wxGridCellEditor *Clone() const wxOVERRIDE
-        { return new wxGridCellDateEditor(*this); }
+        { return NEW_DEBUG wxGridCellDateEditor(*this); }
 
     virtual wxString GetValue() const wxOVERRIDE;
 

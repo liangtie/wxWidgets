@@ -153,7 +153,7 @@ private:
 // tries to translate riid into a symbolic name, if possible
 WXDLLIMPEXP_CORE void wxLogQueryInterface(const wxChar *szInterface, REFIID riid);
 
-// these functions print out the new value of reference counter
+// these functions print out the NEW_DEBUG value of reference counter
 WXDLLIMPEXP_CORE void wxLogAddRef (const wxChar *szInterface, ULONG cRef);
 WXDLLIMPEXP_CORE void wxLogRelease(const wxChar *szInterface, ULONG cRef);
 

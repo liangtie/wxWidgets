@@ -61,7 +61,7 @@ wxEventType wxEVT_DIRPICKER_CHANGED;
            Change current working directory on each user file selection change.
     @style{wxFLP_SMALL}
            Use smaller version of the control with a small "..." button instead
-           of the normal "Browse" one. This flag is new since wxWidgets 2.9.3.
+           of the normal "Browse" one. This flag is NEW_DEBUG since wxWidgets 2.9.3.
     @endStyleTable
 
 
@@ -215,7 +215,7 @@ public:
            Change current working directory on each user directory selection change.
     @style{wxDIRP_SMALL}
            Use smaller version of the control with a small "..." button instead
-           of the normal "Browse" one. This flag is new since wxWidgets 2.9.3.
+           of the normal "Browse" one. This flag is NEW_DEBUG since wxWidgets 2.9.3.
     @endStyleTable
 
     @beginEventEmissionTable{wxFileDirPickerEvent}

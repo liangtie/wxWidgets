@@ -67,7 +67,7 @@ I STRONGLY recommend reading and understanding these macros!!
 
 
 #define TAGS_MODULE_ADD(handler)                                          \
-                    parser->AddTagHandler(new wxHTML_Handler_##handler);
+                    parser->AddTagHandler(NEW_DEBUG wxHTML_Handler_##handler);
 
 
 

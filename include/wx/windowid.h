@@ -87,7 +87,7 @@ public:
 
 private:
 #if wxUSE_AUTOID_MANAGEMENT
-    // common part of all ctors: call Assign() for our new id
+    // common part of all ctors: call Assign() for our NEW_DEBUG id
     void Init(wxWindowID id)
     {
         // m_id must be initialized before calling Assign()

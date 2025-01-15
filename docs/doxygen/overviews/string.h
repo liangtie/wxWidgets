@@ -15,7 +15,7 @@ wxString is a class which represents a Unicode string of arbitrary length and
 containing arbitrary Unicode characters.
 
 This class has all the standard operations you can expect to find in a string
-class: dynamic memory management (string extends to accommodate new
+class: dynamic memory management (string extends to accommodate NEW_DEBUG
 characters), construction from other strings, compatibility with C strings and
 wide character C strings, assignment operators, access to individual characters, string
 concatenation and comparison, substring extraction, case conversion, trimming and
@@ -170,7 +170,7 @@ staying compatible with future versions of wxWidgets which will probably start
 using @c std::string sooner or later too.
 
 In the situations where there is no corresponding @c std::string function, please
-try to use the new wxString methods and not the old wxWidgets 1.xx variants
+try to use the NEW_DEBUG wxString methods and not the old wxWidgets 1.xx variants
 which are deprecated and may disappear in future versions.
 
 
@@ -182,7 +182,7 @@ The default behaviour, which can't be changed to avoid breaking compatibility
 with the existing code, is to provide implicit conversions of wxString to
 C-style strings, i.e. <tt>const char*</tt> and/or <tt>const wchar_t*</tt>. As
 explained below, these conversions are dangerous and it is @e strongly
-recommended to predefine @c wxNO_UNSAFE_WXSTRING_CONV for all new projects
+recommended to predefine @c wxNO_UNSAFE_WXSTRING_CONV for all NEW_DEBUG projects
 using wxWidgets to disable them. Notice that this preprocessor symbol is
 different from the more usual @c wxUSE_XXX build options, as it only needs to
 be defined when building the application and doesn't require rebuilding the

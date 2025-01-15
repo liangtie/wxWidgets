@@ -14,7 +14,7 @@
 
     You will never use this class yourself, but you need it to show startup tips
     with wxShowTip. Also, if you want to get the tips text from elsewhere than a
-    simple text file, you will want to derive a new class from wxTipProvider and
+    simple text file, you will want to derive a NEW_DEBUG class from wxTipProvider and
     use it instead of the one returned by wxCreateFileTipProvider().
 
     @library{wxcore}

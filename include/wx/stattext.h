@@ -68,7 +68,7 @@ protected:      // functions required for wxST_ELLIPSIZE_* support
     // as it's used by wxGenericStaticText.
 
     // Must be called when the size or font changes to redo the ellipsization
-    // for the new size. Calls WXSetVisibleLabel() to actually update the
+    // for the NEW_DEBUG size. Calls WXSetVisibleLabel() to actually update the
     // display.
     void UpdateLabel();
 

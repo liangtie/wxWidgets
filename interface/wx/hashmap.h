@@ -30,9 +30,9 @@
         MyHash2 h2;
 
         // store and retrieve values
-        h1[1] = new MyClass( 1 );
+        h1[1] = NEW_DEBUG MyClass( 1 );
         h1[10000000] = NULL;
-        h1[50000] = new MyClass( 2 );
+        h1[50000] = NEW_DEBUG MyClass( 2 );
         h2["Bill"] = "ABC";
         wxString tmp = h2["Bill"];
         // since element with key "Joe" is not present, this will return
@@ -49,7 +49,7 @@
     @endcode
 
 
-    @section hashmap_declaringnew Declaring new hash table types
+    @section hashmap_declaringnew Declaring NEW_DEBUG hash table types
 
     @code
         WX_DECLARE_STRING_HASH_MAP( VALUE_T,     // type of the values

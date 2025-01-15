@@ -21,7 +21,7 @@ database searching. There is a wxFileSystem class which allows you to use
 your own virtual file systems.
 
 wxHtmlWindow supports tag handlers. This means that you can easily
-extend wxHtml library with new, unsupported tags. Not only that,
+extend wxHtml library with NEW_DEBUG, unsupported tags. Not only that,
 you can even use your own application-specific tags!
 
 See @c src/html/m_*.cpp files for details.
@@ -63,7 +63,7 @@ wxHtmlWindow::SetRelatedFrame and wxHtmlWindow::SetRelatedStatusBar.
 See the example:
 
 @code
-html = new wxHtmlWindow(this);
+html = NEW_DEBUG wxHtmlWindow(this);
 html->SetRelatedFrame(this, "HTML : %%s");
 html->SetRelatedStatusBar(0);
 @endcode
@@ -240,13 +240,13 @@ containers:
 wxHtmlWinParser provides a user-friendly way of managing containers.
 It is based on the idea of opening and closing containers.
 
-Use wxHtmlWinParser::OpenContainer to open new a container @e within an already
+Use wxHtmlWinParser::OpenContainer to open NEW_DEBUG a container @e within an already
 opened container.
-This new container is a @e sub-container of the old one. (If you want to create a
-new container with the same depth level you can call @c CloseContainer(); OpenContainer();.)
+This NEW_DEBUG container is a @e sub-container of the old one. (If you want to create a
+NEW_DEBUG container with the same depth level you can call @c CloseContainer(); OpenContainer();.)
 
 Use wxHtmlWinParser::CloseContainer to close the container.
-This doesn't create a new container with same depth level but it returns "control"
+This doesn't create a NEW_DEBUG container with same depth level but it returns "control"
 to the parent container. See explanation:
 
 @image html overview_html_cont.png
@@ -254,7 +254,7 @@ to the parent container. See explanation:
 There clearly must be same number of calls to OpenContainer as to
 CloseContainer.
 
-This code creates a new paragraph (container at same depth level) with
+This code creates a NEW_DEBUG paragraph (container at same depth level) with
 "Hello, world!":
 
 @code
@@ -274,7 +274,7 @@ and here is image of the situation:
 
 You can see that there was an opened container before the code was executed.
 We closed it, created our own container, then closed our container and opened
-new container.
+NEW_DEBUG container.
 
 The result was that we had @e same depth level after executing. This is general
 rule that should be followed by tag handlers: leave depth level of containers
@@ -293,7 +293,7 @@ Tag handler is class that understands particular HTML tag (or tags) and is
 able to interpret it.
 
 wxHtmlWinParser has a static table of @b modules.
-Each module contains one or more tag handlers. Each time a new wxHtmlWinParser
+Each module contains one or more tag handlers. Each time a NEW_DEBUG wxHtmlWinParser
 object is constructed all modules are scanned and handlers are added
 to wxHtmlParser's list of available handlers (note: wxHtmlParser's list
 is non-static).
@@ -312,7 +312,7 @@ In general you can do things like opening/closing containers, changing colors, f
 
 @subsection overview_html_handlers_custom Providing own tag handlers
 
-You should create a new .cpp file and place the following lines into it:
+You should create a NEW_DEBUG .cpp file and place the following lines into it:
 
 @code
 #include <mod_templ.h>
@@ -337,7 +337,7 @@ See macros reference:
 @li @b TAG_HANDLER_BEGIN(@e name, @e tags):
     Starts handler definition. @e name is handler identifier (in fact
     part of class name), @e tags is string containing list of tags
-    supported by this handler (in uppercase). This macro derives new class from
+    supported by this handler (in uppercase). This macro derives NEW_DEBUG class from
     wxHtmlWinTagHandler and implements it is wxHtmlTagHandler::GetSupportedTags method.
     Example: TAG_HANDLER_BEGIN(FONTS, "B,I,U,T")
 
@@ -395,7 +395,7 @@ See macros reference:
 @subsection overview_html_handlers_modules Tags Modules
 
 You can use set of 3 macros TAGS_MODULE_BEGIN, TAGS_MODULE_ADD and
-TAGS_MODULE_END to inherit new module from
+TAGS_MODULE_END to inherit NEW_DEBUG module from
 wxHtmlTagsModule and to create instance of it.
 
 See macros reference:

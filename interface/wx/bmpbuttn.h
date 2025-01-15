@@ -108,8 +108,8 @@ public:
         effect.
 
         @param parent The button parent window, must be non-@NULL.
-        @param winid The identifier for the new button.
-        @param name The name for the new button.
+        @param winid The identifier for the NEW_DEBUG button.
+        @param name The name for the NEW_DEBUG button.
 
         @since 3.1.5
      */
@@ -126,9 +126,9 @@ public:
         the button with as native look as possible.
 
         @param parent The button parent window, must be non-@NULL.
-        @param winid The identifier for the new button.
-        @param name The name for the new button (available since wxWidgets 3.1.5)
-        @return The new button.
+        @param winid The identifier for the NEW_DEBUG button.
+        @param name The name for the NEW_DEBUG button (available since wxWidgets 3.1.5)
+        @return The NEW_DEBUG button.
 
         @since 2.9.5
      */

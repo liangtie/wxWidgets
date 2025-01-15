@@ -214,27 +214,27 @@ public:
         Add a button to the button bar.
 
         @param button_id
-            ID of the new button (used for event callbacks).
+            ID of the NEW_DEBUG button (used for event callbacks).
         @param label
-            Label of the new button.
+            Label of the NEW_DEBUG button.
         @param bitmap
-            Large bitmap of the new button. Must be the same size as all other
+            Large bitmap of the NEW_DEBUG button. Must be the same size as all other
             large bitmaps used on the button bar.
         @param bitmap_small
-            Small bitmap of the new button. If left as null, then a small
+            Small bitmap of the NEW_DEBUG button. If left as null, then a small
             bitmap will be automatically generated. Must be the same size as
             all other small bitmaps used on the button bar.
         @param bitmap_disabled
-            Large bitmap of the new button when it is disabled. If left as
+            Large bitmap of the NEW_DEBUG button when it is disabled. If left as
             null, then a bitmap will be automatically generated from @a bitmap.
         @param bitmap_small_disabled
-            Small bitmap of the new button when it is disabled. If left as
+            Small bitmap of the NEW_DEBUG button when it is disabled. If left as
             null, then a bitmap will be automatically generated from @a
             bitmap_small.
         @param kind
             The kind of button to add.
         @param help_string
-            The UI help string to associate with the new button.
+            The UI help string to associate with the NEW_DEBUG button.
 
         @return An opaque pointer which can be used only with other button bar
             methods.
@@ -323,29 +323,29 @@ public:
         Insert a button to the button bar at the given position.
 
         @param pos
-            Position of the new button in the button bar.
+            Position of the NEW_DEBUG button in the button bar.
         @param button_id
-            ID of the new button (used for event callbacks).
+            ID of the NEW_DEBUG button (used for event callbacks).
         @param label
-            Label of the new button.
+            Label of the NEW_DEBUG button.
         @param bitmap
-            Large bitmap of the new button. Must be the same size as all other
+            Large bitmap of the NEW_DEBUG button. Must be the same size as all other
             large bitmaps used on the button bar.
         @param bitmap_small
-            Small bitmap of the new button. If left as null, then a small
+            Small bitmap of the NEW_DEBUG button. If left as null, then a small
             bitmap will be automatically generated. Must be the same size as
             all other small bitmaps used on the button bar.
         @param bitmap_disabled
-            Large bitmap of the new button when it is disabled. If left as
+            Large bitmap of the NEW_DEBUG button when it is disabled. If left as
             null, then a bitmap will be automatically generated from @a bitmap.
         @param bitmap_small_disabled
-            Small bitmap of the new button when it is disabled. If left as
+            Small bitmap of the NEW_DEBUG button when it is disabled. If left as
             null, then a bitmap will be automatically generated from @a
             bitmap_small.
         @param kind
             The kind of button to add.
         @param help_string
-            The UI help string to associate with the new button.
+            The UI help string to associate with the NEW_DEBUG button.
 
         @return An opaque pointer which can be used only with other button bar
             methods.
@@ -493,17 +493,17 @@ public:
         @param button_id
             ID of the button to manipulate.
         @param bitmap
-            Large bitmap of the new button. Must be the same size as all other
+            Large bitmap of the NEW_DEBUG button. Must be the same size as all other
             large bitmaps used on the button bar.
         @param bitmap_small
-            Small bitmap of the new button. If left as null, then a small
+            Small bitmap of the NEW_DEBUG button. If left as null, then a small
             bitmap will be automatically generated. Must be the same size as
             all other small bitmaps used on the button bar.
         @param bitmap_disabled
-            Large bitmap of the new button when it is disabled. If left as
+            Large bitmap of the NEW_DEBUG button when it is disabled. If left as
             null, then a bitmap will be automatically generated from @a bitmap.
         @param bitmap_small_disabled
-            Small bitmap of the new button when it is disabled. If left as
+            Small bitmap of the NEW_DEBUG button when it is disabled. If left as
             null, then a bitmap will be automatically generated from @a
             bitmap_small.
 

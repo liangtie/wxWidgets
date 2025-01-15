@@ -175,7 +175,7 @@ To add a handler object to wxBitmap, your application needs to include the
 header which implements it, and then call the static function
 wxBitmap::AddHandler().
 
-@note Bitmap handlers are not implemented on all platforms, and new ones rarely
+@note Bitmap handlers are not implemented on all platforms, and NEW_DEBUG ones rarely
 need to be implemented since wxImage can be used for loading most formats, as
 noted earlier.
 

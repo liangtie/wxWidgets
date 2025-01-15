@@ -81,7 +81,7 @@ public:
     bool ConvertToImage(unsigned int frame, wxImage *image) const wxOVERRIDE;
 
     wxAnimationDecoder *Clone() const wxOVERRIDE
-        { return new wxGIFDecoder; }
+        { return NEW_DEBUG wxGIFDecoder; }
     wxAnimationType GetType() const wxOVERRIDE
         { return wxANIMATION_TYPE_GIF; }
 

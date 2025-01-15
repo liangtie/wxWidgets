@@ -63,7 +63,7 @@ public:
     wxURLError GetError() const;
 
     /**
-        Creates a new input stream on the specified URL. You can use all but
+        Creates a NEW_DEBUG input stream on the specified URL. You can use all but
         seek functionality of wxStream. Seek isn't available on all streams.
         For example, HTTP or FTP streams don't deal with it.
 

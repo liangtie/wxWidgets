@@ -196,12 +196,12 @@ enum wxEllipsizeMode
 
 /* Useful macro for creating icons portably, for example:
 
-    wxIcon *icon = new wxICON(sample);
+    wxIcon *icon = NEW_DEBUG wxICON(sample);
 
   expands into:
 
-    wxIcon *icon = new wxIcon("sample");      // On Windows
-    wxIcon *icon = new wxIcon(sample_xpm);    // On wxGTK/Linux
+    wxIcon *icon = NEW_DEBUG wxIcon("sample");      // On Windows
+    wxIcon *icon = NEW_DEBUG wxIcon(sample_xpm);    // On wxGTK/Linux
  */
 
 #ifdef wxHAS_IMAGES_IN_RESOURCES
@@ -230,7 +230,7 @@ enum wxEllipsizeMode
 /* Another macro: this one is for portable creation of bitmaps. We assume that
    under Unix bitmaps live in XPMs and under Windows they're in resources.
 
-   This is a legacy macro, prefer using wxBITMAP_PNG() in the new code.
+   This is a legacy macro, prefer using wxBITMAP_PNG() in the NEW_DEBUG code.
  */
 
 #if defined(__WINDOWS__) && wxUSE_WXDIB
@@ -915,7 +915,7 @@ public:
             y = r.y + (r.height - height)/2;
     }
 
-    // same as above but returns the new rectangle instead of modifying this one
+    // same as above but returns the NEW_DEBUG rectangle instead of modifying this one
     wxRect CentreIn(const wxRect& r, int dir = wxBOTH) const
     {
         wxRect rect(*this);
@@ -968,7 +968,7 @@ public:
     // list all known colours by name
     wxVector<wxString> GetAllNames() const;
 
-    // add a new colour to the database
+    // add a NEW_DEBUG colour to the database
     void AddColour(const wxString& name, const wxColour& colour);
 
 private:
@@ -1152,7 +1152,7 @@ extern void WXDLLIMPEXP_CORE wxInitializeStockLists();
 extern void WXDLLIMPEXP_CORE wxDeleteStockLists();
 
 // Note: all the display-related functions here exist for compatibility only,
-// please use wxDisplay class in the new code
+// please use wxDisplay class in the NEW_DEBUG code
 
 // is the display colour (or monochrome)?
 extern bool WXDLLIMPEXP_CORE wxColourDisplay();

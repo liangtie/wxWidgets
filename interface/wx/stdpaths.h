@@ -161,7 +161,7 @@ public:
             File layout follows the XDG Base Directory Specification (see
             https://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html).
 
-            This is the recommended layout for new applications.
+            This is the recommended layout for NEW_DEBUG applications.
         */
         FileLayout_XDG
     };

@@ -49,7 +49,7 @@ public:
         // Create the initially empty label with the size big enough to show
         // the given string.
         wxClientDC dc(this);
-        wxStaticText* text = new wxStaticText
+        wxStaticText* text = NEW_DEBUG wxStaticText
             (
                 this, wxID_ANY, "",
                 wxPoint(),

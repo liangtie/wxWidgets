@@ -87,18 +87,18 @@
     MyCar::MyCar( int price )
     {
         // here we init the MyCar internal data:
-        m_refData = new MyCarRefData();
+        m_refData = NEW_DEBUG MyCarRefData();
         M_CARDATA->m_price = price;
     }
 
     wxObjectRefData *MyCar::CreateRefData() const
     {
-        return new MyCarRefData;
+        return NEW_DEBUG MyCarRefData;
     }
 
     wxObjectRefData *MyCar::CloneRefData(const wxObjectRefData *data) const
     {
-        return new MyCarRefData(*(MyCarRefData *)data);
+        return NEW_DEBUG MyCarRefData(*(MyCarRefData *)data);
     }
 
     bool MyCar::operator == ( const MyCar& car ) const
@@ -214,7 +214,7 @@ public:
     to create instances of a class only knowing its string class name, and to
     query the class hierarchy.
 
-    The class contains optional debugging versions of @b new and @b delete, which
+    The class contains optional debugging versions of @b NEW_DEBUG and @b delete, which
     can help trace memory allocation and deallocation problems.
 
     wxObject can be used to implement @ref overview_refcount "reference counted"
@@ -344,12 +344,12 @@ public:
     void operator delete(void *buf);
 
     /**
-        The @e new operator is defined for debugging versions of the library only, when
+        The @e NEW_DEBUG operator is defined for debugging versions of the library only, when
         the identifier @c \__WXDEBUG__ is defined.
 
         It takes over memory allocation, allowing wxDebugContext operations.
     */
-    void* operator new(size_t size, const wxString& filename = NULL, int lineNum = 0);
+    void* operator NEW_DEBUG(size_t size, const wxString& filename = NULL, int lineNum = 0);
 
 protected:
     /**
@@ -367,21 +367,21 @@ protected:
     void AllocExclusive();
 
     /**
-        Creates a new instance of the wxObjectRefData-derived class specific to
+        Creates a NEW_DEBUG instance of the wxObjectRefData-derived class specific to
         this object and returns it.
 
         This is usually implemented as a one-line call:
         @code
         wxObjectRefData *MyObject::CreateRefData() const
         {
-            return new MyObjectRefData;
+            return NEW_DEBUG MyObjectRefData;
         }
         @endcode
     */
     virtual wxObjectRefData *CreateRefData() const;
 
     /**
-        Creates a new instance of the wxObjectRefData-derived class specific to
+        Creates a NEW_DEBUG instance of the wxObjectRefData-derived class specific to
         this object and initializes it copying @a data.
 
         This is usually implemented as a one-line call:
@@ -389,7 +389,7 @@ protected:
         wxObjectRefData *MyObject::CloneRefData(const wxObjectRefData *data) const
         {
             // rely on the MyObjectRefData copy ctor:
-            return new MyObjectRefData(*(MyObjectRefData *)data);
+            return NEW_DEBUG MyObjectRefData(*(MyObjectRefData *)data);
         }
         @endcode
     */
@@ -516,8 +516,8 @@ public:
     {
     public:
         // initializes this MyCar assigning to the
-        // internal data pointer a new instance of MyCarRefData
-        MyCar( int price = 0 ) : m_data( new MyCarRefData(price) )
+        // internal data pointer a NEW_DEBUG instance of MyCarRefData
+        MyCar( int price = 0 ) : m_data( NEW_DEBUG MyCarRefData(price) )
         {
         }
 
@@ -561,7 +561,7 @@ public:
             if (m_data->GetRefCount() == 1)
                 return;
 
-            m_data.reset( new MyCarRefData( *m_data ) );
+            m_data.reset( NEW_DEBUG MyCarRefData( *m_data ) );
         }
     };
     @endcode
@@ -800,7 +800,7 @@ public:
     Synonym for wxIMPLEMENT_ABSTRACT_CLASS().
 
     Please prefer to use the more clear, if longer,
-    ::wxIMPLEMENT_ABSTRACT_CLASS in the new code.
+    ::wxIMPLEMENT_ABSTRACT_CLASS in the NEW_DEBUG code.
 
     @header{wx/object.h}
 */
@@ -810,7 +810,7 @@ public:
     Synonym for wxIMPLEMENT_ABSTRACT_CLASS2().
 
     Please prefer to use the more clear, if longer,
-    ::wxIMPLEMENT_ABSTRACT_CLASS2 in the new code.
+    ::wxIMPLEMENT_ABSTRACT_CLASS2 in the NEW_DEBUG code.
 
     @header{wx/object.h}
 */
@@ -902,14 +902,14 @@ wxObject *wxCreateDynamicObject(const wxString& className);
 ///@{
 
 /**
-    This is defined in debug mode to be call the redefined new operator
+    This is defined in debug mode to be call the redefined NEW_DEBUG operator
     with filename and line number arguments. The definition is:
 
     @code
-    #define WXDEBUG_NEW new(__FILE__,__LINE__)
+    #define WXDEBUG_NEW NEW_DEBUG(__FILE__,__LINE__)
     @endcode
 
-    In non-debug mode, this is defined as the normal new operator.
+    In non-debug mode, this is defined as the normal NEW_DEBUG operator.
 
     @header{wx/object.h}
 */

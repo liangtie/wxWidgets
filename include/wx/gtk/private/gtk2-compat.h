@@ -11,7 +11,7 @@
 #define _WX_GTK_PRIVATE_COMPAT_H_
 
 // ----------------------------------------------------------------------------
-// Implementations of new accessors for older GTK+ versions
+// Implementations of NEW_DEBUG accessors for older GTK+ versions
 // ----------------------------------------------------------------------------
 
 // GTK+ deprecated direct access to struct members and some other stuff,

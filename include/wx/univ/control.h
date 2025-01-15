@@ -88,7 +88,7 @@ protected:
     // common part of all ctors
     void Init();
 
-    // set m_label and m_indexAccel and refresh the control to show the new
+    // set m_label and m_indexAccel and refresh the control to show the NEW_DEBUG
     // label (but, unlike SetLabel(), don't call the base class SetLabel() thus
     // avoiding to change wxControlBase::m_labelOrig)
     void UnivDoSetLabel(const wxString& label);

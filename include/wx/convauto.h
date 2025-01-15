@@ -80,7 +80,7 @@ public:
 
     virtual bool IsUTF8() const wxOVERRIDE { return m_conv && m_conv->IsUTF8(); }
 
-    virtual wxMBConv *Clone() const wxOVERRIDE { return new wxConvAuto(*this); }
+    virtual wxMBConv *Clone() const wxOVERRIDE { return NEW_DEBUG wxConvAuto(*this); }
 
     // return the BOM type of this buffer
     static wxBOM DetectBOM(const char *src, size_t srcLen);

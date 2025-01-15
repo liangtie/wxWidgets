@@ -923,7 +923,7 @@ public:
     // Redraws given property.
     virtual void RefreshProperty( wxPGProperty* p ) wxOVERRIDE;
 
-    // Registers a new editor class.
+    // Registers a NEW_DEBUG editor class.
     // Returns pointer to the editor class instance that should be used.
     static wxPGEditor* RegisterEditorClass( wxPGEditor* editor,
                                             bool noDefCheck = false )
@@ -952,7 +952,7 @@ public:
     // This function clears any previous selection.
     bool SelectProperty( wxPGPropArg id, bool focus = false );
 
-    // Set entire new selection from given list of properties.
+    // Set entire NEW_DEBUG selection from given list of properties.
     void SetSelection( const wxArrayPGProperty& newSelection )
     {
         DoSetSelection( newSelection, wxPG_SEL_DONT_SEND_EVENT );
@@ -1200,7 +1200,7 @@ public:
     // secondary - If right-side control, such as button, also created,
     //   then create it first and pass it as this parameter.
     // extraStyle - Extra style flags to pass for wxTextCtrl.
-    // Note that this should generally be called only by new classes derived
+    // Note that this should generally be called only by NEW_DEBUG classes derived
     // from wxPGProperty.
     wxWindow* GenerateEditorTextCtrl( const wxPoint& pos,
                                       const wxSize& sz,
@@ -2187,7 +2187,7 @@ public:
 
     void SetGrid( wxPropertyGrid* pg );
 
-    // Appends a new property under bottommost parent.
+    // Appends a NEW_DEBUG property under bottommost parent.
     // propClass - Property class as string.
     wxPGProperty* Add( const wxString& propClass,
                        const wxString& propLabel,

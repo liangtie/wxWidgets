@@ -238,7 +238,7 @@ public:
 
         @param number
             The number of fields. If this is greater than the previous number,
-            then new fields with empty strings will be added to the status bar.
+            then NEW_DEBUG fields with empty strings will be added to the status bar.
         @param widths
             An array of n integers interpreted in the same way as
             in SetStatusWidths().
@@ -272,7 +272,7 @@ public:
             - @c wxSB_FLAT: No border is painted around the field so that it appears flat.
             - @c wxSB_RAISED: A raised 3D border is painted around the field.
             - @c wxSB_SUNKEN: A sunken 3D border is painted around the field
-              (this style is new since wxWidgets 2.9.5).
+              (this style is NEW_DEBUG since wxWidgets 2.9.5).
     */
     virtual void SetStatusStyles(int n, const int* styles);
 
@@ -283,7 +283,7 @@ public:
         bar is updated immediately, so there is no need to call
         wxWindow::Update() after calling this function.
 
-        Note that if PushStatusText() had been called before the new text will
+        Note that if PushStatusText() had been called before the NEW_DEBUG text will
         also replace the last saved value to make sure that the next call to
         PopStatusText() doesn't restore the old value, which was overwritten by
         the call to this function.

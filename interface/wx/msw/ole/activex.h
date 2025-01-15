@@ -153,7 +153,7 @@ public:
                 return false;
 
             m_ctrl = wxStaticCast(ctrl, wxMediaCtrl);
-            m_pAX = new wxActiveXContainer(ctrl,
+            m_pAX = NEW_DEBUG wxActiveXContainer(ctrl,
                         DIID__DPdf,
                         pDispatch);
 
@@ -268,7 +268,7 @@ public:
     wxIMPLEMENT_DYNAMIC_CLASS(wxPDFMediaBackend, wxMediaBackend);
 
     // Put this in one of your existing source files and then create a wxMediaCtrl with
-    wxMediaCtrl* mymediactrl = new wxMediaCtrl(this, "myfile.pdf", wxID_ANY,
+    wxMediaCtrl* mymediactrl = NEW_DEBUG wxMediaCtrl(this, "myfile.pdf", wxID_ANY,
                                             wxDefaultPosition, wxSize(300,300),
                                             0, "wxPDFMediaBackend");
             // [this] is the parent window, "myfile.pdf" is the PDF file to open

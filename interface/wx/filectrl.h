@@ -243,7 +243,7 @@ public:
     /**
         Returns the current directory.
 
-        In case of a @b EVT_FILECTRL_FOLDERCHANGED, this method returns the new
+        In case of a @b EVT_FILECTRL_FOLDERCHANGED, this method returns the NEW_DEBUG
         directory.
     */
     wxString GetDirectory() const;
@@ -264,7 +264,7 @@ public:
     /**
         Returns the current file filter index.
 
-        For a @b EVT_FILECTRL_FILTERCHANGED event, this method returns the new
+        For a @b EVT_FILECTRL_FILTERCHANGED event, this method returns the NEW_DEBUG
         file filter index.
 
         @since 2.9.1

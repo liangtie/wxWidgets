@@ -930,7 +930,7 @@ public:
     static wxPGEditor* RegisterEditorClass( wxPGEditor* editor,
                                             bool noDefCheck = false );
     /**
-        Registers a new editor class.
+        Registers a NEW_DEBUG editor class.
 
         @return Returns pointer to the editor class instance that should be used.
     */
@@ -1036,7 +1036,7 @@ public:
     void SetMarginColour(const wxColour& col);
 
     /**
-        Set entire new selection from given list of properties.
+        Set entire NEW_DEBUG selection from given list of properties.
     */
     void SetSelection( const wxArrayPGProperty& newSelection );
 
@@ -1374,7 +1374,7 @@ public:
 
         @remarks You should assume that this property can always be @NULL.
                  For instance, @c wxEVT_PG_SELECTED is emitted not only when
-                 a new property is selected, but also when selection is
+                 a NEW_DEBUG property is selected, but also when selection is
                  cleared by user activity.
     */
     wxPGProperty* GetProperty() const;
@@ -1487,7 +1487,7 @@ public:
     void SetGrid( wxPropertyGrid* pg );
 
     /**
-        Appends a new property under bottommost parent.
+        Appends a NEW_DEBUG property under bottommost parent.
 
         @param propClass
             Property class as string.

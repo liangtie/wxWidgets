@@ -97,7 +97,7 @@ public:
 
 #endif // wxUSE_LOG
 
-// Define a new application type
+// Define a NEW_DEBUG application type
 class MyApp: public wxApp
 {
 public:
@@ -112,7 +112,7 @@ public:
 
 protected:
 #if wxUSE_LOG
-    virtual wxAppTraits *CreateTraits() wxOVERRIDE { return new MyAppTraits; }
+    virtual wxAppTraits *CreateTraits() wxOVERRIDE { return NEW_DEBUG MyAppTraits; }
 #endif // wxUSE_LOG
 
 private:
@@ -358,7 +358,7 @@ protected:
 
 #endif // USE_SETTINGS_DIALOG
 
-// Define a new frame type
+// Define a NEW_DEBUG frame type
 class MyFrame: public wxFrame
 {
 public:

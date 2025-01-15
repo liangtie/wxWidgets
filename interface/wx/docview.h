@@ -64,14 +64,14 @@ public:
         @param docClassInfo
             A pointer to the run-time document class information as returned by
             the wxCLASSINFO() macro, e.g. wxCLASSINFO(MyDocumentClass). If this is
-            not supplied, you will need to derive a new wxDocTemplate class and
-            override the CreateDocument() member to return a new document
+            not supplied, you will need to derive a NEW_DEBUG wxDocTemplate class and
+            override the CreateDocument() member to return a NEW_DEBUG document
             instance on demand.
         @param viewClassInfo
             A pointer to the run-time view class information as returned by the
             wxCLASSINFO() macro, e.g. wxCLASSINFO(MyViewClass). If this is not
-            supplied, you will need to derive a new wxDocTemplate class and
-            override the CreateView() member to return a new view instance on
+            supplied, you will need to derive a NEW_DEBUG wxDocTemplate class and
+            override the CreateView() member to return a NEW_DEBUG view instance on
             demand.
         @param flags
             A bit list of the following:
@@ -86,18 +86,18 @@ public:
         In wxPerl @a docClassInfo and @a viewClassInfo can be either
         @c Wx::ClassInfo objects or strings containing the name of the
         perl packages which are to be used as @c Wx::Document and
-        @c Wx::View classes (they must have a constructor named new);
+        @c Wx::View classes (they must have a constructor named NEW_DEBUG);
         as an example:
 
-        - Wx::DocTemplate->new(docmgr, descr, filter, dir, ext,
+        - Wx::DocTemplate->NEW_DEBUG(docmgr, descr, filter, dir, ext,
           docTypeName, viewTypeName, docClassInfo, viewClassInfo,
           flags): will construct document and view objects from the
           class information.
-        - Wx::DocTemplate->new(docmgr, descr, filter, dir, ext,
+        - Wx::DocTemplate->NEW_DEBUG(docmgr, descr, filter, dir, ext,
           docTypeName, viewTypeName, docClassName, viewClassName,
           flags): will construct document and view objects from perl
           packages.
-        - Wx::DocTemplate->new(docmgr, descr, filter, dir, ext,
+        - Wx::DocTemplate->NEW_DEBUG(docmgr, descr, filter, dir, ext,
           docTypeName, viewTypeName):
           in this case @c Wx::DocTemplate::CreateDocument() and
           @c Wx::DocTemplate::CreateView() must be overridden
@@ -116,7 +116,7 @@ public:
     virtual ~wxDocTemplate();
 
     /**
-        Creates a new instance of the associated document class. If you have
+        Creates a NEW_DEBUG instance of the associated document class. If you have
         not supplied a wxClassInfo parameter to the template constructor, you
         will need to override this function to return an appropriate document
         instance.
@@ -127,13 +127,13 @@ public:
     virtual wxDocument* CreateDocument(const wxString& path, long flags = 0);
 
     /**
-        Creates a new instance of the associated view class.
+        Creates a NEW_DEBUG instance of the associated view class.
 
         If you have not supplied a wxClassInfo parameter to the template
         constructor, you will need to override this function to return an
         appropriate view instance.
 
-        If the new view initialization fails, it must call
+        If the NEW_DEBUG view initialization fails, it must call
         wxDocument::RemoveView() for consistency with the default behaviour of
         this function.
     */
@@ -451,9 +451,9 @@ public:
     bool CloseDocuments(bool force = true);
 
     /**
-        Creates a new document.
+        Creates a NEW_DEBUG document.
 
-        This function can either create a document corresponding to a new
+        This function can either create a document corresponding to a NEW_DEBUG
         file or to an already existing one depending on whether @c wxDOC_NEW is
         specified in the @a flags.
 
@@ -470,7 +470,7 @@ public:
         Finally notice that if this document manager was configured to allow
         only a limited number of simultaneously opened documents using
         SetMaxDocsOpen(), this function will try to close the oldest existing
-        document if this number was reached before creating a new document.
+        document if this number was reached before creating a NEW_DEBUG document.
         And if closing the old document fails (e.g. because it was vetoed by
         user), this function fails as well.
 
@@ -480,16 +480,16 @@ public:
             of @c wxDOC_SILENT). The file should exist unless @a flags includes
             @c wxDOC_NEW.
         @param flags
-            By default, none. May include @c wxDOC_NEW to indicate that the new
-            document corresponds to a new file and not an existing one and
+            By default, none. May include @c wxDOC_NEW to indicate that the NEW_DEBUG
+            document corresponds to a NEW_DEBUG file and not an existing one and
             @c wxDOC_SILENT to suppress any dialogs asking the user about the
             file path and type.
-        @return a new document object or @NULL on failure.
+        @return a NEW_DEBUG document object or @NULL on failure.
     */
     virtual wxDocument* CreateDocument(const wxString& path, long flags = 0);
 
     /**
-        Creates an empty new document.
+        Creates an empty NEW_DEBUG document.
 
         This is equivalent to calling CreateDocument() with @c wxDOC_NEW flags
         and without the file name.
@@ -497,7 +497,7 @@ public:
     wxDocument *CreateNewDocument();
 
     /**
-        Creates a new view for the given document. If more than one view is
+        Creates a NEW_DEBUG view for the given document. If more than one view is
         allowed for the document (by virtue of multiple templates mentioning
         the same document type), a choice of view is presented to the user.
     */
@@ -647,7 +647,7 @@ public:
     virtual bool Initialize();
 
     /**
-        Return a string containing a suitable default name for a new document.
+        Return a string containing a suitable default name for a NEW_DEBUG document.
         By default this is implemented by appending an integer counter to the
         string @b unnamed but can be overridden in the derived classes to do
         something more appropriate.
@@ -677,7 +677,7 @@ public:
     void OnFileNew(wxCommandEvent& event);
 
     /**
-        Creates a new document and reads in the selected file.
+        Creates a NEW_DEBUG document and reads in the selected file.
     */
     void OnFileOpen(wxCommandEvent& event);
 
@@ -785,7 +785,7 @@ public:
         Sets the maximum number of documents that can be open at a time. By
         default, this is @c INT_MAX, i.e. the number of documents is unlimited.
         If you set it to 1, existing documents will be saved and deleted when
-        the user tries to open or create a new one (similar to the behaviour of
+        the user tries to open or create a NEW_DEBUG one (similar to the behaviour of
         Windows Write, for example). Allowing multiple documents gives
         behaviour more akin to MS Word and other Multiple Document Interface
         applications.
@@ -835,7 +835,7 @@ protected:
         @param preview The associated preview object.
         @param parent The parent window for the frame.
         @param title The suggested title for the print preview frame.
-        @return A new print preview frame, must not return @NULL.
+        @return A NEW_DEBUG print preview frame, must not return @NULL.
     */
     virtual wxPreviewFrame* CreatePreviewFrame(wxPrintPreviewBase* preview,
                                                wxWindow* parent,
@@ -999,7 +999,7 @@ public:
     /**
         If the printing framework is enabled in the library, this function
         returns a wxPrintout object for the purposes of printing. It should
-        create a new object every time it is called; the framework will delete
+        create a NEW_DEBUG object every time it is called; the framework will delete
         objects it creates.
 
         By default, this function returns an instance of wxDocPrintout, which
@@ -1615,7 +1615,7 @@ public:
         example it may be called with @false argument to prevent the user
         from saving the just opened document into the same file if this
         shouldn't be done for some reason (e.g. file format version changes and
-        a new extension should be used for saving).
+        a NEW_DEBUG extension should be used for saving).
 
         @see GetDocumentSaved(), AlreadySaved()
      */

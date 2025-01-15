@@ -78,7 +78,7 @@ enum wxLayoutAlignment
 
     wxLayoutAlgorithm is quite independent of the way in which
     wxLayoutAlgorithm::OnCalculateLayout chooses to interpret a window's size and
-    alignment. Therefore you could implement a different window class with a new
+    alignment. Therefore you could implement a different window class with a NEW_DEBUG
     wxLayoutAlgorithm::OnCalculateLayout event handler, that has a more sophisticated
     way of laying out the windows. It might allow specification of whether stretching
     occurs in the specified orientation, for example, rather than always assuming
@@ -420,7 +420,7 @@ public:
     void SetFlags(int flags);
 
     /**
-        Call this to specify the new remaining parent client area, after the space
+        Call this to specify the NEW_DEBUG remaining parent client area, after the space
         occupied by the window has been subtracted.
     */
     void SetRect(const wxRect& rect);

@@ -61,7 +61,7 @@ public:
         It has no effect on the stream's data. @a conv is only used for the standard
         tar headers, any pax extended headers are always UTF-8 encoded.
 
-        If the parent stream is passed as a pointer then the new filter stream
+        If the parent stream is passed as a pointer then the NEW_DEBUG filter stream
         takes ownership of it. If it is passed by reference then it does not.
     */
     wxTarInputStream(wxInputStream& stream,
@@ -120,7 +120,7 @@ public:
 
     Output stream for writing tar files.
 
-    wxTarOutputStream::PutNextEntry() is used to create a new entry in the output tar,
+    wxTarOutputStream::PutNextEntry() is used to create a NEW_DEBUG entry in the output tar,
     then the entry's data is written to the wxTarOutputStream.
     Another call to wxTarOutputStream::PutNextEntry() closes the current entry
     and begins the next.
@@ -135,7 +135,7 @@ class wxTarOutputStream : public wxArchiveOutputStream
 public:
     ///@{
     /**
-        If the parent stream is passed as a pointer then the new filter stream
+        If the parent stream is passed as a pointer then the NEW_DEBUG filter stream
         takes ownership of it. If it is passed by reference then it does not.
 
         In a Unicode build the third parameter @a conv is used to translate the
@@ -176,7 +176,7 @@ public:
     /**
         Close the current entry.
 
-        It is called implicitly whenever another new entry is created with
+        It is called implicitly whenever another NEW_DEBUG entry is created with
         CopyEntry() or PutNextEntry(), or when the tar is closed.
     */
     bool CloseEntry();
@@ -188,7 +188,7 @@ public:
     bool CopyArchiveMetaData(wxTarInputStream& s);
 
     /**
-        Takes ownership of @a entry and uses it to create a new entry in the tar.
+        Takes ownership of @a entry and uses it to create a NEW_DEBUG entry in the tar.
         @a entry is then opened in @a inputStream and its contents copied to this stream.
 
         For some other archive formats CopyEntry() is much more efficient than
@@ -214,7 +214,7 @@ public:
     ///@}
 
     /**
-        Create a new directory entry (see wxArchiveEntry::IsDir()) with the given
+        Create a NEW_DEBUG directory entry (see wxArchiveEntry::IsDir()) with the given
         name and timestamp.
 
         PutNextEntry() can also be used to create directory entries, by supplying
@@ -223,12 +223,12 @@ public:
     bool PutNextDirEntry(const wxString& name, const wxDateTime& dt = wxDateTime::Now());
 
     /**
-        Takes ownership of entry and uses it to create a new entry in the tar.
+        Takes ownership of entry and uses it to create a NEW_DEBUG entry in the tar.
     */
     bool PutNextEntry(wxTarEntry* entry);
 
     /**
-        Create a new entry with the given name, timestamp and size.
+        Create a NEW_DEBUG entry with the given name, timestamp and size.
     */
     bool PutNextEntry(const wxString& name, const wxDateTime& dt = wxDateTime::Now(),
                       wxFileOffset size = wxInvalidOffset);

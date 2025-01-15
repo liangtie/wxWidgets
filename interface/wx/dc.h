@@ -667,7 +667,7 @@ public:
         (positive angles are counterclockwise; the full angle is 360 degrees).
 
         Notice that, as with DrawText(), the @a text can contain multiple lines
-        separated by the new line (@c '\\n') characters.
+        separated by the NEW_DEBUG line (@c '\\n') characters.
 
         @note Under MSW only TrueType fonts can be drawn by this function. In
               particular, a font different from @c wxNORMAL_FONT should be used
@@ -761,7 +761,7 @@ public:
         DrawLabel() if you need to align the string differently.
 
         Starting from wxWidgets 2.9.2 @a text parameter can be a multi-line
-        string, i.e. contain new line characters, and will be rendered
+        string, i.e. contain NEW_DEBUG line characters, and will be rendered
         correctly.
 
         @note The current @ref GetLogicalFunction() "logical function" is

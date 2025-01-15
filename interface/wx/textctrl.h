@@ -307,7 +307,7 @@ public:
     void Merge(const wxTextAttr& overlay);
 
     /**
-        Creates a new @c wxTextAttr which is a merge of @a base and @a overlay.
+        Creates a NEW_DEBUG @c wxTextAttr which is a merge of @a base and @a overlay.
 
         Properties defined in @a overlay take precedence over those in @a base.
         Properties undefined/invalid in both are undefined in the result.
@@ -1343,7 +1343,7 @@ class WXDLLIMPEXP_CORE wxTextProofOptions
     the following:
 
     @code
-    wxTextCtrl *control = new wxTextCtrl(...);
+    wxTextCtrl *control = NEW_DEBUG wxTextCtrl(...);
 
     ostream stream(control)
 
@@ -1356,7 +1356,7 @@ class WXDLLIMPEXP_CORE wxTextProofOptions
     wxTextCtrl itself in a stream-like manner:
 
     @code
-    wxTextCtrl *control = new wxTextCtrl(...);
+    wxTextCtrl *control = NEW_DEBUG wxTextCtrl(...);
 
     *control << 123.456 << " some text\n";
     @endcode
@@ -1371,7 +1371,7 @@ class WXDLLIMPEXP_CORE wxTextProofOptions
     @code
     #include <iostream>
 
-    wxTextCtrl *control = new wxTextCtrl(...);
+    wxTextCtrl *control = NEW_DEBUG wxTextCtrl(...);
 
     std::streambuf *sbOld = std::cout.rdbuf();
     std::cout.rdbuf(control);
@@ -1388,7 +1388,7 @@ class WXDLLIMPEXP_CORE wxTextProofOptions
     @code
     #include <iostream>
 
-    wxTextCtrl *control = new wxTextCtrl(...);
+    wxTextCtrl *control = NEW_DEBUG wxTextCtrl(...);
 
     wxStreamToTextRedirector redirect(control);
 
@@ -1558,7 +1558,7 @@ public:
                                     = wxTextProofOptions::Default());
 
     /**
-        Returns the style currently used for the new text.
+        Returns the style currently used for the NEW_DEBUG text.
 
         @see SetDefaultStyle()
     */
@@ -1804,7 +1804,7 @@ public:
                   int fileType = wxTEXT_TYPE_ANY);
 
     /**
-        Changes the default style to use for the new text which is going to be
+        Changes the default style to use for the NEW_DEBUG text which is going to be
         added to the control.
 
         This applies both to the text added programmatically using WriteText()
@@ -1816,11 +1816,11 @@ public:
         or colours of the text control itself are used as fall back.
 
         However if the @a style parameter is the default wxTextAttr, then the default
-        style is just reset (instead of being combined with the new style which
+        style is just reset (instead of being combined with the NEW_DEBUG style which
         wouldn't change it at all).
 
         @param style
-            The style for the new text.
+            The style for the NEW_DEBUG text.
 
         @return
             @true on success, @false if an error occurred (this may also mean
@@ -1848,7 +1848,7 @@ public:
         @param end
             The end of the range to change.
         @param style
-            The new style for the range.
+            The NEW_DEBUG style for the range.
 
         @return
             @true on success, @false if an error occurred (this may also mean
@@ -1885,10 +1885,10 @@ public:
     ///@{
 
     /**
-        Enables the automatic replacement of new lines characters in a
+        Enables the automatic replacement of NEW_DEBUG lines characters in a
         single-line text field with spaces under macOS.
 
-        This feature is enabled by default and will replace any new line (`\n`)
+        This feature is enabled by default and will replace any NEW_DEBUG line (`\n`)
         character entered into a single-line text field with the space
         character. Usually single-line text fields are not expected to hold
         multiple lines of text (that is what wxTE_MULTILINE is for, after all)
@@ -1945,7 +1945,7 @@ public:
         These operators can be used as with the standard C++ streams, for
         example:
         @code
-            wxTextCtrl *wnd = new wxTextCtrl(my_frame);
+            wxTextCtrl *wnd = NEW_DEBUG wxTextCtrl(my_frame);
 
             (*wnd) << "Welcome to text control number " << 1 << ".\n";
         @endcode
@@ -2008,7 +2008,7 @@ public:
 
     @code
     using namespace std;
-    wxTextCtrl* text = new wxTextCtrl(...);
+    wxTextCtrl* text = NEW_DEBUG wxTextCtrl(...);
     {
         wxStreamToTextRedirector redirect(text);
 

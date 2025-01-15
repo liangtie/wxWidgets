@@ -132,9 +132,9 @@ public:
 
         Calling this method does not result in a time change event.
 
-        @param hour The new hour value in 0..23 interval.
-        @param min The new minute value in 0..59 interval.
-        @param sec The new second value in 0..59 interval.
+        @param hour The NEW_DEBUG hour value in 0..23 interval.
+        @param min The NEW_DEBUG minute value in 0..59 interval.
+        @param sec The NEW_DEBUG second value in 0..59 interval.
         @return @true if the time was changed or @false on failure, e.g. if the
             time components were invalid.
 

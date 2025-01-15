@@ -96,7 +96,7 @@ public:
         if (m_textCtrl != NULL)
             ClearEditor();
 
-        m_textCtrl = new wxQtListTextCtrl(m_parent, parent);
+        m_textCtrl = NEW_DEBUG wxQtListTextCtrl(m_parent, parent);
         m_textCtrl->SetFocus();
         return m_textCtrl->GetHandle();
     }

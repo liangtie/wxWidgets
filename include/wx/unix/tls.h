@@ -19,7 +19,7 @@
 class wxTlsKey
 {
 public:
-    // ctor allocates a new key and possibly registering a destructor function
+    // ctor allocates a NEW_DEBUG key and possibly registering a destructor function
     // for it
     wxTlsKey(wxTlsDestructorFunction destructor)
     {

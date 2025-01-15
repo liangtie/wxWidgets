@@ -416,11 +416,11 @@ public:
     int GetWidth() const { return m_width; }
     void SetWidth(int width) { m_width = width; }
 
-    // the new position of the column: for end reorder events only
+    // the NEW_DEBUG position of the column: for end reorder events only
     unsigned int GetNewOrder() const { return m_order; }
     void SetNewOrder(unsigned int order) { m_order = order; }
 
-    virtual wxEvent *Clone() const override { return new wxHeaderCtrlEvent(*this); }
+    virtual wxEvent *Clone() const override { return NEW_DEBUG wxHeaderCtrlEvent(*this); }
 
 protected:
     // the column affected by the event
@@ -429,7 +429,7 @@ protected:
     // the current width for the dragging events
     int m_width;
 
-    // the new column position for end reorder event
+    // the NEW_DEBUG column position for end reorder event
     unsigned int m_order;
 
 private:

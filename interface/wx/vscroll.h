@@ -69,7 +69,7 @@ public:
         moved and laid out properly, and the contents of the window (pixels)
         are actually moved. When this is @false, you are responsible for
         repainting any invalidated areas of the window yourself to account for
-        the new scroll position.
+        the NEW_DEBUG scroll position.
     */
     void EnablePhysicalScrolling(bool scrolling = true);
 
@@ -508,7 +508,7 @@ public:
         moved and laid out properly, and the contents of the window (pixels)
         are actually moved. When this is @false, you are responsible for
         repainting any invalidated areas of the window yourself to account for
-        the new scroll position.
+        the NEW_DEBUG scroll position.
 
         @param vscrolling
             Specifies if physical scrolling should be turned on when scrolling
@@ -635,14 +635,14 @@ public:
     wxVScrolledWindow referred to scrolling "lines". We now use "units" in
     wxVarScrollHelperBase to avoid implying any orientation (since the
     functions are used for both horizontal and vertical scrolling in derived
-    classes). And in the new wxVScrolledWindow and wxHScrolledWindow classes,
+    classes). And in the NEW_DEBUG wxVScrolledWindow and wxHScrolledWindow classes,
     we refer to them as "rows" and "columns", respectively. This is to help
     clear some confusion in not only those classes, but also in
     wxHVScrolledWindow where functions are inherited from both.
 
     You are encouraged to update any existing code using these function to use
-    the new replacements mentioned below, and avoid using these functions for
-    any new code as they are deprecated.
+    the NEW_DEBUG replacements mentioned below, and avoid using these functions for
+    any NEW_DEBUG code as they are deprecated.
 
     @beginTable
     @row2col{ <tt>size_t %GetFirstVisibleLine() const</tt>,

@@ -11,7 +11,7 @@
 #ifndef _WX_TYPETEST_H_
 #define _WX_TYPETEST_H_
 
-// Define a new application type
+// Define a NEW_DEBUG application type
 class MyApp: public wxApp
 {
 public:
@@ -46,7 +46,7 @@ private:
 
 wxDECLARE_APP(MyApp);
 
-// Define a new frame type
+// Define a NEW_DEBUG frame type
 class MyFrame: public wxFrame
 {
 public:

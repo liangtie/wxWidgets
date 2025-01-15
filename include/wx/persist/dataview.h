@@ -131,7 +131,7 @@ public:
                 RestoreValue(wxASCII_STR(wxPERSIST_DVC_SORT_ASC), &sortAsc);
                 column->SetSortOrder(sortAsc);
 
-                // Resort the control based on the new sort criteria.
+                // Resort the control based on the NEW_DEBUG sort criteria.
                 control->GetModel()->Resort();
             }
         }
@@ -167,7 +167,7 @@ private:
 
 inline wxPersistentObject *wxCreatePersistentObject(wxDataViewCtrl* control)
 {
-    return new wxPersistentDataViewCtrl(control);
+    return NEW_DEBUG wxPersistentDataViewCtrl(control);
 }
 
 #endif // wxUSE_DATAVIEWCTRL

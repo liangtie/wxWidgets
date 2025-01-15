@@ -61,7 +61,7 @@ public:
     wxString GetHeader(const wxString& header) const;
 
     /**
-        Creates a new input stream on the specified path.
+        Creates a NEW_DEBUG input stream on the specified path.
 
         Notice that this stream is unseekable, i.e. SeekI() and TellI() methods
         shouldn't be used.

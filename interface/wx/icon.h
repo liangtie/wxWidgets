@@ -34,8 +34,8 @@
     will usually be created for the different environments.
     Platform-specific methods for creating a wxIcon structure are catered for,
     and this is an occasion where conditional compilation will probably be required.
-    Note that a new icon must be created for every time the icon is to be used
-    for a new window. In Windows, the icon will not be reloaded if it has already
+    Note that a NEW_DEBUG icon must be created for every time the icon is to be used
+    for a NEW_DEBUG window. In Windows, the icon will not be reloaded if it has already
     been used.
     An icon allocated to a frame will be deleted when the frame is deleted.
     For more information please see @ref overview_bitmap.
@@ -110,7 +110,7 @@ public:
         @code
         #include "mybitmap.xpm"
         ...
-        wxIcon *icon = new wxIcon(mybitmap);
+        wxIcon *icon = NEW_DEBUG wxIcon(mybitmap);
         @endcode
 
         A macro, wxICON, is available which creates an icon using an XPM on

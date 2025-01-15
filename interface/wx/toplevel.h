@@ -198,7 +198,7 @@ public:
     wxWindow* GetDefaultItem() const;
 
     /**
-        Get the default size for a new top level window.
+        Get the default size for a NEW_DEBUG top level window.
 
         This is used internally by wxWidgets on some platforms to determine the
         default size for a window created using ::wxDefaultSize so it is not
@@ -743,7 +743,7 @@ public:
         window, i.e. two step creation must be used:
 
         @code
-        MyFrame *frame = new MyFrame;       // use default ctor
+        MyFrame *frame = NEW_DEBUG MyFrame;       // use default ctor
         frame->UseNativeDecorations(false); // change from default "true"
         frame->Create(parent, title, ...);  // really create the frame
         @endcode
