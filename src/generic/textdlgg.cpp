@@ -84,7 +84,7 @@ bool wxTextEntryDialog::Create(wxWindow *parent,
     m_dialogStyle = style;
     m_value = value;
 
-    wxBoxSizer *topsizer = new wxBoxSizer( wxVERTICAL );
+    wxBoxSizer *topsizer = NEW_DEBUG wxBoxSizer( wxVERTICAL );
 #if wxUSE_STATTEXT
     // 1) text message
     topsizer->Add(CreateTextSizer(message), wxSizerFlags().DoubleBorder());
@@ -95,7 +95,7 @@ bool wxTextEntryDialog::Create(wxWindow *parent,
     if ( style & wxTE_MULTILINE )
         style |= wxTE_RICH2;
 
-    m_textctrl = new wxTextCtrl(this, wxID_TEXT, value,
+    m_textctrl = NEW_DEBUG wxTextCtrl(this, wxID_TEXT, value,
                                 wxDefaultPosition, wxSize(300, wxDefaultCoord),
                                 style & ~wxTextEntryDialogStyle);
 

@@ -244,7 +244,7 @@ public:
     void Reset()
     {
         if ( !m_widths )
-            m_widths = new int[FWC_SIZE];
+            m_widths = NEW_DEBUG int[FWC_SIZE];
 
         memset(m_widths, 0, sizeof(int)*FWC_SIZE);
     }

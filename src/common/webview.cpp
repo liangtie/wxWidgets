@@ -353,19 +353,19 @@ void wxWebView::InitFactoryMap()
 #if wxUSE_WEBVIEW_IE
     if(m_factoryMap.find(wxWebViewBackendIE) == m_factoryMap.end())
         RegisterFactory(wxWebViewBackendIE, wxSharedPtr<wxWebViewFactory>
-                                                   (new wxWebViewFactoryIE));
+                                                   (NEW_DEBUG wxWebViewFactoryIE));
 #endif
 
 #if wxUSE_WEBVIEW_EDGE
     if (m_factoryMap.find(wxWebViewBackendEdge) == m_factoryMap.end())
         RegisterFactory(wxWebViewBackendEdge, wxSharedPtr<wxWebViewFactory>
-        (new wxWebViewFactoryEdge));
+        (NEW_DEBUG wxWebViewFactoryEdge));
 #endif
 
 #else
     if(m_factoryMap.find(wxWebViewBackendWebKit) == m_factoryMap.end())
         RegisterFactory(wxWebViewBackendWebKit, wxSharedPtr<wxWebViewFactory>
-                                                       (new wxWebViewFactoryWebKit));
+                                                       (NEW_DEBUG wxWebViewFactoryWebKit));
 #endif
 }
 

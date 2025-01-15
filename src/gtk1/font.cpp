@@ -431,7 +431,7 @@ bool wxFont::Create( int pointSize,
 {
     UnRef();
 
-    m_refData = new wxFontRefData(InfoFromLegacyParams(pointSize, family,
+    m_refData = NEW_DEBUG wxFontRefData(InfoFromLegacyParams(pointSize, family,
                                                        style, weight, underlined,
                                                        face, encoding));
 
@@ -448,7 +448,7 @@ bool wxFont::Create(const wxString& fontname)
         return true;
     }
 
-    m_refData = new wxFontRefData(fontname);
+    m_refData = NEW_DEBUG wxFontRefData(fontname);
 
     return true;
 }
@@ -457,11 +457,11 @@ void wxFont::Unshare()
 {
     if (!m_refData)
     {
-        m_refData = new wxFontRefData();
+        m_refData = NEW_DEBUG wxFontRefData();
     }
     else
     {
-        wxFontRefData* ref = new wxFontRefData(*(wxFontRefData*)m_refData);
+        wxFontRefData* ref = NEW_DEBUG wxFontRefData(*(wxFontRefData*)m_refData);
         UnRef();
         m_refData = ref;
     }
@@ -473,12 +473,12 @@ wxFont::~wxFont()
 
 wxGDIRefData *wxFont::CreateGDIRefData() const
 {
-    return new wxFontRefData;
+    return NEW_DEBUG wxFontRefData;
 }
 
 wxGDIRefData *wxFont::CloneGDIRefData(const wxGDIRefData *data) const
 {
-    return new wxFontRefData(*static_cast<const wxFontRefData *>(data));
+    return NEW_DEBUG wxFontRefData(*static_cast<const wxFontRefData *>(data));
 }
 
 // ----------------------------------------------------------------------------

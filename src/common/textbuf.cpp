@@ -67,7 +67,7 @@ wxString wxTextBuffer::Translate(const wxString& text, wxTextFileType type)
 
     wxString eol = GetEOL(type), result;
 
-    // optimization: we know that the length of the new string will be about
+    // optimization: we know that the length of the NEW_DEBUG string will be about
     // the same as the length of the old one, so prealloc memory to avoid
     // unnecessary relocations
     result.Alloc(text.Len());

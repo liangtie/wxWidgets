@@ -156,7 +156,7 @@ wxSpinCtrlGTKBase::~wxSpinCtrlGTKBase()
 void wxSpinCtrlGTKBase::GTKSetTextOverride(const wxString& text)
 {
     if ( !m_textOverride )
-        m_textOverride = new wxSpinCtrlGTKTextOverride();
+        m_textOverride = NEW_DEBUG wxSpinCtrlGTKTextOverride();
 
     m_textOverride->m_text = text;
 }
@@ -517,7 +517,7 @@ void wxSpinCtrlGTKBase::GTKTextChanged()
 {
     // We can't use GTKResetTextOverride() itself here because it would also
     // reset the value and we do not want this to happen -- the value is being
-    // changed to correspond to the new text.
+    // changed to correspond to the NEW_DEBUG text.
     GTKResetTextOverrideOnly();
 
     wxCommandEvent event( wxEVT_TEXT, GetId() );
@@ -650,7 +650,7 @@ void wxSpinCtrlDouble::SetIncrement(double inc)
     const unsigned digits = wxSpinCtrlImpl::DetermineDigits(inc);
 
     // Increase the number of digits, if necessary, to show all numbers that
-    // can be obtained by using the new increment without loss of precision.
+    // can be obtained by using the NEW_DEBUG increment without loss of precision.
     if ( digits > GetDigits() )
         SetDigits(digits);
 }

@@ -326,12 +326,12 @@ void wxGDIImage::CleanUpHandlers()
 
 void wxGDIImage::InitStandardHandlers()
 {
-    AddHandler(new wxBMPResourceHandler);
-    AddHandler(new wxBMPFileHandler);
-    AddHandler(new wxICOFileHandler);
-    AddHandler(new wxICOResourceHandler);
+    AddHandler(NEW_DEBUG wxBMPResourceHandler);
+    AddHandler(NEW_DEBUG wxBMPFileHandler);
+    AddHandler(NEW_DEBUG wxICOFileHandler);
+    AddHandler(NEW_DEBUG wxICOResourceHandler);
 #if wxUSE_PNG_RESOURCE_HANDLER
-    AddHandler(new wxPNGResourceHandler);
+    AddHandler(NEW_DEBUG wxPNGResourceHandler);
 #endif // wxUSE_PNG_RESOURCE_HANDLER
 }
 
@@ -420,7 +420,7 @@ bool wxBMPResourceHandler::LoadFile(wxBitmap *bitmap,
     bitmap->InitFromHBITMAP((WXHBITMAP)hbmp, w, h, d);
 
     // use 0xc0c0c0 as transparent colour by default
-    bitmap->SetMask(new wxMask(*bitmap, *wxLIGHT_GREY));
+    bitmap->SetMask(NEW_DEBUG wxMask(*bitmap, *wxLIGHT_GREY));
 
     return true;
 }

@@ -89,7 +89,7 @@ void wxNonOwnedWindow::Init()
     m_isShown = false;
     m_sizeSet = false;
     m_opacity = 255;
-    m_toPaint = new wxDfbQueuedPaintRequests;
+    m_toPaint = NEW_DEBUG wxDfbQueuedPaintRequests;
     m_isPainting = false;
 }
 
@@ -122,7 +122,7 @@ bool wxNonOwnedWindow::Create(wxWindow *parent,
     if ( !m_dfbwin )
         return false;
 
-    // add the new TLW to DFBWindowID->wxTLW map:
+    // add the NEW_DEBUG TLW to DFBWindowID->wxTLW map:
     DFBWindowID winid;
     if ( !m_dfbwin->GetID(&winid) )
         return false;

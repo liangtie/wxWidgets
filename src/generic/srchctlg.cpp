@@ -310,9 +310,9 @@ bool wxSearchCtrl::Create(wxWindow *parent, wxWindowID id,
         return false;
     }
 
-    m_text = new wxSearchTextCtrl(this, value, style);
+    m_text = NEW_DEBUG wxSearchTextCtrl(this, value, style);
 
-    m_searchButton = new wxSearchButton(this,
+    m_searchButton = NEW_DEBUG wxSearchButton(this,
                                         wxEVT_SEARCH,
                                         m_searchBitmap);
 
@@ -417,7 +417,7 @@ void wxSearchCtrl::ShowCancelButton( bool show )
     // i.e. if it's the first time we show it.
     if ( !m_cancelButton )
     {
-        m_cancelButton = new wxSearchButton(this,
+        m_cancelButton = NEW_DEBUG wxSearchButton(this,
                                             wxEVT_SEARCH_CANCEL,
                                             m_cancelBitmap);
         RecalcBitmaps();

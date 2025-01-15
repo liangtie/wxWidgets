@@ -122,7 +122,7 @@ const char* wxLanguageInfo::TrySetLocale() const
     wxChar buffer[256];
     buffer[0] = wxT('\0');
 
-    // Prefer to use the new (Vista and later) locale names instead of locale
+    // Prefer to use the NEW_DEBUG (Vista and later) locale names instead of locale
     // identifiers if supported, both at the OS level (LOCALE_SNAME) and by the
     // CRT (check by calling setlocale()).
     if ( wxGetWinVersion() >= wxWinVersion_Vista )

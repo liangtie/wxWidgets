@@ -83,7 +83,7 @@ wxAcceleratorRefData::~wxAcceleratorRefData()
 // Load from .rc resource
 wxAcceleratorTable::wxAcceleratorTable(const wxString& resource)
 {
-    m_refData = new wxAcceleratorRefData;
+    m_refData = NEW_DEBUG wxAcceleratorRefData;
 
     HACCEL hAccel = ::LoadAccelerators(wxGetInstance(), resource.t_str());
     M_ACCELDATA->m_hAccel = hAccel;
@@ -93,9 +93,9 @@ wxAcceleratorTable::wxAcceleratorTable(const wxString& resource)
 // Create from an array
 wxAcceleratorTable::wxAcceleratorTable(int n, const wxAcceleratorEntry entries[])
 {
-    m_refData = new wxAcceleratorRefData;
+    m_refData = NEW_DEBUG wxAcceleratorRefData;
 
-    ACCEL* arr = new ACCEL[n];
+    ACCEL* arr = NEW_DEBUG ACCEL[n];
     for ( int i = 0; i < n; i++ )
     {
         int flags = entries[i].GetFlags();
@@ -129,7 +129,7 @@ bool wxAcceleratorTable::IsOk() const
 void wxAcceleratorTable::SetHACCEL(WXHACCEL hAccel)
 {
     if (!M_ACCELDATA)
-        m_refData = new wxAcceleratorRefData;
+        m_refData = NEW_DEBUG wxAcceleratorRefData;
 
     M_ACCELDATA->m_hAccel = (HACCEL) hAccel;
 }

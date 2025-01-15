@@ -127,7 +127,7 @@ static wxScopedPtr<wxAnyValueTypeGlobals>& GetAnyValueTypeGlobals()
         // object like this because it can be used after it was reset by
         // wxAnyValueTypeGlobalsManager if the library is shut down and then
         // initialized again.
-        s_wxAnyValueTypeGlobals.reset(new wxAnyValueTypeGlobals());
+        s_wxAnyValueTypeGlobals.reset(NEW_DEBUG wxAnyValueTypeGlobals());
     }
 
     return s_wxAnyValueTypeGlobals;
@@ -205,7 +205,7 @@ bool wxConvertAnyToVariant(const wxAny& any, wxVariant* variant)
 
         // Wrapper's GetValue() does not increase reference
         // count, se have to do it before the data gets passed
-        // to a new variant.
+        // to a NEW_DEBUG variant.
         data->IncRef();
     }
 

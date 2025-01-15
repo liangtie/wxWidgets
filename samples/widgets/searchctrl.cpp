@@ -149,13 +149,13 @@ void SearchCtrlWidgetsPage::CreateContent()
     CreateControl();
 
 
-    wxSizer* box = new wxStaticBoxSizer(
-        new wxStaticBox(this, -1, "Options"),
+    wxSizer* box = NEW_DEBUG wxStaticBoxSizer(
+        NEW_DEBUG wxStaticBox(this, -1, "Options"),
         wxVERTICAL);
 
-    m_searchBtnCheck = new wxCheckBox(this, ID_SEARCH_CB, "Search button");
-    m_cancelBtnCheck = new wxCheckBox(this, ID_CANCEL_CB, "Cancel button");
-    m_menuBtnCheck   = new wxCheckBox(this, ID_MENU_CB,   "Search menu");
+    m_searchBtnCheck = NEW_DEBUG wxCheckBox(this, ID_SEARCH_CB, "Search button");
+    m_cancelBtnCheck = NEW_DEBUG wxCheckBox(this, ID_CANCEL_CB, "Cancel button");
+    m_menuBtnCheck   = NEW_DEBUG wxCheckBox(this, ID_MENU_CB,   "Search menu");
 
     m_searchBtnCheck->SetValue(true);
 
@@ -163,7 +163,7 @@ void SearchCtrlWidgetsPage::CreateContent()
     box->Add(m_cancelBtnCheck, wxSizerFlags().Border());
     box->Add(m_menuBtnCheck,   wxSizerFlags().Border());
 
-    wxSizer* sizer = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer* sizer = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     sizer->Add(box, wxSizerFlags().Expand().TripleBorder());
     sizer->Add(m_srchCtrl, wxSizerFlags().Centre().TripleBorder());
 
@@ -177,7 +177,7 @@ void SearchCtrlWidgetsPage::CreateControl()
 
     long style = GetAttrs().m_defaultFlags;
 
-    m_srchCtrl = new wxSearchCtrl(this, -1, wxEmptyString, wxDefaultPosition,
+    m_srchCtrl = NEW_DEBUG wxSearchCtrl(this, -1, wxEmptyString, wxDefaultPosition,
                                   FromDIP(wxSize(150, -1)), style);
 }
 
@@ -192,7 +192,7 @@ void SearchCtrlWidgetsPage::RecreateWidget()
 
 wxMenu* SearchCtrlWidgetsPage::CreateTestMenu()
 {
-    wxMenu* menu = new wxMenu;
+    wxMenu* menu = NEW_DEBUG wxMenu;
     wxMenuItem* menuItem = menu->Append(wxID_ANY, "Recent Searches", "", wxITEM_NORMAL);
     menuItem->Enable(false);
     for ( int i = 0; i < ID_SEARCHMENU_LAST - ID_SEARCHMENU; i++ )

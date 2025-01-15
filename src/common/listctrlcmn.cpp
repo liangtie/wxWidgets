@@ -60,7 +60,7 @@ wxDEFINE_EVENT( wxEVT_LIST_CACHE_HINT, wxListEvent );
 
 wxDEFINE_FLAGS( wxListCtrlStyle )
 wxBEGIN_FLAGS( wxListCtrlStyle )
-// new style border flags, we put them first to
+// NEW_DEBUG style border flags, we put them first to
 // use them for streaming out
 wxFLAGS_MEMBER(wxBORDER_SIMPLE)
 wxFLAGS_MEMBER(wxBORDER_SUNKEN)

@@ -89,13 +89,13 @@ bool wxObject::IsKindOf(const wxClassInfo *info) const
     return (thisInfo) ? thisInfo->IsKindOf(info) : false ;
 }
 
-#if wxUSE_MEMORY_TRACING && defined( new )
-    #undef new
+#if wxUSE_MEMORY_TRACING && defined( NEW_DEBUG )
+    #undef NEW_DEBUG
 #endif
 
 
 #ifdef _WX_WANT_NEW_SIZET_WXCHAR_INT
-void *wxObject::operator new ( size_t size, const wxChar *fileName, int lineNum )
+void *wxObject::operator NEW_DEBUG ( size_t size, const wxChar *fileName, int lineNum )
 {
     return wxDebugAlloc(size, (wxChar*) fileName, lineNum, true);
 }
@@ -123,7 +123,7 @@ void wxObject::operator delete ( void *buf, const wxChar *WXUNUSED(fileName), in
 #endif
 
 #ifdef _WX_WANT_ARRAY_NEW_SIZET_WXCHAR_INT
-void *wxObject::operator new[] ( size_t size, const wxChar* fileName, int lineNum )
+void *wxObject::operator NEW_DEBUG[] ( size_t size, const wxChar* fileName, int lineNum )
 {
     return wxDebugAlloc(size, (wxChar*) fileName, lineNum, true, true);
 }
@@ -216,7 +216,7 @@ void wxClassInfo::Register()
     if ( !sm_classTable )
     {
         // keep the hash local initially, reentrance is possible
-        classTable = new wxHashTable(wxKEY_STRING);
+        classTable = NEW_DEBUG wxHashTable(wxKEY_STRING);
     }
     else
     {
@@ -353,7 +353,7 @@ void wxObject::Ref(const wxObject& clone)
     // delete reference to old data
     UnRef();
 
-    // reference new data
+    // reference NEW_DEBUG data
     if ( clone.m_refData )
     {
         m_refData = clone.m_refData;

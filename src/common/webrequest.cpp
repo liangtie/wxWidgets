@@ -114,7 +114,7 @@ void wxWebRequestImpl::SetData(const wxString& text, const wxString& contentType
     m_dataText = text.mb_str(conv);
 
     wxScopedPtr<wxInputStream>
-        stream(new wxMemoryInputStream(m_dataText, m_dataText.length()));
+        stream(NEW_DEBUG wxMemoryInputStream(m_dataText, m_dataText.length()));
     SetData(stream, contentType);
 }
 
@@ -667,10 +667,10 @@ wxInputStream * wxWebResponseImpl::GetStream() const
         switch ( m_request.GetStorage() )
         {
             case wxWebRequest::Storage_Memory:
-                m_stream.reset(new wxMemoryInputStream(m_readBuffer.GetData(), m_readBuffer.GetDataLen()));
+                m_stream.reset(NEW_DEBUG wxMemoryInputStream(m_readBuffer.GetData(), m_readBuffer.GetDataLen()));
                 break;
             case wxWebRequest::Storage_File:
-                m_stream.reset(new wxFFileInputStream(m_file));
+                m_stream.reset(NEW_DEBUG wxFFileInputStream(m_file));
                 m_stream->SeekI(0);
                 break;
             case wxWebRequest::Storage_None:
@@ -758,7 +758,7 @@ void wxWebResponseImpl::ReportDataReceived(size_t sizeReceived)
             IncRef();
             const wxWebResponseImplPtr response(this);
 
-            wxWebRequestEvent* const evt = new wxWebRequestEvent
+            wxWebRequestEvent* const evt = NEW_DEBUG wxWebRequestEvent
                                                (
                                                 wxEVT_WEBREQUEST_DATA,
                                                 m_request.GetId(),
@@ -1008,13 +1008,13 @@ wxWebSession::RegisterFactory(const wxString& backend,
 void wxWebSession::InitFactoryMap()
 {
 #if wxUSE_WEBREQUEST_WINHTTP
-    RegisterFactory(wxWebSessionBackendWinHTTP, new wxWebSessionFactoryWinHTTP());
+    RegisterFactory(wxWebSessionBackendWinHTTP, NEW_DEBUG wxWebSessionFactoryWinHTTP());
 #endif
 #if wxUSE_WEBREQUEST_URLSESSION
-    RegisterFactory(wxWebSessionBackendURLSession, new wxWebSessionFactoryURLSession());
+    RegisterFactory(wxWebSessionBackendURLSession, NEW_DEBUG wxWebSessionFactoryURLSession());
 #endif
 #if wxUSE_WEBREQUEST_CURL
-    RegisterFactory(wxWebSessionBackendCURL, new wxWebSessionFactoryCURL());
+    RegisterFactory(wxWebSessionBackendCURL, NEW_DEBUG wxWebSessionFactoryCURL());
 #endif
 }
 

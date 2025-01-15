@@ -24,7 +24,7 @@ wxIMPLEMENT_DYNAMIC_CLASS_XTI(wxCommandLinkButton, wxButton, "wx/commandlinkbutt
 
 wxDEFINE_FLAGS( wxCommandLinkButtonStyle )
 wxBEGIN_FLAGS( wxCommandLinkButtonStyle )
-// new style border flags, we put them first to
+// NEW_DEBUG style border flags, we put them first to
 // use them for streaming out
 wxFLAGS_MEMBER(wxBORDER_SIMPLE)
 wxFLAGS_MEMBER(wxBORDER_SUNKEN)

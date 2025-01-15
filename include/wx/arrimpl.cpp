@@ -24,7 +24,7 @@
 name::value_type*                                                             \
 wxObjectArrayTraitsFor##name::Clone(const name::value_type& item)             \
 {                                                                             \
-    return new name::value_type(item);                                        \
+    return NEW_DEBUG name::value_type(item);                                        \
 }                                                                             \
                                                                               \
 void wxObjectArrayTraitsFor##name::Free(name::value_type* p)                  \

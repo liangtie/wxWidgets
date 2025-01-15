@@ -68,7 +68,7 @@ public:
 
     virtual wxObject *Clone() const wxOVERRIDE
     {
-        return new DateValidator(*this);
+        return NEW_DEBUG DateValidator(*this);
     }
 
     virtual bool Validate(wxWindow *parent) wxOVERRIDE
@@ -134,7 +134,7 @@ public:
 
     // NB: Don't create lazily since it didn't work that way before
     //     wxComboCtrl was used, and changing behaviour would almost
-    //     certainly introduce new bugs.
+    //     certainly introduce NEW_DEBUG bugs.
     virtual bool Create(wxWindow* parent) wxOVERRIDE
     {
         if ( !wxCalendarCtrl::Create(parent, wxID_ANY, wxDefaultDateTime,
@@ -414,12 +414,12 @@ bool wxDatePickerCtrlGeneric::Create(wxWindow *parent,
 
     InheritAttributes();
 
-    m_combo = new wxComboCtrl(this, -1, wxEmptyString,
+    m_combo = NEW_DEBUG wxComboCtrl(this, -1, wxEmptyString,
                               wxDefaultPosition, wxDefaultSize);
 
     m_combo->SetCtrlMainWnd(this);
 
-    m_popup = new wxCalendarComboPopup();
+    m_popup = NEW_DEBUG wxCalendarComboPopup();
 
 #if defined(__WXMSW__)
     // without this keyboard navigation in month control doesn't work

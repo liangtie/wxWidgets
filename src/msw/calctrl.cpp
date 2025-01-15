@@ -438,7 +438,7 @@ bool wxCalendarCtrl::MSWOnNotify(int idCtrl, WXLPARAM lParam, WXLPARAM *result)
         case MCN_SELCHANGE:
             {
                 // we need to update m_date first, before calling the user code
-                // which expects GetDate() to return the new date
+                // which expects GetDate() to return the NEW_DEBUG date
                 const wxDateTime dateOld = m_date;
                 const NMSELCHANGE * const sch = (NMSELCHANGE *)lParam;
                 m_date.SetFromMSWSysDate(sch->stSelStart);

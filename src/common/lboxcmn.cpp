@@ -48,7 +48,7 @@ wxListBoxBase::~wxListBoxBase()
 
 wxDEFINE_FLAGS( wxListBoxStyle )
 wxBEGIN_FLAGS( wxListBoxStyle )
-// new style border flags, we put them first to
+// NEW_DEBUG style border flags, we put them first to
 // use them for streaming out
 wxFLAGS_MEMBER(wxBORDER_SIMPLE)
 wxFLAGS_MEMBER(wxBORDER_SUNKEN)
@@ -257,7 +257,7 @@ bool wxListBoxBase::CalcAndSendEvent()
     }
     else // we [still] have some selections
     {
-        // Now test if any new item is selected
+        // Now test if any NEW_DEBUG item is selected
         bool any_new_selected = false;
         for ( size_t idx = 0; idx < countSel; idx++ )
         {
@@ -271,7 +271,7 @@ bool wxListBoxBase::CalcAndSendEvent()
 
         if ( !any_new_selected )
         {
-            // No new items selected, now test if any new item is deselected
+            // No NEW_DEBUG items selected, now test if any NEW_DEBUG item is deselected
             bool any_new_deselected = false;
             for ( size_t idx = 0; idx < countSelOld; idx++ )
             {

@@ -27,7 +27,7 @@
 #pragma message enable nosimpint
 #endif
 
-// use the new, shiny combobox for Motif 2.x
+// use the NEW_DEBUG, shiny combobox for Motif 2.x
 #if (XmVersion >= 2000)
 
 #ifdef __VMS__

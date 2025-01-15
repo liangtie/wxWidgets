@@ -99,7 +99,7 @@ void wxRegion::InitRect(wxCoord x, wxCoord y, wxCoord w, wxCoord h)
     rect.width = w;
     rect.height = h;
 
-    m_refData = new wxRegionRefData();
+    m_refData = NEW_DEBUG wxRegionRefData();
 
 #ifdef __WXGTK3__
     M_REGIONDATA->m_region = cairo_region_create_rectangle(&rect);
@@ -111,7 +111,7 @@ void wxRegion::InitRect(wxCoord x, wxCoord y, wxCoord w, wxCoord h)
 #ifndef __WXGTK3__
 wxRegion::wxRegion(const GdkRegion* region)
 {
-    m_refData = new wxRegionRefData();
+    m_refData = NEW_DEBUG wxRegionRefData();
     M_REGIONDATA->m_region = gdk_region_copy(const_cast<GdkRegion*>(region));
 }
 #endif
@@ -165,18 +165,18 @@ wxRegion::wxRegion( size_t n, const wxPoint *points,
     cairo_fill(cr);
     cairo_destroy(cr);
     cairo_surface_flush(surface);
-    m_refData = new wxRegionRefData;
+    m_refData = NEW_DEBUG wxRegionRefData;
     M_REGIONDATA->m_region = gdk_cairo_region_create_from_surface(surface);
     cairo_surface_destroy(surface);
 #else
-    GdkPoint *gdkpoints = new GdkPoint[n];
+    GdkPoint *gdkpoints = NEW_DEBUG GdkPoint[n];
     for ( size_t i = 0 ; i < n ; i++ )
     {
         gdkpoints[i].x = points[i].x;
         gdkpoints[i].y = points[i].y;
     }
 
-    m_refData = new wxRegionRefData();
+    m_refData = NEW_DEBUG wxRegionRefData();
 
     GdkRegion* reg = gdk_region_polygon
                      (
@@ -206,7 +206,7 @@ wxGDIRefData *wxRegion::CreateGDIRefData() const
 
 wxGDIRefData *wxRegion::CloneGDIRefData(const wxGDIRefData *data) const
 {
-    return new wxRegionRefData(*static_cast<const wxRegionRefData*>(data));
+    return NEW_DEBUG wxRegionRefData(*static_cast<const wxRegionRefData*>(data));
 }
 
 // ----------------------------------------------------------------------------
@@ -271,7 +271,7 @@ bool wxRegion::DoUnionWithRegion( const wxRegion& region )
         { }
     else if (m_refData == NULL)
     {
-        m_refData = new wxRegionRefData(*M_REGIONDATA_OF(region));
+        m_refData = NEW_DEBUG wxRegionRefData(*M_REGIONDATA_OF(region));
     }
     else
     {
@@ -326,7 +326,7 @@ bool wxRegion::DoXor( const wxRegion& region )
     {
         // XOR-ing with an invalid region is the same as XOR-ing with an empty
         // one, i.e. it is simply a copy.
-        m_refData = new wxRegionRefData(*M_REGIONDATA_OF(region));
+        m_refData = NEW_DEBUG wxRegionRefData(*M_REGIONDATA_OF(region));
     }
     else
     {
@@ -488,10 +488,10 @@ void wxRegionIterator::CreateRects( const wxRegion& region )
     if (cairoRegion == NULL)
         return;
     m_numRects = cairo_region_num_rectangles(cairoRegion);
-     
+
     if (m_numRects)
     {
-        m_rects = new wxRect[m_numRects];
+        m_rects = NEW_DEBUG wxRect[m_numRects];
         for (int i = 0; i < m_numRects; i++)
         {
             GdkRectangle gr;
@@ -513,7 +513,7 @@ void wxRegionIterator::CreateRects( const wxRegion& region )
 
     if (m_numRects)
     {
-        m_rects = new wxRect[m_numRects];
+        m_rects = NEW_DEBUG wxRect[m_numRects];
         for (int i = 0; i < m_numRects; ++i)
         {
             GdkRectangle &gr = gdkrects[i];
@@ -605,7 +605,7 @@ wxRegionIterator& wxRegionIterator::operator=(const wxRegionIterator& ri)
         m_numRects = ri.m_numRects;
         if ( m_numRects )
         {
-            m_rects = new wxRect[m_numRects];
+            m_rects = NEW_DEBUG wxRect[m_numRects];
             memcpy(m_rects, ri.m_rects, m_numRects * sizeof m_rects[0]);
         }
     }

@@ -73,7 +73,7 @@ wxFontDataProperty::wxFontDataProperty( const wxString& label, const wxString& n
     m_value_wxFontData = WXVARIANT(fontData);
 
     // Add extra children.
-    AddPrivateChild( new wxColourProperty("Colour", wxPG_LABEL,
+    AddPrivateChild( NEW_DEBUG wxColourProperty("Colour", wxPG_LABEL,
                                           fontData.GetColour() ) );
 }
 
@@ -199,8 +199,8 @@ wxSizeProperty::wxSizeProperty( const wxString& label, const wxString& name,
     const wxSize& value) : wxPGProperty(label,name)
 {
     SetValueI(value);
-    AddPrivateChild( new wxIntProperty("Width",wxPG_LABEL,value.x) );
-    AddPrivateChild( new wxIntProperty("Height",wxPG_LABEL,value.y) );
+    AddPrivateChild( NEW_DEBUG wxIntProperty("Width",wxPG_LABEL,value.x) );
+    AddPrivateChild( NEW_DEBUG wxIntProperty("Height",wxPG_LABEL,value.y) );
 }
 
 wxSizeProperty::~wxSizeProperty() { }
@@ -239,8 +239,8 @@ wxPointProperty::wxPointProperty( const wxString& label, const wxString& name,
     const wxPoint& value) : wxPGProperty(label,name)
 {
     SetValueI(value);
-    AddPrivateChild( new wxIntProperty("X",wxPG_LABEL,value.x) );
-    AddPrivateChild( new wxIntProperty("Y",wxPG_LABEL,value.y) );
+    AddPrivateChild( NEW_DEBUG wxIntProperty("X",wxPG_LABEL,value.x) );
+    AddPrivateChild( NEW_DEBUG wxIntProperty("Y",wxPG_LABEL,value.y) );
 }
 
 wxPointProperty::~wxPointProperty() { }
@@ -641,7 +641,7 @@ wxValidator* wxArrayDoubleProperty::DoGetValidator() const
     WX_PG_DOGETVALIDATOR_ENTRY()
 
     wxTextValidator* validator =
-        new wxNumericPropertyValidator(wxNumericPropertyValidator::Float);
+        NEW_DEBUG wxNumericPropertyValidator(wxNumericPropertyValidator::Float);
 
     // Accept also a delimiter and space character
     validator->AddCharIncludes(m_delimiter);

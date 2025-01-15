@@ -427,7 +427,7 @@ wxLog::CallDoLogNow(wxLogLevel level,
 
         LogLastRepeatIfNeeded();
 
-        // reset repetition counter for a new message
+        // reset repetition counter for a NEW_DEBUG message
         gs_prevLog.msg = msg;
         gs_prevLog.level = level;
         gs_prevLog.info = info;
@@ -549,7 +549,7 @@ wxLog *wxLog::GetMainThreadActiveTarget()
             if ( wxTheApp != NULL )
                 ms_pLogger = wxTheApp->GetTraits()->CreateLogTarget();
             else
-                ms_pLogger = new wxLogOutputBest;
+                ms_pLogger = NEW_DEBUG wxLogOutputBest;
 
             s_bInGetActiveTarget = false;
 
@@ -813,7 +813,7 @@ bool wxLog::EnableThreadLogging(bool enable)
 wxLogFormatter *wxLog::SetFormatter(wxLogFormatter* formatter)
 {
     wxLogFormatter* formatterOld = m_formatter;
-    m_formatter = formatter ? formatter : new wxLogFormatter;
+    m_formatter = formatter ? formatter : NEW_DEBUG wxLogFormatter;
 
     return formatterOld;
 }
@@ -978,7 +978,7 @@ void wxLogChain::DoLogRecord(wxLogLevel level,
     if ( m_logOld && IsPassingMessages() )
         m_logOld->LogRecord(level, msg, info);
 
-    // and also send it to the new one
+    // and also send it to the NEW_DEBUG one
     if ( m_logNew )
     {
         // don't call m_logNew->LogRecord() to avoid infinite recursion when

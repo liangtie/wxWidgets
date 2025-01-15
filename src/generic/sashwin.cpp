@@ -72,8 +72,8 @@ void wxSashWindow::Init()
     m_minimumPaneSizeY = 0;
     m_maximumPaneSizeX = 10000;
     m_maximumPaneSizeY = 10000;
-    m_sashCursorWE = new wxCursor(wxCURSOR_SIZEWE);
-    m_sashCursorNS = new wxCursor(wxCURSOR_SIZENS);
+    m_sashCursorWE = NEW_DEBUG wxCursor(wxCURSOR_SIZEWE);
+    m_sashCursorNS = NEW_DEBUG wxCursor(wxCURSOR_SIZENS);
     m_mouseCaptured = false;
     m_currentCursor = NULL;
 
@@ -180,7 +180,7 @@ void wxSashWindow::OnMouseEvent(wxMouseEvent& event)
         wxRect dragRect;
         wxSashDragStatus status = wxSASH_STATUS_OK;
 
-        // the new height and width of the window - if -1, it didn't change
+        // the NEW_DEBUG height and width of the window - if -1, it didn't change
         int newHeight = wxDefaultCoord,
             newWidth = wxDefaultCoord;
 
@@ -346,7 +346,7 @@ void wxSashWindow::OnMouseEvent(wxMouseEvent& event)
                 // Erase old tracker
                 DrawSashTracker(m_draggingEdge, m_oldX, m_oldY);
 
-                // Draw new one
+                // Draw NEW_DEBUG one
                 DrawSashTracker(m_draggingEdge, x, y);
             }
         }

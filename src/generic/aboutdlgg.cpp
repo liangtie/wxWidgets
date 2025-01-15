@@ -138,11 +138,11 @@ bool wxGenericAboutDialog::Create(const wxAboutDialogInfo& info, wxWindow* paren
                            wxDefaultPosition, wxDefaultSize, wxRESIZE_BORDER|wxDEFAULT_DIALOG_STYLE) )
         return false;
 
-    m_sizerText = new wxBoxSizer(wxVERTICAL);
+    m_sizerText = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     wxString nameAndVersion = info.GetName();
     if ( info.HasVersion() )
         nameAndVersion << wxT(' ') << info.GetVersion();
-    wxStaticText *label = new wxStaticText(this, wxID_ANY, nameAndVersion);
+    wxStaticText *label = NEW_DEBUG wxStaticText(this, wxID_ANY, nameAndVersion);
     wxFont fontBig(*wxNORMAL_FONT);
     fontBig.SetFractionalPointSize(fontBig.GetFractionalPointSize() + 2.0);
     fontBig.SetWeight(wxFONTWEIGHT_BOLD);
@@ -157,7 +157,7 @@ bool wxGenericAboutDialog::Create(const wxAboutDialogInfo& info, wxWindow* paren
     if ( info.HasWebSite() )
     {
 #if wxUSE_HYPERLINKCTRL
-        AddControl(new wxHyperlinkCtrl(this, wxID_ANY,
+        AddControl(NEW_DEBUG wxHyperlinkCtrl(this, wxID_ANY,
                                        info.GetWebSiteDescription(),
                                        info.GetWebSiteURL()));
 #else
@@ -189,18 +189,18 @@ bool wxGenericAboutDialog::Create(const wxAboutDialogInfo& info, wxWindow* paren
     DoAddCustomControls();
 
 
-    wxSizer *sizerIconAndText = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer *sizerIconAndText = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
 #if wxUSE_STATBMP
     wxIcon icon = info.GetIcon();
     if ( icon.IsOk() )
     {
-        sizerIconAndText->Add(new wxStaticBitmap(this, wxID_ANY, icon),
+        sizerIconAndText->Add(NEW_DEBUG wxStaticBitmap(this, wxID_ANY, icon),
                                 wxSizerFlags().Border(wxRIGHT));
     }
 #endif // wxUSE_STATBMP
     sizerIconAndText->Add(m_sizerText, wxSizerFlags(1).Expand());
 
-    wxSizer *sizerTop = new wxBoxSizer(wxVERTICAL);
+    wxSizer *sizerTop = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     sizerTop->Add(sizerIconAndText, wxSizerFlags(1).Expand().Border());
 
 // Mac typically doesn't use OK buttons just for dismissing dialogs.
@@ -240,16 +240,16 @@ void wxGenericAboutDialog::AddControl(wxWindow *win)
 void wxGenericAboutDialog::AddText(const wxString& text)
 {
     if ( !text.empty() )
-        AddControl(new wxStaticText(this, wxID_ANY, text));
+        AddControl(NEW_DEBUG wxStaticText(this, wxID_ANY, text));
 }
 
 #if wxUSE_COLLPANE
 void wxGenericAboutDialog::AddCollapsiblePane(const wxString& title,
                                               const wxString& text)
 {
-    wxCollapsiblePane *pane = new wxCollapsiblePane(this, wxID_ANY, title);
+    wxCollapsiblePane *pane = NEW_DEBUG wxCollapsiblePane(this, wxID_ANY, title);
     wxWindow * const paneContents = pane->GetPane();
-    wxStaticText *txt = new wxStaticText(paneContents, wxID_ANY, text,
+    wxStaticText *txt = NEW_DEBUG wxStaticText(paneContents, wxID_ANY, text,
                                          wxDefaultPosition, wxDefaultSize,
                                          wxALIGN_CENTRE);
 
@@ -259,7 +259,7 @@ void wxGenericAboutDialog::AddCollapsiblePane(const wxString& title,
 
 
     // we need a sizer to make this text expand to fill the entire pane area
-    wxSizer * const sizerPane = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer * const sizerPane = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     sizerPane->Add(txt, wxSizerFlags(1).Expand());
     paneContents->SetSizer(sizerPane);
 
@@ -304,7 +304,7 @@ void wxGenericAboutBox(const wxAboutDialogInfo& info, wxWindow* parent)
     wxGenericAboutDialog dlg(info, parent);
     dlg.ShowModal();
 #else
-    wxGenericAboutDialog* dlg = new wxGenericAboutDialog(info, parent);
+    wxGenericAboutDialog* dlg = NEW_DEBUG wxGenericAboutDialog(info, parent);
     dlg->Show();
 #endif
 }

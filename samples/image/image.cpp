@@ -197,7 +197,7 @@ private:
         m_zoom = 1.;
         m_useImageForZoom = false;
 
-        wxMenu *menu = new wxMenu;
+        wxMenu *menu = NEW_DEBUG wxMenu;
         menu->Append(wxID_SAVEAS);
         menu->AppendSeparator();
         menu->AppendCheckItem(ID_PAINT_BG, "&Paint background",
@@ -219,7 +219,7 @@ private:
         menu->Append(ID_ROTATE_LEFT, "Rotate &left\tCtrl-L");
         menu->Append(ID_ROTATE_RIGHT, "Rotate &right\tCtrl-R");
 
-        wxMenuBar *mbar = new wxMenuBar;
+        wxMenuBar *mbar = NEW_DEBUG wxMenuBar;
         mbar->Append(menu, "&Image");
         SetMenuBar(mbar);
 
@@ -356,7 +356,7 @@ private:
 #if wxUSE_PALETTE
                 if ( format == wxBMP_8BPP_PALETTE )
                 {
-                    unsigned char *cmap = new unsigned char [256];
+                    unsigned char *cmap = NEW_DEBUG unsigned char [256];
                     for ( int i = 0; i < 256; i++ )
                         cmap[i] = (unsigned char)i;
                     image.SetPalette(wxPalette(256, cmap, cmap, cmap));
@@ -751,13 +751,13 @@ public:
     MyFiltersFrame(wxWindow *parent)
         : wxFrame(parent, wxID_ANY, "Image filters test")
     {
-        wxMenu *menuImage = new wxMenu;
+        wxMenu *menuImage = NEW_DEBUG wxMenu;
 
         menuImage->Append(wxID_OPEN, "&Open...\tCtrl-O", "Load a user defined image");
         menuImage->Append(wxID_RESET, "&Reset\tCtrl-R", "Reset all the image filters");
         menuImage->Append(wxID_CLOSE, "&Close\tCtrl-Q", "Close this frame");
 
-        wxMenuBar *menuBar = new wxMenuBar();
+        wxMenuBar *menuBar = NEW_DEBUG wxMenuBar();
         menuBar->Append(menuImage, "&Image");
         SetMenuBar(menuBar);
 
@@ -773,108 +773,108 @@ public:
         wxSizerFlags sizerFlags4;
         sizerFlags4.Border();
 
-        wxStaticBoxSizer *sizerHue = new wxStaticBoxSizer(new wxStaticBox(this,
+        wxStaticBoxSizer *sizerHue = NEW_DEBUG wxStaticBoxSizer(NEW_DEBUG wxStaticBox(this,
                                      wxID_ANY, wxS("Hue (°)")), wxVERTICAL);
-        m_sliderHue = new wxSlider(sizerHue->GetStaticBox(), wxID_ANY, 0, -360, 360,
+        m_sliderHue = NEW_DEBUG wxSlider(sizerHue->GetStaticBox(), wxID_ANY, 0, -360, 360,
                       wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL | wxSL_LABELS);
         sizerHue->Add(m_sliderHue, sizerFlags2);
 
-        wxStaticBoxSizer *sizerSaturation = new wxStaticBoxSizer(new wxStaticBox(this,
+        wxStaticBoxSizer *sizerSaturation = NEW_DEBUG wxStaticBoxSizer(NEW_DEBUG wxStaticBox(this,
                                             wxID_ANY, wxS("Saturation (%)")), wxVERTICAL);
-        m_sliderSaturation = new wxSlider(sizerSaturation->GetStaticBox(), wxID_ANY,
+        m_sliderSaturation = NEW_DEBUG wxSlider(sizerSaturation->GetStaticBox(), wxID_ANY,
                              0, -100, 100, wxDefaultPosition, wxDefaultSize,
                              wxSL_HORIZONTAL | wxSL_LABELS);
         sizerSaturation->Add(m_sliderSaturation, sizerFlags2);
 
-        wxStaticBoxSizer *sizerBrightness = new wxStaticBoxSizer(new wxStaticBox(this,
+        wxStaticBoxSizer *sizerBrightness = NEW_DEBUG wxStaticBoxSizer(NEW_DEBUG wxStaticBox(this,
                                             wxID_ANY, wxS("Brightness (value) (%)")),
                                             wxVERTICAL);
-        m_sliderBrightness = new wxSlider(sizerBrightness->GetStaticBox(), wxID_ANY,
+        m_sliderBrightness = NEW_DEBUG wxSlider(sizerBrightness->GetStaticBox(), wxID_ANY,
                              0, -100, 100, wxDefaultPosition, wxDefaultSize,
                              wxSL_HORIZONTAL | wxSL_LABELS);
         sizerBrightness->Add(m_sliderBrightness, sizerFlags2);
 
-        wxStaticBoxSizer *sizerLightness = new wxStaticBoxSizer(new wxStaticBox(this,
+        wxStaticBoxSizer *sizerLightness = NEW_DEBUG wxStaticBoxSizer(NEW_DEBUG wxStaticBox(this,
                                            wxID_ANY, wxS("Lightness")),
                                            wxVERTICAL);
-        m_sliderLightness = new wxSlider(sizerLightness->GetStaticBox(), wxID_ANY,
+        m_sliderLightness = NEW_DEBUG wxSlider(sizerLightness->GetStaticBox(), wxID_ANY,
                             100, 0, 200, wxDefaultPosition, wxDefaultSize,
                             wxSL_HORIZONTAL | wxSL_LABELS);
         sizerLightness->Add(m_sliderLightness, sizerFlags2);
 
-        wxStaticBoxSizer *sizerDisabled = new wxStaticBoxSizer(new wxStaticBox(this,
+        wxStaticBoxSizer *sizerDisabled = NEW_DEBUG wxStaticBoxSizer(NEW_DEBUG wxStaticBox(this,
                                           wxID_ANY, wxS("Disabled")), wxVERTICAL);
-        m_checkDisabled = new wxCheckBox(sizerDisabled->GetStaticBox(), wxID_ANY,
+        m_checkDisabled = NEW_DEBUG wxCheckBox(sizerDisabled->GetStaticBox(), wxID_ANY,
                           wxS("Convert to disabled"));
-        m_sliderDisabled = new wxSlider(sizerDisabled->GetStaticBox(), wxID_ANY,
+        m_sliderDisabled = NEW_DEBUG wxSlider(sizerDisabled->GetStaticBox(), wxID_ANY,
                            255, 0, 255, wxDefaultPosition, wxDefaultSize,
                            wxSL_HORIZONTAL | wxSL_LABELS);
         sizerDisabled->Add(m_checkDisabled, sizerFlags4);
         sizerDisabled->Add(m_sliderDisabled, sizerFlags2);
 
-        wxStaticBoxSizer *sizerGrey = new wxStaticBoxSizer(new wxStaticBox(this,
+        wxStaticBoxSizer *sizerGrey = NEW_DEBUG wxStaticBoxSizer(NEW_DEBUG wxStaticBox(this,
                                       wxID_ANY, wxS("Greyscale")), wxVERTICAL);
-        m_checkGrey = new wxCheckBox(sizerGrey->GetStaticBox(), wxID_ANY,
+        m_checkGrey = NEW_DEBUG wxCheckBox(sizerGrey->GetStaticBox(), wxID_ANY,
                       wxS("Convert to greyscale"));
-        wxBoxSizer *sizer1 = new wxBoxSizer(wxHORIZONTAL);
-        m_spinGreyWeightR = new wxSpinCtrlDouble(sizerGrey->GetStaticBox(),
+        wxBoxSizer *sizer1 = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
+        m_spinGreyWeightR = NEW_DEBUG wxSpinCtrlDouble(sizerGrey->GetStaticBox(),
                             wxID_ANY, wxEmptyString, wxDefaultPosition,
                             wxDefaultSize, wxSP_ARROW_KEYS, 0, 1, 0.299, 0.001);
-        m_spinGreyWeightG = new wxSpinCtrlDouble(sizerGrey->GetStaticBox(),
+        m_spinGreyWeightG = NEW_DEBUG wxSpinCtrlDouble(sizerGrey->GetStaticBox(),
                             wxID_ANY, wxEmptyString, wxDefaultPosition,
                             wxDefaultSize, wxSP_ARROW_KEYS, 0, 1, 0.587, 0.001);
-        m_spinGreyWeightB = new wxSpinCtrlDouble(sizerGrey->GetStaticBox(),
+        m_spinGreyWeightB = NEW_DEBUG wxSpinCtrlDouble(sizerGrey->GetStaticBox(),
                             wxID_ANY, wxEmptyString, wxDefaultPosition,
                             wxDefaultSize, wxSP_ARROW_KEYS, 0, 1, 0.114, 0.001);
         sizer1->AddStretchSpacer();
-        sizer1->Add(new wxStaticText(sizerGrey->GetStaticBox(), wxID_ANY,
+        sizer1->Add(NEW_DEBUG wxStaticText(sizerGrey->GetStaticBox(), wxID_ANY,
                                      wxS("Red weight:")), sizerFlags3);
         sizer1->Add(m_spinGreyWeightR, sizerFlags3);
-        sizer1->Add(new wxStaticText(sizerGrey->GetStaticBox(), wxID_ANY,
+        sizer1->Add(NEW_DEBUG wxStaticText(sizerGrey->GetStaticBox(), wxID_ANY,
                                      wxS("Green weight:")), sizerFlags3);
         sizer1->Add(m_spinGreyWeightG, sizerFlags3);
-        sizer1->Add(new wxStaticText(sizerGrey->GetStaticBox(), wxID_ANY,
+        sizer1->Add(NEW_DEBUG wxStaticText(sizerGrey->GetStaticBox(), wxID_ANY,
                                      wxS("Blue weight:")), sizerFlags3);
         sizer1->Add(m_spinGreyWeightB, sizerFlags3);
         sizer1->AddStretchSpacer();
         sizerGrey->Add(m_checkGrey, sizerFlags4);
         sizerGrey->Add(sizer1, sizerFlags2);
 
-        wxStaticBoxSizer *sizerMono = new wxStaticBoxSizer(new wxStaticBox(this,
+        wxStaticBoxSizer *sizerMono = NEW_DEBUG wxStaticBoxSizer(NEW_DEBUG wxStaticBox(this,
                                       wxID_ANY, wxS("Monochrome")), wxVERTICAL);
-        m_checkMono = new wxCheckBox(sizerMono->GetStaticBox(), wxID_ANY,
+        m_checkMono = NEW_DEBUG wxCheckBox(sizerMono->GetStaticBox(), wxID_ANY,
                       wxS("Convert to monochrome"));
-        wxBoxSizer *sizer2 = new wxBoxSizer(wxHORIZONTAL);
-        m_spinMonoR = new wxSpinCtrl(sizerMono->GetStaticBox(), wxID_ANY,
+        wxBoxSizer *sizer2 = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
+        m_spinMonoR = NEW_DEBUG wxSpinCtrl(sizerMono->GetStaticBox(), wxID_ANY,
                       wxEmptyString, wxDefaultPosition, wxDefaultSize,
                       wxSP_ARROW_KEYS, 0, 255, 0);
-        m_spinMonoG = new wxSpinCtrl(sizerMono->GetStaticBox(), wxID_ANY,
+        m_spinMonoG = NEW_DEBUG wxSpinCtrl(sizerMono->GetStaticBox(), wxID_ANY,
                       wxEmptyString, wxDefaultPosition, wxDefaultSize,
                       wxSP_ARROW_KEYS, 0, 255, 0);
-        m_spinMonoB = new wxSpinCtrl(sizerMono->GetStaticBox(), wxID_ANY,
+        m_spinMonoB = NEW_DEBUG wxSpinCtrl(sizerMono->GetStaticBox(), wxID_ANY,
                       wxEmptyString, wxDefaultPosition, wxDefaultSize,
                       wxSP_ARROW_KEYS, 0, 255, 0);
         sizer2->AddStretchSpacer();
-        sizer2->Add(new wxStaticText(sizerMono->GetStaticBox(), wxID_ANY,
+        sizer2->Add(NEW_DEBUG wxStaticText(sizerMono->GetStaticBox(), wxID_ANY,
                                      wxS("Red:")), sizerFlags3);
         sizer2->Add(m_spinMonoR, sizerFlags3);
-        sizer2->Add(new wxStaticText(sizerMono->GetStaticBox(), wxID_ANY,
+        sizer2->Add(NEW_DEBUG wxStaticText(sizerMono->GetStaticBox(), wxID_ANY,
                                      wxS("Green:")), sizerFlags3);
         sizer2->Add(m_spinMonoG, sizerFlags3);
-        sizer2->Add(new wxStaticText(sizerMono->GetStaticBox(), wxID_ANY,
+        sizer2->Add(NEW_DEBUG wxStaticText(sizerMono->GetStaticBox(), wxID_ANY,
                                      wxS("Blue:")), sizerFlags3);
         sizer2->Add(m_spinMonoB, sizerFlags3);
         sizer2->AddStretchSpacer();
         sizerMono->Add(m_checkMono, sizerFlags4);
         sizerMono->Add(sizer2, sizerFlags2);
 
-        wxBoxSizer *sizerLeft = new wxBoxSizer(wxVERTICAL);
+        wxBoxSizer *sizerLeft = NEW_DEBUG wxBoxSizer(wxVERTICAL);
         sizerLeft->Add(sizerHue, sizerFlags2);
         sizerLeft->Add(sizerSaturation, sizerFlags2);
         sizerLeft->Add(sizerBrightness, sizerFlags2);
         sizerLeft->Add(sizerLightness, sizerFlags2);
 
-        wxBoxSizer *sizerRight = new wxBoxSizer(wxVERTICAL);
+        wxBoxSizer *sizerRight = NEW_DEBUG wxBoxSizer(wxVERTICAL);
         sizerRight->Add(sizerDisabled, sizerFlags2);
         sizerRight->Add(sizerGrey, sizerFlags2);
         sizerRight->Add(sizerMono, sizerFlags2);
@@ -883,19 +883,19 @@ public:
                           wxSize(256, 256));
         m_image = bitmap.ConvertToImage();
 
-        m_stcBitmap = new wxStaticBitmap(this, wxID_ANY, bitmap);
-        wxBoxSizer *sizerTop = new wxBoxSizer(wxHORIZONTAL);
+        m_stcBitmap = NEW_DEBUG wxStaticBitmap(this, wxID_ANY, bitmap);
+        wxBoxSizer *sizerTop = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
         sizerTop->AddStretchSpacer();
         sizerTop->Add(m_stcBitmap, sizerFlags1);
         sizerTop->AddStretchSpacer();
 
         sizerFlags1.Border(0);
 
-        wxBoxSizer *sizerBottom = new wxBoxSizer(wxHORIZONTAL);
+        wxBoxSizer *sizerBottom = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
         sizerBottom->Add(sizerLeft, sizerFlags1);
         sizerBottom->Add(sizerRight, sizerFlags1);
 
-        wxBoxSizer *sizerMain = new wxBoxSizer(wxVERTICAL);
+        wxBoxSizer *sizerMain = NEW_DEBUG wxBoxSizer(wxVERTICAL);
         sizerMain->Add(sizerTop, sizerFlags1);
         sizerMain->Add(sizerBottom, sizerFlags2);
 
@@ -1105,9 +1105,9 @@ MyFrame::MyFrame()
 {
     SetIcon(wxICON(sample));
 
-    wxMenuBar *menu_bar = new wxMenuBar();
+    wxMenuBar *menu_bar = NEW_DEBUG wxMenuBar();
 
-    wxMenu *menuImage = new wxMenu;
+    wxMenu *menuImage = NEW_DEBUG wxMenu;
     menuImage->Append( ID_NEW, "&Show any image...\tCtrl-O");
     menuImage->Append(ID_NEW_HIDPI, "Show any image as &HiDPI...\tCtrl-H");
 #ifdef wxHAS_SVG
@@ -1135,7 +1135,7 @@ MyFrame::MyFrame()
     menu_bar->Append(menuImage, "&Image");
 
 #if wxUSE_CLIPBOARD
-    wxMenu *menuClipboard = new wxMenu;
+    wxMenu *menuClipboard = NEW_DEBUG wxMenu;
     menuClipboard->Append(wxID_COPY, "&Copy test image as wxBitmap\tCtrl-C");
     menuClipboard->Append(wxID_PASTE, "&Paste image as wxBitmap\tCtrl-V");
     menuClipboard->AppendSeparator();
@@ -1152,7 +1152,7 @@ MyFrame::MyFrame()
     SetStatusWidths( 2, widths );
 #endif // wxUSE_STATUSBAR
 
-    m_canvas = new MyCanvas( this, wxID_ANY, wxPoint(0,0), wxSize(10,10) );
+    m_canvas = NEW_DEBUG MyCanvas( this, wxID_ANY, wxPoint(0,0), wxSize(10,10) );
 
     // 500 width * 2750 height
     m_canvas->SetScrollbars( 10, 10, 50, 275 );
@@ -1222,7 +1222,7 @@ void MyFrame::OnNewFrame( wxCommandEvent &WXUNUSED(event) )
     wxImage image;
     wxString filename = LoadUserImage(image);
     if ( !filename.empty() )
-        new MyImageFrame(this, filename, image);
+        NEW_DEBUG MyImageFrame(this, filename, image);
 }
 
 void MyFrame::OnNewFrameHiDPI(wxCommandEvent&)
@@ -1230,7 +1230,7 @@ void MyFrame::OnNewFrameHiDPI(wxCommandEvent&)
     wxImage image;
     wxString filename = LoadUserImage(image);
     if (!filename.empty())
-        new MyImageFrame(this, filename, image, GetContentScaleFactor());
+        NEW_DEBUG MyImageFrame(this, filename, image, GetContentScaleFactor());
 }
 
 #ifdef wxHAS_SVG
@@ -1258,7 +1258,7 @@ private:
     {
         wxPaintDC dc(this);
 
-        // Check if the bitmap needs to be re-rendered at the new size. Note
+        // Check if the bitmap needs to be re-rendered at the NEW_DEBUG size. Note
         // that the bitmap size is in physical pixels, which can be different
         // from the logical pixels in which the window size is expressed.
         const wxSize sizeWin = GetClientSize();
@@ -1298,7 +1298,7 @@ void MyFrame::OnNewSVGFrame(wxCommandEvent&)
     if ( !bb.IsOk() )
         return;
 
-    new MySVGFrame(this, filename, bb);
+    NEW_DEBUG MySVGFrame(this, filename, bb);
 }
 
 #endif // wxHAS_SVG
@@ -1351,7 +1351,7 @@ void MyFrame::OnImageInfo( wxCommandEvent &WXUNUSED(event) )
 
 void MyFrame::OnTestRawBitmap( wxCommandEvent &WXUNUSED(event) )
 {
-    (new MyRawBitmapFrame(this))->Show();
+    (NEW_DEBUG MyRawBitmapFrame(this))->Show();
 }
 
 #endif // wxHAVE_RAW_BITMAP
@@ -1430,7 +1430,7 @@ private:
 
 void MyFrame::OnTestGraphics(wxCommandEvent& WXUNUSED(event))
 {
-    new MyGraphicsFrame(this);
+    NEW_DEBUG MyGraphicsFrame(this);
 }
 
 #endif // wxUSE_GRAPHICS_CONTEXT
@@ -1439,7 +1439,7 @@ void MyFrame::OnTestGraphics(wxCommandEvent& WXUNUSED(event))
 
 void MyFrame::OnCopy(wxCommandEvent& WXUNUSED(event))
 {
-    wxBitmapDataObject *dobjBmp = new wxBitmapDataObject;
+    wxBitmapDataObject *dobjBmp = NEW_DEBUG wxBitmapDataObject;
     dobjBmp->SetBitmap(m_canvas->my_horse_png);
 
     wxTheClipboard->Open();
@@ -1463,7 +1463,7 @@ void MyFrame::OnPaste(wxCommandEvent& WXUNUSED(event))
     }
     else
     {
-        new MyImageFrame(this, "Clipboard", dobjBmp.GetBitmap());
+        NEW_DEBUG MyImageFrame(this, "Clipboard", dobjBmp.GetBitmap());
     }
     wxTheClipboard->Close();
 }
@@ -1475,7 +1475,7 @@ void MyFrame::OnCopyImage(wxCommandEvent& WXUNUSED(evt))
     if ( filename.empty() )
         return;
 
-    wxImageDataObject* dobjImage = new wxImageDataObject;
+    wxImageDataObject* dobjImage = NEW_DEBUG wxImageDataObject;
     dobjImage->SetImage(img);
 
     wxClipboardLocker clipOpener;
@@ -1496,7 +1496,7 @@ void MyFrame::OnPasteImage(wxCommandEvent& WXUNUSED(evt))
     }
     else
     {
-        new MyImageFrame(this, "Clipboard (wxImage)", dobjImage.GetImage());
+        NEW_DEBUG MyImageFrame(this, "Clipboard (wxImage)", dobjImage.GetImage());
     }
 }
 
@@ -1528,7 +1528,7 @@ void MyFrame::OnThumbnail( wxCommandEvent &WXUNUSED(event) )
 
     const long loadTime = sw.Time();
 
-    MyImageFrame * const frame = new MyImageFrame(this, filename, image);
+    MyImageFrame * const frame = NEW_DEBUG MyImageFrame(this, filename, image);
     wxLogStatus(frame, "Loaded \"%s\" in %ldms; original size was (%d, %d)",
                 filename, loadTime, origWidth, origHeight);
 #else
@@ -1539,7 +1539,7 @@ void MyFrame::OnThumbnail( wxCommandEvent &WXUNUSED(event) )
 
 void MyFrame::OnFilters(wxCommandEvent& WXUNUSED(event))
 {
-    (new MyFiltersFrame(this))->Show();
+    (NEW_DEBUG MyFiltersFrame(this))->Show();
 }
 
 //-----------------------------------------------------------------------------
@@ -1555,7 +1555,7 @@ bool MyApp::OnInit()
 
     wxInitAllImageHandlers();
 
-    wxFrame *frame = new MyFrame();
+    wxFrame *frame = NEW_DEBUG MyFrame();
     frame->Show( true );
 
     return true;

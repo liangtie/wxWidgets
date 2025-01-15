@@ -457,8 +457,8 @@ wxGridCellAutoWrapStringRenderer::BreakLine(wxDC& dc,
             // available width
             if ( wordWidth < maxWidth )
             {
-                // Word can fit in a new line, put it at the beginning
-                // of the new line.
+                // Word can fit in a NEW_DEBUG line, put it at the beginning
+                // of the NEW_DEBUG line.
                 lines.push_back(line);
                 line = word;
                 lineWidth = wordWidth;
@@ -576,7 +576,7 @@ wxGridCellAutoWrapStringRenderer::GetBestWidth(wxGrid& grid,
     const int lineHeight = dc.GetCharHeight();
 
     // Base the maximal number of lines either on how many fit or how many
-    // (new)lines the cell's text contains, whichever results in the most lines.
+    // (NEW_DEBUG)lines the cell's text contains, whichever results in the most lines.
     //
     // It's important to take the newlines into account as GetTextLines() splits
     // based on them and the number of lines returned can never drop below that,

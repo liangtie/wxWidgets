@@ -11,7 +11,9 @@
 
 #ifndef _WX_PRIVATE_H_
 #define _WX_PRIVATE_H_
-
+#include <crtdbg.h>
+#define NEW_DEBUG new(_NORMAL_BLOCK, __FILE__, __LINE__)
+#define NEW_DEBUG2(...) new(__VA_ARGS__)
 #include "wx/msw/wrapwin.h"
 
 #include "wx/log.h"

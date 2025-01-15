@@ -176,30 +176,30 @@ inline T wxWGLProcCast(PROC proc)
 // Documentation on internals
 //-----------------------------------------------------------------------------
 
-//  OpenGL has evolved not only adding new features, but also there are new
-//  ways of doing things. Among these new ways, we pay special attention to
+//  OpenGL has evolved not only adding NEW_DEBUG features, but also there are NEW_DEBUG
+//  ways of doing things. Among these NEW_DEBUG ways, we pay special attention to
 //  pixel format choosing and context creation.
 //
 //  The old way of choosing a pixel format is to use a PIXELFORMATDESCRIPTOR
 //  struct for setting the wanted attributes and to call ChoosePixelFormat()
 //  with that struct.
-//  When new attributes came into scene, the MSW struct became inadequate, and
-//  a new method was implemented: wglChoosePixelFormatARB().
+//  When NEW_DEBUG attributes came into scene, the MSW struct became inadequate, and
+//  a NEW_DEBUG method was implemented: wglChoosePixelFormatARB().
 //
 //  For rendering context creation wglCreateContext() was the function to call.
 //  Starting with OpenGL 3.0 (2009) there are several attributes for context,
 //  specially for wanted version and "core" or "compatibility" profiles.
-//  In order to use these new features, wglCreateContextAttribsARB() must be
+//  In order to use these NEW_DEBUG features, wglCreateContextAttribsARB() must be
 //  called instead of wglCreateContext().
 //
-//  wxWidgets handles this OpenGL evolution trying to use the new ways, and
+//  wxWidgets handles this OpenGL evolution trying to use the NEW_DEBUG ways, and
 //  falling back to the old ways if neither the latter are available nor the
 //  user requires them.
 //
 //  wxGLAttributes is used for pixel format attributes.
 //  wxGLContextAttrs is used for OpenGL rendering context attributes.
 //  wxWidgets does not handle all of OpenGL attributes. This is because some of
-//  them are platform-dependent, or perhaps too new for wx. To cope with these
+//  them are platform-dependent, or perhaps too NEW_DEBUG for wx. To cope with these
 //  cases, these two objects allow the user to set his own attributes.
 //
 //  To keep wxWidgets backwards compatibility, a list of mixed attributes is
@@ -1029,7 +1029,7 @@ int wxGLCanvas::FindMatchingPixelFormat(const wxGLAttributes& dispAttrs,
     //
     // Having this dummy window allows also calling IsDisplaySupported()
     // without creating a wxGLCanvas.
-    wxGLdummyWin* dummyWin = new wxGLdummyWin();
+    wxGLdummyWin* dummyWin = NEW_DEBUG wxGLdummyWin();
     HDC dummyHDC = dummyWin->hdc;
     if ( !dummyHDC )
     {

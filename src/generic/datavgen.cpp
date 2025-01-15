@@ -151,7 +151,7 @@ wxDataViewColumn* GetExpanderColumnOrFirstOne(wxDataViewCtrl* dataview)
 
 wxTextCtrl *CreateEditorTextCtrl(wxWindow *parent, const wxRect& labelRect, const wxString& value)
 {
-    wxTextCtrl* ctrl = new wxTextCtrl(parent, wxID_ANY, value,
+    wxTextCtrl* ctrl = NEW_DEBUG wxTextCtrl(parent, wxID_ANY, value,
                                       labelRect.GetPosition(),
                                       labelRect.GetSize(),
                                       wxTE_PROCESS_ENTER);
@@ -272,7 +272,7 @@ void wxDataViewColumn::SetSortOrder(bool ascending)
     {
         wxASSERT(!m_owner->IsColumnSorted(idx));
 
-        // Now set this one as the new sort column.
+        // Now set this one as the NEW_DEBUG sort column.
         m_owner->UseColumnForSorting(idx);
         m_sort = true;
     }
@@ -331,7 +331,7 @@ public:
         // Under MSW wxHeadrCtrl is a native control
         // so we just need to pass all requests
         // to the accessibility framework.
-        return new wxAccessible(this);
+        return NEW_DEBUG wxAccessible(this);
     }
 #endif // wxUSE_ACCESSIBILITY
 
@@ -511,8 +511,8 @@ public:
 
     static wxDataViewTreeNode* CreateRootNode()
     {
-        wxDataViewTreeNode *n = new wxDataViewTreeNode(NULL, wxDataViewItem());
-        n->m_branchData = new BranchNodeData;
+        wxDataViewTreeNode *n = NEW_DEBUG wxDataViewTreeNode(NULL, wxDataViewItem());
+        n->m_branchData = NEW_DEBUG BranchNodeData;
         n->m_branchData->open = true;
         return n;
     }
@@ -619,7 +619,7 @@ public:
         }
         else if ( m_branchData == NULL )
         {
-            m_branchData = new BranchNodeData;
+            m_branchData = NEW_DEBUG BranchNodeData;
         }
     }
 
@@ -1128,7 +1128,7 @@ wxDC *wxDataViewRenderer::GetDC()
             return NULL;
         if (GetOwner()->GetOwner() == NULL)
             return NULL;
-        m_dc = new wxClientDC( GetOwner()->GetOwner() );
+        m_dc = NEW_DEBUG wxClientDC( GetOwner()->GetOwner() );
     }
 
     return m_dc;
@@ -1208,7 +1208,7 @@ void wxDataViewTextRenderer::EnableMarkup(bool enable)
     {
         if ( !m_markupText )
         {
-            m_markupText = new wxItemMarkupText(wxString());
+            m_markupText = NEW_DEBUG wxItemMarkupText(wxString());
         }
     }
     else
@@ -1707,14 +1707,14 @@ public:
             int indent = 0;
             wxBitmap ib = m_win->CreateItemBitmap( m_row, indent );
             m_dist_x -= indent;
-            m_hint = new wxFrame( m_win->GetParent(), wxID_ANY, wxEmptyString,
+            m_hint = NEW_DEBUG wxFrame( m_win->GetParent(), wxID_ANY, wxEmptyString,
                                         wxPoint(pos.x - m_dist_x, pos.y + 5 ),
                                         wxSize(1, 1),
                                         wxFRAME_TOOL_WINDOW |
                                         wxFRAME_FLOAT_ON_PARENT |
                                         wxFRAME_NO_TASKBAR |
                                         wxNO_BORDER );
-            new wxBitmapCanvas( m_hint, ib, ib.GetSize() );
+            NEW_DEBUG wxBitmapCanvas( m_hint, ib, ib.GetSize() );
             m_hint->SetClientSize(ib.GetSize());
             m_hint->SetTransparent(128);
             m_hint->Show();
@@ -1846,7 +1846,7 @@ void wxDataViewTreeNode::InsertChild(wxDataViewMainWindow* window,
                                      wxDataViewTreeNode *node, unsigned index)
 {
     if (!m_branchData)
-        m_branchData = new BranchNodeData;
+        m_branchData = NEW_DEBUG BranchNodeData;
 
     const SortOrder sortOrder = window->GetSortOrder();
 
@@ -2093,7 +2093,7 @@ wxDataViewMainWindow::wxDataViewMainWindow( wxDataViewCtrl *parent, wxWindowID i
     m_editorRenderer = NULL;
 
     m_lastOnSame = false;
-    m_renameTimer = new wxDataViewRenameTimer( this );
+    m_renameTimer = NEW_DEBUG wxDataViewRenameTimer( this );
 
     // TODO: user better initial values/nothing selected
     m_currentCol = NULL;
@@ -2103,7 +2103,7 @@ wxDataViewMainWindow::wxDataViewMainWindow( wxDataViewCtrl *parent, wxWindowID i
     m_lineHeight = GetDefaultRowHeight();
     if (GetOwner()->HasFlag(wxDV_VARIABLE_LINE_HEIGHT))
     {
-        m_rowHeightCache = new HeightCache();
+        m_rowHeightCache = NEW_DEBUG HeightCache();
     }
     else
     {
@@ -3139,7 +3139,7 @@ bool wxDataViewMainWindow::ItemAdded(const wxDataViewItem & parent, const wxData
 
         parentNode->SetHasChildren(true);
 
-        wxDataViewTreeNode *itemNode = new wxDataViewTreeNode(parentNode, item);
+        wxDataViewTreeNode *itemNode = NEW_DEBUG wxDataViewTreeNode(parentNode, item);
         itemNode->SetHasChildren(GetModel()->IsContainer(item));
 
         if ( GetSortOrder().IsNone() )
@@ -3283,7 +3283,7 @@ bool wxDataViewMainWindow::ItemDeleted(const wxDataViewItem& parent,
         delete itemNode;
         parentNode->ChangeSubTreeCount(-itemsDeleted);
 
-        // Make the row number invalid and get a new valid one when user call GetRowCount
+        // Make the row number invalid and get a NEW_DEBUG valid one when user call GetRowCount
         InvalidateCount();
 
         // If this was the last child to be removed, it's possible the parent
@@ -3343,7 +3343,7 @@ bool wxDataViewMainWindow::DoItemChanged(const wxDataViewItem & item, int view_c
         if ( m_rowHeightCache )
             m_rowHeightCache->Remove(GetRowByItem(item));
 
-        // Move this node to its new correct place after it was updated.
+        // Move this node to its NEW_DEBUG correct place after it was updated.
         //
         // In principle, we could skip the call to PutInSortOrder() if the modified
         // column is not the sort column, but in real-world applications it's fully
@@ -4021,7 +4021,7 @@ wxDataViewMainWindow::DoExpand(wxDataViewTreeNode* node,
 
         if ( m_rowHeightCache )
         {
-            // Expand makes new rows visible thus we invalidates all following
+            // Expand makes NEW_DEBUG rows visible thus we invalidates all following
             // rows in the height cache
             m_rowHeightCache->Remove(row);
         }
@@ -4046,7 +4046,7 @@ wxDataViewMainWindow::DoExpand(wxDataViewTreeNode* node,
             m_count += countNewRows;
 
         // Expanding this item means the previously cached column widths could
-        // have become invalid as new items are now visible.
+        // have become invalid as NEW_DEBUG items are now visible.
         GetOwner()->InvalidateColBestWidths();
 
         UpdateDisplay();
@@ -4425,7 +4425,7 @@ static void BuildTreeHelper( wxDataViewMainWindow *window, const wxDataViewModel
 
     for ( unsigned int index = 0; index < num; index++ )
     {
-        wxDataViewTreeNode *n = new wxDataViewTreeNode(node, children[index]);
+        wxDataViewTreeNode *n = NEW_DEBUG wxDataViewTreeNode(node, children[index]);
 
         if( model->IsContainer(children[index]) )
             n->SetHasChildren( true );
@@ -4767,7 +4767,7 @@ void wxDataViewMainWindow::GoToRelativeRow(const wxKeyboardState& kbdState, int 
 
     int newRow = (int)m_currentRow + delta;
 
-    // let's keep the new row inside the allowed range
+    // let's keep the NEW_DEBUG row inside the allowed range
     if ( newRow < 0 )
         newRow = 0;
 
@@ -4795,7 +4795,7 @@ wxDataViewMainWindow::GoToRow(const wxKeyboardState& kbdState,
 
         ChangeCurrentRow( newCurrent );
 
-        // select all the items between the old and the new one
+        // select all the items between the old and the NEW_DEBUG one
         if ( oldCurrent > newCurrent )
         {
             newCurrent = oldCurrent;
@@ -5350,7 +5350,7 @@ void wxDataViewMainWindow::OnMouse( wxMouseEvent &event )
                 if ( lineFrom == static_cast<unsigned>(-1) )
                 {
                     // If we hadn't had any current row before, treat this as a
-                    // simple click and select the new row only.
+                    // simple click and select the NEW_DEBUG row only.
                     lineFrom = current;
                 }
 
@@ -5641,7 +5641,7 @@ bool wxDataViewCtrl::Create(wxWindow *parent,
     MacSetClipChildren( true );
 #endif
 
-    m_clientArea = new wxDataViewMainWindow( this, wxID_ANY );
+    m_clientArea = NEW_DEBUG wxDataViewMainWindow( this, wxID_ANY );
 
     // We use the cursor keys for moving the selection, not scrolling, so call
     // this method to ensure wxScrollHelperEvtHandler doesn't catch all
@@ -5651,11 +5651,11 @@ bool wxDataViewCtrl::Create(wxWindow *parent,
     if (HasFlag(wxDV_NO_HEADER))
         m_headerArea = NULL;
     else
-        m_headerArea = new wxDataViewHeaderWindow(this);
+        m_headerArea = NEW_DEBUG wxDataViewHeaderWindow(this);
 
     SetTargetWindow( m_clientArea );
 
-    wxBoxSizer *sizer = new wxBoxSizer( wxVERTICAL );
+    wxBoxSizer *sizer = NEW_DEBUG wxBoxSizer( wxVERTICAL );
     if (m_headerArea)
         sizer->Add( m_headerArea, 0, wxGROW );
     sizer->Add( m_clientArea, 1, wxGROW );
@@ -5874,7 +5874,7 @@ bool wxDataViewCtrl::AssociateModel( wxDataViewModel *model )
 
     if (model)
     {
-        m_notifier = new wxGenericDataViewModelNotifier( m_clientArea );
+        m_notifier = NEW_DEBUG wxGenericDataViewModelNotifier( m_clientArea );
         model->AddNotifier( m_notifier );
     }
     else
@@ -5910,7 +5910,7 @@ bool wxDataViewCtrl::DoEnableDropTarget( const wxVector<wxDataFormat> &formats )
     wxDataViewDropTarget* dt = NULL;
     if (wxDataObjectComposite* dataObject = CreateDataObject(formats))
     {
-        dt = new wxDataViewDropTarget(dataObject, m_clientArea);
+        dt = NEW_DEBUG wxDataViewDropTarget(dataObject, m_clientArea);
     }
 
     m_clientArea->SetDropTarget(dt);
@@ -6648,7 +6648,7 @@ void wxDataViewCtrl::DoEnableSystemTheme(bool enable, wxWindow* window)
 #if wxUSE_ACCESSIBILITY
 wxAccessible* wxDataViewCtrl::CreateAccessible()
 {
-    return new wxDataViewCtrlAccessible(this);
+    return NEW_DEBUG wxDataViewCtrlAccessible(this);
 }
 #endif // wxUSE_ACCESSIBILITY
 

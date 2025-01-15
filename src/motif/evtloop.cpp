@@ -103,7 +103,7 @@ wxGUIEventLoop::~wxGUIEventLoop()
 
 int wxGUIEventLoop::DoRun()
 {
-    m_impl = new wxEventLoopImpl;
+    m_impl = NEW_DEBUG wxEventLoopImpl;
     m_impl->SetKeepGoing( true );
 
     for( ;; )

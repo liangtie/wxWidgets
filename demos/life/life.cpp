@@ -137,7 +137,7 @@ wxBEGIN_EVENT_TABLE(LifeCanvas, wxWindow)
 wxEND_EVENT_TABLE()
 
 
-// Create a new application object
+// Create a NEW_DEBUG application object
 wxIMPLEMENT_APP(LifeApp);
 
 
@@ -158,7 +158,7 @@ wxIMPLEMENT_APP(LifeApp);
 bool LifeApp::OnInit()
 {
     // create the main application window
-    LifeFrame *frame = new LifeFrame();
+    LifeFrame *frame = NEW_DEBUG LifeFrame();
 
     // show it
     frame->Show(true);
@@ -185,12 +185,12 @@ LifeFrame::LifeFrame() :
     SetIcon(wxICON(mondrian));
 
     // menu bar
-    wxMenu *menuFile = new wxMenu(wxMENU_TEAROFF);
-    wxMenu *menuView = new wxMenu(wxMENU_TEAROFF);
-    wxMenu *menuGame = new wxMenu(wxMENU_TEAROFF);
-    wxMenu *menuHelp = new wxMenu(wxMENU_TEAROFF);
+    wxMenu *menuFile = NEW_DEBUG wxMenu(wxMENU_TEAROFF);
+    wxMenu *menuView = NEW_DEBUG wxMenu(wxMENU_TEAROFF);
+    wxMenu *menuGame = NEW_DEBUG wxMenu(wxMENU_TEAROFF);
+    wxMenu *menuHelp = NEW_DEBUG wxMenu(wxMENU_TEAROFF);
 
-    menuFile->Append(wxID_NEW, wxEmptyString, _("Start a new game"));
+    menuFile->Append(wxID_NEW, wxEmptyString, _("Start a NEW_DEBUG game"));
 #if wxUSE_FILEDLG
     menuFile->Append(wxID_OPEN, wxEmptyString, _("Open an existing Life pattern"));
 #endif
@@ -222,7 +222,7 @@ LifeFrame::LifeFrame() :
 
     menuHelp->Append(wxID_ABOUT, _("&About\tCtrl-A"), _("Show about dialog"));
 
-    wxMenuBar *menuBar = new wxMenuBar();
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar();
     menuBar->Append(menuFile, _("&File"));
     menuBar->Append(menuView, _("&View"));
     menuBar->Append(menuGame, _("&Game"));
@@ -244,7 +244,7 @@ LifeFrame::LifeFrame() :
     toolBar->SetMargins(5, 5);
     toolBar->SetToolBitmapSize(wxSize(16, 16));
 
-    ADD_TOOL(wxID_NEW, tbBitmaps[0], wxGetStockLabel(wxID_NEW, wxSTOCK_NOFLAGS), _("Start a new game"));
+    ADD_TOOL(wxID_NEW, tbBitmaps[0], wxGetStockLabel(wxID_NEW, wxSTOCK_NOFLAGS), _("Start a NEW_DEBUG game"));
 #if wxUSE_FILEDLG
     ADD_TOOL(wxID_OPEN, tbBitmaps[1], wxGetStockLabel(wxID_OPEN, wxSTOCK_NOFLAGS), _("Open an existing Life pattern"));
 #endif // wxUSE_FILEDLG
@@ -267,8 +267,8 @@ LifeFrame::LifeFrame() :
 #endif // wxUSE_STATUSBAR
 
     // game and timer
-    m_life     = new Life();
-    m_timer    = new wxTimer(this, ID_TIMER);
+    m_life     = NEW_DEBUG Life();
+    m_timer    = NEW_DEBUG wxTimer(this, ID_TIMER);
     m_running  = false;
     m_topspeed = false;
     m_interval = 500;
@@ -279,20 +279,20 @@ LifeFrame::LifeFrame() :
     // and thus updating the text would result in a refresh of the canvas
     // if they belong to the same parent.
 
-    wxPanel *panel1 = new wxPanel(this, wxID_ANY);
-    wxPanel *panel2 = new wxPanel(this, wxID_ANY);
+    wxPanel *panel1 = NEW_DEBUG wxPanel(this, wxID_ANY);
+    wxPanel *panel2 = NEW_DEBUG wxPanel(this, wxID_ANY);
 
     // canvas
-    m_canvas = new LifeCanvas(panel1, m_life);
+    m_canvas = NEW_DEBUG LifeCanvas(panel1, m_life);
 
     // info panel
-    m_text = new wxStaticText(panel2, wxID_ANY,
+    m_text = NEW_DEBUG wxStaticText(panel2, wxID_ANY,
         wxEmptyString,
         wxDefaultPosition,
         wxDefaultSize,
         wxALIGN_CENTER | wxST_NO_AUTORESIZE);
 
-    wxSlider *slider = new wxSlider(panel2, ID_SLIDER,
+    wxSlider *slider = NEW_DEBUG wxSlider(panel2, ID_SLIDER,
         5, 1, 10,
         wxDefaultPosition,
         wxSize(200, wxDefaultCoord),
@@ -301,16 +301,16 @@ LifeFrame::LifeFrame() :
     UpdateInfoText();
 
     // component layout
-    wxBoxSizer *sizer1 = new wxBoxSizer(wxVERTICAL);
-    wxBoxSizer *sizer2 = new wxBoxSizer(wxVERTICAL);
-    wxBoxSizer *sizer3 = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer *sizer1 = NEW_DEBUG wxBoxSizer(wxVERTICAL);
+    wxBoxSizer *sizer2 = NEW_DEBUG wxBoxSizer(wxVERTICAL);
+    wxBoxSizer *sizer3 = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
 #if wxUSE_STATLINE
-    sizer1->Add( new wxStaticLine(panel1, wxID_ANY), 0, wxGROW );
+    sizer1->Add( NEW_DEBUG wxStaticLine(panel1, wxID_ANY), 0, wxGROW );
 #endif // wxUSE_STATLINE
     sizer1->Add( m_canvas, 1, wxGROW | wxALL, 2 );
 #if wxUSE_STATLINE
-    sizer1->Add( new wxStaticLine(panel1, wxID_ANY), 0, wxGROW );
+    sizer1->Add( NEW_DEBUG wxStaticLine(panel1, wxID_ANY), 0, wxGROW );
 #endif // wxUSE_STATLINE
     panel1->SetSizer( sizer1 );
     sizer1->Fit( panel1 );
@@ -331,7 +331,7 @@ LifeFrame::LifeFrame() :
     sizer3->SetSizeHints( this );
 
     // navigator frame - not appropriate for small devices
-    m_navigator = new LifeNavigator(this);
+    m_navigator = NEW_DEBUG LifeNavigator(this);
 
 }
 
@@ -611,9 +611,9 @@ LifeNavigator::LifeNavigator(wxWindow *parent)
                            wxDefaultSize,
                            wxCAPTION | wxSIMPLE_BORDER)
 {
-    wxPanel    *panel  = new wxPanel(this, wxID_ANY);
-    wxBoxSizer *sizer1 = new wxBoxSizer(wxVERTICAL);
-    wxBoxSizer *sizer2 = new wxBoxSizer(wxHORIZONTAL);
+    wxPanel    *panel  = NEW_DEBUG wxPanel(this, wxID_ANY);
+    wxBoxSizer *sizer1 = NEW_DEBUG wxBoxSizer(wxVERTICAL);
+    wxBoxSizer *sizer2 = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
 
     // create bitmaps and masks for the buttons
     wxBitmap
@@ -624,20 +624,20 @@ LifeNavigator::LifeNavigator(wxWindow *parent)
         bmps = wxBITMAP(south);
 
 #if !defined(__WXGTK__) && !defined(__WXMOTIF__) && !defined(__WXMAC__)
-    bmpn.SetMask(new wxMask(bmpn, *wxLIGHT_GREY));
-    bmpw.SetMask(new wxMask(bmpw, *wxLIGHT_GREY));
-    bmpc.SetMask(new wxMask(bmpc, *wxLIGHT_GREY));
-    bmpe.SetMask(new wxMask(bmpe, *wxLIGHT_GREY));
-    bmps.SetMask(new wxMask(bmps, *wxLIGHT_GREY));
+    bmpn.SetMask(NEW_DEBUG wxMask(bmpn, *wxLIGHT_GREY));
+    bmpw.SetMask(NEW_DEBUG wxMask(bmpw, *wxLIGHT_GREY));
+    bmpc.SetMask(NEW_DEBUG wxMask(bmpc, *wxLIGHT_GREY));
+    bmpe.SetMask(NEW_DEBUG wxMask(bmpe, *wxLIGHT_GREY));
+    bmps.SetMask(NEW_DEBUG wxMask(bmps, *wxLIGHT_GREY));
 #endif
 
     // create the buttons and attach tooltips to them
     wxBitmapButton
-        *bn = new wxBitmapButton(panel, ID_NORTH,  bmpn),
-        *bw = new wxBitmapButton(panel, ID_WEST ,  bmpw),
-        *bc = new wxBitmapButton(panel, ID_CENTER, bmpc),
-        *be = new wxBitmapButton(panel, ID_EAST ,  bmpe),
-        *bs = new wxBitmapButton(panel, ID_SOUTH,  bmps);
+        *bn = NEW_DEBUG wxBitmapButton(panel, ID_NORTH,  bmpn),
+        *bw = NEW_DEBUG wxBitmapButton(panel, ID_WEST ,  bmpw),
+        *bc = NEW_DEBUG wxBitmapButton(panel, ID_CENTER, bmpc),
+        *be = NEW_DEBUG wxBitmapButton(panel, ID_EAST ,  bmpe),
+        *bs = NEW_DEBUG wxBitmapButton(panel, ID_SOUTH,  bmps);
 
 #if wxUSE_TOOLTIPS
     bn->SetToolTip(_("Find northernmost cell"));
@@ -923,7 +923,7 @@ void LifeCanvas::OnMouse(wxMouseEvent& event)
     // was it pressed just now?
     if (event.LeftDown())
     {
-        // yes: start a new action and toggle this cell
+        // yes: start a NEW_DEBUG action and toggle this cell
         m_status = (m_life->IsAlive(i, j)? MOUSE_ERASING : MOUSE_DRAWING);
 
         m_mi = i;
@@ -1006,7 +1006,7 @@ void LifeCanvas::OnSize(wxSizeEvent& event)
     wxInt32 cx = m_viewportX + m_viewportW / 2;
     wxInt32 cy = m_viewportY + m_viewportH / 2;
 
-    // get new size
+    // get NEW_DEBUG size
     wxCoord w = event.GetSize().GetX();
     wxCoord h = event.GetSize().GetY();
     m_viewportW = (w + m_cellsize - 1) / m_cellsize;

@@ -69,11 +69,11 @@ class MyFrame : public wxFrame
 public:
     MyFrame() : wxFrame(NULL, wxID_ANY, "Preferences sample")
     {
-        wxMenu *fileMenu = new wxMenu;
+        wxMenu *fileMenu = NEW_DEBUG wxMenu;
         fileMenu->Append(wxID_PREFERENCES);
         fileMenu->Append(wxID_EXIT);
 
-        wxMenuBar *menuBar = new wxMenuBar();
+        wxMenuBar *menuBar = NEW_DEBUG wxMenuBar();
         menuBar->Append(fileMenu, "&File");
         SetMenuBar(menuBar);
 
@@ -81,16 +81,16 @@ public:
         Bind(wxEVT_MENU, &MyFrame::OnExit, this, wxID_EXIT);
         Bind(wxEVT_CLOSE_WINDOW, &MyFrame::OnClose, this);
 
-        wxPanel* const panel = new wxPanel(this);
-        m_textMarkdownSyntax = new wxStaticText(panel, wxID_ANY, "");
-        m_textSpellcheck = new wxStaticText(panel, wxID_ANY, "");
+        wxPanel* const panel = NEW_DEBUG wxPanel(this);
+        m_textMarkdownSyntax = NEW_DEBUG wxStaticText(panel, wxID_ANY, "");
+        m_textSpellcheck = NEW_DEBUG wxStaticText(panel, wxID_ANY, "");
 
-        wxSizer* const sizer = new wxFlexGridSizer(2, wxSize(5, 5));
-        sizer->Add(new wxStaticText(panel, wxID_ANY, "Markdown syntax:"),
+        wxSizer* const sizer = NEW_DEBUG wxFlexGridSizer(2, wxSize(5, 5));
+        sizer->Add(NEW_DEBUG wxStaticText(panel, wxID_ANY, "Markdown syntax:"),
                    wxSizerFlags().Center().Right());
         sizer->Add(m_textMarkdownSyntax,
                    wxSizerFlags().Center());
-        sizer->Add(new wxStaticText(panel, wxID_ANY, "Spell checking:"),
+        sizer->Add(NEW_DEBUG wxStaticText(panel, wxID_ANY, "Spell checking:"),
                    wxSizerFlags().Center().Right());
         sizer->Add(m_textSpellcheck,
                    wxSizerFlags().Center());
@@ -136,10 +136,10 @@ class PrefsPageGeneralPanel : public wxPanel
 public:
     PrefsPageGeneralPanel(wxWindow *parent) : wxPanel(parent)
     {
-        m_useMarkdown = new wxCheckBox(this, wxID_ANY, "Use Markdown syntax");
-        m_spellcheck = new wxCheckBox(this, wxID_ANY, "Check spelling");
+        m_useMarkdown = NEW_DEBUG wxCheckBox(this, wxID_ANY, "Use Markdown syntax");
+        m_spellcheck = NEW_DEBUG wxCheckBox(this, wxID_ANY, "Check spelling");
 
-        wxSizer *sizer = new wxBoxSizer(wxVERTICAL);
+        wxSizer *sizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
         sizer->Add(m_useMarkdown, wxSizerFlags().Border());
         sizer->Add(m_spellcheck, wxSizerFlags().Border());
 
@@ -209,7 +209,7 @@ class PrefsPageGeneral : public wxStockPreferencesPage
 public:
     PrefsPageGeneral() : wxStockPreferencesPage(Kind_General) {}
     virtual wxWindow *CreateWindow(wxWindow *parent) wxOVERRIDE
-        { return new PrefsPageGeneralPanel(parent); }
+        { return NEW_DEBUG PrefsPageGeneralPanel(parent); }
 };
 
 
@@ -218,12 +218,12 @@ class PrefsPageTopicsPanel : public wxPanel
 public:
     PrefsPageTopicsPanel(wxWindow *parent) : wxPanel(parent)
     {
-        wxSizer *sizer = new wxBoxSizer(wxVERTICAL);
-        sizer->Add(new wxStaticText(this, wxID_ANY, "Search in these topics:"), wxSizerFlags().Border());
-        wxListBox *box = new wxListBox(this, wxID_ANY);
+        wxSizer *sizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
+        sizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "Search in these topics:"), wxSizerFlags().Border());
+        wxListBox *box = NEW_DEBUG wxListBox(this, wxID_ANY);
         box->SetMinSize(wxSize(400, 300));
         sizer->Add(box, wxSizerFlags(1).Border().Expand());
-        m_fulltext = new wxCheckBox(this, wxID_ANY, "Automatically build fulltext index");
+        m_fulltext = NEW_DEBUG wxCheckBox(this, wxID_ANY, "Automatically build fulltext index");
         sizer->Add(m_fulltext, wxSizerFlags().Border());
 
         SetSizerAndFit(sizer);
@@ -258,7 +258,7 @@ public:
 private:
     void ChangedFulltext(wxCommandEvent& WXUNUSED(e))
     {
-        // save new m_fulltext value and apply the change to the app
+        // save NEW_DEBUG m_fulltext value and apply the change to the app
     }
 
     wxCheckBox *m_fulltext;
@@ -271,7 +271,7 @@ public:
     virtual wxBitmapBundle GetIcon() const wxOVERRIDE
         { return wxArtProvider::GetBitmapBundle(wxART_HELP, wxART_TOOLBAR); }
     virtual wxWindow *CreateWindow(wxWindow *parent) wxOVERRIDE
-        { return new PrefsPageTopicsPanel(parent); }
+        { return NEW_DEBUG PrefsPageTopicsPanel(parent); }
 };
 
 
@@ -286,7 +286,7 @@ bool MyApp::OnInit()
     // result in rather strange "Preferences Preferences" title.
     SetAppDisplayName("wxWidgets Sample");
 
-    m_frame = new MyFrame();
+    m_frame = NEW_DEBUG MyFrame();
     m_frame->Show(true);
 
     return true;
@@ -296,9 +296,9 @@ void MyApp::ShowPreferencesEditor(wxWindow* parent)
 {
     if ( !m_prefEditor )
     {
-        m_prefEditor.reset(new wxPreferencesEditor);
-        m_prefEditor->AddPage(new PrefsPageGeneral());
-        m_prefEditor->AddPage(new PrefsPageTopics());
+        m_prefEditor.reset(NEW_DEBUG wxPreferencesEditor);
+        m_prefEditor->AddPage(NEW_DEBUG PrefsPageGeneral());
+        m_prefEditor->AddPage(NEW_DEBUG PrefsPageTopics());
     }
 
     m_prefEditor->Show(parent);

@@ -41,7 +41,7 @@ enum
     TestAccelEsc
 };
 
-// Define a new frame type: this is going to be our main frame
+// Define a NEW_DEBUG frame type: this is going to be our main frame
 class MyFrame : public wxFrame
 {
 public:
@@ -121,7 +121,7 @@ private:
 
     void LogEvent(const wxString& name, wxKeyEvent& event);
 
-    // Set m_inputWin to either a new window of the given kind:
+    // Set m_inputWin to either a NEW_DEBUG window of the given kind:
     enum InputKind
     {
         Input_Custom,   // Just a plain wxWindow
@@ -138,7 +138,7 @@ private:
 };
 
 
-// Define a new application type, each program should derive a class from wxApp
+// Define a NEW_DEBUG application type, each program should derive a class from wxApp
 class MyApp : public wxApp
 {
 public:
@@ -146,14 +146,14 @@ public:
     virtual bool OnInit() wxOVERRIDE
     {
         // create the main application window
-        new MyFrame("Keyboard wxWidgets App");
+        NEW_DEBUG MyFrame("Keyboard wxWidgets App");
 
         // If we returned false here, the application would exit immediately.
         return true;
     }
 };
 
-// Create a new application object: this macro will allow wxWidgets to create
+// Create a NEW_DEBUG application object: this macro will allow wxWidgets to create
 // the application object during program execution (it's better than using a
 // static object for many reasons) and also declares the accessor function
 // wxGetApp() which will return the reference of the right type (i.e. MyApp and
@@ -175,7 +175,7 @@ MyFrame::MyFrame(const wxString& title)
     SetIcon(wxICON(sample));
 
     // create a menu bar
-    wxMenu *menuFile = new wxMenu;
+    wxMenu *menuFile = NEW_DEBUG wxMenu;
 
     menuFile->Append(ClearID, "&Clear log\tCtrl-L");
     menuFile->AppendSeparator();
@@ -209,15 +209,15 @@ MyFrame::MyFrame(const wxString& title)
     menuFile->Append(QuitID, "E&xit\tAlt-X", "Quit this program");
 
     // the "About" item should be in the help menu
-    wxMenu *menuHelp = new wxMenu;
+    wxMenu *menuHelp = NEW_DEBUG wxMenu;
     menuHelp->Append(wxID_ABOUT, "&About\tF1", "Show about dialog");
 
     // now append the freshly created menu to the menu bar...
-    wxMenuBar *menuBar = new wxMenuBar();
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar();
     menuBar->Append(menuFile, "&File");
 
 #if wxUSE_HOTKEY
-    wxMenu* menuHotkey = new wxMenu;
+    wxMenu* menuHotkey = NEW_DEBUG wxMenu;
     menuHotkey->Append(HotKeyRegister, "&Register hot key");
     menuHotkey->Append(HotKeyUnregister, "&Unregister hot key");
     menuBar->Append(menuHotkey, "Hot&key");
@@ -230,7 +230,7 @@ MyFrame::MyFrame(const wxString& title)
 
     DoCreateInputWindow(Input_Custom);
 
-    wxTextCtrl *headerText = new wxTextCtrl(this, wxID_ANY, "",
+    wxTextCtrl *headerText = NEW_DEBUG wxTextCtrl(this, wxID_ANY, "",
                                             wxDefaultPosition, wxDefaultSize,
                                             wxTE_READONLY);
     headerText->SetValue(
@@ -238,7 +238,7 @@ MyFrame::MyFrame(const wxString& title)
                "  RawKeyCode RawKeyFlags  Position      Repeat");
 
 
-    m_logText = new wxTextCtrl(this, wxID_ANY, "",
+    m_logText = NEW_DEBUG wxTextCtrl(this, wxID_ANY, "",
                                wxDefaultPosition, wxDefaultSize,
                                wxTE_MULTILINE|wxTE_READONLY|wxTE_RICH|wxHSCROLL);
 
@@ -248,7 +248,7 @@ MyFrame::MyFrame(const wxString& title)
     m_logText->SetFont(font);
 
     // layout
-    wxBoxSizer *sizer = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer *sizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     sizer->Add(m_inputWin, wxSizerFlags().Expand());
     sizer->Add(headerText, wxSizerFlags().Expand());
     sizer->Add(m_logText, wxSizerFlags(1).Expand());
@@ -305,17 +305,17 @@ void MyFrame::DoCreateInputWindow(InputKind inputKind)
     switch ( inputKind )
     {
         case Input_Custom:
-            m_inputWin = new wxWindow(this, wxID_ANY,
+            m_inputWin = NEW_DEBUG wxWindow(this, wxID_ANY,
                                       wxDefaultPosition, wxSize(-1, 50),
                                       wxRAISED_BORDER);
             break;
 
         case Input_Entry:
-            m_inputWin = new wxTextCtrl(this, wxID_ANY, "Press keys here");
+            m_inputWin = NEW_DEBUG wxTextCtrl(this, wxID_ANY, "Press keys here");
             break;
 
         case Input_Text:
-            m_inputWin = new wxTextCtrl(this, wxID_ANY, "Press keys here",
+            m_inputWin = NEW_DEBUG wxTextCtrl(this, wxID_ANY, "Press keys here",
                                         wxDefaultPosition, wxSize(-1, 50),
                                         wxTE_MULTILINE);
             break;

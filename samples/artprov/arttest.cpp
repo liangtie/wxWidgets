@@ -96,7 +96,7 @@ bool MyApp::OnInit()
         return false;
 
     // create the main application window
-    MyFrame *frame = new MyFrame("wxArtProvider sample",
+    MyFrame *frame = NEW_DEBUG MyFrame("wxArtProvider sample",
                                  wxPoint(50, 50), wxSize(450, 340));
     frame->Show(true);
     return true;
@@ -149,10 +149,10 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size, 
     SetIcon(wxICON(sample));
 
     // create a menu bar
-    wxMenu *menuFile = new wxMenu;
+    wxMenu *menuFile = NEW_DEBUG wxMenu;
 
     // the "About" item should be in the help menu
-    wxMenu *helpMenu = new wxMenu;
+    wxMenu *helpMenu = NEW_DEBUG wxMenu;
     helpMenu->Append(wxID_ABOUT, "&About\tF1", "Show about dialog");
 
     menuFile->AppendCheckItem(ID_PlugProvider, "&Plug-in art provider\tCtrl-P", "Enable custom art provider");
@@ -167,7 +167,7 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size, 
     menuFile->Append(ID_Quit, "E&xit\tAlt-X", "Quit this program");
 
     // now append the freshly created menu to the menu bar...
-    wxMenuBar *menuBar = new wxMenuBar();
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar();
     menuBar->Append(menuFile, "&File");
     menuBar->Append(helpMenu, "&Help");
 
@@ -215,7 +215,7 @@ void MyFrame::OnBrowser(wxCommandEvent& WXUNUSED(event))
 void MyFrame::OnPlugProvider(wxCommandEvent& event)
 {
     if ( event.IsChecked() )
-        wxArtProvider::Push(new MyArtProvider);
+        wxArtProvider::Push(NEW_DEBUG MyArtProvider);
     else
         wxArtProvider::Pop();
 }

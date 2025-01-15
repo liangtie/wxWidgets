@@ -32,7 +32,7 @@ public:
         wxBitmap bitmapCopy(m_bitmap);
         bitmapCopy.UnShare();
 
-        return new wxCursorRefData(bitmapCopy, m_id);
+        return NEW_DEBUG wxCursorRefData(bitmapCopy, m_id);
     }
 
     int      m_id;
@@ -76,7 +76,7 @@ wxCursor::wxCursor(const wxString& cursor_file,
 
 wxGDIRefData *wxCursor::CreateGDIRefData() const
 {
-    return new wxCursorRefData;
+    return NEW_DEBUG wxCursorRefData;
 }
 
 wxGDIRefData *wxCursor::CloneGDIRefData(const wxGDIRefData *data) const

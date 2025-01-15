@@ -88,7 +88,7 @@ void wxIDirectFB::CreateDirectFB()
 {
     IDirectFB *dfb;
     if ( wxDfbCheckReturn(DirectFBCreate(&dfb)) )
-        ms_ptr = new wxIDirectFB(dfb);
+        ms_ptr = NEW_DEBUG wxIDirectFB(dfb);
 }
 
 /* static */
@@ -152,7 +152,7 @@ wxIDirectFBSurface::CreateCompatible(const wxSize& sz, int flags)
     desc.width = size.x;
     desc.height = size.y;
 
-    // filter out caps that don't make sense for a new compatible surface:
+    // filter out caps that don't make sense for a NEW_DEBUG compatible surface:
     int caps = desc.caps;
     caps &= ~DSCAPS_PRIMARY;
     caps &= ~DSCAPS_SUBSURFACE;

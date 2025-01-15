@@ -141,7 +141,7 @@ wxZlibInputStream::wxZlibInputStream(wxInputStream *stream, int flags)
 void wxZlibInputStream::Init(int flags)
 {
   m_inflate = NULL;
-  m_z_buffer = new unsigned char[ZSTREAM_BUFFER_SIZE];
+  m_z_buffer = NEW_DEBUG unsigned char[ZSTREAM_BUFFER_SIZE];
   m_z_size = ZSTREAM_BUFFER_SIZE;
   m_pos = 0;
 
@@ -159,7 +159,7 @@ void wxZlibInputStream::Init(int flags)
   }
 
   if (m_z_buffer) {
-    m_inflate = new z_stream_s;
+    m_inflate = NEW_DEBUG z_stream_s;
 
     if (m_inflate) {
       memset(m_inflate, 0, sizeof(z_stream_s));
@@ -297,7 +297,7 @@ wxZlibOutputStream::wxZlibOutputStream(wxOutputStream *stream,
 void wxZlibOutputStream::Init(int level, int flags)
 {
   m_deflate = NULL;
-  m_z_buffer = new unsigned char[ZSTREAM_BUFFER_SIZE];
+  m_z_buffer = NEW_DEBUG unsigned char[ZSTREAM_BUFFER_SIZE];
   m_z_size = ZSTREAM_BUFFER_SIZE;
   m_pos = 0;
 
@@ -318,7 +318,7 @@ void wxZlibOutputStream::Init(int level, int flags)
   }
 
   if (m_z_buffer) {
-    m_deflate = new z_stream_s;
+    m_deflate = NEW_DEBUG z_stream_s;
 
     if (m_deflate) {
       memset(m_deflate, 0, sizeof(z_stream_s));

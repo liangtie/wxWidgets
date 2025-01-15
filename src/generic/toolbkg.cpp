@@ -88,7 +88,7 @@ bool wxToolbook::Create(wxWindow *parent,
 #if defined(__WXMAC__) && wxUSE_TOOLBAR && wxUSE_BMPBUTTON
     if (style & wxTBK_BUTTONBAR)
     {
-        m_bookctrl = new wxButtonToolBar
+        m_bookctrl = NEW_DEBUG wxButtonToolBar
                  (
                     this,
                     wxID_ANY,
@@ -100,7 +100,7 @@ bool wxToolbook::Create(wxWindow *parent,
     else
 #endif
     {
-        m_bookctrl = new wxToolBar
+        m_bookctrl = NEW_DEBUG wxToolBar
                  (
                     this,
                     wxID_ANY,
@@ -177,7 +177,7 @@ bool wxToolbook::SetPageImage(size_t n, int imageId)
 
 wxBookCtrlEvent* wxToolbook::CreatePageChangingEvent() const
 {
-    return new wxBookCtrlEvent(wxEVT_TOOLBOOK_PAGE_CHANGING, m_windowId);
+    return NEW_DEBUG wxBookCtrlEvent(wxEVT_TOOLBOOK_PAGE_CHANGING, m_windowId);
 }
 
 void wxToolbook::MakeChangedEvent(wxBookCtrlEvent &event)

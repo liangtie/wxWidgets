@@ -202,7 +202,7 @@ wxFontMapper::CharsetToEncoding(const wxString& charset, bool interactive)
         // the list of choices
         const size_t count = GetSupportedEncodingsCount();
 
-        wxString *encodingNamesTranslated = new wxString[count];
+        wxString *encodingNamesTranslated = NEW_DEBUG wxString[count];
 
         for ( size_t i = 0; i < count; i++ )
         {

@@ -224,7 +224,7 @@ static GdkGC* wxGetPoolGC( GdkWindow *window, wxPoolGCType type )
         wxGCPool[wxGCPoolSize].m_type = type;
         wxGCPool[wxGCPoolSize].m_used = true;
 
-        // Set new value of pool size.
+        // Set NEW_DEBUG value of pool size.
         wxGCPoolSize += GC_POOL_ALLOC_SIZE;
 
         // Return newly allocated entry.
@@ -728,7 +728,7 @@ void wxWindowDCImpl::DoDrawLines( int n, const wxPoint points[], wxCoord xoffset
 
     if (doScale)
     {
-        gpts_alloc.reset(new GdkPoint[n]);
+        gpts_alloc.reset(NEW_DEBUG GdkPoint[n]);
         gpts = gpts_alloc.get();
     }
 
@@ -764,7 +764,7 @@ void wxWindowDCImpl::DoDrawPolygon( int n, const wxPoint points[],
 
     if (doScale)
     {
-        gdkpoints_alloc.reset(new GdkPoint[n]);
+        gdkpoints_alloc.reset(NEW_DEBUG GdkPoint[n]);
         gdkpoints = gdkpoints_alloc.get();
     }
 
@@ -1023,7 +1023,7 @@ ScaleMask(GdkPixmap* mask, int x, int y, int w, int h, int dst_w, int dst_h, dou
     return gdk_bitmap_create_from_data(mask, data.get(), dst_w, dst_h);
 }
 
-// Make a new mask from part of a mask and a clip region.
+// Make a NEW_DEBUG mask from part of a mask and a clip region.
 static GdkPixmap*
 ClipMask(GdkPixmap* mask, GdkRegion* clipRegion, int x, int y, int dst_x, int dst_y, int w, int h)
 {
@@ -1031,11 +1031,11 @@ ClipMask(GdkPixmap* mask, GdkRegion* clipRegion, int x, int y, int dst_x, int ds
     gcValues.foreground.pixel = 0;
     GdkGC* gc = gdk_gc_new_with_values(mask, &gcValues, GDK_GC_FOREGROUND);
     GdkPixmap* pixmap = gdk_pixmap_new(mask, w, h, 1);
-    // clear new mask, so clipped areas will be masked
+    // clear NEW_DEBUG mask, so clipped areas will be masked
     gdk_draw_rectangle(pixmap, gc, true, 0, 0, w, h);
     gdk_gc_set_clip_region(gc, clipRegion);
     gdk_gc_set_clip_origin(gc, -dst_x, -dst_y);
-    // draw old mask onto new one, with clip
+    // draw old mask onto NEW_DEBUG one, with clip
     gdk_draw_drawable(pixmap, gc, mask, x, y, 0, 0, w, h);
     g_object_unref(gc);
     return pixmap;
@@ -1120,7 +1120,7 @@ void wxWindowDCImpl::DoDrawBitmap( const wxBitmap &bitmap,
         }
         if (overlap == wxPartRegion)
         {
-            // need a new mask that also masks the clipped area,
+            // need a NEW_DEBUG mask that also masks the clipped area,
             // because gc can't have both a mask and a clip region
             mask = ClipMask(mask, clipRegion, 0, 0, xx, yy, ww, hh);
             if (mask_new)
@@ -1309,7 +1309,7 @@ bool wxWindowDCImpl::DoBlit( wxCoord xdest, wxCoord ydest,
         }
         if (overlap == wxPartRegion)
         {
-            // need a new mask that also masks the clipped area,
+            // need a NEW_DEBUG mask that also masks the clipped area,
             // because gc can't have both a mask and a clip region
             mask = ClipMask(mask, clipRegion,
                 srcMask_x, srcMask_y, dst_x, dst_y, dst_w, dst_h);
@@ -1526,7 +1526,7 @@ void wxWindowDCImpl::SetFont( const wxFont &font )
             m_context = m_window->GTKGetPangoDefaultContext();
 
             // If we switch back/forth between different contexts
-            // we also have to create a new layout. I think so,
+            // we also have to create a NEW_DEBUG layout. I think so,
             // at least, and it doesn't hurt to do it.
             if (oldContext != m_context)
             {

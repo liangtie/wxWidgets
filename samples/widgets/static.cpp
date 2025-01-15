@@ -220,10 +220,10 @@ StaticWidgetsPage::StaticWidgetsPage(WidgetsBookCtrl *book,
 
 void StaticWidgetsPage::CreateContent()
 {
-    wxSizer *sizerTop = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer *sizerTop = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
 
     // left pane
-    wxSizer *sizerLeft = new wxStaticBoxSizer(wxVERTICAL, this, "&Set style");
+    wxSizer *sizerLeft = NEW_DEBUG wxStaticBoxSizer(wxVERTICAL, this, "&Set style");
 
     m_chkGeneric = CreateCheckBoxAndAddToSizer(sizerLeft,
                                                "&Generic wxStaticText");
@@ -256,12 +256,12 @@ void StaticWidgetsPage::CreateContent()
         "bottom",
     };
 
-    m_radioHAlign = new wxRadioBox(this, wxID_ANY, "&Horz alignment",
+    m_radioHAlign = NEW_DEBUG wxRadioBox(this, wxID_ANY, "&Horz alignment",
                                    wxDefaultPosition, wxDefaultSize,
                                    WXSIZEOF(halign), halign, 3);
     m_radioHAlign->Bind(wxEVT_RADIOBOX, &StaticWidgetsPage::OnRecreate, this);
 
-    m_radioVAlign = new wxRadioBox(this, wxID_ANY, "&Vert alignment",
+    m_radioVAlign = NEW_DEBUG wxRadioBox(this, wxID_ANY, "&Vert alignment",
                                    wxDefaultPosition, wxDefaultSize,
                                    WXSIZEOF(valign), valign, 3);
     m_radioVAlign->SetToolTip("Relevant for Generic wxStaticText only");
@@ -284,7 +284,7 @@ void StaticWidgetsPage::CreateContent()
         "&end",
     };
 
-    m_radioEllipsize = new wxRadioBox(this, wxID_ANY, "&Ellipsize mode",
+    m_radioEllipsize = NEW_DEBUG wxRadioBox(this, wxID_ANY, "&Ellipsize mode",
                                       wxDefaultPosition, wxDefaultSize,
                                       WXSIZEOF(ellipsizeMode), ellipsizeMode,
                                       3);
@@ -292,34 +292,34 @@ void StaticWidgetsPage::CreateContent()
 
     sizerLeft->Add(m_radioEllipsize, 0, wxGROW | wxALL, 5);
 
-    wxButton *b0 = new wxButton(this, wxID_ANY, "&Reset");
+    wxButton *b0 = NEW_DEBUG wxButton(this, wxID_ANY, "&Reset");
     b0->Bind(wxEVT_BUTTON, &StaticWidgetsPage::OnButtonReset, this);
     sizerLeft->Add(b0, 0, wxALIGN_CENTRE_HORIZONTAL | wxALL, 15);
 
     // middle pane
-    wxSizer *sizerMiddle = new wxStaticBoxSizer(wxVERTICAL, this,
+    wxSizer *sizerMiddle = NEW_DEBUG wxStaticBoxSizer(wxVERTICAL, this,
                                                 "&Change labels");
 
-    m_textBox = new wxTextCtrl(this, wxID_ANY, wxEmptyString);
-    wxButton *b1 = new wxButton(this, wxID_ANY, "Change &box label");
+    m_textBox = NEW_DEBUG wxTextCtrl(this, wxID_ANY, wxEmptyString);
+    wxButton *b1 = NEW_DEBUG wxButton(this, wxID_ANY, "Change &box label");
     b1->Bind(wxEVT_BUTTON, &StaticWidgetsPage::OnButtonBoxText, this);
     sizerMiddle->Add(m_textBox, 0, wxEXPAND|wxALL, 5);
     sizerMiddle->Add(b1, 0, wxLEFT|wxBOTTOM, 5);
 
-    m_textLabel = new wxTextCtrl(this, wxID_ANY, wxEmptyString,
+    m_textLabel = NEW_DEBUG wxTextCtrl(this, wxID_ANY, wxEmptyString,
                                  wxDefaultPosition, wxDefaultSize,
                                  wxTE_MULTILINE|wxHSCROLL);
-    wxButton *b2 = new wxButton(this, wxID_ANY, "Change &text label");
+    wxButton *b2 = NEW_DEBUG wxButton(this, wxID_ANY, "Change &text label");
     b2->Bind(wxEVT_BUTTON, &StaticWidgetsPage::OnButtonLabelText, this);
     sizerMiddle->Add(m_textLabel, 0, wxEXPAND|wxALL, 5);
     sizerMiddle->Add(b2, 0, wxLEFT|wxBOTTOM, 5);
 
 #if wxUSE_MARKUP
-    m_textLabelWithMarkup = new wxTextCtrl(this, wxID_ANY, wxEmptyString,
+    m_textLabelWithMarkup = NEW_DEBUG wxTextCtrl(this, wxID_ANY, wxEmptyString,
                                            wxDefaultPosition, wxDefaultSize,
                                            wxTE_MULTILINE|wxHSCROLL);
 
-    wxButton *b3 = new wxButton(this, wxID_ANY, "Change decorated text label");
+    wxButton *b3 = NEW_DEBUG wxButton(this, wxID_ANY, "Change decorated text label");
     b3->Bind(wxEVT_BUTTON, &StaticWidgetsPage::OnButtonLabelWithMarkupText, this);
     sizerMiddle->Add(m_textLabelWithMarkup, 0, wxEXPAND|wxALL, 5);
     sizerMiddle->Add(b3, 0, wxLEFT|wxBOTTOM, 5);
@@ -344,7 +344,7 @@ void StaticWidgetsPage::CreateContent()
 #endif // wxUSE_MARKUP
 
     // right pane
-    wxSizer *sizerRight = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer *sizerRight = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     sizerRight->SetMinSize(150, 0);
     m_sizerStatic = sizerRight;
 
@@ -474,11 +474,11 @@ void StaticWidgetsPage::CreateStatic()
 #ifdef wxHAS_WINDOW_LABEL_IN_STATIC_BOX
     if ( m_chkBoxWithCheck->GetValue() )
     {
-        wxCheckBox* const label = new wxCheckBox(this, wxID_ANY,
+        wxCheckBox* const label = NEW_DEBUG wxCheckBox(this, wxID_ANY,
                                                  m_textBox->GetValue());
         label->Bind(wxEVT_CHECKBOX, &StaticWidgetsPage::OnBoxCheckBox, this);
 
-        staticBox = new wxStaticBox(this, wxID_ANY,
+        staticBox = NEW_DEBUG wxStaticBox(this, wxID_ANY,
                                     label,
                                     wxDefaultPosition, wxDefaultSize,
                                     flagsBox);
@@ -486,23 +486,23 @@ void StaticWidgetsPage::CreateStatic()
     else // normal static box
 #endif // wxHAS_WINDOW_LABEL_IN_STATIC_BOX
     {
-        staticBox = new wxStaticBox(this, wxID_ANY,
+        staticBox = NEW_DEBUG wxStaticBox(this, wxID_ANY,
                                     m_textBox->GetValue(),
                                     wxDefaultPosition, wxDefaultSize,
                                     flagsBox);
     }
 
-    m_sizerStatBox = new wxStaticBoxSizer(staticBox, isVert ? wxHORIZONTAL
+    m_sizerStatBox = NEW_DEBUG wxStaticBoxSizer(staticBox, isVert ? wxHORIZONTAL
                                                             : wxVERTICAL);
 
     if ( m_chkGeneric->GetValue() )
     {
-        m_statText = new wxGenericStaticText(staticBox, wxID_ANY,
+        m_statText = NEW_DEBUG wxGenericStaticText(staticBox, wxID_ANY,
                                              m_textLabel->GetValue(),
                                              wxDefaultPosition, wxDefaultSize,
                                              flagsDummyText);
 #if wxUSE_MARKUP
-        m_statMarkup = new wxGenericStaticText(staticBox, wxID_ANY,
+        m_statMarkup = NEW_DEBUG wxGenericStaticText(staticBox, wxID_ANY,
                                              wxString(),
                                              wxDefaultPosition, wxDefaultSize,
                                              flagsText);
@@ -510,12 +510,12 @@ void StaticWidgetsPage::CreateStatic()
     }
     else // use native versions
     {
-        m_statText = new wxStaticText(staticBox, wxID_ANY,
+        m_statText = NEW_DEBUG wxStaticText(staticBox, wxID_ANY,
                                       m_textLabel->GetValue(),
                                       wxDefaultPosition, wxDefaultSize,
                                       flagsDummyText);
 #if wxUSE_MARKUP
-        m_statMarkup = new wxStaticText(staticBox, wxID_ANY,
+        m_statMarkup = NEW_DEBUG wxStaticText(staticBox, wxID_ANY,
                                         wxString(),
                                         wxDefaultPosition, wxDefaultSize,
                                         flagsText);
@@ -532,7 +532,7 @@ void StaticWidgetsPage::CreateStatic()
 #endif // wxUSE_MARKUP
 
 #if wxUSE_STATLINE
-    m_statLine = new wxStaticLine(staticBox, wxID_ANY,
+    m_statLine = NEW_DEBUG wxStaticLine(staticBox, wxID_ANY,
                                   wxDefaultPosition, wxDefaultSize,
                                   isVert ? wxLI_VERTICAL : wxLI_HORIZONTAL);
 #endif // wxUSE_STATLINE

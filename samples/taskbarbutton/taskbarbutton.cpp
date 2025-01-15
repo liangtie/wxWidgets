@@ -64,7 +64,7 @@ wxBitmap CreateBitmap(const wxColour& colour, int w, int h)
     dc.SelectObject(wxNullBitmap);
 
     // Finalize transparency with a mask
-    wxMask *mask = new wxMask(bmp, magic);
+    wxMask *mask = NEW_DEBUG wxMask(bmp, magic);
     bmp.SetMask(mask);
     return bmp;
 }
@@ -134,7 +134,7 @@ bool MyApp::OnInit()
         return false;
 
     wxTaskBarJumpList jumpList;
-    wxTaskBarJumpListItem *item1 = new wxTaskBarJumpListItem(
+    wxTaskBarJumpListItem *item1 = NEW_DEBUG wxTaskBarJumpListItem(
         NULL,
         wxTASKBAR_JUMP_LIST_TASK,
         "Task 1",
@@ -143,7 +143,7 @@ bool MyApp::OnInit()
         "Test Task",
         wxStandardPaths::Get().GetExecutablePath(),
         0);
-    wxTaskBarJumpListItem *item2 = new wxTaskBarJumpListItem(
+    wxTaskBarJumpListItem *item2 = NEW_DEBUG wxTaskBarJumpListItem(
         NULL,
         wxTASKBAR_JUMP_LIST_TASK,
         "Task 2",
@@ -154,14 +154,14 @@ bool MyApp::OnInit()
         0);
     jumpList.GetTasks().Append(item1);
     jumpList.GetTasks().Append(
-        new wxTaskBarJumpListItem(NULL, wxTASKBAR_JUMP_LIST_SEPARATOR));
+        NEW_DEBUG wxTaskBarJumpListItem(NULL, wxTASKBAR_JUMP_LIST_SEPARATOR));
     jumpList.GetTasks().Append(item2);
     jumpList.ShowRecentCategory();
     jumpList.ShowFrequentCategory();
 
     wxTaskBarJumpListCategory* customCategory =
-        new wxTaskBarJumpListCategory(&jumpList, "Custom");
-    wxTaskBarJumpListItem* item3 = new wxTaskBarJumpListItem(
+        NEW_DEBUG wxTaskBarJumpListCategory(&jumpList, "Custom");
+    wxTaskBarJumpListItem* item3 = NEW_DEBUG wxTaskBarJumpListItem(
         customCategory,
         wxTASKBAR_JUMP_LIST_DESTINATION,
         "Help",
@@ -189,7 +189,7 @@ bool MyApp::OnInit()
         wxLogMessage(recentItems[i]->GetFilePath());
     }
 
-    MyFrame *frame = new MyFrame("wxTaskBarButton App");
+    MyFrame *frame = NEW_DEBUG MyFrame("wxTaskBarButton App");
     if ( !frame->MSWGetTaskBarButton() )
     {
         wxLogError("Task bar button API is not available on this system, sorry.");
@@ -204,15 +204,15 @@ bool MyApp::OnInit()
 MyFrame::MyFrame(const wxString& title)
        : wxFrame(NULL, wxID_ANY, title)
 {
-    wxPanel *panel = new wxPanel(this);
-    wxBoxSizer *mainSizer = new wxBoxSizer(wxVERTICAL);
-    wxFlexGridSizer *gs = new wxFlexGridSizer(4, 2, 10, 10);
+    wxPanel *panel = NEW_DEBUG wxPanel(this);
+    wxBoxSizer *mainSizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
+    wxFlexGridSizer *gs = NEW_DEBUG wxFlexGridSizer(4, 2, 10, 10);
 
     // SetProgressValue section.
     wxStaticBoxSizer *spvSizer =
-        new wxStaticBoxSizer(wxVERTICAL, panel, "SetProgressValue");
+        NEW_DEBUG wxStaticBoxSizer(wxVERTICAL, panel, "SetProgressValue");
     int flags = wxSL_MIN_MAX_LABELS | wxSL_VALUE_LABEL | wxSL_AUTOTICKS;
-    m_slider = new wxSlider(spvSizer->GetStaticBox(), ProgressValueSlider,
+    m_slider = NEW_DEBUG wxSlider(spvSizer->GetStaticBox(), ProgressValueSlider,
                             0, 0, 100,
                             wxDefaultPosition, wxSize(250, -1),
                             flags);
@@ -225,21 +225,21 @@ MyFrame::MyFrame(const wxString& title)
         "&Show in Taskbar",
         "&Hide in Taskbar"
     };
-    m_visibilityRadioBox = new wxRadioBox(panel, VisibilityRadio, "Visibility:",
+    m_visibilityRadioBox = NEW_DEBUG wxRadioBox(panel, VisibilityRadio, "Visibility:",
                                           wxDefaultPosition, wxDefaultSize,
                                           WXSIZEOF(labels), labels,
                                           1, wxRA_SPECIFY_ROWS);
    // SetThumbnailTooltip section.
     wxStaticBoxSizer *sttSizer =
-        new wxStaticBoxSizer(wxVERTICAL, panel, "SetThumbnailTooltip");
-    m_textCtrl = new wxTextCtrl(panel, wxID_ANY);
-    wxButton *btn = new wxButton(panel, ThumbnailTooltipSetBtn, "Set");
+        NEW_DEBUG wxStaticBoxSizer(wxVERTICAL, panel, "SetThumbnailTooltip");
+    m_textCtrl = NEW_DEBUG wxTextCtrl(panel, wxID_ANY);
+    wxButton *btn = NEW_DEBUG wxButton(panel, ThumbnailTooltipSetBtn, "Set");
     sttSizer->Add(m_textCtrl, 1, wxEXPAND | wxALL, 2);
     sttSizer->Add(btn, 1, wxEXPAND | wxALL, 2);
 
     // SetProgressState section.
     wxStaticBoxSizer *spsSizer =
-        new wxStaticBoxSizer(wxVERTICAL, panel, "SetProgressState");
+        NEW_DEBUG wxStaticBoxSizer(wxVERTICAL, panel, "SetProgressState");
     const wxString choices[] =
     {
         "wxNoProgress",
@@ -248,39 +248,39 @@ MyFrame::MyFrame(const wxString& title)
         "wxError",
         "wxPaused"
     };
-    m_stateChoice = new wxChoice(panel, ProgressStateChoice,
+    m_stateChoice = NEW_DEBUG wxChoice(panel, ProgressStateChoice,
                                  wxDefaultPosition, wxDefaultSize,
                                  WXSIZEOF(choices), choices);
     spsSizer->Add(m_stateChoice, 0, wxALL | wxGROW, 5);
 
     // SetOverlayIcon section.
     wxStaticBoxSizer *soiSizer =
-        new wxStaticBoxSizer(wxVERTICAL, panel, "SetOverlayIcon");
+        NEW_DEBUG wxStaticBoxSizer(wxVERTICAL, panel, "SetOverlayIcon");
     wxButton *setOverlayIconBtn =
-        new wxButton(panel, SetOverlayIconBtn, "Set Overlay Icon");
+        NEW_DEBUG wxButton(panel, SetOverlayIconBtn, "Set Overlay Icon");
     wxButton *clearOverlayIconBtn =
-        new wxButton(panel, ClearOverlayIconBtn, "Clear Overlay Icon");
+        NEW_DEBUG wxButton(panel, ClearOverlayIconBtn, "Clear Overlay Icon");
     soiSizer->Add(setOverlayIconBtn, 1, wxEXPAND | wxALL, 2);
     soiSizer->Add(clearOverlayIconBtn, 1, wxEXPAND | wxALL, 2);
 
     // SetThumbnailClip section.
     wxStaticBoxSizer *stcSizer =
-        new wxStaticBoxSizer(wxVERTICAL, panel, "SetThumbnailClip");
+        NEW_DEBUG wxStaticBoxSizer(wxVERTICAL, panel, "SetThumbnailClip");
     wxButton *setThumbnailClipBtn =
-        new wxButton(panel, SetThumbnailClipBtn, "Set Thumbnail Clip");
+        NEW_DEBUG wxButton(panel, SetThumbnailClipBtn, "Set Thumbnail Clip");
     wxButton *restoreThumbnailClipBtn =
-        new wxButton(panel, RestoreThumbnailClipBtn,
+        NEW_DEBUG wxButton(panel, RestoreThumbnailClipBtn,
                      "Restore Thumbnail Clip");
     stcSizer->Add(setThumbnailClipBtn, 1, wxEXPAND | wxALL, 2);
     stcSizer->Add(restoreThumbnailClipBtn, 1, wxEXPAND | wxALL, 2);
 
     // Thumbnail Toolbar Buttons section.
     wxStaticBoxSizer *ttbSizer =
-        new wxStaticBoxSizer(wxVERTICAL, panel, "ThumbBar Buttons");
+        NEW_DEBUG wxStaticBoxSizer(wxVERTICAL, panel, "ThumbBar Buttons");
     wxButton *addThumbBarButtonBtn =
-        new wxButton(panel, AddThumbBarButtonBtn, "Add ThumbBar Button");
+        NEW_DEBUG wxButton(panel, AddThumbBarButtonBtn, "Add ThumbBar Button");
     wxButton *showThumbnailToolbarBtn =
-        new wxButton(panel, RemoveThumbBarButtonBtn,
+        NEW_DEBUG wxButton(panel, RemoveThumbBarButtonBtn,
                      "Remove Last ThumbBar Button");
     ttbSizer->Add(addThumbBarButtonBtn, 1, wxEXPAND | wxALL, 2);
     ttbSizer->Add(showThumbnailToolbarBtn, 1, wxEXPAND | wxALL, 2);
@@ -293,7 +293,7 @@ MyFrame::MyFrame(const wxString& title)
     gs->Add(stcSizer, 0, wxEXPAND);
     gs->Add(ttbSizer, 0, wxEXPAND);
 
-    wxStaticText *text = new wxStaticText(
+    wxStaticText *text = NEW_DEBUG wxStaticText(
         panel, wxID_ANY, "Welcome to wxTaskBarButton sample");
     mainSizer->Add(text, 0, wxALIGN_CENTRE_HORIZONTAL);
     mainSizer->Add(gs);
@@ -413,7 +413,7 @@ void MyFrame::OnAddThubmBarButton(wxCommandEvent& WXUNUSED(event))
         return;
 
     wxThumbBarButton *button =
-        new wxThumbBarButton(m_thumbBarButtons.size() + ThumbnailToolbarBtn_0 ,
+        NEW_DEBUG wxThumbBarButton(m_thumbBarButtons.size() + ThumbnailToolbarBtn_0 ,
                              CreateRandomIcon());
     MSWGetTaskBarButton()->AppendThumbBarButton(button);
     m_thumbBarButtons.push_back(button);

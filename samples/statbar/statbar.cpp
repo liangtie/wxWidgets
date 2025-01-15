@@ -68,7 +68,7 @@ static const char *SAMPLE_DIALOGS_TITLE = "wxWidgets statbar sample";
 // private classes
 // ----------------------------------------------------------------------------
 
-// Define a new application type, each program should derive a class from wxApp
+// Define a NEW_DEBUG application type, each program should derive a class from wxApp
 class MyApp : public wxApp
 {
 public:
@@ -125,7 +125,7 @@ private:
     wxDECLARE_EVENT_TABLE();
 };
 
-// Define a new frame type: this is going to be our main frame
+// Define a NEW_DEBUG frame type: this is going to be our main frame
 #ifdef USE_MDI_PARENT_FRAME
 class MyFrame : public wxMDIParentFrame
 #else
@@ -281,7 +281,7 @@ wxBEGIN_EVENT_TABLE(MyStatusBar, wxStatusBar)
     EVT_IDLE(MyStatusBar::OnIdle)
 wxEND_EVENT_TABLE()
 
-// Create a new application object: this macro will allow wxWidgets to create
+// Create a NEW_DEBUG application object: this macro will allow wxWidgets to create
 // the application object during program execution (it's better than using a
 // static object for many reasons) and also declares the accessor function
 // wxGetApp() which will return the reference of the right type (i.e. MyApp and
@@ -303,7 +303,7 @@ bool MyApp::OnInit()
         return false;
 
     // create the main application window
-    MyFrame *frame = new MyFrame("wxStatusBar sample",
+    MyFrame *frame = NEW_DEBUG MyFrame("wxStatusBar sample",
                                  wxPoint(50, 50), wxSize(450, 340));
 
     // and show it (the frames, unlike simple controls, are not shown when
@@ -334,13 +334,13 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
     m_field = 1;
 
     // create a menu bar
-    wxMenu *menuFile = new wxMenu;
+    wxMenu *menuFile = NEW_DEBUG wxMenu;
     menuFile->Append(StatusBar_Quit, "E&xit\tAlt-X",
                      "Quit this program");
 
-    wxMenu *statbarMenu = new wxMenu;
+    wxMenu *statbarMenu = NEW_DEBUG wxMenu;
 
-    wxMenu *statbarStyleMenu = new wxMenu;
+    wxMenu *statbarStyleMenu = NEW_DEBUG wxMenu;
     statbarStyleMenu->Append(StatusBar_SetStyleSizeGrip, "wxSTB_SIZE_GRIP",
                              "Toggles the wxSTB_SIZE_GRIP style", true);
     statbarStyleMenu->Append(StatusBar_SetStyleShowTips, "wxSTB_SHOW_TIPS",
@@ -374,7 +374,7 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
     statbarMenu->Append(StatusBar_SetFont, "&Set field font\tCtrl-F",
                         "Set the font to use for status bar fields");
 
-    wxMenu *statbarPaneStyleMenu = new wxMenu;
+    wxMenu *statbarPaneStyleMenu = NEW_DEBUG wxMenu;
     statbarPaneStyleMenu->AppendCheckItem
         (
             StatusBar_SetPaneStyleNormal,
@@ -414,12 +414,12 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
     statbarMenu->Append(StatusBar_Recreate, "&Recreate\tCtrl-R",
                         "Toggle status bar format");
 
-    wxMenu *helpMenu = new wxMenu;
+    wxMenu *helpMenu = NEW_DEBUG wxMenu;
     helpMenu->Append(StatusBar_About, "&About\tCtrl-A",
                      "Show about dialog");
 
     // now append the freshly created menu to the menu bar...
-    wxMenuBar *menuBar = new wxMenuBar();
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar();
     menuBar->Append(menuFile, "&File");
     menuBar->Append(statbarMenu, "&Status bar");
     menuBar->Append(helpMenu, "&Help");
@@ -445,12 +445,12 @@ void MyFrame::DoCreateStatusBar(MyFrame::StatusBarKind kind, long style)
     switch ( kind )
     {
         case StatBar_Default:
-            statbarNew = new wxStatusBar(this, wxID_ANY, style, "wxStatusBar");
+            statbarNew = NEW_DEBUG wxStatusBar(this, wxID_ANY, style, "wxStatusBar");
             statbarNew->SetFieldsCount(2);
             break;
 
         case StatBar_Custom:
-            statbarNew = new MyStatusBar(this, style);
+            statbarNew = NEW_DEBUG MyStatusBar(this, style);
             break;
 
         default:
@@ -774,7 +774,7 @@ void MyFrame::ApplyPaneStyle()
         return;
 
     int fields = sb->GetFieldsCount();
-    int *styles = new int[fields];
+    int *styles = NEW_DEBUG int[fields];
 
     for (int i = 1; i < fields; i++)
         styles[i] = wxSB_NORMAL;
@@ -852,7 +852,7 @@ void MyFrame::OnSetStyle(wxCommandEvent& event)
     if (newStyle != oldStyle)
     {
         DoCreateStatusBar(m_statbarKind, newStyle);
-        SetStatusText("Status bar recreated with a new style");
+        SetStatusText("Status bar recreated with a NEW_DEBUG style");
     }
 }
 
@@ -865,26 +865,26 @@ MyAboutDialog::MyAboutDialog(wxWindow *parent)
                         wxDefaultPosition, wxDefaultSize,
                         wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER)
 {
-    wxStaticText *text = new wxStaticText(this, wxID_ANY,
+    wxStaticText *text = NEW_DEBUG wxStaticText(this, wxID_ANY,
                                         "wxStatusBar sample\n"
                                         "(c) 2000 Vadim Zeitlin");
 
-    wxButton *btn = new wxButton(this, wxID_OK, "&Close");
+    wxButton *btn = NEW_DEBUG wxButton(this, wxID_OK, "&Close");
 
     // create the top status bar without the size grip (default style),
     // otherwise it looks weird
-    wxStatusBar *statbarTop = new wxStatusBar(this, wxID_ANY, 0);
+    wxStatusBar *statbarTop = NEW_DEBUG wxStatusBar(this, wxID_ANY, 0);
     statbarTop->SetFieldsCount(3);
     statbarTop->SetStatusText("This is a top status bar", 0);
     statbarTop->SetStatusText("in a dialog", 1);
     statbarTop->SetStatusText("Great, isn't it?", 2);
 
-    wxStatusBar *statbarBottom = new wxStatusBar(this, wxID_ANY);
+    wxStatusBar *statbarBottom = NEW_DEBUG wxStatusBar(this, wxID_ANY);
     statbarBottom->SetFieldsCount(2);
     statbarBottom->SetStatusText("This is a bottom status bar", 0);
     statbarBottom->SetStatusText("in a dialog", 1);
 
-    wxBoxSizer *sizerTop = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer *sizerTop = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     sizerTop->Add(statbarTop, 0, wxGROW);
     sizerTop->Add(-1, 10, 1, wxGROW);
     sizerTop->Add(text, 0, wxCENTRE | wxRIGHT | wxLEFT, 20);
@@ -934,11 +934,11 @@ MyStatusBar::MyStatusBar(wxWindow *parent, long style)
     SetStatusWidths(Field_Max, widths);
 
 #if wxUSE_CHECKBOX
-    m_checkbox = new wxCheckBox(this, StatusBar_Checkbox, "&Toggle clock");
+    m_checkbox = NEW_DEBUG wxCheckBox(this, StatusBar_Checkbox, "&Toggle clock");
     m_checkbox->SetValue(true);
 #endif
 
-    m_statbmp = new wxStaticBitmap(this, wxID_ANY, wxIcon(green_xpm));
+    m_statbmp = NEW_DEBUG wxStaticBitmap(this, wxID_ANY, wxIcon(green_xpm));
 
 #if wxUSE_TIMER
     m_timer.Start(1000);

@@ -71,7 +71,7 @@ class wxDisplayFactorySingleMSW : public wxDisplayFactorySingle
 protected:
     virtual wxDisplayImpl *CreateSingleDisplay() override
     {
-        return new wxDisplayImplSingleMSW;
+        return NEW_DEBUG wxDisplayImplSingleMSW;
     }
 };
 
@@ -194,7 +194,7 @@ public:
     typedef HRESULT (WINAPI *GetDpiForMonitor_t)(HMONITOR, int, UINT*, UINT*);
 
     // Return the pointer to GetDpiForMonitor() function which may be null if
-    // not running under new enough Windows version.
+    // not running under NEW_DEBUG enough Windows version.
     static GetDpiForMonitor_t GetDpiForMonitorPtr();
 
 private:
@@ -275,7 +275,7 @@ wxDisplayFactoryMSW::GetDpiForMonitorData
 
 /* static */ wxDisplayFactory *wxDisplay::CreateFactory()
 {
-    wxDisplayFactoryMSW *factoryMM = new wxDisplayFactoryMSW;
+    wxDisplayFactoryMSW *factoryMM = NEW_DEBUG wxDisplayFactoryMSW;
 
     if ( factoryMM->IsOk() )
         return factoryMM;
@@ -283,7 +283,7 @@ wxDisplayFactoryMSW::GetDpiForMonitorData
     delete factoryMM;
 
     // fall back to a stub implementation if no multimon support (Win95?)
-    return new wxDisplayFactorySingleMSW;
+    return NEW_DEBUG wxDisplayFactorySingleMSW;
 }
 
 
@@ -606,7 +606,7 @@ wxDisplayImpl *wxDisplayFactoryMSW::CreateDisplay(unsigned n)
 {
     wxCHECK_MSG( n < m_displays.size(), nullptr, wxT("An invalid index was passed to wxDisplay") );
 
-    return new wxDisplayMSW(n, m_displays[n]);
+    return NEW_DEBUG wxDisplayMSW(n, m_displays[n]);
 }
 
 // helper for all GetFromXXX() functions
@@ -658,7 +658,7 @@ int wxDisplayFactoryMSW::GetFromWindow(const wxWindow *window)
 // In this case, wxDisplayFactorySingleMSW is the only implementation.
 wxDisplayFactory* wxDisplay::CreateFactory()
 {
-    return new wxDisplayFactorySingleMSW;
+    return NEW_DEBUG wxDisplayFactorySingleMSW;
 }
 
 #endif // wxUSE_DISPLAY/!wxUSE_DISPLAY

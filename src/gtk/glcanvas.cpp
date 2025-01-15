@@ -32,7 +32,7 @@ static gboolean draw(GtkWidget* widget, cairo_t* cr, wxGLCanvas* win)
     gtk_widget_get_allocation(widget, &a);
     if (a.width > win->m_size.x || a.height > win->m_size.y)
     {
-        // GLX buffers are apparently not reliably updated to the new size
+        // GLX buffers are apparently not reliably updated to the NEW_DEBUG size
         // before the paint event occurs, resulting in newly exposed window
         // areas sometimes not being painted at the end of a drag resize.
         gdk_display_sync(gtk_widget_get_display(widget));
@@ -300,7 +300,7 @@ void wxGLCanvas::GTKInitImplicitContext()
         if ( !share && m_sharedContextOf )
             share = m_sharedContextOf->m_glContext;
 
-        m_glContext = new wxGLContext(this, share);
+        m_glContext = NEW_DEBUG wxGLContext(this, share);
     }
 }
 

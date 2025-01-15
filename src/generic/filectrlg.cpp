@@ -515,7 +515,7 @@ void wxFileListCtrl::UpdateFiles()
             //     is a directory
             //  b) store the drives by their drive letters and not their
             //     descriptions as otherwise it's pretty confusing to the user
-            wxFileData *fd = new wxFileData(paths[n], paths[n],
+            wxFileData *fd = NEW_DEBUG wxFileData(paths[n], paths[n],
                                             wxFileData::is_drive, icons[n]);
             if (Add(fd, item) != -1)
                 item.m_itemId++;
@@ -533,7 +533,7 @@ void wxFileListCtrl::UpdateFiles()
 #if defined(__UNIX__)
             if (p.empty()) p = wxT("/");
 #endif // __UNIX__
-            wxFileData *fd = new wxFileData(p, wxT(".."), wxFileData::is_dir, wxFileIconsTable::folder);
+            wxFileData *fd = NEW_DEBUG wxFileData(p, wxT(".."), wxFileData::is_dir, wxFileIconsTable::folder);
             if (Add(fd, item) != -1)
                 item.m_itemId++;
             else
@@ -567,7 +567,7 @@ void wxFileListCtrl::UpdateFiles()
             cont = dir.GetFirst(&f, wxEmptyString, wxDIR_DIRS | hiddenFlag);
             while (cont)
             {
-                wxFileData *fd = new wxFileData(dirPrefix + f, f, wxFileData::is_dir, wxFileIconsTable::folder);
+                wxFileData *fd = NEW_DEBUG wxFileData(dirPrefix + f, f, wxFileData::is_dir, wxFileIconsTable::folder);
                 if (Add(fd, item) != -1)
                     item.m_itemId++;
                 else
@@ -585,7 +585,7 @@ void wxFileListCtrl::UpdateFiles()
                                         wxDIR_FILES | hiddenFlag);
                 while (cont)
                 {
-                    wxFileData *fd = new wxFileData(dirPrefix + f, f, wxFileData::is_file, wxFileIconsTable::file);
+                    wxFileData *fd = NEW_DEBUG wxFileData(dirPrefix + f, f, wxFileData::is_file, wxFileIconsTable::file);
                     if (Add(fd, item) != -1)
                         item.m_itemId++;
                     else
@@ -640,7 +640,7 @@ void wxFileListCtrl::MakeDir()
         return;
     }
 
-    wxFileData *fd = new wxFileData( path, new_name, wxFileData::is_dir, wxFileIconsTable::folder );
+    wxFileData *fd = NEW_DEBUG wxFileData( path, new_name, wxFileData::is_dir, wxFileIconsTable::folder );
     wxListItem item;
     item.m_itemId = 0;
     item.m_col = 0;
@@ -929,13 +929,13 @@ bool wxGenericFileCtrl::Create( wxWindow *parent,
 
     const bool is_pda = ( wxSystemSettings::GetScreenType() <= wxSYS_SCREEN_PDA );
 
-    wxBoxSizer *mainsizer = new wxBoxSizer( wxVERTICAL );
+    wxBoxSizer *mainsizer = NEW_DEBUG wxBoxSizer( wxVERTICAL );
 
-    wxBoxSizer *staticsizer = new wxBoxSizer( wxHORIZONTAL );
+    wxBoxSizer *staticsizer = NEW_DEBUG wxBoxSizer( wxHORIZONTAL );
     if ( is_pda )
-        staticsizer->Add( new wxStaticText( this, wxID_ANY, _( "Current directory:" ) ),
+        staticsizer->Add( NEW_DEBUG wxStaticText( this, wxID_ANY, _( "Current directory:" ) ),
                           wxSizerFlags().DoubleBorder(wxRIGHT) );
-    m_static = new wxStaticText( this, wxID_ANY, m_dir );
+    m_static = NEW_DEBUG wxStaticText( this, wxID_ANY, m_dir );
     staticsizer->Add( m_static, 1 );
     mainsizer->Add( staticsizer, wxSizerFlags().Expand().Border());
 
@@ -945,22 +945,22 @@ bool wxGenericFileCtrl::Create( wxWindow *parent,
 
     style2 |= wxSUNKEN_BORDER;
 
-    m_list = new wxFileListCtrl( this, ID_FILELIST_CTRL,
+    m_list = NEW_DEBUG wxFileListCtrl( this, ID_FILELIST_CTRL,
                                  wxEmptyString, false,
                                  wxDefaultPosition, wxSize( 400, 140 ),
                                  style2 );
 
-    m_text = new wxTextCtrl( this, ID_TEXT, wxEmptyString,
+    m_text = NEW_DEBUG wxTextCtrl( this, ID_TEXT, wxEmptyString,
                              wxDefaultPosition, wxDefaultSize,
                              wxTE_PROCESS_ENTER );
-    m_choice = new wxChoice( this, ID_CHOICE );
+    m_choice = NEW_DEBUG wxChoice( this, ID_CHOICE );
 
     if ( is_pda )
     {
         // PDAs have a different screen layout
         mainsizer->Add( m_list, wxSizerFlags( 1 ).Expand().HorzBorder() );
 
-        wxBoxSizer *textsizer = new wxBoxSizer( wxHORIZONTAL );
+        wxBoxSizer *textsizer = NEW_DEBUG wxBoxSizer( wxHORIZONTAL );
         textsizer->Add( m_text, wxSizerFlags( 1 ).Centre().Border() );
         textsizer->Add( m_choice, wxSizerFlags( 1 ).Centre().Border() );
         mainsizer->Add( textsizer, wxSizerFlags().Expand() );
@@ -971,12 +971,12 @@ bool wxGenericFileCtrl::Create( wxWindow *parent,
         mainsizer->Add( m_list, wxSizerFlags( 1 ).Expand().Border() );
         mainsizer->Add( m_text, wxSizerFlags().Expand().Border() );
 
-        wxBoxSizer *choicesizer = new wxBoxSizer( wxHORIZONTAL );
+        wxBoxSizer *choicesizer = NEW_DEBUG wxBoxSizer( wxHORIZONTAL );
         choicesizer->Add( m_choice, wxSizerFlags( 1 ).Centre() );
 
         if ( !( m_style & wxFC_NOSHOWHIDDEN ) )
         {
-            m_check = new wxCheckBox( this, ID_CHECK, _( "Show &hidden files" ) );
+            m_check = NEW_DEBUG wxCheckBox( this, ID_CHECK, _( "Show &hidden files" ) );
             choicesizer->Add( m_check, wxSizerFlags().Centre().DoubleBorder(wxLEFT) );
         }
 
@@ -1141,7 +1141,7 @@ bool wxGenericFileCtrl::SetFilename( const wxString& name )
         }
     }
 
-    // Select new filename if it's in the list
+    // Select NEW_DEBUG filename if it's in the list
     long item = m_list->FindItem(wxNOT_FOUND, name);
 
     if ( item != wxNOT_FOUND )
@@ -1199,7 +1199,7 @@ void wxGenericFileCtrl::SetWildcard( const wxString& wildCard )
 
     for ( size_t n = 0; n < count; n++ )
     {
-        m_choice->Append(wildDescriptions[n], new wxStringClientData(wildFilters[n]));
+        m_choice->Append(wildDescriptions[n], NEW_DEBUG wxStringClientData(wildFilters[n]));
     }
 
     SetFilterIndex( 0 );

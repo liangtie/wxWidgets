@@ -44,7 +44,7 @@ wxFont::wxFont(const wxString& nativeFontInfoString)
 
 bool wxFont::Create(const wxNativeFontInfo& info)
 {
-    m_refData = new wxFontRefData(info.pointSize,
+    m_refData = NEW_DEBUG wxFontRefData(info.pointSize,
                                   info.family,
                                   info.style,
                                   info.weight,
@@ -62,19 +62,19 @@ bool wxFont::Create(int pointSize,
                     const wxString& face,
                     wxFontEncoding encoding)
 {
-    m_refData = new wxFontRefData(pointSize, family, style, weight,
+    m_refData = NEW_DEBUG wxFontRefData(pointSize, family, style, weight,
                                   underlined, face, encoding);
     return true;
 }
 
 wxGDIRefData *wxFont::CreateGDIRefData() const
 {
-    return new wxFontRefData;
+    return NEW_DEBUG wxFontRefData;
 }
 
 wxGDIRefData *wxFont::CloneGDIRefData(const wxGDIRefData *data) const
 {
-    return new wxFontRefData(*(wxFontRefData *)data);
+    return NEW_DEBUG wxFontRefData(*(wxFontRefData *)data);
 }
 
 

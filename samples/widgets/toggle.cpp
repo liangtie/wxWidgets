@@ -217,12 +217,12 @@ ToggleWidgetsPage::ToggleWidgetsPage(WidgetsBookCtrl *book,
 
 void ToggleWidgetsPage::CreateContent()
 {
-    wxSizer *sizerTop = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer *sizerTop = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
 
     // left pane
-    wxStaticBox *box = new wxStaticBox(this, wxID_ANY, "Styles");
+    wxStaticBox *box = NEW_DEBUG wxStaticBox(this, wxID_ANY, "Styles");
 
-    wxSizer *sizerLeft = new wxStaticBoxSizer(box, wxVERTICAL);
+    wxSizer *sizerLeft = NEW_DEBUG wxStaticBoxSizer(box, wxVERTICAL);
 
 #ifdef wxHAS_BITMAPTOGGLEBUTTON
     m_chkBitmapOnly = CreateCheckBoxAndAddToSizer(sizerLeft, "&Bitmap only");
@@ -245,7 +245,7 @@ void ToggleWidgetsPage::CreateContent()
     sizerLeft->AddSpacer(5);
 
     wxSizer *sizerUseLabels =
-        new wxStaticBoxSizer(wxVERTICAL, this,
+        NEW_DEBUG wxStaticBoxSizer(wxVERTICAL, this,
                 "&Use the following bitmaps in addition to the normal one?");
     m_chkUsePressed = CreateCheckBoxAndAddToSizer(sizerUseLabels,
         "&Pressed (small help icon)");
@@ -263,7 +263,7 @@ void ToggleWidgetsPage::CreateContent()
     {
         "left", "right", "top", "bottom",
     };
-    m_radioImagePos = new wxRadioBox(this, wxID_ANY, "Image &position",
+    m_radioImagePos = NEW_DEBUG wxRadioBox(this, wxID_ANY, "Image &position",
                                      wxDefaultPosition, wxDefaultSize,
                                      WXSIZEOF(dirs), dirs);
     sizerLeft->Add(m_radioImagePos, wxSizerFlags().Expand().Border());
@@ -284,10 +284,10 @@ void ToggleWidgetsPage::CreateContent()
         "bottom",
     };
 
-    m_radioHAlign = new wxRadioBox(this, wxID_ANY, "&Horz alignment",
+    m_radioHAlign = NEW_DEBUG wxRadioBox(this, wxID_ANY, "&Horz alignment",
                                    wxDefaultPosition, wxDefaultSize,
                                    WXSIZEOF(halign), halign);
-    m_radioVAlign = new wxRadioBox(this, wxID_ANY, "&Vert alignment",
+    m_radioVAlign = NEW_DEBUG wxRadioBox(this, wxID_ANY, "&Vert alignment",
                                    wxDefaultPosition, wxDefaultSize,
                                    WXSIZEOF(valign), valign);
 
@@ -297,12 +297,12 @@ void ToggleWidgetsPage::CreateContent()
 
     sizerLeft->AddSpacer(5);
 
-    wxButton *btn = new wxButton(this, TogglePage_Reset, "&Reset");
+    wxButton *btn = NEW_DEBUG wxButton(this, TogglePage_Reset, "&Reset");
     sizerLeft->Add(btn, wxSizerFlags().CentreHorizontal().Border(wxALL, 15));
 
     // middle pane
-    wxStaticBox *box2 = new wxStaticBox(this, wxID_ANY, "&Operations");
-    wxSizer *sizerMiddle = new wxStaticBoxSizer(box2, wxVERTICAL);
+    wxStaticBox *box2 = NEW_DEBUG wxStaticBox(this, wxID_ANY, "&Operations");
+    wxSizer *sizerMiddle = NEW_DEBUG wxStaticBoxSizer(box2, wxVERTICAL);
 
     wxSizer *sizerRow = CreateSizerWithTextAndButton(TogglePage_ChangeLabel,
                                                      "Change label",
@@ -313,7 +313,7 @@ void ToggleWidgetsPage::CreateContent()
     sizerMiddle->Add(sizerRow, wxSizerFlags().Expand().Border());
 
     // right pane
-    m_sizerToggle = new wxBoxSizer(wxHORIZONTAL);
+    m_sizerToggle = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     m_sizerToggle->SetMinSize(150, 0);
 
     // the 3 panes panes compose the window
@@ -435,12 +435,12 @@ void ToggleWidgetsPage::CreateToggle()
         wxToggleButton *btgl;
         if ( m_chkUseBitmapClass->GetValue() )
         {
-          btgl = new wxBitmapToggleButton(this, TogglePage_Picker,
+          btgl = NEW_DEBUG wxBitmapToggleButton(this, TogglePage_Picker,
                                           CreateBitmap("normal", wxART_INFORMATION));
         }
         else
         {
-          btgl = new wxToggleButton(this, TogglePage_Picker, "");
+          btgl = NEW_DEBUG wxToggleButton(this, TogglePage_Picker, "");
           btgl->SetBitmapLabel(CreateBitmap("normal", wxART_INFORMATION));
         }
         if ( m_chkUsePressed->GetValue() )
@@ -456,7 +456,7 @@ void ToggleWidgetsPage::CreateToggle()
     else // normal button
 #endif // wxHAS_BITMAPTOGGLEBUTTON
     {
-        m_toggle = new wxToggleButton(this, TogglePage_Picker, label,
+        m_toggle = NEW_DEBUG wxToggleButton(this, TogglePage_Picker, label,
                                       wxDefaultPosition, wxDefaultSize,
                                       flags);
     }

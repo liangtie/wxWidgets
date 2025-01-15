@@ -42,7 +42,7 @@ wxIMPLEMENT_ABSTRACT_CLASS(wxMemoryInputStream, wxInputStream);
 
 wxMemoryInputStream::wxMemoryInputStream(const void *data, size_t len)
 {
-    m_i_streambuf = new wxStreamBuffer(wxStreamBuffer::read);
+    m_i_streambuf = NEW_DEBUG wxStreamBuffer(wxStreamBuffer::read);
     m_i_streambuf->SetBufferIO(const_cast<void *>(data), len);
     m_i_streambuf->SetIntPosition(0); // seek to start pos
     m_i_streambuf->Fixed(true);
@@ -63,7 +63,7 @@ wxMemoryInputStream::wxMemoryInputStream(const wxMemoryOutputStream& stream)
     const size_t len = wx_truncate_cast(size_t, lenFile);
     wxASSERT_MSG( len == lenFile + size_t(0), wxT("huge files not supported") );
 
-    m_i_streambuf = new wxStreamBuffer(wxStreamBuffer::read);
+    m_i_streambuf = NEW_DEBUG wxStreamBuffer(wxStreamBuffer::read);
     m_i_streambuf->SetBufferIO(len); // create buffer
     stream.CopyTo(m_i_streambuf->GetBufferStart(), len);
     m_i_streambuf->SetIntPosition(0); // seek to start pos
@@ -87,7 +87,7 @@ wxMemoryInputStream::InitFromStream(wxInputStream& stream, wxFileOffset lenFile)
     const size_t len = wx_truncate_cast(size_t, lenFile);
     wxASSERT_MSG( (wxFileOffset)len == lenFile, wxT("huge files not supported") );
 
-    m_i_streambuf = new wxStreamBuffer(wxStreamBuffer::read);
+    m_i_streambuf = NEW_DEBUG wxStreamBuffer(wxStreamBuffer::read);
     m_i_streambuf->SetBufferIO(len); // create buffer
     stream.Read(m_i_streambuf->GetBufferStart(), len);
     m_i_streambuf->SetIntPosition(0); // seek to start pos
@@ -153,7 +153,7 @@ wxIMPLEMENT_DYNAMIC_CLASS(wxMemoryOutputStream, wxOutputStream);
 
 wxMemoryOutputStream::wxMemoryOutputStream(void *data, size_t len)
 {
-    m_o_streambuf = new wxStreamBuffer(wxStreamBuffer::write);
+    m_o_streambuf = NEW_DEBUG wxStreamBuffer(wxStreamBuffer::write);
     if ( data )
         m_o_streambuf->SetBufferIO(data, len);
     m_o_streambuf->Fixed(false);

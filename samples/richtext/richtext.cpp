@@ -125,8 +125,8 @@ public:
             obj->SetAttributes(attr);
         }
         obj->DeleteChildren();
-        wxRichTextParagraph* para = new wxRichTextParagraph;
-        wxRichTextPlainText* text = new wxRichTextPlainText(GetLabel());
+        wxRichTextParagraph* para = NEW_DEBUG wxRichTextParagraph;
+        wxRichTextPlainText* text = NEW_DEBUG wxRichTextPlainText(GetLabel());
         para->AppendChild(text);
         obj->AppendChild(para);
         return true;
@@ -141,7 +141,7 @@ public:
 // private classes
 // ----------------------------------------------------------------------------
 
-// Define a new application type, each program should derive a class from wxApp
+// Define a NEW_DEBUG application type, each program should derive a class from wxApp
 class MyRichTextCtrl: public wxRichTextCtrl
 {
 public:
@@ -194,7 +194,7 @@ public:
     bool    m_locked;
 };
 
-// Define a new application type, each program should derive a class from wxApp
+// Define a NEW_DEBUG application type, each program should derive a class from wxApp
 class MyApp : public wxApp
 {
 public:
@@ -218,7 +218,7 @@ public:
 #endif
 };
 
-// Define a new frame type: this is going to be our main frame
+// Define a NEW_DEBUG frame type: this is going to be our main frame
 class MyFrame : public wxFrame
 {
 public:
@@ -493,7 +493,7 @@ wxBEGIN_EVENT_TABLE(MyFrame, wxFrame)
     EVT_MENU(ID_SET_DIMENSION_SCALE, MyFrame::OnSetDimensionScale)
 wxEND_EVENT_TABLE()
 
-// Create a new application object: this macro will allow wxWidgets to create
+// Create a NEW_DEBUG application object: this macro will allow wxWidgets to create
 // the application object during program execution (it's better than using a
 // static object for many reasons) and also implements the accessor function
 // wxGetApp() which will return the reference of the right type (i.e. MyApp and
@@ -515,12 +515,12 @@ bool MyApp::OnInit()
         return false;
 
 #if wxUSE_HELP
-    wxHelpProvider::Set(new wxSimpleHelpProvider);
+    wxHelpProvider::Set(NEW_DEBUG wxSimpleHelpProvider);
 #endif
 
-    m_styleSheet = new wxRichTextStyleSheet;
+    m_styleSheet = NEW_DEBUG wxRichTextStyleSheet;
 #if wxUSE_PRINTING_ARCHITECTURE
-    m_printing = new wxRichTextPrinting("Test Document");
+    m_printing = NEW_DEBUG wxRichTextPrinting("Test Document");
 
     m_printing->SetFooterText("@TITLE@", wxRICHTEXT_PAGE_ALL, wxRICHTEXT_PAGE_CENTRE);
     m_printing->SetFooterText("Page @PAGENUM@", wxRICHTEXT_PAGE_ALL, wxRICHTEXT_PAGE_RIGHT);
@@ -531,49 +531,49 @@ bool MyApp::OnInit()
     MyRichTextCtrl::SetEnhancedDrawingHandler();
 
     // Add extra handlers (plain text is automatically added)
-    wxRichTextBuffer::AddHandler(new wxRichTextXMLHandler);
-    wxRichTextBuffer::AddHandler(new wxRichTextHTMLHandler);
+    wxRichTextBuffer::AddHandler(NEW_DEBUG wxRichTextXMLHandler);
+    wxRichTextBuffer::AddHandler(NEW_DEBUG wxRichTextHTMLHandler);
 
     // Add field types
 
-    wxRichTextBuffer::AddFieldType(new wxRichTextFieldTypePropertiesTest("rectangle", "RECTANGLE", wxRichTextFieldTypeStandard::wxRICHTEXT_FIELD_STYLE_RECTANGLE));
+    wxRichTextBuffer::AddFieldType(NEW_DEBUG wxRichTextFieldTypePropertiesTest("rectangle", "RECTANGLE", wxRichTextFieldTypeStandard::wxRICHTEXT_FIELD_STYLE_RECTANGLE));
 
-    wxRichTextFieldTypeStandard* s1 = new wxRichTextFieldTypeStandard("begin-section", "SECTION", wxRichTextFieldTypeStandard::wxRICHTEXT_FIELD_STYLE_START_TAG);
+    wxRichTextFieldTypeStandard* s1 = NEW_DEBUG wxRichTextFieldTypeStandard("begin-section", "SECTION", wxRichTextFieldTypeStandard::wxRICHTEXT_FIELD_STYLE_START_TAG);
     s1->SetBackgroundColour(*wxBLUE);
 
-    wxRichTextFieldTypeStandard* s2 = new wxRichTextFieldTypeStandard("end-section", "SECTION", wxRichTextFieldTypeStandard::wxRICHTEXT_FIELD_STYLE_END_TAG);
+    wxRichTextFieldTypeStandard* s2 = NEW_DEBUG wxRichTextFieldTypeStandard("end-section", "SECTION", wxRichTextFieldTypeStandard::wxRICHTEXT_FIELD_STYLE_END_TAG);
     s2->SetBackgroundColour(*wxBLUE);
 
-    wxRichTextFieldTypeStandard* s3 = new wxRichTextFieldTypeStandard("bitmap", wxBitmap(paste_xpm), wxRichTextFieldTypeStandard::wxRICHTEXT_FIELD_STYLE_NO_BORDER);
+    wxRichTextFieldTypeStandard* s3 = NEW_DEBUG wxRichTextFieldTypeStandard("bitmap", wxBitmap(paste_xpm), wxRichTextFieldTypeStandard::wxRICHTEXT_FIELD_STYLE_NO_BORDER);
 
     wxRichTextBuffer::AddFieldType(s1);
     wxRichTextBuffer::AddFieldType(s2);
     wxRichTextBuffer::AddFieldType(s3);
 
-    wxRichTextFieldTypeCompositeTest* s4 = new wxRichTextFieldTypeCompositeTest("composite", "This is a field value");
+    wxRichTextFieldTypeCompositeTest* s4 = NEW_DEBUG wxRichTextFieldTypeCompositeTest("composite", "This is a field value");
     wxRichTextBuffer::AddFieldType(s4);
 
     // Add image handlers
 #if wxUSE_LIBPNG
-    wxImage::AddHandler( new wxPNGHandler );
+    wxImage::AddHandler( NEW_DEBUG wxPNGHandler );
 #endif
 
 #if wxUSE_LIBJPEG
-    wxImage::AddHandler( new wxJPEGHandler );
+    wxImage::AddHandler( NEW_DEBUG wxJPEGHandler );
 #endif
 
 #if wxUSE_GIF
-    wxImage::AddHandler( new wxGIFHandler );
+    wxImage::AddHandler( NEW_DEBUG wxGIFHandler );
 #endif
 
 #if wxUSE_FILESYSTEM
-    wxFileSystem::AddHandler( new wxMemoryFSHandler );
+    wxFileSystem::AddHandler( NEW_DEBUG wxMemoryFSHandler );
 #endif
 
     // create the main application window
     wxSize size = wxGetDisplaySize();
     size.Scale(0.75, 0.75);
-    MyFrame *frame = new MyFrame("wxRichTextCtrl Sample", wxID_ANY, wxDefaultPosition, size);
+    MyFrame *frame = NEW_DEBUG MyFrame("wxRichTextCtrl Sample", wxID_ANY, wxDefaultPosition, size);
 
 #if wxUSE_PRINTING_ARCHITECTURE
     m_printing->SetParentWindow(frame);
@@ -606,7 +606,7 @@ void MyApp::CreateStyles()
     wxFont romanFont(wxFontInfo(12).Family(wxFONTFAMILY_ROMAN));
     wxFont swissFont(wxFontInfo(12).Family(wxFONTFAMILY_SWISS));
 
-    wxRichTextParagraphStyleDefinition* normalPara = new wxRichTextParagraphStyleDefinition("Normal");
+    wxRichTextParagraphStyleDefinition* normalPara = NEW_DEBUG wxRichTextParagraphStyleDefinition("Normal");
     wxRichTextAttr normalAttr;
     normalAttr.SetFontFaceName(romanFont.GetFaceName());
     normalAttr.SetFontSize(12);
@@ -618,7 +618,7 @@ void MyApp::CreateStyles()
 
     m_styleSheet->AddParagraphStyle(normalPara);
 
-    wxRichTextParagraphStyleDefinition* indentedPara = new wxRichTextParagraphStyleDefinition("Indented");
+    wxRichTextParagraphStyleDefinition* indentedPara = NEW_DEBUG wxRichTextParagraphStyleDefinition("Indented");
     wxRichTextAttr indentedAttr;
     indentedAttr.SetFontFaceName(romanFont.GetFaceName());
     indentedAttr.SetFontSize(12);
@@ -629,7 +629,7 @@ void MyApp::CreateStyles()
 
     m_styleSheet->AddParagraphStyle(indentedPara);
 
-    wxRichTextParagraphStyleDefinition* indentedPara2 = new wxRichTextParagraphStyleDefinition("Red Bold Indented");
+    wxRichTextParagraphStyleDefinition* indentedPara2 = NEW_DEBUG wxRichTextParagraphStyleDefinition("Red Bold Indented");
     wxRichTextAttr indentedAttr2;
     indentedAttr2.SetFontFaceName(romanFont.GetFaceName());
     indentedAttr2.SetFontSize(12);
@@ -643,7 +643,7 @@ void MyApp::CreateStyles()
 
     m_styleSheet->AddParagraphStyle(indentedPara2);
 
-    wxRichTextParagraphStyleDefinition* flIndentedPara = new wxRichTextParagraphStyleDefinition("First Line Indented");
+    wxRichTextParagraphStyleDefinition* flIndentedPara = NEW_DEBUG wxRichTextParagraphStyleDefinition("First Line Indented");
     wxRichTextAttr flIndentedAttr;
     flIndentedAttr.SetFontFaceName(swissFont.GetFaceName());
     flIndentedAttr.SetFontSize(12);
@@ -656,7 +656,7 @@ void MyApp::CreateStyles()
 
     // Character styles
 
-    wxRichTextCharacterStyleDefinition* boldDef = new wxRichTextCharacterStyleDefinition("Bold");
+    wxRichTextCharacterStyleDefinition* boldDef = NEW_DEBUG wxRichTextCharacterStyleDefinition("Bold");
     wxRichTextAttr boldAttr;
     boldAttr.SetFontFaceName(romanFont.GetFaceName());
     boldAttr.SetFontSize(12);
@@ -667,7 +667,7 @@ void MyApp::CreateStyles()
 
     m_styleSheet->AddCharacterStyle(boldDef);
 
-    wxRichTextCharacterStyleDefinition* italicDef = new wxRichTextCharacterStyleDefinition("Italic");
+    wxRichTextCharacterStyleDefinition* italicDef = NEW_DEBUG wxRichTextCharacterStyleDefinition("Italic");
     wxRichTextAttr italicAttr;
     italicAttr.SetFontFaceName(romanFont.GetFaceName());
     italicAttr.SetFontSize(12);
@@ -678,7 +678,7 @@ void MyApp::CreateStyles()
 
     m_styleSheet->AddCharacterStyle(italicDef);
 
-    wxRichTextCharacterStyleDefinition* redDef = new wxRichTextCharacterStyleDefinition("Red Bold");
+    wxRichTextCharacterStyleDefinition* redDef = NEW_DEBUG wxRichTextCharacterStyleDefinition("Red Bold");
     wxRichTextAttr redAttr;
     redAttr.SetFontFaceName(romanFont.GetFaceName());
     redAttr.SetFontSize(12);
@@ -690,7 +690,7 @@ void MyApp::CreateStyles()
 
     m_styleSheet->AddCharacterStyle(redDef);
 
-    wxRichTextListStyleDefinition* bulletList = new wxRichTextListStyleDefinition("Bullet List 1");
+    wxRichTextListStyleDefinition* bulletList = NEW_DEBUG wxRichTextListStyleDefinition("Bullet List 1");
     int i;
     for (i = 0; i < 10; i++)
     {
@@ -711,7 +711,7 @@ void MyApp::CreateStyles()
 
     m_styleSheet->AddListStyle(bulletList);
 
-    wxRichTextListStyleDefinition* numberedList = new wxRichTextListStyleDefinition("Numbered List 1");
+    wxRichTextListStyleDefinition* numberedList = NEW_DEBUG wxRichTextListStyleDefinition("Numbered List 1");
     for (i = 0; i < 10; i++)
     {
         long numberStyle;
@@ -733,7 +733,7 @@ void MyApp::CreateStyles()
 
     m_styleSheet->AddListStyle(numberedList);
 
-    wxRichTextListStyleDefinition* outlineList = new wxRichTextListStyleDefinition("Outline List 1");
+    wxRichTextListStyleDefinition* outlineList = NEW_DEBUG wxRichTextListStyleDefinition("Outline List 1");
     for (i = 0; i < 10; i++)
     {
         long numberStyle;
@@ -767,15 +767,15 @@ MyFrame::MyFrame(const wxString& title, wxWindowID id, const wxPoint& pos,
     SetIcon(wxICON(sample));
 
     // create a menu bar
-    wxMenu *fileMenu = new wxMenu;
+    wxMenu *fileMenu = NEW_DEBUG wxMenu;
 
     // the "About" item should be in the help menu
-    wxMenu *helpMenu = new wxMenu;
+    wxMenu *helpMenu = NEW_DEBUG wxMenu;
     helpMenu->Append(ID_About, "&About\tF1", "Show about dialog");
 
     fileMenu->Append(wxID_OPEN, "&Open\tCtrl+O", "Open a file");
     fileMenu->Append(wxID_SAVE, "&Save\tCtrl+S", "Save a file");
-    fileMenu->Append(wxID_SAVEAS, "&Save As...\tF12", "Save to a new file");
+    fileMenu->Append(wxID_SAVEAS, "&Save As...\tF12", "Save to a NEW_DEBUG file");
     fileMenu->AppendSeparator();
     fileMenu->Append(ID_RELOAD, "&Reload Text\tF2", "Reload the initial text");
     fileMenu->AppendSeparator();
@@ -789,7 +789,7 @@ MyFrame::MyFrame(const wxString& title, wxWindowID id, const wxPoint& pos,
     fileMenu->AppendSeparator();
     fileMenu->Append(ID_Quit, "E&xit\tAlt+X", "Quit this program");
 
-    wxMenu* editMenu = new wxMenu;
+    wxMenu* editMenu = NEW_DEBUG wxMenu;
     editMenu->Append(wxID_UNDO, _("&Undo\tCtrl+Z"));
     editMenu->Append(wxID_REDO, _("&Redo\tCtrl+Y"));
     editMenu->AppendSeparator();
@@ -803,7 +803,7 @@ MyFrame::MyFrame(const wxString& title, wxWindowID id, const wxPoint& pos,
     editMenu->Append(ID_SET_FONT_SCALE, _("Set &Text Scale..."));
     editMenu->Append(ID_SET_DIMENSION_SCALE, _("Set &Dimension Scale..."));
 
-    wxMenu* formatMenu = new wxMenu;
+    wxMenu* formatMenu = NEW_DEBUG wxMenu;
     formatMenu->AppendCheckItem(ID_FORMAT_BOLD, _("&Bold\tCtrl+B"));
     formatMenu->AppendCheckItem(ID_FORMAT_ITALIC, _("&Italic\tCtrl+I"));
     formatMenu->AppendCheckItem(ID_FORMAT_UNDERLINE, _("&Underline\tCtrl+U"));
@@ -834,7 +834,7 @@ MyFrame::MyFrame(const wxString& title, wxWindowID id, const wxPoint& pos,
     formatMenu->Append(ID_SWITCH_STYLE_SHEETS, _("&Switch Style Sheets"));
     formatMenu->Append(ID_MANAGE_STYLES, _("&Manage Styles"));
 
-    wxMenu* listsMenu = new wxMenu;
+    wxMenu* listsMenu = NEW_DEBUG wxMenu;
     listsMenu->Append(ID_FORMAT_BULLETS_AND_NUMBERING, _("Bullets and &Numbering..."));
     listsMenu->AppendSeparator();
     listsMenu->Append(ID_FORMAT_NUMBER_LIST, _("Number List"));
@@ -844,19 +844,19 @@ MyFrame::MyFrame(const wxString& title, wxWindowID id, const wxPoint& pos,
     listsMenu->Append(ID_FORMAT_DEMOTE_LIST, _("Demote List Items"));
     listsMenu->Append(ID_FORMAT_CLEAR_LIST, _("Clear List Formatting"));
 
-    wxMenu* tableMenu = new wxMenu;
+    wxMenu* tableMenu = NEW_DEBUG wxMenu;
     tableMenu->Append(ID_TABLE_ADD_COLUMN, _("&Add Column"));
     tableMenu->Append(ID_TABLE_ADD_ROW, _("Add &Row"));
     tableMenu->Append(ID_TABLE_DELETE_COLUMN, _("Delete &Column"));
     tableMenu->Append(ID_TABLE_DELETE_ROW, _("&Delete Row"));
 
-    wxMenu* insertMenu = new wxMenu;
+    wxMenu* insertMenu = NEW_DEBUG wxMenu;
     insertMenu->Append(ID_INSERT_SYMBOL, _("&Symbol...\tCtrl+I"));
     insertMenu->Append(ID_INSERT_URL, _("&URL..."));
     insertMenu->Append(ID_INSERT_IMAGE, _("&Image..."));
 
     // now append the freshly created menu to the menu bar...
-    wxMenuBar *menuBar = new wxMenuBar();
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar();
     menuBar->Append(fileMenu, "&File");
     menuBar->Append(editMenu, "&Edit");
     menuBar->Append(formatMenu, "F&ormat");
@@ -880,7 +880,7 @@ MyFrame::MyFrame(const wxString& title, wxWindowID id, const wxPoint& pos,
     }
 #endif
 
-    wxBoxSizer* sizer = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer* sizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     SetSizer(sizer);
 
     // On Mac, don't create a 'native' wxToolBar because small bitmaps are not supported by native
@@ -891,7 +891,7 @@ MyFrame::MyFrame(const wxString& title, wxWindowID id, const wxPoint& pos,
 
     wxSystemOptions::SetOption("mac.toolbar.no-native", 1);
 
-    wxToolBar* toolBar = new wxToolBar(this, wxID_ANY, wxDefaultPosition, wxDefaultSize,
+    wxToolBar* toolBar = NEW_DEBUG wxToolBar(this, wxID_ANY, wxDefaultPosition, wxDefaultSize,
                                        wxNO_BORDER|wxTB_FLAT|wxTB_NODIVIDER|wxTB_NOALIGN);
 
     sizer->Add(toolBar, 0, wxEXPAND);
@@ -920,15 +920,15 @@ MyFrame::MyFrame(const wxString& title, wxWindowID id, const wxPoint& pos,
     toolBar->AddTool(ID_FORMAT_FONT, wxEmptyString, wxBitmap(font_xpm), _("Font"));
     toolBar->AddSeparator();
 
-    wxRichTextStyleComboCtrl* combo = new wxRichTextStyleComboCtrl(toolBar, ID_RICHTEXT_STYLE_COMBO, wxDefaultPosition, wxSize(160, -1), wxCB_READONLY);
+    wxRichTextStyleComboCtrl* combo = NEW_DEBUG wxRichTextStyleComboCtrl(toolBar, ID_RICHTEXT_STYLE_COMBO, wxDefaultPosition, wxSize(160, -1), wxCB_READONLY);
     toolBar->AddControl(combo);
 
     toolBar->Realize();
 
-    wxSplitterWindow* splitter = new wxSplitterWindow(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxSP_LIVE_UPDATE);
+    wxSplitterWindow* splitter = NEW_DEBUG wxSplitterWindow(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxSP_LIVE_UPDATE);
     sizer->Add(splitter, 1, wxEXPAND);
 
-    m_richTextCtrl = new MyRichTextCtrl(splitter, ID_RICHTEXT_CTRL, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxVSCROLL|wxHSCROLL/*|wxWANTS_CHARS*/);
+    m_richTextCtrl = NEW_DEBUG MyRichTextCtrl(splitter, ID_RICHTEXT_CTRL, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxVSCROLL|wxHSCROLL/*|wxWANTS_CHARS*/);
     wxASSERT(!m_richTextCtrl->GetBuffer().GetAttributes().HasFontPixelSize());
 
     wxFont font(wxFontInfo(12).Family(wxFONTFAMILY_ROMAN));
@@ -945,7 +945,7 @@ MyFrame::MyFrame(const wxString& title, wxWindowID id, const wxPoint& pos,
     combo->SetRichTextCtrl(m_richTextCtrl);
     combo->UpdateStyles();
 
-    wxRichTextStyleListCtrl* styleListCtrl = new wxRichTextStyleListCtrl(splitter, ID_RICHTEXT_STYLE_LIST);
+    wxRichTextStyleListCtrl* styleListCtrl = NEW_DEBUG wxRichTextStyleListCtrl(splitter, ID_RICHTEXT_STYLE_LIST);
 
     wxSize display = wxGetDisplaySize();
     if ( is_pda && ( display.GetWidth() < display.GetHeight() ) )
@@ -1771,13 +1771,13 @@ void MyFrame::OnViewHTML(wxCommandEvent& WXUNUSED(event))
 {
     wxDialog dialog(this, wxID_ANY, _("HTML"), wxDefaultPosition, wxSize(500, 400), wxDEFAULT_DIALOG_STYLE);
 
-    wxBoxSizer* boxSizer = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer* boxSizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     dialog.SetSizer(boxSizer);
 
-    wxHtmlWindow* win = new wxHtmlWindow(& dialog, wxID_ANY, wxDefaultPosition, wxSize(500, 400), wxSUNKEN_BORDER);
+    wxHtmlWindow* win = NEW_DEBUG wxHtmlWindow(& dialog, wxID_ANY, wxDefaultPosition, wxSize(500, 400), wxSUNKEN_BORDER);
     boxSizer->Add(win, 1, wxALL, 5);
 
-    wxButton* cancelButton = new wxButton(& dialog, wxID_CANCEL, "&Close");
+    wxButton* cancelButton = NEW_DEBUG wxButton(& dialog, wxID_CANCEL, "&Close");
     boxSizer->Add(cancelButton, 0, wxALL|wxCENTRE, 5);
 
     wxString text;
@@ -1825,7 +1825,7 @@ void MyFrame::OnSwitchStyleSheets(wxCommandEvent& WXUNUSED(event))
     // One-time creation of an alternate style sheet
     if (!gs_AlternateStyleSheet)
     {
-        gs_AlternateStyleSheet = new wxRichTextStyleSheet(*sheet);
+        gs_AlternateStyleSheet = NEW_DEBUG wxRichTextStyleSheet(*sheet);
 
         // Make some modifications
         for (int i = 0; i < (int) gs_AlternateStyleSheet->GetParagraphStyleCount(); i++)
@@ -1855,7 +1855,7 @@ void MyFrame::OnSwitchStyleSheets(wxCommandEvent& WXUNUSED(event))
     sheet = tmp;
 
     m_richTextCtrl->SetStyleSheet(sheet);
-    m_richTextCtrl->ApplyStyleSheet(sheet); // Makes the control reflect the new style definitions
+    m_richTextCtrl->ApplyStyleSheet(sheet); // Makes the control reflect the NEW_DEBUG style definitions
 
     styleList->SetStyleSheet(sheet);
     styleList->UpdateStyles();
@@ -2109,17 +2109,17 @@ void MyFrame::OnPageSetup(wxCommandEvent& WXUNUSED(event))
 {
     wxDialog dialog(this, wxID_ANY, "Testing", wxPoint(10, 10), wxSize(400, 300), wxDEFAULT_DIALOG_STYLE);
 
-    wxNotebook* nb = new wxNotebook(& dialog, wxID_ANY, wxPoint(5, 5), wxSize(300, 250));
-    wxPanel* panel = new wxPanel(nb, wxID_ANY, wxDefaultPosition, wxDefaultSize);
-    wxPanel* panel2 = new wxPanel(nb, wxID_ANY, wxDefaultPosition, wxDefaultSize);
+    wxNotebook* nb = NEW_DEBUG wxNotebook(& dialog, wxID_ANY, wxPoint(5, 5), wxSize(300, 250));
+    wxPanel* panel = NEW_DEBUG wxPanel(nb, wxID_ANY, wxDefaultPosition, wxDefaultSize);
+    wxPanel* panel2 = NEW_DEBUG wxPanel(nb, wxID_ANY, wxDefaultPosition, wxDefaultSize);
 
-    new wxRichTextCtrl(panel, wxID_ANY, wxEmptyString, wxPoint(5, 5), wxSize(200, 150), wxVSCROLL|wxTE_READONLY);
+    NEW_DEBUG wxRichTextCtrl(panel, wxID_ANY, wxEmptyString, wxPoint(5, 5), wxSize(200, 150), wxVSCROLL|wxTE_READONLY);
     nb->AddPage(panel, "Page 1");
 
-    new wxRichTextCtrl(panel2, wxID_ANY, wxEmptyString, wxPoint(5, 5), wxSize(200, 150), wxVSCROLL|wxTE_READONLY);
+    NEW_DEBUG wxRichTextCtrl(panel2, wxID_ANY, wxEmptyString, wxPoint(5, 5), wxSize(200, 150), wxVSCROLL|wxTE_READONLY);
     nb->AddPage(panel2, "Page 2");
 
-    new wxButton(& dialog, wxID_OK, "OK", wxPoint(5, 180));
+    NEW_DEBUG wxButton(& dialog, wxID_OK, "OK", wxPoint(5, 180));
 
     dialog.ShowModal();
 
@@ -2276,7 +2276,7 @@ bool wxRichTextEnhancedDrawingHandler::GetVirtualAttributes(wxRichTextAttr& attr
 
 void MyRichTextCtrl::SetEnhancedDrawingHandler()
 {
-    wxRichTextBuffer::AddDrawingHandler(new wxRichTextEnhancedDrawingHandler);
+    wxRichTextBuffer::AddDrawingHandler(NEW_DEBUG wxRichTextEnhancedDrawingHandler);
 }
 
 wxRichTextObject* MyRichTextCtrl::FindCurrentPosition() const

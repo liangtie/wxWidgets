@@ -237,7 +237,7 @@ void wxGenericColourDialog::CreateCustomBitmaps()
 
     if ( !m_customColourBmp )
     {
-        m_customColourBmp = new wxStaticBitmap(this, wxID_ANY, customColourBmp);
+        m_customColourBmp = NEW_DEBUG wxStaticBitmap(this, wxID_ANY, customColourBmp);
     }
     m_customColourBmp->SetSize(m_singleCustomColourRect);
     m_customColourBmp->SetBitmap(customColourBmp);
@@ -254,7 +254,7 @@ void wxGenericColourDialog::CreateCustomBitmaps()
 
         if ( !m_customColoursBmp[i] )
         {
-            m_customColoursBmp[i] = new wxStaticBitmap(this, wxID_ANY, bmp);
+            m_customColoursBmp[i] = NEW_DEBUG wxStaticBitmap(this, wxID_ANY, bmp);
             m_customColoursBmp[i]->Bind(wxEVT_LEFT_DOWN,
                                         &wxGenericColourDialog::OnCustomColourMouseClick, this);
         }
@@ -319,7 +319,7 @@ void wxGenericColourDialog::CreateWidgets()
     CreateCustomBitmaps();
 #endif
 
-    wxBoxSizer *topSizer = new wxBoxSizer( wxVERTICAL );
+    wxBoxSizer *topSizer = NEW_DEBUG wxBoxSizer( wxVERTICAL );
 
     const int sliderHeight = FromDIP(160);
 
@@ -328,15 +328,15 @@ void wxGenericColourDialog::CreateWidgets()
     const int sliderX = m_singleCustomColourRect.x + m_singleCustomColourRect.width + m_sectionSpacing;
 
     wxColour c = m_colourData.GetColour();
-    m_redSlider = new wxSlider(this, wxID_RED_SLIDER, c.Red(), 0, 255,
+    m_redSlider = NEW_DEBUG wxSlider(this, wxID_RED_SLIDER, c.Red(), 0, 255,
         wxDefaultPosition, wxSize(wxDefaultCoord, sliderHeight), wxSL_VERTICAL|wxSL_LABELS|wxSL_INVERSE);
-    m_greenSlider = new wxSlider(this, wxID_GREEN_SLIDER, c.Green(), 0, 255,
+    m_greenSlider = NEW_DEBUG wxSlider(this, wxID_GREEN_SLIDER, c.Green(), 0, 255,
         wxDefaultPosition, wxSize(wxDefaultCoord, sliderHeight), wxSL_VERTICAL|wxSL_LABELS|wxSL_INVERSE);
-    m_blueSlider = new wxSlider(this, wxID_BLUE_SLIDER, c.Blue(), 0, 255,
+    m_blueSlider = NEW_DEBUG wxSlider(this, wxID_BLUE_SLIDER, c.Blue(), 0, 255,
         wxDefaultPosition, wxSize(wxDefaultCoord, sliderHeight), wxSL_VERTICAL|wxSL_LABELS|wxSL_INVERSE);
     if ( m_colourData.GetChooseAlpha() )
     {
-        m_alphaSlider = new wxSlider(this, wxID_ANY, c.Alpha(), 0, 255,
+        m_alphaSlider = NEW_DEBUG wxSlider(this, wxID_ANY, c.Alpha(), 0, 255,
             wxDefaultPosition, wxSize(wxDefaultCoord, sliderHeight), wxSL_VERTICAL|wxSL_LABELS|wxSL_INVERSE);
         m_alphaSlider->Bind(wxEVT_SLIDER, &wxGenericColourDialog::OnAlphaSlider, this);
     }
@@ -345,7 +345,7 @@ void wxGenericColourDialog::CreateWidgets()
         m_alphaSlider = NULL;
     }
 
-    wxBoxSizer *sliderSizer = new wxBoxSizer( wxHORIZONTAL );
+    wxBoxSizer *sliderSizer = NEW_DEBUG wxBoxSizer( wxHORIZONTAL );
 
     sliderSizer->Add(sliderX, sliderHeight );
 
@@ -354,14 +354,14 @@ void wxGenericColourDialog::CreateWidgets()
     const wxSizerFlags sliderFlags =
         wxSizerFlags().CentreVertical().DoubleBorder();
 
-    wxBoxSizer *redSliderSizer = new wxBoxSizer(wxVERTICAL);
-    redSliderSizer->Add(new wxStaticText(this, wxID_ANY, _("Red:")), sliderLabelFlags);
+    wxBoxSizer *redSliderSizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
+    redSliderSizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, _("Red:")), sliderLabelFlags);
     redSliderSizer->Add(m_redSlider, onesliderFlags);
-    wxBoxSizer *greenSliderSizer = new wxBoxSizer(wxVERTICAL);
-    greenSliderSizer->Add(new wxStaticText(this, wxID_ANY, _("Green:")), sliderLabelFlags);
+    wxBoxSizer *greenSliderSizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
+    greenSliderSizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, _("Green:")), sliderLabelFlags);
     greenSliderSizer->Add(m_greenSlider, onesliderFlags);
-    wxBoxSizer *blueSliderSizer = new wxBoxSizer(wxVERTICAL);
-    blueSliderSizer->Add(new wxStaticText(this, wxID_ANY, _("Blue:")), sliderLabelFlags);
+    wxBoxSizer *blueSliderSizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
+    blueSliderSizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, _("Blue:")), sliderLabelFlags);
     blueSliderSizer->Add(m_blueSlider, onesliderFlags);
 
     sliderSizer->Add(redSliderSizer, sliderFlags);
@@ -369,8 +369,8 @@ void wxGenericColourDialog::CreateWidgets()
     sliderSizer->Add(blueSliderSizer, sliderFlags);
     if ( m_colourData.GetChooseAlpha() )
     {
-        wxBoxSizer *alphaSliderSizer = new wxBoxSizer(wxVERTICAL);
-        alphaSliderSizer->Add(new wxStaticText(this, wxID_ANY, _("Opacity:")), sliderLabelFlags);
+        wxBoxSizer *alphaSliderSizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
+        alphaSliderSizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, _("Opacity:")), sliderLabelFlags);
         alphaSliderSizer->Add(m_alphaSlider, onesliderFlags);
         sliderSizer->Add(alphaSliderSizer, sliderFlags);
     }
@@ -381,7 +381,7 @@ void wxGenericColourDialog::CreateWidgets()
 #endif // wxUSE_SLIDER
 
     // then the custom button
-    topSizer->Add(new wxButton(this, wxID_ADD_CUSTOM,
+    topSizer->Add(NEW_DEBUG wxButton(this, wxID_ADD_CUSTOM,
                                   _("Add to custom colours") ),
                      wxSizerFlags().DoubleHorzBorder());
 
@@ -556,7 +556,7 @@ void wxGenericColourDialog::PaintCustomColour(wxDC& dc)
 #else
     dc.SetPen(*wxBLACK_PEN);
 
-    wxBrush *brush = new wxBrush(m_colourData.GetColour());
+    wxBrush *brush = NEW_DEBUG wxBrush(m_colourData.GetColour());
     dc.SetBrush(*brush);
 
     dc.DrawRectangle(m_singleCustomColourRect);

@@ -165,7 +165,7 @@ template<> void wxCollectionToVariantArray( wxWindowList const &theList,
 wxDEFINE_FLAGS( wxWindowStyle )
 
 wxBEGIN_FLAGS( wxWindowStyle )
-// new style border flags, we put them first to
+// NEW_DEBUG style border flags, we put them first to
 // use them for streaming out
 
 wxFLAGS_MEMBER(wxBORDER_SIMPLE)
@@ -373,7 +373,7 @@ bool wxWindowBase::CreateBase(wxWindowBase *parent,
                   (id >= wxID_AUTO_LOWEST && id <= wxID_AUTO_HIGHEST),
                   wxT("invalid id value") );
 
-    // generate a new id if the user doesn't care about it
+    // generate a NEW_DEBUG id if the user doesn't care about it
     if ( id == wxID_ANY )
     {
         m_windowId = NewControlId();
@@ -1002,7 +1002,7 @@ void wxWindowBase::SetWindowVariant( wxWindowVariant variant )
 
 void wxWindowBase::DoSetWindowVariant( wxWindowVariant variant )
 {
-    // adjust the font height to correspond to our new variant (notice that
+    // adjust the font height to correspond to our NEW_DEBUG variant (notice that
     // we're only called if something really changed)
     wxFont font = GetFont();
     double size = font.GetFractionalPointSize();
@@ -1351,7 +1351,7 @@ bool wxWindowBase::Reparent(wxWindowBase *newParent)
         wxTopLevelWindows.DeleteObject(this);
     }
 
-    // add it to the new one
+    // add it to the NEW_DEBUG one
     if ( newParent )
     {
         newParent->AddChild(this);
@@ -1403,7 +1403,7 @@ void wxWindowBase::PushEventHandler(wxEvtHandler *handlerToPush)
 {
     wxCHECK_RET( handlerToPush != nullptr, "PushEventHandler(nullptr) called" );
 
-    // the new handler is going to be part of the wxWindow stack of event handlers:
+    // the NEW_DEBUG handler is going to be part of the wxWindow stack of event handlers:
     // it can't be part also of an event handler double-linked chain:
     wxASSERT_MSG(handlerToPush->IsUnlinked(),
         "The handler being pushed in the wxWindow stack shouldn't be part of "
@@ -1459,7 +1459,7 @@ wxEvtHandler *wxWindowBase::PopEventHandler(bool deleteHandler)
     if ( secondHandler != this )
         secondHandler->SetPreviousHandler(nullptr);
 
-    // now firstHandler is completely unlinked; set secondHandler as the new window event handler
+    // now firstHandler is completely unlinked; set secondHandler as the NEW_DEBUG window event handler
     SetEventHandler(secondHandler);
 
     if ( deleteHandler )
@@ -2223,14 +2223,14 @@ wxString wxWindowBase::GetToolTipText() const
 
 void wxWindowBase::DoSetToolTipText( const wxString &tip )
 {
-    // don't create the new tooltip if we already have one
+    // don't create the NEW_DEBUG tooltip if we already have one
     if ( m_tooltip )
     {
         m_tooltip->SetTip( tip );
     }
     else
     {
-        SetToolTip( new wxToolTip( tip ) );
+        SetToolTip( NEW_DEBUG wxToolTip( tip ) );
     }
 
     // setting empty tooltip text does not remove the tooltip any more - use
@@ -2248,7 +2248,7 @@ void wxWindowBase::DoSetToolTip(wxToolTip *tooltip)
 
 bool wxWindowBase::CopyToolTip(wxToolTip *tip)
 {
-    SetToolTip(tip ? new wxToolTip(tip->GetTip()) : nullptr);
+    SetToolTip(tip ? NEW_DEBUG wxToolTip(tip->GetTip()) : nullptr);
 
     return tip != nullptr;
 }
@@ -2321,7 +2321,7 @@ void wxWindowBase::UnsetConstraints(wxLayoutConstraints *c)
 void wxWindowBase::AddConstraintReference(wxWindowBase *otherWin)
 {
     if ( !m_constraintsInvolvedIn )
-        m_constraintsInvolvedIn = new wxWindowList;
+        m_constraintsInvolvedIn = NEW_DEBUG wxWindowList;
     if ( !m_constraintsInvolvedIn->Find((wxWindow *)otherWin) )
         m_constraintsInvolvedIn->Append((wxWindow *)otherWin);
 }
@@ -3656,7 +3656,7 @@ void wxWindowBase::DragAcceptFiles(bool accept)
     {
         wxASSERT_MSG( !GetDropTarget(),
                       "cannot use DragAcceptFiles() and SetDropTarget() together" );
-        SetDropTarget(new DragAcceptFilesTarget(this));
+        SetDropTarget(NEW_DEBUG DragAcceptFilesTarget(this));
     }
     else
     {

@@ -190,9 +190,9 @@ bool wxGenericFileDialog::Create( wxWindow *parent,
 
     const bool is_pda = (wxSystemSettings::GetScreenType() <= wxSYS_SCREEN_PDA);
 
-    wxBoxSizer *mainsizer = new wxBoxSizer( wxVERTICAL );
+    wxBoxSizer *mainsizer = NEW_DEBUG wxBoxSizer( wxVERTICAL );
 
-    wxBoxSizer *buttonsizer = new wxBoxSizer( wxHORIZONTAL );
+    wxBoxSizer *buttonsizer = NEW_DEBUG wxBoxSizer( wxHORIZONTAL );
     AddBitmapButton( ID_LIST_MODE, wxART_LIST_VIEW,
                      _("View files as a list view"), buttonsizer );
     AddBitmapButton( ID_REPORT_MODE, wxART_REPORT_VIEW,
@@ -206,7 +206,7 @@ bool wxGenericFileDialog::Create( wxWindow *parent,
     buttonsizer->Add( 20, 20 );
 
     m_newDirButton = AddBitmapButton( ID_NEW_DIR, wxART_NEW_DIR,
-                                      _("Create new directory"), buttonsizer );
+                                      _("Create NEW_DEBUG directory"), buttonsizer );
 
     if (is_pda)
         mainsizer->Add( buttonsizer, wxSizerFlags().Expand() );
@@ -218,7 +218,7 @@ bool wxGenericFileDialog::Create( wxWindow *parent,
     if ( HasFdFlag(wxFD_MULTIPLE) )
         style2 |= wxFC_MULTIPLE;
 
-    m_filectrl = new wxGenericFileCtrl( this, ID_FILE_CTRL,
+    m_filectrl = NEW_DEBUG wxGenericFileCtrl( this, ID_FILE_CTRL,
                                         m_dir, defaultFile,
                                         wildCard,
                                         style2,
@@ -280,7 +280,7 @@ wxBitmapButton* wxGenericFileDialog::AddBitmapButton( wxWindowID winId,
                                                       const wxString& tip,
                                                       wxSizer *sizer)
 {
-    wxBitmapButton *but = new wxBitmapButton(this, winId,
+    wxBitmapButton *but = NEW_DEBUG wxBitmapButton(this, winId,
                                          wxArtProvider::GetBitmap(artId, wxART_BUTTON));
     but->SetToolTip(tip);
     sizer->Add(but, wxSizerFlags().Border());

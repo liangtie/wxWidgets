@@ -102,7 +102,7 @@ bool wxAuiMDIParentFrame::Create(wxWindow *parent,
     // "Window" menu
     if (!(style & wxFRAME_NO_WINDOW_MENU))
     {
-        m_pWindowMenu = new wxMenu;
+        m_pWindowMenu = NEW_DEBUG wxMenu;
         m_pWindowMenu->Append(wxWINDOWCLOSE,    _("Cl&ose"));
         m_pWindowMenu->Append(wxWINDOWCLOSEALL, _("Close All"));
         m_pWindowMenu->AppendSeparator();
@@ -166,7 +166,7 @@ void wxAuiMDIParentFrame::SetMenuBar(wxMenuBar* pMenuBar)
     // Remove the Window menu from the old menu bar
     RemoveWindowMenu(GetMenuBar());
 
-    // Add the Window menu to the new menu bar.
+    // Add the Window menu to the NEW_DEBUG menu bar.
     AddWindowMenu(pMenuBar);
 
     wxFrame::SetMenuBar(pMenuBar);
@@ -286,7 +286,7 @@ wxAuiMDIClientWindow *wxAuiMDIParentFrame::GetClientWindow() const
 
 wxAuiMDIClientWindow *wxAuiMDIParentFrame::OnCreateClient()
 {
-    return new wxAuiMDIClientWindow( this );
+    return NEW_DEBUG wxAuiMDIClientWindow( this );
 }
 
 void wxAuiMDIParentFrame::ActivateNext()
@@ -772,7 +772,7 @@ void wxAuiMDIClientWindow::PageChanged(int old_selection, int new_selection)
         return;
 
     /*
-    // don't do anything if the new page is already active
+    // don't do anything if the NEW_DEBUG page is already active
     if (new_selection != -1)
     {
         wxAuiMDIChildFrame* child = (wxAuiMDIChildFrame*)GetPage(new_selection);
@@ -792,7 +792,7 @@ void wxAuiMDIClientWindow::PageChanged(int old_selection, int new_selection)
         old_child->GetEventHandler()->ProcessEvent(event);
     }
 
-    // notify new active child that it has been activated
+    // notify NEW_DEBUG active child that it has been activated
     if (new_selection != -1)
     {
         wxAuiMDIChildFrame* active_child = (wxAuiMDIChildFrame*)GetPage(new_selection);

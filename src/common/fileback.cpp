@@ -82,7 +82,7 @@ wxBackingFileImpl::wxBackingFileImpl(wxInputStream *stream,
         m_bufsize = size_t(len + 1);
 
     if (m_bufsize)
-        m_buf = new char[m_bufsize];
+        m_buf = NEW_DEBUG char[m_bufsize];
 }
 
 wxBackingFileImpl::~wxBackingFileImpl()
@@ -223,7 +223,7 @@ wxFileOffset wxBackingFileImpl::GetLength() const
 wxBackingFile::wxBackingFile(wxInputStream *stream,
                              size_t bufsize,
                              const wxString& prefix)
-  : m_impl(new wxBackingFileImpl(stream, bufsize, prefix))
+  : m_impl(NEW_DEBUG wxBackingFileImpl(stream, bufsize, prefix))
 {
 }
 

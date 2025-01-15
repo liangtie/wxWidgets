@@ -364,7 +364,7 @@ static void closed_notification(NotifyNotification* notification, void* user_dat
 
 void wxNotificationMessage::Init()
 {
-    m_impl = new wxLibNotifyMsgImpl(this);
+    m_impl = NEW_DEBUG wxLibNotifyMsgImpl(this);
 }
 
 #endif // wxUSE_NOTIFICATION_MESSAGE && wxUSE_LIBNOTIFY

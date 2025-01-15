@@ -148,10 +148,10 @@ int wxDirDialog::ShowModal()
 
     m_paths.clear();
 
-    // Use IFileDialog under new enough Windows, it's more user-friendly.
+    // Use IFileDialog under NEW_DEBUG enough Windows, it's more user-friendly.
     int rc;
 #if wxUSE_IFILEOPENDIALOG
-    // While the new dialog is available under Vista, it may return a wrong
+    // While the NEW_DEBUG dialog is available under Vista, it may return a wrong
     // path there (see http://support.microsoft.com/kb/969885/en-us), so we
     // don't use it there by default. We could improve the version test to
     // allow its use if the comdlg32.dll version is greater than 6.0.6002.22125
@@ -194,7 +194,7 @@ int wxDirDialog::ShowSHBrowseForFolder(WXHWND owner)
     // we always add the edit box (it doesn't hurt anybody, does it?)
     bi.ulFlags |= BIF_EDITBOX;
 
-    // to have the "New Folder" button we must use the "new" dialog style which
+    // to have the "New Folder" button we must use the "NEW_DEBUG" dialog style which
     // is also the only way to have a resizable dialog
     //
     const bool needNewDir = !HasFlag(wxDD_DIR_MUST_EXIST);
@@ -582,17 +582,17 @@ BrowseCallbackProc(HWND hwnd, UINT uMsg, LPARAM lp, LPARAM pData)
             break;
 
         case BFFM_SELCHANGED:
-            // note that this doesn't work with the new style UI (MSDN doesn't
+            // note that this doesn't work with the NEW_DEBUG style UI (MSDN doesn't
             // say anything about it, but the comments in shlobj.h do!) but we
             // still execute this code in case it starts working again with the
-            // "new new UI" (or would it be "NewUIEx" according to tradition?)
+            // "NEW_DEBUG NEW_DEBUG UI" (or would it be "NewUIEx" according to tradition?)
             {
                 // Set the status window to the currently selected path.
                 wxString strDir;
                 if ( SHGetPathFromIDList((LPITEMIDLIST)lp,
                                          wxStringBuffer(strDir, MAX_PATH)) )
                 {
-                    // NB: this shouldn't be necessary with the new style box
+                    // NB: this shouldn't be necessary with the NEW_DEBUG style box
                     //     (which is resizable), but as for now it doesn't work
                     //     anyhow (see the comment above) no harm in doing it
 

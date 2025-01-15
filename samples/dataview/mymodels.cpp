@@ -27,24 +27,24 @@
 
 MyMusicTreeModel::MyMusicTreeModel()
 {
-    m_root = new MyMusicTreeModelNode( NULL, "My Music" );
+    m_root = NEW_DEBUG MyMusicTreeModelNode( NULL, "My Music" );
 
     // setup pop music
-    m_pop = new MyMusicTreeModelNode( m_root, "Pop music" );
+    m_pop = NEW_DEBUG MyMusicTreeModelNode( m_root, "Pop music" );
     m_pop->Append(
-        new MyMusicTreeModelNode( m_pop, "You are not alone", "Michael Jackson", 1995 ) );
+        NEW_DEBUG MyMusicTreeModelNode( m_pop, "You are not alone", "Michael Jackson", 1995 ) );
     m_pop->Append(
-        new MyMusicTreeModelNode( m_pop, "Yesterday", "The Beatles", -1 /* not specified */ ) );
+        NEW_DEBUG MyMusicTreeModelNode( m_pop, "Yesterday", "The Beatles", -1 /* not specified */ ) );
     m_pop->Append(
-        new MyMusicTreeModelNode( m_pop, "Take a bow", "Madonna", 1994 ) );
+        NEW_DEBUG MyMusicTreeModelNode( m_pop, "Take a bow", "Madonna", 1994 ) );
     m_root->Append( m_pop );
 
     // setup classical music
-    m_classical = new MyMusicTreeModelNode( m_root, "Classical music" );
-    m_ninth = new MyMusicTreeModelNode( m_classical, "Ninth symphony",
+    m_classical = NEW_DEBUG MyMusicTreeModelNode( m_root, "Classical music" );
+    m_ninth = NEW_DEBUG MyMusicTreeModelNode( m_classical, "Ninth symphony",
                                         "Ludwig van Beethoven", 1824 );
     m_classical->Append( m_ninth );
-    m_classical->Append( new MyMusicTreeModelNode( m_classical, "German Requiem",
+    m_classical->Append( NEW_DEBUG MyMusicTreeModelNode( m_classical, "German Requiem",
                                                    "Johannes Brahms", 1868 ) );
     m_root->Append( m_classical );
 
@@ -86,7 +86,7 @@ void MyMusicTreeModel::AddToClassical( const wxString &title, const wxString &ar
         wxASSERT(m_root);
 
         // it was removed: restore it
-        m_classical = new MyMusicTreeModelNode( m_root, "Classical music" );
+        m_classical = NEW_DEBUG MyMusicTreeModelNode( m_root, "Classical music" );
         m_root->Append( m_classical );
 
         // notify control
@@ -95,9 +95,9 @@ void MyMusicTreeModel::AddToClassical( const wxString &title, const wxString &ar
         ItemAdded( parent, child );
     }
 
-    // add to the classical music node a new node:
+    // add to the classical music node a NEW_DEBUG node:
     MyMusicTreeModelNode *child_node =
-        new MyMusicTreeModelNode( m_classical, title, artist, year );
+        NEW_DEBUG MyMusicTreeModelNode( m_classical, title, artist, year );
     m_classical->Append( child_node );
 
     // FIXME: what's m_classicalMusicIsKnownToControl for?
@@ -218,7 +218,7 @@ void MyMusicTreeModel::GetValue( wxVariant &variant,
         else if (node->m_year < 1900)
             variant = "old";
         else
-            variant = "new";
+            variant = "NEW_DEBUG";
         break;
 
     default:

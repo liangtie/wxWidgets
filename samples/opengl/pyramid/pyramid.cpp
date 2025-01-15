@@ -64,7 +64,7 @@ bool MyApp::OnInit()
         return false;
 
     // create the main application window
-    MyFrame* frame = new MyFrame("wxWidgets OpenGL Pyramid Sample");
+    MyFrame* frame = NEW_DEBUG MyFrame("wxWidgets OpenGL Pyramid Sample");
 
     //Exit if the required visual attributes or OGL context couldn't be created
     if ( ! frame->OGLAvailable() )
@@ -89,10 +89,10 @@ MyFrame::MyFrame(const wxString& title)
 
 #if wxUSE_MENUS
     // create a menu bar
-    wxMenu *fileMenu = new wxMenu;
+    wxMenu *fileMenu = NEW_DEBUG wxMenu;
 
     // the "About" item should be in the help menu
-    wxMenu *helpMenu = new wxMenu;
+    wxMenu *helpMenu = NEW_DEBUG wxMenu;
     helpMenu->Append(Pyramid_About, "&About\tF1", "Show about dialog");
 
 #if wxUSE_LOGWINDOW
@@ -102,7 +102,7 @@ MyFrame::MyFrame(const wxString& title)
     fileMenu->Append(Pyramid_Quit, "E&xit\tAlt-X", "Quit this program");
 
     // now append the freshly created menu to the menu bar...
-    wxMenuBar *menuBar = new wxMenuBar();
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar();
     menuBar->Append(fileMenu, "&File");
     menuBar->Append(helpMenu, "&Help");
 
@@ -118,7 +118,7 @@ MyFrame::MyFrame(const wxString& title)
 
 #if wxUSE_LOGWINDOW
     //Open a log window, don't show it though
-    m_LogWin = new wxLogWindow(NULL, "Pyramid log window", false, false);
+    m_LogWin = NEW_DEBUG wxLogWindow(NULL, "Pyramid log window", false, false);
     wxLog::SetActiveTarget(m_LogWin);
 #endif // wxUSE_LOGWINDOW
 
@@ -159,7 +159,7 @@ MyFrame::MyFrame(const wxString& title)
     }
 
     if ( accepted )
-        m_mycanvas = new MyGLCanvas(this, vAttrs);
+        m_mycanvas = NEW_DEBUG MyGLCanvas(this, vAttrs);
 
     SetMinSize(wxSize(250, 200));
 }
@@ -281,7 +281,7 @@ unsigned char* MyImgToArray(const wxImage& img, const wxColour& cTrans, unsigned
     int w = img.GetWidth();
     int h = img.GetHeight();
     int siz = w * h;
-    unsigned char *resArr = new unsigned char [siz * 4];
+    unsigned char *resArr = NEW_DEBUG unsigned char [siz * 4];
     unsigned char *res = resArr;
     unsigned char *sdata = img.GetData();
     unsigned char *alpha = NULL;
@@ -391,12 +391,12 @@ MyGLCanvas::MyGLCanvas(MyFrame* parent, const wxGLAttributes& canvasAttrs)
     m_oglManager = NULL;
     m_winHeight = 0; // We have not been sized yet
 
-    // Explicitly create a new rendering context instance for this canvas.
+    // Explicitly create a NEW_DEBUG rendering context instance for this canvas.
     wxGLContextAttrs ctxAttrs;
 #ifndef __WXMAC__
     // An impossible context, just to test IsOk()
     ctxAttrs.PlatformDefaults().OGLVersion(99, 2).EndList();
-    m_oglContext = new wxGLContext(this, NULL, &ctxAttrs);
+    m_oglContext = NEW_DEBUG wxGLContext(this, NULL, &ctxAttrs);
 
     if ( !m_oglContext->IsOK() )
     {
@@ -407,7 +407,7 @@ MyGLCanvas::MyGLCanvas(MyFrame* parent, const wxGLAttributes& canvasAttrs)
         ctxAttrs.Reset();
 #endif //__WXMAC__
         ctxAttrs.PlatformDefaults().CoreProfile().OGLVersion(3, 2).EndList();
-        m_oglContext = new wxGLContext(this, NULL, &ctxAttrs);
+        m_oglContext = NEW_DEBUG wxGLContext(this, NULL, &ctxAttrs);
 #ifndef __WXMAC__
     }
 #endif //__WXMAC__
@@ -463,7 +463,7 @@ bool MyGLCanvas::oglInit()
     }
 
     // Create our OGL manager, pass our OGL error handler
-    m_oglManager = new myOGLManager(&fOGLErrHandler);
+    m_oglManager = NEW_DEBUG myOGLManager(&fOGLErrHandler);
 
     // Get the GL version for the current OGL context
     wxString sglVer = "\nUsing OpenGL version: ";

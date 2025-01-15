@@ -326,7 +326,7 @@ MyCanvas::MyCanvas( wxWindow *parent, wxWindowID id,
     }
     else
     {
-        my_horse_ani = new wxBitmap [m_ani_images];
+        my_horse_ani = NEW_DEBUG wxBitmap [m_ani_images];
     }
 
     int i;

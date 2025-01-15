@@ -75,7 +75,7 @@ public:
 
 wxDisplayImpl* wxDisplayFactoryGTK::CreateDisplay(unsigned n)
 {
-    return new wxDisplayImplGTK(n);
+    return NEW_DEBUG wxDisplayImplGTK(n);
 }
 
 unsigned wxDisplayFactoryGTK::GetCount()
@@ -271,7 +271,7 @@ wxGCC_WARNING_SUPPRESS(deprecated-declarations)
 
 wxDisplayImpl* wxDisplayFactoryGTK::CreateDisplay(unsigned n)
 {
-    return new wxDisplayImplGTK(n);
+    return NEW_DEBUG wxDisplayImplGTK(n);
 }
 
 unsigned wxDisplayFactoryGTK::GetCount()
@@ -417,7 +417,7 @@ wxGCC_WARNING_RESTORE()
 
 wxDisplayFactory* wxDisplay::CreateFactory()
 {
-    return new wxDisplayFactoryGTK;
+    return NEW_DEBUG wxDisplayFactoryGTK;
 }
 
 #else // !wxUSE_DISPLAY
@@ -427,13 +427,13 @@ class wxDisplayFactorySingleGTK : public wxDisplayFactorySingle
 protected:
     virtual wxDisplayImpl *CreateSingleDisplay()
     {
-        return new wxDisplayImplGTK(0);
+        return NEW_DEBUG wxDisplayImplGTK(0);
     }
 };
 
 wxDisplayFactory* wxDisplay::CreateFactory()
 {
-    return new wxDisplayFactorySingleGTK;
+    return NEW_DEBUG wxDisplayFactorySingleGTK;
 }
 
 #endif // wxUSE_DISPLAY/!wxUSE_DISPLAY

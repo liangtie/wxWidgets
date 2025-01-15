@@ -67,7 +67,7 @@ wxCursor::wxCursor()
 
 void wxCursor::InitFromStock( wxStockCursor cursorId )
 {
-    m_refData = new wxCursorRefData();
+    m_refData = NEW_DEBUG wxCursorRefData();
 
     GdkCursorType gdk_cur = GDK_LEFT_PTR;
     switch (cursorId)
@@ -150,7 +150,7 @@ wxCursor::wxCursor(const char bits[], int width, int  height,
     GdkBitmap *data = gdk_bitmap_create_from_data( wxGetRootWindow()->window, (gchar *) bits, width, height );
     GdkBitmap *mask = gdk_bitmap_create_from_data( wxGetRootWindow()->window, (gchar *) maskBits, width, height);
 
-    m_refData = new wxCursorRefData;
+    m_refData = NEW_DEBUG wxCursorRefData;
     M_CURSORDATA->m_cursor = gdk_cursor_new_from_pixmap(
                  data, mask, fg->GetColor(), bg->GetColor(),
                  hotSpotX, hotSpotY );
@@ -198,8 +198,8 @@ void wxCursor::InitFromImage( const wxImage & image )
     bool bHasMask = image.HasMask();
     int imagebitcount = (w*h)/8;
 
-    unsigned char * bits = new unsigned char [imagebitcount];
-    unsigned char * maskBits = new unsigned char [imagebitcount];
+    unsigned char * bits = NEW_DEBUG unsigned char [imagebitcount];
+    unsigned char * maskBits = NEW_DEBUG unsigned char [imagebitcount];
 
     int i, j, i8; unsigned char c, cMask;
     for (i=0; i<imagebitcount; i++)
@@ -327,7 +327,7 @@ void wxCursor::InitFromImage( const wxImage & image )
     GdkBitmap *mask = gdk_bitmap_create_from_data(wxGetRootWindow()->window,
                                                   (gchar *) maskBits, w, h);
 
-    m_refData = new wxCursorRefData;
+    m_refData = NEW_DEBUG wxCursorRefData;
     M_CURSORDATA->m_cursor = gdk_cursor_new_from_pixmap
                              (
                                 data,
@@ -354,7 +354,7 @@ GdkCursor *wxCursor::GetCursor() const
 
 wxGDIRefData *wxCursor::CreateGDIRefData() const
 {
-    return new wxCursorRefData;
+    return NEW_DEBUG wxCursorRefData;
 }
 
 wxGDIRefData *
@@ -362,7 +362,7 @@ wxCursor::CloneGDIRefData(const wxGDIRefData * WXUNUSED(data)) const
 {
     wxFAIL_MSG( wxS("Cloning cursors is not implemented in wxGTK.") );
 
-    return new wxCursorRefData;
+    return NEW_DEBUG wxCursorRefData;
 }
 
 //-----------------------------------------------------------------------------

@@ -132,7 +132,7 @@ const wxChar *WidgetsCategories[MAX_PAGES] = {
 // our classes
 // ----------------------------------------------------------------------------
 
-// Define a new application type, each program should derive a class from wxApp
+// Define a NEW_DEBUG application type, each program should derive a class from wxApp
 class WidgetsApp : public wxApp
 {
 public:
@@ -164,7 +164,7 @@ private:
 
 wxDECLARE_APP(WidgetsApp); // This provides a convenient wxGetApp() accessor.
 
-// Define a new frame type: this is going to be our main frame
+// Define a NEW_DEBUG frame type: this is going to be our main frame
 class WidgetsFrame : public wxFrame
 {
 public:
@@ -389,7 +389,7 @@ bool WidgetsApp::OnInit()
     title += "wxWidgets";
 #endif
 
-    wxFrame *frame = new WidgetsFrame(title + " widgets demo");
+    wxFrame *frame = NEW_DEBUG WidgetsFrame(title + " widgets demo");
     frame->Show();
 
 #if USE_LOG
@@ -427,8 +427,8 @@ WidgetsFrame::WidgetsFrame(const wxString& title)
 
 #if wxUSE_MENUS
     // create the menubar
-    wxMenuBar *mbar = new wxMenuBar;
-    wxMenu *menuWidget = new wxMenu;
+    wxMenuBar *mbar = NEW_DEBUG wxMenuBar;
+    wxMenu *menuWidget = NEW_DEBUG wxMenu;
 #if wxUSE_TOOLTIPS
     menuWidget->Append(Widgets_SetTooltip, "Set &tooltip...\tCtrl-T");
     menuWidget->AppendSeparator();
@@ -440,7 +440,7 @@ WidgetsFrame::WidgetsFrame(const wxString& title)
     menuWidget->AppendCheckItem(Widgets_Enable,  "&Enable/disable\tCtrl-E");
     menuWidget->AppendCheckItem(Widgets_Show, "Show/Hide");
 
-    wxMenu *menuBorders = new wxMenu;
+    wxMenu *menuBorders = NEW_DEBUG wxMenu;
     menuBorders->AppendRadioItem(Widgets_BorderDefault, "De&fault\tCtrl-Shift-9");
     menuBorders->AppendRadioItem(Widgets_BorderNone,   "&None\tCtrl-Shift-0");
     menuBorders->AppendRadioItem(Widgets_BorderSimple, "&Simple\tCtrl-Shift-1");
@@ -450,7 +450,7 @@ WidgetsFrame::WidgetsFrame(const wxString& title)
     menuBorders->AppendRadioItem(Widgets_BorderSunken, "S&unken\tCtrl-Shift-5");
     menuWidget->AppendSubMenu(menuBorders, "Set &border");
 
-    wxMenu* const menuVariants = new wxMenu;
+    wxMenu* const menuVariants = NEW_DEBUG wxMenu;
     menuVariants->AppendRadioItem(Widgets_VariantMini, "&Mini\tCtrl-Shift-6");
     menuVariants->AppendRadioItem(Widgets_VariantSmall, "&Small\tCtrl-Shift-7");
     menuVariants->AppendRadioItem(Widgets_VariantNormal, "&Normal\tCtrl-Shift-8");
@@ -473,7 +473,7 @@ WidgetsFrame::WidgetsFrame(const wxString& title)
     menuWidget->Append(wxID_EXIT, "&Quit\tCtrl-Q");
     mbar->Append(menuWidget, "&Widget");
 
-    wxMenu *menuTextEntry = new wxMenu;
+    wxMenu *menuTextEntry = NEW_DEBUG wxMenu;
     menuTextEntry->AppendRadioItem(TextEntry_DisableAutoComplete,
                                    "&Disable auto-completion");
     menuTextEntry->AppendRadioItem(TextEntry_AutoCompleteFixed,
@@ -500,9 +500,9 @@ WidgetsFrame::WidgetsFrame(const wxString& title)
 #endif // wxUSE_MENUS
 
     // create controls
-    m_panel = new wxPanel(this, wxID_ANY);
+    m_panel = NEW_DEBUG wxPanel(this, wxID_ANY);
 
-    wxSizer *sizerTop = new wxBoxSizer(wxVERTICAL);
+    wxSizer *sizerTop = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
     // we have 2 panes: book with pages demonstrating the controls in the
     // upper one and the log window with some buttons in the lower
@@ -511,7 +511,7 @@ WidgetsFrame::WidgetsFrame(const wxString& title)
     // Uncomment to suppress page theme (draw in solid colour)
     //style |= wxNB_NOPAGETHEME;
 
-    m_book = new WidgetsBookCtrl(m_panel, Widgets_BookCtrl,
+    m_book = NEW_DEBUG WidgetsBookCtrl(m_panel, Widgets_BookCtrl,
                                  wxDefaultPosition, wxDefaultSize,
                                  style, "Widgets");
 
@@ -519,25 +519,25 @@ WidgetsFrame::WidgetsFrame(const wxString& title)
 
     // the lower one only has the log listbox and a button to clear it
 #if USE_LOG
-    wxSizer *sizerDown = new wxStaticBoxSizer(
-        new wxStaticBox( m_panel, wxID_ANY, "&Log window" ),
+    wxSizer *sizerDown = NEW_DEBUG wxStaticBoxSizer(
+        NEW_DEBUG wxStaticBox( m_panel, wxID_ANY, "&Log window" ),
         wxVERTICAL);
 
-    m_lboxLog = new wxListBox(m_panel, wxID_ANY);
+    m_lboxLog = NEW_DEBUG wxListBox(m_panel, wxID_ANY);
     sizerDown->Add(m_lboxLog, wxSizerFlags(1).Expand().Border());
     sizerDown->SetMinSize(100, 150);
 #else
-    wxSizer *sizerDown = new wxBoxSizer(wxVERTICAL);
+    wxSizer *sizerDown = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 #endif // USE_LOG
 
-    wxBoxSizer *sizerBtns = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer *sizerBtns = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     wxButton *btn;
 #if USE_LOG
-    btn = new wxButton(m_panel, Widgets_ClearLog, "Clear &log");
+    btn = NEW_DEBUG wxButton(m_panel, Widgets_ClearLog, "Clear &log");
     sizerBtns->Add(btn);
     sizerBtns->AddSpacer(10);
 #endif // USE_LOG
-    btn = new wxButton(m_panel, Widgets_Quit, "E&xit");
+    btn = NEW_DEBUG wxButton(m_panel, Widgets_Quit, "E&xit");
     sizerBtns->Add(btn);
     sizerDown->Add(sizerBtns, wxSizerFlags().Border().Right());
 
@@ -558,14 +558,14 @@ WidgetsFrame::WidgetsFrame(const wxString& title)
 #if USE_LOG
     // now that everything is created we can redirect the log messages to the
     // listbox
-    m_logTarget = new LboxLogger(m_lboxLog, wxLog::GetActiveTarget());
+    m_logTarget = NEW_DEBUG LboxLogger(m_lboxLog, wxLog::GetActiveTarget());
     wxLog::SetActiveTarget(m_logTarget);
 #endif
 }
 
 void WidgetsFrame::InitBook()
 {
-    wxImageList *imageList = new wxImageList(ICON_SIZE, ICON_SIZE);
+    wxImageList *imageList = NEW_DEBUG wxImageList(ICON_SIZE, ICON_SIZE);
 
     wxImage img(sample_xpm);
     imageList->Add(wxBitmap(img.Scale(ICON_SIZE, ICON_SIZE)));
@@ -577,7 +577,7 @@ void WidgetsFrame::InitBook()
     ArrayWidgetsPage pages[MAX_PAGES];
     wxArrayString labels[MAX_PAGES];
 
-    wxMenu *menuPages = new wxMenu;
+    wxMenu *menuPages = NEW_DEBUG wxMenu;
     unsigned int nPage = 0;
     int cat, imageId = 1;
 
@@ -590,7 +590,7 @@ void WidgetsFrame::InitBook()
 #if USE_TREEBOOK
         nPage++; // increase for parent page
 #else
-        books[cat] = new WidgetsBookCtrl(m_book,
+        books[cat] = NEW_DEBUG WidgetsBookCtrl(m_book,
                                          wxID_ANY,
                                          wxDefaultPosition,
                                          wxDefaultSize,
@@ -1182,7 +1182,7 @@ void WidgetsFrame::DoUseCustomAutoComplete(size_t minLength)
         size_t m_minLength;
     };
 
-    if ( entry->AutoComplete(new CustomTextCompleter(minLength)))
+    if ( entry->AutoComplete(NEW_DEBUG CustomTextCompleter(minLength)))
     {
         wxLogMessage("Enabled custom auto completer for \"NNN XX\" items "
                      "(where N is a digit and X is a letter).");
@@ -1394,8 +1394,8 @@ wxSizer *WidgetsPage::CreateSizerWithText(wxControl *control,
                                           wxWindowID id,
                                           wxTextCtrl **ppText)
 {
-    wxSizer *sizerRow = new wxBoxSizer(wxHORIZONTAL);
-    wxTextCtrl *text = new wxTextCtrl(this, id, wxEmptyString,
+    wxSizer *sizerRow = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
+    wxTextCtrl *text = NEW_DEBUG wxTextCtrl(this, id, wxEmptyString,
         wxDefaultPosition, wxDefaultSize, wxTE_PROCESS_ENTER);
 
     sizerRow->Add(control, wxSizerFlags(0).Border(wxRIGHT).CentreVertical());
@@ -1412,7 +1412,7 @@ wxSizer *WidgetsPage::CreateSizerWithTextAndLabel(const wxString& label,
                                                   wxWindowID id,
                                                   wxTextCtrl **ppText)
 {
-    return CreateSizerWithText(new wxStaticText(this, wxID_ANY, label),
+    return CreateSizerWithText(NEW_DEBUG wxStaticText(this, wxID_ANY, label),
         id, ppText);
 }
 
@@ -1422,14 +1422,14 @@ wxSizer *WidgetsPage::CreateSizerWithTextAndButton(wxWindowID idBtn,
                                                    wxWindowID id,
                                                    wxTextCtrl **ppText)
 {
-    return CreateSizerWithText(new wxButton(this, idBtn, label), id, ppText);
+    return CreateSizerWithText(NEW_DEBUG wxButton(this, idBtn, label), id, ppText);
 }
 
 wxCheckBox *WidgetsPage::CreateCheckBoxAndAddToSizer(wxSizer *sizer,
                                                      const wxString& label,
                                                      wxWindowID id)
 {
-    wxCheckBox *checkbox = new wxCheckBox(this, id, label);
+    wxCheckBox *checkbox = NEW_DEBUG wxCheckBox(this, id, label);
     sizer->Add(checkbox, wxSizerFlags().HorzBorder());
     sizer->AddSpacer(2);
 

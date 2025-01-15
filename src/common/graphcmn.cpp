@@ -59,7 +59,7 @@ wxGraphicsRenderer* wxGraphicsObjectRefData::GetRenderer() const
 
 wxGraphicsObjectRefData* wxGraphicsObjectRefData::Clone() const
 {
-    return new wxGraphicsObjectRefData(this);
+    return NEW_DEBUG wxGraphicsObjectRefData(this);
 }
 
 wxGraphicsObject::wxGraphicsObject()
@@ -68,7 +68,7 @@ wxGraphicsObject::wxGraphicsObject()
 
 wxGraphicsObject::wxGraphicsObject( wxGraphicsRenderer* renderer )
 {
-    SetRefData( new wxGraphicsObjectRefData(renderer));
+    SetRefData( NEW_DEBUG wxGraphicsObjectRefData(renderer));
 }
 
 bool wxGraphicsObject::IsNull() const
@@ -253,7 +253,7 @@ bool wxGraphicsPath::Contains( const wxPoint2DDouble& c, wxPolygonFillMode fillS
 
 // true redirections
 
-// begins a new subpath at (x,y)
+// begins a NEW_DEBUG subpath at (x,y)
 void wxGraphicsPath::MoveToPoint( wxDouble x, wxDouble y )
 {
     AllocExclusive();
@@ -313,14 +313,14 @@ void wxGraphicsPath::AddQuadCurveToPoint( wxDouble cx, wxDouble cy, wxDouble x, 
     GetPathData()->AddQuadCurveToPoint(cx,cy,x,y);
 }
 
-// appends a rectangle as a new closed subpath
+// appends a rectangle as a NEW_DEBUG closed subpath
 void wxGraphicsPath::AddRectangle( wxDouble x, wxDouble y, wxDouble w, wxDouble h )
 {
     AllocExclusive();
     GetPathData()->AddRectangle(x,y,w,h);
 }
 
-// appends an ellipsis as a new closed subpath fitting the passed rectangle
+// appends an ellipsis as a NEW_DEBUG closed subpath fitting the passed rectangle
 void wxGraphicsPath::AddCircle( wxDouble x, wxDouble y, wxDouble r )
 {
     AllocExclusive();
@@ -695,7 +695,7 @@ void wxGraphicsContext::SetFont(const wxFont& font, const wxColour& colour)
 {
     if ( font.IsOk() )
     {
-        // Change current font only if new graphics font is successfully created.
+        // Change current font only if NEW_DEBUG graphics font is successfully created.
         wxGraphicsFont grFont = CreateFont(font, colour);
         if ( !grFont.IsSameAs(wxNullGraphicsFont) )
         {

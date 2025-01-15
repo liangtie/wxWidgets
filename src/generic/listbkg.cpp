@@ -80,7 +80,7 @@ wxListbook::Create(wxWindow *parent,
                             wxDefaultValidator, name) )
         return false;
 
-    m_bookctrl = new wxListView
+    m_bookctrl = NEW_DEBUG wxListView
                  (
                     this,
                     wxID_ANY,
@@ -133,7 +133,7 @@ long wxListbook::GetListCtrlFlags(bool hasImages) const
         {
             flags |= wxLC_LIST;
         }
-        
+
 #ifdef __WXQT__
         flags |= wxLC_NO_HEADER;
 #endif
@@ -298,7 +298,7 @@ void wxListbook::UpdateSelectedPage(size_t newsel)
 
 wxBookCtrlEvent* wxListbook::CreatePageChangingEvent() const
 {
-    return new wxBookCtrlEvent(wxEVT_LISTBOOK_PAGE_CHANGING, m_windowId);
+    return NEW_DEBUG wxBookCtrlEvent(wxEVT_LISTBOOK_PAGE_CHANGING, m_windowId);
 }
 
 void wxListbook::MakeChangedEvent(wxBookCtrlEvent &event)

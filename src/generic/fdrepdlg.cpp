@@ -100,25 +100,25 @@ bool wxGenericFindReplaceDialog::Create(wxWindow *parent,
 
     bool isPda = (wxSystemSettings::GetScreenType() <= wxSYS_SCREEN_PDA);
 
-    wxBoxSizer *leftsizer = new wxBoxSizer( wxVERTICAL );
+    wxBoxSizer *leftsizer = NEW_DEBUG wxBoxSizer( wxVERTICAL );
 
     // 3 columns because there is a spacer in the middle
-    wxFlexGridSizer *sizer2Col = new wxFlexGridSizer(3);
+    wxFlexGridSizer *sizer2Col = NEW_DEBUG wxFlexGridSizer(3);
     sizer2Col->AddGrowableCol(2);
 
-    sizer2Col->Add(new wxStaticText(this, wxID_ANY, _("Search for:"),
+    sizer2Col->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, _("Search for:"),
                                     wxDefaultPosition, wxSize(80, wxDefaultCoord)),
                                     0,
                                     wxALIGN_CENTRE_VERTICAL | wxALIGN_RIGHT);
 
     sizer2Col->Add(10, 0);
 
-    m_textFind = new wxTextCtrl(this, wxID_ANY, m_FindReplaceData->GetFindString());
+    m_textFind = NEW_DEBUG wxTextCtrl(this, wxID_ANY, m_FindReplaceData->GetFindString());
     sizer2Col->Add(m_textFind, 1, wxALIGN_CENTRE_VERTICAL | wxEXPAND);
 
     if ( style & wxFR_REPLACEDIALOG )
     {
-        sizer2Col->Add(new wxStaticText(this, wxID_ANY, _("Replace with:"),
+        sizer2Col->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, _("Replace with:"),
                                         wxDefaultPosition, wxSize(80, wxDefaultCoord)),
                                         0,
                                         wxALIGN_CENTRE_VERTICAL |
@@ -126,7 +126,7 @@ bool wxGenericFindReplaceDialog::Create(wxWindow *parent,
 
         sizer2Col->Add(isPda ? 2 : 10, 0);
 
-        m_textRepl = new wxTextCtrl(this, wxID_ANY,
+        m_textRepl = NEW_DEBUG wxTextCtrl(this, wxID_ANY,
                                     m_FindReplaceData->GetReplaceString());
         sizer2Col->Add(m_textRepl, 1,
                        wxALIGN_CENTRE_VERTICAL | wxEXPAND | wxTOP, 5);
@@ -134,14 +134,14 @@ bool wxGenericFindReplaceDialog::Create(wxWindow *parent,
 
     leftsizer->Add(sizer2Col, 0, wxEXPAND | wxALL, 5);
 
-    wxBoxSizer *optsizer = new wxBoxSizer( isPda ? wxVERTICAL : wxHORIZONTAL );
+    wxBoxSizer *optsizer = NEW_DEBUG wxBoxSizer( isPda ? wxVERTICAL : wxHORIZONTAL );
 
-    wxBoxSizer *chksizer = new wxBoxSizer( wxVERTICAL);
+    wxBoxSizer *chksizer = NEW_DEBUG wxBoxSizer( wxVERTICAL);
 
-    m_chkWord = new wxCheckBox(this, wxID_ANY, _("Whole word"));
+    m_chkWord = NEW_DEBUG wxCheckBox(this, wxID_ANY, _("Whole word"));
     chksizer->Add(m_chkWord, 0, wxALL, 3);
 
-    m_chkCase = new wxCheckBox(this, wxID_ANY, _("Match case"));
+    m_chkCase = NEW_DEBUG wxCheckBox(this, wxID_ANY, _("Match case"));
     chksizer->Add(m_chkCase, 0, wxALL, 3);
 
     optsizer->Add(chksizer, 0, wxALL, 10);
@@ -154,7 +154,7 @@ bool wxGenericFindReplaceDialog::Create(wxWindow *parent,
     else
         rbStyle = wxRA_SPECIFY_COLS;
 
-    m_radioDir = new wxRadioBox(this, wxID_ANY, _("Search direction"),
+    m_radioDir = NEW_DEBUG wxRadioBox(this, wxID_ANY, _("Search direction"),
                                 wxDefaultPosition, wxDefaultSize,
                                 WXSIZEOF(searchDirections), searchDirections,
                                 majorDimension, rbStyle);
@@ -163,24 +163,24 @@ bool wxGenericFindReplaceDialog::Create(wxWindow *parent,
 
     leftsizer->Add(optsizer);
 
-    wxBoxSizer *bttnsizer = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer *bttnsizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
-    wxButton* btn = new wxButton(this, wxID_FIND);
+    wxButton* btn = NEW_DEBUG wxButton(this, wxID_FIND);
     btn->SetDefault();
     bttnsizer->Add(btn, 0, wxALL, 3);
 
-    bttnsizer->Add(new wxButton(this, wxID_CANCEL), 0, wxALL, 3);
+    bttnsizer->Add(NEW_DEBUG wxButton(this, wxID_CANCEL), 0, wxALL, 3);
 
     if ( style & wxFR_REPLACEDIALOG )
     {
-        bttnsizer->Add(new wxButton(this, wxID_REPLACE, _("&Replace")),
+        bttnsizer->Add(NEW_DEBUG wxButton(this, wxID_REPLACE, _("&Replace")),
                                     0, wxALL, 3);
 
-        bttnsizer->Add(new wxButton(this, wxID_REPLACE_ALL, _("Replace &all")),
+        bttnsizer->Add(NEW_DEBUG wxButton(this, wxID_REPLACE_ALL, _("Replace &all")),
                                     0, wxALL, 3);
     }
 
-    wxBoxSizer *topsizer = new wxBoxSizer( wxHORIZONTAL );
+    wxBoxSizer *topsizer = NEW_DEBUG wxBoxSizer( wxHORIZONTAL );
 
     topsizer->Add(leftsizer, 1, wxALL, isPda ? 0 : 5);
     topsizer->Add(bttnsizer, 0, wxALL, isPda ? 0 : 5);

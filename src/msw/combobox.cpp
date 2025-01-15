@@ -342,7 +342,7 @@ bool wxComboBox::MSWCommand(WXUINT param, WXWORD id)
             sel = GetSelection();
             value = GetStringSelection();
 
-            // this string is going to become the new combobox value soon but
+            // this string is going to become the NEW_DEBUG combobox value soon but
             // we need it to be done right now, otherwise the event handler
             // could get a wrong value when it calls our GetValue()
             ::SetWindowText(GetHwnd(), value.t_str());
@@ -484,7 +484,7 @@ void wxComboBox::MSWRecreate()
 
     if ( !HasFlag(wxCB_READONLY) )
     {
-        // A new EDIT control was created as well, we need to subclass it just
+        // A NEW_DEBUG EDIT control was created as well, we need to subclass it just
         // as when creating the combobox, see Create(). However we don't need
         // to assign to gs_wndprocEdit as it must have been already set.
         wxSetWindowProc((HWND)GetEditHWND(), wxComboEditWndProc);

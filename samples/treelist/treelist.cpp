@@ -250,7 +250,7 @@ bool MyApp::OnInit()
     if ( !wxApp::OnInit() )
         return false;
 
-    new MyFrame;
+    NEW_DEBUG MyFrame;
 
     return true;
 }
@@ -292,10 +292,10 @@ MyFrame::MyFrame()
     // Create menus and status bar.
     SetIcon(wxICON(sample));
 
-    wxMenu* fileMenu = new wxMenu;
+    wxMenu* fileMenu = NEW_DEBUG wxMenu;
     fileMenu->Append(wxID_EXIT);
 
-    wxMenu* treeStyle = new wxMenu;
+    wxMenu* treeStyle = NEW_DEBUG wxMenu;
     treeStyle->AppendCheckItem(Id_MultiSelect, "&Multiple selections\tCtrl-M");
     treeStyle->AppendSeparator();
     treeStyle->AppendRadioItem(Id_NoCheckboxes,
@@ -309,7 +309,7 @@ MyFrame::MyFrame()
     treeStyle->AppendSeparator();
     treeStyle->AppendCheckItem(Id_FlatList, "&Flat list");
 
-    wxMenu* treeOper = new wxMenu;
+    wxMenu* treeOper = NEW_DEBUG wxMenu;
     treeOper->Append(Id_DumpSelection, "&Dump selection\tCtrl-D");
     treeOper->AppendSeparator();
     treeOper->Append(Id_Check_HTMLDocs, "&Check Doc/HTML item\tCtrl-C");
@@ -319,10 +319,10 @@ MyFrame::MyFrame()
 
     treeOper->Append(Id_DeleteAllItems, "DeleteAllItems");
 
-    wxMenu* helpMenu = new wxMenu;
+    wxMenu* helpMenu = NEW_DEBUG wxMenu;
     helpMenu->Append(wxID_ABOUT);
 
-    wxMenuBar* menuBar = new wxMenuBar();
+    wxMenuBar* menuBar = NEW_DEBUG wxMenuBar();
     menuBar->Append(fileMenu, "&File");
     menuBar->Append(treeStyle, "&Style");
     menuBar->Append(treeOper, "&Operations");
@@ -339,12 +339,12 @@ MyFrame::MyFrame()
     // Create and layout child controls.
     m_treelist = CreateTreeListCtrl(wxTL_DEFAULT_STYLE);
 
-    wxTextCtrl* textLog = new wxTextCtrl(this, wxID_ANY, "",
+    wxTextCtrl* textLog = NEW_DEBUG wxTextCtrl(this, wxID_ANY, "",
                                          wxDefaultPosition, wxDefaultSize,
                                          wxTE_READONLY | wxTE_MULTILINE);
-    m_oldLogTarget = wxLog::SetActiveTarget(new wxLogTextCtrl(textLog));
+    m_oldLogTarget = wxLog::SetActiveTarget(NEW_DEBUG wxLogTextCtrl(textLog));
 
-    wxSizer* sizer = new wxBoxSizer(wxVERTICAL);
+    wxSizer* sizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     sizer->Add(m_treelist, wxSizerFlags(2).Expand());
     sizer->Add(textLog, wxSizerFlags(1).Expand());
     SetSizer(sizer);
@@ -367,7 +367,7 @@ void MyFrame::InitImageList()
     if ( iconSize == wxDefaultSize )
         iconSize = FromDIP(wxSize(16, 16));
 
-    m_imageList = new wxImageList(iconSize.x, iconSize.y);
+    m_imageList = NEW_DEBUG wxImageList(iconSize.x, iconSize.y);
 
     // The order should be the same as for the enum elements.
     static const wxString icons[] =
@@ -389,7 +389,7 @@ void MyFrame::InitImageList()
 wxTreeListCtrl* MyFrame::CreateTreeListCtrl(long style)
 {
     wxTreeListCtrl* const
-        tree = new wxTreeListCtrl(this, wxID_ANY,
+        tree = NEW_DEBUG wxTreeListCtrl(this, wxID_ANY,
                                   wxDefaultPosition, wxDefaultSize,
                                   style);
     tree->SetImageList(m_imageList);

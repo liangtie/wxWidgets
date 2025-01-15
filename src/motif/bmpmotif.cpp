@@ -209,7 +209,7 @@ WXPixmap wxBitmapCache::GetInsensPixmap( WXWidget w )
   for use as a XmLabel's XmNlabelInsensitivePixmap resource.
 
   RETURN VALUES
-  The return value is the new Pixmap id or zero on error.  Errors include
+  The return value is the NEW_DEBUG Pixmap id or zero on error.  Errors include
   a NULL display argument or an invalid Pixmap argument.
 
   ERRORS
@@ -272,12 +272,12 @@ XCreateInsensitivePixmap( Display *display, Pixmap pixmap )
             ipixmap = XCreatePixmap( display, pixmap, width, height, depth );
             if ( 0 != ipixmap )
             {
-                /* Copy the argument pixmap into the new pixmap.
+                /* Copy the argument pixmap into the NEW_DEBUG pixmap.
                  */
                 XCopyArea( display, pixmap, ipixmap,
                         gc, 0, 0, width, height, 0, 0 );
 
-                /* Refill the new pixmap using the stipple algorithm/pixmap.
+                /* Refill the NEW_DEBUG pixmap using the stipple algorithm/pixmap.
                  */
                 XSetStipple( display, gc, stipple );
                 XSetFillStyle( display, gc, FillStippled );

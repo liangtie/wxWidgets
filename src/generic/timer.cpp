@@ -173,8 +173,8 @@ wxTimerScheduler *gs_scheduler = NULL;
 void wxGenericTimerImpl::Init()
 {
     if ( !gs_scheduler )
-        gs_scheduler = new wxTimerScheduler;
-    m_desc = new wxTimerDesc(this);
+        gs_scheduler = NEW_DEBUG wxTimerScheduler;
+    m_desc = NEW_DEBUG wxTimerDesc(this);
 }
 
 wxGenericTimerImpl::~wxGenericTimerImpl()
@@ -244,7 +244,7 @@ wxIMPLEMENT_DYNAMIC_CLASS(wxTimerModule, wxModule);
 
 wxTimerImpl *wxGUIAppTraits::CreateTimerImpl(wxTimer *timer)
 {
-    return new wxGenericTimerImpl(timer);
+    return NEW_DEBUG wxGenericTimerImpl(timer);
 }
 
 

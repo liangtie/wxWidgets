@@ -52,11 +52,11 @@ class wxConstraintOp: public wxObject
      value = op.value;
      margin = op.margin;
      if (op.lhs)
-       lhs = new wxConstraintOp(*op.lhs);
+       lhs = NEW_DEBUG wxConstraintOp(*op.lhs);
      else
        lhs = NULL;
      if (op.rhs)
-       rhs = new wxConstraintOp(*op.rhs);
+       rhs = NEW_DEBUG wxConstraintOp(*op.rhs);
      else
        rhs = NULL;
    }
@@ -108,8 +108,8 @@ wxConstraintOp wxConstraintOp::operator = (const wxConstraintOp& arg2)
   op3.value = 100;
   if ((op3.relationship == wxPercentOf) && (op3.value > 0))
     op3.value = this->value;
-  op3.lhs = new wxConstraintOp(*this);
-  op3.rhs = new wxConstraintOp(arg2);
+  op3.lhs = NEW_DEBUG wxConstraintOp(*this);
+  op3.rhs = NEW_DEBUG wxConstraintOp(arg2);
 
   return op3;
 }
@@ -119,8 +119,8 @@ wxConstraintOp wxConstraintOp::operator = (const int value)
   wxConstraintOp op3(wxCONSTRAINT_OP_REL);
   op3.relationship = wxAbsolute;
 
-  op3.lhs = new wxConstraintOp(*this);
-  op3.rhs = new wxConstraintOp(wxCONSTRAINT_OP_ABS);
+  op3.lhs = NEW_DEBUG wxConstraintOp(*this);
+  op3.rhs = NEW_DEBUG wxConstraintOp(wxCONSTRAINT_OP_ABS);
   op3.value = value;
 
   return op3;
@@ -154,8 +154,8 @@ wxConstraintOp operator - (wxConstraintOp& arg1, int margin)
 wxConstraintOp operator , (const wxConstraintOp& arg1, const wxConstraintOp& arg2)
 {
   wxConstraintOp op3(wxCONSTRAINT_OP_AND);
-  op3.lhs = new wxConstraintOp(arg1);
-  op3.rhs = new wxConstraintOp(arg2);
+  op3.lhs = NEW_DEBUG wxConstraintOp(arg1);
+  op3.rhs = NEW_DEBUG wxConstraintOp(arg2);
 
   return op3;
 }

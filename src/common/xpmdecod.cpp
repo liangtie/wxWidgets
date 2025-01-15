@@ -210,7 +210,7 @@ wxImage wxXPMDecoder::ReadFile(wxInputStream& stream)
         return wxNullImage;
     }
 
-    xpm_lines = new const char*[lines_cnt + 1];
+    xpm_lines = NEW_DEBUG const char*[lines_cnt + 1];
     xpm_lines[0] = xpm_buffer;
     line = 1;
     for (p = xpm_buffer; (*p != '\0') && (line < lines_cnt); p++)
@@ -806,9 +806,9 @@ wxImage wxXPMDecoder::ReadData(const char* const* xpm_data)
         }
     }
 #if wxUSE_PALETTE
-    unsigned char* r = new unsigned char[colors_cnt];
-    unsigned char* g = new unsigned char[colors_cnt];
-    unsigned char* b = new unsigned char[colors_cnt];
+    unsigned char* r = NEW_DEBUG unsigned char[colors_cnt];
+    unsigned char* g = NEW_DEBUG unsigned char[colors_cnt];
+    unsigned char* b = NEW_DEBUG unsigned char[colors_cnt];
 
     for (it = clr_tbl.begin(), i = 0; it != clr_tbl.end(); ++it, ++i)
     {

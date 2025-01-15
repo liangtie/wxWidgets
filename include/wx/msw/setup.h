@@ -21,6 +21,9 @@
 #ifndef wxUSE_GUI
     #define wxUSE_GUI            1
 #endif // wxUSE_GUI
+#include <crtdbg.h>
+#define NEW_DEBUG new(_NORMAL_BLOCK, __FILE__, __LINE__)
+#define NEW_DEBUG2(...) new(__VA_ARGS__)
 
 // ----------------------------------------------------------------------------
 // compatibility settings

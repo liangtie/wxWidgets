@@ -48,7 +48,7 @@ private:
 
     wxToolBar *MakeToolBar()
     {
-        wxToolBar *tb = new wxToolBar(m_panel, wxID_ANY,
+        wxToolBar *tb = NEW_DEBUG wxToolBar(m_panel, wxID_ANY,
                                       wxDefaultPosition, wxDefaultSize,
                                       wxTB_NODIVIDER);
         AddToolBarButton(tb, "Help", wxART_HELP_BOOK);
@@ -72,7 +72,7 @@ public:
 
     virtual bool OnInit() wxOVERRIDE
     {
-        new WrapSizerFrame;
+        NEW_DEBUG WrapSizerFrame;
         return true;
     }
 };
@@ -89,13 +89,13 @@ WrapSizerFrame::WrapSizerFrame()
 {
     SetIcon(wxICON(sample));
 
-    m_panel = new wxPanel(this);
+    m_panel = NEW_DEBUG wxPanel(this);
 
     // Root sizer, vertical
-    wxSizer * const sizerRoot = new wxBoxSizer(wxVERTICAL);
+    wxSizer * const sizerRoot = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
     // Some toolbars in a wrap sizer
-    wxSizer * const sizerTop = new wxWrapSizer( wxHORIZONTAL );
+    wxSizer * const sizerTop = NEW_DEBUG wxWrapSizer( wxHORIZONTAL );
     sizerTop->Add(MakeToolBar());
     sizerTop->Add(20, 1);
     sizerTop->Add(MakeToolBar());
@@ -104,12 +104,12 @@ WrapSizerFrame::WrapSizerFrame()
     sizerRoot->Add(sizerTop, wxSizerFlags().Expand().Border());
 
     // A number of checkboxes inside a wrap sizer
-    wxSizer *sizerMid = new wxStaticBoxSizer(wxVERTICAL, m_panel,
+    wxSizer *sizerMid = NEW_DEBUG wxStaticBoxSizer(wxVERTICAL, m_panel,
                                                 "With check-boxes");
-    wxSizer * const sizerMidWrap = new wxWrapSizer(wxHORIZONTAL);
+    wxSizer * const sizerMidWrap = NEW_DEBUG wxWrapSizer(wxHORIZONTAL);
     for ( int nCheck = 0; nCheck < 6; nCheck++ )
     {
-        wxCheckBox *chk = new wxCheckBox
+        wxCheckBox *chk = NEW_DEBUG wxCheckBox
                                 (
                                 m_panel,
                                 wxID_ANY,
@@ -124,22 +124,22 @@ WrapSizerFrame::WrapSizerFrame()
 
 
     // A shaped item inside a box sizer
-    wxSizer *sizerBottom = new wxStaticBoxSizer(wxVERTICAL, m_panel,
+    wxSizer *sizerBottom = NEW_DEBUG wxStaticBoxSizer(wxVERTICAL, m_panel,
                                                 "With wxSHAPED item");
-    wxSizer *sizerBottomBox = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer *sizerBottomBox = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     sizerBottom->Add(sizerBottomBox, wxSizerFlags(100).Expand());
 
-    sizerBottomBox->Add(new wxListBox(m_panel, wxID_ANY,
+    sizerBottomBox->Add(NEW_DEBUG wxListBox(m_panel, wxID_ANY,
                                         wxPoint(0, 0), wxSize(70, 70)),
                         wxSizerFlags().Expand().Shaped());
     sizerBottomBox->AddSpacer(10);
-    sizerBottomBox->Add(new wxCheckBox(m_panel, wxID_ANY,
+    sizerBottomBox->Add(NEW_DEBUG wxCheckBox(m_panel, wxID_ANY,
                                         "A much longer option..."),
                         wxSizerFlags(100).Border());
     sizerRoot->Add(sizerBottom, wxSizerFlags(100).Expand().Border());
 
     // OK Button
-    sizerRoot->Add(new wxButton(m_panel, wxID_OK),
+    sizerRoot->Add(NEW_DEBUG wxButton(m_panel, wxID_OK),
                     wxSizerFlags().Centre().DoubleBorder());
     Bind(wxEVT_BUTTON, &WrapSizerFrame::OnButton, this, wxID_OK);
 

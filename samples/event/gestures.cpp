@@ -8,12 +8,12 @@ MyGestureFrame::MyGestureFrame()
     : wxFrame(NULL, wxID_ANY, "Multi-touch Gestures", wxDefaultPosition, wxSize(800, 600))
 {
     // Create controls
-    MyGesturePanel *myPanel = new MyGesturePanel(this);
-    m_logText = new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition,
+    MyGesturePanel *myPanel = NEW_DEBUG MyGesturePanel(this);
+    m_logText = NEW_DEBUG wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition,
                     wxSize(wxDefaultCoord, 100), wxTE_MULTILINE|wxTE_READONLY|wxTE_RICH);
 
     // Add controls to sizer
-    wxBoxSizer* sizer = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer* sizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     sizer->Add(myPanel, wxSizerFlags(1).Expand());
     sizer->Add(m_logText, wxSizerFlags().Expand());
     SetSizer(sizer);
@@ -23,7 +23,7 @@ MyGestureFrame::MyGestureFrame()
     SetSizeHints(wxMin(800,dsplySz.GetWidth()), wxMin(600,dsplySz.GetHeight()));
 
     // Log to the text control
-    m_logOld = wxLog::SetActiveTarget(new wxLogTextCtrl(m_logText));
+    m_logOld = wxLog::SetActiveTarget(NEW_DEBUG wxLogTextCtrl(m_logText));
 
     // Bind all gestures to the same event handler, which must run before
     // the other handlers, to clear the log window

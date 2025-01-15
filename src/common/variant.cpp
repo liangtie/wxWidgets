@@ -106,7 +106,7 @@ void wxVariant::operator= (const wxVariant& variant)
     m_name = variant.m_name;
 }
 
-// myVariant = new wxStringVariantData("hello")
+// myVariant = NEW_DEBUG wxStringVariantData("hello")
 void wxVariant::operator= (wxVariantData* variantData)
 {
     UnRef();
@@ -249,7 +249,7 @@ public:
     virtual bool Write(wxOutputStream &str) const;
 #endif // wxUSE_STREAMS
 
-    wxVariantData* Clone() const wxOVERRIDE { return new wxVariantDataLong(m_value); }
+    wxVariantData* Clone() const wxOVERRIDE { return NEW_DEBUG wxVariantDataLong(m_value); }
 
     virtual wxString GetType() const wxOVERRIDE { return wxT("long"); }
 
@@ -336,19 +336,19 @@ bool wxVariantDataLong::Read(wxString& str)
 
 wxVariant::wxVariant(long val, const wxString& name)
 {
-    m_refData = new wxVariantDataLong(val);
+    m_refData = NEW_DEBUG wxVariantDataLong(val);
     m_name = name;
 }
 
 wxVariant::wxVariant(int val, const wxString& name)
 {
-    m_refData = new wxVariantDataLong((long)val);
+    m_refData = NEW_DEBUG wxVariantDataLong((long)val);
     m_name = name;
 }
 
 wxVariant::wxVariant(short val, const wxString& name)
 {
-    m_refData = new wxVariantDataLong((long)val);
+    m_refData = NEW_DEBUG wxVariantDataLong((long)val);
     m_name = name;
 }
 
@@ -376,7 +376,7 @@ void wxVariant::operator= (long value)
     else
     {
         UnRef();
-        m_refData = new wxVariantDataLong(value);
+        m_refData = NEW_DEBUG wxVariantDataLong(value);
     }
 }
 
@@ -420,7 +420,7 @@ public:
 #endif // wxUSE_STREAMS
     virtual wxString GetType() const wxOVERRIDE { return wxT("double"); }
 
-    wxVariantData* Clone() const wxOVERRIDE { return new wxVariantDoubleData(m_value); }
+    wxVariantData* Clone() const wxOVERRIDE { return NEW_DEBUG wxVariantDoubleData(m_value); }
 
     DECLARE_WXANY_CONVERSION()
 protected:
@@ -488,7 +488,7 @@ bool wxVariantDoubleData::Read(wxString& str)
 
 wxVariant::wxVariant(double val, const wxString& name)
 {
-    m_refData = new wxVariantDoubleData(val);
+    m_refData = NEW_DEBUG wxVariantDoubleData(val);
     m_name = name;
 }
 
@@ -516,7 +516,7 @@ void wxVariant::operator= (double value)
     else
     {
         UnRef();
-        m_refData = new wxVariantDoubleData(value);
+        m_refData = NEW_DEBUG wxVariantDoubleData(value);
     }
 }
 
@@ -560,7 +560,7 @@ public:
 #endif // wxUSE_STREAMS
     virtual wxString GetType() const wxOVERRIDE { return wxT("bool"); }
 
-    wxVariantData* Clone() const wxOVERRIDE { return new wxVariantDataBool(m_value); }
+    wxVariantData* Clone() const wxOVERRIDE { return NEW_DEBUG wxVariantDataBool(m_value); }
 
     DECLARE_WXANY_CONVERSION()
 protected:
@@ -631,7 +631,7 @@ bool wxVariantDataBool::Read(wxString& str)
 
 wxVariant::wxVariant(bool val, const wxString& name)
 {
-    m_refData = new wxVariantDataBool(val);
+    m_refData = NEW_DEBUG wxVariantDataBool(val);
     m_name = name;
 }
 
@@ -659,7 +659,7 @@ void wxVariant::operator= (bool value)
     else
     {
         UnRef();
-        m_refData = new wxVariantDataBool(value);
+        m_refData = NEW_DEBUG wxVariantDataBool(value);
     }
 }
 
@@ -700,7 +700,7 @@ public:
     virtual bool Write(wxOutputStream& str) const;
 #endif // wxUSE_STREAMS
     virtual wxString GetType() const wxOVERRIDE { return wxT("char"); }
-    wxVariantData* Clone() const wxOVERRIDE { return new wxVariantDataChar(m_value); }
+    wxVariantData* Clone() const wxOVERRIDE { return NEW_DEBUG wxVariantDataChar(m_value); }
 
     DECLARE_WXANY_CONVERSION()
 protected:
@@ -775,19 +775,19 @@ bool wxVariantDataChar::Read(wxString& str)
 
 wxVariant::wxVariant(const wxUniChar& val, const wxString& name)
 {
-    m_refData = new wxVariantDataChar(val);
+    m_refData = NEW_DEBUG wxVariantDataChar(val);
     m_name = name;
 }
 
 wxVariant::wxVariant(char val, const wxString& name)
 {
-    m_refData = new wxVariantDataChar(val);
+    m_refData = NEW_DEBUG wxVariantDataChar(val);
     m_name = name;
 }
 
 wxVariant::wxVariant(wchar_t val, const wxString& name)
 {
-    m_refData = new wxVariantDataChar(val);
+    m_refData = NEW_DEBUG wxVariantDataChar(val);
     m_name = name;
 }
 
@@ -810,7 +810,7 @@ wxVariant& wxVariant::operator=(const wxUniChar& value)
     else
     {
         UnRef();
-        m_refData = new wxVariantDataChar(value);
+        m_refData = NEW_DEBUG wxVariantDataChar(value);
     }
 
     return *this;
@@ -855,7 +855,7 @@ public:
     virtual bool Write(wxOutputStream& str) const;
 #endif // wxUSE_STREAMS
     virtual wxString GetType() const wxOVERRIDE { return wxT("string"); }
-    wxVariantData* Clone() const wxOVERRIDE { return new wxVariantDataString(m_value); }
+    wxVariantData* Clone() const wxOVERRIDE { return NEW_DEBUG wxVariantDataString(m_value); }
 
     DECLARE_WXANY_CONVERSION()
 protected:
@@ -868,12 +868,12 @@ IMPLEMENT_TRIVIAL_WXANY_CONVERSION(wxString, wxVariantDataString)
 // This allows converting string literal wxAnys to string variants
 wxVariantData* wxVariantDataFromConstCharPAny(const wxAny& any)
 {
-    return new wxVariantDataString(any.As<const char*>());
+    return NEW_DEBUG wxVariantDataString(any.As<const char*>());
 }
 
 wxVariantData* wxVariantDataFromConstWchar_tPAny(const wxAny& any)
 {
-    return new wxVariantDataString(any.As<const wchar_t*>());
+    return NEW_DEBUG wxVariantDataString(any.As<const wchar_t*>());
 }
 
 _REGISTER_WXANY_CONVERSION(const char*,
@@ -935,50 +935,50 @@ bool wxVariantDataString::Read(wxString& str)
 
 wxVariant::wxVariant(const wxString& val, const wxString& name)
 {
-    m_refData = new wxVariantDataString(val);
+    m_refData = NEW_DEBUG wxVariantDataString(val);
     m_name = name;
 }
 
 wxVariant::wxVariant(const char* val, const wxString& name)
 {
-    m_refData = new wxVariantDataString(wxString(val));
+    m_refData = NEW_DEBUG wxVariantDataString(wxString(val));
     m_name = name;
 }
 
 wxVariant::wxVariant(const wchar_t* val, const wxString& name)
 {
-    m_refData = new wxVariantDataString(wxString(val));
+    m_refData = NEW_DEBUG wxVariantDataString(wxString(val));
     m_name = name;
 }
 
 wxVariant::wxVariant(const wxCStrData& val, const wxString& name)
 {
-    m_refData = new wxVariantDataString(val.AsString());
+    m_refData = NEW_DEBUG wxVariantDataString(val.AsString());
     m_name = name;
 }
 
 wxVariant::wxVariant(const wxScopedCharBuffer& val, const wxString& name)
 {
-    m_refData = new wxVariantDataString(wxString(val));
+    m_refData = NEW_DEBUG wxVariantDataString(wxString(val));
     m_name = name;
 }
 
 wxVariant::wxVariant(const wxScopedWCharBuffer& val, const wxString& name)
 {
-    m_refData = new wxVariantDataString(wxString(val));
+    m_refData = NEW_DEBUG wxVariantDataString(wxString(val));
     m_name = name;
 }
 
 #if wxUSE_STD_STRING
 wxVariant::wxVariant(const std::string& val, const wxString& name)
 {
-    m_refData = new wxVariantDataString(wxString(val));
+    m_refData = NEW_DEBUG wxVariantDataString(wxString(val));
     m_name = name;
 }
 
 wxVariant::wxVariant(const wxStdWideString& val, const wxString& name)
 {
-    m_refData = new wxVariantDataString(wxString(val));
+    m_refData = NEW_DEBUG wxVariantDataString(wxString(val));
     m_name = name;
 }
 #endif // wxUSE_STD_STRING
@@ -1007,7 +1007,7 @@ wxVariant& wxVariant::operator= (const wxString& value)
     else
     {
         UnRef();
-        m_refData = new wxVariantDataString(value);
+        m_refData = NEW_DEBUG wxVariantDataString(value);
     }
     return *this;
 }
@@ -1046,7 +1046,7 @@ public:
 #endif
     virtual bool Read(wxString& str) wxOVERRIDE;
     virtual wxString GetType() const wxOVERRIDE ;
-    virtual wxVariantData* Clone() const wxOVERRIDE { return new wxVariantDataWxObjectPtr(m_value); }
+    virtual wxVariantData* Clone() const wxOVERRIDE { return NEW_DEBUG wxVariantDataWxObjectPtr(m_value); }
 
     virtual wxClassInfo* GetValueClassInfo() wxOVERRIDE;
 
@@ -1122,7 +1122,7 @@ bool wxVariantDataWxObjectPtr::Read(wxString& WXUNUSED(str))
 
 wxVariant::wxVariant( wxObject* val, const wxString& name)
 {
-    m_refData = new wxVariantDataWxObjectPtr(val);
+    m_refData = NEW_DEBUG wxVariantDataWxObjectPtr(val);
     m_name = name;
 }
 
@@ -1139,7 +1139,7 @@ bool wxVariant::operator!= (wxObject* value) const
 void wxVariant::operator= (wxObject* value)
 {
     UnRef();
-    m_refData = new wxVariantDataWxObjectPtr(value);
+    m_refData = NEW_DEBUG wxVariantDataWxObjectPtr(value);
 }
 
 wxObject* wxVariant::GetWxObjectPtr() const
@@ -1170,7 +1170,7 @@ public:
 #endif
     virtual bool Read(wxString& str) wxOVERRIDE;
     virtual wxString GetType() const wxOVERRIDE { return wxT("void*"); }
-    virtual wxVariantData* Clone() const wxOVERRIDE { return new wxVariantDataVoidPtr(m_value); }
+    virtual wxVariantData* Clone() const wxOVERRIDE { return NEW_DEBUG wxVariantDataVoidPtr(m_value); }
 
     DECLARE_WXANY_CONVERSION()
 protected:
@@ -1222,7 +1222,7 @@ bool wxVariantDataVoidPtr::Read(wxString& WXUNUSED(str))
 
 wxVariant::wxVariant( void* val, const wxString& name)
 {
-    m_refData = new wxVariantDataVoidPtr(val);
+    m_refData = NEW_DEBUG wxVariantDataVoidPtr(val);
     m_name = name;
 }
 
@@ -1245,7 +1245,7 @@ void wxVariant::operator= (void* value)
     else
     {
         UnRef();
-        m_refData = new wxVariantDataVoidPtr(value);
+        m_refData = NEW_DEBUG wxVariantDataVoidPtr(value);
     }
 }
 
@@ -1285,7 +1285,7 @@ public:
 #endif
     virtual bool Read(wxString& str) wxOVERRIDE;
     virtual wxString GetType() const wxOVERRIDE { return wxT("datetime"); }
-    virtual wxVariantData* Clone() const wxOVERRIDE { return new wxVariantDataDateTime(m_value); }
+    virtual wxVariantData* Clone() const wxOVERRIDE { return NEW_DEBUG wxVariantDataDateTime(m_value); }
 
     DECLARE_WXANY_CONVERSION()
 protected:
@@ -1350,7 +1350,7 @@ bool wxVariantDataDateTime::Read(wxString& str)
 
 wxVariant::wxVariant(const wxDateTime& val, const wxString& name) // Date
 {
-    m_refData = new wxVariantDataDateTime(val);
+    m_refData = NEW_DEBUG wxVariantDataDateTime(val);
     m_name = name;
 }
 
@@ -1378,7 +1378,7 @@ void wxVariant::operator= (const wxDateTime& value)
     else
     {
         UnRef();
-        m_refData = new wxVariantDataDateTime(value);
+        m_refData = NEW_DEBUG wxVariantDataDateTime(value);
     }
 }
 
@@ -1418,7 +1418,7 @@ public:
 #endif
     virtual bool Read(wxString& str) wxOVERRIDE;
     virtual wxString GetType() const wxOVERRIDE { return wxT("arrstring"); }
-    virtual wxVariantData* Clone() const wxOVERRIDE { return new wxVariantDataArrayString(m_value); }
+    virtual wxVariantData* Clone() const wxOVERRIDE { return NEW_DEBUG wxVariantDataArrayString(m_value); }
 
     DECLARE_WXANY_CONVERSION()
 protected:
@@ -1483,7 +1483,7 @@ bool wxVariantDataArrayString::Read(wxString& str)
 
 wxVariant::wxVariant(const wxArrayString& val, const wxString& name) // Strings
 {
-    m_refData = new wxVariantDataArrayString(val);
+    m_refData = NEW_DEBUG wxVariantDataArrayString(val);
     m_name = name;
 }
 
@@ -1509,7 +1509,7 @@ void wxVariant::operator=(const wxArrayString& value)
     else
     {
         UnRef();
-        m_refData = new wxVariantDataArrayString(value);
+        m_refData = NEW_DEBUG wxVariantDataArrayString(value);
     }
 }
 
@@ -1551,7 +1551,7 @@ public:
 
     wxVariantData* Clone() const wxOVERRIDE
     {
-        return new wxVariantDataLongLong(m_value);
+        return NEW_DEBUG wxVariantDataLongLong(m_value);
     }
 
     virtual wxString GetType() const wxOVERRIDE { return wxS("longlong"); }
@@ -1575,7 +1575,7 @@ bool wxVariantDataLongLong::GetAsAny(wxAny* any) const
 
 wxVariantData* wxVariantDataLongLong::VariantDataFactory(const wxAny& any)
 {
-    return new wxVariantDataLongLong(any.As<wxLongLong_t>());
+    return NEW_DEBUG wxVariantDataLongLong(any.As<wxLongLong_t>());
 }
 
 REGISTER_WXANY_CONVERSION(wxLongLong_t, wxVariantDataLongLong)
@@ -1590,7 +1590,7 @@ bool wxVariantDataLongLong::GetAsAny(wxAny* any) const
 
 wxVariantData* wxVariantDataLongLong::VariantDataFactory(const wxAny& any)
 {
-    return new wxVariantDataLongLong(any.As<wxLongLong>());
+    return NEW_DEBUG wxVariantDataLongLong(any.As<wxLongLong>());
 }
 
 REGISTER_WXANY_CONVERSION(wxLongLong, wxVariantDataLongLong)
@@ -1672,7 +1672,7 @@ bool wxVariantDataLongLong::Read(wxString& str)
 
 wxVariant::wxVariant(wxLongLong val, const wxString& name)
 {
-    m_refData = new wxVariantDataLongLong(val);
+    m_refData = NEW_DEBUG wxVariantDataLongLong(val);
     m_name = name;
 }
 
@@ -1700,7 +1700,7 @@ void wxVariant::operator=(wxLongLong value)
     else
     {
         UnRef();
-        m_refData = new wxVariantDataLongLong(value);
+        m_refData = NEW_DEBUG wxVariantDataLongLong(value);
     }
 }
 
@@ -1750,7 +1750,7 @@ public:
 
     wxVariantData* Clone() const wxOVERRIDE
     {
-        return new wxVariantDataULongLong(m_value);
+        return NEW_DEBUG wxVariantDataULongLong(m_value);
     }
 
     virtual wxString GetType() const wxOVERRIDE { return wxS("ulonglong"); }
@@ -1774,7 +1774,7 @@ bool wxVariantDataULongLong::GetAsAny(wxAny* any) const
 
 wxVariantData* wxVariantDataULongLong::VariantDataFactory(const wxAny& any)
 {
-    return new wxVariantDataULongLong(any.As<wxULongLong_t>());
+    return NEW_DEBUG wxVariantDataULongLong(any.As<wxULongLong_t>());
 }
 
 REGISTER_WXANY_CONVERSION(wxULongLong_t, wxVariantDataULongLong)
@@ -1789,7 +1789,7 @@ bool wxVariantDataULongLong::GetAsAny(wxAny* any) const
 
 wxVariantData* wxVariantDataULongLong::VariantDataFactory(const wxAny& any)
 {
-    return new wxVariantDataULongLong(any.As<wxULongLong>());
+    return NEW_DEBUG wxVariantDataULongLong(any.As<wxULongLong>());
 }
 
 REGISTER_WXANY_CONVERSION(wxULongLong, wxVariantDataULongLong)
@@ -1872,7 +1872,7 @@ bool wxVariantDataULongLong::Read(wxString& str)
 
 wxVariant::wxVariant(wxULongLong val, const wxString& name)
 {
-    m_refData = new wxVariantDataULongLong(val);
+    m_refData = NEW_DEBUG wxVariantDataULongLong(val);
     m_name = name;
 }
 
@@ -1900,7 +1900,7 @@ void wxVariant::operator=(wxULongLong value)
     else
     {
         UnRef();
-        m_refData = new wxVariantDataULongLong(value);
+        m_refData = NEW_DEBUG wxVariantDataULongLong(value);
     }
 }
 
@@ -1947,7 +1947,7 @@ public:
 
     void Clear();
 
-    wxVariantData* Clone() const wxOVERRIDE { return new wxVariantDataList(m_value); }
+    wxVariantData* Clone() const wxOVERRIDE { return NEW_DEBUG wxVariantDataList(m_value); }
 
     DECLARE_WXANY_CONVERSION()
 protected:
@@ -1967,7 +1967,7 @@ bool wxVariantDataList::GetAsAny(wxAny* any) const
     while (node)
     {
         wxVariant* pVar = node->GetData();
-        dst.push_back(new wxAny(((const wxVariant&)*pVar)));
+        dst.push_back(NEW_DEBUG wxAny(((const wxVariant&)*pVar)));
         node = node->GetNext();
     }
 
@@ -1984,11 +1984,11 @@ wxVariantData* wxVariantDataList::VariantDataFactory(const wxAny& any)
     while (node)
     {
         wxAny* pAny = node->GetData();
-        dst.push_back(new wxVariant(*pAny));
+        dst.push_back(NEW_DEBUG wxVariant(*pAny));
         node = node->GetNext();
     }
 
-    return new wxVariantDataList(dst);
+    return NEW_DEBUG wxVariantDataList(dst);
 }
 
 REGISTER_WXANY_CONVERSION(wxAnyList, wxVariantDataList)
@@ -2012,7 +2012,7 @@ void wxVariantDataList::SetValue(const wxVariantList& value)
     while (node)
     {
         wxVariant* var = node->GetData();
-        m_value.Append(new wxVariant(*var));
+        m_value.Append(NEW_DEBUG wxVariant(*var));
         node = node->GetNext();
     }
 }
@@ -2096,7 +2096,7 @@ bool wxVariantDataList::Read(wxString& WXUNUSED(str))
 
 wxVariant::wxVariant(const wxVariantList& val, const wxString& name) // List of variants
 {
-    m_refData = new wxVariantDataList(val);
+    m_refData = NEW_DEBUG wxVariantDataList(val);
     m_name = name;
 }
 
@@ -2123,7 +2123,7 @@ void wxVariant::operator= (const wxVariantList& value)
     else
     {
         UnRef();
-        m_refData = new wxVariantDataList(value);
+        m_refData = NEW_DEBUG wxVariantDataList(value);
     }
 }
 
@@ -2137,7 +2137,7 @@ wxVariantList& wxVariant::GetList() const
 // Make empty list
 void wxVariant::NullList()
 {
-    SetData(new wxVariantDataList());
+    SetData(NEW_DEBUG wxVariantDataList());
 }
 
 // Append to list
@@ -2145,7 +2145,7 @@ void wxVariant::Append(const wxVariant& value)
 {
     wxVariantList& list = GetList();
 
-    list.Append(new wxVariant(value));
+    list.Append(NEW_DEBUG wxVariant(value));
 }
 
 // Insert at front of list
@@ -2153,7 +2153,7 @@ void wxVariant::Insert(const wxVariant& value)
 {
     wxVariantList& list = GetList();
 
-    list.Insert(new wxVariant(value));
+    list.Insert(NEW_DEBUG wxVariant(value));
 }
 
 // Returns true if the variant is a member of the list
@@ -2197,7 +2197,7 @@ void wxVariant::ClearList()
         if (!GetType().IsSameAs(wxT("list")))
             UnRef();
 
-        m_refData = new wxVariantDataList;
+        m_refData = NEW_DEBUG wxVariantDataList;
     }
 }
 

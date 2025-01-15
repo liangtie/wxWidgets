@@ -81,7 +81,7 @@ gtk_popup_hide_callback(GtkCombo *WXUNUSED(gtk_combo), wxComboBox *combo)
 
     // reset the selection flag to value meaning that it is hidden and do it
     // now, before generating the events, so that GetSelection() returns the
-    // new value from the event handler
+    // NEW_DEBUG value from the event handler
     g_SelectionBeforePopup = wxID_NONE;
 
     if ( hasChanged )

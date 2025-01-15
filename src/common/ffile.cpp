@@ -343,7 +343,7 @@ bool wxTempFFile::Open(const wxString& strName)
     else
     {
         // file probably didn't exist, just give it the default mode _using_
-        // user's umask (new files creation should respect umask)
+        // user's umask (NEW_DEBUG files creation should respect umask)
         mode_t mask = umask(0777);
         mode = 0666 & ~mask;
         umask(mask);

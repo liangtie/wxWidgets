@@ -75,7 +75,7 @@ private:
 
 // Unity hack: under Ubuntu Unity the global menu bar is not affected by a
 // modal dialog being shown, so the user can select a menu item before hiding
-// the dialog and, in particular, a new instance of the same dialog can be
+// the dialog and, in particular, a NEW_DEBUG instance of the same dialog can be
 // shown again, breaking a lot of programs not expecting this.
 //
 // So explicitly ignore any menu events generated while any modal dialogs
@@ -282,7 +282,7 @@ void wxMenuBar::SetLayoutDirection(wxLayoutDirection dir)
 
     GTKSetLayout(m_menubar, dir);
 
-    // also set the layout of all menus we already have (new ones will inherit
+    // also set the layout of all menus we already have (NEW_DEBUG ones will inherit
     // the current layout)
     for ( wxMenuList::compatibility_iterator node = m_menus.GetFirst();
           node;
@@ -377,7 +377,7 @@ bool wxMenuBar::Insert(size_t pos, wxMenu *menu, const wxString& title)
 
 wxMenu *wxMenuBar::Replace(size_t pos, wxMenu *menu, const wxString& title)
 {
-    // remove the old item and insert a new one
+    // remove the old item and insert a NEW_DEBUG one
     wxMenu *menuOld = Remove(pos);
     if ( menuOld && !Insert(pos, menu, title) )
     {
@@ -628,7 +628,7 @@ wxMenuItem *wxMenuItemBase::New(wxMenu *parentMenu,
                                 wxItemKind kind,
                                 wxMenu *subMenu)
 {
-    return new wxMenuItem(parentMenu, id, name, help, kind, subMenu);
+    return NEW_DEBUG wxMenuItem(parentMenu, id, name, help, kind, subMenu);
 }
 
 wxMenuItem::wxMenuItem(wxMenu *parentMenu,
@@ -731,7 +731,7 @@ void wxMenuItem::AddExtraAccel(const wxAcceleratorEntry& accel)
     // If the item is not yet part of the menu, all its extra accelerators will
     // be registered with GTK in GTKSetExtraAccels() once it is added to the
     // menu, but if it had already been added to it, we need to let GTK know
-    // about the new extra accelerator.
+    // about the NEW_DEBUG extra accelerator.
     if (m_menuItem)
     {
         GtkAccelGroup* const accelGroup = GetRootParentMenu(m_parentMenu)->m_accel;
@@ -961,7 +961,7 @@ void wxMenu::GtkAppend(wxMenuItem* mitem, int pos)
             break;
         case wxITEM_RADIO:
             {
-                // See if we need to create a new radio group for this item or
+                // See if we need to create a NEW_DEBUG radio group for this item or
                 // add it to an existing one.
                 wxMenuItem* radioGroupItem = NULL;
 

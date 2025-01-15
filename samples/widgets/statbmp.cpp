@@ -78,11 +78,11 @@ void StatBmpWidgetsPage::CreateContent()
 {
 
     static const wxString choices[] = { "native", "generic" };
-    m_radio = new wxRadioBox(this, wxID_ANY, "implementation",
+    m_radio = NEW_DEBUG wxRadioBox(this, wxID_ANY, "implementation",
                              wxDefaultPosition, wxDefaultSize,
                              WXSIZEOF(choices), choices);
     static const wxString scaleChoices[] = { "None", "Fill", "Aspect Fit", "Aspect Fill" };
-    m_scaleRadio = new wxRadioBox(this, wxID_ANY, "Scale Mode",
+    m_scaleRadio = NEW_DEBUG wxRadioBox(this, wxID_ANY, "Scale Mode",
                                   wxDefaultPosition, wxDefaultSize,
                                   WXSIZEOF(scaleChoices), scaleChoices);
 
@@ -98,15 +98,15 @@ void StatBmpWidgetsPage::CreateContent()
     if ( fn.FileExists() )
         testImage = fn.GetFullPath();
 #endif // wxUSE_LIBPNG
-    m_filepicker = new wxFilePickerCtrl(this, wxID_ANY, testImage);
+    m_filepicker = NEW_DEBUG wxFilePickerCtrl(this, wxID_ANY, testImage);
 
-    m_sbsizer = new wxStaticBoxSizer(wxVERTICAL, this, "wxStaticBitmap inside");
+    m_sbsizer = NEW_DEBUG wxStaticBoxSizer(wxVERTICAL, this, "wxStaticBitmap inside");
 
-    wxSizer *leftsizer = new wxBoxSizer(wxVERTICAL);
+    wxSizer *leftsizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     leftsizer->Add(m_radio, wxSizerFlags().Expand().Border());
     leftsizer->Add(m_scaleRadio, wxSizerFlags().Expand().Border());
     leftsizer->Add(m_filepicker, wxSizerFlags().Expand().Border());
-    wxSizer *sizer = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer *sizer = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     sizer->Add(leftsizer, wxSizerFlags().Border());
     sizer->Add(m_sbsizer, wxSizerFlags().Center());
     SetSizer(sizer);
@@ -150,13 +150,13 @@ void StatBmpWidgetsPage::RecreateWidget()
 
     if (m_radio->GetSelection() == 0)
     {
-        m_statbmp = new wxStaticBitmap(this, wxID_ANY, bmp,
+        m_statbmp = NEW_DEBUG wxStaticBitmap(this, wxID_ANY, bmp,
                                        wxDefaultPosition, wxDefaultSize,
                                        style);
     }
     else
     {
-        m_statbmp = new wxGenericStaticBitmap(this, wxID_ANY, bmp,
+        m_statbmp = NEW_DEBUG wxGenericStaticBitmap(this, wxID_ANY, bmp,
                                               wxDefaultPosition, wxDefaultSize,
                                               style);
     }

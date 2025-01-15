@@ -306,7 +306,7 @@ wxString *wxArrayString::Grow(size_t nIncrement)
       m_nSize = ARRAY_DEFAULT_INITIAL_SIZE;
       if (m_nSize < nIncrement)
           m_nSize = nIncrement;
-      m_pItems = new wxString[m_nSize];
+      m_pItems = NEW_DEBUG wxString[m_nSize];
 
       // Nothing to free, we hadn't had any memory before.
       return NULL;
@@ -319,9 +319,9 @@ wxString *wxArrayString::Grow(size_t nIncrement)
       if ( nIncrement < ndefIncrement )
         nIncrement = ndefIncrement;
       m_nSize += nIncrement;
-      wxString *pNew = new wxString[m_nSize];
+      wxString *pNew = NEW_DEBUG wxString[m_nSize];
 
-      // copy data to new location
+      // copy data to NEW_DEBUG location
       for ( size_t j = 0; j < m_nCount; j++ )
           pNew[j] = m_pItems[j];
 
@@ -364,7 +364,7 @@ void wxArrayString::Alloc(size_t nSize)
 {
   // only if old buffer was not big enough
   if ( nSize > m_nSize ) {
-    wxString *pNew = new wxString[nSize];
+    wxString *pNew = NEW_DEBUG wxString[nSize];
     if ( !pNew )
         return;
 
@@ -383,9 +383,9 @@ void wxArrayString::Shrink()
   // only do it if we have some memory to free
   if( m_nCount < m_nSize ) {
     // allocates exactly as much memory as we need
-    wxString *pNew = new wxString[m_nCount];
+    wxString *pNew = NEW_DEBUG wxString[m_nCount];
 
-    // copy data to new location
+    // copy data to NEW_DEBUG location
     for ( size_t j = 0; j < m_nCount; j++ )
         pNew[j] = m_pItems[j];
     delete [] m_pItems;

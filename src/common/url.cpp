@@ -383,10 +383,10 @@ void wxURL::SetDefaultProxy(const wxString& url_proxy)
             return;
 
         if (ms_proxyDefault)
-            // Finally, when all is right, we connect the new proxy.
+            // Finally, when all is right, we connect the NEW_DEBUG proxy.
             ms_proxyDefault->Close();
         else
-            ms_proxyDefault = new wxHTTP();
+            ms_proxyDefault = NEW_DEBUG wxHTTP();
         ms_proxyDefault->Connect(addr);
     }
 }
@@ -425,7 +425,7 @@ void wxURL::SetProxy(const wxString& url_proxy)
         // Finally, create the whole stuff.
         if (m_proxy && m_proxy != ms_proxyDefault)
             delete m_proxy;
-        m_proxy = new wxHTTP();
+        m_proxy = NEW_DEBUG wxHTTP();
         m_proxy->Connect(addr);
 
         CleanData();

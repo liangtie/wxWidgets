@@ -364,7 +364,7 @@ size_t wxStoredOutputStream::OnSysWrite(const void *buffer, size_t size)
 // compression overhead (which is the greater one).
 //
 // Usage is like this:
-//  m_rawin = new wxRawInputStream(*m_parent_i_stream);
+//  m_rawin = NEW_DEBUG wxRawInputStream(*m_parent_i_stream);
 //  m_decomp = m_rawin->Open(OpenDecompressor(m_rawin->GetTee()));
 //
 // The wxRawInputStream owns a wxTeeInputStream object, the role of which
@@ -500,7 +500,7 @@ private:
 wxRawInputStream::wxRawInputStream(wxInputStream& stream)
   : wxFilterInputStream(stream),
     m_pos(0),
-    m_tee(new wxTeeInputStream(stream)),
+    m_tee(NEW_DEBUG wxTeeInputStream(stream)),
     m_dummy(BUFSIZE)
 {
 }
@@ -632,14 +632,14 @@ wxZipMemory *wxZipMemory::Unique(size_t size)
 
     if (m_ref > 1) {
         --m_ref;
-        zm = new wxZipMemory;
+        zm = NEW_DEBUG wxZipMemory;
     } else {
         zm = this;
     }
 
     if (zm->m_capacity < size) {
         delete [] zm->m_data;
-        zm->m_data = new char[size];
+        zm->m_data = NEW_DEBUG char[size];
         zm->m_capacity = size;
     }
 
@@ -669,7 +669,7 @@ static void Copy(wxZipMemory*& dest, wxZipMemory *src)
 static void Unique(wxZipMemory*& zm, size_t size)
 {
     if (!zm && size)
-        zm = new wxZipMemory;
+        zm = NEW_DEBUG wxZipMemory;
     if (zm)
         zm = zm->Unique(size);
 }
@@ -1602,14 +1602,14 @@ wxZipInputStream::wxZipInputStream(wxInputStream *stream,
 
 void wxZipInputStream::Init()
 {
-    m_store = new wxStoredInputStream(*m_parent_i_stream);
+    m_store = NEW_DEBUG wxStoredInputStream(*m_parent_i_stream);
     m_inflate = NULL;
     m_rawin = NULL;
     m_raw = false;
     m_headerSize = 0;
     m_decomp = NULL;
     m_parentSeekable = false;
-    m_weaklinks = new wxZipWeakLinks;
+    m_weaklinks = NEW_DEBUG wxZipWeakLinks;
     m_streamlink = NULL;
     m_offsetAdjustment = 0;
     m_position = wxInvalidOffset;
@@ -1658,7 +1658,7 @@ wxZipStreamLink *wxZipInputStream::MakeLink(wxZipOutputStream *out)
     wxZipStreamLink *link = NULL;
 
     if (!m_parentSeekable && (IsOpened() || !Eof())) {
-        link = new wxZipStreamLink(out);
+        link = NEW_DEBUG wxZipStreamLink(out);
         if (m_streamlink)
             m_streamlink->Release(this);
         m_streamlink = link->AddRef();
@@ -1814,7 +1814,7 @@ wxZipEntry *wxZipInputStream::GetNextEntry()
     if (!IsOk())
         return NULL;
 
-    wxZipEntryPtr_ entry(new wxZipEntry(m_entry));
+    wxZipEntryPtr_ entry(NEW_DEBUG wxZipEntry(m_entry));
     entry->m_backlink = m_weaklinks->AddEntry(entry.get(), entry->GetKey());
     return entry.release();
 }
@@ -2021,7 +2021,7 @@ bool wxZipInputStream::OpenDecompressor(bool raw /*=false*/)
             m_decomp = m_store;
         } else {
             if (!m_rawin)
-                m_rawin = new wxRawInputStream(*m_parent_i_stream);
+                m_rawin = NEW_DEBUG wxRawInputStream(*m_parent_i_stream);
             m_decomp = m_rawin->Open(OpenDecompressor(m_rawin->GetTee()));
         }
     } else {
@@ -2055,7 +2055,7 @@ wxInputStream *wxZipInputStream::OpenDecompressor(wxInputStream& stream)
 
         case wxZIP_METHOD_DEFLATE:
             if (!m_inflate)
-                m_inflate = new wxZlibInputStream2(stream);
+                m_inflate = NEW_DEBUG wxZlibInputStream2(stream);
             else
                 m_inflate->Open(stream);
             return m_inflate;
@@ -2184,10 +2184,10 @@ wxZipOutputStream::wxZipOutputStream(wxOutputStream *stream,
 
 void wxZipOutputStream::Init(int level)
 {
-    m_store = new wxStoredOutputStream(*m_parent_o_stream);
+    m_store = NEW_DEBUG wxStoredOutputStream(*m_parent_o_stream);
     m_deflate = NULL;
     m_backlink = NULL;
-    m_initialData = new char[OUTPUT_LATENCY];
+    m_initialData = NEW_DEBUG char[OUTPUT_LATENCY];
     m_initialSize = 0;
     m_pending = NULL;
     m_raw = false;
@@ -2218,14 +2218,14 @@ bool wxZipOutputStream::PutNextEntry(
     const wxDateTime& dt /*=wxDateTime::Now()*/,
     wxFileOffset size    /*=wxInvalidOffset*/)
 {
-    return PutNextEntry(new wxZipEntry(name, dt, size));
+    return PutNextEntry(NEW_DEBUG wxZipEntry(name, dt, size));
 }
 
 bool wxZipOutputStream::PutNextDirEntry(
     const wxString& name,
     const wxDateTime& dt /*=wxDateTime::Now()*/)
 {
-    wxZipEntry *entry = new wxZipEntry(name, dt);
+    wxZipEntry *entry = NEW_DEBUG wxZipEntry(name, dt);
     entry->SetIsDir();
     return PutNextEntry(entry);
 }
@@ -2374,7 +2374,7 @@ wxOutputStream *wxZipOutputStream::OpenCompressor(
                             defbits | wxZIP_SUMS_FOLLOW);
 
             if (!m_deflate)
-                m_deflate = new wxZlibOutputStream2(stream, GetLevel());
+                m_deflate = NEW_DEBUG wxZlibOutputStream2(stream, GetLevel());
             else
                 m_deflate->Open(stream);
 

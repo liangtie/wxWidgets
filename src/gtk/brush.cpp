@@ -57,12 +57,12 @@ wxIMPLEMENT_DYNAMIC_CLASS(wxBrush,wxGDIObject);
 
 wxBrush::wxBrush( const wxColour &colour, wxBrushStyle style )
 {
-    m_refData = new wxBrushRefData(colour, style);
+    m_refData = NEW_DEBUG wxBrushRefData(colour, style);
 }
 
 wxBrush::wxBrush(const wxColour& col, int style)
 {
-    m_refData = new wxBrushRefData(col, (wxBrushStyle)style);
+    m_refData = NEW_DEBUG wxBrushRefData(col, (wxBrushStyle)style);
 }
 
 wxBrush::wxBrush( const wxBitmap &stippleBitmap )
@@ -71,7 +71,7 @@ wxBrush::wxBrush( const wxBitmap &stippleBitmap )
     if (stippleBitmap.GetMask())
         style = wxBRUSHSTYLE_STIPPLE_MASK_OPAQUE;
 
-    m_refData = new wxBrushRefData(*wxBLACK, style);
+    m_refData = NEW_DEBUG wxBrushRefData(*wxBLACK, style);
     M_BRUSHDATA->m_stipple = stippleBitmap;
 }
 
@@ -82,12 +82,12 @@ wxBrush::~wxBrush()
 
 wxGDIRefData *wxBrush::CreateGDIRefData() const
 {
-    return new wxBrushRefData;
+    return NEW_DEBUG wxBrushRefData;
 }
 
 wxGDIRefData *wxBrush::CloneGDIRefData(const wxGDIRefData *data) const
 {
-    return new wxBrushRefData(*static_cast<const wxBrushRefData*>(data));
+    return NEW_DEBUG wxBrushRefData(*static_cast<const wxBrushRefData*>(data));
 }
 
 bool wxBrush::operator==(const wxBrush& brush) const

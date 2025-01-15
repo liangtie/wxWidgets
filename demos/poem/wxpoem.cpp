@@ -117,10 +117,10 @@ MainWindow::MainWindow(wxFrame *frame, wxWindowID id, const wxString& title,
 
     SetIcon(wxICON(wxpoem));
 
-    m_corners[0] = new wxIcon( corner1_xpm );
-    m_corners[1] = new wxIcon( corner2_xpm );
-    m_corners[2] = new wxIcon( corner3_xpm );
-    m_corners[3] = new wxIcon( corner4_xpm );
+    m_corners[0] = NEW_DEBUG wxIcon( corner1_xpm );
+    m_corners[1] = NEW_DEBUG wxIcon( corner2_xpm );
+    m_corners[2] = NEW_DEBUG wxIcon( corner3_xpm );
+    m_corners[3] = NEW_DEBUG wxIcon( corner4_xpm );
 }
 
 MainWindow::~MainWindow()
@@ -420,7 +420,7 @@ void MainWindow::Resize(void)
 
     wxMemoryDC memDC;
     if (backingBitmap) delete backingBitmap;
-    backingBitmap = new wxBitmap(x, yy);
+    backingBitmap = NEW_DEBUG wxBitmap(x, yy);
     memDC.SelectObject(* backingBitmap);
 
     memDC.Clear();
@@ -499,7 +499,7 @@ void MainWindow::Search(bool ask)
 
 bool MyApp::OnInit()
 {
-    poem_buffer = new wxChar[BUFFER_SIZE];
+    poem_buffer = NEW_DEBUG wxChar[BUFFER_SIZE];
 
     // Seed the random number generator
     time_t current_time;
@@ -510,7 +510,7 @@ bool MyApp::OnInit()
 //    randomize();
     pages[0] = 0;
 
-    TheMainWindow = new MainWindow(NULL,
+    TheMainWindow = NEW_DEBUG MainWindow(NULL,
                                    wxID_ANY,
                                    wxT("wxPoem"),
                                    wxPoint(XPos, YPos),
@@ -518,12 +518,12 @@ bool MyApp::OnInit()
                                    wxCAPTION|wxMINIMIZE_BOX|wxSYSTEM_MENU|wxCLOSE_BOX|wxFULL_REPAINT_ON_RESIZE
                                    );
 
-    TheMainWindow->canvas = new MyCanvas(TheMainWindow);
+    TheMainWindow->canvas = NEW_DEBUG MyCanvas(TheMainWindow);
 
     if (argc > 1)
     {
-        index_filename = wxStrcpy(new wxChar[wxStrlen(argv[1]) + 1], argv[1]);
-        data_filename = wxStrcpy(new wxChar[wxStrlen(argv[1]) + 1], argv[1]);
+        index_filename = wxStrcpy(NEW_DEBUG wxChar[wxStrlen(argv[1]) + 1], argv[1]);
+        data_filename = wxStrcpy(NEW_DEBUG wxChar[wxStrlen(argv[1]) + 1], argv[1]);
     }
     else
     {
@@ -570,7 +570,7 @@ wxEND_EVENT_TABLE()
 MyCanvas::MyCanvas(wxFrame *frame):
           wxWindow(frame, wxID_ANY)
 {
-    m_popupMenu = new wxMenu;
+    m_popupMenu = NEW_DEBUG wxMenu;
     m_popupMenu->Append(POEM_NEXT, wxT("Next poem/page"));
     m_popupMenu->Append(POEM_PREVIOUS, wxT("Previous page"));
     m_popupMenu->AppendSeparator();
@@ -909,7 +909,7 @@ void TryLoadIndex()
     index_ok = (LoadIndex(index_filename) != 0);
     if (!index_ok || (nitems == 0))
     {
-        PoetryError(wxT("Index file not found; will compile new one"), wxT("wxPoem"));
+        PoetryError(wxT("Index file not found; will compile NEW_DEBUG one"), wxT("wxPoem"));
         index_ok = Compile();
     }
 }
@@ -1024,7 +1024,7 @@ void MainWindow::OnPopup(wxCommandEvent& event)
                 s.Replace( wxT("@A"),wxEmptyString);
                 s.Replace( wxT("@T "),wxEmptyString);
                 s.Replace( wxT("@T"),wxEmptyString);
-                wxTextDataObject *data = new wxTextDataObject( s.c_str() );
+                wxTextDataObject *data = NEW_DEBUG wxTextDataObject( s.c_str() );
                 if (!wxTheClipboard->SetData( data ))
                     wxMessageBox(wxT("Error while copying to the clipboard."));
             }

@@ -179,22 +179,22 @@ void wxConvAuto::InitFromBOM(wxBOM bomType)
             break;
 
         case wxBOM_UTF32BE:
-            m_conv = new wxMBConvUTF32BE;
+            m_conv = NEW_DEBUG wxMBConvUTF32BE;
             m_ownsConv = true;
             break;
 
         case wxBOM_UTF32LE:
-            m_conv = new wxMBConvUTF32LE;
+            m_conv = NEW_DEBUG wxMBConvUTF32LE;
             m_ownsConv = true;
             break;
 
         case wxBOM_UTF16BE:
-            m_conv = new wxMBConvUTF16BE;
+            m_conv = NEW_DEBUG wxMBConvUTF16BE;
             m_ownsConv = true;
             break;
 
         case wxBOM_UTF16LE:
-            m_conv = new wxMBConvUTF16LE;
+            m_conv = NEW_DEBUG wxMBConvUTF16LE;
             m_ownsConv = true;
             break;
 
@@ -343,7 +343,7 @@ wxConvAuto::ToWChar(wchar_t *dst, size_t dstLen,
             self->m_encDefault = GetFallbackEncoding();
         if ( m_encDefault != wxFONTENCODING_MAX )
         {
-            self->m_conv = new wxCSConv(m_encDefault);
+            self->m_conv = NEW_DEBUG wxCSConv(m_encDefault);
             self->m_ownsConv = true;
 
             rc = m_conv->ToWChar(dst, dstLen, src, srcLen);

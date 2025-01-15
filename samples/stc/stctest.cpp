@@ -199,26 +199,26 @@ bool App::OnInit () {
     // set application and vendor name
     SetAppName (APP_NAME);
     SetVendorName (APP_VENDOR);
-    g_appname = new wxString ();
+    g_appname = NEW_DEBUG wxString ();
     g_appname->Append (APP_VENDOR);
     g_appname->Append ("-");
     g_appname->Append (APP_NAME);
 
 #if wxUSE_PRINTING_ARCHITECTURE
     // initialize print data and setup
-    g_printData = new wxPrintData;
+    g_printData = NEW_DEBUG wxPrintData;
     wxPrintPaperType *paper = wxThePrintPaperDatabase->FindPaperType(wxPAPER_A4);
     g_printData->SetPaperId(paper->GetId());
     g_printData->SetPaperSize(paper->GetSize());
     g_printData->SetOrientation(wxPORTRAIT);
 
-    g_pageSetupData = new wxPageSetupDialogData;
+    g_pageSetupData = NEW_DEBUG wxPageSetupDialogData;
     // copy over initial paper size from print record
     (*g_pageSetupData) = *g_printData;
 #endif // wxUSE_PRINTING_ARCHITECTURE
 
     // create application frame
-    m_frame = new AppFrame (*g_appname);
+    m_frame = NEW_DEBUG AppFrame (*g_appname);
 
     // open application frame
     m_frame->Layout ();
@@ -290,11 +290,11 @@ AppFrame::AppFrame (const wxString &title)
     SetBackgroundColour ("WHITE");
 
     // create menu
-    m_menuBar = new wxMenuBar;
+    m_menuBar = NEW_DEBUG wxMenuBar;
     CreateMenu ();
 
     // open first page
-    m_edit = new Edit (this, wxID_ANY);
+    m_edit = NEW_DEBUG Edit (this, wxID_ANY);
     m_edit->SetFocus();
 
     FileOpen ("stctest.cpp");
@@ -395,8 +395,8 @@ void AppFrame::OnPrintPreview (wxCommandEvent &WXUNUSED(event)) {
 #if wxUSE_PRINTING_ARCHITECTURE
     wxPrintDialogData printDialogData( *g_printData);
     wxPrintPreview *preview =
-        new wxPrintPreview (new EditPrint (m_edit),
-                            new EditPrint (m_edit),
+        NEW_DEBUG wxPrintPreview (NEW_DEBUG EditPrint (m_edit),
+                            NEW_DEBUG EditPrint (m_edit),
                             &printDialogData);
     if (!preview->IsOk()) {
         delete preview;
@@ -406,7 +406,7 @@ void AppFrame::OnPrintPreview (wxCommandEvent &WXUNUSED(event)) {
         return;
     }
     wxRect rect = DeterminePrintSize();
-    wxPreviewFrame *frame = new wxPreviewFrame (preview, this, _("Print Preview"));
+    wxPreviewFrame *frame = NEW_DEBUG wxPreviewFrame (preview, this, _("Print Preview"));
     frame->SetSize (rect);
     frame->Centre(wxBOTH);
     frame->Initialize();
@@ -461,7 +461,7 @@ void AppFrame::OnContextMenu(wxContextMenuEvent& evt)
 void AppFrame::CreateMenu ()
 {
     // File menu
-    wxMenu *menuFile = new wxMenu;
+    wxMenu *menuFile = NEW_DEBUG wxMenu;
     menuFile->Append (wxID_OPEN, _("&Open ..\tCtrl+O"));
     menuFile->Append (wxID_SAVE, _("&Save\tCtrl+S"));
     menuFile->Append (wxID_SAVEAS, _("Save &as ..\tCtrl+Shift+S"));
@@ -476,7 +476,7 @@ void AppFrame::CreateMenu ()
     menuFile->Append (wxID_EXIT, _("&Quit\tCtrl+Q"));
 
     // Edit menu
-    wxMenu *menuEdit = new wxMenu;
+    wxMenu *menuEdit = NEW_DEBUG wxMenu;
     menuEdit->Append (wxID_UNDO, _("&Undo\tCtrl+Z"));
     menuEdit->Append (wxID_REDO, _("&Redo\tCtrl+Shift+Z"));
     menuEdit->AppendSeparator();
@@ -505,7 +505,7 @@ void AppFrame::CreateMenu ()
     menuEdit->Append (myID_SELECTLINE, _("Select &line\tCtrl+L"));
 
     // highlight submenu
-    wxMenu *menuHighlight = new wxMenu;
+    wxMenu *menuHighlight = NEW_DEBUG wxMenu;
     int Nr;
     for (Nr = 0; Nr < g_LanguagePrefsSize; Nr++) {
         menuHighlight->Append (myID_HIGHLIGHTFIRST + Nr,
@@ -513,12 +513,12 @@ void AppFrame::CreateMenu ()
     }
 
     // charset submenu
-    wxMenu *menuCharset = new wxMenu;
+    wxMenu *menuCharset = NEW_DEBUG wxMenu;
     menuCharset->Append (myID_CHARSETANSI, _("&ANSI (Windows)"));
     menuCharset->Append (myID_CHARSETMAC, _("&MAC (Macintosh)"));
 
     // View menu
-    wxMenu *menuView = new wxMenu;
+    wxMenu *menuView = NEW_DEBUG wxMenu;
     menuView->Append (myID_HIGHLIGHTLANG, _("&Highlight language .."), menuHighlight);
     menuView->AppendSeparator();
     menuView->AppendCheckItem (myID_FOLDTOGGLE, _("&Toggle current fold\tCtrl+T"));
@@ -534,32 +534,32 @@ void AppFrame::CreateMenu ()
     menuView->Append (myID_USECHARSET, _("Use &code page of .."), menuCharset);
 
     // Annotations menu
-    wxMenu* menuAnnotations = new wxMenu;
+    wxMenu* menuAnnotations = NEW_DEBUG wxMenu;
     menuAnnotations->Append(myID_ANNOTATION_ADD, _("&Add or edit an annotation..."),
                             _("Add an annotation for the current line"));
     menuAnnotations->Append(myID_ANNOTATION_REMOVE, _("&Remove annotation"),
                             _("Remove the annotation for the current line"));
     menuAnnotations->Append(myID_ANNOTATION_CLEAR, _("&Clear all annotations"));
 
-    wxMenu* menuAnnotationsStyle = new wxMenu;
+    wxMenu* menuAnnotationsStyle = NEW_DEBUG wxMenu;
     menuAnnotationsStyle->AppendRadioItem(myID_ANNOTATION_STYLE_HIDDEN, _("&Hidden"));
     menuAnnotationsStyle->AppendRadioItem(myID_ANNOTATION_STYLE_STANDARD, _("&Standard"));
     menuAnnotationsStyle->AppendRadioItem(myID_ANNOTATION_STYLE_BOXED, _("&Boxed"));
     menuAnnotations->AppendSubMenu(menuAnnotationsStyle, "&Style");
 
     // change case submenu
-    wxMenu *menuChangeCase = new wxMenu;
+    wxMenu *menuChangeCase = NEW_DEBUG wxMenu;
     menuChangeCase->Append (myID_CHANGEUPPER, _("&Upper case"));
     menuChangeCase->Append (myID_CHANGELOWER, _("&Lower case"));
 
     // convert EOL submenu
-    wxMenu *menuConvertEOL = new wxMenu;
+    wxMenu *menuConvertEOL = NEW_DEBUG wxMenu;
     menuConvertEOL->Append (myID_CONVERTCR, _("CR (&Linux)"));
     menuConvertEOL->Append (myID_CONVERTCRLF, _("CR+LF (&Windows)"));
     menuConvertEOL->Append (myID_CONVERTLF, _("LF (&Macintosh)"));
 
     // Extra menu
-    wxMenu *menuExtra = new wxMenu;
+    wxMenu *menuExtra = NEW_DEBUG wxMenu;
     menuExtra->AppendCheckItem (myID_READONLY, _("&Readonly mode"));
     menuExtra->AppendSeparator();
     menuExtra->Append (myID_CHANGECASE, _("Change &case to .."), menuChangeCase);
@@ -570,7 +570,7 @@ void AppFrame::CreateMenu ()
     menuExtra->AppendCheckItem(myID_MULTIPLE_SELECTIONS_TYPING, _("Toggle t&yping on multiple selections"));
     menuExtra->AppendSeparator();
 #if defined(__WXMSW__) && wxUSE_GRAPHICS_DIRECT2D
-    wxMenu* menuTechnology = new wxMenu;
+    wxMenu* menuTechnology = NEW_DEBUG wxMenu;
     menuTechnology->AppendRadioItem(myID_TECHNOLOGY_DEFAULT, _("&Default"));
     menuTechnology->AppendRadioItem(myID_TECHNOLOGY_DIRECTWRITE, _("Direct&Write"));
     menuExtra->AppendSubMenu(menuTechnology, _("&Technology"));
@@ -579,11 +579,11 @@ void AppFrame::CreateMenu ()
     menuExtra->AppendCheckItem (myID_CUSTOM_POPUP, _("C&ustom context menu"));
 
     // Window menu
-    wxMenu *menuWindow = new wxMenu;
+    wxMenu *menuWindow = NEW_DEBUG wxMenu;
     menuWindow->Append(myID_WINDOW_MINIMAL, _("&Minimal editor"));
 
     // Help menu
-    wxMenu *menuHelp = new wxMenu;
+    wxMenu *menuHelp = NEW_DEBUG wxMenu;
     menuHelp->Append (wxID_ABOUT, _("&About ..\tCtrl+D"));
 
     // construct menu
@@ -638,7 +638,7 @@ AppAbout::AppAbout (wxWindow *parent,
     // set timer if any
     m_timer = NULL;
     if (milliseconds > 0) {
-        m_timer = new wxTimer (this, myID_ABOUTTIMER);
+        m_timer = NEW_DEBUG wxTimer (this, myID_ABOUTTIMER);
         m_timer->Start (milliseconds, wxTIMER_ONE_SHOT);
     }
 
@@ -649,43 +649,43 @@ AppAbout::AppAbout (wxWindow *parent,
     SetTitle (_("About .."));
 
     // about info
-    wxGridSizer *aboutinfo = new wxGridSizer (2, 0, 2);
-    aboutinfo->Add (new wxStaticText(this, wxID_ANY, _("Written by: ")),
+    wxGridSizer *aboutinfo = NEW_DEBUG wxGridSizer (2, 0, 2);
+    aboutinfo->Add (NEW_DEBUG wxStaticText(this, wxID_ANY, _("Written by: ")),
                     0, wxALIGN_LEFT);
-    aboutinfo->Add (new wxStaticText(this, wxID_ANY, APP_MAINT),
+    aboutinfo->Add (NEW_DEBUG wxStaticText(this, wxID_ANY, APP_MAINT),
                     1, wxEXPAND | wxALIGN_LEFT);
-    aboutinfo->Add (new wxStaticText(this, wxID_ANY, _("Version: ")),
+    aboutinfo->Add (NEW_DEBUG wxStaticText(this, wxID_ANY, _("Version: ")),
                     0, wxALIGN_LEFT);
-    aboutinfo->Add (new wxStaticText(this, wxID_ANY, wxString::Format("%s (%s)", APP_VERSION, vi.GetVersionString())),
+    aboutinfo->Add (NEW_DEBUG wxStaticText(this, wxID_ANY, wxString::Format("%s (%s)", APP_VERSION, vi.GetVersionString())),
                     1, wxEXPAND | wxALIGN_LEFT);
-    aboutinfo->Add (new wxStaticText(this, wxID_ANY, _("Licence type: ")),
+    aboutinfo->Add (NEW_DEBUG wxStaticText(this, wxID_ANY, _("Licence type: ")),
                     0, wxALIGN_LEFT);
-    aboutinfo->Add (new wxStaticText(this, wxID_ANY, APP_LICENCE),
+    aboutinfo->Add (NEW_DEBUG wxStaticText(this, wxID_ANY, APP_LICENCE),
                     1, wxEXPAND | wxALIGN_LEFT);
-    aboutinfo->Add (new wxStaticText(this, wxID_ANY, _("Copyright: ")),
+    aboutinfo->Add (NEW_DEBUG wxStaticText(this, wxID_ANY, _("Copyright: ")),
                     0, wxALIGN_LEFT);
-    aboutinfo->Add (new wxStaticText(this, wxID_ANY, APP_COPYRIGTH),
+    aboutinfo->Add (NEW_DEBUG wxStaticText(this, wxID_ANY, APP_COPYRIGTH),
                     1, wxEXPAND | wxALIGN_LEFT);
 
     // about icontitle//info
-    wxBoxSizer *aboutpane = new wxBoxSizer (wxHORIZONTAL);
+    wxBoxSizer *aboutpane = NEW_DEBUG wxBoxSizer (wxHORIZONTAL);
     wxBitmap bitmap = wxBitmap(wxICON (sample));
-    aboutpane->Add (new wxStaticBitmap (this, wxID_ANY, bitmap),
+    aboutpane->Add (NEW_DEBUG wxStaticBitmap (this, wxID_ANY, bitmap),
                     0, wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL|wxLEFT|wxRIGHT, 20);
     aboutpane->Add (aboutinfo, 1, wxEXPAND);
     aboutpane->Add (60, 0);
 
     // about complete
-    wxBoxSizer *totalpane = new wxBoxSizer (wxVERTICAL);
+    wxBoxSizer *totalpane = NEW_DEBUG wxBoxSizer (wxVERTICAL);
     totalpane->Add (0, 20);
-    wxStaticText *appname = new wxStaticText(this, wxID_ANY, *g_appname);
+    wxStaticText *appname = NEW_DEBUG wxStaticText(this, wxID_ANY, *g_appname);
     appname->SetFont (wxFontInfo(24).Bold());
     totalpane->Add (appname, 0, wxALIGN_CENTER | wxLEFT | wxRIGHT, 40);
     totalpane->Add (0, 10);
     totalpane->Add (aboutpane, 0, wxEXPAND | wxALL, 4);
-    totalpane->Add (new wxStaticText(this, wxID_ANY, APP_DESCR),
+    totalpane->Add (NEW_DEBUG wxStaticText(this, wxID_ANY, APP_DESCR),
                     0, wxALIGN_CENTER | wxALL, 10);
-    wxButton *okButton = new wxButton (this, wxID_OK, _("OK"));
+    wxButton *okButton = NEW_DEBUG wxButton (this, wxID_OK, _("OK"));
     okButton->SetDefault();
     totalpane->Add (okButton, 0, wxALIGN_CENTER | wxLEFT | wxRIGHT | wxBOTTOM, 10);
 
@@ -813,9 +813,9 @@ class MinimalEditorFrame : public wxFrame
 public:
     MinimalEditorFrame() : wxFrame(NULL, wxID_ANY, _("Minimal Editor"))
     {
-        MinimalEditor* editor = new MinimalEditor(this);
+        MinimalEditor* editor = NEW_DEBUG MinimalEditor(this);
         editor->SetFont(wxFontInfo().Family(wxFONTFAMILY_TELETYPE));
-        wxBoxSizer* sizer = new wxBoxSizer(wxHORIZONTAL);
+        wxBoxSizer* sizer = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
         sizer->Add(editor, 1, wxEXPAND);
         SetSizer(sizer);
         editor->SetText(
@@ -830,7 +830,7 @@ public:
 
 wxFrame* App::MinimalEditor()
 {
-    MinimalEditorFrame* frame = new MinimalEditorFrame;
+    MinimalEditorFrame* frame = NEW_DEBUG MinimalEditorFrame;
     frame->Show();
     return frame;
 }

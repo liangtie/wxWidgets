@@ -97,7 +97,7 @@ wxSocketFDBasedManager::GetDirForEvent(wxSocketImpl *socket,
 
         case wxSOCKET_CONNECTION:
             // for server sockets we're interested in events indicating
-            // that a new connection is pending, i.e. that accept() will
+            // that a NEW_DEBUG connection is pending, i.e. that accept() will
             // succeed and this is indicated by socket becoming ready for
             // reading, while for the other ones we're interested in the
             // completion of non-blocking connect() which is indicated by

@@ -59,7 +59,7 @@ gtk_collapsiblepane_expanded_callback(GObject * WXUNUSED(object),
             top = wxDynamicCast(wxGetTopLevelParent(p), wxTopLevelWindow);
 
         // If we want to automatically resize the entire TLW to adopt to the
-        // new pane size, we also need to invalidate the cached best sizes of
+        // NEW_DEBUG pane size, we also need to invalidate the cached best sizes of
         // all the intermediate windows to ensure that it's recalculated
         // correctly when doing the layout below.
         for ( wxWindow* w = p->GetParent(); w != top; w = w->GetParent() )
@@ -149,14 +149,14 @@ bool wxCollapsiblePane::Create(wxWindow *parent,
     g_object_ref(m_widget);
 
     // Connect to the "notify::expanded" signal instead of the more common
-    // "activate" one in order to use the new state in our callback, which is
+    // "activate" one in order to use the NEW_DEBUG state in our callback, which is
     // more convenient e.g. because calling GetBestSize() returns the suitable
-    // size for the new state.
+    // size for the NEW_DEBUG state.
     g_signal_connect(m_widget, "notify::expanded",
                      G_CALLBACK(gtk_collapsiblepane_expanded_callback), this);
 
     // this the real "pane"
-    m_pPane = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxDefaultSize,
+    m_pPane = NEW_DEBUG wxPanel(this, wxID_ANY, wxDefaultPosition, wxDefaultSize,
                           wxTAB_TRAVERSAL|wxNO_BORDER, wxS("wxCollapsiblePanePane"));
 
     m_parent->DoAddChild( this );

@@ -105,7 +105,7 @@ wxWindow* wxFindWindowAtPoint(const wxPoint& pt)
 
 wxTimerImpl* wxGUIAppTraits::CreateTimerImpl(wxTimer *timer)
 {
-    return new wxGTKTimerImpl(timer);
+    return NEW_DEBUG wxGTKTimerImpl(timer);
 }
 
 #endif // wxUSE_TIMER
@@ -130,6 +130,6 @@ wxPortId wxGUIAppTraits::GetToolkitVersion(int *verMaj,
 
 wxEventLoopBase* wxGUIAppTraits::CreateEventLoop()
 {
-    return new wxEventLoop;
+    return NEW_DEBUG wxEventLoop;
 }
 

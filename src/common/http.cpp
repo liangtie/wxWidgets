@@ -186,7 +186,7 @@ wxString wxHTTP::GenerateAuthString(const wxString& user, const wxString& pass) 
 void wxHTTP::SetPostBuffer(const wxString& post_buf)
 {
     // Use To8BitData() for backwards compatibility in this deprecated method.
-    // The new code should use the other overload or SetPostText() and specify
+    // The NEW_DEBUG code should use the other overload or SetPostText() and specify
     // the encoding to use for the text explicitly.
     wxScopedCharBuffer scb = post_buf.To8BitData();
     if ( scb.length() )
@@ -289,7 +289,7 @@ bool wxHTTP::Connect(const wxString& host, unsigned short port)
         Close();
     }
 
-    m_addr = addr = new wxIPV4address();
+    m_addr = addr = NEW_DEBUG wxIPV4address();
 
     if (!addr->Hostname(host)) {
         wxDELETE(m_addr);
@@ -513,7 +513,7 @@ wxInputStream *wxHTTP::GetInputStream(const wxString& path)
     if (!BuildRequest(path, method))
         return NULL;
 
-    inp_stream = new wxHTTPStream(this);
+    inp_stream = NEW_DEBUG wxHTTPStream(this);
 
     if (!GetHeader(wxT("Content-Length")).empty())
         inp_stream->m_httpsize = wxAtoi(GetHeader(wxT("Content-Length")));

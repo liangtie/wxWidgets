@@ -196,7 +196,7 @@ void wx_jpeg_io_src( j_decompress_ptr cinfo, wxInputStream& infile )
     }
     src = (wx_src_ptr) cinfo->src;
     src->pub.bytes_in_buffer = 0; /* forces fill_input_buffer on first read */
-    src->buffer = new JOCTET[JPEG_IO_BUFFER_SIZE];
+    src->buffer = NEW_DEBUG JOCTET[JPEG_IO_BUFFER_SIZE];
     src->pub.next_input_byte = NULL; /* until buffer loaded */
     src->stream = &infile;
 

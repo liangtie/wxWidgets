@@ -192,10 +192,10 @@ bool MyApp::OnInit()
     SetAppDisplayName("wxWidgets DocView Sample");
 
     //// Create a document manager
-    wxDocManager *docManager = new wxDocManager;
+    wxDocManager *docManager = NEW_DEBUG wxDocManager;
 
     //// Create a template relating drawing documents to their views
-    new wxDocTemplate(docManager, "Drawing", "*.drw", "", "drw",
+    NEW_DEBUG wxDocTemplate(docManager, "Drawing", "*.drw", "", "drw",
                       "Drawing Doc", "Drawing View",
                       CLASSINFO(DrawingDocument), CLASSINFO(DrawingView));
 
@@ -208,11 +208,11 @@ bool MyApp::OnInit()
     else // multiple documents mode: allow documents of different types
     {
         // Create a template relating text documents to their views
-        new wxDocTemplate(docManager, "Text", "*.txt;*.text", "", "txt;text",
+        NEW_DEBUG wxDocTemplate(docManager, "Text", "*.txt;*.text", "", "txt;text",
                           "Text Doc", "Text View",
                           CLASSINFO(TextEditDocument), CLASSINFO(TextEditView));
         // Create a template relating image documents to their views
-        new wxDocTemplate(docManager, "Image", "*.png;*.jpg", "", "png;jpg",
+        NEW_DEBUG wxDocTemplate(docManager, "Image", "*.png;*.jpg", "", "png;jpg",
                           "Image Doc", "Image View",
                           CLASSINFO(ImageDocument), CLASSINFO(ImageView));
     }
@@ -223,7 +223,7 @@ bool MyApp::OnInit()
     {
 #if wxUSE_MDI_ARCHITECTURE
         case Mode_MDI:
-            frame = new wxDocMDIParentFrame(docManager, NULL, wxID_ANY,
+            frame = NEW_DEBUG wxDocMDIParentFrame(docManager, NULL, wxID_ANY,
                                             GetAppDisplayName(),
                                             wxDefaultPosition,
                                             wxSize(500, 400));
@@ -232,7 +232,7 @@ bool MyApp::OnInit()
 
 #if wxUSE_AUI
         case Mode_AUI:
-            frame = new wxDocParentFrameAny<wxAuiMDIParentFrame>
+            frame = NEW_DEBUG wxDocParentFrameAny<wxAuiMDIParentFrame>
                         (
                             docManager, NULL, wxID_ANY,
                             GetAppDisplayName(),
@@ -244,7 +244,7 @@ bool MyApp::OnInit()
 
         case Mode_SDI:
         case Mode_Single:
-            frame = new wxDocParentFrame(docManager, NULL, wxID_ANY,
+            frame = NEW_DEBUG wxDocParentFrame(docManager, NULL, wxID_ANY,
                                          GetAppDisplayName(),
                                          wxDefaultPosition,
                                          wxSize(500, 400));
@@ -252,7 +252,7 @@ bool MyApp::OnInit()
     }
 
     // and its menu bar
-    wxMenu *menuFile = new wxMenu;
+    wxMenu *menuFile = NEW_DEBUG wxMenu;
 
     menuFile->Append(wxID_NEW);
     menuFile->Append(wxID_OPEN);
@@ -272,7 +272,7 @@ bool MyApp::OnInit()
 
     if ( m_mode == Mode_Single )
     {
-        m_canvas = new MyCanvas(NULL, frame);
+        m_canvas = NEW_DEBUG MyCanvas(NULL, frame);
         m_menuEdit = CreateDrawingEditMenu();
     }
 
@@ -327,7 +327,7 @@ void MyApp::AppendDocumentFileCommands(wxMenu *menu, bool supportsPrinting)
 
 wxMenu *MyApp::CreateDrawingEditMenu()
 {
-    wxMenu * const menu = new wxMenu;
+    wxMenu * const menu = NEW_DEBUG wxMenu;
     menu->Append(wxID_UNDO);
     menu->Append(wxID_REDO);
     menu->AppendSeparator();
@@ -338,14 +338,14 @@ wxMenu *MyApp::CreateDrawingEditMenu()
 
 void MyApp::CreateMenuBarForFrame(wxFrame *frame, wxMenu *file, wxMenu *edit)
 {
-    wxMenuBar *menubar = new wxMenuBar;
+    wxMenuBar *menubar = NEW_DEBUG wxMenuBar;
 
     menubar->Append(file, wxGetStockLabel(wxID_FILE));
 
     if ( edit )
         menubar->Append(edit, wxGetStockLabel(wxID_EDIT));
 
-    wxMenu *help= new wxMenu;
+    wxMenu *help= NEW_DEBUG wxMenu;
     help->Append(wxID_ABOUT);
     menubar->Append(help, wxGetStockLabel(wxID_HELP));
 
@@ -361,7 +361,7 @@ wxFrame *MyApp::CreateChildFrame(wxView *view, bool isCanvas)
 #if wxUSE_MDI_ARCHITECTURE
     {
         case Mode_MDI:
-            subframe = new wxDocMDIChildFrame
+            subframe = NEW_DEBUG wxDocMDIChildFrame
                            (
                                 doc,
                                 view,
@@ -376,7 +376,7 @@ wxFrame *MyApp::CreateChildFrame(wxView *view, bool isCanvas)
 
 #if wxUSE_AUI
         case Mode_AUI:
-            subframe = new wxDocChildFrameAny<wxAuiMDIChildFrame, wxAuiMDIParentFrame>
+            subframe = NEW_DEBUG wxDocChildFrameAny<wxAuiMDIChildFrame, wxAuiMDIParentFrame>
                            (
                                 doc,
                                 view,
@@ -391,7 +391,7 @@ wxFrame *MyApp::CreateChildFrame(wxView *view, bool isCanvas)
 
         case Mode_SDI:
         case Mode_Single:
-            subframe = new wxDocChildFrame
+            subframe = NEW_DEBUG wxDocChildFrame
                            (
                                 doc,
                                 view,
@@ -406,7 +406,7 @@ wxFrame *MyApp::CreateChildFrame(wxView *view, bool isCanvas)
             break;
     }
 
-    wxMenu *menuFile = new wxMenu;
+    wxMenu *menuFile = NEW_DEBUG wxMenu;
 
     menuFile->Append(wxID_NEW);
     menuFile->Append(wxID_OPEN);
@@ -424,7 +424,7 @@ wxFrame *MyApp::CreateChildFrame(wxView *view, bool isCanvas)
     }
     else // text frame
     {
-        menuEdit = new wxMenu;
+        menuEdit = NEW_DEBUG wxMenu;
         menuEdit->Append(wxID_COPY);
         menuEdit->Append(wxID_PASTE);
         menuEdit->Append(wxID_SELECTALL);

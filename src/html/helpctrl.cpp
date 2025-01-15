@@ -153,7 +153,7 @@ bool wxHtmlHelpController::AddBook(const wxString& book, bool show_wait_msg)
     if (show_wait_msg)
     {
         info.Printf(_("Adding book %s"), book.c_str());
-        busy = new wxBusyInfo(info);
+        busy = NEW_DEBUG wxBusyInfo(info);
     }
 #endif
     bool retval = m_helpData.AddBook(book);
@@ -170,7 +170,7 @@ bool wxHtmlHelpController::AddBook(const wxString& book, bool show_wait_msg)
 
 wxHtmlHelpFrame* wxHtmlHelpController::CreateHelpFrame(wxHtmlHelpData *data)
 {
-    wxHtmlHelpFrame* frame = new wxHtmlHelpFrame(data);
+    wxHtmlHelpFrame* frame = NEW_DEBUG wxHtmlHelpFrame(data);
     frame->SetController(this);
     frame->SetTitleFormat(m_titleFormat);
     frame->Create(m_parentWindow, -1, wxEmptyString, m_FrameStyle
@@ -185,7 +185,7 @@ wxHtmlHelpFrame* wxHtmlHelpController::CreateHelpFrame(wxHtmlHelpData *data)
 
 wxHtmlHelpDialog* wxHtmlHelpController::CreateHelpDialog(wxHtmlHelpData *data)
 {
-    wxHtmlHelpDialog* dialog = new wxHtmlHelpDialog(data);
+    wxHtmlHelpDialog* dialog = NEW_DEBUG wxHtmlHelpDialog(data);
     dialog->SetController(this);
     dialog->SetTitleFormat(m_titleFormat);
     dialog->Create(m_parentWindow, -1, wxEmptyString, m_FrameStyle);
@@ -222,7 +222,7 @@ wxWindow* wxHtmlHelpController::CreateHelpWindow()
     }
     else if ((m_FrameStyle & wxHF_EMBEDDED) && m_parentWindow)
     {
-        m_helpWindow = new wxHtmlHelpWindow(m_parentWindow, -1, wxDefaultPosition, wxDefaultSize,
+        m_helpWindow = NEW_DEBUG wxHtmlHelpWindow(m_parentWindow, -1, wxDefaultPosition, wxDefaultSize,
             wxTAB_TRAVERSAL|wxNO_BORDER, m_FrameStyle, &m_helpData);
     }
     else // wxHF_FRAME
@@ -318,7 +318,7 @@ bool wxHtmlHelpController::DisplayTextPopup(const wxString& text, const wxPoint&
 
     if ( !text.empty() )
     {
-        s_tipWindow = new wxTipWindow(wxTheApp->GetTopWindow(), text, 100, & s_tipWindow);
+        s_tipWindow = NEW_DEBUG wxTipWindow(wxTheApp->GetTopWindow(), text, 100, & s_tipWindow);
 
         return true;
     }

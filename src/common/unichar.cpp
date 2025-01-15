@@ -98,7 +98,7 @@ wxUniCharRef& wxUniCharRef::operator=(const wxUniChar& c)
 
     if ( lenNew == lenOld )
     {
-        // this is the simpler case: if the new value's UTF-8 code has the
+        // this is the simpler case: if the NEW_DEBUG value's UTF-8 code has the
         // same length, we can just replace it:
 
         iterator pos(m_pos);
@@ -107,7 +107,7 @@ wxUniCharRef& wxUniCharRef::operator=(const wxUniChar& c)
     }
     else // length of character encoding in UTF-8 changed
     {
-        // the worse case is when the new value has either longer or shorter
+        // the worse case is when the NEW_DEBUG value has either longer or shorter
         // code -- in that case, we have to use wxStringImpl::replace() and
         // this invalidates all iterators, so we have to update them too:
 
@@ -136,7 +136,7 @@ wxUniCharRef& wxUniCharRef::operator=(const wxUniChar& c)
                 size_t total = iterNum + 1;
                 for ( wxStringIteratorNode *it2 = it; it2; it2 = it2->m_next )
                     total++;
-                indexes = new size_t[total];
+                indexes = NEW_DEBUG size_t[total];
                 memcpy(indexes, indexes_a, sizeof(size_t) * STATIC_SIZE);
             }
 

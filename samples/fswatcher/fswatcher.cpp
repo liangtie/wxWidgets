@@ -21,7 +21,7 @@
 #include "wx/listctrl.h"
 #include "wx/cmdline.h"
 
-// Define a new frame type: this is going to be our main frame
+// Define a NEW_DEBUG frame type: this is going to be our main frame
 class MyFrame : public wxFrame
 {
 public:
@@ -65,7 +65,7 @@ private:
 
 const wxString MyFrame::LOG_FORMAT = " %-12s %-36s    %-36s";
 
-// Define a new application type, each program should derive a class from wxApp
+// Define a NEW_DEBUG application type, each program should derive a class from wxApp
 class MyApp : public wxApp
 {
 public:
@@ -79,7 +79,7 @@ public:
         wxLog::AddTraceMask(wxTRACE_FSWATCHER);
 
         // create the main application window
-        m_frame = new MyFrame("File System Watcher wxWidgets App");
+        m_frame = NEW_DEBUG MyFrame("File System Watcher wxWidgets App");
 
         // If we returned false here, the application would exit immediately.
         return true;
@@ -121,7 +121,7 @@ private:
     wxString m_dirToWatch;
 };
 
-// Create a new application object: this macro will allow wxWidgets to create
+// Create a NEW_DEBUG application object: this macro will allow wxWidgets to create
 // the application object during program execution (it's better than using a
 // static object for many reasons) and also declares the accessor function
 // wxGetApp() which will return the reference of the right type (i.e. MyApp and
@@ -158,13 +158,13 @@ MyFrame::MyFrame(const wxString& title)
     // menu
 
     // create a menu bar
-    wxMenu *menuFile = new wxMenu;
+    wxMenu *menuFile = NEW_DEBUG wxMenu;
     menuFile->Append(MENU_ID_CLEAR, "&Clear log\tCtrl-L");
     menuFile->AppendSeparator();
     menuFile->Append(MENU_ID_QUIT, "E&xit\tAlt-X", "Quit this program");
 
     // "Watch" menu
-    wxMenu *menuMon = new wxMenu;
+    wxMenu *menuMon = NEW_DEBUG wxMenu;
     wxMenuItem* it = menuMon->AppendCheckItem(MENU_ID_WATCH, "&Watch\tCtrl-W");
     // started by default, because file system watcher is started by default
     it->Check(true);
@@ -181,11 +181,11 @@ MyFrame::MyFrame(const wxString& title)
 #endif // __UNIX__
 
     // the "About" item should be in the help menu
-    wxMenu *menuHelp = new wxMenu;
+    wxMenu *menuHelp = NEW_DEBUG wxMenu;
     menuHelp->Append(wxID_ABOUT, "&About\tF1", "Show about dialog");
 
     // now append the freshly created menu to the menu bar...
-    wxMenuBar *menuBar = new wxMenuBar();
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar();
     menuBar->Append(menuFile, "&File");
     menuBar->Append(menuMon, "&Watch");
     menuBar->Append(menuHelp, "&Help");
@@ -197,25 +197,25 @@ MyFrame::MyFrame(const wxString& title)
     // upper panel
 
     // panel
-    wxPanel *panel = new wxPanel(this);
-    wxSizer *panelSizer = new wxGridSizer(2);
-    wxBoxSizer *leftSizer = new wxBoxSizer(wxVERTICAL);
+    wxPanel *panel = NEW_DEBUG wxPanel(this);
+    wxSizer *panelSizer = NEW_DEBUG wxGridSizer(2);
+    wxBoxSizer *leftSizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
     // label
-    wxStaticText* label = new wxStaticText(panel, wxID_ANY, "Watched paths");
+    wxStaticText* label = NEW_DEBUG wxStaticText(panel, wxID_ANY, "Watched paths");
     leftSizer->Add(label, wxSizerFlags().Center().Border(wxALL));
 
     // list of files
-    m_filesList = new wxListView(panel, wxID_ANY, wxPoint(-1,-1),
+    m_filesList = NEW_DEBUG wxListView(panel, wxID_ANY, wxPoint(-1,-1),
                                  wxSize(300,200), wxLC_LIST | wxLC_SINGLE_SEL);
     leftSizer->Add(m_filesList, wxSizerFlags(1).Expand());
 
     // buttons
-    wxButton* buttonAdd = new wxButton(panel, BTN_ID_ADD, "&Add");
-    wxButton* buttonAddTree = new wxButton(panel, BTN_ID_ADD_TREE, "Add &tree");
-    wxButton* buttonRemove = new wxButton(panel, BTN_ID_REMOVE, "&Remove");
-    wxButton* buttonRemoveAll = new wxButton(panel, BTN_ID_REMOVE_ALL, "Remove a&ll");
-    wxSizer *btnSizer = new wxGridSizer(2);
+    wxButton* buttonAdd = NEW_DEBUG wxButton(panel, BTN_ID_ADD, "&Add");
+    wxButton* buttonAddTree = NEW_DEBUG wxButton(panel, BTN_ID_ADD_TREE, "Add &tree");
+    wxButton* buttonRemove = NEW_DEBUG wxButton(panel, BTN_ID_REMOVE, "&Remove");
+    wxButton* buttonRemoveAll = NEW_DEBUG wxButton(panel, BTN_ID_REMOVE_ALL, "Remove a&ll");
+    wxSizer *btnSizer = NEW_DEBUG wxGridSizer(2);
     btnSizer->Add(buttonAdd, wxSizerFlags().Center().Border(wxALL));
     btnSizer->Add(buttonAddTree, wxSizerFlags().Center().Border(wxALL));
     btnSizer->Add(buttonRemove, wxSizerFlags().Center().Border(wxALL));
@@ -229,14 +229,14 @@ MyFrame::MyFrame(const wxString& title)
     // ================================================================
     // lower panel
 
-    wxTextCtrl *headerText = new wxTextCtrl(this, wxID_ANY, "",
+    wxTextCtrl *headerText = NEW_DEBUG wxTextCtrl(this, wxID_ANY, "",
                                             wxDefaultPosition, wxDefaultSize,
                                             wxTE_READONLY);
-    wxString h = wxString::Format(LOG_FORMAT, "event", "path", "new path");
+    wxString h = wxString::Format(LOG_FORMAT, "event", "path", "NEW_DEBUG path");
     headerText->SetValue(h);
 
     // event console
-    m_evtConsole = new wxTextCtrl(this, wxID_ANY, "",
+    m_evtConsole = NEW_DEBUG wxTextCtrl(this, wxID_ANY, "",
                                wxDefaultPosition, wxSize(200,200),
                                wxTE_MULTILINE|wxTE_READONLY|wxHSCROLL);
 
@@ -248,7 +248,7 @@ MyFrame::MyFrame(const wxString& title)
     // ================================================================
     // laying out whole frame
 
-    wxBoxSizer *sizer = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer *sizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     sizer->Add(panel, wxSizerFlags(1).Expand());
     sizer->Add(headerText, wxSizerFlags().Expand());
     sizer->Add(m_evtConsole, wxSizerFlags(1).Expand());
@@ -299,7 +299,7 @@ bool MyFrame::CreateWatcherIfNecessary()
 void MyFrame::CreateWatcher()
 {
     wxCHECK_RET(!m_watcher, "Watcher already initialized");
-    m_watcher = new wxFileSystemWatcher();
+    m_watcher = NEW_DEBUG wxFileSystemWatcher();
     m_watcher->SetOwner(this);
 }
 
@@ -496,7 +496,7 @@ void MyFrame::OnFileSystemEvent(wxFileSystemWatcherEvent& event)
                 else
                 {
                     // At least in wxGTK, we'll never get here: renaming the top
-                    // watched dir gives IN_MOVE_SELF and no new-name info.
+                    // watched dir gives IN_MOVE_SELF and no NEW_DEBUG-name info.
                     // However I'll leave the code in case other platforms do
                     wxString newname = event.GetNewPath().GetFullPath();
                     if (newname.empty() ||

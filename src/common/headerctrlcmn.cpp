@@ -244,7 +244,7 @@ wxHeaderCtrlBase::DoResizeColumnIndices(wxArrayInt& colIndices, unsigned int cou
     const unsigned countOld = colIndices.size();
     if ( count > countOld )
     {
-        // all new columns have default positions equal to their indices
+        // all NEW_DEBUG columns have default positions equal to their indices
         for ( unsigned n = countOld; n < count; n++ )
             colIndices.push_back(n);
     }

@@ -82,7 +82,7 @@
 // private classes
 // ----------------------------------------------------------------------------
 
-// Define a new application type, each program should derive a class from wxApp
+// Define a NEW_DEBUG application type, each program should derive a class from wxApp
 class MyApp : public wxApp
 {
 public:
@@ -98,7 +98,7 @@ public:
     virtual int OnExit() wxOVERRIDE;
 };
 
-// Define a new frame type: this is going to be our main frame
+// Define a NEW_DEBUG frame type: this is going to be our main frame
 class MyFrame : public wxFrame
 {
 public:
@@ -264,7 +264,7 @@ wxBEGIN_EVENT_TABLE(MyFrame, wxFrame)
     EVT_MENU(HelpDemo_Help_Netscape, MyFrame::OnHelp)
 wxEND_EVENT_TABLE()
 
-// Create a new application object: this macro will allow wxWidgets to create
+// Create a NEW_DEBUG application object: this macro will allow wxWidgets to create
 // the application object during program execution (it's better than using a
 // static object for many reasons) and also declares the accessor function
 // wxGetApp() which will return the reference of the right type (i.e. MyApp and
@@ -288,26 +288,26 @@ bool MyApp::OnInit()
     // Create a simple help provider to make SetHelpText() do something.
     // Note that this must be set before any SetHelpText() calls are made.
 #if USE_SIMPLE_HELP_PROVIDER
-    wxSimpleHelpProvider* provider = new wxSimpleHelpProvider;
+    wxSimpleHelpProvider* provider = NEW_DEBUG wxSimpleHelpProvider;
 #else
-    wxHelpControllerHelpProvider* provider = new wxHelpControllerHelpProvider;
+    wxHelpControllerHelpProvider* provider = NEW_DEBUG wxHelpControllerHelpProvider;
 #endif
     wxHelpProvider::Set(provider);
 
 #if USE_HTML_HELP
     #if wxUSE_GIF
         // Required for images in the online documentation
-        wxImage::AddHandler(new wxGIFHandler);
+        wxImage::AddHandler(NEW_DEBUG wxGIFHandler);
     #endif // wxUSE_GIF
 
     // Required for advanced HTML help
     #if wxUSE_STREAMS && wxUSE_ZIPSTREAM && wxUSE_ZLIB
-        wxFileSystem::AddHandler(new wxZipFSHandler);
+        wxFileSystem::AddHandler(NEW_DEBUG wxZipFSHandler);
     #endif
 #endif // wxUSE_HTML
 
     // Create the main application window
-    MyFrame *frame = new MyFrame("HelpDemo wxWidgets App",
+    MyFrame *frame = NEW_DEBUG MyFrame("HelpDemo wxWidgets App",
                                  wxPoint(50, 50), wxSize(450, 340));
 
 #if !USE_SIMPLE_HELP_PROVIDER
@@ -393,7 +393,7 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
     SetIcon(wxICON(sample));
 
     // create a menu bar
-    wxMenu *menuFile = new wxMenu;
+    wxMenu *menuFile = NEW_DEBUG wxMenu;
 
     menuFile->Append(HelpDemo_Help_Index, "&Help Index...");
     menuFile->Append(HelpDemo_Help_Classes, "&Help on Classes...");
@@ -438,7 +438,7 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
     menuFile->Append(HelpDemo_Quit, "E&xit");
 
     // now append the freshly created menu to the menu bar...
-    wxMenuBar *menuBar = new wxMenuBar;
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar;
     menuBar->Append(menuFile, "&File");
 
     // ... and attach this menu bar to the frame
@@ -452,7 +452,7 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
 
 #if USE_HTML_HELP
     // Create embedded HTML Help window
-    m_embeddedHelpWindow = new wxHtmlHelpWindow;
+    m_embeddedHelpWindow = NEW_DEBUG wxHtmlHelpWindow;
     // m_embeddedHtmlHelp.UseConfig(config, rootPath); // Can set your own config object here
     m_embeddedHtmlHelp.SetHelpWindow(m_embeddedHelpWindow);
 
@@ -466,12 +466,12 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
 
     // a panel first - if there were several controls, it would allow us to
     // navigate between them from the keyboard
-    wxPanel *panel = new wxPanel(this, 301, wxPoint(0, 0), wxSize(400, 200));
+    wxPanel *panel = NEW_DEBUG wxPanel(this, 301, wxPoint(0, 0), wxSize(400, 200));
     panel->SetHelpText(_("This panel just holds a static text control."));
     //panel->SetHelpText(wxContextId(300));
 
     // and a static control whose parent is the panel
-    wxStaticText* staticText = new wxStaticText(panel, 302, "Hello, world!", wxPoint(10, 10));
+    wxStaticText* staticText = NEW_DEBUG wxStaticText(panel, 302, "Hello, world!", wxPoint(10, 10));
     staticText->SetHelpText(_("This static text control isn't doing a lot right now."));
 #endif
 }
@@ -581,7 +581,7 @@ void MyFrame::OnModalHtmlHelp(wxCommandEvent& WXUNUSED(event))
 
  Advanced HTML Help
 
-   An extension to the .hhc file format is used, specifying a new parameter
+   An extension to the .hhc file format is used, specifying a NEW_DEBUG parameter
    with name="ID":
 
    <OBJECT type="text/sitemap">
@@ -681,13 +681,13 @@ MyModalDialog::MyModalDialog(wxWindow *parent)
     SetExtraStyle(wxDIALOG_EX_CONTEXTHELP);
 
 
-    wxBoxSizer *sizerTop = new wxBoxSizer(wxVERTICAL);
-    wxBoxSizer *sizerRow = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer *sizerTop = NEW_DEBUG wxBoxSizer(wxVERTICAL);
+    wxBoxSizer *sizerRow = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
 
-    wxButton* btnOK = new wxButton(this, wxID_OK, "&OK");
+    wxButton* btnOK = NEW_DEBUG wxButton(this, wxID_OK, "&OK");
     btnOK->SetHelpText(_("The OK button confirms the dialog choices."));
 
-    wxButton* btnCancel = new wxButton(this, wxID_CANCEL, "&Cancel");
+    wxButton* btnCancel = NEW_DEBUG wxButton(this, wxID_CANCEL, "&Cancel");
     btnCancel->SetHelpText(_("The Cancel button cancels the dialog."));
 
     sizerRow->Add(btnOK, 0, wxALIGN_CENTER | wxALL, 5);
@@ -695,10 +695,10 @@ MyModalDialog::MyModalDialog(wxWindow *parent)
 
     // Add explicit context-sensitive help button for non-MSW
 #ifndef __WXMSW__
-    sizerRow->Add(new wxContextHelpButton(this), 0, wxALIGN_CENTER | wxALL, 5);
+    sizerRow->Add(NEW_DEBUG wxContextHelpButton(this), 0, wxALIGN_CENTER | wxALL, 5);
 #endif
 
-    wxTextCtrl *text = new wxTextCtrl(this, wxID_ANY, "A demo text control",
+    wxTextCtrl *text = NEW_DEBUG wxTextCtrl(this, wxID_ANY, "A demo text control",
                                       wxDefaultPosition, wxSize(300, 100),
                                       wxTE_MULTILINE);
     text->SetHelpText(_("Type text here if you have got nothing more interesting to do"));

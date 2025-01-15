@@ -597,7 +597,7 @@ void wxMemoryDCImpl::Setup()
 //-----------------------------------------------------------------------------
 
 wxGTKCairoDC::wxGTKCairoDC(cairo_t* cr, wxWindow* window, wxLayoutDirection dir, int width)
-    : wxDC(new wxGTKCairoDCImpl(this, window, dir, width))
+    : wxDC(NEW_DEBUG wxGTKCairoDCImpl(this, window, dir, width))
 {
     wxGraphicsContext* gc = wxGraphicsContext::CreateFromNative(cr);
     gc->SetContentScaleFactor(window->GetContentScaleFactor());

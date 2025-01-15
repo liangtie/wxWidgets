@@ -377,7 +377,7 @@ wxEventSourceTypeInfo::wxEventSourceTypeInfo( int eventType, int lastEventType,
 void wxTypeInfo::Register()
 {
     if ( ms_typeTable == NULL )
-        ms_typeTable = new wxTypeInfoMap();
+        ms_typeTable = NEW_DEBUG wxTypeInfoMap();
 
     if( !m_name.empty() )
         (*ms_typeTable)[m_name] = this;
@@ -742,7 +742,7 @@ wxDynamicObject::wxDynamicObject(wxObject* superClassInstance, const wxDynamicCl
 {
     m_superClassInstance = superClassInstance;
     m_classInfo = info;
-    m_data = new wxDynamicObjectInternal;
+    m_data = NEW_DEBUG wxDynamicObjectInternal;
 }
 
 wxDynamicObject::~wxDynamicObject()
@@ -793,11 +793,11 @@ void wxDynamicObject::RenameProperty( const wxChar *oldPropertyName,
 wxDynamicClassInfo::wxDynamicClassInfo( const wxChar *unitName,
                                         const wxChar *className,
                                         const wxClassInfo* superClass ) :
-    wxClassInfo( unitName, className, new const wxClassInfo*[2])
+    wxClassInfo( unitName, className, NEW_DEBUG const wxClassInfo*[2])
 {
     GetParents()[0] = superClass;
     GetParents()[1] = NULL;
-    m_data = new wxDynamicClassInfoInternal;
+    m_data = NEW_DEBUG wxDynamicClassInfoInternal;
 }
 
 wxDynamicClassInfo::~wxDynamicClassInfo()
@@ -809,7 +809,7 @@ wxDynamicClassInfo::~wxDynamicClassInfo()
 wxObject *wxDynamicClassInfo::AllocateObject() const
 {
     wxObject* parent = GetParents()[0]->AllocateObject();
-    wxDynamicObject *obj = new wxDynamicObject( parent, this );
+    wxDynamicObject *obj = NEW_DEBUG wxDynamicObject( parent, this );
     m_data->m_dynamicObjects.push_back( obj );
     return obj;
 }
@@ -859,13 +859,13 @@ wxAny wxDynamicClassInfo::GetProperty(wxObject *object, const wxChar *propertyNa
 void wxDynamicClassInfo::AddProperty( const wxChar *propertyName, const wxTypeInfo* typeInfo )
 {
     EnsureInfosInited();
-    new wxPropertyInfo( m_firstProperty, this, propertyName, typeInfo->GetTypeName(), new wxGenericPropertyAccessor( propertyName ), wxAny() );
+    NEW_DEBUG wxPropertyInfo( m_firstProperty, this, propertyName, typeInfo->GetTypeName(), NEW_DEBUG wxGenericPropertyAccessor( propertyName ), wxAny() );
 }
 
 void wxDynamicClassInfo::AddHandler( const wxChar *handlerName, wxObjectEventFunction address, const wxClassInfo* eventClassInfo )
 {
     EnsureInfosInited();
-    new wxHandlerInfo( m_firstHandler, this, handlerName, address, eventClassInfo );
+    NEW_DEBUG wxHandlerInfo( m_firstHandler, this, handlerName, address, eventClassInfo );
 }
 
 // removes an existing runtime-property
@@ -912,7 +912,7 @@ struct wxGenericPropertyAccessor::wxGenericPropertyAccessorInternal
 wxGenericPropertyAccessor::wxGenericPropertyAccessor( const wxString& propertyName )
 : wxPropertyAccessor( NULL, NULL, NULL, NULL )
 {
-    m_data = new wxGenericPropertyAccessorInternal;
+    m_data = NEW_DEBUG wxGenericPropertyAccessorInternal;
     m_propertyName = propertyName;
     m_getterName = wxT("Get")+propertyName;
     m_setterName = wxT("Set")+propertyName;

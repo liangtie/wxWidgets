@@ -269,11 +269,11 @@ bool WebApp::OnInit()
         return false;
 
     //Required for virtual file system archive and memory support
-    wxFileSystem::AddHandler(new wxArchiveFSHandler);
-    wxFileSystem::AddHandler(new wxMemoryFSHandler);
+    wxFileSystem::AddHandler(NEW_DEBUG wxArchiveFSHandler);
+    wxFileSystem::AddHandler(NEW_DEBUG wxMemoryFSHandler);
 
     // Create the memory files
-    wxImage::AddHandler(new wxPNGHandler);
+    wxImage::AddHandler(NEW_DEBUG wxPNGHandler);
     wxMemoryFSHandler::AddFile("logo.png",
         wxBitmap(wxlogo_xpm), wxBITMAP_TYPE_PNG);
     wxMemoryFSHandler::AddFile("page1.htm",
@@ -289,7 +289,7 @@ bool WebApp::OnInit()
         "<p><a href='memory:page1.htm'>Page 1</a> was better.</p></body>");
     wxMemoryFSHandler::AddFile("test.css", "h1 {color: red;}");
 
-    WebFrame *frame = new WebFrame(m_url);
+    WebFrame *frame = NEW_DEBUG WebFrame(m_url);
     frame->Show();
 
     return true;
@@ -303,7 +303,7 @@ WebFrame::WebFrame(const wxString& url) :
     SetTitle("wxWebView Sample");
     EnableFullScreenView(); // Enable native fullscreen API on macOS
 
-    wxBoxSizer* topsizer = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer* topsizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
     // Create the toolbar
     m_toolbar = CreateToolBar(wxTB_TEXT);
@@ -312,7 +312,7 @@ WebFrame::WebFrame(const wxString& url) :
     m_toolbar_forward = m_toolbar->AddTool(wxID_ANY, _("Forward"), wxArtProvider::GetBitmapBundle(wxART_GO_FORWARD, wxART_TOOLBAR));
     m_toolbar_stop = m_toolbar->AddTool(wxID_ANY, _("Stop"), wxArtProvider::GetBitmapBundle(wxART_STOP, wxART_TOOLBAR));
     m_toolbar_reload = m_toolbar->AddTool(wxID_ANY, _("Reload"), wxArtProvider::GetBitmapBundle(wxART_REFRESH, wxART_TOOLBAR));
-    m_url = new wxTextCtrl(m_toolbar, wxID_ANY, "",  wxDefaultPosition, FromDIP(wxSize(400, -1)), wxTE_PROCESS_ENTER );
+    m_url = NEW_DEBUG wxTextCtrl(m_toolbar, wxID_ANY, "",  wxDefaultPosition, FromDIP(wxSize(400, -1)), wxTE_PROCESS_ENTER );
     m_toolbar->AddControl(m_url, _("URL"));
     m_toolbar_tools = m_toolbar->AddTool(wxID_ANY, _("Menu"), wxArtProvider::GetBitmapBundle(wxART_WX_LOGO, wxART_TOOLBAR));
 
@@ -323,24 +323,24 @@ WebFrame::WebFrame(const wxString& url) :
     m_findCount = 0;
 
     // Create panel for find toolbar.
-    wxPanel* panel = new wxPanel(this);
+    wxPanel* panel = NEW_DEBUG wxPanel(this);
     topsizer->Add(panel, wxSizerFlags().Expand());
 
     // Create sizer for panel.
-    wxBoxSizer* panel_sizer = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer* panel_sizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     panel->SetSizer(panel_sizer);
 
     // Create the find toolbar.
-    m_find_toolbar = new wxToolBar(panel, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTB_HORIZONTAL|wxTB_TEXT|wxTB_HORZ_LAYOUT);
+    m_find_toolbar = NEW_DEBUG wxToolBar(panel, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTB_HORIZONTAL|wxTB_TEXT|wxTB_HORZ_LAYOUT);
     m_find_toolbar->Hide();
     panel_sizer->Add(m_find_toolbar, wxSizerFlags().Expand());
 
     // Create find control.
-    m_find_ctrl = new wxTextCtrl(m_find_toolbar, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize(140,-1), wxTE_PROCESS_ENTER);
+    m_find_ctrl = NEW_DEBUG wxTextCtrl(m_find_toolbar, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize(140,-1), wxTE_PROCESS_ENTER);
 
 
     //Find options menu
-    wxMenu* findmenu = new wxMenu;
+    wxMenu* findmenu = NEW_DEBUG wxMenu;
     m_find_toolbar_wrap = findmenu->AppendCheckItem(wxID_ANY,"Wrap");
     m_find_toolbar_matchcase = findmenu->AppendCheckItem(wxID_ANY,"Match Case");
     m_find_toolbar_wholeword = findmenu->AppendCheckItem(wxID_ANY,"Entire Word");
@@ -359,11 +359,11 @@ WebFrame::WebFrame(const wxString& url) :
     m_find_toolbar->Realize();
 
     // Create the info panel
-    m_info = new wxInfoBar(this);
+    m_info = NEW_DEBUG wxInfoBar(this);
     topsizer->Add(m_info, wxSizerFlags().Expand());
 
     // Create a log window
-    new wxLogWindow(this, _("Logging"), true, false);
+    NEW_DEBUG wxLogWindow(this, _("Logging"), true, false);
 
 #if wxUSE_WEBVIEW_EDGE
     // Check if a fixed version of edge is present in
@@ -381,8 +381,8 @@ WebFrame::WebFrame(const wxString& url) :
     m_browser = wxWebView::New();
 #ifdef __WXMAC__
     // With WKWebView handlers need to be registered before creation
-    m_browser->RegisterHandler(wxSharedPtr<wxWebViewHandler>(new wxWebViewArchiveHandler("wxfs")));
-    m_browser->RegisterHandler(wxSharedPtr<wxWebViewHandler>(new wxWebViewFSHandler("memory")));
+    m_browser->RegisterHandler(wxSharedPtr<wxWebViewHandler>(NEW_DEBUG wxWebViewArchiveHandler("wxfs")));
+    m_browser->RegisterHandler(wxSharedPtr<wxWebViewHandler>(NEW_DEBUG wxWebViewFSHandler("memory")));
 #endif
     m_browser->Create(this, wxID_ANY, url, wxDefaultPosition, wxDefaultSize);
     topsizer->Add(m_browser, wxSizerFlags().Expand().Proportion(1));
@@ -394,9 +394,9 @@ WebFrame::WebFrame(const wxString& url) :
 
 #ifndef __WXMAC__
     //We register the wxfs:// protocol for testing purposes
-    m_browser->RegisterHandler(wxSharedPtr<wxWebViewHandler>(new wxWebViewArchiveHandler("wxfs")));
+    m_browser->RegisterHandler(wxSharedPtr<wxWebViewHandler>(NEW_DEBUG wxWebViewArchiveHandler("wxfs")));
     //And the memory: file system
-    m_browser->RegisterHandler(wxSharedPtr<wxWebViewHandler>(new wxWebViewFSHandler("memory")));
+    m_browser->RegisterHandler(wxSharedPtr<wxWebViewHandler>(NEW_DEBUG wxWebViewFSHandler("memory")));
 #endif
     if (!m_browser->AddScriptMessageHandler("wx"))
         wxLogError("Could not add script message handler");
@@ -407,7 +407,7 @@ WebFrame::WebFrame(const wxString& url) :
     SetSize(FromDIP(wxSize(800, 600)));
 
     // Create the Tools menu
-    m_tools_menu = new wxMenu();
+    m_tools_menu = NEW_DEBUG wxMenu();
     wxMenuItem* print = m_tools_menu->Append(wxID_ANY , _("Print"));
     wxMenuItem* setPage = m_tools_menu->Append(wxID_ANY , _("Set page text"));
     wxMenuItem* viewSource = m_tools_menu->Append(wxID_ANY , _("View Source"));
@@ -430,7 +430,7 @@ WebFrame::WebFrame(const wxString& url) :
     m_tools_menu->AppendSeparator();
 
     //History menu
-    m_tools_history_menu = new wxMenu();
+    m_tools_history_menu = NEW_DEBUG wxMenu();
     wxMenuItem* clearhist =  m_tools_history_menu->Append(wxID_ANY, _("Clear History"));
     m_tools_enable_history = m_tools_history_menu->AppendCheckItem(wxID_ANY, _("Enable History"));
     m_tools_history_menu->AppendSeparator();
@@ -438,7 +438,7 @@ WebFrame::WebFrame(const wxString& url) :
     m_tools_menu->AppendSubMenu(m_tools_history_menu, "History");
 
     //Create an editing menu
-    wxMenu* editmenu = new wxMenu();
+    wxMenu* editmenu = NEW_DEBUG wxMenu();
     m_edit_cut = editmenu->Append(wxID_ANY, _("Cut"));
     m_edit_copy = editmenu->Append(wxID_ANY, _("Copy"));
     m_edit_paste = editmenu->Append(wxID_ANY, _("Paste"));
@@ -451,14 +451,14 @@ WebFrame::WebFrame(const wxString& url) :
     m_tools_menu->AppendSeparator();
     m_tools_menu->AppendSubMenu(editmenu, "Edit");
 
-    wxMenu* scroll_menu = new wxMenu;
+    wxMenu* scroll_menu = NEW_DEBUG wxMenu;
     m_scroll_line_up = scroll_menu->Append(wxID_ANY, "Line &up");
     m_scroll_line_down = scroll_menu->Append(wxID_ANY, "Line &down");
     m_scroll_page_up = scroll_menu->Append(wxID_ANY, "Page u&p");
     m_scroll_page_down = scroll_menu->Append(wxID_ANY, "Page d&own");
     m_tools_menu->AppendSubMenu(scroll_menu, "Scroll");
 
-    wxMenu* script_menu = new wxMenu;
+    wxMenu* script_menu = NEW_DEBUG wxMenu;
     m_script_string = script_menu->Append(wxID_ANY, "Return String");
     m_script_integer = script_menu->Append(wxID_ANY, "Return integer");
     m_script_double = script_menu->Append(wxID_ANY, "Return double");
@@ -485,7 +485,7 @@ WebFrame::WebFrame(const wxString& url) :
     wxMenuItem* setCustomUserAgent = m_tools_menu->Append(wxID_ANY, _("Set custom user agent"));
 
     //Selection menu
-    wxMenu* selection = new wxMenu();
+    wxMenu* selection = NEW_DEBUG wxMenu();
     m_selection_clear = selection->Append(wxID_ANY, _("Clear Selection"));
     m_selection_delete = selection->Append(wxID_ANY, _("Delete Selection"));
     wxMenuItem* selectall = selection->Append(wxID_ANY, _("Select All"));
@@ -498,7 +498,7 @@ WebFrame::WebFrame(const wxString& url) :
     m_context_menu = m_tools_menu->AppendCheckItem(wxID_ANY, _("Enable Context Menu"));
     m_dev_tools = m_tools_menu->AppendCheckItem(wxID_ANY, _("Enable Dev Tools"));
 
-    //By default we want to handle navigation and new windows
+    //By default we want to handle navigation and NEW_DEBUG windows
     m_tools_handle_navigation->Check();
     m_tools_handle_new_window->Check();
     m_tools_enable_history->Check();
@@ -825,7 +825,7 @@ void WebFrame::OnFindText(wxCommandEvent& evt)
 }
 
 /**
-  * Callback invoked when there is a request to load a new page (for instance
+  * Callback invoked when there is a request to load a NEW_DEBUG page (for instance
   * when the user clicks a link)
   */
 void WebFrame::OnNavigationRequest(wxWebViewEvent& evt)
@@ -874,7 +874,7 @@ void WebFrame::OnDocumentLoaded(wxWebViewEvent& evt)
 }
 
 /**
-  * On new window, we veto to stop extra windows appearing
+  * On NEW_DEBUG window, we veto to stop extra windows appearing
   */
 void WebFrame::OnNewWindow(wxWebViewEvent& evt)
 {
@@ -887,7 +887,7 @@ void WebFrame::OnNewWindow(wxWebViewEvent& evt)
 
     wxLogMessage("%s", "New window; url='" + evt.GetURL() + "'" + flag);
 
-    //If we handle new window events then just load them in this window as we
+    //If we handle NEW_DEBUG window events then just load them in this window as we
     //are a single window browser
     if(m_tools_handle_new_window->IsChecked())
         m_browser->LoadURL(evt.GetURL());
@@ -948,16 +948,16 @@ void WebFrame::OnViewTextRequest(wxCommandEvent& WXUNUSED(evt))
                             wxDefaultPosition, wxSize(700,500),
                             wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER);
 #if wxUSE_STC
-    wxStyledTextCtrl* text = new wxStyledTextCtrl(&textViewDialog, wxID_ANY);
+    wxStyledTextCtrl* text = NEW_DEBUG wxStyledTextCtrl(&textViewDialog, wxID_ANY);
     text->SetText(m_browser->GetPageText());
 #else // !wxUSE_STC
-    wxTextCtrl* text = new wxTextCtrl(this, wxID_ANY, m_browser->GetPageText(),
+    wxTextCtrl* text = NEW_DEBUG wxTextCtrl(this, wxID_ANY, m_browser->GetPageText(),
                                       wxDefaultPosition, wxDefaultSize,
                                       wxTE_MULTILINE |
                                       wxTE_RICH |
                                       wxTE_READONLY);
 #endif // wxUSE_STC/!wxUSE_STC
-    wxBoxSizer* sizer = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer* sizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     sizer->Add(text, 1, wxEXPAND);
     SetSizer(sizer);
     textViewDialog.ShowModal();
@@ -1015,7 +1015,7 @@ void WebFrame::OnToolsClicked(wxCommandEvent& WXUNUSED(evt))
     item->Check();
 
     //No need to connect the current item
-    m_histMenuItems[item->GetId()] = wxSharedPtr<wxWebViewHistoryItem>(new wxWebViewHistoryItem(m_browser->GetCurrentURL(), m_browser->GetCurrentTitle()));
+    m_histMenuItems[item->GetId()] = wxSharedPtr<wxWebViewHistoryItem>(NEW_DEBUG wxWebViewHistoryItem(m_browser->GetCurrentURL(), m_browser->GetCurrentTitle()));
 
     for(i = 0; i < forward.size(); i++)
     {
@@ -1139,7 +1139,7 @@ void WebFrame::OnRunScriptBool(wxCommandEvent& WXUNUSED(evt))
 
 void WebFrame::OnRunScriptObject(wxCommandEvent& WXUNUSED(evt))
 {
-    RunScript("function f(){var person = new Object();person.name = 'Foo'; \
+    RunScript("function f(){var person = NEW_DEBUG Object();person.name = 'Foo'; \
         person.lastName = 'Bar';return person;}f();");
 }
 
@@ -1155,7 +1155,7 @@ void WebFrame::OnRunScriptDOM(wxCommandEvent& WXUNUSED(evt))
 
 void WebFrame::OnRunScriptUndefined(wxCommandEvent& WXUNUSED(evt))
 {
-    RunScript("function f(){var person = new Object();}f();");
+    RunScript("function f(){var person = NEW_DEBUG Object();}f();");
 }
 
 void WebFrame::OnRunScriptNull(wxCommandEvent& WXUNUSED(evt))
@@ -1165,16 +1165,16 @@ void WebFrame::OnRunScriptNull(wxCommandEvent& WXUNUSED(evt))
 
 void WebFrame::OnRunScriptDate(wxCommandEvent& WXUNUSED(evt))
 {
-    RunScript("function f(){var d = new Date('10/08/2017 21:30:40'); \
+    RunScript("function f(){var d = NEW_DEBUG Date('10/08/2017 21:30:40'); \
         var tzoffset = d.getTimezoneOffset() * 60000; \
-        return new Date(d.getTime() - tzoffset);}f();");
+        return NEW_DEBUG Date(d.getTime() - tzoffset);}f();");
 }
 
 #if wxUSE_WEBVIEW_IE
 void WebFrame::OnRunScriptObjectWithEmulationLevel(wxCommandEvent& WXUNUSED(evt))
 {
     wxWebViewIE::MSWSetModernEmulationLevel();
-    RunScript("function f(){var person = new Object();person.name = 'Foo'; \
+    RunScript("function f(){var person = NEW_DEBUG Object();person.name = 'Foo'; \
         person.lastName = 'Bar';return person;}f();");
     wxWebViewIE::MSWSetModernEmulationLevel(false);
 }
@@ -1182,9 +1182,9 @@ void WebFrame::OnRunScriptObjectWithEmulationLevel(wxCommandEvent& WXUNUSED(evt)
 void WebFrame::OnRunScriptDateWithEmulationLevel(wxCommandEvent& WXUNUSED(evt))
 {
     wxWebViewIE::MSWSetModernEmulationLevel();
-    RunScript("function f(){var d = new Date('10/08/2017 21:30:40'); \
+    RunScript("function f(){var d = NEW_DEBUG Date('10/08/2017 21:30:40'); \
         var tzoffset = d.getTimezoneOffset() * 60000; return \
-        new Date(d.getTime() - tzoffset);}f();");
+        NEW_DEBUG Date(d.getTime() - tzoffset);}f();");
     wxWebViewIE::MSWSetModernEmulationLevel(false);
 }
 
@@ -1319,7 +1319,7 @@ SourceViewDialog::SourceViewDialog(wxWindow* parent, wxString source) :
                            wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER)
 {
 #if wxUSE_STC
-    wxStyledTextCtrl* text = new wxStyledTextCtrl(this, wxID_ANY);
+    wxStyledTextCtrl* text = NEW_DEBUG wxStyledTextCtrl(this, wxID_ANY);
     text->SetMarginWidth(1, 30);
     text->SetMarginType(1, wxSTC_MARGIN_NUMBER);
     text->SetText(source);
@@ -1335,14 +1335,14 @@ SourceViewDialog::SourceViewDialog(wxWindow* parent, wxString source) :
     text->StyleSetForeground(wxSTC_H_ATTRIBUTEUNKNOWN, wxColour(0,0,150));
     text->StyleSetForeground(wxSTC_H_COMMENT, wxColour(150,150,150));
 #else // !wxUSE_STC
-    wxTextCtrl* text = new wxTextCtrl(this, wxID_ANY, source,
+    wxTextCtrl* text = NEW_DEBUG wxTextCtrl(this, wxID_ANY, source,
                                       wxDefaultPosition, wxDefaultSize,
                                       wxTE_MULTILINE |
                                       wxTE_RICH |
                                       wxTE_READONLY);
 #endif // wxUSE_STC/!wxUSE_STC
 
-    wxBoxSizer* sizer = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer* sizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     sizer->Add(text, 1, wxEXPAND);
     SetSizer(sizer);
 }

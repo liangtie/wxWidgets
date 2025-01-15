@@ -156,7 +156,7 @@ extern "C" {
 
 static void gtk_assert_dialog_expander_callback(GtkWidget*, GtkAssertDialog* dlg)
 {
-    /* status is not yet updated so we need to invert it to get the new one */
+    /* status is not yet updated so we need to invert it to get the NEW_DEBUG one */
     gboolean expanded = !gtk_expander_get_expanded (GTK_EXPANDER(dlg->expander));
     gtk_window_set_resizable (GTK_WINDOW (dlg), expanded);
 

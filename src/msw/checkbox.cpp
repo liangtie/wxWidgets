@@ -206,7 +206,7 @@ bool wxCheckBox::MSWCommand(WXUINT cmd, WXWORD WXUNUSED(id))
     if ( cmd != BN_CLICKED && cmd != BN_DBLCLK )
         return false;
 
-    // first update the value so that user event handler gets the new checkbox
+    // first update the value so that user event handler gets the NEW_DEBUG checkbox
     // value
 
     // ownerdrawn buttons don't manage their state themselves unlike usual

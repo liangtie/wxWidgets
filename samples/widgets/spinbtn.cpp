@@ -248,11 +248,11 @@ SpinBtnWidgetsPage::SpinBtnWidgetsPage(WidgetsBookCtrl *book,
 
 void SpinBtnWidgetsPage::CreateContent()
 {
-    wxSizer *sizerTop = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer *sizerTop = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
 
     // left pane
-    wxStaticBox *box = new wxStaticBox(this, wxID_ANY, "&Set style");
-    wxSizer *sizerLeft = new wxStaticBoxSizer(box, wxVERTICAL);
+    wxStaticBox *box = NEW_DEBUG wxStaticBox(this, wxID_ANY, "&Set style");
+    wxSizer *sizerLeft = NEW_DEBUG wxStaticBoxSizer(box, wxVERTICAL);
 
     m_chkVert = CreateCheckBoxAndAddToSizer(sizerLeft, "&Vertical");
     m_chkArrowKeys = CreateCheckBoxAndAddToSizer(sizerLeft, "&Arrow Keys");
@@ -269,7 +269,7 @@ void SpinBtnWidgetsPage::CreateContent()
         "right",
     };
 
-    m_radioAlign = new wxRadioBox(this, wxID_ANY, "&Text alignment",
+    m_radioAlign = NEW_DEBUG wxRadioBox(this, wxID_ANY, "&Text alignment",
                                    wxDefaultPosition, wxDefaultSize,
                                    WXSIZEOF(halign), halign, 1);
 
@@ -277,14 +277,14 @@ void SpinBtnWidgetsPage::CreateContent()
 
     sizerLeft->Add(5, 5, 0, wxGROW | wxALL, 5); // spacer
 
-    wxButton *btn = new wxButton(this, SpinBtnPage_Reset, "&Reset");
+    wxButton *btn = NEW_DEBUG wxButton(this, SpinBtnPage_Reset, "&Reset");
     sizerLeft->Add(btn, 0, wxALIGN_CENTRE_HORIZONTAL | wxALL, 15);
 
     // middle pane
-    wxStaticBox *box2 = new wxStaticBox(this, wxID_ANY,
+    wxStaticBox *box2 = NEW_DEBUG wxStaticBox(this, wxID_ANY,
         "&Change spinbtn value");
 
-    wxSizer *sizerMiddle = new wxStaticBoxSizer(box2, wxVERTICAL);
+    wxSizer *sizerMiddle = NEW_DEBUG wxStaticBoxSizer(box2, wxVERTICAL);
 
     wxTextCtrl *text;
     wxSizer *sizerRow = CreateSizerWithTextAndLabel("Current value",
@@ -305,7 +305,7 @@ void SpinBtnWidgetsPage::CreateContent()
                                             SpinBtnPage_MinText,
                                             &m_textMin);
 
-    m_textMax = new wxTextCtrl(this, SpinBtnPage_MaxText, wxEmptyString);
+    m_textMax = NEW_DEBUG wxTextCtrl(this, SpinBtnPage_MaxText, wxEmptyString);
     sizerRow->Add(m_textMax, 1, wxLEFT | wxALIGN_CENTRE_VERTICAL, 5);
 
     m_textMin->SetValue( wxString::Format("%d", m_min) );
@@ -328,7 +328,7 @@ void SpinBtnWidgetsPage::CreateContent()
     sizerMiddle->Add( sizerRow, 0, wxALL | wxGROW, 5 );
 
     // right pane
-    wxSizer *sizerRight = new wxBoxSizer(wxVERTICAL);
+    wxSizer *sizerRight = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     sizerRight->SetMinSize(150, 0);
     m_sizerSpin = sizerRight; // save it to modify it later
 
@@ -408,20 +408,20 @@ void SpinBtnWidgetsPage::CreateSpin()
         m_sizerSpin->Clear(true /* delete windows */);
     }
 
-    m_spinbtn = new wxSpinButton(this, SpinBtnPage_SpinBtn,
+    m_spinbtn = NEW_DEBUG wxSpinButton(this, SpinBtnPage_SpinBtn,
                                  wxDefaultPosition, wxDefaultSize,
                                  flags);
 
     m_spinbtn->SetValue(val);
     m_spinbtn->SetRange(m_min, m_max);
 
-    m_spinctrl = new wxSpinCtrl(this, SpinBtnPage_SpinCtrl,
+    m_spinctrl = NEW_DEBUG wxSpinCtrl(this, SpinBtnPage_SpinCtrl,
                                 wxString::Format("%d", val),
                                 wxDefaultPosition, wxDefaultSize,
                                 flags | textFlags,
                                 m_min, m_max, val);
 
-    m_spinctrldbl = new wxSpinCtrlDouble(this, SpinBtnPage_SpinCtrlDouble,
+    m_spinctrldbl = NEW_DEBUG wxSpinCtrlDouble(this, SpinBtnPage_SpinCtrlDouble,
                                          wxString::Format("%d", val),
                                          wxDefaultPosition, wxDefaultSize,
                                          flags | textFlags,
@@ -429,15 +429,15 @@ void SpinBtnWidgetsPage::CreateSpin()
 
     // Add spacers, labels and spin controls to the sizer.
     m_sizerSpin->Add(0, 0, 1);
-    m_sizerSpin->Add(new wxStaticText(this, wxID_ANY, "wxSpinButton"),
+    m_sizerSpin->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "wxSpinButton"),
                      0, wxALIGN_CENTRE | wxALL, 5);
     m_sizerSpin->Add(m_spinbtn, 0, wxALIGN_CENTRE | wxALL, 5);
     m_sizerSpin->Add(0, 0, 1);
-    m_sizerSpin->Add(new wxStaticText(this, wxID_ANY, "wxSpinCtrl"),
+    m_sizerSpin->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "wxSpinCtrl"),
                      0, wxALIGN_CENTRE | wxALL, 5);
     m_sizerSpin->Add(m_spinctrl, 0, wxALIGN_CENTRE | wxALL, 5);
     m_sizerSpin->Add(0, 0, 1);
-    m_sizerSpin->Add(new wxStaticText(this, wxID_ANY, "wxSpinCtrlDouble"),
+    m_sizerSpin->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "wxSpinCtrlDouble"),
                      0, wxALIGN_CENTRE | wxALL, 5);
     m_sizerSpin->Add(m_spinctrldbl, 0, wxALIGN_CENTRE | wxALL, 5);
     m_sizerSpin->Add(0, 0, 1);

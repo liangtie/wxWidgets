@@ -201,7 +201,7 @@ bool wxEnhMetaFile::SetClipboard(int WXUNUSED(width), int WXUNUSED(height))
 #if wxUSE_DRAG_AND_DROP && wxUSE_CLIPBOARD
     wxCHECK_MSG( m_hMF, false, wxT("can't copy invalid metafile to clipboard") );
 
-    return wxTheClipboard->AddData(new wxEnhMetaFileDataObject(*this));
+    return wxTheClipboard->AddData(NEW_DEBUG wxEnhMetaFileDataObject(*this));
 #else // !wxUSE_DRAG_AND_DROP
     wxFAIL_MSG(wxT("not implemented"));
     return false;
@@ -242,7 +242,7 @@ public:
         wxMSWDCImpl::SetFont(scaledFont);
     }
 
-    // obtain a pointer to the new metafile (caller should delete it)
+    // obtain a pointer to the NEW_DEBUG metafile (caller should delete it)
     wxEnhMetaFile *Close();
 
 protected:
@@ -334,7 +334,7 @@ wxEnhMetaFile *wxEnhMetaFileDCImpl::Close()
         return NULL;
     }
 
-    wxEnhMetaFile *mf = new wxEnhMetaFile;
+    wxEnhMetaFile *mf = NEW_DEBUG wxEnhMetaFile;
     mf->SetHENHMETAFILE((WXHANDLE)hMF);
     return mf;
 }
@@ -354,7 +354,7 @@ wxIMPLEMENT_ABSTRACT_CLASS(wxEnhMetaFileDC, wxDC);
 wxEnhMetaFileDC::wxEnhMetaFileDC(const wxString& filename,
                                  int width, int height,
                                  const wxString& description)
-               : wxDC(new wxEnhMetaFileDCImpl(this,
+               : wxDC(NEW_DEBUG wxEnhMetaFileDCImpl(this,
                                               filename,
                                               width, height,
                                               description))
@@ -365,7 +365,7 @@ wxEnhMetaFileDC::wxEnhMetaFileDC(const wxDC& referenceDC,
                                  const wxString& filename,
                                  int width, int height,
                                  const wxString& description)
-               : wxDC(new wxEnhMetaFileDCImpl(this,
+               : wxDC(NEW_DEBUG wxEnhMetaFileDCImpl(this,
                                               referenceDC,
                                               filename,
                                               width, height,

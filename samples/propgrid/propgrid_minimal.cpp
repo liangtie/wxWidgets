@@ -40,20 +40,20 @@ wxEND_EVENT_TABLE()
 MyFrame::MyFrame(wxWindow* parent)
     : wxFrame(parent, wxID_ANY, "PropertyGrid Test")
 {
-    wxMenu *Menu = new wxMenu;
+    wxMenu *Menu = NEW_DEBUG wxMenu;
     Menu->Append(ID_ACTION, "Action");
-    wxMenuBar *MenuBar = new wxMenuBar();
+    wxMenuBar *MenuBar = NEW_DEBUG wxMenuBar();
     MenuBar->Append(Menu, "Action");
     SetMenuBar(MenuBar);
 
-    wxPropertyGrid *pg = new wxPropertyGrid(this,wxID_ANY,wxDefaultPosition,wxSize(400,400),
+    wxPropertyGrid *pg = NEW_DEBUG wxPropertyGrid(this,wxID_ANY,wxDefaultPosition,wxSize(400,400),
                         wxPG_SPLITTER_AUTO_CENTER |
                         wxPG_BOLD_MODIFIED );
     m_pg = pg;
 
-    pg->Append( new wxStringProperty("String Property", wxPG_LABEL) );
-    pg->Append( new wxIntProperty("Int Property", wxPG_LABEL) );
-    pg->Append( new wxBoolProperty("Bool Property", wxPG_LABEL) );
+    pg->Append( NEW_DEBUG wxStringProperty("String Property", wxPG_LABEL) );
+    pg->Append( NEW_DEBUG wxIntProperty("Int Property", wxPG_LABEL) );
+    pg->Append( NEW_DEBUG wxBoolProperty("Bool Property", wxPG_LABEL) );
 
     SetSize(400, 600);
 }
@@ -88,6 +88,6 @@ void MyFrame::OnAction(wxCommandEvent &)
 //
 void DisplayMinimalFrame(wxWindow* parent)
 {
-    MyFrame *frame = new MyFrame(parent);
+    MyFrame *frame = NEW_DEBUG MyFrame(parent);
     frame->Show(true);
 }

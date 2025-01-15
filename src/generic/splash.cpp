@@ -70,7 +70,7 @@ wxSplashScreen::wxSplashScreen(const wxBitmap& bitmap, long splashStyle, int mil
     m_splashStyle = splashStyle;
     m_milliseconds = milliseconds;
 
-    m_window = new wxSplashScreenWindow(bitmap, this, wxID_ANY, pos, size, wxNO_BORDER);
+    m_window = NEW_DEBUG wxSplashScreenWindow(bitmap, this, wxID_ANY, pos, size, wxNO_BORDER);
 
     SetClientSize(bitmap.GetLogicalWidth(), bitmap.GetLogicalHeight());
 

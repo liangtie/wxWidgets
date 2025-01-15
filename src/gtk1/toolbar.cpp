@@ -241,14 +241,14 @@ wxToolBarToolBase *wxToolBar::CreateTool(int id,
                                          const wxString& shortHelpString,
                                          const wxString& longHelpString)
 {
-    return new wxToolBarTool(this, id, text, bitmap1, bitmap2, kind,
+    return NEW_DEBUG wxToolBarTool(this, id, text, bitmap1, bitmap2, kind,
                              clientData, shortHelpString, longHelpString);
 }
 
 wxToolBarToolBase *
 wxToolBar::CreateTool(wxControl *control, const wxString& label)
 {
-    return new wxToolBarTool(this, control, label);
+    return NEW_DEBUG wxToolBarTool(this, control, label);
 }
 
 //-----------------------------------------------------------------------------

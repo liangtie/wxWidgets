@@ -316,7 +316,7 @@ wxAcceleratorEntry *wxAcceleratorEntry::Create(const wxString& str)
     if ( !ParseAccel(accelStr, &flags, &keyCode) )
         return NULL;
 
-    return new wxAcceleratorEntry(flags, keyCode);
+    return NEW_DEBUG wxAcceleratorEntry(flags, keyCode);
 }
 
 bool wxAcceleratorEntry::FromString(const wxString& str)

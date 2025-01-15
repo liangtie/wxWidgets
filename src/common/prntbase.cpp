@@ -91,7 +91,7 @@ void wxPrintFactory::SetPrintFactory( wxPrintFactory *factory )
 wxPrintFactory *wxPrintFactory::GetFactory()
 {
     if (!wxPrintFactory::m_factory)
-        wxPrintFactory::m_factory = new wxNativePrintFactory;
+        wxPrintFactory::m_factory = NEW_DEBUG wxNativePrintFactory;
 
     return wxPrintFactory::m_factory;
 }
@@ -103,13 +103,13 @@ wxPrintFactory *wxPrintFactory::GetFactory()
 wxPrinterBase *wxNativePrintFactory::CreatePrinter( wxPrintDialogData *data )
 {
 #if defined(__WXMSW__) && !defined(__WXUNIVERSAL__)
-    return new wxWindowsPrinter( data );
+    return NEW_DEBUG wxWindowsPrinter( data );
 #elif defined(__WXMAC__)
-    return new wxMacPrinter( data );
+    return NEW_DEBUG wxMacPrinter( data );
 #elif defined(__WXQT__)
-    return new wxQtPrinter( data );
+    return NEW_DEBUG wxQtPrinter( data );
 #else
-    return new wxPostScriptPrinter( data );
+    return NEW_DEBUG wxPostScriptPrinter( data );
 #endif
 }
 
@@ -117,13 +117,13 @@ wxPrintPreviewBase *wxNativePrintFactory::CreatePrintPreview( wxPrintout *previe
     wxPrintout *printout, wxPrintDialogData *data )
 {
 #if defined(__WXMSW__) && !defined(__WXUNIVERSAL__)
-    return new wxWindowsPrintPreview( preview, printout, data );
+    return NEW_DEBUG wxWindowsPrintPreview( preview, printout, data );
 #elif defined(__WXMAC__)
-    return new wxMacPrintPreview( preview, printout, data );
+    return NEW_DEBUG wxMacPrintPreview( preview, printout, data );
 #elif defined(__WXQT__)
-    return new wxQtPrintPreview( preview, printout, data );
+    return NEW_DEBUG wxQtPrintPreview( preview, printout, data );
 #else
-    return new wxPostScriptPrintPreview( preview, printout, data );
+    return NEW_DEBUG wxPostScriptPrintPreview( preview, printout, data );
 #endif
 }
 
@@ -131,13 +131,13 @@ wxPrintPreviewBase *wxNativePrintFactory::CreatePrintPreview( wxPrintout *previe
     wxPrintout *printout, wxPrintData *data )
 {
 #if defined(__WXMSW__) && !defined(__WXUNIVERSAL__)
-    return new wxWindowsPrintPreview( preview, printout, data );
+    return NEW_DEBUG wxWindowsPrintPreview( preview, printout, data );
 #elif defined(__WXMAC__)
-    return new wxMacPrintPreview( preview, printout, data );
+    return NEW_DEBUG wxMacPrintPreview( preview, printout, data );
 #elif defined(__WXQT__)
-    return new wxQtPrintPreview( preview, printout, data );
+    return NEW_DEBUG wxQtPrintPreview( preview, printout, data );
 #else
-    return new wxPostScriptPrintPreview( preview, printout, data );
+    return NEW_DEBUG wxPostScriptPrintPreview( preview, printout, data );
 #endif
 }
 
@@ -145,13 +145,13 @@ wxPrintDialogBase *wxNativePrintFactory::CreatePrintDialog( wxWindow *parent,
                                                   wxPrintDialogData *data )
 {
 #if defined(__WXMSW__) && !defined(__WXUNIVERSAL__)
-    return new wxWindowsPrintDialog( parent, data );
+    return NEW_DEBUG wxWindowsPrintDialog( parent, data );
 #elif defined(__WXMAC__)
-    return new wxMacPrintDialog( parent, data );
+    return NEW_DEBUG wxMacPrintDialog( parent, data );
 #elif defined(__WXQT__)
-    return new wxQtPrintDialog( parent, data );
+    return NEW_DEBUG wxQtPrintDialog( parent, data );
 #else
-    return new wxGenericPrintDialog( parent, data );
+    return NEW_DEBUG wxGenericPrintDialog( parent, data );
 #endif
 }
 
@@ -159,13 +159,13 @@ wxPrintDialogBase *wxNativePrintFactory::CreatePrintDialog( wxWindow *parent,
                                                   wxPrintData *data )
 {
 #if defined(__WXMSW__) && !defined(__WXUNIVERSAL__)
-    return new wxWindowsPrintDialog( parent, data );
+    return NEW_DEBUG wxWindowsPrintDialog( parent, data );
 #elif defined(__WXMAC__)
-    return new wxMacPrintDialog( parent, data );
+    return NEW_DEBUG wxMacPrintDialog( parent, data );
 #elif defined(__WXQT__)
-    return new wxQtPrintDialog( parent, data );
+    return NEW_DEBUG wxQtPrintDialog( parent, data );
 #else
-    return new wxGenericPrintDialog( parent, data );
+    return NEW_DEBUG wxGenericPrintDialog( parent, data );
 #endif
 }
 
@@ -173,13 +173,13 @@ wxPageSetupDialogBase *wxNativePrintFactory::CreatePageSetupDialog( wxWindow *pa
                                                   wxPageSetupDialogData *data )
 {
 #if defined(__WXMSW__) && !defined(__WXUNIVERSAL__)
-    return new wxWindowsPageSetupDialog( parent, data );
+    return NEW_DEBUG wxWindowsPageSetupDialog( parent, data );
 #elif defined(__WXMAC__)
-    return new wxMacPageSetupDialog( parent, data );
+    return NEW_DEBUG wxMacPageSetupDialog( parent, data );
 #elif defined(__WXQT__)
-    return new wxQtPageSetupDialog( parent, data );
+    return NEW_DEBUG wxQtPageSetupDialog( parent, data );
 #else
-    return new wxGenericPageSetupDialog( parent, data );
+    return NEW_DEBUG wxGenericPageSetupDialog( parent, data );
 #endif
 }
 
@@ -219,16 +219,16 @@ wxDialog *wxNativePrintFactory::CreatePrintSetupDialog( wxWindow *parent,
     // dialog ourselves, the other platforms either have
     // none, don't make it accessible or let you configure
     // the printer from the wxPrintDialog anyway.
-    return new wxGenericPrintSetupDialog( parent, data );
+    return NEW_DEBUG wxGenericPrintSetupDialog( parent, data );
 #endif
 }
 
 wxDCImpl* wxNativePrintFactory::CreatePrinterDCImpl( wxPrinterDC *owner, const wxPrintData& data )
 {
 #if defined(__WXGTK__) || defined(__WXMOTIF__) || ( defined(__WXUNIVERSAL__) && !defined(__WXMAC__) )
-    return new wxPostScriptDCImpl( owner, data );
+    return NEW_DEBUG wxPostScriptDCImpl( owner, data );
 #else
-    return new wxPrinterDCImpl( owner, data );
+    return NEW_DEBUG wxPrinterDCImpl( owner, data );
 #endif
 }
 
@@ -272,13 +272,13 @@ wxString wxNativePrintFactory::CreateStatusLine()
 wxPrintNativeDataBase *wxNativePrintFactory::CreatePrintNativeData()
 {
 #if defined(__WXMSW__) && !defined(__WXUNIVERSAL__)
-    return new wxWindowsPrintNativeData;
+    return NEW_DEBUG wxWindowsPrintNativeData;
 #elif defined(__WXMAC__)
     return wxOSXCreatePrintData();
 #elif defined(__WXQT__)
-    return  new wxQtPrintNativeData;
+    return  NEW_DEBUG wxQtPrintNativeData;
 #else
-    return new wxPostScriptPrintNativeData;
+    return NEW_DEBUG wxPostScriptPrintNativeData;
 #endif
 }
 
@@ -336,7 +336,7 @@ wxPrinterBase::~wxPrinterBase()
 
 wxPrintAbortDialog *wxPrinterBase::CreateAbortWindow(wxWindow *parent, wxPrintout * printout)
 {
-    return new wxPrintAbortDialog(parent, printout->GetTitle());
+    return NEW_DEBUG wxPrintAbortDialog(parent, printout->GetTitle());
 }
 
 void wxPrinterBase::ReportError(wxWindow *parent, wxPrintout *WXUNUSED(printout), const wxString& message)
@@ -531,16 +531,16 @@ wxPrintAbortDialog::wxPrintAbortDialog(wxWindow *parent,
                                        const wxString& name)
     : wxDialog(parent, wxID_ANY, _("Printing"), pos, size, style, name)
 {
-    wxBoxSizer *mainSizer = new wxBoxSizer(wxVERTICAL);
-    mainSizer->Add(new wxStaticText(this, wxID_ANY, _("Please wait while printing...")),
+    wxBoxSizer *mainSizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
+    mainSizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, _("Please wait while printing...")),
                    wxSizerFlags().Expand().DoubleBorder());
 
-    wxFlexGridSizer *gridSizer = new wxFlexGridSizer(2, wxSize(20, 0));
-    gridSizer->Add(new wxStaticText(this, wxID_ANY, _("Document:")));
+    wxFlexGridSizer *gridSizer = NEW_DEBUG wxFlexGridSizer(2, wxSize(20, 0));
+    gridSizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, _("Document:")));
     gridSizer->AddGrowableCol(1);
-    gridSizer->Add(new wxStaticText(this, wxID_ANY, documentTitle));
-    gridSizer->Add(new wxStaticText(this, wxID_ANY, _("Progress:")));
-    m_progress = new wxStaticText(this, wxID_ANY, _("Preparing"));
+    gridSizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, documentTitle));
+    gridSizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, _("Progress:")));
+    m_progress = NEW_DEBUG wxStaticText(this, wxID_ANY, _("Preparing"));
     m_progress->SetMinSize(wxSize(250, -1));
     gridSizer->Add(m_progress);
     mainSizer->Add(gridSizer, wxSizerFlags().Expand().DoubleBorder(wxLEFT | wxRIGHT));
@@ -1479,7 +1479,7 @@ public:
     // Constructor creates the sizer that will hold the buttons and stores the
     // parent that will be used for their creation.
     SizerWithButtons(wxWindow *parent)
-        : m_sizer(new wxBoxSizer(wxHORIZONTAL)),
+        : m_sizer(NEW_DEBUG wxBoxSizer(wxHORIZONTAL)),
           m_parent(parent)
     {
         m_hasContents =
@@ -1518,7 +1518,7 @@ public:
         // rather toolbar-like bitmap buttons hence use wxART_TOOLBAR and not
         // wxART_BUTTON here.
         wxBitmapBundle bb = wxArtProvider::GetBitmapBundle(artId, wxART_TOOLBAR);
-        wxBitmapButton * const btn = new wxBitmapButton(m_parent, btnId, bb);
+        wxBitmapButton * const btn = NEW_DEBUG wxBitmapButton(m_parent, btnId, bb);
         btn->SetToolTip(tooltip);
 
         Add(btn);
@@ -1589,10 +1589,10 @@ void wxPreviewControlBar::CreateButtons()
 
     if (m_buttonFlags & wxPREVIEW_GOTO)
     {
-        m_currentPageText = new wxPrintPageTextCtrl(this);
+        m_currentPageText = NEW_DEBUG wxPrintPageTextCtrl(this);
         sizer.Add(m_currentPageText);
 
-        m_maxPageText = new wxPrintPageMaxCtrl(this);
+        m_maxPageText = NEW_DEBUG wxPrintPageMaxCtrl(this);
         sizer.Add(m_maxPageText);
     }
 
@@ -1621,7 +1621,7 @@ void wxPreviewControlBar::CreateButtons()
         };
         int n = WXSIZEOF(choices);
 
-        m_zoomControl = new wxChoice( this, wxID_PREVIEW_ZOOM, wxDefaultPosition, wxDefaultSize, n, choices, 0 );
+        m_zoomControl = NEW_DEBUG wxChoice( this, wxID_PREVIEW_ZOOM, wxDefaultPosition, wxDefaultSize, n, choices, 0 );
         sizer.Add(m_zoomControl);
         SetZoomControl(m_printPreview->GetZoom());
 
@@ -1631,7 +1631,7 @@ void wxPreviewControlBar::CreateButtons()
     }
 
     // Close button group (single button again).
-    m_closeButton = new wxButton(this, wxID_PREVIEW_CLOSE, _("&Close"));
+    m_closeButton = NEW_DEBUG wxButton(this, wxID_PREVIEW_CLOSE, _("&Close"));
     sizer.AddAtEnd(m_closeButton);
 }
 
@@ -1768,7 +1768,7 @@ void wxPreviewFrame::InitializeWithModality(wxPreviewFrameModalityKind kind)
     m_printPreview->SetCanvas(m_previewCanvas);
     m_printPreview->SetFrame(this);
 
-    wxBoxSizer* const sizer = new wxBoxSizer( wxVERTICAL );
+    wxBoxSizer* const sizer = NEW_DEBUG wxBoxSizer( wxVERTICAL );
 
     sizer->Add( m_controlBar, wxSizerFlags().Expand() );
     sizer->Add( m_previewCanvas, wxSizerFlags(1).Expand() );
@@ -1796,7 +1796,7 @@ void wxPreviewFrame::InitializeWithModality(wxPreviewFrameModalityKind kind)
     {
         case wxPreviewFrame_AppModal:
             // Disable everything.
-            m_windowDisabler = new wxWindowDisabler( this );
+            m_windowDisabler = NEW_DEBUG wxWindowDisabler( this );
             break;
 
         case wxPreviewFrame_WindowModal:
@@ -1825,7 +1825,7 @@ void wxPreviewFrame::InitializeWithModality(wxPreviewFrameModalityKind kind)
 
 void wxPreviewFrame::CreateCanvas()
 {
-    m_previewCanvas = new wxPreviewCanvas(m_printPreview, this);
+    m_previewCanvas = NEW_DEBUG wxPreviewCanvas(m_printPreview, this);
 }
 
 void wxPreviewFrame::CreateControlBar()
@@ -1834,7 +1834,7 @@ void wxPreviewFrame::CreateControlBar()
     if (m_printPreview->GetPrintoutForPrinting())
         buttons |= wxPREVIEW_PRINT;
 
-    m_controlBar = new wxPreviewControlBar(m_printPreview, buttons, this);
+    m_controlBar = NEW_DEBUG wxPreviewControlBar(m_printPreview, buttons, this);
     m_controlBar->CreateButtons();
 }
 
@@ -2094,7 +2094,7 @@ bool wxPrintPreviewBase::RenderPage(int pageNum)
 
     if (!m_previewBitmap)
     {
-        m_previewBitmap = new wxBitmap(pageRect.width, pageRect.height);
+        m_previewBitmap = NEW_DEBUG wxBitmap(pageRect.width, pageRect.height);
 
         if (!m_previewBitmap || !m_previewBitmap->IsOk())
         {

@@ -101,7 +101,7 @@ wxPGWindowList wxSampleMultiButtonEditor::CreateControls( wxPropertyGrid* propGr
                                                           const wxSize& sz ) const
 {
     // Create and populate buttons-subwindow
-    wxPGMultiButton* buttons = new wxPGMultiButton( propGrid, sz );
+    wxPGMultiButton* buttons = NEW_DEBUG wxPGMultiButton( propGrid, sz );
 
     // Add two regular buttons
     buttons->Add( "..." );
@@ -172,7 +172,7 @@ public:
 
     virtual wxObject* Clone() const wxOVERRIDE
     {
-        return new wxInvalidWordValidator(m_invalidWord);
+        return NEW_DEBUG wxInvalidWordValidator(m_invalidWord);
     }
 
     virtual bool Validate(wxWindow* WXUNUSED(parent)) wxOVERRIDE
@@ -214,9 +214,9 @@ wxVectorProperty::wxVectorProperty( const wxString& label,
     : wxPGProperty(label,name)
 {
     SetValue( WXVARIANT(value) );
-    AddPrivateChild( new wxFloatProperty("X",wxPG_LABEL,value.x) );
-    AddPrivateChild( new wxFloatProperty("Y",wxPG_LABEL,value.y) );
-    AddPrivateChild( new wxFloatProperty("Z",wxPG_LABEL,value.z) );
+    AddPrivateChild( NEW_DEBUG wxFloatProperty("X",wxPG_LABEL,value.x) );
+    AddPrivateChild( NEW_DEBUG wxFloatProperty("Y",wxPG_LABEL,value.y) );
+    AddPrivateChild( NEW_DEBUG wxFloatProperty("Z",wxPG_LABEL,value.z) );
 }
 
 wxVectorProperty::~wxVectorProperty() { }
@@ -265,9 +265,9 @@ wxTriangleProperty::wxTriangleProperty( const wxString& label,
     : wxPGProperty(label,name)
 {
     SetValue( WXVARIANT(value) );
-    AddPrivateChild( new wxVectorProperty("A",wxPG_LABEL,value.a) );
-    AddPrivateChild( new wxVectorProperty("B",wxPG_LABEL,value.b) );
-    AddPrivateChild( new wxVectorProperty("C",wxPG_LABEL,value.c) );
+    AddPrivateChild( NEW_DEBUG wxVectorProperty("A",wxPG_LABEL,value.a) );
+    AddPrivateChild( NEW_DEBUG wxVectorProperty("B",wxPG_LABEL,value.b) );
+    AddPrivateChild( NEW_DEBUG wxVectorProperty("C",wxPG_LABEL,value.c) );
 }
 
 wxTriangleProperty::~wxTriangleProperty() { }
@@ -358,7 +358,7 @@ public:
     // Set what happens on button click
     virtual wxPGEditorDialogAdapter* GetEditorDialog() const wxOVERRIDE
     {
-        return new wxSingleChoiceDialogAdapter(m_choices);
+        return NEW_DEBUG wxSingleChoiceDialogAdapter(m_choices);
     }
 
 protected:
@@ -1016,29 +1016,29 @@ void FormMain::PopulateWithStandardItems ()
     wxPropertyGridPage* pg = pgman->GetPage("Standard Items");
 
     // Append is ideal way to add items to wxPropertyGrid.
-    pg->Append( new wxPropertyCategory("Appearance",wxPG_LABEL) );
+    pg->Append( NEW_DEBUG wxPropertyCategory("Appearance",wxPG_LABEL) );
 
-    pg->Append( new wxStringProperty("Label",wxPG_LABEL,GetTitle()) );
-    pg->Append( new wxFontProperty("Font",wxPG_LABEL) );
+    pg->Append( NEW_DEBUG wxStringProperty("Label",wxPG_LABEL,GetTitle()) );
+    pg->Append( NEW_DEBUG wxFontProperty("Font",wxPG_LABEL) );
     pg->SetPropertyHelpString ( "Font", "Editing this will change font used in the property grid." );
 
-    pg->Append( new wxSystemColourProperty("Margin Colour",wxPG_LABEL,
+    pg->Append( NEW_DEBUG wxSystemColourProperty("Margin Colour",wxPG_LABEL,
         pg->GetGrid()->GetMarginColour()) );
 
-    pg->Append( new wxSystemColourProperty("Cell Colour",wxPG_LABEL,
+    pg->Append( NEW_DEBUG wxSystemColourProperty("Cell Colour",wxPG_LABEL,
         pg->GetGrid()->GetCellBackgroundColour()) );
-    pg->Append( new wxSystemColourProperty("Cell Text Colour",wxPG_LABEL,
+    pg->Append( NEW_DEBUG wxSystemColourProperty("Cell Text Colour",wxPG_LABEL,
         pg->GetGrid()->GetCellTextColour()) );
-    pg->Append( new wxSystemColourProperty("Line Colour",wxPG_LABEL,
+    pg->Append( NEW_DEBUG wxSystemColourProperty("Line Colour",wxPG_LABEL,
         pg->GetGrid()->GetLineColour()) );
-    pg->Append( new wxFlagsProperty("Window Styles",wxPG_LABEL,
+    pg->Append( NEW_DEBUG wxFlagsProperty("Window Styles",wxPG_LABEL,
         m_combinedFlags, GetWindowStyle()) );
 
     //pg->SetPropertyAttribute("Window Styles",wxPG_BOOL_USE_CHECKBOX,true,wxPG_RECURSE);
 
-    pg->Append( new wxCursorProperty("Cursor",wxPG_LABEL) );
+    pg->Append( NEW_DEBUG wxCursorProperty("Cursor",wxPG_LABEL) );
 
-    pg->Append( new wxPropertyCategory("Position","PositionCategory") );
+    pg->Append( NEW_DEBUG wxPropertyCategory("Position","PositionCategory") );
     pg->SetPropertyHelpString( "PositionCategory", "Change in items in this category will cause respective changes in frame." );
 
     // Let's demonstrate 'Units' attribute here
@@ -1047,7 +1047,7 @@ void FormMain::PopulateWithStandardItems ()
     // (for instance, wxPG_ATTR_MIN, instead of "min").
     // Using constant may reduce binary size.
 
-    pg->Append( new wxIntProperty("Height",wxPG_LABEL,480L) );
+    pg->Append( NEW_DEBUG wxIntProperty("Height",wxPG_LABEL,480L) );
     pg->SetPropertyAttribute("Height", wxPG_ATTR_MIN, 10L );
     pg->SetPropertyAttribute("Height", wxPG_ATTR_MAX, 2048L );
     pg->SetPropertyAttribute("Height", wxPG_ATTR_UNITS, "Pixels" );
@@ -1055,7 +1055,7 @@ void FormMain::PopulateWithStandardItems ()
     // Set value to unspecified so that Hint attribute will be demonstrated
     pg->SetPropertyValueUnspecified("Height");
     pg->SetPropertyAttribute("Height", wxPG_ATTR_HINT,
-                             "Enter new height for window" );
+                             "Enter NEW_DEBUG height for window" );
 
     // Difference between hint and help string is that the hint is shown in
     // an empty value cell, while help string is shown either in the
@@ -1063,34 +1063,34 @@ void FormMain::PopulateWithStandardItems ()
     pg->SetPropertyHelpString("Height",
         "This property uses attributes \"Units\" and \"Hint\".");
 
-    pg->Append( new wxIntProperty("Width",wxPG_LABEL,640L) );
+    pg->Append( NEW_DEBUG wxIntProperty("Width",wxPG_LABEL,640L) );
     pg->SetPropertyAttribute("Width", wxPG_ATTR_MIN, 10L );
     pg->SetPropertyAttribute("Width", wxPG_ATTR_MAX, 2048L );
     pg->SetPropertyAttribute("Width", wxPG_ATTR_UNITS, "Pixels" );
 
     pg->SetPropertyValueUnspecified("Width");
     pg->SetPropertyAttribute("Width", wxPG_ATTR_HINT,
-                             "Enter new width for window" );
+                             "Enter NEW_DEBUG width for window" );
     pg->SetPropertyHelpString("Width",
         "This property uses attributes \"Units\" and \"Hint\".");
 
-    pg->Append( new wxIntProperty("X",wxPG_LABEL,10L) );
+    pg->Append( NEW_DEBUG wxIntProperty("X",wxPG_LABEL,10L) );
     pg->SetPropertyAttribute("X", wxPG_ATTR_UNITS, "Pixels" );
     pg->SetPropertyHelpString("X", "This property uses \"Units\" attribute.");
 
-    pg->Append( new wxIntProperty("Y",wxPG_LABEL,10L) );
+    pg->Append( NEW_DEBUG wxIntProperty("Y",wxPG_LABEL,10L) );
     pg->SetPropertyAttribute("Y", wxPG_ATTR_UNITS, "Pixels" );
     pg->SetPropertyHelpString("Y", "This property uses \"Units\" attribute.");
 
     const wxString disabledHelpString = "This property is simply disabled. In order to have label disabled as well, "
                                        "you need to set wxPG_EX_GREY_LABEL_WHEN_DISABLED using SetExtraStyle.";
 
-    pg->Append( new wxPropertyCategory("Environment",wxPG_LABEL) );
-    pg->Append( new wxStringProperty("Operating System",wxPG_LABEL,::wxGetOsDescription()) );
+    pg->Append( NEW_DEBUG wxPropertyCategory("Environment",wxPG_LABEL) );
+    pg->Append( NEW_DEBUG wxStringProperty("Operating System",wxPG_LABEL,::wxGetOsDescription()) );
 
-    pg->Append( new wxStringProperty("User Id",wxPG_LABEL,::wxGetUserId()) );
-    pg->Append( new wxDirProperty("User Home",wxPG_LABEL,::wxGetUserHome()) );
-    pg->Append( new wxStringProperty("User Name",wxPG_LABEL,::wxGetUserName()) );
+    pg->Append( NEW_DEBUG wxStringProperty("User Id",wxPG_LABEL,::wxGetUserId()) );
+    pg->Append( NEW_DEBUG wxDirProperty("User Home",wxPG_LABEL,::wxGetUserHome()) );
+    pg->Append( NEW_DEBUG wxStringProperty("User Name",wxPG_LABEL,::wxGetUserName()) );
 
     // Disable some of them
     pg->DisableProperty( "Operating System" );
@@ -1101,15 +1101,15 @@ void FormMain::PopulateWithStandardItems ()
     pg->SetPropertyHelpString( "User Id", disabledHelpString );
     pg->SetPropertyHelpString( "User Name", disabledHelpString );
 
-    pg->Append( new wxPropertyCategory("More Examples",wxPG_LABEL) );
+    pg->Append( NEW_DEBUG wxPropertyCategory("More Examples",wxPG_LABEL) );
 
-    pg->Append( new wxFontDataProperty( "FontDataProperty", wxPG_LABEL) );
+    pg->Append( NEW_DEBUG wxFontDataProperty( "FontDataProperty", wxPG_LABEL) );
     pg->SetPropertyHelpString( "FontDataProperty",
         "This demonstrates wxFontDataProperty class defined in this sample app. "
         "It is exactly like wxFontProperty from the library, but also has colour sub-property."
         );
 
-    pg->Append( new wxDirsProperty("DirsProperty",wxPG_LABEL) );
+    pg->Append( NEW_DEBUG wxDirsProperty("DirsProperty",wxPG_LABEL) );
     pg->SetPropertyHelpString( "DirsProperty",
         "This demonstrates wxDirsProperty class defined in this sample app. "
         "It is built with WX_PG_IMPLEMENT_ARRAYSTRING_PROPERTY_WITH_VALIDATOR macro, "
@@ -1123,14 +1123,14 @@ void FormMain::PopulateWithStandardItems ()
     arrdbl.Add(0.5);
     arrdbl.Add(1.0);
 
-    pg->Append( new wxArrayDoubleProperty("ArrayDoubleProperty",wxPG_LABEL,arrdbl) );
+    pg->Append( NEW_DEBUG wxArrayDoubleProperty("ArrayDoubleProperty",wxPG_LABEL,arrdbl) );
     //pg->SetPropertyAttribute("ArrayDoubleProperty",wxPG_FLOAT_PRECISION,2L);
     pg->SetPropertyHelpString( "ArrayDoubleProperty",
         "This demonstrates wxArrayDoubleProperty class defined in this sample app. "
         "It is an example of a custom list editor property."
         );
 
-    pg->Append( new wxLongStringProperty("Information",wxPG_LABEL,
+    pg->Append( NEW_DEBUG wxLongStringProperty("Information",wxPG_LABEL,
         "Editing properties will have immediate effect on this window, "
         "and vice versa (at least in most cases, that is)."
         ) );
@@ -1167,11 +1167,11 @@ void FormMain::PopulateWithExamples ()
     wxPGProperty* pid;
     wxPGProperty* prop;
 
-    //pg->Append( new wxPropertyCategory("Examples (low priority)","Examples") );
+    //pg->Append( NEW_DEBUG wxPropertyCategory("Examples (low priority)","Examples") );
     //pg->SetPropertyHelpString ( "Examples", "This category has example of (almost) every built-in property class." );
 
 #if wxUSE_SPINBTN
-    pg->Append( new wxIntProperty ( "SpinCtrl", wxPG_LABEL, 0L ) );
+    pg->Append( NEW_DEBUG wxIntProperty ( "SpinCtrl", wxPG_LABEL, 0L ) );
 
     pg->SetPropertyEditor( "SpinCtrl", wxPGEditor_SpinCtrl );
     pg->SetPropertyAttribute( "SpinCtrl", wxPG_ATTR_MIN, -2L );  // Use constants instead of string
@@ -1189,10 +1189,10 @@ void FormMain::PopulateWithExamples ()
 #endif
 
     // Add bool property
-    pg->Append( new wxBoolProperty( "BoolProperty", wxPG_LABEL, false ) );
+    pg->Append( NEW_DEBUG wxBoolProperty( "BoolProperty", wxPG_LABEL, false ) );
 
     // Add bool property with check box
-    pg->Append( new wxBoolProperty( "BoolProperty with CheckBox", wxPG_LABEL, false ) );
+    pg->Append( NEW_DEBUG wxBoolProperty( "BoolProperty with CheckBox", wxPG_LABEL, false ) );
     pg->SetPropertyAttribute( "BoolProperty with CheckBox",
                               wxPG_BOOL_USE_CHECKBOX,
                               true );
@@ -1200,13 +1200,13 @@ void FormMain::PopulateWithExamples ()
     pg->SetPropertyHelpString( "BoolProperty with CheckBox",
         "Property attribute wxPG_BOOL_USE_CHECKBOX has been set to true." );
 
-    prop = pg->Append( new wxFloatProperty("FloatProperty",
+    prop = pg->Append( NEW_DEBUG wxFloatProperty("FloatProperty",
                                            wxPG_LABEL,
                                            1234500.23) );
     prop->SetAttribute(wxPG_ATTR_MIN, -100.12);
 
     // A string property that can be edited in a separate editor dialog.
-    pg->Append( new wxLongStringProperty( "LongStringProperty", "LongStringProp",
+    pg->Append( NEW_DEBUG wxLongStringProperty( "LongStringProperty", "LongStringProp",
         "This is much longer string than the first one. Edit it by clicking the button." ) );
 
     // A property that edits a wxArrayString.
@@ -1214,15 +1214,15 @@ void FormMain::PopulateWithExamples ()
     example_array.Add( "String 1");
     example_array.Add( "String 2");
     example_array.Add( "String 3");
-    pg->Append( new wxArrayStringProperty( "ArrayStringProperty", wxPG_LABEL,
+    pg->Append( NEW_DEBUG wxArrayStringProperty( "ArrayStringProperty", wxPG_LABEL,
                                            example_array) );
 
-    // Test adding same category multiple times ( should not actually create a new one )
-    //pg->Append( new wxPropertyCategory("Examples (low priority)","Examples") );
+    // Test adding same category multiple times ( should not actually create a NEW_DEBUG one )
+    //pg->Append( NEW_DEBUG wxPropertyCategory("Examples (low priority)","Examples") );
 
     // A file selector property. Note that argument between name
     // and initial value is wildcard (format same as in wxFileDialog).
-    prop = new wxFileProperty( "FileProperty", "TextFile" );
+    prop = NEW_DEBUG wxFileProperty( "FileProperty", "TextFile" );
     pg->Append( prop );
 
     prop->SetAttribute(wxPG_FILE_WILDCARD,"Text Files (*.txt)|*.txt");
@@ -1239,17 +1239,17 @@ void FormMain::PopulateWithExamples ()
     // wildcard is missing (it is autogenerated from supported image formats).
     // If you really need to override it, create property separately, and call
     // its SetWildcard method.
-    pg->Append( new wxImageFileProperty( "ImageFile", wxPG_LABEL ) );
+    pg->Append( NEW_DEBUG wxImageFileProperty( "ImageFile", wxPG_LABEL ) );
 #endif
 
-    pid = pg->Append( new wxColourProperty("ColourProperty",wxPG_LABEL,*wxRED) );
+    pid = pg->Append( NEW_DEBUG wxColourProperty("ColourProperty",wxPG_LABEL,*wxRED) );
     pg->SetPropertyEditor( "ColourProperty", wxPGEditor_ComboBox );
     pg->GetProperty("ColourProperty")->SetAutoUnspecified(true);
     pg->SetPropertyHelpString( "ColourProperty",
         "wxPropertyGrid::SetPropertyEditor method has been used to change "
         "editor of this property to wxPGEditor_ComboBox)");
 
-    pid = pg->Append( new wxColourProperty("ColourPropertyWithAlpha",
+    pid = pg->Append( NEW_DEBUG wxColourProperty("ColourPropertyWithAlpha",
                                            wxPG_LABEL,
                                            wxColour(15, 200, 95, 128)) );
     pg->SetPropertyAttribute("ColourPropertyWithAlpha", wxPG_COLOUR_HAS_ALPHA, true);
@@ -1259,7 +1259,7 @@ void FormMain::PopulateWithExamples ()
     //
     // This demonstrates using alternative editor for colour property
     // to trigger colour dialog directly from button.
-    pg->Append( new wxColourProperty("ColourProperty2",wxPG_LABEL,*wxGREEN) );
+    pg->Append( NEW_DEBUG wxColourProperty("ColourProperty2",wxPG_LABEL,*wxGREEN) );
 
     //
     // wxEnumProperty does not store strings or even list of strings
@@ -1272,7 +1272,7 @@ void FormMain::PopulateWithExamples ()
 
     // note that the initial value (the last argument) is the actual value,
     // not index or anything like that. Thus, our value selects "Another Item".
-    pg->Append( new wxEnumProperty("EnumProperty",wxPG_LABEL,
+    pg->Append( NEW_DEBUG wxEnumProperty("EnumProperty",wxPG_LABEL,
         wxArrayString(WXSIZEOF(enum_prop_labels), enum_prop_labels),
         wxArrayInt(enum_prop_values, enum_prop_values+ WXSIZEOF(enum_prop_values)), 80 ) );
 
@@ -1300,14 +1300,14 @@ void FormMain::PopulateWithExamples ()
     soc[3].SetBgCol(*wxLIGHT_GREY);
     soc[4].SetBitmap(wxArtProvider::GetBitmap(wxART_FOLDER));
 
-    pg->Append( new wxEnumProperty("EnumProperty 2",
+    pg->Append( NEW_DEBUG wxEnumProperty("EnumProperty 2",
                                    wxPG_LABEL,
                                    soc,
                                   240) );
     pg->GetProperty("EnumProperty 2")->AddChoice("Testing Extra", 360);
 
     // Here we only display the original 'soc' choices
-    pg->Append( new wxEnumProperty("EnumProperty 3",wxPG_LABEL,
+    pg->Append( NEW_DEBUG wxEnumProperty("EnumProperty 3",wxPG_LABEL,
         soc, 240 ) );
 
     // Test Hint attribute in EnumProperty
@@ -1317,7 +1317,7 @@ void FormMain::PopulateWithExamples ()
         "This property uses \"Hint\" attribute.");
 
     // 'soc' plus one exclusive extra choice "4th only"
-    pg->Append( new wxEnumProperty("EnumProperty 4",wxPG_LABEL,
+    pg->Append( NEW_DEBUG wxEnumProperty("EnumProperty 4",wxPG_LABEL,
         soc, 240 ) );
     pg->GetProperty("EnumProperty 4")->AddChoice("4th only", 360);
 
@@ -1325,7 +1325,7 @@ void FormMain::PopulateWithExamples ()
         "Should have one extra item when compared to EnumProperty 3");
 
     // Plus property value bitmap
-    pg->Append( new wxEnumProperty("EnumProperty With Bitmap", "EnumProperty 5",
+    pg->Append( NEW_DEBUG wxEnumProperty("EnumProperty With Bitmap", "EnumProperty 5",
         soc, 280) );
     pg->SetPropertyHelpString("EnumProperty 5",
         "Should have bitmap in front of the displayed value");
@@ -1333,20 +1333,20 @@ void FormMain::PopulateWithExamples ()
     pg->SetPropertyImage("EnumProperty 5", bmpVal);
 
     // Password property example.
-    pg->Append( new wxStringProperty("Password",wxPG_LABEL, "password") );
+    pg->Append( NEW_DEBUG wxStringProperty("Password",wxPG_LABEL, "password") );
     pg->SetPropertyAttribute( "Password", wxPG_STRING_PASSWORD, true );
     pg->SetPropertyHelpString( "Password",
         "Has attribute wxPG_STRING_PASSWORD set to true" );
 
     // String editor with dir selector button. Uses wxEmptyString as name, which
     // is allowed (naturally, in this case property cannot be accessed by name).
-    pg->Append( new wxDirProperty( "DirProperty", wxPG_LABEL, ::wxGetUserHome()) );
+    pg->Append( NEW_DEBUG wxDirProperty( "DirProperty", wxPG_LABEL, ::wxGetUserHome()) );
     pg->SetPropertyAttribute( "DirProperty",
                               wxPG_DIALOG_TITLE,
                               "This is a custom dir dialog title" );
 
     // Add string property - first arg is label, second name, and third initial value
-    pg->Append( new wxStringProperty ( "StringProperty", wxPG_LABEL ) );
+    pg->Append( NEW_DEBUG wxStringProperty ( "StringProperty", wxPG_LABEL ) );
     pg->SetPropertyMaxLength( "StringProperty", 6 );
     pg->SetPropertyHelpString( "StringProperty",
         "Max length of this text has been limited to 6, using wxPropertyGrid::SetPropertyMaxLength." );
@@ -1356,7 +1356,7 @@ void FormMain::PopulateWithExamples ()
 
     //
     // Demonstrate "AutoComplete" attribute
-    pg->Append( new wxStringProperty( "StringProperty AutoComplete",
+    pg->Append( NEW_DEBUG wxStringProperty( "StringProperty AutoComplete",
                                       wxPG_LABEL ) );
 
     wxArrayString autoCompleteStrings;
@@ -1376,7 +1376,7 @@ void FormMain::PopulateWithExamples ()
     // Add string property with arbitrarily wide bitmap in front of it. We
     // intentionally lower-than-typical row height here so that the ugly
     // scaling code won't be run.
-    pg->Append( new wxStringProperty( "StringPropertyWithBitmap",
+    pg->Append( NEW_DEBUG wxStringProperty( "StringPropertyWithBitmap",
                 wxPG_LABEL,
                 "Test Text") );
     wxBitmap myTestBitmap1x(60, 15, 32);
@@ -1428,20 +1428,20 @@ void FormMain::PopulateWithExamples ()
     tchoicesValues.Add("Carrot");
     tchoicesValues.Add("Potato");
 
-    pg->Append( new wxEnumProperty("EnumProperty X",wxPG_LABEL, tchoices ) );
+    pg->Append( NEW_DEBUG wxEnumProperty("EnumProperty X",wxPG_LABEL, tchoices ) );
 
-    pg->Append( new wxMultiChoiceProperty( "MultiChoiceProperty", wxPG_LABEL,
+    pg->Append( NEW_DEBUG wxMultiChoiceProperty( "MultiChoiceProperty", wxPG_LABEL,
                                            tchoices, tchoicesValues ) );
     pg->SetPropertyAttribute("MultiChoiceProperty", wxPG_ATTR_MULTICHOICE_USERSTRINGMODE, 1);
 
-    pg->Append( new wxSizeProperty( "SizeProperty", "Size", GetSize() ) );
-    pg->Append( new wxPointProperty( "PointProperty", "Position", GetPosition() ) );
+    pg->Append( NEW_DEBUG wxSizeProperty( "SizeProperty", "Size", GetSize() ) );
+    pg->Append( NEW_DEBUG wxPointProperty( "PointProperty", "Position", GetPosition() ) );
 
     // UInt samples
 #if wxUSE_LONGLONG
-    pg->Append( new wxUIntProperty( "UIntProperty", wxPG_LABEL, wxULongLong(wxULL(0xFEEEFEEEFEEE))));
+    pg->Append( NEW_DEBUG wxUIntProperty( "UIntProperty", wxPG_LABEL, wxULongLong(wxULL(0xFEEEFEEEFEEE))));
 #else
-    pg->Append( new wxUIntProperty( "UIntProperty", wxPG_LABEL, 0xFEEEFEEE));
+    pg->Append( NEW_DEBUG wxUIntProperty( "UIntProperty", wxPG_LABEL, 0xFEEEFEEE));
 #endif
     pg->SetPropertyAttribute( "UIntProperty", wxPG_UINT_PREFIX, wxPG_PREFIX_NONE );
     pg->SetPropertyAttribute( "UIntProperty", wxPG_UINT_BASE, wxPG_BASE_HEX );
@@ -1454,7 +1454,7 @@ void FormMain::PopulateWithExamples ()
     eech.Add("Choice 1");
     eech.Add("Choice 2");
     eech.Add("Choice 3");
-    pg->Append( new wxEditEnumProperty("EditEnumProperty",
+    pg->Append( NEW_DEBUG wxEditEnumProperty("EditEnumProperty",
                                        wxPG_LABEL,
                                        eech,
                                        "Choice not in the list") );
@@ -1469,7 +1469,7 @@ void FormMain::PopulateWithExamples ()
 #if wxUSE_DATETIME
     //
     // wxDateTimeProperty
-    pg->Append( new wxDateProperty("DateProperty", wxPG_LABEL, wxDateTime::Now() ) );
+    pg->Append( NEW_DEBUG wxDateProperty("DateProperty", wxPG_LABEL, wxDateTime::Now() ) );
 
 #if wxUSE_DATEPICKCTRL
     pg->SetPropertyAttribute( "DateProperty", wxPG_DATE_PICKER_STYLE,
@@ -1488,61 +1488,61 @@ void FormMain::PopulateWithExamples ()
     // Add Triangle properties as both wxTriangleProperty and
     // a generic parent property (using wxStringProperty).
     //
-    wxPGProperty* topId = pg->Append( new wxStringProperty("3D Object", wxPG_LABEL, "<composed>") );
+    wxPGProperty* topId = pg->Append( NEW_DEBUG wxStringProperty("3D Object", wxPG_LABEL, "<composed>") );
 
-    pid = pg->AppendIn( topId, new wxStringProperty("Triangle 1", "Triangle 1", "<composed>") );
-    pg->AppendIn( pid, new wxVectorProperty( "A", wxPG_LABEL ) );
-    pg->AppendIn( pid, new wxVectorProperty( "B", wxPG_LABEL ) );
-    pg->AppendIn( pid, new wxVectorProperty( "C", wxPG_LABEL ) );
+    pid = pg->AppendIn( topId, NEW_DEBUG wxStringProperty("Triangle 1", "Triangle 1", "<composed>") );
+    pg->AppendIn( pid, NEW_DEBUG wxVectorProperty( "A", wxPG_LABEL ) );
+    pg->AppendIn( pid, NEW_DEBUG wxVectorProperty( "B", wxPG_LABEL ) );
+    pg->AppendIn( pid, NEW_DEBUG wxVectorProperty( "C", wxPG_LABEL ) );
 
-    pg->AppendIn( topId, new wxTriangleProperty( "Triangle 2", "Triangle 2" ) );
+    pg->AppendIn( topId, NEW_DEBUG wxTriangleProperty( "Triangle 2", "Triangle 2" ) );
 
     pg->SetPropertyHelpString( "3D Object",
         "3D Object is wxStringProperty with value \"<composed>\". Two of its children are similar wxStringProperties with "
         "three wxVectorProperty children, and other two are custom wxTriangleProperties." );
 
-    pid = pg->AppendIn( topId, new wxStringProperty("Triangle 3", "Triangle 3", "<composed>") );
-    pg->AppendIn( pid, new wxVectorProperty( "A", wxPG_LABEL ) );
-    pg->AppendIn( pid, new wxVectorProperty( "B", wxPG_LABEL ) );
-    pg->AppendIn( pid, new wxVectorProperty( "C", wxPG_LABEL ) );
+    pid = pg->AppendIn( topId, NEW_DEBUG wxStringProperty("Triangle 3", "Triangle 3", "<composed>") );
+    pg->AppendIn( pid, NEW_DEBUG wxVectorProperty( "A", wxPG_LABEL ) );
+    pg->AppendIn( pid, NEW_DEBUG wxVectorProperty( "B", wxPG_LABEL ) );
+    pg->AppendIn( pid, NEW_DEBUG wxVectorProperty( "C", wxPG_LABEL ) );
 
-    pg->AppendIn( topId, new wxTriangleProperty( "Triangle 4", "Triangle 4" ) );
+    pg->AppendIn( topId, NEW_DEBUG wxTriangleProperty( "Triangle 4", "Triangle 4" ) );
 
     //
     // This snippet is a doc sample test
     //
-    wxPGProperty* carProp = pg->Append(new wxStringProperty("Car",
+    wxPGProperty* carProp = pg->Append(NEW_DEBUG wxStringProperty("Car",
                                          wxPG_LABEL,
                                          "<composed>"));
 
-    pg->AppendIn(carProp, new wxStringProperty("Model",
+    pg->AppendIn(carProp, NEW_DEBUG wxStringProperty("Model",
                                                 wxPG_LABEL,
                                                 "Lamborghini Diablo SV"));
 
-    pg->AppendIn(carProp, new wxIntProperty("Engine Size (cc)",
+    pg->AppendIn(carProp, NEW_DEBUG wxIntProperty("Engine Size (cc)",
                                             wxPG_LABEL,
                                             5707L) );
 
     wxPGProperty* speedsProp = pg->AppendIn(carProp,
-                                            new wxStringProperty("Speeds",
+                                            NEW_DEBUG wxStringProperty("Speeds",
                                               wxPG_LABEL,
                                               "<composed>"));
 
-    pg->AppendIn( speedsProp, new wxIntProperty("Max. Speed (mph)",
+    pg->AppendIn( speedsProp, NEW_DEBUG wxIntProperty("Max. Speed (mph)",
                                                 wxPG_LABEL,290L) );
-    pg->AppendIn( speedsProp, new wxFloatProperty("0-100 mph (sec)",
+    pg->AppendIn( speedsProp, NEW_DEBUG wxFloatProperty("0-100 mph (sec)",
                                                   wxPG_LABEL,3.9) );
-    pg->AppendIn( speedsProp, new wxFloatProperty("1/4 mile (sec)",
+    pg->AppendIn( speedsProp, NEW_DEBUG wxFloatProperty("1/4 mile (sec)",
                                                   wxPG_LABEL,8.6) );
 
     // This is how child property can be referred to by name
     pg->SetPropertyValue( "Car.Speeds.Max. Speed (mph)", 300 );
 
-    pg->AppendIn(carProp, new wxIntProperty("Price ($)",
+    pg->AppendIn(carProp, NEW_DEBUG wxIntProperty("Price ($)",
                                             wxPG_LABEL,
                                             300000L) );
 
-    pg->AppendIn(carProp, new wxBoolProperty("Convertible",
+    pg->AppendIn(carProp, NEW_DEBUG wxBoolProperty("Convertible",
                                              wxPG_LABEL,
                                              false) );
 
@@ -1551,11 +1551,11 @@ void FormMain::PopulateWithExamples ()
 
     //
     // Test wxSampleMultiButtonEditor
-    pg->Append( new wxLongStringProperty("MultipleButtons", wxPG_LABEL) );
+    pg->Append( NEW_DEBUG wxLongStringProperty("MultipleButtons", wxPG_LABEL) );
     pg->SetPropertyEditor("MultipleButtons", m_pSampleMultiButtonEditor );
 
     // Test SingleChoiceProperty
-    pg->Append( new SingleChoiceProperty("SingleChoiceProperty") );
+    pg->Append( NEW_DEBUG SingleChoiceProperty("SingleChoiceProperty") );
 
 
     //
@@ -1568,35 +1568,35 @@ void FormMain::PopulateWithExamples ()
     bc.Add("Friggin' huge",
              wxArtProvider::GetBitmap(wxART_HARDDISK, wxART_OTHER, wxSize(64, 64)));
 
-    pg->Append( new wxEnumProperty("Variable Height Bitmaps",
+    pg->Append( NEW_DEBUG wxEnumProperty("Variable Height Bitmaps",
                                    wxPG_LABEL,
                                    bc,
                                    0) );
 
     //
     // Test how non-editable composite strings appear
-    pid = new wxStringProperty("wxWidgets Traits", wxPG_LABEL, "<composed>");
+    pid = NEW_DEBUG wxStringProperty("wxWidgets Traits", wxPG_LABEL, "<composed>");
     pg->SetPropertyReadOnly(pid);
 
     //
     // For testing purposes, combine two methods of adding children
     //
 
-    pid->AppendChild( new wxStringProperty("Latest Release",
+    pid->AppendChild( NEW_DEBUG wxStringProperty("Latest Release",
                                            wxPG_LABEL,
                                            "3.1.2"));
-    pid->AppendChild( new wxBoolProperty("Win API",
+    pid->AppendChild( NEW_DEBUG wxBoolProperty("Win API",
                                          wxPG_LABEL,
                                          true) );
 
     pg->Append( pid );
 
-    pg->AppendIn(pid, new wxBoolProperty("QT", wxPG_LABEL, true) );
-    pg->AppendIn(pid, new wxBoolProperty("Cocoa", wxPG_LABEL, true) );
-    pg->AppendIn(pid, new wxBoolProperty("Haiku", wxPG_LABEL, false) );
-    pg->AppendIn(pid, new wxStringProperty("Trunk Version", wxPG_LABEL, wxVERSION_NUM_DOT_STRING));
-    pg->AppendIn(pid, new wxBoolProperty("GTK+", wxPG_LABEL, true) );
-    pg->AppendIn(pid, new wxBoolProperty("Android", wxPG_LABEL, false) );
+    pg->AppendIn(pid, NEW_DEBUG wxBoolProperty("QT", wxPG_LABEL, true) );
+    pg->AppendIn(pid, NEW_DEBUG wxBoolProperty("Cocoa", wxPG_LABEL, true) );
+    pg->AppendIn(pid, NEW_DEBUG wxBoolProperty("Haiku", wxPG_LABEL, false) );
+    pg->AppendIn(pid, NEW_DEBUG wxStringProperty("Trunk Version", wxPG_LABEL, wxVERSION_NUM_DOT_STRING));
+    pg->AppendIn(pid, NEW_DEBUG wxBoolProperty("GTK+", wxPG_LABEL, true) );
+    pg->AppendIn(pid, NEW_DEBUG wxBoolProperty("Android", wxPG_LABEL, false) );
 
     AddTestProperties(pg);
 }
@@ -1632,16 +1632,16 @@ void FormMain::PopulateWithLibraryConfig ()
                               "GetOrCreateCell(column).";
 
 #define ADD_WX_LIB_CONF_GROUP(A) \
-    cat = pg->AppendIn( pid, new wxPropertyCategory(A) ); \
+    cat = pg->AppendIn( pid, NEW_DEBUG wxPropertyCategory(A) ); \
     pg->SetPropertyCell( cat, 0, wxPG_LABEL, bmp ); \
     cat->GetCell(0).SetFont(italicFont); \
     cat->SetHelpString(italicFontHelp);
 
-#define ADD_WX_LIB_CONF(A) pg->Append( new wxBoolProperty(#A,wxPG_LABEL,(bool)((A>0)?true:false)));
-#define ADD_WX_LIB_CONF_NODEF(A) pg->Append( new wxBoolProperty(#A,wxPG_LABEL,(bool)false) ); \
+#define ADD_WX_LIB_CONF(A) pg->Append( NEW_DEBUG wxBoolProperty(#A,wxPG_LABEL,(bool)((A>0)?true:false)));
+#define ADD_WX_LIB_CONF_NODEF(A) pg->Append( NEW_DEBUG wxBoolProperty(#A,wxPG_LABEL,(bool)false) ); \
                             pg->DisableProperty(#A);
 
-    pid = pg->Append( new wxPropertyCategory( "wxWidgets Library Configuration" ) );
+    pid = pg->Append( NEW_DEBUG wxPropertyCategory( "wxWidgets Library Configuration" ) );
     pg->SetPropertyCell( pid, 0, wxPG_LABEL, bmp );
 
     // Both of following lines would set a label for the second column
@@ -1846,8 +1846,8 @@ void FormMain::PopulateGrid()
 
     PopulateWithLibraryConfig();
 
-    wxPropertyGridPage* myPage = new wxMyPropertyGridPage();
-    myPage->Append( new wxIntProperty ( "IntProperty", wxPG_LABEL, 12345678L ) );
+    wxPropertyGridPage* myPage = NEW_DEBUG wxMyPropertyGridPage();
+    myPage->Append( NEW_DEBUG wxIntProperty ( "IntProperty", wxPG_LABEL, 12345678L ) );
 
     // Use wxMyPropertyGridPage (see above) to test the
     // custom wxPropertyGridPage feature.
@@ -1891,7 +1891,7 @@ void FormMain::CreateGrid( int style, int extraStyle )
     m_combinedFlags.Add( WXSIZEOF(_fs_framestyle_labels), _fs_framestyle_labels, _fs_framestyle_values );
 
     wxPropertyGridManager* pgman = m_pPropGridManager =
-        new wxPropertyGridManager(m_panel,
+        NEW_DEBUG wxPropertyGridManager(m_panel,
                                   // Don't change this into wxID_ANY in the sample, or the
                                   // event handling will obviously be broken.
                                   PGID, /*wxID_ANY*/
@@ -1970,11 +1970,11 @@ FormMain::FormMain(const wxString& title, const wxPoint& pos, const wxSize& size
 
     //
     // Create menu bar
-    wxMenu *menuFile = new wxMenu(wxEmptyString, wxMENU_TEAROFF);
-    wxMenu *menuTry = new wxMenu;
-    wxMenu *menuTools1 = new wxMenu;
-    wxMenu *menuTools2 = new wxMenu;
-    wxMenu *menuHelp = new wxMenu;
+    wxMenu *menuFile = NEW_DEBUG wxMenu(wxEmptyString, wxMENU_TEAROFF);
+    wxMenu *menuTry = NEW_DEBUG wxMenu;
+    wxMenu *menuTools1 = NEW_DEBUG wxMenu;
+    wxMenu *menuTools2 = NEW_DEBUG wxMenu;
+    wxMenu *menuHelp = NEW_DEBUG wxMenu;
 
     menuHelp->Append(ID_ABOUT, "&About", "Show about dialog" );
 
@@ -2019,7 +2019,7 @@ FormMain::FormMain(const wxString& title, const wxPoint& pos, const wxSize& size
     menuTools2->AppendSeparator();
     menuTools2->Append(ID_GETVALUES, "Get Property Values", "Stores all property values." );
     menuTools2->Append(ID_SETVALUES, "Set Property Values", "Reverts property values to those last stored." );
-    menuTools2->Append(ID_SETVALUES2, "Set Property Values 2", "Adds property values that should not initially be as items (so new items are created)." );
+    menuTools2->Append(ID_SETVALUES2, "Set Property Values 2", "Adds property values that should not initially be as items (so NEW_DEBUG items are created)." );
     menuTools2->AppendSeparator();
     menuTools2->Append(ID_SAVESTATE, "Save Editable State" );
     menuTools2->Append(ID_RESTORESTATE, "Restore Editable State" );
@@ -2084,7 +2084,7 @@ FormMain::FormMain(const wxString& title, const wxPoint& pos, const wxSize& size
     menuFile->Append(ID_QUIT, "E&xit\tAlt-X", "Quit this program" );
 
     // Now append the freshly created menu to the menu bar...
-    wxMenuBar *menuBar = new wxMenuBar();
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar();
     menuBar->Append(menuFile, "&File" );
     menuBar->Append(menuTry, "&Try These!" );
     menuBar->Append(menuTools1, "&Basic" );
@@ -2105,9 +2105,9 @@ FormMain::FormMain(const wxString& title, const wxPoint& pos, const wxSize& size
 
     // Register our sample custom editors
     m_pSampleMultiButtonEditor =
-        wxPropertyGrid::RegisterEditorClass(new wxSampleMultiButtonEditor());
+        wxPropertyGrid::RegisterEditorClass(NEW_DEBUG wxSampleMultiButtonEditor());
 
-    m_panel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
+    m_panel = NEW_DEBUG wxPanel(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
 
     CreateGrid( // style
         wxPG_BOLD_MODIFIED |
@@ -2130,16 +2130,16 @@ FormMain::FormMain(const wxString& title, const wxPoint& pos, const wxSize& size
         //| wxPG_EX_HELP_AS_TOOLTIPS
     );
 
-    m_topSizer = new wxBoxSizer(wxVERTICAL);
+    m_topSizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
     m_topSizer->Add(m_pPropGridManager, wxSizerFlags(1).Expand());
 
     // Button for tab traversal testing
-    wxBoxSizer* btnSizer = new wxBoxSizer(wxHORIZONTAL);
-    btnSizer->Add(new wxButton(m_panel, wxID_ANY,
+    wxBoxSizer* btnSizer = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
+    btnSizer->Add(NEW_DEBUG wxButton(m_panel, wxID_ANY,
         "Should be able to move here with Tab"),
         wxSizerFlags(1).Border(wxALL, 10));
-    btnSizer->Add(new wxButton(m_panel, ID_SHOWPOPUP,
+    btnSizer->Add(NEW_DEBUG wxButton(m_panel, ID_SHOWPOPUP,
         "Show Popup"),
         wxSizerFlags(1).Border(wxALL, 10));
     m_topSizer->Add(btnSizer, wxSizerFlags(0).Border(wxALL, 5).Expand());
@@ -2151,7 +2151,7 @@ FormMain::FormMain(const wxString& title, const wxPoint& pos, const wxSize& size
 
 #if wxUSE_LOGWINDOW
     // Create log window
-    m_logWindow = new wxLogWindow(this, "Log Messages", false);
+    m_logWindow = NEW_DEBUG wxLogWindow(this, "Log Messages", false);
     m_logWindow->GetFrame()->Move(GetPosition().x + GetSize().x + 10,
                                   GetPosition().y);
     m_logWindow->Show();
@@ -2200,7 +2200,7 @@ void FormMain::OnInsertPropClick( wxCommandEvent& WXUNUSED(event) )
     wxPGProperty* id = m_pPropGridManager->GetGrid()->GetSelection();
     if ( !id )
     {
-        wxMessageBox("First select a property - new one will be inserted right before that.");
+        wxMessageBox("First select a property - NEW_DEBUG one will be inserted right before that.");
         return;
     }
     if ( propLabel.Len() < 1 ) propLabel = "Property";
@@ -2209,7 +2209,7 @@ void FormMain::OnInsertPropClick( wxCommandEvent& WXUNUSED(event) )
 
     m_pPropGridManager->Insert( m_pPropGridManager->GetPropertyParent(id),
                                 id->GetIndexInParent(),
-                                new wxStringProperty(propLabel) );
+                                NEW_DEBUG wxStringProperty(propLabel) );
 
 }
 
@@ -2223,7 +2223,7 @@ void FormMain::OnAppendPropClick( wxCommandEvent& WXUNUSED(event) )
 
     GenerateUniquePropertyLabel( m_pPropGridManager, propLabel );
 
-    m_pPropGridManager->Append( new wxStringProperty(propLabel) );
+    m_pPropGridManager->Append( NEW_DEBUG wxStringProperty(propLabel) );
 
     m_pPropGridManager->Refresh();
 }
@@ -2245,7 +2245,7 @@ void FormMain::OnAppendCatClick( wxCommandEvent& WXUNUSED(event) )
 
     GenerateUniquePropertyLabel( m_pPropGridManager, propLabel );
 
-    m_pPropGridManager->Append( new wxPropertyCategory (propLabel) );
+    m_pPropGridManager->Append( NEW_DEBUG wxPropertyCategory (propLabel) );
 
     m_pPropGridManager->Refresh();
 
@@ -2266,7 +2266,7 @@ void FormMain::OnInsertCatClick( wxCommandEvent& WXUNUSED(event) )
     wxPGProperty* id = m_pPropGridManager->GetGrid()->GetSelection();
     if ( !id )
     {
-        wxMessageBox("First select a property - new one will be inserted right before that.");
+        wxMessageBox("First select a property - NEW_DEBUG one will be inserted right before that.");
         return;
     }
 
@@ -2276,7 +2276,7 @@ void FormMain::OnInsertCatClick( wxCommandEvent& WXUNUSED(event) )
 
     m_pPropGridManager->Insert( m_pPropGridManager->GetPropertyParent(id),
                                 id->GetIndexInParent(),
-                                new wxPropertyCategory (propLabel) );
+                                NEW_DEBUG wxPropertyCategory (propLabel) );
 }
 
 // -----------------------------------------------------------------------
@@ -2627,11 +2627,11 @@ void FormMain::OnTestReplaceClick( wxCommandEvent& WXUNUSED(event) )
         {
             propName = wxString::Format("ReplaceFlagsProperty %i", ++idx);
         }
-        // Replace property and select new one
+        // Replace property and select NEW_DEBUG one
         // with random value in range [1..maxVal]
         const long propVal = wxGetLocalTime() % maxVal + 1;
         wxPGProperty* newId = m_pPropGridManager->ReplaceProperty( pgId,
-            new wxFlagsProperty(propName, wxPG_LABEL, choices, propVal) );
+            NEW_DEBUG wxFlagsProperty(propName, wxPG_LABEL, choices, propVal) );
         m_pPropGridManager->SetPropertyAttribute( newId,
                                               wxPG_BOOL_USE_CHECKBOX,
                                               true,
@@ -2970,7 +2970,7 @@ void FormMain::OnSetPropertyValue( wxCommandEvent& WXUNUSED(event) )
 
     if ( selected )
     {
-        wxString value = ::wxGetTextFromUser( "Enter new value:" );
+        wxString value = ::wxGetTextFromUser( "Enter NEW_DEBUG value:" );
         pg->SetPropertyValue( selected, value );
     }
 }
@@ -2988,7 +2988,7 @@ void FormMain::OnInsertChoice( wxCommandEvent& WXUNUSED(event) )
 
         if ( choices.IsOk() )
         {
-            // Insert new choice to the center of list
+            // Insert NEW_DEBUG choice to the center of list
 
             int pos = choices.GetCount() / 2;
             selected->InsertChoice("New Choice", pos);
@@ -3147,7 +3147,7 @@ bool cxApplication::OnInit()
     if ( frameSize.x > 500 )
         frameSize.x = 500;
 
-    FormMain* frame = new FormMain( "wxPropertyGrid Sample", wxPoint(0,0), frameSize);
+    FormMain* frame = NEW_DEBUG FormMain( "wxPropertyGrid Sample", wxPoint(0,0), frameSize);
     frame->Show(true);
 
     //
@@ -3282,29 +3282,29 @@ struct PropertyGridPopup : wxPopupWindow
 
     PropertyGridPopup(wxWindow *parent) : wxPopupWindow(parent, wxBORDER_NONE|wxWANTS_CHARS)
     {
-        m_panel = new wxScrolledWindow(this, wxID_ANY, wxDefaultPosition, wxSize(200, 200));
-        m_grid = new wxPropertyGrid(m_panel, ID_POPUPGRID, wxDefaultPosition, wxSize(400,400), wxPG_SPLITTER_AUTO_CENTER);
+        m_panel = NEW_DEBUG wxScrolledWindow(this, wxID_ANY, wxDefaultPosition, wxSize(200, 200));
+        m_grid = NEW_DEBUG wxPropertyGrid(m_panel, ID_POPUPGRID, wxDefaultPosition, wxSize(400,400), wxPG_SPLITTER_AUTO_CENTER);
         m_grid->SetColumnCount(3);
 
-        wxPGProperty *prop=m_grid->Append(new wxStringProperty("test_name", wxPG_LABEL, "test_value"));
+        wxPGProperty *prop=m_grid->Append(NEW_DEBUG wxStringProperty("test_name", wxPG_LABEL, "test_value"));
         m_grid->SetPropertyAttribute(prop, wxPG_ATTR_UNITS, "type");
-        wxPGProperty *prop1 = m_grid->AppendIn(prop, new wxStringProperty("sub_name1", wxPG_LABEL, "sub_value1"));
+        wxPGProperty *prop1 = m_grid->AppendIn(prop, NEW_DEBUG wxStringProperty("sub_name1", wxPG_LABEL, "sub_value1"));
 
-        m_grid->AppendIn(prop1, new wxSystemColourProperty("Cell Colour",wxPG_LABEL, m_grid->GetGrid()->GetCellBackgroundColour()));
-        wxPGProperty *prop2 = m_grid->AppendIn(prop, new wxStringProperty("sub_name2", wxPG_LABEL, "sub_value2"));
-        m_grid->AppendIn(prop2, new wxStringProperty("sub_name21", wxPG_LABEL, "sub_value21"));
+        m_grid->AppendIn(prop1, NEW_DEBUG wxSystemColourProperty("Cell Colour",wxPG_LABEL, m_grid->GetGrid()->GetCellBackgroundColour()));
+        wxPGProperty *prop2 = m_grid->AppendIn(prop, NEW_DEBUG wxStringProperty("sub_name2", wxPG_LABEL, "sub_value2"));
+        m_grid->AppendIn(prop2, NEW_DEBUG wxStringProperty("sub_name21", wxPG_LABEL, "sub_value21"));
 
         wxArrayDouble arrdbl;
         arrdbl.Add(-1.0); arrdbl.Add(-0.5); arrdbl.Add(0.0); arrdbl.Add(0.5); arrdbl.Add(1.0);
-        m_grid->AppendIn(prop, new wxArrayDoubleProperty("ArrayDoubleProperty",wxPG_LABEL,arrdbl) );
-        m_grid->AppendIn(prop, new wxFontProperty("Font",wxPG_LABEL));
-        m_grid->AppendIn(prop2, new wxStringProperty("sub_name22", wxPG_LABEL, "sub_value22"));
-        m_grid->AppendIn(prop2, new wxStringProperty("sub_name23", wxPG_LABEL, "sub_value23"));
+        m_grid->AppendIn(prop, NEW_DEBUG wxArrayDoubleProperty("ArrayDoubleProperty",wxPG_LABEL,arrdbl) );
+        m_grid->AppendIn(prop, NEW_DEBUG wxFontProperty("Font",wxPG_LABEL));
+        m_grid->AppendIn(prop2, NEW_DEBUG wxStringProperty("sub_name22", wxPG_LABEL, "sub_value22"));
+        m_grid->AppendIn(prop2, NEW_DEBUG wxStringProperty("sub_name23", wxPG_LABEL, "sub_value23"));
         prop2->SetExpanded(false);
 
         ::SetMinSize(m_grid);
 
-        m_sizer = new wxBoxSizer( wxVERTICAL );
+        m_sizer = NEW_DEBUG wxBoxSizer( wxVERTICAL );
         m_sizer->Add(m_grid, wxSizerFlags(0).Expand().Border(wxALL, 0));
         m_panel->SetAutoLayout(true);
         m_panel->SetSizer(m_sizer);
@@ -3353,7 +3353,7 @@ void FormMain::OnShowPopup(wxCommandEvent& WXUNUSED(event))
         popup = NULL;
         return;
     }
-    popup = new PropertyGridPopup(this);
+    popup = NEW_DEBUG PropertyGridPopup(this);
     wxPoint pt = wxGetMousePosition();
     popup->Position(pt, wxSize(0, 0));
     popup->Show();

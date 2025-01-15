@@ -109,7 +109,7 @@ SimpleTransientPopup::SimpleTransientPopup( wxWindow *parent, bool scrolled )
                                               wxBORDER_NONE |
                                               wxPU_CONTAINS_CONTROLS )
 {
-    m_panel = new wxScrolledWindow( this, wxID_ANY );
+    m_panel = NEW_DEBUG wxScrolledWindow( this, wxID_ANY );
     m_panel->SetBackgroundColour( *wxLIGHT_GREY );
 
     // Keep this code to verify if mouse events work, they're required if
@@ -117,7 +117,7 @@ SimpleTransientPopup::SimpleTransientPopup( wxWindow *parent, bool scrolled )
     // under the cursor, the m_panel is set focus in the Popup() function
     m_panel->Bind(wxEVT_MOTION, &SimpleTransientPopup::OnMouse, this);
 
-    wxStaticText *text = new wxStaticText( m_panel, wxID_ANY,
+    wxStaticText *text = NEW_DEBUG wxStaticText( m_panel, wxID_ANY,
                           "wxPopupTransientWindow is a\n"
                           "wxPopupWindow which disappears\n"
                           "automatically when the user\n"
@@ -125,16 +125,16 @@ SimpleTransientPopup::SimpleTransientPopup( wxWindow *parent, bool scrolled )
                           "(or its first child) loses focus in \n"
                           "any other way." );
 
-    m_button = new wxButton(m_panel, Minimal_PopupButton, "Press Me");
-    m_spinCtrl = new wxSpinCtrl(m_panel, Minimal_PopupSpinctrl, "Hello");
-    m_mouseText = new wxStaticText(m_panel, wxID_ANY,
+    m_button = NEW_DEBUG wxButton(m_panel, Minimal_PopupButton, "Press Me");
+    m_spinCtrl = NEW_DEBUG wxSpinCtrl(m_panel, Minimal_PopupSpinctrl, "Hello");
+    m_mouseText = NEW_DEBUG wxStaticText(m_panel, wxID_ANY,
                                    "<- Test Mouse ->");
 
-    wxBoxSizer *topSizer = new wxBoxSizer( wxVERTICAL );
+    wxBoxSizer *topSizer = NEW_DEBUG wxBoxSizer( wxVERTICAL );
     topSizer->Add( text, 0, wxALL, 5 );
     topSizer->Add( m_button, 0, wxALL, 5 );
     topSizer->Add( m_spinCtrl, 0, wxALL, 5 );
-    topSizer->Add( new wxTextCtrl(m_panel, wxID_ANY, "Try to type here"),
+    topSizer->Add( NEW_DEBUG wxTextCtrl(m_panel, wxID_ANY, "Try to type here"),
                    0, wxEXPAND|wxALL, 5 );
     topSizer->Add( m_mouseText, 0, wxCENTRE|wxALL, 5 );
 
@@ -142,7 +142,7 @@ SimpleTransientPopup::SimpleTransientPopup( wxWindow *parent, bool scrolled )
     {
         // Add a big window to ensure that scrollbars are shown when we set the
         // panel size to a lesser size below.
-        topSizer->Add(new wxPanel(m_panel, wxID_ANY, wxDefaultPosition,
+        topSizer->Add(NEW_DEBUG wxPanel(m_panel, wxID_ANY, wxDefaultPosition,
                                   wxSize(600, 900)));
     }
 
@@ -312,7 +312,7 @@ bool MyApp::OnInit()
         return false;
 
     // create the main application window
-    m_frame = new MyFrame("Popup wxWidgets App");
+    m_frame = NEW_DEBUG MyFrame("Popup wxWidgets App");
 
     // and show it (the frames, unlike simple controls, are not shown when
     // created initially)
@@ -345,17 +345,17 @@ MyFrame::MyFrame(const wxString& title)
     SetIcon(wxICON(sample));
 
 #if wxUSE_MENUS
-    wxMenu *menuFile = new wxMenu;
+    wxMenu *menuFile = NEW_DEBUG wxMenu;
 
     // the "About" item should be in the help menu
-    wxMenu *helpMenu = new wxMenu;
+    wxMenu *helpMenu = NEW_DEBUG wxMenu;
     helpMenu->Append(Minimal_About, "&About\tF1", "Show about dialog");
 
     menuFile->Append(Minimal_TestDialog, "&Test dialog\tAlt-T", "Test dialog");
     menuFile->Append(Minimal_Quit, "E&xit\tAlt-X", "Quit this program");
 
     // now append the freshly created menu to the menu bar...
-    wxMenuBar *menuBar = new wxMenuBar();
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar();
     menuBar->Append(menuFile, "&File");
     menuBar->Append(helpMenu, "&Help");
 
@@ -369,18 +369,18 @@ MyFrame::MyFrame(const wxString& title)
     SetStatusText("Welcome to wxWidgets!");
 #endif // wxUSE_STATUSBAR
 
-    wxPanel *panel = new wxPanel(this, -1);
-    wxButton *button1 = new wxButton( panel, Minimal_StartSimplePopup, "Show simple popup", wxPoint(20,20) );
-    wxButton *button2 = new wxButton( panel, Minimal_StartScrolledPopup, "Show scrolled popup", wxPoint(20,70) );
+    wxPanel *panel = NEW_DEBUG wxPanel(this, -1);
+    wxButton *button1 = NEW_DEBUG wxButton( panel, Minimal_StartSimplePopup, "Show simple popup", wxPoint(20,20) );
+    wxButton *button2 = NEW_DEBUG wxButton( panel, Minimal_StartScrolledPopup, "Show scrolled popup", wxPoint(20,70) );
 
-    m_logWin = new wxTextCtrl( panel, wxID_ANY, wxEmptyString, wxDefaultPosition,
+    m_logWin = NEW_DEBUG wxTextCtrl( panel, wxID_ANY, wxEmptyString, wxDefaultPosition,
                                wxDefaultSize, wxTE_MULTILINE );
     m_logWin->SetEditable(false);
-    wxLogTextCtrl* logger = new wxLogTextCtrl( m_logWin );
+    wxLogTextCtrl* logger = NEW_DEBUG wxLogTextCtrl( m_logWin );
     m_logOld = logger->SetActiveTarget( logger );
     logger->DisableTimestamp();
 
-    wxBoxSizer *topSizer = new wxBoxSizer( wxVERTICAL );
+    wxBoxSizer *topSizer = NEW_DEBUG wxBoxSizer( wxVERTICAL );
     topSizer->Add( button1, 0, wxALL, 5 );
     topSizer->Add( button2, 0, wxALL, 5 );
     topSizer->Add( m_logWin, 1, wxEXPAND|wxALL, 5 );
@@ -406,7 +406,7 @@ void MyFrame::OnStartSimplePopup(wxCommandEvent& event)
 {
     wxLogMessage( "================================================" );
     delete m_simplePopup;
-    m_simplePopup = new SimpleTransientPopup( this, false );
+    m_simplePopup = NEW_DEBUG SimpleTransientPopup( this, false );
     wxWindow *btn = (wxWindow*) event.GetEventObject();
     wxPoint pos = btn->ClientToScreen( wxPoint(0,0) );
     wxSize sz = btn->GetSize();
@@ -419,7 +419,7 @@ void MyFrame::OnStartScrolledPopup(wxCommandEvent& event)
 {
     wxLogMessage( "================================================" );
     delete m_scrolledPopup;
-    m_scrolledPopup = new SimpleTransientPopup( this, true );
+    m_scrolledPopup = NEW_DEBUG SimpleTransientPopup( this, true );
     wxWindow *btn = (wxWindow*) event.GetEventObject();
     wxPoint pos = btn->ClientToScreen( wxPoint(0,0) );
     wxSize sz = btn->GetSize();
@@ -462,14 +462,14 @@ MyDialog::MyDialog(const wxString& title)
          :wxDialog(NULL, wxID_ANY, title, wxPoint(50,50), wxSize(400,300))
 {
     m_simplePopup = m_scrolledPopup = NULL;
-    wxPanel *panel = new wxPanel(this, -1);
+    wxPanel *panel = NEW_DEBUG wxPanel(this, -1);
 
-    wxButton *button1 = new wxButton( panel, Minimal_StartSimplePopup, "Show simple popup", wxPoint(20,20) );
-    wxButton *button2 = new wxButton( panel, Minimal_StartScrolledPopup, "Show scrolled popup", wxPoint(20,60) );
+    wxButton *button1 = NEW_DEBUG wxButton( panel, Minimal_StartSimplePopup, "Show simple popup", wxPoint(20,20) );
+    wxButton *button2 = NEW_DEBUG wxButton( panel, Minimal_StartScrolledPopup, "Show scrolled popup", wxPoint(20,60) );
 
-    wxButton *okButton = new wxButton( panel, wxID_OK, "OK", wxPoint(20,200) );
+    wxButton *okButton = NEW_DEBUG wxButton( panel, wxID_OK, "OK", wxPoint(20,200) );
 
-    wxBoxSizer *topSizer = new wxBoxSizer( wxVERTICAL );
+    wxBoxSizer *topSizer = NEW_DEBUG wxBoxSizer( wxVERTICAL );
     topSizer->Add( button1, 0, wxALL, 5 );
     topSizer->Add( button2, 0, wxALL, 5 );
     topSizer->AddSpacer(40);
@@ -482,7 +482,7 @@ void MyDialog::OnStartSimplePopup(wxCommandEvent& event)
 {
     wxLogMessage( "================================================" );
     delete m_simplePopup;
-    m_simplePopup = new SimpleTransientPopup( this, false );
+    m_simplePopup = NEW_DEBUG SimpleTransientPopup( this, false );
     wxWindow *btn = (wxWindow*) event.GetEventObject();
     wxPoint pos = btn->ClientToScreen( wxPoint(0,0) );
     wxSize sz = btn->GetSize();
@@ -495,7 +495,7 @@ void MyDialog::OnStartScrolledPopup(wxCommandEvent& event)
 {
     wxLogMessage( "================================================" );
     delete m_scrolledPopup;
-    m_scrolledPopup = new SimpleTransientPopup( this, true );
+    m_scrolledPopup = NEW_DEBUG SimpleTransientPopup( this, true );
     wxWindow *btn = (wxWindow*) event.GetEventObject();
     wxPoint pos = btn->ClientToScreen( wxPoint(0,0) );
     wxSize sz = btn->GetSize();

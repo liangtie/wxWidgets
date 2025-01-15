@@ -49,20 +49,20 @@ bool wxGenericCredentialEntryDialog::Create(wxWindow* parent,
 void wxGenericCredentialEntryDialog::Init(const wxString& message,
     const wxWebCredentials& cred)
 {
-    wxSizer* topsizer = new wxBoxSizer(wxVERTICAL);
+    wxSizer* topsizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
     topsizer->Add(CreateTextSizer(message), wxSizerFlags().Border());
 
-    topsizer->Add(new wxStaticText(this, wxID_ANY, _("Username:")),
+    topsizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, _("Username:")),
         wxSizerFlags().HorzBorder());
-    m_userTextCtrl = new wxTextCtrl(this, wxID_ANY, cred.GetUser(),
+    m_userTextCtrl = NEW_DEBUG wxTextCtrl(this, wxID_ANY, cred.GetUser(),
                                     wxDefaultPosition,
                                     wxSize(FromDIP(300), wxDefaultCoord));
     topsizer->Add(m_userTextCtrl, wxSizerFlags().Expand().Border());
 
-    topsizer->Add(new wxStaticText(this, wxID_ANY, _("Password:")),
+    topsizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, _("Password:")),
         wxSizerFlags().HorzBorder());
-    m_passwordTextCtrl = new wxTextCtrl(this, wxID_ANY,
+    m_passwordTextCtrl = NEW_DEBUG wxTextCtrl(this, wxID_ANY,
                                         wxSecretString(cred.GetPassword()),
                                         wxDefaultPosition, wxDefaultSize,
                                         wxTE_PASSWORD);

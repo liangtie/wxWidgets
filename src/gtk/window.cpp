@@ -166,7 +166,7 @@ typedef guint KeySym;
    III)
 
    Singularly the most broken code in GTK is the code that is supposed to
-   inform subwindows (child windows) about new positions. Very often, duplicate
+   inform subwindows (child windows) about NEW_DEBUG positions. Very often, duplicate
    events are sent without changes in size or position, equally often no
    events are sent at all (All this is due to a bug in the GtkContainer code
    which got fixed in GTK 1.2.6). For that reason, wxGTK completely ignores
@@ -191,7 +191,7 @@ typedef guint KeySym;
    V)
 
    Cursors, too, have been a constant source of pleasure. The main difficulty
-   is that a GdkWindow inherits a cursor if the programmer sets a new cursor
+   is that a GdkWindow inherits a cursor if the programmer sets a NEW_DEBUG cursor
    for the parent. To prevent this from doing too much harm, SetCursor calls
    GTKUpdateCursor, which will recursively re-set the cursors of all child windows.
    Also don't forget that cursors (like much else) are connected to GdkWindows,
@@ -3114,7 +3114,7 @@ wxWindowGTK::GTKConnectWidget(const char *signal, wxGTKCallback callback)
     return g_signal_connect(m_widget, signal, callback, this);
 }
 
-// GSource callback functions for source used to detect new GDK events
+// GSource callback functions for source used to detect NEW_DEBUG GDK events
 extern "C" {
 static gboolean source_prepare(GSource*, int*)
 {
@@ -3159,7 +3159,7 @@ pan_gesture_begin_callback(GtkGesture* WXUNUSED(gesture), GdkEventSequence* WXUN
 {
     gs_gestureStart = true;
 
-    // Set it to 0, as this will be used to calculate the deltas for new pan gesture
+    // Set it to 0, as this will be used to calculate the deltas for NEW_DEBUG pan gesture
     gs_lastOffset = 0;
 }
 }
@@ -3908,7 +3908,7 @@ bool wxWindowGTK::EnableTouchEvents(int eventsMask)
             else
             {
                 wxWindowGesturesData* const
-                    dataNew = new wxWindowGesturesData(this, widget, eventsMask);
+                    dataNew = NEW_DEBUG wxWindowGesturesData(this, widget, eventsMask);
                 wxWindowGestures::StoreForObject(static_cast<wxWindow*>(this), dataNew);
             }
         }
@@ -3927,7 +3927,7 @@ void wxWindowGTK::ConnectWidget( GtkWidget *widget )
     static bool isSourceAttached;
     if (!isSourceAttached)
     {
-        // attach GSource to detect new GDK events
+        // attach GSource to detect NEW_DEBUG GDK events
         isSourceAttached = true;
         static GSourceFuncs funcs = {
             source_prepare, source_check, source_dispatch,
@@ -5628,7 +5628,7 @@ bool wxWindowGTK::SetBackgroundColour( const wxColour &colour )
         }
 #endif
 
-        // apply style change (forceStyle=true so that new style is applied
+        // apply style change (forceStyle=true so that NEW_DEBUG style is applied
         // even if the bg colour changed from valid to wxNullColour)
         GTKApplyWidgetStyle(true);
     }
@@ -5651,7 +5651,7 @@ bool wxWindowGTK::SetForegroundColour( const wxColour &colour )
         }
 #endif
 
-        // apply style change (forceStyle=true so that new style is applied
+        // apply style change (forceStyle=true so that NEW_DEBUG style is applied
         // even if the bg colour changed from valid to wxNullColour):
         GTKApplyWidgetStyle(true);
     }
@@ -6262,7 +6262,7 @@ bool wxWindowGTK::SetFont( const wxFont &font )
 
     if (m_widget)
     {
-        // apply style change (forceStyle=true so that new style is applied
+        // apply style change (forceStyle=true so that NEW_DEBUG style is applied
         // even if the font changed from valid to wxNullFont):
         GTKApplyWidgetStyle(true);
         InvalidateBestSize();

@@ -83,7 +83,7 @@ wxAcceleratorTable::wxAcceleratorTable()
 
 wxAcceleratorTable::wxAcceleratorTable(int n, const wxAcceleratorEntry entries[])
 {
-    m_refData = new wxAccelRefData;
+    m_refData = NEW_DEBUG wxAccelRefData;
 
     for ( int i = 0; i < n; i++ )
     {
@@ -93,7 +93,7 @@ wxAcceleratorTable::wxAcceleratorTable(int n, const wxAcceleratorEntry entries[]
         if ( wxIsascii(keycode) )
             keycode = wxToupper(keycode);
 
-        M_ACCELDATA->m_accels.Append(new wxAcceleratorEntry(entry.GetFlags(),
+        M_ACCELDATA->m_accels.Append(NEW_DEBUG wxAcceleratorEntry(entry.GetFlags(),
                                                             keycode,
                                                             entry.GetCommand()));
     }
@@ -118,10 +118,10 @@ void wxAcceleratorTable::Add(const wxAcceleratorEntry& entry)
 
     if ( !m_refData )
     {
-        m_refData = new wxAccelRefData;
+        m_refData = NEW_DEBUG wxAccelRefData;
     }
 
-    M_ACCELDATA->m_accels.Append(new wxAcceleratorEntry(entry));
+    M_ACCELDATA->m_accels.Append(NEW_DEBUG wxAcceleratorEntry(entry));
 }
 
 void wxAcceleratorTable::Remove(const wxAcceleratorEntry& entry)
@@ -205,12 +205,12 @@ int wxAcceleratorTable::GetCommand(const wxKeyEvent& event) const
 
 wxObjectRefData *wxAcceleratorTable::CreateRefData() const
 {
-    return new wxAccelRefData;
+    return NEW_DEBUG wxAccelRefData;
 }
 
 wxObjectRefData *wxAcceleratorTable::CloneRefData(const wxObjectRefData *data) const
 {
-    return new wxAccelRefData(*static_cast<const wxAccelRefData*>(data));
+    return NEW_DEBUG wxAccelRefData(*static_cast<const wxAccelRefData*>(data));
 }
 
 #endif // wxUSE_ACCEL

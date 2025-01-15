@@ -324,7 +324,7 @@ wxButton::SetDefaultStyle(wxButton *btn, bool on)
     if ( on && !wxTheApp->IsActive() )
         return;
 
-    // first, let DefDlgProc() know about the new default button
+    // first, let DefDlgProc() know about the NEW_DEBUG default button
     wxWindow * const tlw = wxGetTopLevelParent(btn);
     wxCHECK_RET( tlw, wxT("button without top level window?") );
 

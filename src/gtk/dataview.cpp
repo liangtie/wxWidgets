@@ -491,7 +491,7 @@ private:
 extern bool   g_blockEventsOnDrag;
 
 //-----------------------------------------------------------------------------
-// define new GTK+ class wxGtkTreeModel
+// define NEW_DEBUG GTK+ class wxGtkTreeModel
 //-----------------------------------------------------------------------------
 
 extern "C" {
@@ -1095,7 +1095,7 @@ wxgtk_tree_model_has_default_sort_func (GtkTreeSortable        *sortable)
 }
 
 //-----------------------------------------------------------------------------
-// define new GTK+ class GtkWxRendererText
+// define NEW_DEBUG GTK+ class GtkWxRendererText
 //-----------------------------------------------------------------------------
 
 extern "C" {
@@ -1389,7 +1389,7 @@ gtk_wx_cell_editor_bin_cell_editable_start_editing(GtkCellEditable *cell_editabl
 }
 
 //-----------------------------------------------------------------------------
-// define new GTK+ class GtkWxCellRenderer
+// define NEW_DEBUG GTK+ class GtkWxCellRenderer
 //-----------------------------------------------------------------------------
 
 extern "C" {
@@ -1963,7 +1963,7 @@ static void
 wxgtk_cell_editable_editing_done( GtkCellEditable *editable,
                                   wxDataViewRenderer *wxrenderer )
 {
-    // "editing-cancelled" property is documented as being new since 2.20 in
+    // "editing-cancelled" property is documented as being NEW_DEBUG since 2.20 in
     // GtkCellEditable, but seems to have existed basically forever (since GTK+
     // 1.3 days) in GtkCellRendererText, so try to use it in any case.
     if ( g_object_class_find_property(G_OBJECT_GET_CLASS(editable),
@@ -2472,7 +2472,7 @@ GType wxCellRendererPixbuf::Type()
 GtkCellRenderer* wxCellRendererPixbuf::New()
 {
     wxCellRendererPixbuf* crp = WX_CELL_RENDERER_PIXBUF(g_object_new(Type(), NULL));
-    crp->m_bundle = new wxBitmapBundle;
+    crp->m_bundle = NEW_DEBUG wxBitmapBundle;
     return GTK_CELL_RENDERER(crp);
 }
 
@@ -2709,7 +2709,7 @@ class wxDataViewCtrlDC: public wxWindowDC
 {
 public:
     wxDataViewCtrlDC( wxDataViewCtrl *window ) :
-        wxWindowDC( new wxDataViewCtrlDCImpl( this, window ) )
+        wxWindowDC( NEW_DEBUG wxDataViewCtrlDCImpl( this, window ) )
         { }
 };
 #endif
@@ -2840,11 +2840,11 @@ wxDC *wxDataViewCustomRenderer::GetDC()
         wxASSERT(m_renderParams);
         cairo_t* cr = m_renderParams->cr;
         wxASSERT(cr && cairo_status(cr) == 0);
-        m_dc = new wxGTKCairoDC(cr, ctrl);
+        m_dc = NEW_DEBUG wxGTKCairoDC(cr, ctrl);
 #else
         if (ctrl == NULL)
             return NULL;
-        m_dc = new wxDataViewCtrlDC(ctrl);
+        m_dc = NEW_DEBUG wxDataViewCtrlDC(ctrl);
 #endif
     }
 
@@ -3570,7 +3570,7 @@ void wxGtkTreeModelNode::Resort()
         return;
     }
 
-    gint *new_order = new gint[child_count];
+    gint *new_order = NEW_DEBUG gint[child_count];
 
 #if 1
     // m_children has the original *void
@@ -3601,7 +3601,7 @@ void wxGtkTreeModelNode::Resort()
     // Too slow
 
     // Build up array with IDs and original positions
-    wxGtkTreeModelChildWithPos* temp = new wxGtkTreeModelChildWithPos[child_count];
+    wxGtkTreeModelChildWithPos* temp = NEW_DEBUG wxGtkTreeModelChildWithPos[child_count];
     size_t i;
     for (i = 0; i < child_count; i++)
     {
@@ -3684,7 +3684,7 @@ wxDataViewCtrlInternal::wxDataViewCtrlInternal( wxDataViewCtrl *owner, wxDataVie
     m_gtk_model = wxgtk_tree_model_new();
     m_gtk_model->internal = this;
 
-    m_notifier = new wxGtkDataViewModelNotifier( wx_model, this );
+    m_notifier = NEW_DEBUG wxGtkDataViewModelNotifier( wx_model, this );
 
     wx_model->AddNotifier( m_notifier );
 
@@ -3756,7 +3756,7 @@ void wxDataViewCtrlInternal::OnInternalIdle()
 void wxDataViewCtrlInternal::InitTree()
 {
     wxDataViewItem item;
-    m_root = new wxGtkTreeModelNode( NULL, item, this );
+    m_root = NEW_DEBUG wxGtkTreeModelNode( NULL, item, this );
 
     BuildBranch( m_root );
 }
@@ -3784,7 +3784,7 @@ void wxDataViewCtrlInternal::BuildBranch( wxGtkTreeModelNode *node )
                 node->FreezeSort(false);
 
             if (m_wx_model->IsContainer( child ))
-                node->AddNode( new wxGtkTreeModelNode( node, child, this ) );
+                node->AddNode( NEW_DEBUG wxGtkTreeModelNode( node, child, this ) );
             else
                 node->AddLeaf( child.GetID() );
 
@@ -4037,7 +4037,7 @@ bool wxDataViewCtrlInternal::ItemAdded( const wxDataViewItem &parent, const wxDa
         }
 
         if (m_wx_model->IsContainer( item ))
-            parent_node->InsertNode( new wxGtkTreeModelNode( parent_node, item, this ), nodePos );
+            parent_node->InsertNode( NEW_DEBUG wxGtkTreeModelNode( parent_node, item, this ), nodePos );
         else
             parent_node->InsertLeaf( item.GetID(), nodePos );
     }
@@ -4440,7 +4440,7 @@ wxGtkTreeModelNode *wxDataViewCtrlInternal::FindNode( const wxDataViewItem &item
 
     while( it.IsOk() )
     {
-        wxDataViewItem * pItem = new wxDataViewItem( it );
+        wxDataViewItem * pItem = NEW_DEBUG wxDataViewItem( it );
         list.Insert( pItem );
         it = m_wx_model->GetParent( it );
     }
@@ -4522,7 +4522,7 @@ wxDataViewCtrlInternal_FindParentNode( wxDataViewModel * model, wxGtkTreeModelNo
     wxDataViewItem it( model->GetParent( item ) );
     while( it.IsOk() )
     {
-        wxDataViewItem * pItem = new wxDataViewItem( it );
+        wxDataViewItem * pItem = NEW_DEBUG wxDataViewItem( it );
         list.Insert( pItem );
         it = model->GetParent( it );
     }
@@ -4948,7 +4948,7 @@ bool wxDataViewCtrl::AssociateModel( wxDataViewModel *model )
         return false;
 
     if ( model )
-        m_internal = new wxDataViewCtrlInternal( this, model );
+        m_internal = NEW_DEBUG wxDataViewCtrlInternal( this, model );
 
     return true;
 }

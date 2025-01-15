@@ -80,7 +80,7 @@ wxArchiveFSCacheDataImpl::wxArchiveFSCacheDataImpl(
     m_begin(NULL),
     m_endptr(&m_begin),
     m_backer(backer),
-    m_stream(new wxBackedInputStream(backer)),
+    m_stream(NEW_DEBUG wxBackedInputStream(backer)),
     m_archive(factory.NewStream(*m_stream))
 {
 }
@@ -115,7 +115,7 @@ wxArchiveFSCacheDataImpl::~wxArchiveFSCacheDataImpl()
 wxArchiveFSEntry *wxArchiveFSCacheDataImpl::AddToCache(wxArchiveEntry *entry)
 {
     m_hash[entry->GetName(wxPATH_UNIX)] = entry;
-    wxArchiveFSEntry *fse = new wxArchiveFSEntry;
+    wxArchiveFSEntry *fse = NEW_DEBUG wxArchiveFSEntry;
     *m_endptr = fse;
     (*m_endptr)->entry = entry;
     (*m_endptr)->next = NULL;
@@ -157,7 +157,7 @@ wxArchiveEntry *wxArchiveFSCacheDataImpl::Get(const wxString& name)
 wxInputStream* wxArchiveFSCacheDataImpl::NewStream() const
 {
     if (m_backer)
-        return new wxBackedInputStream(m_backer);
+        return NEW_DEBUG wxBackedInputStream(m_backer);
     else
         return NULL;
 }
@@ -213,14 +213,14 @@ private:
 wxArchiveFSCacheData::wxArchiveFSCacheData(
         const wxArchiveClassFactory& factory,
         const wxBackingFile& backer)
-  : m_impl(new wxArchiveFSCacheDataImpl(factory, backer))
+  : m_impl(NEW_DEBUG wxArchiveFSCacheDataImpl(factory, backer))
 {
 }
 
 wxArchiveFSCacheData::wxArchiveFSCacheData(
         const wxArchiveClassFactory& factory,
         wxInputStream *stream)
-  : m_impl(new wxArchiveFSCacheDataImpl(factory, stream))
+  : m_impl(NEW_DEBUG wxArchiveFSCacheDataImpl(factory, stream))
 {
 }
 
@@ -350,7 +350,7 @@ wxFSFile* wxArchiveFSHandler::OpenFile(
     if (!right.empty() && right.GetChar(0) == wxT('/')) right = right.Mid(1);
 
     if (!m_cache)
-        m_cache = new wxArchiveFSCache;
+        m_cache = NEW_DEBUG wxArchiveFSCache;
 
     const wxArchiveClassFactory *factory;
     factory = wxArchiveClassFactory::Find(protocol);
@@ -393,7 +393,7 @@ wxFSFile* wxArchiveFSHandler::OpenFile(
         return NULL;
     }
 
-    return new wxFSFile(s,
+    return NEW_DEBUG wxFSFile(s,
                         key + right,
                         wxEmptyString,
                         GetAnchor(location)
@@ -413,7 +413,7 @@ wxString wxArchiveFSHandler::FindFirst(const wxString& spec, int flags)
     if (!right.empty() && right.Last() == wxT('/')) right.RemoveLast();
 
     if (!m_cache)
-        m_cache = new wxArchiveFSCache;
+        m_cache = NEW_DEBUG wxArchiveFSCache;
 
     const wxArchiveClassFactory *factory;
     factory = wxArchiveClassFactory::Find(protocol);
@@ -454,7 +454,7 @@ wxString wxArchiveFSHandler::FindFirst(const wxString& spec, int flags)
         if (m_AllowDirs)
         {
             delete m_DirsFound;
-            m_DirsFound = new wxArchiveFilenameHashMap();
+            m_DirsFound = NEW_DEBUG wxArchiveFilenameHashMap();
             if (right.empty())  // allow "/" to match the archive root
                 return spec;
         }

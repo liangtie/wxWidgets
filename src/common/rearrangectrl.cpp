@@ -178,7 +178,7 @@ void wxRearrangeList::Check(unsigned int item, bool check)
 
 void wxRearrangeList::OnCheck(wxCommandEvent& event)
 {
-    // update the internal state to match the new item state
+    // update the internal state to match the NEW_DEBUG item state
     const int n = event.GetInt();
 
     if ( (m_order[n] >= 0) != IsChecked(n) )
@@ -262,19 +262,19 @@ wxRearrangeCtrl::Create(wxWindow *parent,
     if ( !wxPanel::Create(parent, id, pos, size, wxTAB_TRAVERSAL, name) )
         return false;
 
-    m_list = new wxRearrangeList(this, wxID_ANY,
+    m_list = NEW_DEBUG wxRearrangeList(this, wxID_ANY,
                                  wxDefaultPosition, wxDefaultSize,
                                  order, items,
                                  style, validator);
-    wxButton * const btnUp = new wxButton(this, wxID_UP);
-    wxButton * const btnDown = new wxButton(this, wxID_DOWN);
+    wxButton * const btnUp = NEW_DEBUG wxButton(this, wxID_UP);
+    wxButton * const btnDown = NEW_DEBUG wxButton(this, wxID_DOWN);
 
     // arrange them in a sizer
-    wxSizer * const sizerBtns = new wxBoxSizer(wxVERTICAL);
+    wxSizer * const sizerBtns = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     sizerBtns->Add(btnUp, wxSizerFlags().Centre().Border(wxBOTTOM));
     sizerBtns->Add(btnDown, wxSizerFlags().Centre().Border(wxTOP));
 
-    wxSizer * const sizerTop = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer * const sizerTop = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     sizerTop->Add(m_list, wxSizerFlags(1).Expand().Border(wxRIGHT));
     sizerTop->Add(sizerBtns, wxSizerFlags(0).Centre().Border(wxLEFT));
     SetSizer(sizerTop);
@@ -332,16 +332,16 @@ bool wxRearrangeDialog::Create(wxWindow *parent,
                            name) )
         return false;
 
-    m_ctrl = new wxRearrangeCtrl(this, wxID_ANY, wxDefaultPosition, wxDefaultSize,
+    m_ctrl = NEW_DEBUG wxRearrangeCtrl(this, wxID_ANY, wxDefaultPosition, wxDefaultSize,
                                  order, items);
 
     // notice that the items in this sizer should be inserted accordingly to
     // wxRearrangeDialogSizerPositions order
-    wxSizer * const sizerTop = new wxBoxSizer(wxVERTICAL);
+    wxSizer * const sizerTop = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
     if ( !message.empty() )
     {
-        sizerTop->Add(new wxStaticText(this, wxID_ANY, message),
+        sizerTop->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, message),
                       wxSizerFlags().Border());
     }
     else

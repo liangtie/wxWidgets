@@ -113,7 +113,7 @@ wxTangoArtProvider::CreateBitmapBundle(const wxArtID& id,
     // Array indexed by the id names with pointers to svg data.
     // The order of the elements in this array is the
     // same as the definition order in wx/artprov.h. While it's not very
-    // logical, this should make it simpler to add new icons later. Notice that
+    // logical, this should make it simpler to add NEW_DEBUG icons later. Notice that
     // most elements without Tango equivalents are simply omitted.
 
     // To avoid repetition use BITMAP_DATA to only specify the image name once
@@ -129,7 +129,7 @@ wxTangoArtProvider::CreateBitmapBundle(const wxArtID& id,
         size_t len;
     } s_allBitmaps[] =
     {
-        // Tango does have bookmark-new but no matching bookmark-delete and
+        // Tango does have bookmark-NEW_DEBUG but no matching bookmark-delete and
         // using mismatching icons would be ugly so we don't provide this one
         // either, we should add both of them if Tango ever adds the other one.
         //{ wxART_ADD_BOOKMARK,       BITMAP_DATA(bookmark_new)},
@@ -235,7 +235,7 @@ wxTangoArtProvider::CreateBitmapBundle(const wxArtID& id,
 /* static */
 void wxArtProvider::InitTangoProvider()
 {
-    wxArtProvider::PushBack(new wxTangoArtProvider);
+    wxArtProvider::PushBack(NEW_DEBUG wxTangoArtProvider);
 }
 
 #endif // wxUSE_ARTPROVIDER_TANGO

@@ -48,7 +48,7 @@ using namespace std;
 
 void wxXmlAddContentToNode( wxXmlNode* node, const wxString& data )
 {
-    node->AddChild(new wxXmlNode(wxXML_TEXT_NODE, wxT("value"), data ) );
+    node->AddChild(NEW_DEBUG wxXmlNode(wxXML_TEXT_NODE, wxT("value"), data ) );
 }
 
 wxString wxXmlGetContentFromNode( wxXmlNode *node )
@@ -80,7 +80,7 @@ struct wxObjectXmlWriter::wxObjectXmlWriterInternal
 
 wxObjectXmlWriter::wxObjectXmlWriter( wxXmlNode * rootnode )
 {
-    m_data = new wxObjectXmlWriterInternal();
+    m_data = NEW_DEBUG wxObjectXmlWriterInternal();
     m_data->m_root = rootnode;
     m_data->m_current = rootnode;
 }
@@ -93,7 +93,7 @@ wxObjectXmlWriter::~wxObjectXmlWriter()
 void wxObjectXmlWriter::DoBeginWriteTopLevelEntry( const wxString &name )
 {
     wxXmlNode *pnode;
-    pnode = new wxXmlNode(wxXML_ELEMENT_NODE, wxT("entry"));
+    pnode = NEW_DEBUG wxXmlNode(wxXML_ELEMENT_NODE, wxT("entry"));
     pnode->AddAttribute(wxString(wxT("name")), name);
     m_data->m_current->AddChild(pnode);
     m_data->Push( pnode );
@@ -109,7 +109,7 @@ void wxObjectXmlWriter::DoBeginWriteObject(const wxObject *WXUNUSED(object),
                                      int objectID, const wxStringToAnyHashMap &metadata   )
 {
     wxXmlNode *pnode;
-    pnode = new wxXmlNode(wxXML_ELEMENT_NODE, wxT("object"));
+    pnode = NEW_DEBUG wxXmlNode(wxXML_ELEMENT_NODE, wxT("object"));
     pnode->AddAttribute(wxT("class"), wxString(classInfo->GetClassName()));
     pnode->AddAttribute(wxT("id"), wxString::Format( wxT("%d"), objectID ) );
 
@@ -138,7 +138,7 @@ void wxObjectXmlWriter::DoWriteSimpleType( const wxAny &value )
 void wxObjectXmlWriter::DoBeginWriteElement()
 {
     wxXmlNode *pnode;
-    pnode = new wxXmlNode(wxXML_ELEMENT_NODE, wxT("element") );
+    pnode = NEW_DEBUG wxXmlNode(wxXML_ELEMENT_NODE, wxT("element") );
     m_data->m_current->AddChild(pnode);
     m_data->Push( pnode );
 }
@@ -151,7 +151,7 @@ void wxObjectXmlWriter::DoEndWriteElement()
 void wxObjectXmlWriter::DoBeginWriteProperty(const wxPropertyInfo *pi )
 {
     wxXmlNode *pnode;
-    pnode = new wxXmlNode(wxXML_ELEMENT_NODE, wxT("prop") );
+    pnode = NEW_DEBUG wxXmlNode(wxXML_ELEMENT_NODE, wxT("prop") );
     pnode->AddAttribute(wxT("name"), pi->GetName() );
     m_data->m_current->AddChild(pnode);
     m_data->Push( pnode );
@@ -165,7 +165,7 @@ void wxObjectXmlWriter::DoEndWriteProperty(const wxPropertyInfo *WXUNUSED(propIn
 void wxObjectXmlWriter::DoWriteRepeatedObject( int objectID )
 {
     wxXmlNode *pnode;
-    pnode = new wxXmlNode(wxXML_ELEMENT_NODE, wxT("object"));
+    pnode = NEW_DEBUG wxXmlNode(wxXML_ELEMENT_NODE, wxT("object"));
     pnode->AddAttribute(wxString(wxT("href")), wxString::Format( wxT("%d"), objectID ) );
     m_data->m_current->AddChild(pnode);
 }
@@ -173,7 +173,7 @@ void wxObjectXmlWriter::DoWriteRepeatedObject( int objectID )
 void wxObjectXmlWriter::DoWriteNullObject()
 {
     wxXmlNode *pnode;
-    pnode = new wxXmlNode(wxXML_ELEMENT_NODE, wxT("object"));
+    pnode = NEW_DEBUG wxXmlNode(wxXML_ELEMENT_NODE, wxT("object"));
     m_data->m_current->AddChild(pnode);
 }
 
@@ -270,7 +270,7 @@ int wxObjectXmlReader::ReadComponent(wxXmlNode *node, wxObjectReaderCallback *ca
         return wxInvalidObjectID;
     }
 
-    // new object, start with allocation
+    // NEW_DEBUG object, start with allocation
     // first make the object know to our internal registry
     SetObjectClassInfo( objectID, classInfo );
 
@@ -290,9 +290,9 @@ int wxObjectXmlReader::ReadComponent(wxXmlNode *node, wxObjectReaderCallback *ca
 
     //
     // stream back the Create parameters first
-    createParams = new wxAny[ classInfo->GetCreateParamCount() ];
-    createParamOids = new int[classInfo->GetCreateParamCount() ];
-    createClassInfos = new const wxClassInfo*[classInfo->GetCreateParamCount() ];
+    createParams = NEW_DEBUG wxAny[ classInfo->GetCreateParamCount() ];
+    createParamOids = NEW_DEBUG int[classInfo->GetCreateParamCount() ];
+    createClassInfos = NEW_DEBUG const wxClassInfo*[classInfo->GetCreateParamCount() ];
 
 #if wxUSE_UNICODE
     typedef map<wstring, wxXmlNode *> PropertyNodes;

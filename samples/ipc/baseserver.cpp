@@ -118,7 +118,7 @@ private:
     wxConnection *m_connection;
 };
 
-// Define a new application
+// Define a NEW_DEBUG application
 class MyApp : public wxApp
 {
 public:
@@ -145,7 +145,7 @@ bool MyApp::OnInit()
     if ( !wxApp::OnInit() )
         return false;
 
-    delete wxLog::SetActiveTarget(new wxLogStderr);
+    delete wxLog::SetActiveTarget(NEW_DEBUG wxLogStderr);
 
     const char * const kind =
 #if wxUSE_DDE_FOR_IPC
@@ -155,7 +155,7 @@ bool MyApp::OnInit()
 #endif
                  ;
 
-    // Create a new server
+    // Create a NEW_DEBUG server
     if ( !m_server.Create(IPC_SERVICE) )
     {
         wxLogMessage("%s server failed to start on %s", kind, IPC_SERVICE);
@@ -186,11 +186,11 @@ wxConnectionBase *MyServer::OnAcceptConnection(const wxString& topic)
 
     if ( topic == IPC_TOPIC )
     {
-        m_connection = new MyConnection;
+        m_connection = NEW_DEBUG MyConnection;
     }
     else if ( topic == IPC_BENCHMARK_TOPIC )
     {
-        m_connection = new BenchConnection;
+        m_connection = NEW_DEBUG BenchConnection;
     }
     else // unknown topic
     {

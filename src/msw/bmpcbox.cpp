@@ -226,7 +226,7 @@ int wxBitmapComboBox::DoInsertItems(const wxArrayStringsAdapter & items,
     int index;
     if ( HasFlag(wxCB_SORT) )
     {
-        // Since we don't know at what positions new elements will be actually inserted
+        // Since we don't know at what positions NEW_DEBUG elements will be actually inserted
         // we need to add them one by one, check for each one the position it was added at
         // and reserve the slot for corresponding bitmap at the same postion in the bitmap array.
         index = pos;
@@ -274,7 +274,7 @@ int wxBitmapComboBox::DoInsertItems(const wxArrayStringsAdapter & items,
         if ( GetCount() == m_bitmapbundles.size() )
         {
             // Control is in the normal state.
-            // Just insert new bitmaps into the array.
+            // Just insert NEW_DEBUG bitmaps into the array.
             const unsigned int countNew = GetCount() + numItems;
             m_bitmapbundles.reserve(countNew);
 
@@ -321,7 +321,7 @@ bool wxBitmapComboBox::OnAddBitmap(const wxBitmapBundle& bitmap)
 {
     if ( wxBitmapComboBoxBase::OnAddBitmap(bitmap) || !GetCount() )
     {
-        // Need to recreate control for a new measureitem call?
+        // Need to recreate control for a NEW_DEBUG measureitem call?
         int prevItemHeight = ::SendMessage(GetHwnd(), CB_GETITEMHEIGHT, 0, 0);
 
         if ( prevItemHeight != MeasureItem(0) )

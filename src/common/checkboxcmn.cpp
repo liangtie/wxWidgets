@@ -32,7 +32,7 @@ extern WXDLLEXPORT_DATA(const char) wxCheckBoxNameStr[] = "check";
 
 wxDEFINE_FLAGS( wxCheckBoxStyle )
 wxBEGIN_FLAGS( wxCheckBoxStyle )
-    // new style border flags, we put them first to
+    // NEW_DEBUG style border flags, we put them first to
     // use them for streaming out
     wxFLAGS_MEMBER(wxBORDER_SIMPLE)
     wxFLAGS_MEMBER(wxBORDER_SUNKEN)

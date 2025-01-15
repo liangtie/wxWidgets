@@ -44,13 +44,13 @@ FortyCanvas::FortyCanvas(wxWindow* parent, const wxPoint& pos, const wxSize& siz
 #endif
     SetBackgroundColour(FortyApp::BackgroundColour());
 
-    m_handCursor = new wxCursor(wxCURSOR_HAND);
-    m_arrowCursor = new wxCursor(wxCURSOR_ARROW);
+    m_handCursor = NEW_DEBUG wxCursor(wxCURSOR_HAND);
+    m_arrowCursor = NEW_DEBUG wxCursor(wxCURSOR_ARROW);
 
     wxString name = wxTheApp->GetAppName();
     if ( name.empty() ) name = wxT("forty");
-    m_scoreFile = new ScoreFile(name);
-    m_game = new Game(0, 0, 0);
+    m_scoreFile = NEW_DEBUG ScoreFile(name);
+    m_game = NEW_DEBUG Game(0, 0, 0);
     m_game->Deal();
 }
 
@@ -91,7 +91,7 @@ void FortyCanvas::OnDraw(wxDC& dc)
     // then ask the player for their name
     if (m_player.empty() && !m_playerDialog)
     {
-        m_playerDialog = new PlayerSelectionDialog(this, m_scoreFile);
+        m_playerDialog = NEW_DEBUG PlayerSelectionDialog(this, m_scoreFile);
         m_playerDialog->ShowModal();
         m_player = m_playerDialog->GetPlayersName();
         if ( !m_player.empty() )
@@ -120,7 +120,7 @@ void FortyCanvas::ShowPlayerDialog()
     // then ask the player for their name
     if (m_player.empty() && !m_playerDialog)
     {
-        m_playerDialog = new PlayerSelectionDialog(this, m_scoreFile);
+        m_playerDialog = NEW_DEBUG PlayerSelectionDialog(this, m_scoreFile);
         m_playerDialog->ShowModal();
         m_player = m_playerDialog->GetPlayersName();
         if ( !m_player.empty() )

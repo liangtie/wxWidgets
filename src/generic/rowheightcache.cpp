@@ -64,7 +64,7 @@ void RowRanges::Add(unsigned int row)
         if (rng.from > row + 1)
         {
             // this range is already behind row index, so break here and insert
-            // a new range before
+            // a NEW_DEBUG range before
             break;
         }
     }
@@ -295,7 +295,7 @@ void HeightCache::Put(unsigned int row, int height)
     RowRanges *rowRanges = m_heightToRowRange[height];
     if (rowRanges == NULL)
     {
-        rowRanges = new RowRanges();
+        rowRanges = NEW_DEBUG RowRanges();
         m_heightToRowRange[height] = rowRanges;
     }
     rowRanges->Add(row);

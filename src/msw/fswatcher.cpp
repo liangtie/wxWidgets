@@ -446,7 +446,7 @@ wxMSWFileSystemWatcher::wxMSWFileSystemWatcher(const wxFileName& path,
 
 bool wxMSWFileSystemWatcher::Init()
 {
-    m_service = new wxFSWatcherImplMSW(this);
+    m_service = NEW_DEBUG wxFSWatcherImplMSW(this);
     bool ret = m_service->Init();
     if (!ret)
     {

@@ -100,7 +100,7 @@ bool MyApp::OnInit()
 
     // Create the main frame window
 
-    MyFrame* frame = new MyFrame((wxFrame *)NULL, wxID_ANY, "Animation Demo",
+    MyFrame* frame = NEW_DEBUG MyFrame((wxFrame *)NULL, wxID_ANY, "Animation Demo",
                                  wxDefaultPosition, wxSize(500, 400),
                                  wxDEFAULT_FRAME_STYLE);
     frame->Show(true);
@@ -124,14 +124,14 @@ MyFrame::MyFrame(wxWindow *parent,
     SetIcon(wxICON(sample));
 
     // Make a menubar
-    wxMenu *file_menu = new wxMenu;
+    wxMenu *file_menu = NEW_DEBUG wxMenu;
 
 #if wxUSE_FILEDLG
     file_menu->Append(wxID_OPEN, "&Open Animation...\tCtrl+O", "Loads an animation");
 #endif // wxUSE_FILEDLG
     file_menu->Append(wxID_EXIT);
 
-    wxMenu *play_menu = new wxMenu;
+    wxMenu *play_menu = NEW_DEBUG wxMenu;
     play_menu->Append(ID_PLAY, "Play\tCtrl+P", "Play the animation");
     play_menu->Append(wxID_STOP, "Stop\tCtrl+S", "Stop the animation");
     play_menu->AppendSeparator();
@@ -150,10 +150,10 @@ MyFrame::MyFrame(wxWindow *parent,
                                "Selects whether native or generic version is used");
 #endif // wxHAS_NATIVE_ANIMATIONCTRL
 
-    wxMenu *help_menu = new wxMenu;
+    wxMenu *help_menu = NEW_DEBUG wxMenu;
     help_menu->Append(wxID_ABOUT);
 
-    wxMenuBar *menu_bar = new wxMenuBar;
+    wxMenuBar *menu_bar = NEW_DEBUG wxMenuBar;
 
     menu_bar->Append(file_menu, "&File");
     menu_bar->Append(play_menu, "&Animation");
@@ -169,11 +169,11 @@ MyFrame::MyFrame(wxWindow *parent,
     // use a wxBoxSizer otherwise wxFrame will automatically
     // resize the m_animationCtrl to fill its client area on
     // user resizes
-    wxSizer *sz = new wxBoxSizer(wxVERTICAL);
-    sz->Add(new wxStaticText(this, wxID_ANY, "wxAnimationCtrl:"),
+    wxSizer *sz = NEW_DEBUG wxBoxSizer(wxVERTICAL);
+    sz->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "wxAnimationCtrl:"),
             wxSizerFlags().Centre().Border());
 
-    m_animationCtrl = new wxAnimationCtrl(this, wxID_ANY);
+    m_animationCtrl = NEW_DEBUG wxAnimationCtrl(this, wxID_ANY);
     if (m_animationCtrl->LoadFile("throbber.gif"))
         m_animationCtrl->Play();
 
@@ -217,7 +217,7 @@ void MyFrame::OnSetInactiveBitmap(wxCommandEvent& event)
 
 void MyFrame::OnSetNoAutoResize(wxCommandEvent& event)
 {
-    // recreate the control with the new flag if necessary
+    // recreate the control with the NEW_DEBUG flag if necessary
     long style = wxAC_DEFAULT_STYLE |
                     (event.IsChecked() ? wxAC_NO_AUTORESIZE : 0);
 
@@ -259,20 +259,20 @@ void MyFrame::RecreateAnimation(long style)
 
 #ifdef wxHAS_NATIVE_ANIMATIONCTRL
     if ( GetMenuBar()->IsChecked(ID_USE_GENERIC) )
-        m_animationCtrl = new wxGenericAnimationCtrl(this, wxID_ANY, curr,
+        m_animationCtrl = NEW_DEBUG wxGenericAnimationCtrl(this, wxID_ANY, curr,
                                                      wxDefaultPosition,
                                                      wxDefaultSize,
                                                      style);
     else
 #endif // wxHAS_NATIVE_ANIMATIONCTRL
-    m_animationCtrl = new wxAnimationCtrl(this, wxID_ANY, curr,
+    m_animationCtrl = NEW_DEBUG wxAnimationCtrl(this, wxID_ANY, curr,
                                           wxDefaultPosition, wxDefaultSize,
                                           style);
 
     GetSizer()->Replace(old, m_animationCtrl);
     delete old;
 
-    // load old status in new control
+    // load old status in NEW_DEBUG control
     m_animationCtrl->SetInactiveBitmap(inactive);
     m_animationCtrl->SetBackgroundColour(bg);
 

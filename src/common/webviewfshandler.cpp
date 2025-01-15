@@ -18,7 +18,7 @@
 wxWebViewFSHandler::wxWebViewFSHandler(const wxString& scheme) :
                          wxWebViewHandler(scheme)
 {
-    m_fileSystem = new wxFileSystem();
+    m_fileSystem = NEW_DEBUG wxFileSystem();
 }
 
 wxWebViewFSHandler::~wxWebViewFSHandler()

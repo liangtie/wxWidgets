@@ -396,7 +396,7 @@ wxHtmlImageCell::wxHtmlImageCell(wxHtmlWindowInterface *windowIface,
                      (input->GetLocation().Matches(wxT("*.gif")) ||
                       input->GetLocation().Matches(wxT("*.GIF"))) )
                 {
-                    m_gifDecoder = new wxGIFDecoder();
+                    m_gifDecoder = NEW_DEBUG wxGIFDecoder();
                     if ( m_gifDecoder->LoadGIF(*s) == wxGIF_OK )
                     {
                         wxImage img;
@@ -407,7 +407,7 @@ wxHtmlImageCell::wxHtmlImageCell(wxHtmlWindowInterface *windowIface,
 
                         if ( m_gifDecoder->IsAnimation() )
                         {
-                            m_gifTimer = new wxGIFTimer(this);
+                            m_gifTimer = NEW_DEBUG wxGIFTimer(this);
                             long delay = m_gifDecoder->GetDelay(0);
                             if ( delay == 0 )
                                 delay = 1;
@@ -447,7 +447,7 @@ wxHtmlImageCell::wxHtmlImageCell(wxHtmlWindowInterface *windowIface,
                 if ( m_bmpH == wxDefaultCoord ) m_bmpH = 33;
             }
             m_bitmap =
-                new wxBitmap(wxArtProvider::GetBitmap(wxART_MISSING_IMAGE));
+                NEW_DEBUG wxBitmap(wxArtProvider::GetBitmap(wxART_MISSING_IMAGE));
         }
     }
     //else: ignore the 0-sized images used sometimes on the Web pages
@@ -472,7 +472,7 @@ void wxHtmlImageCell::SetImage(const wxImage& img, double scaleHDPI)
 
         // On a Mac retina screen, we might have found a @2x version of the image,
         // so specify this scale factor.
-        m_bitmap = new wxBitmap(img, -1, scaleHDPI);
+        m_bitmap = NEW_DEBUG wxBitmap(img, -1, scaleHDPI);
     }
 #endif
 }
@@ -621,7 +621,7 @@ void wxHtmlImageCell::Draw(wxDC& dc, int x, int y,
             image.Rescale(m_Width, m_Height, wxIMAGE_QUALITY_HIGH);
             (*m_bitmap) = wxBitmap(image);
         }
-#endif 
+#endif
 
         if (m_Width != m_bitmap->GetLogicalWidth())
             imageScaleX = (double) m_Width / (double) m_bitmap->GetLogicalWidth();
@@ -706,7 +706,7 @@ TAG_HANDLER_BEGIN(IMG, "IMG,MAP,AREA")
                             scaleHDPI = 2.0;
                         }
                     }
-                }                    
+                }
 #endif
                 if (!str)
                     str = m_WParser->OpenURL(wxHTML_URL_IMAGE, tmp);
@@ -744,7 +744,7 @@ TAG_HANDLER_BEGIN(IMG, "IMG,MAP,AREA")
                         mn = mn.Mid( 1 );
                     }
                 }
-                wxHtmlImageCell *cel = new wxHtmlImageCell(
+                wxHtmlImageCell *cel = NEW_DEBUG wxHtmlImageCell(
                                           m_WParser->GetWindowInterface(),
                                           str, scaleHDPI, w, wpercent, h, hpresent,
                                           m_WParser->GetPixelScale(),
@@ -764,7 +764,7 @@ TAG_HANDLER_BEGIN(IMG, "IMG,MAP,AREA")
             wxString tmp;
             if (tag.GetParamAsString(wxT("NAME"), &tmp))
             {
-                wxHtmlImageMapCell *cel = new wxHtmlImageMapCell( tmp );
+                wxHtmlImageMapCell *cel = NEW_DEBUG wxHtmlImageMapCell( tmp );
                 m_WParser->GetContainer()->InsertCell( cel );
             }
             ParseInner( tag );
@@ -781,15 +781,15 @@ TAG_HANDLER_BEGIN(IMG, "IMG,MAP,AREA")
                 wxHtmlImageMapAreaCell *cel = NULL;
                 if (tmp == wxT("POLY"))
                 {
-                    cel = new wxHtmlImageMapAreaCell( wxHtmlImageMapAreaCell::POLY, coords, m_WParser->GetPixelScale() );
+                    cel = NEW_DEBUG wxHtmlImageMapAreaCell( wxHtmlImageMapAreaCell::POLY, coords, m_WParser->GetPixelScale() );
                 }
                 else if (tmp == wxT("CIRCLE"))
                 {
-                    cel = new wxHtmlImageMapAreaCell( wxHtmlImageMapAreaCell::CIRCLE, coords, m_WParser->GetPixelScale() );
+                    cel = NEW_DEBUG wxHtmlImageMapAreaCell( wxHtmlImageMapAreaCell::CIRCLE, coords, m_WParser->GetPixelScale() );
                 }
                 else if (tmp == wxT("RECT"))
                 {
-                    cel = new wxHtmlImageMapAreaCell( wxHtmlImageMapAreaCell::RECT, coords, m_WParser->GetPixelScale() );
+                    cel = NEW_DEBUG wxHtmlImageMapAreaCell( wxHtmlImageMapAreaCell::RECT, coords, m_WParser->GetPixelScale() );
                 }
                 wxString href;
                 if (cel != NULL && tag.GetParamAsString(wxT("HREF"), &href))

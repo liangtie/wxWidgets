@@ -162,7 +162,7 @@ public:
 
     // ... and setters: notice that all of them invalidate the currently
     // allocated HFONT, if any, so that the next call to GetHFONT() recreates a
-    // new one
+    // NEW_DEBUG one
     void SetFractionalPointSize(double pointSize)
     {
         Free();
@@ -814,14 +814,14 @@ wxFont::wxFont(const wxString& fontdesc)
 
 wxFont::wxFont(const wxFontInfo& info)
 {
-    m_refData = new wxFontRefData(info);
+    m_refData = NEW_DEBUG wxFontRefData(info);
 }
 
 bool wxFont::Create(const wxNativeFontInfo& info, WXHFONT hFont)
 {
     UnRef();
 
-    m_refData = new wxFontRefData(info, hFont);
+    m_refData = NEW_DEBUG wxFontRefData(info, hFont);
 
     return RealizeResource();
 }
@@ -830,7 +830,7 @@ bool wxFont::DoCreate(const wxFontInfo& info)
 {
     UnRef();
 
-    m_refData = new wxFontRefData(info);
+    m_refData = NEW_DEBUG wxFontRefData(info);
 
     return RealizeResource();
 }
@@ -845,12 +845,12 @@ wxFont::~wxFont()
 
 wxGDIRefData *wxFont::CreateGDIRefData() const
 {
-    return new wxFontRefData();
+    return NEW_DEBUG wxFontRefData();
 }
 
 wxGDIRefData *wxFont::CloneGDIRefData(const wxGDIRefData *data) const
 {
-    return new wxFontRefData(*static_cast<const wxFontRefData *>(data));
+    return NEW_DEBUG wxFontRefData(*static_cast<const wxFontRefData *>(data));
 }
 
 bool wxFont::RealizeResource()

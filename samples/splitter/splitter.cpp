@@ -188,7 +188,7 @@ bool MyApp::OnInit()
         return false;
 
     // create and show the main frame
-    MyFrame* frame = new MyFrame;
+    MyFrame* frame = NEW_DEBUG MyFrame;
 
     frame->Show(true);
 
@@ -240,7 +240,7 @@ MyFrame::MyFrame()
 #endif // wxUSE_STATUSBAR
 
     // Make a menubar
-    wxMenu *splitMenu = new wxMenu;
+    wxMenu *splitMenu = NEW_DEBUG wxMenu;
     splitMenu->Append(SPLIT_VERTICAL,
                       "Split &Vertically\tCtrl-V",
                       "Split vertically");
@@ -299,13 +299,13 @@ MyFrame::MyFrame()
 
     splitMenu->Append(SPLIT_QUIT, "E&xit\tAlt-X", "Exit");
 
-    wxMenuBar *menuBar = new wxMenuBar;
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar;
     menuBar->Append(splitMenu, "&Splitter");
 
     SetMenuBar(menuBar);
 
     menuBar->Check(SPLIT_LIVE, true);
-    m_splitter = new MySplitterWindow(this);
+    m_splitter = NEW_DEBUG MySplitterWindow(this);
 
     // If you use non-zero gravity you must initialize the splitter with its
     // correct initial size, otherwise it will change the sash position by a
@@ -316,17 +316,17 @@ MyFrame::MyFrame()
     m_splitter->SetSashGravity(1.0);
 
 #if 1
-    m_left = new MyCanvas(m_splitter, true);
+    m_left = NEW_DEBUG MyCanvas(m_splitter, true);
     m_left->SetBackgroundColour(*wxRED);
     m_left->SetCursor(wxCursor(wxCURSOR_MAGNIFIER));
     m_left->SetToolTip("This is the left window");
 
-    m_right = new MyCanvas(m_splitter, false);
+    m_right = NEW_DEBUG MyCanvas(m_splitter, false);
     m_right->SetBackgroundColour(*wxCYAN);
     m_right->SetToolTip("And this is the window on the right");
 #else // for testing kbd navigation inside the splitter
-    m_left = new wxTextCtrl(m_splitter, wxID_ANY, "first text");
-    m_right = new wxTextCtrl(m_splitter, wxID_ANY, "second text");
+    m_left = NEW_DEBUG wxTextCtrl(m_splitter, wxID_ANY, "first text");
+    m_right = NEW_DEBUG wxTextCtrl(m_splitter, wxID_ANY, "second text");
 #endif
 
     // you can also do this to start with a single window
@@ -489,7 +489,7 @@ void MyFrame::OnReplace(wxCommandEvent& WXUNUSED(event) )
         m_replacewindow = m_splitter->GetWindow2();
         if ( m_replacewindow )
         {
-            m_splitter->ReplaceWindow(m_replacewindow, new wxPanel(m_splitter, wxID_ANY));
+            m_splitter->ReplaceWindow(m_replacewindow, NEW_DEBUG wxPanel(m_splitter, wxID_ANY));
             m_replacewindow->Hide();
         }
     }
@@ -562,7 +562,7 @@ void MySplitterWindow::OnPositionChanged(wxSplitterEvent& event)
 
     // This event is only sent when the user manually dragged the sash.
     // In this case we accept the user input so the sash is locked at the
-    // new position. If the sash is not locked, this has no effect but
+    // NEW_DEBUG position. If the sash is not locked, this has no effect but
     // doesn't hurt either.
     m_frame->SetSashPos(event.GetSashPosition());
 }

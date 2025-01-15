@@ -346,7 +346,7 @@ bool wxAnyChoiceDialog::Create(wxWindow *parent,
     if ( !wxDialog::Create(GetParentForModalDialog(parent, styleDlg), wxID_ANY, caption, pos, wxDefaultSize, styleDlg) )
         return false;
 
-    wxBoxSizer *topsizer = new wxBoxSizer( wxVERTICAL );
+    wxBoxSizer *topsizer = NEW_DEBUG wxBoxSizer( wxVERTICAL );
 
     // 1) text message
     topsizer->
@@ -396,7 +396,7 @@ bool wxAnyChoiceDialog::Create(wxWindow *parent,
 
 wxListBoxBase *wxAnyChoiceDialog::CreateList(int n, const wxString *choices, long styleLbox)
 {
-    return new wxListBox( this, wxID_LISTBOX,
+    return NEW_DEBUG wxListBox( this, wxID_LISTBOX,
                           wxDefaultPosition, wxDefaultSize,
                           n, choices,
                           styleLbox );
@@ -598,7 +598,7 @@ bool wxMultiChoiceDialog::TransferDataFromWindow()
 
 wxListBoxBase *wxMultiChoiceDialog::CreateList(int n, const wxString *choices, long styleLbox)
 {
-    return new wxCheckListBox( this, wxID_LISTBOX,
+    return NEW_DEBUG wxCheckListBox( this, wxID_LISTBOX,
                                wxDefaultPosition, wxDefaultSize,
                                n, choices,
                                styleLbox );

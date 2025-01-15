@@ -439,7 +439,7 @@ webkit_web_extension_initialize_with_user_data (WebKitWebExtension *webkit_exten
 
     g_variant_get (user_data, "(&s)", &server_address);
 
-    gs_extension = new wxWebViewWebKitExtension(webkit_extension,
+    gs_extension = NEW_DEBUG wxWebViewWebKitExtension(webkit_extension,
                                                 server_address);
 }
 } // extern "C"

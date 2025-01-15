@@ -52,12 +52,12 @@ TAG_HANDLER_BEGIN(FONT, "FONT" )
             if (tag.GetParamAsColour(wxT("COLOR"), &clr))
             {
                 m_WParser->SetActualColor(clr);
-                m_WParser->GetContainer()->InsertCell(new wxHtmlColourCell(clr));
+                m_WParser->GetContainer()->InsertCell(NEW_DEBUG wxHtmlColourCell(clr));
             }
             if (tag.GetParamAsColour(wxT("BGCOLOR"), &clr))
             {
                 m_WParser->SetActualBackgroundColor(clr);
-                m_WParser->GetContainer()->InsertCell(new wxHtmlColourCell(clr, wxHTML_CLR_BACKGROUND));
+                m_WParser->GetContainer()->InsertCell(NEW_DEBUG wxHtmlColourCell(clr, wxHTML_CLR_BACKGROUND));
             }
         }
 
@@ -72,7 +72,7 @@ TAG_HANDLER_BEGIN(FONT, "FONT" )
                 else
                     m_WParser->SetFontSize(tmp);
                 m_WParser->GetContainer()->InsertCell(
-                    new wxHtmlFontCell(m_WParser->CreateCurrentFont()));
+                    NEW_DEBUG wxHtmlFontCell(m_WParser->CreateCurrentFont()));
             }
         }
 
@@ -90,7 +90,7 @@ TAG_HANDLER_BEGIN(FONT, "FONT" )
                 if ((index = m_Faces.Index(tk.GetNextToken(), false)) != wxNOT_FOUND)
                 {
                     m_WParser->SetFontFace(m_Faces[index]);
-                    m_WParser->GetContainer()->InsertCell(new wxHtmlFontCell(m_WParser->CreateCurrentFont()));
+                    m_WParser->GetContainer()->InsertCell(NEW_DEBUG wxHtmlFontCell(m_WParser->CreateCurrentFont()));
                     break;
                 }
             }
@@ -125,12 +125,12 @@ TAG_HANDLER_BEGIN(FONT, "FONT" )
             {
                 m_WParser->SetFontSize(oldsize);
             }
-            m_WParser->GetContainer()->InsertCell(new wxHtmlFontCell(m_WParser->CreateCurrentFont()));
+            m_WParser->GetContainer()->InsertCell(NEW_DEBUG wxHtmlFontCell(m_WParser->CreateCurrentFont()));
         }
         if (oldclr != m_WParser->GetActualColor())
         {
             m_WParser->SetActualColor(oldclr);
-            m_WParser->GetContainer()->InsertCell(new wxHtmlColourCell(oldclr));
+            m_WParser->GetContainer()->InsertCell(NEW_DEBUG wxHtmlColourCell(oldclr));
         }
         if (oldbackmode != m_WParser->GetActualBackgroundMode() ||
             oldbackclr != m_WParser->GetActualBackgroundColor())
@@ -138,7 +138,7 @@ TAG_HANDLER_BEGIN(FONT, "FONT" )
             m_WParser->SetActualBackgroundMode(oldbackmode);
             m_WParser->SetActualBackgroundColor(oldbackclr);
             m_WParser->GetContainer()->InsertCell(
-                new wxHtmlColourCell(oldbackclr, oldbackmode == wxBRUSHSTYLE_TRANSPARENT ? wxHTML_CLR_TRANSPARENT_BACKGROUND : wxHTML_CLR_BACKGROUND));
+                NEW_DEBUG wxHtmlColourCell(oldbackclr, oldbackmode == wxBRUSHSTYLE_TRANSPARENT ? wxHTML_CLR_TRANSPARENT_BACKGROUND : wxHTML_CLR_BACKGROUND));
         }
 
         return true;
@@ -157,13 +157,13 @@ TAG_HANDLER_BEGIN(FACES_U, "U,STRIKE,DEL")
 
         m_WParser->SetFontUnderlined(true);
         m_WParser->GetContainer()->InsertCell(
-            new wxHtmlFontCell(m_WParser->CreateCurrentFont()));
+            NEW_DEBUG wxHtmlFontCell(m_WParser->CreateCurrentFont()));
 
         ParseInner(tag);
 
         m_WParser->SetFontUnderlined(underlined);
         m_WParser->GetContainer()->InsertCell(
-            new wxHtmlFontCell(m_WParser->CreateCurrentFont()));
+            NEW_DEBUG wxHtmlFontCell(m_WParser->CreateCurrentFont()));
         return true;
     }
 
@@ -181,13 +181,13 @@ TAG_HANDLER_BEGIN(FACES_B, "B,STRONG")
 
         m_WParser->SetFontBold(true);
         m_WParser->GetContainer()->InsertCell(
-            new wxHtmlFontCell(m_WParser->CreateCurrentFont()));
+            NEW_DEBUG wxHtmlFontCell(m_WParser->CreateCurrentFont()));
 
         ParseInner(tag);
 
         m_WParser->SetFontBold(bold);
         m_WParser->GetContainer()->InsertCell(
-            new wxHtmlFontCell(m_WParser->CreateCurrentFont()));
+            NEW_DEBUG wxHtmlFontCell(m_WParser->CreateCurrentFont()));
         return true;
     }
 
@@ -205,13 +205,13 @@ TAG_HANDLER_BEGIN(FACES_I, "I,EM,CITE,ADDRESS")
 
         m_WParser->SetFontItalic(true);
         m_WParser->GetContainer()->InsertCell(
-            new wxHtmlFontCell(m_WParser->CreateCurrentFont()));
+            NEW_DEBUG wxHtmlFontCell(m_WParser->CreateCurrentFont()));
 
         ParseInner(tag);
 
         m_WParser->SetFontItalic(italic);
         m_WParser->GetContainer()->InsertCell(
-            new wxHtmlFontCell(m_WParser->CreateCurrentFont()));
+            NEW_DEBUG wxHtmlFontCell(m_WParser->CreateCurrentFont()));
         return true;
     }
 
@@ -229,13 +229,13 @@ TAG_HANDLER_BEGIN(FACES_TT, "TT,CODE,KBD,SAMP")
 
         m_WParser->SetFontFixed(true);
         m_WParser->GetContainer()->InsertCell(
-            new wxHtmlFontCell(m_WParser->CreateCurrentFont()));
+            NEW_DEBUG wxHtmlFontCell(m_WParser->CreateCurrentFont()));
 
         ParseInner(tag);
 
         m_WParser->SetFontFixed(fixed);
         m_WParser->GetContainer()->InsertCell(
-            new wxHtmlFontCell(m_WParser->CreateCurrentFont()));
+            NEW_DEBUG wxHtmlFontCell(m_WParser->CreateCurrentFont()));
         return true;
     }
 
@@ -296,7 +296,7 @@ TAG_HANDLER_BEGIN(Hx, "H1,H2,H3,H4,H5,H6")
         c = m_WParser->GetContainer();
 
         c->SetAlign(tag);
-        c->InsertCell(new wxHtmlFontCell(m_WParser->CreateCurrentFont()));
+        c->InsertCell(NEW_DEBUG wxHtmlFontCell(m_WParser->CreateCurrentFont()));
         c->SetIndent(m_WParser->GetCharHeight(), wxHTML_INDENT_TOP);
         m_WParser->SetAlign(c->GetAlignHor());
 
@@ -310,7 +310,7 @@ TAG_HANDLER_BEGIN(Hx, "H1,H2,H3,H4,H5,H6")
         m_WParser->SetAlign(old_al);
 
         m_WParser->GetContainer()->InsertCell(
-            new wxHtmlFontCell(m_WParser->CreateCurrentFont()));
+            NEW_DEBUG wxHtmlFontCell(m_WParser->CreateCurrentFont()));
         m_WParser->CloseContainer();
         m_WParser->OpenContainer();
         c = m_WParser->GetContainer();
@@ -332,13 +332,13 @@ TAG_HANDLER_BEGIN(BIGSMALL, "BIG,SMALL")
 
         m_WParser->SetFontSize(oldsize + sz);
         m_WParser->GetContainer()->InsertCell(
-            new wxHtmlFontCell(m_WParser->CreateCurrentFont()));
+            NEW_DEBUG wxHtmlFontCell(m_WParser->CreateCurrentFont()));
 
         ParseInner(tag);
 
         m_WParser->SetFontSize(oldsize);
         m_WParser->GetContainer()->InsertCell(
-            new wxHtmlFontCell(m_WParser->CreateCurrentFont()));
+            NEW_DEBUG wxHtmlFontCell(m_WParser->CreateCurrentFont()));
         return true;
     }
 

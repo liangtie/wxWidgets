@@ -7,7 +7,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 // This sample pops up an initial wxWidgets frame, with a menu item
-// that allows a new MFC window to be created. Note that CDummyWindow
+// that allows a NEW_DEBUG MFC window to be created. Note that CDummyWindow
 // is a class that allows a wxWidgets window to be seen as a CWnd
 // for the purposes of specifying a valid main window to the
 // MFC initialisation.
@@ -85,7 +85,7 @@ SampleMFCWinApp theApp;
 
 // wxWidgets elements
 
-// Define a new application type inheriting from wxAppWithMFC
+// Define a NEW_DEBUG application type inheriting from wxAppWithMFC
 class MyApp: public wxAppWithMFC
 {
 public:
@@ -124,20 +124,20 @@ public:
     MyPanel(wxWindow *parent, const wxPoint& pos)
         : wxPanel(parent, wxID_ANY, pos)
     {
-        wxSizer* const sizer = new wxFlexGridSizer(2, wxSize(5, 5));
-        sizer->Add(new wxStaticText(this, wxID_ANY, "Enter your &name:"),
+        wxSizer* const sizer = NEW_DEBUG wxFlexGridSizer(2, wxSize(5, 5));
+        sizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "Enter your &name:"),
                    wxSizerFlags().Center().Right());
-        m_textName = new wxTextCtrl(this, wxID_ANY);
+        m_textName = NEW_DEBUG wxTextCtrl(this, wxID_ANY);
         m_textName->SetHint("First Last");
         sizer->Add(m_textName, wxSizerFlags().Expand().CenterVertical());
 
-        sizer->Add(new wxStaticText(this, wxID_ANY, "And your &age:"),
+        sizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "And your &age:"),
                    wxSizerFlags().Center().Right());
-        m_spinAge = new wxSpinCtrl(this, wxID_ANY);
+        m_spinAge = NEW_DEBUG wxSpinCtrl(this, wxID_ANY);
         sizer->Add(m_spinAge, wxSizerFlags().Expand().CenterVertical());
 
         wxStaticBoxSizer* const
-            box = new wxStaticBoxSizer(wxVERTICAL, this, "wxWidgets box");
+            box = NEW_DEBUG wxStaticBoxSizer(wxVERTICAL, this, "wxWidgets box");
         box->Add(sizer, wxSizerFlags(1).Expand());
         SetSizer(box);
 
@@ -179,15 +179,15 @@ CMainWindow::CMainWindow()
 
     // Create a container representing the MFC window in wxWidgets window
     // hierarchy.
-    m_containerWX = new wxNativeContainerWindow(m_hWnd);
+    m_containerWX = NEW_DEBUG wxNativeContainerWindow(m_hWnd);
 
     // Now we can create children of this container as usual.
-    new MyPanel(m_containerWX, wxPoint(5, 5));
+    NEW_DEBUG MyPanel(m_containerWX, wxPoint(5, 5));
 
     // An ugly but necessary workaround to prevent the container TLW from
     // resizing the panel to fit its entire client area as it would do if it
     // were its only child.
-    new wxWindow(m_containerWX, wxID_ANY, wxPoint(4, 4), wxSize(1, 1));
+    NEW_DEBUG wxWindow(m_containerWX, wxID_ANY, wxPoint(4, 4), wxSize(1, 1));
 }
 
 void CMainWindow::OnPaint()
@@ -212,7 +212,7 @@ void CMainWindow::OnAbout()
 
 void CMainWindow::OnTest()
 {
-    wxMessageBox("This is a wxWidgets message box.\nWe're about to create a new wxWidgets frame.", "wxWidgets", wxOK);
+    wxMessageBox("This is a wxWidgets message box.\nWe're about to create a NEW_DEBUG wxWidgets frame.", "wxWidgets", wxOK);
     wxGetApp().CreateFrame();
 }
 
@@ -251,7 +251,7 @@ bool MyApp::OnInit()
 
 wxFrame *MyApp::CreateFrame()
 {
-    MyChild *subframe = new MyChild(NULL, "Canvas Frame", wxPoint(10, 10), wxSize(300, 300),
+    MyChild *subframe = NEW_DEBUG MyChild(NULL, "Canvas Frame", wxPoint(10, 10), wxSize(300, 300),
         wxDEFAULT_FRAME_STYLE);
 
     subframe->SetTitle("wxWidgets canvas frame");
@@ -260,12 +260,12 @@ wxFrame *MyApp::CreateFrame()
     subframe->CreateStatusBar();
 
     // Make a menubar
-    wxMenu *file_menu = new wxMenu;
+    wxMenu *file_menu = NEW_DEBUG wxMenu;
 
     file_menu->Append(HELLO_NEW, "&New MFC Window");
     file_menu->Append(HELLO_QUIT, "&Close");
 
-    wxMenuBar *menu_bar = new wxMenuBar;
+    wxMenuBar *menu_bar = NEW_DEBUG wxMenuBar;
 
     menu_bar->Append(file_menu, "&File");
 
@@ -275,7 +275,7 @@ wxFrame *MyApp::CreateFrame()
     int width, height;
     subframe->GetClientSize(&width, &height);
 
-    MyCanvas *canvas = new MyCanvas(subframe, wxPoint(0, 0), wxSize(width, height));
+    MyCanvas *canvas = NEW_DEBUG MyCanvas(subframe, wxPoint(0, 0), wxSize(width, height));
     canvas->SetCursor(wxCursor(wxCURSOR_PENCIL));
     subframe->canvas = canvas;
     subframe->Show(true);
@@ -359,7 +359,7 @@ void MyChild::OnQuit(wxCommandEvent& WXUNUSED(event))
 
 void MyChild::OnNew(wxCommandEvent& WXUNUSED(event))
 {
-    CMainWindow *mainWin = new CMainWindow();
+    CMainWindow *mainWin = NEW_DEBUG CMainWindow();
     mainWin->ShowWindow( TRUE );
     mainWin->UpdateWindow();
 }

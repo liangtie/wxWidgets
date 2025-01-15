@@ -262,7 +262,7 @@ static void wxInsertChildInNotebook( wxNotebook* parent, wxWindow* child )
 {
     // Hack Alert! (Part I): This sets the notebook as the parent of the child
     // widget, and takes care of some details such as updating the state and
-    // style of the child to reflect its new location.  We do this early
+    // style of the child to reflect its NEW_DEBUG location.  We do this early
     // because without it GetBestSize (which is used to set the initial size
     // of controls if an explicit size is not given) will often report
     // incorrect sizes since the widget's style context is not fully known.
@@ -499,7 +499,7 @@ bool wxNotebook::SetPageImage( size_t page, int image )
 
         if (image == -1)
         {
-            /* If there's no new widget, just remove the old from the box */
+            /* If there's no NEW_DEBUG widget, just remove the old from the box */
             gtk_container_remove(GTK_CONTAINER(nb_page->m_box), pixmapwid);
             nb_page->m_image = -1;
 
@@ -510,7 +510,7 @@ bool wxNotebook::SetPageImage( size_t page, int image )
     /* Only cases 3) and 4) left */
     wxASSERT( HasImageList() ); /* Just in case */
 
-    /* Construct the new pixmap */
+    /* Construct the NEW_DEBUG pixmap */
     const wxBitmap bmp = GetImageList()->GetBitmap(image);
     GdkPixmap *pixmap = bmp.GetPixmap();
     GdkBitmap *mask = NULL;
@@ -521,7 +521,7 @@ bool wxNotebook::SetPageImage( size_t page, int image )
 
     if (pixmapwid == NULL)
     {
-        /* Case 3) No old pixmap. Create a new one and prepend it to the hbox */
+        /* Case 3) No old pixmap. Create a NEW_DEBUG one and prepend it to the hbox */
         pixmapwid = gtk_pixmap_new (pixmap, mask );
 
         /* CHECKME: Are these pack flags okay? */
@@ -605,7 +605,7 @@ wxNotebookPage *wxNotebook::DoRemovePage( size_t page )
     gtk_widget_unparent( client->m_widget );
 
     // gtk_notebook_remove_page() sends "switch_page" signal with some strange
-    // new page index (when deleting selected page 0, new page is 1 although,
+    // NEW_DEBUG page index (when deleting selected page 0, NEW_DEBUG page is 1 although,
     // clearly, the selection should stay 0), so suppress this
     gtk_signal_disconnect_by_func( GTK_OBJECT(m_widget),
       GTK_SIGNAL_FUNC(gtk_notebook_page_change_callback), (gpointer) this );
@@ -652,7 +652,7 @@ bool wxNotebook::InsertPage( size_t position,
 
     GtkNotebook *notebook = GTK_NOTEBOOK(m_widget);
 
-    wxGtkNotebookPage *nb_page = new wxGtkNotebookPage();
+    wxGtkNotebookPage *nb_page = NEW_DEBUG wxGtkNotebookPage();
 
     if ( position == GetPageCount() )
         m_pagesData.Append( nb_page );

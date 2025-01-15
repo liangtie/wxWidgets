@@ -99,12 +99,12 @@ wxIMPLEMENT_DYNAMIC_CLASS(wxPen, wxGDIObject);
 
 wxPen::wxPen( const wxColour &colour, int width, wxPenStyle style )
 {
-    m_refData = new wxPenRefData(wxPenInfo(colour, width).Style(style));
+    m_refData = NEW_DEBUG wxPenRefData(wxPenInfo(colour, width).Style(style));
 }
 
 wxPen::wxPen(const wxColour& colour, int width, int style)
 {
-    m_refData = new wxPenRefData
+    m_refData = NEW_DEBUG wxPenRefData
                     (
                         wxPenInfo(colour, width).Style((wxPenStyle)style)
                     );
@@ -112,7 +112,7 @@ wxPen::wxPen(const wxColour& colour, int width, int style)
 
 wxPen::wxPen(const wxPenInfo& info)
 {
-    m_refData = new wxPenRefData(info);
+    m_refData = NEW_DEBUG wxPenRefData(info);
 }
 
 wxPen::~wxPen()
@@ -122,12 +122,12 @@ wxPen::~wxPen()
 
 wxGDIRefData *wxPen::CreateGDIRefData() const
 {
-    return new wxPenRefData;
+    return NEW_DEBUG wxPenRefData;
 }
 
 wxGDIRefData *wxPen::CloneGDIRefData(const wxGDIRefData *data) const
 {
-    return new wxPenRefData(*static_cast<const wxPenRefData*>(data));
+    return NEW_DEBUG wxPenRefData(*static_cast<const wxPenRefData*>(data));
 }
 
 bool wxPen::operator == ( const wxPen& pen ) const

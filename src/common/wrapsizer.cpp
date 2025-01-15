@@ -123,7 +123,7 @@ wxSizer *wxWrapSizer::GetRowSizer(size_t n)
     if ( n < rows.size() )
         return rows[n]->GetSizer();
 
-    wxSizer * const sizer = new wxBoxSizer(GetOrientation());
+    wxSizer * const sizer = NEW_DEBUG wxBoxSizer(GetOrientation());
     m_rows.Add(sizer, wxSizerFlags().Expand());
     return sizer;
 }
@@ -158,7 +158,7 @@ void wxWrapSizer::AdjustLastRowItemProp(size_t n, wxSizerItem *itemLast)
     wxCHECK_RET( item, "invalid sizer item" );
 
     // store the item we modified and its original proportion
-    item->SetUserData(new wxPropChanger(*this, *itemLast));
+    item->SetUserData(NEW_DEBUG wxPropChanger(*this, *itemLast));
 }
 
 wxSize wxWrapSizer::CalcMin()
@@ -281,7 +281,7 @@ void wxWrapSizer::CalcMinFromMajor(int totMajor)
     int maxRowMinor = 0;        // max of item minor sizes in this row
     int rowTotalMajor = 0;      // sum of major sizes of items in this row
 
-    // pack the items in each row until we reach totMajor, then start a new row
+    // pack the items in each row until we reach totMajor, then start a NEW_DEBUG row
     for ( wxSizerItemList::const_iterator i = m_children.begin();
           i != m_children.end();
           ++i )
@@ -294,7 +294,7 @@ void wxWrapSizer::CalcMinFromMajor(int totMajor)
         const int itemMajor = SizeInMajorDir(minItemSize);
         const int itemMinor = SizeInMinorDir(minItemSize);
 
-        // check if this is the first item in a new row: if so, we have to put
+        // check if this is the first item in a NEW_DEBUG row: if so, we have to put
         // it in it, whether it fits or not, as it would never fit better
         // anyhow
         //
@@ -306,7 +306,7 @@ void wxWrapSizer::CalcMinFromMajor(int totMajor)
             if ( itemMinor > maxRowMinor )
                 maxRowMinor = itemMinor;
         }
-        else // start a new row
+        else // start a NEW_DEBUG row
         {
             // minor size of the row is the max of minor sizes of its items
             minorSum += maxRowMinor;
@@ -402,7 +402,7 @@ void wxWrapSizer::CalcMinFromMinor(int totMinor)
     // While we still have items 'spilling over' extend the tested line width
     for ( ;; )
     {
-        wxWrapLine *line = new wxWrapLine;
+        wxWrapLine *line = NEW_DEBUG wxWrapLine;
         lines.push_back( line );
 
         int tailSize = 0;   // Width of what exceeds nrLines
@@ -416,7 +416,7 @@ void wxWrapSizer::CalcMinFromMinor(int totMinor)
                 sz = item->GetMinSizeWithBorder();
                 if ( line->m_width+SizeInMajorDir(sz)>lineSize )
                 {
-                    line = new wxWrapLine;
+                    line = NEW_DEBUG wxWrapLine;
                     lines.push_back(line);
                     sumMinor += maxMinor;
                     maxMinor = 0;
@@ -535,14 +535,14 @@ void wxWrapSizer::RepositionChildren(const wxSize& WXUNUSED(minSize))
             if ( itemMinor > maxRowMinor )
                 maxRowMinor = itemMinor;
         }
-        else // Start a new row
+        else // Start a NEW_DEBUG row
         {
             FinishRow(nRow, rowTotalMajor, maxRowMinor, itemLast);
 
             rowTotalMajor = itemMajor;
             maxRowMinor = itemMinor;
 
-            // Get a new empty sizer to insert into
+            // Get a NEW_DEBUG empty sizer to insert into
             sizer = GetRowSizer(++nRow);
 
             itemLast =

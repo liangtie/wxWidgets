@@ -60,7 +60,7 @@ void wxProcess::Init(wxEvtHandler *parent, int id, int flags)
 wxProcess *wxProcess::Open(const wxString& cmd, int flags)
 {
     wxASSERT_MSG( !(flags & wxEXEC_SYNC), wxT("wxEXEC_SYNC should not be used." ));
-    wxProcess *process = new wxProcess(wxPROCESS_REDIRECT);
+    wxProcess *process = NEW_DEBUG wxProcess(wxPROCESS_REDIRECT);
     long pid = wxExecute(cmd, flags, process);
     if( !pid )
     {

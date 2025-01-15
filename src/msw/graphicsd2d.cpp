@@ -476,7 +476,7 @@ public:
         if ( ms_fontList.empty() )
             return E_INVALIDARG;
 
-        wxDirect2DFontFileEnumerator* pEnumerator = new wxDirect2DFontFileEnumerator(pFactory, ms_fontList);
+        wxDirect2DFontFileEnumerator* pEnumerator = NEW_DEBUG wxDirect2DFontFileEnumerator(pFactory, ms_fontList);
         if ( !pEnumerator )
             return E_OUTOFMEMORY;
 
@@ -489,7 +489,7 @@ public:
     // Singleton loader instance
     static IDWriteFontCollectionLoader* GetLoader()
     {
-        static wxCOMPtr<wxDirect2DFontCollectionLoader> instance(new wxDirect2DFontCollectionLoader());
+        static wxCOMPtr<wxDirect2DFontCollectionLoader> instance(NEW_DEBUG wxDirect2DFontCollectionLoader());
 
         return instance;
     }
@@ -982,7 +982,7 @@ D2D1_COMPOSITE_MODE wxD2DConvertCompositionMode(wxCompositionMode compositionMod
 }
 #endif // wxD2D_DEVICE_CONTEXT_SUPPORTED
 
-// Direct2D 1.1 introduces a new enum for specifying the interpolation quality
+// Direct2D 1.1 introduces a NEW_DEBUG enum for specifying the interpolation quality
 // which is only used with the ID2D1DeviceContext::DrawImage method.
 #if wxD2D_DEVICE_CONTEXT_SUPPORTED
 D2D1_INTERPOLATION_MODE wxD2DConvertInterpolationMode(wxInterpolationQuality interpolationQuality)
@@ -1043,7 +1043,7 @@ wxCOMPtr<ID2D1Geometry> wxD2DConvertRegionToGeometry(ID2D1Factory* direct2dFacto
         // Empty region is skipped by iterator
         // so we have to create it in a special way.
         rectCount = 1;
-        geometries = new ID2D1Geometry*[rectCount];
+        geometries = NEW_DEBUG ID2D1Geometry*[rectCount];
 
         geometries[0] = nullptr;
         hr = direct2dFactory->CreateRectangleGeometry(
@@ -1059,7 +1059,7 @@ wxCOMPtr<ID2D1Geometry> wxD2DConvertRegionToGeometry(ID2D1Factory* direct2dFacto
         while(regionIterator++)
             rectCount++;
 
-        geometries = new ID2D1Geometry*[rectCount];
+        geometries = NEW_DEBUG ID2D1Geometry*[rectCount];
         regionIterator.Reset(region);
 
         i = 0;
@@ -1169,7 +1169,7 @@ wxD2DMatrixData::wxD2DMatrixData(wxGraphicsRenderer* renderer, const D2D1::Matri
 
 wxGraphicsObjectRefData* wxD2DMatrixData::Clone() const
 {
-    return new wxD2DMatrixData(GetRenderer(), m_matrix);
+    return NEW_DEBUG wxD2DMatrixData(GetRenderer(), m_matrix);
 }
 
 void wxD2DMatrixData::Concat(const wxGraphicsMatrixData* t)
@@ -1304,7 +1304,7 @@ public :
 
     wxGraphicsObjectRefData* Clone() const override;
 
-    // begins a new subpath at (x,y)
+    // begins a NEW_DEBUG subpath at (x,y)
     void MoveToPoint(wxDouble x, wxDouble y) override;
 
     // adds a straight line from the current point to (x,y)
@@ -1339,7 +1339,7 @@ public :
 
     bool Contains(wxDouble x, wxDouble y, wxPolygonFillMode fillStyle = wxODDEVEN_RULE) const override;
 
-    // appends an ellipsis as a new closed subpath fitting the passed rectangle
+    // appends an ellipsis as a NEW_DEBUG closed subpath fitting the passed rectangle
     void AddCircle(wxDouble x, wxDouble y, wxDouble r) override;
 
     // appends an ellipse
@@ -1432,7 +1432,7 @@ ID2D1PathGeometry* wxD2DPathData::GetPathGeometry()
 
 wxD2DPathData::wxGraphicsObjectRefData* wxD2DPathData::Clone() const
 {
-    wxD2DPathData* newPathData = new wxD2DPathData(GetRenderer(), m_direct2dfactory);
+    wxD2DPathData* newPathData = NEW_DEBUG wxD2DPathData(GetRenderer(), m_direct2dfactory);
 
     newPathData->EnsureGeometryOpen();
 
@@ -1441,7 +1441,7 @@ wxD2DPathData::wxGraphicsObjectRefData* wxD2DPathData::Clone() const
     // ID2D1PathGeometry::Stream() so we have to check
     // if actual transfer succeeded.
 
-    // Transfer geometry to the new geometry sink.
+    // Transfer geometry to the NEW_DEBUG geometry sink.
     HRESULT hr = m_pathGeometry->Stream(newPathData->m_geometrySink);
     wxASSERT_MSG( SUCCEEDED(hr), wxS("Current geometry is in invalid state") );
     if ( FAILED(hr) )
@@ -1582,7 +1582,7 @@ ID2D1Geometry* wxD2DPathData::GetFullGeometry(D2D1_FILL_MODE fillMode) const
     // We have to store pointers to all transformed geometries
     // as well as pointer to the current geometry in the auxiliary array.
     const size_t numGeometries = m_pTransformedGeometries.size();
-    ID2D1Geometry** pGeometries = new ID2D1Geometry*[numGeometries+1];
+    ID2D1Geometry** pGeometries = NEW_DEBUG ID2D1Geometry*[numGeometries+1];
     for( size_t i = 0; i < numGeometries; i++ )
         pGeometries[i] = m_pTransformedGeometries[i];
 
@@ -1667,7 +1667,7 @@ void wxD2DPathData::MoveToPoint(wxDouble x, wxDouble y)
 {
     // Close current sub-path (leaving the figure as is).
     EndFigure(D2D1_FIGURE_END_OPEN);
-    // Store new current point
+    // Store NEW_DEBUG current point
     m_currentPoint = D2D1::Point2F(x, y);
     m_currentPointSet = true;
 }
@@ -1829,7 +1829,7 @@ void wxD2DPathData::AddArc(wxDouble x, wxDouble y, wxDouble r, wxDouble startAng
     m_currentPoint = endPoint;
 }
 
-// appends an ellipsis as a new closed subpath fitting the passed rectangle
+// appends an ellipsis as a NEW_DEBUG closed subpath fitting the passed rectangle
 void wxD2DPathData::AddCircle(wxDouble x, wxDouble y, wxDouble r)
 {
     AddEllipse(x - r, y - r, r * 2, r * 2);
@@ -1846,7 +1846,7 @@ void wxD2DPathData::AddEllipse(wxDouble x, wxDouble y, wxDouble w, wxDouble h)
     const wxDouble ry = h / 2.0;
 
     MoveToPoint(x + w, y + ry);
-    // Open new subpath
+    // Open NEW_DEBUG subpath
     EnsureFigureOpen(m_currentPoint);
 
     D2D1_ARC_SEGMENT arcSegmentLower =
@@ -1966,8 +1966,8 @@ void wxD2DPathData::AddPath(const wxGraphicsPathData* path)
 void wxD2DPathData::CloseSubpath()
 {
     // If we have a sub-path open by call to MoveToPoint(),
-    // which doesn't open a new figure by itself,
-    // we have to open a new figure now to get a required 1-point path.
+    // which doesn't open a NEW_DEBUG figure by itself,
+    // we have to open a NEW_DEBUG figure now to get a required 1-point path.
     if ( !m_figureOpened && m_currentPointSet )
     {
         EnsureFigureOpen(m_currentPoint);
@@ -2009,7 +2009,7 @@ void wxD2DPathData::Transform(const wxGraphicsMatrixData* matrix)
     // 1. After applying transformation to the current path geometry with
     // ID2D1Factory::CreateTransformedGeometry() the result is stored
     // in the collection of transformed geometries (an auxiliary array)
-    // and after that a new (empty) geometry is open (in the same state
+    // and after that a NEW_DEBUG (empty) geometry is open (in the same state
     // as just closed one) and this geometry is used as a current one
     // for further graphics operations.
     // 2. Since above steps are done at every transformation so our effective
@@ -2499,8 +2499,8 @@ public:
             hr = wxWICImagingFactory()->CreateBitmap(w, h, GUID_WICPixelFormat32bppPBGRA, WICBitmapCacheOnLoad, &m_srcBitmap);
             wxCHECK_HRESULT_RET(hr);
 
-            BYTE* colorBuffer = new BYTE[4 * w * h];
-            BYTE* maskBuffer = new BYTE[4 * w * h];
+            BYTE* colorBuffer = NEW_DEBUG BYTE[4 * w * h];
+            BYTE* maskBuffer = NEW_DEBUG BYTE[4 * w * h];
             BYTE* resultBuffer;
 
             hr = colorBitmap->CopyPixels(nullptr, w * 4, 4 * w * h, colorBuffer);
@@ -2587,7 +2587,7 @@ public:
         hr = wxWICImagingFactory()->CreateBitmapFromSource(clipper, WICBitmapNoCache, &subBmp);
         wxCHECK2_HRESULT_RET(hr, nullptr);
 
-        return new wxD2DBitmapResourceHolder(subBmp);
+        return NEW_DEBUG wxD2DBitmapResourceHolder(subBmp);
     }
 
 protected:
@@ -2613,13 +2613,13 @@ public:
     wxD2DBitmapData(wxGraphicsRenderer* renderer, const wxBitmap& bitmap) :
         wxGraphicsBitmapData(renderer)
     {
-        m_bitmapHolder = new NativeType(bitmap);
+        m_bitmapHolder = NEW_DEBUG NativeType(bitmap);
     }
 
     wxD2DBitmapData(wxGraphicsRenderer* renderer, const wxImage& image) :
         wxGraphicsBitmapData(renderer)
     {
-        m_bitmapHolder = new NativeType(image);
+        m_bitmapHolder = NEW_DEBUG NativeType(image);
     }
 
     wxD2DBitmapData(wxGraphicsRenderer* renderer, NativeType* pseudoNativeBitmap) :
@@ -2752,7 +2752,7 @@ public:
 protected:
     void DoAcquireResource() override
     {
-        wxCOMPtr<wxHatchBitmapSource> hatchBitmapSource(new wxHatchBitmapSource(m_sourceBrush.GetStyle(), m_sourceBrush.GetColour()));
+        wxCOMPtr<wxHatchBitmapSource> hatchBitmapSource(NEW_DEBUG wxHatchBitmapSource(m_sourceBrush.GetStyle(), m_sourceBrush.GetColour()));
 
         wxCOMPtr<ID2D1Bitmap> bitmap;
 
@@ -2920,15 +2920,15 @@ wxD2DBrushData::wxD2DBrushData(wxGraphicsRenderer* renderer, const wxBrush brush
 {
     if (brush.GetStyle() == wxBRUSHSTYLE_SOLID)
     {
-        m_brushResourceHolder = new wxD2DSolidBrushResourceHolder(brush);
+        m_brushResourceHolder = NEW_DEBUG wxD2DSolidBrushResourceHolder(brush);
     }
     else if (brush.IsHatch())
     {
-        m_brushResourceHolder = new wxD2DHatchBrushResourceHolder(brush);
+        m_brushResourceHolder = NEW_DEBUG wxD2DHatchBrushResourceHolder(brush);
     }
     else
     {
-        m_brushResourceHolder = new wxD2DBitmapBrushResourceHolder(brush);
+        m_brushResourceHolder = NEW_DEBUG wxD2DBitmapBrushResourceHolder(brush);
     }
 }
 
@@ -2943,7 +2943,7 @@ void wxD2DBrushData::CreateLinearGradientBrush(
     const wxGraphicsGradientStops& stops,
     const wxGraphicsMatrix& matrix)
 {
-    m_brushResourceHolder = new wxD2DLinearGradientBrushResourceHolder(
+    m_brushResourceHolder = NEW_DEBUG wxD2DLinearGradientBrushResourceHolder(
         x1, y1, x2, y2, stops, matrix);
 }
 
@@ -2954,7 +2954,7 @@ void wxD2DBrushData::CreateRadialGradientBrush(
     const wxGraphicsGradientStops& stops,
     const wxGraphicsMatrix& matrix)
 {
-    m_brushResourceHolder = new wxD2DRadialGradientBrushResourceHolder(
+    m_brushResourceHolder = NEW_DEBUG wxD2DRadialGradientBrushResourceHolder(
         startX, startY, endX, endY, radius, stops, matrix);
 }
 
@@ -3068,11 +3068,11 @@ wxD2DPenData::wxD2DPenData(
     switch ( m_penInfo.GetGradientType() )
     {
     case wxGRADIENT_NONE:
-        m_stippleBrush = new wxD2DBrushData(renderer, strokeBrush);
+        m_stippleBrush = NEW_DEBUG wxD2DBrushData(renderer, strokeBrush);
         break;
 
     case wxGRADIENT_LINEAR:
-        m_stippleBrush = new wxD2DBrushData(renderer);
+        m_stippleBrush = NEW_DEBUG wxD2DBrushData(renderer);
         m_stippleBrush->CreateLinearGradientBrush(
                                 m_penInfo.GetX1(), m_penInfo.GetY1(),
                                 m_penInfo.GetX2(), m_penInfo.GetY2(),
@@ -3081,7 +3081,7 @@ wxD2DPenData::wxD2DPenData(
         break;
 
     case wxGRADIENT_RADIAL:
-        m_stippleBrush = new wxD2DBrushData(renderer);
+        m_stippleBrush = NEW_DEBUG wxD2DBrushData(renderer);
         m_stippleBrush->CreateRadialGradientBrush(
                                 m_penInfo.GetStartX(), m_penInfo.GetStartY(),
                                 m_penInfo.GetEndX(), m_penInfo.GetEndY(),
@@ -3105,7 +3105,7 @@ void wxD2DPenData::CreateStrokeStyle(ID2D1Factory* const direct2dfactory)
     if (dashStyle == D2D1_DASH_STYLE_CUSTOM)
     {
         dashCount = m_penInfo.GetDashCount();
-        dashes = new FLOAT[dashCount];
+        dashes = NEW_DEBUG FLOAT[dashCount];
 
         for (int i = 0; i < dashCount; ++i)
         {
@@ -3293,7 +3293,7 @@ wxD2DFontData::wxD2DFontData(wxGraphicsRenderer* renderer, const wxFont& font, c
     hr = familyNames->GetStringLength(0, &length);
     wxCHECK_HRESULT_RET(hr);
 
-    wchar_t* name = new wchar_t[length+1];
+    wchar_t* name = NEW_DEBUG wchar_t[length+1];
     hr = familyNames->GetString(0, name, length+1);
     wxCHECK_HRESULT_RET(hr);
 
@@ -4082,9 +4082,9 @@ wxD2DContext::wxD2DContext(wxGraphicsRenderer* renderer,
                            wxWindow* window) :
     wxGraphicsContext(renderer, window), m_direct2dFactory(direct2dFactory),
 #if wxD2D_DEVICE_CONTEXT_SUPPORTED
-    m_renderTargetHolder(new wxD2DDeviceContextResourceHolder(direct2dFactory, hwnd)),
+    m_renderTargetHolder(NEW_DEBUG wxD2DDeviceContextResourceHolder(direct2dFactory, hwnd)),
 #else
-    m_renderTargetHolder(new wxD2DHwndRenderTargetResourceHolder(hwnd, direct2dFactory)),
+    m_renderTargetHolder(NEW_DEBUG wxD2DHwndRenderTargetResourceHolder(hwnd, direct2dFactory)),
 #endif
     m_inheritedTransform(D2D1::Matrix3x2F::Identity())
 {
@@ -4100,7 +4100,7 @@ wxD2DContext::wxD2DContext(wxGraphicsRenderer* renderer,
                            D2D1_ALPHA_MODE alphaMode)
     : wxGraphicsContext(renderer, dc.GetWindow())
     , m_direct2dFactory(direct2dFactory)
-    , m_renderTargetHolder(new wxD2DDCRenderTargetResourceHolder(direct2dFactory, dc.GetHDC(), alphaMode))
+    , m_renderTargetHolder(NEW_DEBUG wxD2DDCRenderTargetResourceHolder(direct2dFactory, dc.GetHDC(), alphaMode))
 {
     const wxSize dcSize = dc.GetSize();
     m_width = dcSize.GetWidth();
@@ -4126,7 +4126,7 @@ wxD2DContext::wxD2DContext(wxGraphicsRenderer* renderer,
 wxD2DContext::wxD2DContext(wxGraphicsRenderer* renderer, ID2D1Factory* direct2dFactory, HDC hdc)
     : wxGraphicsContext(renderer)
     , m_direct2dFactory(direct2dFactory)
-    , m_renderTargetHolder(new wxD2DDCRenderTargetResourceHolder(direct2dFactory, hdc, D2D1_ALPHA_MODE_IGNORE))
+    , m_renderTargetHolder(NEW_DEBUG wxD2DDCRenderTargetResourceHolder(direct2dFactory, hdc, D2D1_ALPHA_MODE_IGNORE))
     , m_inheritedTransform(D2D1::Matrix3x2F::Identity())
 {
     RECT r;
@@ -4142,7 +4142,7 @@ wxD2DContext::wxD2DContext(wxGraphicsRenderer* renderer, ID2D1Factory* direct2dF
 #if wxUSE_IMAGE
 wxD2DContext::wxD2DContext(wxGraphicsRenderer* renderer, ID2D1Factory* direct2dFactory, wxImage& image) :
     wxGraphicsContext(renderer), m_direct2dFactory(direct2dFactory),
-    m_renderTargetHolder(new wxD2DImageRenderTargetResourceHolder(&image, direct2dFactory)),
+    m_renderTargetHolder(NEW_DEBUG wxD2DImageRenderTargetResourceHolder(&image, direct2dFactory)),
     m_inheritedTransform(D2D1::Matrix3x2F::Identity())
 {
     m_width = image.GetWidth();
@@ -4605,7 +4605,7 @@ void wxD2DContext::ConcatTransform(const wxGraphicsMatrix& matrix)
     resultMatrix.SetProduct(concatMatrix, localMatrix);
 
     wxGraphicsMatrix resultTransform;
-    resultTransform.SetRefData(new wxD2DMatrixData(GetRenderer(), resultMatrix));
+    resultTransform.SetRefData(NEW_DEBUG wxD2DMatrixData(GetRenderer(), resultMatrix));
 
     SetTransform(resultTransform);
 }
@@ -4642,7 +4642,7 @@ wxGraphicsMatrix wxD2DContext::GetTransform() const
         transformMatrix = D2D1::Matrix3x2F::Identity();
     }
 
-    wxD2DMatrixData* matrixData = new wxD2DMatrixData(GetRenderer(), transformMatrix);
+    wxD2DMatrixData* matrixData = NEW_DEBUG wxD2DMatrixData(GetRenderer(), transformMatrix);
 
     wxGraphicsMatrix matrix;
     matrix.SetRefData(matrixData);
@@ -5147,7 +5147,7 @@ wxGraphicsRenderer* wxGraphicsRenderer::GetDirect2DRenderer()
 
     if (!gs_D2DRenderer)
     {
-        gs_D2DRenderer = new wxD2DRenderer();
+        gs_D2DRenderer = NEW_DEBUG wxD2DRenderer();
     }
 
     return gs_D2DRenderer;
@@ -5169,7 +5169,7 @@ wxD2DRenderer::~wxD2DRenderer()
 
 wxGraphicsContext* wxD2DRenderer::CreateContext(const wxWindowDC& dc)
 {
-    return new wxD2DContext(this, m_direct2dFactory, dc);
+    return NEW_DEBUG wxD2DContext(this, m_direct2dFactory, dc);
 }
 
 wxGraphicsContext* wxD2DRenderer::CreateContext(const wxMemoryDC& dc)
@@ -5177,7 +5177,7 @@ wxGraphicsContext* wxD2DRenderer::CreateContext(const wxMemoryDC& dc)
     wxBitmap bmp = dc.GetSelectedBitmap();
     wxASSERT_MSG( bmp.IsOk(), wxS("Should select a bitmap before creating wxGraphicsContext") );
 
-    wxD2DContext* d2d = new wxD2DContext(this, m_direct2dFactory, dc,
+    wxD2DContext* d2d = NEW_DEBUG wxD2DContext(this, m_direct2dFactory, dc,
                             bmp.HasAlpha() ? D2D1_ALPHA_MODE_PREMULTIPLIED : D2D1_ALPHA_MODE_IGNORE);
     d2d->SetContentScaleFactor(dc.GetContentScaleFactor());
     return d2d;
@@ -5201,40 +5201,40 @@ wxGraphicsContext* wxD2DRenderer::CreateContext(const wxEnhMetaFileDC& WXUNUSED(
 
 wxGraphicsContext* wxD2DRenderer::CreateContextFromNativeContext(void* nativeContext)
 {
-    return new wxD2DContext(this, m_direct2dFactory, nativeContext);
+    return NEW_DEBUG wxD2DContext(this, m_direct2dFactory, nativeContext);
 }
 
 wxGraphicsContext* wxD2DRenderer::CreateContextFromNativeWindow(void* window)
 {
-    return new wxD2DContext(this, m_direct2dFactory, (HWND)window);
+    return NEW_DEBUG wxD2DContext(this, m_direct2dFactory, (HWND)window);
 }
 
 wxGraphicsContext* wxD2DRenderer::CreateContextFromNativeHDC(WXHDC dc)
 {
-    return new wxD2DContext(this, m_direct2dFactory, (HDC)dc);
+    return NEW_DEBUG wxD2DContext(this, m_direct2dFactory, (HDC)dc);
 }
 
 wxGraphicsContext* wxD2DRenderer::CreateContext(wxWindow* window)
 {
-    return new wxD2DContext(this, m_direct2dFactory, (HWND)window->GetHWND(), window);
+    return NEW_DEBUG wxD2DContext(this, m_direct2dFactory, (HWND)window->GetHWND(), window);
 }
 
 #if wxUSE_IMAGE
 wxGraphicsContext* wxD2DRenderer::CreateContextFromImage(wxImage& image)
 {
-    return new wxD2DContext(this, m_direct2dFactory, image);
+    return NEW_DEBUG wxD2DContext(this, m_direct2dFactory, image);
 }
 #endif // wxUSE_IMAGE
 
 wxGraphicsContext* wxD2DRenderer::CreateMeasuringContext()
 {
-    return new wxD2DMeasuringContext(this);
+    return NEW_DEBUG wxD2DMeasuringContext(this);
 }
 
 wxGraphicsPath wxD2DRenderer::CreatePath()
 {
     wxGraphicsPath p;
-    p.SetRefData(new wxD2DPathData(this, m_direct2dFactory));
+    p.SetRefData(NEW_DEBUG wxD2DPathData(this, m_direct2dFactory));
 
     return p;
 }
@@ -5243,7 +5243,7 @@ wxGraphicsMatrix wxD2DRenderer::CreateMatrix(
     wxDouble a, wxDouble b, wxDouble c, wxDouble d,
     wxDouble tx, wxDouble ty)
 {
-    wxD2DMatrixData* matrixData = new wxD2DMatrixData(this);
+    wxD2DMatrixData* matrixData = NEW_DEBUG wxD2DMatrixData(this);
     matrixData->Set(a, b, c, d, tx, ty);
 
     wxGraphicsMatrix matrix;
@@ -5261,7 +5261,7 @@ wxGraphicsPen wxD2DRenderer::CreatePen(const wxGraphicsPenInfo& info)
     else
     {
         wxGraphicsPen p;
-        wxD2DPenData* penData = new wxD2DPenData(this, m_direct2dFactory, info);
+        wxD2DPenData* penData = NEW_DEBUG wxD2DPenData(this, m_direct2dFactory, info);
         p.SetRefData(penData);
         return p;
     }
@@ -5276,7 +5276,7 @@ wxGraphicsBrush wxD2DRenderer::CreateBrush(const wxBrush& brush)
     else
     {
         wxGraphicsBrush b;
-        b.SetRefData(new wxD2DBrushData(this, brush));
+        b.SetRefData(NEW_DEBUG wxD2DBrushData(this, brush));
         return b;
     }
 }
@@ -5287,7 +5287,7 @@ wxGraphicsBrush wxD2DRenderer::CreateLinearGradientBrush(
     const wxGraphicsGradientStops& stops,
     const wxGraphicsMatrix& matrix)
 {
-    wxD2DBrushData* brushData = new wxD2DBrushData(this);
+    wxD2DBrushData* brushData = NEW_DEBUG wxD2DBrushData(this);
     brushData->CreateLinearGradientBrush(x1, y1, x2, y2, stops, matrix);
 
     wxGraphicsBrush brush;
@@ -5303,7 +5303,7 @@ wxGraphicsBrush wxD2DRenderer::CreateRadialGradientBrush(
     const wxGraphicsGradientStops& stops,
     const wxGraphicsMatrix& matrix)
 {
-    wxD2DBrushData* brushData = new wxD2DBrushData(this);
+    wxD2DBrushData* brushData = NEW_DEBUG wxD2DBrushData(this);
     brushData->CreateRadialGradientBrush(startX, startY, endX, endY, radius, stops, matrix);
 
     wxGraphicsBrush brush;
@@ -5315,7 +5315,7 @@ wxGraphicsBrush wxD2DRenderer::CreateRadialGradientBrush(
 // create a native bitmap representation
 wxGraphicsBitmap wxD2DRenderer::CreateBitmap(const wxBitmap& bitmap)
 {
-    wxD2DBitmapData* bitmapData = new wxD2DBitmapData(this, bitmap);
+    wxD2DBitmapData* bitmapData = NEW_DEBUG wxD2DBitmapData(this, bitmap);
 
     wxGraphicsBitmap graphicsBitmap;
     graphicsBitmap.SetRefData(bitmapData);
@@ -5326,7 +5326,7 @@ wxGraphicsBitmap wxD2DRenderer::CreateBitmap(const wxBitmap& bitmap)
 // create a graphics bitmap from a native bitmap
 wxGraphicsBitmap wxD2DRenderer::CreateBitmapFromNativeBitmap(void* bitmap)
 {
-    wxD2DBitmapData* bitmapData = new wxD2DBitmapData(this, static_cast<wxD2DBitmapResourceHolder*>(bitmap));
+    wxD2DBitmapData* bitmapData = NEW_DEBUG wxD2DBitmapData(this, static_cast<wxD2DBitmapResourceHolder*>(bitmap));
 
     wxGraphicsBitmap graphicsBitmap;
     graphicsBitmap.SetRefData(bitmapData);
@@ -5337,7 +5337,7 @@ wxGraphicsBitmap wxD2DRenderer::CreateBitmapFromNativeBitmap(void* bitmap)
 #if wxUSE_IMAGE
 wxGraphicsBitmap wxD2DRenderer::CreateBitmapFromImage(const wxImage& image)
 {
-    wxD2DBitmapData* bitmapData = new wxD2DBitmapData(this, image);
+    wxD2DBitmapData* bitmapData = NEW_DEBUG wxD2DBitmapData(this, image);
 
     wxGraphicsBitmap graphicsBitmap;
     graphicsBitmap.SetRefData(bitmapData);
@@ -5375,7 +5375,7 @@ wxGraphicsFont wxD2DRenderer::CreateFontAtDPI(const wxFont& font,
                                               const wxRealPoint& dpi,
                                               const wxColour& col)
 {
-    wxD2DFontData* fontData = new wxD2DFontData(this, font, dpi, col);
+    wxD2DFontData* fontData = NEW_DEBUG wxD2DFontData(this, font, dpi, col);
     if ( !fontData->GetFont() )
     {
         // Apparently a non-TrueType font is given and hence
@@ -5397,7 +5397,7 @@ wxGraphicsBitmap wxD2DRenderer::CreateSubBitmap(const wxGraphicsBitmap& bitmap, 
 
     NativeBitmap natBmp = static_cast<NativeBitmap>(bitmap.GetNativeBitmap())->GetSubBitmap(x, y, w, h);
     wxGraphicsBitmap bmpRes;
-    bmpRes.SetRefData(new wxD2DBitmapData(this, natBmp));
+    bmpRes.SetRefData(NEW_DEBUG wxD2DBitmapData(this, natBmp));
     return bmpRes;
 }
 
@@ -5425,7 +5425,7 @@ void wxD2DRenderer::GetVersion(int* major, int* minor, int* micro) const
                 break;
             case wxDirect2D::wxD2D_VERSION_NONE:
                 // This is not supposed to happen, but we handle this value in
-                // the switch to ensure that we'll get warnings if any new
+                // the switch to ensure that we'll get warnings if any NEW_DEBUG
                 // values, not handled here, are added to the enum later.
                 *minor = -1;
                 break;

@@ -646,7 +646,7 @@ wxPluralFormsNode* wxPluralFormsParser::expression()
     wxPluralFormsNodePtr n(p);
     if (token().type() == wxPluralFormsToken::T_QUESTION)
     {
-        wxPluralFormsNodePtr qn(new wxPluralFormsNode(token()));
+        wxPluralFormsNodePtr qn(NEW_DEBUG wxPluralFormsNode(token()));
         if (!nextToken())
         {
             return 0;
@@ -685,7 +685,7 @@ wxPluralFormsNode*wxPluralFormsParser::logicalOrExpression()
     wxPluralFormsNodePtr ln(p);
     if (token().type() == wxPluralFormsToken::T_LOGICAL_OR)
     {
-        wxPluralFormsNodePtr un(new wxPluralFormsNode(token()));
+        wxPluralFormsNodePtr un(NEW_DEBUG wxPluralFormsNode(token()));
         if (!nextToken())
         {
             return 0;
@@ -721,7 +721,7 @@ wxPluralFormsNode* wxPluralFormsParser::logicalAndExpression()
     wxPluralFormsNodePtr ln(p);   // left
     if (token().type() == wxPluralFormsToken::T_LOGICAL_AND)
     {
-        wxPluralFormsNodePtr un(new wxPluralFormsNode(token()));  // up
+        wxPluralFormsNodePtr un(NEW_DEBUG wxPluralFormsNode(token()));  // up
         if (!nextToken())
         {
             return NULL;
@@ -760,7 +760,7 @@ wxPluralFormsNode* wxPluralFormsParser::equalityExpression()
     if (token().type() == wxPluralFormsToken::T_EQUAL
         || token().type() == wxPluralFormsToken::T_NOT_EQUAL)
     {
-        wxPluralFormsNodePtr qn(new wxPluralFormsNode(token()));
+        wxPluralFormsNodePtr qn(NEW_DEBUG wxPluralFormsNode(token()));
         if (!nextToken())
         {
             return NULL;
@@ -788,7 +788,7 @@ wxPluralFormsNode* wxPluralFormsParser::relationalExpression()
             || token().type() == wxPluralFormsToken::T_GREATER_OR_EQUAL
             || token().type() == wxPluralFormsToken::T_LESS_OR_EQUAL)
     {
-        wxPluralFormsNodePtr qn(new wxPluralFormsNode(token()));
+        wxPluralFormsNodePtr qn(NEW_DEBUG wxPluralFormsNode(token()));
         if (!nextToken())
         {
             return NULL;
@@ -813,7 +813,7 @@ wxPluralFormsNode* wxPluralFormsParser::multiplicativeExpression()
     wxPluralFormsNodePtr n(p);
     if (token().type() == wxPluralFormsToken::T_REMINDER)
     {
-        wxPluralFormsNodePtr qn(new wxPluralFormsNode(token()));
+        wxPluralFormsNodePtr qn(NEW_DEBUG wxPluralFormsNode(token()));
         if (!nextToken())
         {
             return NULL;
@@ -836,7 +836,7 @@ wxPluralFormsNode* wxPluralFormsParser::pmExpression()
     if (token().type() == wxPluralFormsToken::T_N
         || token().type() == wxPluralFormsToken::T_NUMBER)
     {
-        n.reset(new wxPluralFormsNode(token()));
+        n.reset(NEW_DEBUG wxPluralFormsNode(token()));
         if (!nextToken())
         {
             return NULL;
@@ -871,7 +871,7 @@ wxPluralFormsNode* wxPluralFormsParser::pmExpression()
 
 wxPluralFormsCalculator* wxPluralFormsCalculator::make(const char* s)
 {
-    wxPluralFormsCalculatorPtr calculator(new wxPluralFormsCalculator);
+    wxPluralFormsCalculatorPtr calculator(NEW_DEBUG wxPluralFormsCalculator);
     if (s != NULL)
     {
         wxPluralFormsScanner scanner(s);
@@ -1138,7 +1138,7 @@ bool wxMsgCatalogFile::FillHash(wxStringToStringHashMap& hash,
         if ( encCat != wxLocale::GetSystemEncoding() )
 #endif
         {
-            inputConv = new wxCSConv(m_charset);
+            inputConv = NEW_DEBUG wxCSConv(m_charset);
 
             // As we allocated it ourselves, we need to delete it, so ensure
             // this happens.
@@ -1162,7 +1162,7 @@ bool wxMsgCatalogFile::FillHash(wxStringToStringHashMap& hash,
     // encoding as the catalog
     wxScopedPtr<wxCSConv> sourceConv;
     if ( !msgIdCharset.empty() && (msgIdCharset != m_charset) )
-        sourceConv.reset(new wxCSConv(msgIdCharset));
+        sourceConv.reset(NEW_DEBUG wxCSConv(msgIdCharset));
 #endif // !wxUSE_UNICODE
 
     for (size_t32 i = 0; i < m_numStrings; i++)
@@ -1247,7 +1247,7 @@ wxMsgCatalog::~wxMsgCatalog()
 wxMsgCatalog *wxMsgCatalog::CreateFromFile(const wxString& filename,
                                            const wxString& domain)
 {
-    wxScopedPtr<wxMsgCatalog> cat(new wxMsgCatalog(domain));
+    wxScopedPtr<wxMsgCatalog> cat(NEW_DEBUG wxMsgCatalog(domain));
 
     wxMsgCatalogFile file;
 
@@ -1264,7 +1264,7 @@ wxMsgCatalog *wxMsgCatalog::CreateFromFile(const wxString& filename,
 wxMsgCatalog *wxMsgCatalog::CreateFromData(const wxScopedCharBuffer& data,
                                            const wxString& domain)
 {
-    wxScopedPtr<wxMsgCatalog> cat(new wxMsgCatalog(domain));
+    wxScopedPtr<wxMsgCatalog> cat(NEW_DEBUG wxMsgCatalog(domain));
 
     wxMsgCatalogFile file;
 
@@ -1350,7 +1350,7 @@ void wxTranslations::SetNonOwned(wxTranslations *t)
 wxTranslations::wxTranslations()
 {
     m_pMsgCat = NULL;
-    m_loader = new wxFileTranslationsLoader;
+    m_loader = NEW_DEBUG wxFileTranslationsLoader;
 }
 
 

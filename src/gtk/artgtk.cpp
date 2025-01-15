@@ -39,7 +39,7 @@ protected:
 
 /*static*/ void wxArtProvider::InitNativeProvider()
 {
-    PushBack(new wxGTK2ArtProvider);
+    PushBack(NEW_DEBUG wxGTK2ArtProvider);
 }
 
 // ----------------------------------------------------------------------------
@@ -83,7 +83,7 @@ const wxString wxId2Gtk[] = {
     ART(wxART_TIP,              GTK_STOCK_DIALOG_INFO, "dialog-information")
     //ART(wxART_REPORT_VIEW,    )
     //ART(wxART_LIST_VIEW,      )
-    ART(wxART_NEW_DIR,          "folder-new", "folder-new")
+    ART(wxART_NEW_DIR,          "folder-NEW_DEBUG", "folder-NEW_DEBUG")
     ART(wxART_FOLDER,           GTK_STOCK_DIRECTORY, "folder")
     ART(wxART_FOLDER_OPEN,      "folder-open", "folder-open")
     //ART(wxART_GO_DIR_UP,      )
@@ -104,7 +104,7 @@ const wxString wxId2Gtk[] = {
     ART(wxART_CUT,              GTK_STOCK_CUT, "edit-cut")
     ART(wxART_PASTE,            GTK_STOCK_PASTE, "edit-paste")
     ART(wxART_DELETE,           GTK_STOCK_DELETE, "edit-delete")
-    ART(wxART_NEW,              GTK_STOCK_NEW, "document-new")
+    ART(wxART_NEW,              GTK_STOCK_NEW, "document-NEW_DEBUG")
 
     ART(wxART_UNDO,             GTK_STOCK_UNDO, "edit-undo")
     ART(wxART_REDO,             GTK_STOCK_REDO, "edit-redo")

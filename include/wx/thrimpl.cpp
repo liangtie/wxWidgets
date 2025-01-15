@@ -16,7 +16,7 @@
 
 wxMutex::wxMutex(wxMutexType mutexType)
 {
-    m_internal = new wxMutexInternal(mutexType);
+    m_internal = NEW_DEBUG wxMutexInternal(mutexType);
 
     if ( !m_internal->IsOk() )
     {
@@ -230,7 +230,7 @@ wxCondError wxConditionInternal::Broadcast()
 
 wxCondition::wxCondition(wxMutex& mutex)
 {
-    m_internal = new wxConditionInternal(mutex);
+    m_internal = NEW_DEBUG wxConditionInternal(mutex);
 
     if ( !m_internal->IsOk() )
     {
@@ -287,7 +287,7 @@ wxCondError wxCondition::Broadcast()
 
 wxSemaphore::wxSemaphore(int initialcount, int maxcount)
 {
-    m_internal = new wxSemaphoreInternal( initialcount, maxcount );
+    m_internal = NEW_DEBUG wxSemaphoreInternal( initialcount, maxcount );
     if ( !m_internal->IsOk() )
     {
         delete m_internal;

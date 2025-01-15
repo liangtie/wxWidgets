@@ -452,9 +452,9 @@ bool MyApp::OnInit()
         return false;
 
     // Create the main frame window
-    MyFrame *frame = new MyFrame("Text wxWidgets sample", 50, 50);
+    MyFrame *frame = NEW_DEBUG MyFrame("Text wxWidgets sample", 50, 50);
 
-    wxMenu *file_menu = new wxMenu;
+    wxMenu *file_menu = NEW_DEBUG wxMenu;
     file_menu->Append(TEXT_SAVE, "&Save file\tCtrl-S",
                       "Save the text control contents to file");
     file_menu->Append(TEXT_LOAD, "&Load file\tCtrl-O",
@@ -466,11 +466,11 @@ bool MyApp::OnInit()
     file_menu->AppendSeparator();
     file_menu->Append(TEXT_QUIT, "E&xit\tAlt-X", "Quit this sample");
 
-    wxMenuBar *menu_bar = new wxMenuBar( wxMB_DOCKABLE );
+    wxMenuBar *menu_bar = NEW_DEBUG wxMenuBar( wxMB_DOCKABLE );
     menu_bar->Append(file_menu, "&File");
 
 #if wxUSE_TOOLTIPS
-    wxMenu *tooltip_menu = new wxMenu;
+    wxMenu *tooltip_menu = NEW_DEBUG wxMenu;
     tooltip_menu->Append(TEXT_TOOLTIPS_SETDELAY, "Set &delay\tCtrl-D");
     tooltip_menu->AppendSeparator();
     tooltip_menu->Append(TEXT_TOOLTIPS_ENABLE, "&Toggle tooltips\tCtrl-T",
@@ -482,7 +482,7 @@ bool MyApp::OnInit()
 #if wxUSE_CLIPBOARD
     // notice that we use non default accelerators on purpose here to compare
     // their behaviour with the built in handling of standard Ctrl/Cmd-C/V
-    wxMenu *menuClipboard = new wxMenu;
+    wxMenu *menuClipboard = NEW_DEBUG wxMenu;
     menuClipboard->Append(TEXT_CLIPBOARD_COPY, "&Copy\tCtrl-Shift-C",
                           "Copy the selection to the clipboard");
     menuClipboard->Append(TEXT_CLIPBOARD_PASTE, "&Paste\tCtrl-Shift-V",
@@ -493,10 +493,10 @@ bool MyApp::OnInit()
     menu_bar->Append(menuClipboard, "&Clipboard");
 #endif // wxUSE_CLIPBOARD
 
-    wxMenu *menuText = new wxMenu;
+    wxMenu *menuText = NEW_DEBUG wxMenu;
     menuText->Append(TEXT_ADD_SOME, "&Append some text\tCtrl-A");
     menuText->Append(TEXT_ADD_FREEZE, "&Append text with freeze/thaw\tShift-Ctrl-A");
-    menuText->Append(TEXT_ADD_LINE, "Append a new &line\tAlt-Shift-A");
+    menuText->Append(TEXT_ADD_LINE, "Append a NEW_DEBUG &line\tAlt-Shift-A");
     menuText->Append(TEXT_REMOVE, "&Remove first 10 characters\tCtrl-Y");
     menuText->Append(TEXT_REPLACE, "&Replace characters 4 to 8 with ABC\tCtrl-R");
     menuText->Append(TEXT_SELECT, "&Select characters 4 to 8\tCtrl-I");
@@ -521,7 +521,7 @@ bool MyApp::OnInit()
     menu_bar->Append(menuText, "Te&xt");
 
 #if wxUSE_LOG
-    wxMenu *menuLog = new wxMenu;
+    wxMenu *menuLog = NEW_DEBUG wxMenu;
     menuLog->AppendCheckItem(TEXT_LOG_KEY, "Log &key events");
     menuLog->AppendCheckItem(TEXT_LOG_CHAR, "Log &char events");
     menuLog->AppendCheckItem(TEXT_LOG_MOUSE, "Log &mouse events");
@@ -1105,16 +1105,16 @@ MyPanel::MyPanel( wxFrame *frame, int x, int y, int w, int h )
        : wxPanel( frame, wxID_ANY, wxPoint(x, y), wxSize(w, h) )
 {
 #if wxUSE_LOG
-    m_log = new wxTextCtrl( this, wxID_ANY, "This is the log window.\n",
+    m_log = NEW_DEBUG wxTextCtrl( this, wxID_ANY, "This is the log window.\n",
                             wxPoint(5,260), wxSize(630,100),
                             wxTE_MULTILINE | wxTE_READONLY);
 
-    m_logOld = wxLog::SetActiveTarget( new wxLogTextCtrl( m_log ) );
+    m_logOld = wxLog::SetActiveTarget( NEW_DEBUG wxLogTextCtrl( m_log ) );
 #endif // wxUSE_LOG
 
     // single line text controls
 
-    m_text = new MyTextCtrl( this, wxID_ANY, "Single line.",
+    m_text = NEW_DEBUG MyTextCtrl( this, wxID_ANY, "Single line.",
                              wxDefaultPosition, wxDefaultSize,
                              wxTE_PROCESS_ENTER | wxTE_RICH2);
     m_text->SetForegroundColour(*wxBLUE);
@@ -1133,31 +1133,31 @@ MyPanel::MyPanel( wxFrame *frame, int x, int y, int w, int h )
     }
 #endif
 
-    m_password = new MyTextCtrl( this, wxID_ANY, "",
+    m_password = NEW_DEBUG MyTextCtrl( this, wxID_ANY, "",
       wxPoint(10,50), wxSize(140,wxDefaultCoord), wxTE_PASSWORD );
     m_password->SetHint("Don't use 12345 here");
 
-    m_limited = new MyTextCtrl(this, wxID_ANY, "",
+    m_limited = NEW_DEBUG MyTextCtrl(this, wxID_ANY, "",
                               wxPoint(10, 90), wxDefaultSize);
     m_limited->SetHint("Max 8 ch");
     m_limited->SetMaxLength(8);
     wxSize size2 = m_limited->GetSizeFromTextSize(m_limited->GetTextExtent("WWWWWWWW"));
     m_limited->SetSizeHints(size2, size2);
 
-    wxTextCtrl* upperOnly = new MyTextCtrl(this, wxID_ANY, "Only upper case",
+    wxTextCtrl* upperOnly = NEW_DEBUG MyTextCtrl(this, wxID_ANY, "Only upper case",
                                            wxDefaultPosition, wxDefaultSize);
     upperOnly->ForceUpper();
 
     // multi line text controls
 
     wxString string3L("Read only\nMultiline\nFitted size");
-    m_readonly = new MyTextCtrl( this, wxID_ANY, string3L,
+    m_readonly = NEW_DEBUG MyTextCtrl( this, wxID_ANY, string3L,
                wxPoint(10, 120), wxDefaultSize, wxTE_MULTILINE | wxTE_READONLY );
     wxWindowDC dc(m_readonly);
     size2 = m_readonly->GetSizeFromTextSize(dc.GetMultiLineTextExtent(string3L));
     m_readonly->SetMinSize(size2);
 
-    m_horizontal = new MyTextCtrl( this, wxID_ANY, "Multiline text control with a horizontal scrollbar.\n",
+    m_horizontal = NEW_DEBUG MyTextCtrl( this, wxID_ANY, "Multiline text control with a horizontal scrollbar.\n",
       wxPoint(10,170), wxSize(140,70), wxTE_MULTILINE | wxHSCROLL);
     m_horizontal->SetHint("Enter multiline text here");
 
@@ -1196,7 +1196,7 @@ MyPanel::MyPanel( wxFrame *frame, int x, int y, int w, int h )
         m_horizontal->AppendText("Text in default encoding");
     }
 
-    m_multitext = new MyTextCtrl( this, wxID_ANY,
+    m_multitext = NEW_DEBUG MyTextCtrl( this, wxID_ANY,
                                   "Multi line without vertical scrollbar.",
       wxPoint(180,10), wxSize(200,70), wxTE_MULTILINE | wxTE_NO_VSCROLL );
     m_multitext->SetFont(*wxITALIC_FONT);
@@ -1210,11 +1210,11 @@ MyPanel::MyPanel( wxFrame *frame, int x, int y, int w, int h )
     m_multitext->SetToolTip("Press Fn function keys here");
 #endif
 
-    m_tab = new MyTextCtrl( this, 100, "Multiline, allow <TAB> processing.",
+    m_tab = NEW_DEBUG MyTextCtrl( this, 100, "Multiline, allow <TAB> processing.",
       wxPoint(180,90), wxSize(200,70), wxTE_MULTILINE |  wxTE_PROCESS_TAB );
     m_tab->SetClientData(const_cast<void*>(static_cast<const void*>(wxS("tab"))));
 
-    m_enter = new MyTextCtrl( this, 100, "Multiline, allow <ENTER> processing.",
+    m_enter = NEW_DEBUG MyTextCtrl( this, 100, "Multiline, allow <ENTER> processing.",
       wxPoint(180,170), wxSize(200,70), wxTE_MULTILINE | wxTE_PROCESS_ENTER | wxTE_RICH2 );
     m_enter->SetClientData(const_cast<void*>(static_cast<const void*>(wxS("enter"))));
 
@@ -1237,7 +1237,7 @@ MyPanel::MyPanel( wxFrame *frame, int x, int y, int w, int h )
     }
 #endif
 
-    m_textrich = new MyTextCtrl(this, wxID_ANY, "Allows more than 30Kb of text\n"
+    m_textrich = NEW_DEBUG MyTextCtrl(this, wxID_ANY, "Allows more than 30Kb of text\n"
                                 "(on all Windows versions)\n"
                                 "and a very very very very very "
                                 "very very very long line to test "
@@ -1279,7 +1279,7 @@ MyPanel::MyPanel( wxFrame *frame, int x, int y, int w, int h )
     m_textrich->SetStyle(endPos - 4, endPos - 2, attr);
 
     // lay out the controls
-    wxBoxSizer *column1 = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer *column1 = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     column1->Add( m_text, 0, wxALL | wxEXPAND, 10 );
     column1->Add( m_password, 0, wxALL | wxEXPAND, 10 );
     column1->Add( m_readonly, 0, wxALL, 10 );
@@ -1287,17 +1287,17 @@ MyPanel::MyPanel( wxFrame *frame, int x, int y, int w, int h )
     column1->Add( upperOnly, 0, wxALL, 10 );
     column1->Add( m_horizontal, 1, wxALL | wxEXPAND, 10 );
 
-    wxBoxSizer *column2 = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer *column2 = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     column2->Add( m_multitext, 1, wxALL | wxEXPAND, 10 );
     column2->Add( m_tab, 0, wxALL | wxEXPAND, 10 );
     column2->Add( m_enter, 1, wxALL | wxEXPAND, 10 );
 
-    wxBoxSizer *row1 = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer *row1 = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     row1->Add( column1, 0, wxALL | wxEXPAND, 10 );
     row1->Add( column2, 1, wxALL | wxEXPAND, 10 );
     row1->Add( m_textrich, 1, wxALL | wxEXPAND, 10 );
 
-    wxBoxSizer *topSizer = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer *topSizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     topSizer->Add( row1, 2, wxALL | wxEXPAND, 10 );
 
 #if wxUSE_LOG
@@ -1406,7 +1406,7 @@ void MyPanel::DoCopyToClipboard()
 #endif // wxUSE_LOG
     }
 
-    wxTextDataObject *data = new wxTextDataObject( text );
+    wxTextDataObject *data = NEW_DEBUG wxTextDataObject( text );
 
     if (!wxTheClipboard->SetData( data ))
     {
@@ -1539,7 +1539,7 @@ MyFrame::MyFrame(const wxString& title, int x, int y)
     CreateStatusBar(2);
 #endif // wxUSE_STATUSBAR
 
-    m_panel = new MyPanel( this, 10, 10, 300, 100 );
+    m_panel = NEW_DEBUG MyPanel( this, 10, 10, 300, 100 );
     m_panel->GetSizer()->Fit(this);
 }
 
@@ -1663,7 +1663,7 @@ void MyFrame::OnFileLoad(wxCommandEvent& WXUNUSED(event))
 
 void MyFrame::OnRichTextTest(wxCommandEvent& WXUNUSED(event))
 {
-    RichTextFrame* frame = new RichTextFrame(this, "Rich Text Editor");
+    RichTextFrame* frame = NEW_DEBUG RichTextFrame(this, "Rich Text Editor");
     frame->Show(true);
 }
 
@@ -1734,7 +1734,7 @@ RichTextFrame::RichTextFrame(wxWindow* parent, const wxString& title):
     wxFrame(parent, wxID_ANY, title, wxDefaultPosition, wxSize(300, 400))
 {
     m_currentPosition = -1;
-    m_textCtrl = new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition,
+    m_textCtrl = NEW_DEBUG wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition,
             wxDefaultSize, wxTE_MULTILINE|wxTE_RICH2);
 
     wxString value;
@@ -1750,12 +1750,12 @@ RichTextFrame::RichTextFrame(wxWindow* parent, const wxString& title):
     }
     m_textCtrl->SetValue(value);
 
-    wxMenuBar* menuBar = new wxMenuBar;
-    wxMenu* fileMenu = new wxMenu;
+    wxMenuBar* menuBar = NEW_DEBUG wxMenuBar;
+    wxMenu* fileMenu = NEW_DEBUG wxMenu;
     fileMenu->Append(RICHTEXT_CLOSE, _("Close\tCtrl+W"));
     menuBar->Append(fileMenu, _("File"));
 
-    wxMenu* editMenu = new wxMenu;
+    wxMenu* editMenu = NEW_DEBUG wxMenu;
     editMenu->Append(RICHTEXT_LEFT_ALIGN, _("Left Align"));
     editMenu->Append(RICHTEXT_RIGHT_ALIGN, _("Right Align"));
     editMenu->Append(RICHTEXT_CENTRE, _("Centre"));

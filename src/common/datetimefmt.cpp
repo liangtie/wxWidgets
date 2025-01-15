@@ -1901,7 +1901,7 @@ wxDateTime::ParseDate(const wxString& date, wxString::const_iterator *end)
         }
     }
 
-    // We try to guess what we have here: for each new (numeric) token, we
+    // We try to guess what we have here: for each NEW_DEBUG (numeric) token, we
     // determine if it can be a month, day or a year. Of course, there is an
     // ambiguity as some numbers may be days as well as months, so we also
     // have the ability to back track.

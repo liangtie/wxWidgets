@@ -181,8 +181,8 @@ bool wxXPMHandler::SaveFile(wxImage * image,
     stream.Write(tmpbuf, strlen(tmpbuf));
 
     // 3. create color symbols table:
-    char *symbols_data = new char[cols * (chars_per_pixel+1)];
-    char **symbols = new char*[cols];
+    char *symbols_data = NEW_DEBUG char[cols * (chars_per_pixel+1)];
+    char **symbols = NEW_DEBUG char*[cols];
 
     // 2a. find mask colour:
     unsigned long mask_key = 0x1000000 /*invalid RGB value*/;

@@ -65,7 +65,7 @@ bool wxFontPickerCtrl::Create( wxWindow *parent, wxWindowID id,
         return false;
 
     // the picker of a wxFontPickerCtrl is a wxFontPickerWidget
-    m_picker = new wxFontPickerWidget(this, wxID_ANY, initial,
+    m_picker = NEW_DEBUG wxFontPickerWidget(this, wxID_ANY, initial,
                                       wxDefaultPosition, wxDefaultSize,
                                       GetPickerStyle(style));
     // complete sizer creation

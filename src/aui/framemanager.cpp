@@ -321,7 +321,7 @@ static void DrawResizeHint(wxDC& dc, const wxRect& rect)
 // CopyDocksAndPanes() - this utility function creates copies of
 // the dock and pane info.  wxAuiDockInfo's usually contain pointers
 // to wxAuiPaneInfo classes, thus this function is necessary to reliably
-// reconstruct that relationship in the new dock info and pane info arrays
+// reconstruct that relationship in the NEW_DEBUG dock info and pane info arrays
 
 static void CopyDocksAndPanes(wxAuiDockInfoArray& dest_docks,
                               wxAuiPaneInfoArray& dest_panes,
@@ -376,7 +376,7 @@ static int GetMaxRow(const wxAuiPaneInfoArray& panes, int direction, int layer)
 
 
 
-// DoInsertDockLayer() is an internal function that inserts a new dock
+// DoInsertDockLayer() is an internal function that inserts a NEW_DEBUG dock
 // layer by incrementing all existing dock layer values by one
 static void DoInsertDockLayer(wxAuiPaneInfoArray& panes,
                               int dock_direction,
@@ -393,7 +393,7 @@ static void DoInsertDockLayer(wxAuiPaneInfoArray& panes,
     }
 }
 
-// DoInsertDockLayer() is an internal function that inserts a new dock
+// DoInsertDockLayer() is an internal function that inserts a NEW_DEBUG dock
 // row by incrementing all existing dock row values by one
 static void DoInsertDockRow(wxAuiPaneInfoArray& panes,
                             int dock_direction,
@@ -578,7 +578,7 @@ static int PaneSortFunc(wxAuiPaneInfo** p1, wxAuiPaneInfo** p2)
 bool wxAuiPaneInfo::IsValid() const
 {
     // Should this RTTI and function call be rewritten as
-    // sending a new event type to allow other window types
+    // sending a NEW_DEBUG event type to allow other window types
     // to check the pane settings?
     wxAuiToolBar* toolbar = wxDynamicCast(window, wxAuiToolBar);
     return !toolbar || toolbar->IsPaneValid(*this);
@@ -611,7 +611,7 @@ wxAuiManager::wxAuiManager(wxWindow* managed_wnd, unsigned int flags)
     m_action = actionNone;
     m_actionWindow = NULL;
     m_hoverButton = NULL;
-    m_art = new wxAuiDefaultDockArt;
+    m_art = NEW_DEBUG wxAuiDefaultDockArt;
     m_hintWnd = NULL;
     m_flags = flags;
     m_hasMaximized = false;
@@ -658,7 +658,7 @@ void wxAuiManager::OnSysColourChanged(wxSysColourChangedEvent& event)
 wxAuiFloatingFrame* wxAuiManager::CreateFloatingFrame(wxWindow* parent,
                                                       const wxAuiPaneInfo& paneInfo)
 {
-    return new wxAuiFloatingFrame(parent, this, paneInfo);
+    return NEW_DEBUG wxAuiFloatingFrame(parent, this, paneInfo);
 }
 
 bool wxAuiManager::CanDockPanel(const wxAuiPaneInfo & WXUNUSED(p))
@@ -757,7 +757,7 @@ void wxAuiManager::SetFlags(unsigned int flags)
         update_hint_wnd = true;
 
 
-    // set the new flags
+    // set the NEW_DEBUG flags
     m_flags = flags;
 
     if (update_hint_wnd)
@@ -856,7 +856,7 @@ void wxAuiManager::UpdateHintWindowConfig()
     {
         // Make a window to use for a transparent hint
         #if defined(__WXMSW__) || defined(__WXGTK__) || defined(__WXQT__)
-            m_hintWnd = new wxFrame(m_frame, wxID_ANY, wxEmptyString,
+            m_hintWnd = NEW_DEBUG wxFrame(m_frame, wxID_ANY, wxEmptyString,
                                      wxDefaultPosition, wxSize(1,1),
                                          wxFRAME_TOOL_WINDOW |
                                          wxFRAME_FLOAT_ON_PARENT |
@@ -867,14 +867,14 @@ void wxAuiManager::UpdateHintWindowConfig()
         #elif defined(__WXMAC__)
             // Using a miniframe with float and tool styles keeps the parent
             // frame activated and highlighted as such...
-            m_hintWnd = new wxMiniFrame(m_frame, wxID_ANY, wxEmptyString,
+            m_hintWnd = NEW_DEBUG wxMiniFrame(m_frame, wxID_ANY, wxEmptyString,
                                          wxDefaultPosition, wxSize(1,1),
                                          wxFRAME_FLOAT_ON_PARENT
                                          | wxFRAME_TOOL_WINDOW );
             m_hintWnd->Bind(wxEVT_ACTIVATE, &wxAuiManager::OnHintActivate, this);
 
             // Can't set the bg colour of a Frame in wxMac
-            wxPanel* p = new wxPanel(m_hintWnd);
+            wxPanel* p = NEW_DEBUG wxPanel(m_hintWnd);
 
             // The default wxSYS_COLOUR_ACTIVECAPTION colour is a light silver
             // color that is really hard to see, especially transparent.
@@ -891,7 +891,7 @@ void wxAuiManager::UpdateHintWindowConfig()
         {
             // system can't support transparent fade, or the venetian
             // blinds effect was explicitly requested
-            m_hintWnd = new wxPseudoTransparentFrame(m_frame,
+            m_hintWnd = NEW_DEBUG wxPseudoTransparentFrame(m_frame,
                                                       wxID_ANY,
                                                       wxEmptyString,
                                                       wxDefaultPosition,
@@ -997,7 +997,7 @@ void wxAuiManager::SetArtProvider(wxAuiDockArt* art_provider)
     // delete the last art provider, if any
     delete m_art;
 
-    // assign the new art provider
+    // assign the NEW_DEBUG art provider
     m_art = art_provider;
 }
 
@@ -1023,7 +1023,7 @@ bool wxAuiManager::AddPane(wxWindow* window, const wxAuiPaneInfo& paneInfo)
         already_exists = true;
     }
 
-    // if the new pane is docked then we should undo maximize
+    // if the NEW_DEBUG pane is docked then we should undo maximize
     if (paneInfo.IsDocked())
         RestoreMaximizedPane();
 
@@ -1205,7 +1205,7 @@ bool wxAuiManager::InsertPane(wxWindow* window, const wxAuiPaneInfo& paneInfo,
         }
         else
         {
-            // if the new pane is docked then we should undo maximize
+            // if the NEW_DEBUG pane is docked then we should undo maximize
             RestoreMaximizedPane();
 
             existing_pane.Direction(paneInfo.dock_direction);
@@ -1767,8 +1767,8 @@ void wxAuiManager::LayoutAddPane(wxSizer* cont,
     // value that the pane will receive
     int pane_proportion = pane.dock_proportion;
 
-    wxBoxSizer* horz_pane_sizer = new wxBoxSizer(wxHORIZONTAL);
-    wxBoxSizer* vert_pane_sizer = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer* horz_pane_sizer = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer* vert_pane_sizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
     if (pane.HasGripper())
     {
@@ -1790,7 +1790,7 @@ void wxAuiManager::LayoutAddPane(wxSizer* cont,
     if (pane.HasCaption())
     {
         // create the caption sizer
-        wxBoxSizer* caption_sizer = new wxBoxSizer(wxHORIZONTAL);
+        wxBoxSizer* caption_sizer = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
 
         sizer_item = caption_sizer->Add(1, caption_size, 1, wxEXPAND);
 
@@ -1952,7 +1952,7 @@ void wxAuiManager::LayoutAddDock(wxSizer* cont,
     }
 
     // create the sizer for the dock
-    wxSizer* dock_sizer = new wxBoxSizer(orientation);
+    wxSizer* dock_sizer = NEW_DEBUG wxBoxSizer(orientation);
 
     // add each pane to the dock
     bool has_maximized_pane = false;
@@ -2085,7 +2085,7 @@ wxSizer* wxAuiManager::LayoutAll(wxAuiPaneInfoArray& panes,
                                  wxAuiDockUIPartArray& uiparts,
                                  bool spacer_only)
 {
-    wxBoxSizer* container = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer* container = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
     int pane_borderSize = m_art->GetMetric(wxAUI_DOCKART_PANE_BORDER_SIZE);
     int caption_size = m_art->GetMetric(wxAUI_DOCKART_CAPTION_SIZE);
@@ -2130,7 +2130,7 @@ wxSizer* wxAuiManager::LayoutAll(wxAuiPaneInfoArray& panes,
         }
         else
         {
-            // dock was not found, so we need to create a new one
+            // dock was not found, so we need to create a NEW_DEBUG one
             wxAuiDockInfo d;
             d.dock_direction = p.dock_direction;
             d.dock_layer = p.dock_layer;
@@ -2221,7 +2221,7 @@ wxSizer* wxAuiManager::LayoutAll(wxAuiPaneInfoArray& panes,
             }
 
 
-            // new dock's size may not be more than the dock constraint
+            // NEW_DEBUG dock's size may not be more than the dock constraint
             // parameter specifies.  See SetDockSizeConstraint()
 
             int max_dock_x_size = (int)(m_dockConstraintX * ((double)cli_size.x));
@@ -2367,7 +2367,7 @@ wxSizer* wxAuiManager::LayoutAll(wxAuiPaneInfoArray& panes,
 
         // create a container which will hold this layer's
         // docks (top, bottom, left, right)
-        cont = new wxBoxSizer(wxVERTICAL);
+        cont = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
 
         // find any top docks in this layer
@@ -2382,7 +2382,7 @@ wxSizer* wxAuiManager::LayoutAll(wxAuiPaneInfoArray& panes,
         // fill out the middle layer (which consists
         // of left docks, content area and right docks)
 
-        middle = new wxBoxSizer(wxHORIZONTAL);
+        middle = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
 
         // find any left docks in this layer
         FindDocks(docks, wxAUI_DOCK_LEFT, layer, -1, arr);
@@ -2451,7 +2451,7 @@ wxSizer* wxAuiManager::LayoutAll(wxAuiPaneInfoArray& panes,
     {
         // no sizer available, because there are no docks,
         // therefore we will create a simple background area
-        cont = new wxBoxSizer(wxVERTICAL);
+        cont = NEW_DEBUG wxBoxSizer(wxVERTICAL);
         wxSizerItem* sizer_item = cont->Add(1,1, 1, wxEXPAND);
         wxAuiDockUIPart part;
         part.type = wxAuiDockUIPart::typeBackground;
@@ -2655,7 +2655,7 @@ void wxAuiManager::Update()
 
 
 
-    // apply the new sizer
+    // apply the NEW_DEBUG sizer
     m_frame->SetSizer(sizer);
     m_frame->SetAutoLayout(false);
     DoFrameLayout();
@@ -2663,7 +2663,7 @@ void wxAuiManager::Update()
 
 
     // now that the frame layout is done, we need to check
-    // the new pane rectangles against the old rectangles that
+    // the NEW_DEBUG pane rectangles against the old rectangles that
     // we saved a few lines above here.  If the rectangles have
     // changed, the corresponding panes must also be updated
     for (i = 0; i < pane_count; ++i)
@@ -2837,7 +2837,7 @@ int wxAuiManager::GetDockPixelOffset(wxAuiPaneInfo& test)
 
 
 // ProcessDockResult() is a utility function used by DoDrop() - it checks
-// if a dock operation is allowed, the new dock position is copied into
+// if a dock operation is allowed, the NEW_DEBUG dock position is copied into
 // the target info.  If the operation was allowed, the function returns true.
 
 bool wxAuiManager::ProcessDockResult(wxAuiPaneInfo& target,
@@ -2856,7 +2856,7 @@ bool wxAuiManager::ProcessDockResult(wxAuiPaneInfo& target,
     {
         target = new_pos;
         // Should this RTTI and function call be rewritten as
-        // sending a new event type to allow other window types
+        // sending a NEW_DEBUG event type to allow other window types
         // to vary size based on dock location?
         wxAuiToolBar* toolbar = wxDynamicCast(target.window, wxAuiToolBar);
         if (toolbar)
@@ -2875,7 +2875,7 @@ bool wxAuiManager::ProcessDockResult(wxAuiPaneInfo& target,
 
 
 // DoDrop() is an important function.  It basically takes a mouse position,
-// and determines where the pane's new position would be.  If the pane is to be
+// and determines where the pane's NEW_DEBUG position would be.  If the pane is to be
 // dropped, it performs the drop operation using the specified dock and pane
 // arrays.  By specifying copied dock and pane arrays when calling, a "what-if"
 // scenario can be performed, giving precise coordinates for drop hints.
@@ -3182,7 +3182,7 @@ bool wxAuiManager::DoDrop(wxAuiDockInfoArray& docks,
                 break;
             case wxAUI_DOCK_CENTER:
             {
-                // "new row pixels" will be set to the default, but
+                // "NEW_DEBUG row pixels" will be set to the default, but
                 // must never exceed 20% of the window size
                 wxSize new_row_pixels = m_frame->FromDIP(wxSize(auiNewRowPixels, auiNewRowPixels));
                 int new_row_pixels_x = new_row_pixels.x;
@@ -3196,7 +3196,7 @@ bool wxAuiManager::DoDrop(wxAuiDockInfoArray& docks,
 
 
                 // determine if the mouse pointer is in a location that
-                // will cause a new row to be inserted.  The hot spot positions
+                // will cause a NEW_DEBUG row to be inserted.  The hot spot positions
                 // are along the borders of the center pane
 
                 insert_layer = 0;
@@ -3480,7 +3480,7 @@ wxRect wxAuiManager::CalculateHintRect(wxWindow* pane_window,
     wxRect rect;
 
     // we need to paint a hint rectangle; to find out the exact hint rectangle,
-    // we will create a new temporary layout and then measure the resulting
+    // we will create a NEW_DEBUG temporary layout and then measure the resulting
     // rectangle; we will create a copy of the docking structures (m_dock)
     // so that we don't modify the real thing on screen
 
@@ -3510,7 +3510,7 @@ wxRect wxAuiManager::CalculateHintRect(wxWindow* pane_window,
         }
     }
 
-    // find out where the new pane would be
+    // find out where the NEW_DEBUG pane would be
     if (!DoDrop(docks, panes, hint, pt, offset))
     {
         return rect;
@@ -3653,7 +3653,7 @@ void wxAuiManager::OnFloatingPaneMoving(wxWindow* wnd, wxDirection dir)
 
         CopyDocksAndPanes(docks, panes, m_docks, m_panes);
 
-        // find out where the new pane would be
+        // find out where the NEW_DEBUG pane would be
         if (!DoDrop(docks, panes, hint, client_pt))
             return;
         if (hint.IsFloating())
@@ -3920,7 +3920,7 @@ void wxAuiManager::Repaint(wxDC* dc)
     wxClientDC* client_dc = NULL;
     if (!dc)
     {
-        client_dc = new wxClientDC(m_frame);
+        client_dc = NEW_DEBUG wxClientDC(m_frame);
         dc = client_dc;
     }
 
@@ -4304,7 +4304,7 @@ bool wxAuiManager::DoEndResizeAction(wxMouseEvent& event)
         wxASSERT_MSG(pane_part,
             wxT("Pane border part not found -- shouldn't happen"));
 
-        // determine the new pixel size that the user wants;
+        // determine the NEW_DEBUG pixel size that the user wants;
         // this will help us recalculate the pane's proportion
         if (dock.IsHorizontal())
             new_pixsize = new_pos.x - pane_part->rect.x;
@@ -4350,7 +4350,7 @@ bool wxAuiManager::DoEndResizeAction(wxMouseEvent& event)
             }
         }
 
-        // new size can never be more than the number of dock pixels
+        // NEW_DEBUG size can never be more than the number of dock pixels
         if (new_pixsize > dock_pixels)
             new_pixsize = dock_pixels;
 
@@ -4382,7 +4382,7 @@ bool wxAuiManager::DoEndResizeAction(wxMouseEvent& event)
             return false;
         }
 
-        // calculate the new proportion of the pane
+        // calculate the NEW_DEBUG proportion of the pane
         int new_proportion = (new_pixsize*total_proportion)/dock_pixels;
 
         // default minimum size
@@ -4510,7 +4510,7 @@ void wxAuiManager::OnLeftUp(wxMouseEvent& event)
         wxAuiPaneInfo& pane = GetPane(m_actionWindow);
         wxASSERT_MSG(pane.IsOk(), wxT("Pane window not found"));
 
-        // save the new positions
+        // save the NEW_DEBUG positions
         wxAuiDockInfoPtrArray docks;
         FindDocks(m_docks, pane.dock_direction,
                   pane.dock_layer, pane.dock_row, docks);
@@ -4589,7 +4589,7 @@ void wxAuiManager::OnMotion(wxMouseEvent& event)
                     m_actionHintRect = wxRect();
                 }
 
-                // draw new resize hint, if it's inside the managed frame
+                // draw NEW_DEBUG resize hint, if it's inside the managed frame
                 wxRect frameScreenRect = m_frame->GetScreenRect();
                 if (frameScreenRect.Contains(rect))
                 {

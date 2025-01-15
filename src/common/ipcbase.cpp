@@ -117,7 +117,7 @@ void *wxConnectionBase::GetBufferAtLeast( size_t bytes )
     if ( m_deletebufferwhendone )
     { // we're in charge of buffer, increase it
       delete [] m_buffer;
-      m_buffer = new char[bytes];
+      m_buffer = NEW_DEBUG char[bytes];
       m_buffersize = bytes;
       return m_buffer;
     } // user-supplied buffer, fail

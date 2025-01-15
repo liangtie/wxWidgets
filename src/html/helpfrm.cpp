@@ -98,7 +98,7 @@ bool wxHtmlHelpFrame::Create(wxWindow* parent, wxWindowID id,
 #endif // wxUSE_CONFIG
                              )
 {
-    m_HtmlHelpWin = new wxHtmlHelpWindow(m_Data);
+    m_HtmlHelpWin = NEW_DEBUG wxHtmlHelpWindow(m_Data);
     m_HtmlHelpWin->SetController(m_helpController);
 #if wxUSE_CONFIG
     if ( config )

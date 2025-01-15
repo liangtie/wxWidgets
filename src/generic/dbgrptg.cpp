@@ -79,7 +79,7 @@ wxDumpPreviewDlg::wxDumpPreviewDlg(wxWindow *parent,
 
     // use wxTE_RICH2 style to avoid 64kB limit under MSW and display big files
     // faster than with wxTE_RICH
-    m_text = new wxTextCtrl(this, wxID_ANY, wxEmptyString,
+    m_text = NEW_DEBUG wxTextCtrl(this, wxID_ANY, wxEmptyString,
                             wxPoint(0, 0), wxDefaultSize,
                             wxTE_MULTILINE |
                             wxTE_READONLY |
@@ -91,14 +91,14 @@ wxDumpPreviewDlg::wxDumpPreviewDlg(wxWindow *parent,
     m_text->SetFont(wxFont(12, wxFONTFAMILY_TELETYPE,
                            wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL));
 
-    wxButton *btnClose = new wxButton(this, wxID_CANCEL, _("Close"));
+    wxButton *btnClose = NEW_DEBUG wxButton(this, wxID_CANCEL, _("Close"));
 
 
     // layout them
     // -----------
 
-    wxSizer *sizerTop = new wxBoxSizer(wxVERTICAL),
-            *sizerBtns = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer *sizerTop = NEW_DEBUG wxBoxSizer(wxVERTICAL),
+            *sizerBtns = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
 
     sizerBtns->Add(btnClose, 0, 0, 1);
 
@@ -164,8 +164,8 @@ wxDumpOpenExternalDlg::wxDumpOpenExternalDlg(wxWindow *parent,
     // create controls
     // ---------------
 
-    wxSizer *sizerTop = new wxBoxSizer(wxVERTICAL);
-    sizerTop->Add(new wxStaticText(this, wxID_ANY,
+    wxSizer *sizerTop = NEW_DEBUG wxBoxSizer(wxVERTICAL);
+    sizerTop->Add(NEW_DEBUG wxStaticText(this, wxID_ANY,
                                    wxString::Format
                                    (
                                     _("Enter command to open file \"%s\":"),
@@ -173,9 +173,9 @@ wxDumpOpenExternalDlg::wxDumpOpenExternalDlg(wxWindow *parent,
                                    )),
                   wxSizerFlags().Border());
 
-    wxSizer *sizerH = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer *sizerH = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
 
-    wxTextCtrl *command = new wxTextCtrl
+    wxTextCtrl *command = NEW_DEBUG wxTextCtrl
                               (
                                 this,
                                 wxID_ANY,
@@ -192,7 +192,7 @@ wxDumpOpenExternalDlg::wxDumpOpenExternalDlg(wxWindow *parent,
 
 #if wxUSE_FILEDLG
 
-    wxButton *browse = new wxButton(this, wxID_MORE, wxT(">>"),
+    wxButton *browse = NEW_DEBUG wxButton(this, wxID_MORE, wxT(">>"),
                                     wxDefaultPosition, wxDefaultSize,
                                     wxBU_EXACTFIT);
     sizerH->Add(browse,
@@ -202,7 +202,7 @@ wxDumpOpenExternalDlg::wxDumpOpenExternalDlg(wxWindow *parent,
 
     sizerTop->Add(sizerH, wxSizerFlags(0).Expand().Border());
 
-    sizerTop->Add(new wxStaticLine(this), wxSizerFlags().Expand().Border());
+    sizerTop->Add(NEW_DEBUG wxStaticLine(this), wxSizerFlags().Expand().Border());
 
     sizerTop->Add(CreateStdDialogButtonSizer(wxOK | wxCANCEL),
                       wxSizerFlags().Align(wxALIGN_RIGHT).Border());
@@ -331,25 +331,25 @@ wxDebugReportDialog::wxDebugReportDialog(wxDebugReport& dbgrpt)
     const wxSizerFlags flagsExpand2(SizerFlags(2));
 
     wxSizer *sizerPreview =
-        new wxStaticBoxSizer(wxVERTICAL, this, _("&Debug report preview:"));
+        NEW_DEBUG wxStaticBoxSizer(wxVERTICAL, this, _("&Debug report preview:"));
     sizerPreview->Add(CreateTextSizer(msg), wxSizerFlags().Centre().Border());
 
     // ... and the list of files in this debug report with buttons to view them
-    wxSizer *sizerFileBtns = new wxBoxSizer(wxVERTICAL);
+    wxSizer *sizerFileBtns = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     sizerFileBtns->AddStretchSpacer(1);
-    sizerFileBtns->Add(new wxButton(this, wxID_VIEW_DETAILS, _("&View...")),
+    sizerFileBtns->Add(NEW_DEBUG wxButton(this, wxID_VIEW_DETAILS, _("&View...")),
                         wxSizerFlags().Border(wxBOTTOM));
-    sizerFileBtns->Add(new wxButton(this, wxID_OPEN, _("&Open...")),
+    sizerFileBtns->Add(NEW_DEBUG wxButton(this, wxID_OPEN, _("&Open...")),
                         wxSizerFlags().Border(wxTOP));
     sizerFileBtns->AddStretchSpacer(1);
 
 #if wxUSE_CHECKLISTBOX
-    m_checklst = new wxCheckListBox(this, wxID_ANY);
+    m_checklst = NEW_DEBUG wxCheckListBox(this, wxID_ANY);
 #else
-    m_checklst = new wxListBox(this, wxID_ANY);
+    m_checklst = NEW_DEBUG wxListBox(this, wxID_ANY);
 #endif
 
-    wxSizer *sizerFiles = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer *sizerFiles = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     sizerFiles->Add(m_checklst, flagsExpand);
     sizerFiles->Add(sizerFileBtns, flagsFixed);
 
@@ -357,11 +357,11 @@ wxDebugReportDialog::wxDebugReportDialog(wxDebugReport& dbgrpt)
 
 
     // lower part of the dialog: notes field
-    wxSizer *sizerNotes = new wxStaticBoxSizer(wxVERTICAL, this, _("&Notes:"));
+    wxSizer *sizerNotes = NEW_DEBUG wxStaticBoxSizer(wxVERTICAL, this, _("&Notes:"));
 
     msg = _("If you have any additional information pertaining to this bug\nreport, please enter it here and it will be joined to it:");
 
-    m_notes = new wxTextCtrl(this, wxID_ANY, wxEmptyString,
+    m_notes = NEW_DEBUG wxTextCtrl(this, wxID_ANY, wxEmptyString,
                              wxDefaultPosition, wxDefaultSize,
                              wxTE_MULTILINE);
 
@@ -369,7 +369,7 @@ wxDebugReportDialog::wxDebugReportDialog(wxDebugReport& dbgrpt)
     sizerNotes->Add(m_notes, flagsExpand);
 
 
-    wxSizer *sizerTop = new wxBoxSizer(wxVERTICAL);
+    wxSizer *sizerTop = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     sizerTop->Add(sizerPreview, flagsExpand2);
     sizerTop->AddSpacer(5);
     sizerTop->Add(sizerNotes, flagsExpand);

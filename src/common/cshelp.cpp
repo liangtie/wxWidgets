@@ -92,7 +92,7 @@ wxContextHelp::~wxContextHelp()
 static void wxPushOrPopEventHandlers(wxContextHelp* help, wxWindow* win, bool push)
 {
     if (push)
-        win->PushEventHandler(new wxContextHelpEvtHandler(help));
+        win->PushEventHandler(NEW_DEBUG wxContextHelpEvtHandler(help));
     else
         win->PopEventHandler(true);
 
@@ -128,7 +128,7 @@ bool wxContextHelp::BeginContextHelp(wxWindow* win)
 #ifdef __WXMOTIF__
     wxPushOrPopEventHandlers(this, win, true);
 #else
-    win->PushEventHandler(new wxContextHelpEvtHandler(this));
+    win->PushEventHandler(NEW_DEBUG wxContextHelpEvtHandler(this));
 #endif
 
     win->CaptureMouse();
@@ -405,7 +405,7 @@ bool wxSimpleHelpProvider::ShowHelp(wxWindowBase *window)
                 s_tipWindow->Close();
             }
 
-            s_tipWindow = new wxTipWindow((wxWindow *)window, text,
+            s_tipWindow = NEW_DEBUG wxTipWindow((wxWindow *)window, text,
                                             100, &s_tipWindow);
 #else // !wxUSE_TIPWINDOW
             // we tried wxCHMHelpController but it failed and we don't have
@@ -482,7 +482,7 @@ bool wxHelpProviderModule::OnInit()
 {
     // Probably we don't want to do anything by default,
     // since it could pull in extra code
-    // wxHelpProvider::Set(new wxSimpleHelpProvider);
+    // wxHelpProvider::Set(NEW_DEBUG wxSimpleHelpProvider);
 
     return true;
 }

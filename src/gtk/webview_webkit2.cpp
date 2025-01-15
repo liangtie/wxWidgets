@@ -118,7 +118,7 @@ wxgtk_webview_webkit_navigation(WebKitWebView *,
     const gchar* uri = webkit_uri_request_get_uri(request);
     wxString target = webkit_navigation_policy_decision_get_frame_name(navigation_decision);
 
-    //If m_creating is true then we are the result of a new window
+    //If m_creating is true then we are the result of a NEW_DEBUG window
     //and so we need to send the event and veto the load
     if(webKitCtrl->m_creating)
     {
@@ -841,7 +841,7 @@ void wxWebViewWebKit::EnableHistory(bool)
 wxSharedPtr<wxWebViewHistoryItem>
 wxWebViewWebKit::CreateHistoryItemFromWKItem(WebKitBackForwardListItem* gtkitem)
 {
-    wxWebViewHistoryItem* wxitem = new wxWebViewHistoryItem(
+    wxWebViewHistoryItem* wxitem = NEW_DEBUG wxWebViewHistoryItem(
                           wxString::FromUTF8(webkit_back_forward_list_item_get_uri(gtkitem)),
                           // Since WebKit 2.43.4 titles are not stored any more
                           // and the function is deprecated, so don't use it.
@@ -1304,7 +1304,7 @@ void wxWebViewWebKit::RunScriptAsync(const wxString& javascript, void* clientDat
     wxJSScriptWrapper wrapJS(javascript, wxJSScriptWrapper::JS_OUTPUT_STRING);
 
     // Collect parameters for access from the callback
-    wxWebKitRunScriptParams* params = new wxWebKitRunScriptParams;
+    wxWebKitRunScriptParams* params = NEW_DEBUG wxWebKitRunScriptParams;
     params->webKitCtrl = this;
     params->clientData = clientData;
 
@@ -1388,7 +1388,7 @@ long wxWebViewWebKit::Find(const wxString& text, int flags)
        (flags & wxWEBVIEW_FIND_MATCH_CASE) != (m_findFlags & wxWEBVIEW_FIND_MATCH_CASE))
     {
         newSearch = true;
-        //If it is a new search we need to clear existing highlights
+        //If it is a NEW_DEBUG search we need to clear existing highlights
         webkit_find_controller_search_finish(findctrl);
     }
 
@@ -1516,7 +1516,7 @@ void wxWebViewWebKit::SetupWebExtensionServer()
     }
     else
     {
-        g_signal_connect(m_dbusServer, "new-connection",
+        g_signal_connect(m_dbusServer, "NEW_DEBUG-connection",
                          G_CALLBACK(wxgtk_new_connection_cb), &m_extension);
         g_dbus_server_start(m_dbusServer);
     }

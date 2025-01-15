@@ -139,7 +139,7 @@ void wxMemoryDCImpl::DoSelect( const wxBitmap& bitmap )
     // correct size.
     m_contentScaleFactor = bitmap.GetScaleFactor();
 
-    // The font may need to be adjusted for the new scale factor.
+    // The font may need to be adjusted for the NEW_DEBUG scale factor.
     SetFont(GetFont());
 }
 

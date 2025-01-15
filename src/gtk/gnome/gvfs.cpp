@@ -98,7 +98,7 @@ static wxGnomeVFSLibrary* gs_lgvfs = NULL;
 
 wxMimeTypesManagerImpl *wxGnomeVFSMimeTypesManagerFactory::CreateMimeTypesManagerImpl()
 {
-    return new wxGnomeVFSMimeTypesManagerImpl;
+    return NEW_DEBUG wxGnomeVFSMimeTypesManagerImpl;
 }
 
 
@@ -140,11 +140,11 @@ private:
 
 bool wxGnomeVFSModule::OnInit()
 {
-    gs_lgvfs = new wxGnomeVFSLibrary;
+    gs_lgvfs = NEW_DEBUG wxGnomeVFSLibrary;
     if (gs_lgvfs->IsOk())
     {
         if (gs_lgvfs->gnome_vfs_init())
-            wxMimeTypesManagerFactory::Set( new wxGnomeVFSMimeTypesManagerFactory );
+            wxMimeTypesManagerFactory::Set( NEW_DEBUG wxGnomeVFSMimeTypesManagerFactory );
     }
     return true;
 }

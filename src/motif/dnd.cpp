@@ -93,7 +93,7 @@ bool wxFileDropTarget::OnDrop(long x, long y, const void *data, size_t size )
 
   if (number == 0) return true;
 
-  char **files = new char*[number];
+  char **files = NEW_DEBUG char*[number];
 
   text = (char*) data;
   for ( i = 0; i < number; i++)

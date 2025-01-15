@@ -40,7 +40,7 @@ bool Save(wxSecretStore& store, const wxString& service, const wxString& user)
     size_t size = wxStrlen(password);
     if ( size )
     {
-        // Strip trailing new line.
+        // Strip trailing NEW_DEBUG line.
         --size;
         password[size] = 0;
     }

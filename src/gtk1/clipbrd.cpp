@@ -424,7 +424,7 @@ bool wxClipboard::AddData( wxDataObject *data )
     m_data = data;
 
     // get formats from wxDataObjects
-    wxDataFormat *array = new wxDataFormat[ m_data->GetFormatCount() ];
+    wxDataFormat *array = NEW_DEBUG wxDataFormat[ m_data->GetFormatCount() ];
     m_data->GetAllFormats( array );
 
     // primary selection or clipboard
@@ -534,7 +534,7 @@ bool wxClipboard::GetData( wxDataObject& data )
     wxCHECK_MSG( m_open, false, wxT("clipboard not open") );
 
     /* get formats from wxDataObjects */
-    wxDataFormat *array = new wxDataFormat[ data.GetFormatCount() ];
+    wxDataFormat *array = NEW_DEBUG wxDataFormat[ data.GetFormatCount() ];
     data.GetAllFormats( array );
 
     for (size_t i = 0; i < data.GetFormatCount(); i++)

@@ -49,7 +49,7 @@ extern WXDLLEXPORT_DATA(const char) wxRadioBoxNameStr[] = "radioBox";
 wxDEFINE_FLAGS( wxRadioBoxStyle )
 
 wxBEGIN_FLAGS( wxRadioBoxStyle )
-// new style border flags, we put them first to
+// NEW_DEBUG style border flags, we put them first to
 // use them for streaming out
 wxFLAGS_MEMBER(wxBORDER_SIMPLE)
 wxFLAGS_MEMBER(wxBORDER_SUNKEN)
@@ -240,7 +240,7 @@ void wxRadioBoxBase::SetItemToolTip(unsigned int item, const wxString& text)
     // extend the array to have entries for all our items on first use
     if ( !m_itemsTooltips )
     {
-        m_itemsTooltips = new wxToolTipArray;
+        m_itemsTooltips = NEW_DEBUG wxToolTipArray;
         m_itemsTooltips->resize(GetCount());
     }
 
@@ -269,8 +269,8 @@ void wxRadioBoxBase::SetItemToolTip(unsigned int item, const wxString& text)
         }
         else // no tooltip yet
         {
-            // create the new one
-            tooltip = new wxToolTip(text);
+            // create the NEW_DEBUG one
+            tooltip = NEW_DEBUG wxToolTip(text);
         }
     }
 

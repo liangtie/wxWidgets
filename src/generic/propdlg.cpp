@@ -62,11 +62,11 @@ bool wxPropertySheetDialog::Create(wxWindow* parent, wxWindowID id, const wxStri
     if (!wxDialog::Create(parent, id, title, pos, sz, style|wxCLIP_CHILDREN, name))
         return false;
 
-    wxBoxSizer *topSizer = new wxBoxSizer( wxVERTICAL );
+    wxBoxSizer *topSizer = NEW_DEBUG wxBoxSizer( wxVERTICAL );
     SetSizer(topSizer);
 
     // This gives more space around the edges
-    m_innerSizer = new wxBoxSizer( wxVERTICAL );
+    m_innerSizer = NEW_DEBUG wxBoxSizer( wxVERTICAL );
 
     topSizer->Add(m_innerSizer, 1, wxGROW|wxALL, m_sheetOuterBorder);
 
@@ -113,31 +113,31 @@ wxBookCtrlBase* wxPropertySheetDialog::CreateBookCtrl()
 
 #if wxUSE_NOTEBOOK
     if (GetSheetStyle() & wxPROPSHEET_NOTEBOOK)
-        bookCtrl = new wxNotebook(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, style );
+        bookCtrl = NEW_DEBUG wxNotebook(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, style );
 #endif
 #if wxUSE_CHOICEBOOK
     if (GetSheetStyle() & wxPROPSHEET_CHOICEBOOK)
-        bookCtrl = new wxChoicebook(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, style );
+        bookCtrl = NEW_DEBUG wxChoicebook(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, style );
 #endif
 #if wxUSE_TOOLBOOK
 #if defined(__WXMAC__) && wxUSE_TOOLBAR && wxUSE_BMPBUTTON
     if (GetSheetStyle() & wxPROPSHEET_BUTTONTOOLBOOK)
-        bookCtrl = new wxToolbook(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, style|wxTBK_BUTTONBAR );
+        bookCtrl = NEW_DEBUG wxToolbook(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, style|wxTBK_BUTTONBAR );
     else
 #endif
     if ((GetSheetStyle() & wxPROPSHEET_TOOLBOOK) || (GetSheetStyle() & wxPROPSHEET_BUTTONTOOLBOOK))
-        bookCtrl = new wxToolbook(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, style );
+        bookCtrl = NEW_DEBUG wxToolbook(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, style );
 #endif
 #if wxUSE_LISTBOOK
     if (GetSheetStyle() & wxPROPSHEET_LISTBOOK)
-        bookCtrl = new wxListbook(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, style );
+        bookCtrl = NEW_DEBUG wxListbook(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, style );
 #endif
 #if wxUSE_TREEBOOK
     if (GetSheetStyle() & wxPROPSHEET_TREEBOOK)
-        bookCtrl = new wxTreebook(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, style );
+        bookCtrl = NEW_DEBUG wxTreebook(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, style );
 #endif
     if (!bookCtrl)
-        bookCtrl = new wxBookCtrl(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, style );
+        bookCtrl = NEW_DEBUG wxBookCtrl(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, style );
 
     if (GetSheetStyle() & wxPROPSHEET_SHRINKTOFIT)
         bookCtrl->SetFitToCurrentPage(true);

@@ -91,7 +91,7 @@ bool MyApp::OnInit()
     if ( !wxApp::OnInit() )
         return false;
 
-    MyFrame *frame = new MyFrame("wxClipboard sample");
+    MyFrame *frame = NEW_DEBUG MyFrame("wxClipboard sample");
     frame->Show(true);
 
     return true;
@@ -110,17 +110,17 @@ MyFrame::MyFrame(const wxString& title)
 
 #if wxUSE_MENUS
     // create a menu bar
-    wxMenu *fileMenu = new wxMenu;
+    wxMenu *fileMenu = NEW_DEBUG wxMenu;
 
     // the "About" item should be in the help menu
-    wxMenu *helpMenu = new wxMenu;
+    wxMenu *helpMenu = NEW_DEBUG wxMenu;
     helpMenu->Append(ID_About, "&About\tF1", "Show about dialog");
 
     fileMenu->Append(ID_Flush, "Flush the clipboard" );
     fileMenu->Append(ID_Quit, "E&xit\tAlt-X", "Quit this program");
 
     // now append the freshly created menu to the menu bar...
-    wxMenuBar *menuBar = new wxMenuBar();
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar();
     menuBar->Append(fileMenu, "&File");
     menuBar->Append(helpMenu, "&Help");
 
@@ -128,11 +128,11 @@ MyFrame::MyFrame(const wxString& title)
     SetMenuBar(menuBar);
 #endif // wxUSE_MENUS
 
-    wxPanel *panel = new wxPanel( this, -1 );
+    wxPanel *panel = NEW_DEBUG wxPanel( this, -1 );
 
-    wxBoxSizer *main_sizer = new wxBoxSizer( wxVERTICAL );
-    main_sizer->Add( new wxButton( panel, ID_Write, "Get clipboard text" ), 0, wxALL, 5 );
-    m_textctrl = new wxTextCtrl( panel, ID_Text, "", wxDefaultPosition,
+    wxBoxSizer *main_sizer = NEW_DEBUG wxBoxSizer( wxVERTICAL );
+    main_sizer->Add( NEW_DEBUG wxButton( panel, ID_Write, "Get clipboard text" ), 0, wxALL, 5 );
+    m_textctrl = NEW_DEBUG wxTextCtrl( panel, ID_Text, "", wxDefaultPosition,
       wxDefaultSize, wxTE_MULTILINE );
     main_sizer->Add( m_textctrl, 1, wxGROW );
     panel->SetSizer( main_sizer );
@@ -149,7 +149,7 @@ void MyFrame::OnFlush(wxCommandEvent &WXUNUSED(event))
     }
 
     wxString clipData = wxString::Format("Text from wx clipboard sample at %s" , wxDateTime::Now().Format());
-    if ( !wxTheClipboard->AddData(new wxTextDataObject(clipData)) )
+    if ( !wxTheClipboard->AddData(NEW_DEBUG wxTextDataObject(clipData)) )
     {
         m_textctrl->AppendText("Failed to put text on clipboard.\n");
         return;

@@ -641,7 +641,7 @@ source_drag_data_get  (GtkWidget          *WXUNUSED(widget),
 
 //  printf( "data size: %d.\n", (int)data_size );
 
-    guchar *d = new guchar[size];
+    guchar *d = NEW_DEBUG guchar[size];
 
     if (!data->GetDataHere( format, (void*)d ))
     {
@@ -867,7 +867,7 @@ wxDragResult wxDropSource::DoDragDrop(int flags)
 
     GtkTargetList *target_list = gtk_target_list_new( NULL, 0 );
 
-    wxDataFormat *array = new wxDataFormat[ m_data->GetFormatCount() ];
+    wxDataFormat *array = NEW_DEBUG wxDataFormat[ m_data->GetFormatCount() ];
     m_data->GetAllFormats( array );
     size_t count = m_data->GetFormatCount();
     for (size_t i = 0; i < count; i++)

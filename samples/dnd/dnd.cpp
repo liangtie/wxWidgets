@@ -69,7 +69,7 @@ private:
 class URLDropTarget : public wxDropTarget
 {
 public:
-    URLDropTarget() { SetDataObject(new wxURLDataObject); }
+    URLDropTarget() { SetDataObject(NEW_DEBUG wxURLDataObject); }
 
     void OnDropURL(wxCoord WXUNUSED(x), wxCoord WXUNUSED(y), const wxString& text)
     {
@@ -101,7 +101,7 @@ public:
 #endif // wxUSE_DRAG_AND_DROP
 
 // ----------------------------------------------------------------------------
-// Define a new application type
+// Define a NEW_DEBUG application type
 // ----------------------------------------------------------------------------
 
 class DnDApp : public wxApp
@@ -190,7 +190,7 @@ private:
 #endif // wxUSE_METAFILE
 
 // ----------------------------------------------------------------------------
-// Define a new frame type for the main frame
+// Define a NEW_DEBUG frame type for the main frame
 // ----------------------------------------------------------------------------
 
 class DnDFrame : public wxFrame
@@ -746,7 +746,7 @@ class DnDShapeDropTarget : public wxDropTarget
 {
 public:
     DnDShapeDropTarget(DnDShapeFrame *frame)
-        : wxDropTarget(new DnDShapeDataObject)
+        : wxDropTarget(NEW_DEBUG DnDShapeDataObject)
     {
         m_frame = frame;
     }
@@ -916,11 +916,11 @@ bool DnDApp::OnInit()
 #endif // wxUSE_LOG
 
 #if wxUSE_LIBPNG
-    wxImage::AddHandler( new wxPNGHandler );
+    wxImage::AddHandler( NEW_DEBUG wxPNGHandler );
 #endif
 
     // create the main frame window
-    new DnDFrame();
+    NEW_DEBUG DnDFrame();
 
     return true;
 #else
@@ -945,7 +945,7 @@ DnDFrame::DnDFrame()
 #endif // wxUSE_STATUSBAR
 
     // construct menu
-    wxMenu *file_menu = new wxMenu;
+    wxMenu *file_menu = NEW_DEBUG wxMenu;
     file_menu->Append(Menu_Drag, "&Test drag...");
     file_menu->AppendCheckItem(Menu_DragMoveDef, "&Move by default");
     file_menu->AppendCheckItem(Menu_DragMoveAllow, "&Allow moving");
@@ -955,16 +955,16 @@ DnDFrame::DnDFrame()
     file_menu->Append(Menu_Quit, "E&xit\tCtrl-Q");
 
 #if wxUSE_LOG
-    wxMenu *log_menu = new wxMenu;
+    wxMenu *log_menu = NEW_DEBUG wxMenu;
     log_menu->Append(Menu_Clear, "Clear\tCtrl-L");
 #endif // wxUSE_LOG
 
-    wxMenu *help_menu = new wxMenu;
+    wxMenu *help_menu = NEW_DEBUG wxMenu;
     help_menu->Append(Menu_Help, "&Help...");
     help_menu->AppendSeparator();
     help_menu->Append(Menu_About, "&About");
 
-    wxMenu *clip_menu = new wxMenu;
+    wxMenu *clip_menu = NEW_DEBUG wxMenu;
     clip_menu->Append(Menu_Copy, "&Copy text\tCtrl-C");
     clip_menu->Append(Menu_Paste, "&Paste text\tCtrl-V");
     clip_menu->AppendSeparator();
@@ -980,7 +980,7 @@ DnDFrame::DnDFrame()
     clip_menu->AppendSeparator();
     clip_menu->AppendCheckItem(Menu_UsePrimary, "Use &primary selection\tCtrl-P");
 
-    wxMenuBar *menu_bar = new wxMenuBar;
+    wxMenuBar *menu_bar = NEW_DEBUG wxMenuBar;
     menu_bar->Append(file_menu, "&File");
 #if wxUSE_LOG
     menu_bar->Append(log_menu,  "&Log");
@@ -995,43 +995,43 @@ DnDFrame::DnDFrame()
 
     wxString strFile("Drop files here!"), strText("Drop text on me");
 
-    m_ctrlFile  = new wxListBox(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 1, &strFile,
+    m_ctrlFile  = NEW_DEBUG wxListBox(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 1, &strFile,
                                 wxLB_HSCROLL | wxLB_ALWAYS_SB );
-    m_ctrlText  = new wxListBox(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 1, &strText,
+    m_ctrlText  = NEW_DEBUG wxListBox(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 1, &strText,
                                 wxLB_HSCROLL | wxLB_ALWAYS_SB );
-    m_ctrlDir   = new wxGenericDirCtrl(this);
+    m_ctrlDir   = NEW_DEBUG wxGenericDirCtrl(this);
 
 #if wxUSE_LOG
-    m_ctrlLog   = new wxTextCtrl(this, wxID_ANY, wxEmptyString,
+    m_ctrlLog   = NEW_DEBUG wxTextCtrl(this, wxID_ANY, wxEmptyString,
                                  wxDefaultPosition, wxDefaultSize,
                                  wxTE_MULTILINE | wxTE_READONLY |
                                  wxSUNKEN_BORDER );
 
     // redirect log messages to the text window
-    m_pLog = new wxLogTextCtrl(m_ctrlLog);
+    m_pLog = NEW_DEBUG wxLogTextCtrl(m_ctrlLog);
     m_pLogPrev = wxLog::SetActiveTarget(m_pLog);
 #endif // wxUSE_LOG
 
 #if wxUSE_DRAG_AND_DROP
     // associate drop targets with the controls
-    m_ctrlFile->SetDropTarget(new DnDFile(m_ctrlFile));
-    m_ctrlText->SetDropTarget(new DnDText(m_ctrlText));
+    m_ctrlFile->SetDropTarget(NEW_DEBUG DnDFile(m_ctrlFile));
+    m_ctrlText->SetDropTarget(NEW_DEBUG DnDText(m_ctrlText));
 
 #if wxUSE_DRAG_AND_DROP
     m_ctrlDir->Bind(wxEVT_TREE_BEGIN_DRAG, &DnDFrame::OnBeginDrag, this);
 #endif // wxUSE_DRAG_AND_DROP
 
 #if wxUSE_LOG
-    m_ctrlLog->SetDropTarget(new URLDropTarget);
+    m_ctrlLog->SetDropTarget(NEW_DEBUG URLDropTarget);
 #endif // wxUSE_LOG
 #endif // wxUSE_DRAG_AND_DROP
 
-    wxBoxSizer *sizer_top = new wxBoxSizer( wxHORIZONTAL );
+    wxBoxSizer *sizer_top = NEW_DEBUG wxBoxSizer( wxHORIZONTAL );
     sizer_top->Add(m_ctrlFile, 1, wxEXPAND );
     sizer_top->Add(m_ctrlText, 1, wxEXPAND );
 
-    wxBoxSizer *sizerDirCtrl = new wxBoxSizer(wxVERTICAL);
-    sizerDirCtrl->Add(new wxStaticText(this, wxID_ANY, "Drag files from here"),
+    wxBoxSizer *sizerDirCtrl = NEW_DEBUG wxBoxSizer(wxVERTICAL);
+    sizerDirCtrl->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "Drag files from here"),
                       wxSizerFlags().Centre().Border());
     sizerDirCtrl->Add(m_ctrlDir, wxSizerFlags(1).Expand());
     sizer_top->Add(sizerDirCtrl, 1, wxEXPAND );
@@ -1040,7 +1040,7 @@ DnDFrame::DnDFrame()
     for ( unsigned n = 0; n < sizer_top->GetChildren().size(); n++ )
         sizer_top->SetItemMinSize(n, 200, 300);
 
-    wxBoxSizer *sizer = new wxBoxSizer( wxVERTICAL );
+    wxBoxSizer *sizer = NEW_DEBUG wxBoxSizer( wxVERTICAL );
     sizer->Add(sizer_top, 1, wxEXPAND );
 #if wxUSE_LOG
     sizer->Add(m_ctrlLog, 1, wxEXPAND);
@@ -1112,9 +1112,9 @@ void DnDFrame::OnUpdateUIPasteBitmap(wxUpdateUIEvent& event)
 void DnDFrame::OnNewFrame(wxCommandEvent& WXUNUSED(event))
 {
 #if wxUSE_DRAG_AND_DROP
-    (new DnDShapeFrame(this))->Show(true);
+    (NEW_DEBUG DnDShapeFrame(this))->Show(true);
 
-    wxLogStatus(this, "Double click the new frame to select a shape for it");
+    wxLogStatus(this, "Double click the NEW_DEBUG frame to select a shape for it");
 #endif // wxUSE_DRAG_AND_DROP
 }
 
@@ -1343,7 +1343,7 @@ void DnDFrame::OnCopyBitmap(wxCommandEvent& WXUNUSED(event))
     wxLogMessage( "Creating wxBitmapDataObject..." );
     wxYield();
 
-    if ( !wxTheClipboard->AddData(new wxBitmapDataObject(bitmap)) )
+    if ( !wxTheClipboard->AddData(NEW_DEBUG wxBitmapDataObject(bitmap)) )
     {
         wxLogError("Can't copy image to the clipboard.");
     }
@@ -1446,7 +1446,7 @@ void DnDFrame::OnCopyFiles(wxCommandEvent& WXUNUSED(event))
 
     if ( !filenames.IsEmpty() )
     {
-        wxFileDataObject *dobj = new wxFileDataObject;
+        wxFileDataObject *dobj = NEW_DEBUG wxFileDataObject;
         size_t count = filenames.GetCount();
         for ( size_t n = 0; n < count; n++ )
         {
@@ -1487,7 +1487,7 @@ void DnDFrame::OnCopyURL(wxCommandEvent& WXUNUSED(event))
     const wxString url("http://www.wxwidgets.org/");
 
     wxClipboardLocker locker;
-    if ( !!locker && wxTheClipboard->AddData(new wxURLDataObject(url)) )
+    if ( !!locker && wxTheClipboard->AddData(NEW_DEBUG wxURLDataObject(url)) )
     {
         wxLogStatus(this, "Copied URL \"%s\" to %s.",
                     url,
@@ -1514,7 +1514,7 @@ void DnDFrame::OnCopy(wxCommandEvent& WXUNUSED(event))
         return;
     }
 
-    if ( !wxTheClipboard->AddData(new wxTextDataObject(m_strText)) )
+    if ( !wxTheClipboard->AddData(NEW_DEBUG wxTextDataObject(m_strText)) )
     {
         wxLogError("Can't copy data to the clipboard");
     }
@@ -1596,61 +1596,61 @@ DnDShapeDialog::DnDShapeDialog(wxFrame *parent, DnDShape *shape)
              wxDEFAULT_DIALOG_STYLE | wxRAISED_BORDER | wxRESIZE_BORDER )
 {
     m_shape = shape;
-    wxBoxSizer* topSizer = new wxBoxSizer( wxVERTICAL );
+    wxBoxSizer* topSizer = NEW_DEBUG wxBoxSizer( wxVERTICAL );
 
     // radio box
-    wxBoxSizer* shapesSizer = new wxBoxSizer( wxHORIZONTAL );
+    wxBoxSizer* shapesSizer = NEW_DEBUG wxBoxSizer( wxHORIZONTAL );
     const wxString choices[] = { "None", "Triangle",
                                  "Rectangle", "Ellipse" };
 
-    m_radio = new wxRadioBox( this, wxID_ANY, "&Shape",
+    m_radio = NEW_DEBUG wxRadioBox( this, wxID_ANY, "&Shape",
                               wxDefaultPosition, wxDefaultSize, 4, choices, 4,
                               wxRA_SPECIFY_COLS );
     shapesSizer->Add( m_radio, 0, wxGROW|wxALL, 5 );
     topSizer->Add( shapesSizer, 0, wxALL, 2 );
 
     // attributes
-    wxStaticBox* box = new wxStaticBox( this, wxID_ANY, "&Attributes" );
-    wxStaticBoxSizer* attrSizer = new wxStaticBoxSizer( box, wxHORIZONTAL );
-    wxFlexGridSizer* xywhSizer = new wxFlexGridSizer( 2 );
+    wxStaticBox* box = NEW_DEBUG wxStaticBox( this, wxID_ANY, "&Attributes" );
+    wxStaticBoxSizer* attrSizer = NEW_DEBUG wxStaticBoxSizer( box, wxHORIZONTAL );
+    wxFlexGridSizer* xywhSizer = NEW_DEBUG wxFlexGridSizer( 2 );
 
     wxStaticText* st;
 
-    st = new wxStaticText( this, wxID_ANY, "Position &X:" );
-    m_textX = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition,
+    st = NEW_DEBUG wxStaticText( this, wxID_ANY, "Position &X:" );
+    m_textX = NEW_DEBUG wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition,
                               wxSize( 30, 20 ) );
     xywhSizer->Add( st, 1, wxGROW|wxALL, 2 );
     xywhSizer->Add( m_textX, 1, wxGROW|wxALL, 2 );
 
-    st = new wxStaticText( this, wxID_ANY, "Size &width:" );
-    m_textW = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition,
+    st = NEW_DEBUG wxStaticText( this, wxID_ANY, "Size &width:" );
+    m_textW = NEW_DEBUG wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition,
                               wxSize( 30, 20 ) );
     xywhSizer->Add( st, 1, wxGROW|wxALL, 2 );
     xywhSizer->Add( m_textW, 1, wxGROW|wxALL, 2 );
 
-    st = new wxStaticText( this, wxID_ANY, "&Y:" );
-    m_textY = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition,
+    st = NEW_DEBUG wxStaticText( this, wxID_ANY, "&Y:" );
+    m_textY = NEW_DEBUG wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition,
                               wxSize( 30, 20 ) );
     xywhSizer->Add( st, 1, wxALL|wxALIGN_RIGHT, 2 );
     xywhSizer->Add( m_textY, 1, wxGROW|wxALL, 2 );
 
-    st = new wxStaticText( this, wxID_ANY, "&height:" );
-    m_textH = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition,
+    st = NEW_DEBUG wxStaticText( this, wxID_ANY, "&height:" );
+    m_textH = NEW_DEBUG wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition,
                               wxSize( 30, 20 ) );
     xywhSizer->Add( st, 1, wxALL|wxALIGN_RIGHT, 2 );
     xywhSizer->Add( m_textH, 1, wxGROW|wxALL, 2 );
 
-    wxButton* col = new wxButton( this, Button_Colour, "&Colour..." );
+    wxButton* col = NEW_DEBUG wxButton( this, Button_Colour, "&Colour..." );
     attrSizer->Add( xywhSizer, 1, wxGROW );
     attrSizer->Add( col, 0, wxALL|wxALIGN_CENTRE_VERTICAL, 2 );
     topSizer->Add( attrSizer, 0, wxGROW|wxALL, 5 );
 
     // buttons
-    wxBoxSizer* buttonSizer = new wxBoxSizer( wxHORIZONTAL );
+    wxBoxSizer* buttonSizer = NEW_DEBUG wxBoxSizer( wxHORIZONTAL );
     wxButton* bt;
-    bt = new wxButton( this, wxID_OK, "Ok" );
+    bt = NEW_DEBUG wxButton( this, wxID_OK, "Ok" );
     buttonSizer->Add( bt, 0, wxALL, 2 );
-    bt = new wxButton( this, wxID_CANCEL, "Cancel" );
+    bt = NEW_DEBUG wxButton( this, wxID_CANCEL, "Cancel" );
     buttonSizer->Add( bt, 0, wxALL, 2 );
     topSizer->Add( buttonSizer, 0, wxALL|wxALIGN_RIGHT, 2 );
 
@@ -1663,9 +1663,9 @@ DnDShape *DnDShapeDialog::GetShape() const
     {
         default:
         case DnDShape::None:      return NULL;
-        case DnDShape::Triangle:  return new DnDTriangularShape(m_pos, m_size, m_col);
-        case DnDShape::Rectangle: return new DnDRectangularShape(m_pos, m_size, m_col);
-        case DnDShape::Ellipse:   return new DnDEllipticShape(m_pos, m_size, m_col);
+        case DnDShape::Triangle:  return NEW_DEBUG DnDTriangularShape(m_pos, m_size, m_col);
+        case DnDShape::Rectangle: return NEW_DEBUG DnDRectangularShape(m_pos, m_size, m_col);
+        case DnDShape::Ellipse:   return NEW_DEBUG DnDEllipticShape(m_pos, m_size, m_col);
     }
 }
 
@@ -1744,27 +1744,27 @@ DnDShapeFrame::DnDShapeFrame(wxFrame *parent)
     CreateStatusBar();
 #endif // wxUSE_STATUSBAR
 
-    wxMenu *menuShape = new wxMenu;
+    wxMenu *menuShape = NEW_DEBUG wxMenu;
     menuShape->Append(Menu_Shape_New, "&New default shape\tCtrl-S");
     menuShape->Append(Menu_Shape_Edit, "&Edit shape\tCtrl-E");
     menuShape->AppendSeparator();
     menuShape->Append(Menu_Shape_Clear, "&Clear shape\tCtrl-L");
 
-    wxMenu *menuClipboard = new wxMenu;
+    wxMenu *menuClipboard = NEW_DEBUG wxMenu;
     menuClipboard->Append(Menu_ShapeClipboard_Copy, "&Copy\tCtrl-C");
     menuClipboard->Append(Menu_ShapeClipboard_Paste, "&Paste\tCtrl-V");
 
-    wxMenuBar *menubar = new wxMenuBar;
+    wxMenuBar *menubar = NEW_DEBUG wxMenuBar;
     menubar->Append(menuShape, "&Shape");
     menubar->Append(menuClipboard, "&Clipboard");
 
     SetMenuBar(menubar);
 
 #if wxUSE_STATUSBAR
-    SetStatusText("Press Ctrl-S to create a new shape");
+    SetStatusText("Press Ctrl-S to create a NEW_DEBUG shape");
 #endif // wxUSE_STATUSBAR
 
-    SetDropTarget(new DnDShapeDropTarget(this));
+    SetDropTarget(NEW_DEBUG DnDShapeDropTarget(this));
 
     m_shape = NULL;
 
@@ -1876,7 +1876,7 @@ void DnDShapeFrame::OnEditShape(wxCommandEvent& WXUNUSED(event))
 
 void DnDShapeFrame::OnNewShape(wxCommandEvent& WXUNUSED(event))
 {
-    SetShape(new DnDEllipticShape(wxPoint(10, 10), wxSize(80, 60), *wxRED));
+    SetShape(NEW_DEBUG DnDEllipticShape(wxPoint(10, 10), wxSize(80, 60), *wxRED));
 
 #if wxUSE_STATUSBAR
     SetStatusText("You can now drag the shape to another frame");
@@ -1900,7 +1900,7 @@ void DnDShapeFrame::OnCopyShape(wxCommandEvent& WXUNUSED(event))
             return;
         }
 
-        wxTheClipboard->AddData(new DnDShapeDataObject(m_shape));
+        wxTheClipboard->AddData(NEW_DEBUG DnDShapeDataObject(m_shape));
     }
 }
 
@@ -1959,17 +1959,17 @@ DnDShape *DnDShape::New(const void *buf)
     switch ( dump.k )
     {
         case Triangle:
-            return new DnDTriangularShape(wxPoint(dump.x, dump.y),
+            return NEW_DEBUG DnDTriangularShape(wxPoint(dump.x, dump.y),
                                           wxSize(dump.w, dump.h),
                                           wxColour(dump.r, dump.g, dump.b));
 
         case Rectangle:
-            return new DnDRectangularShape(wxPoint(dump.x, dump.y),
+            return NEW_DEBUG DnDRectangularShape(wxPoint(dump.x, dump.y),
                                            wxSize(dump.w, dump.h),
                                            wxColour(dump.r, dump.g, dump.b));
 
         case Ellipse:
-            return new DnDEllipticShape(wxPoint(dump.x, dump.y),
+            return NEW_DEBUG DnDEllipticShape(wxPoint(dump.x, dump.y),
                                         wxSize(dump.w, dump.h),
                                         wxColour(dump.r, dump.g, dump.b));
 
@@ -2032,11 +2032,11 @@ void DnDShapeDataObject::CreateBitmap() const
 
 static void ShowBitmap(const wxBitmap& bitmap)
 {
-    wxFrame *frame = new wxFrame(NULL, wxID_ANY, "Bitmap view");
+    wxFrame *frame = NEW_DEBUG wxFrame(NULL, wxID_ANY, "Bitmap view");
 #if wxUSE_STATUSBAR
     frame->CreateStatusBar();
 #endif // wxUSE_STATUSBAR
-    DnDCanvasBitmap *canvas = new DnDCanvasBitmap(frame);
+    DnDCanvasBitmap *canvas = NEW_DEBUG DnDCanvasBitmap(frame);
     canvas->SetBitmap(bitmap);
 
     int w = bitmap.GetWidth(),
@@ -2053,9 +2053,9 @@ static void ShowBitmap(const wxBitmap& bitmap)
 
 static void ShowMetaFile(const wxMetaFile& metafile)
 {
-    wxFrame *frame = new wxFrame(NULL, wxID_ANY, "Metafile view");
+    wxFrame *frame = NEW_DEBUG wxFrame(NULL, wxID_ANY, "Metafile view");
     frame->CreateStatusBar();
-    DnDCanvasMetafile *canvas = new DnDCanvasMetafile(frame);
+    DnDCanvasMetafile *canvas = NEW_DEBUG DnDCanvasMetafile(frame);
     canvas->SetMetafile(metafile);
 
     wxSize size = metafile.GetSize();

@@ -125,17 +125,17 @@ void wxColourRefData::AllocColour( GdkColormap *cmap )
 #ifdef __WXGTK3__
 wxColour::wxColour(const GdkRGBA& gdkRGBA)
 {
-    m_refData = new wxColourRefData(gdkRGBA);
+    m_refData = NEW_DEBUG wxColourRefData(gdkRGBA);
 }
 
 wxColour::wxColour(const GdkColor& gdkColor)
 {
-    m_refData = new wxColourRefData(gdkColor);
+    m_refData = NEW_DEBUG wxColourRefData(gdkColor);
 }
 #else
 wxColour::wxColour(const GdkColor& gdkColor)
 {
-    m_refData = new wxColourRefData(gdkColor.red, gdkColor.green, gdkColor.blue);
+    m_refData = NEW_DEBUG wxColourRefData(gdkColor.red, gdkColor.green, gdkColor.blue);
 }
 #endif
 
@@ -171,9 +171,9 @@ void wxColour::InitRGBA(unsigned char red, unsigned char green, unsigned char bl
     UnRef();
 
 #ifdef __WXGTK3__
-    m_refData = new wxColourRefData(red, green, blue, alpha);
+    m_refData = NEW_DEBUG wxColourRefData(red, green, blue, alpha);
 #else
-    m_refData = new wxColourRefData(
+    m_refData = NEW_DEBUG wxColourRefData(
         (guint16(red) << SHIFT) + red,
         (guint16(green) << SHIFT) + green,
         (guint16(blue) << SHIFT) + blue,

@@ -46,7 +46,7 @@ wxGaugeBase::~wxGaugeBase()
 
 wxDEFINE_FLAGS( wxGaugeStyle )
 wxBEGIN_FLAGS( wxGaugeStyle )
-// new style border flags, we put them first to
+// NEW_DEBUG style border flags, we put them first to
 // use them for streaming out
 wxFLAGS_MEMBER(wxBORDER_SIMPLE)
 wxFLAGS_MEMBER(wxBORDER_SUNKEN)
@@ -110,7 +110,7 @@ void wxGaugeBase::InitProgressIndicatorIfNeeded()
         if ( topParent != NULL )
         {
             m_appProgressIndicator =
-                new wxAppProgressIndicator(topParent, GetRange());
+                NEW_DEBUG wxAppProgressIndicator(topParent, GetRange());
         }
     }
 }

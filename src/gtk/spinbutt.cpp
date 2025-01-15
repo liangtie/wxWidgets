@@ -39,7 +39,7 @@ gtk_value_changed(GtkSpinButton* spinbutton, wxSpinButton* win)
     }
 
     // Normally we can determine which way we're going by just comparing the
-    // old and the new values.
+    // old and the NEW_DEBUG values.
     bool up = pos > oldPos;
 
     // However we need to account for the possibility of wrapping around.

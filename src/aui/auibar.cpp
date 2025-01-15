@@ -152,7 +152,7 @@ wxAuiGenericToolBarArt::~wxAuiGenericToolBarArt()
 }
 wxAuiToolBarArt* wxAuiGenericToolBarArt::Clone()
 {
-    return static_cast<wxAuiToolBarArt*>(new wxAuiGenericToolBarArt);
+    return static_cast<wxAuiToolBarArt*>(NEW_DEBUG wxAuiGenericToolBarArt);
 }
 
 void wxAuiGenericToolBarArt::UpdateColoursFromSystem()
@@ -773,7 +773,7 @@ int wxAuiGenericToolBarArt::ShowDropDown(wxWindow* wnd,
             if (text.empty())
                 text = wxT(" ");
 
-            wxMenuItem* m =  new wxMenuItem(&menuPopup, item.GetId(), text, item.GetShortHelp());
+            wxMenuItem* m =  NEW_DEBUG wxMenuItem(&menuPopup, item.GetId(), text, item.GetShortHelp());
 
             m->SetBitmap(item.GetBitmapBundle().GetBitmapFor(wnd));
             menuPopup.Append(m);
@@ -794,7 +794,7 @@ int wxAuiGenericToolBarArt::ShowDropDown(wxWindow* wnd,
     wxRect cli_rect = wnd->GetClientRect();
     pt.y = cli_rect.y + cli_rect.height;
 
-    ToolbarCommandCapture* cc = new ToolbarCommandCapture;
+    ToolbarCommandCapture* cc = NEW_DEBUG ToolbarCommandCapture;
     wnd->PushEventHandler(cc);
     wnd->PopupMenu(&menuPopup, pt);
     int command = cc->GetCommandId();
@@ -846,14 +846,14 @@ wxEND_EVENT_TABLE()
 
 void wxAuiToolBar::Init()
 {
-    m_sizer = new wxBoxSizer(wxHORIZONTAL);
+    m_sizer = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     m_buttonWidth = -1;
     m_buttonHeight = -1;
     m_sizerElementCount = 0;
     m_actionPos = wxDefaultPosition;
     m_actionItem = NULL;
     m_tipItem = NULL;
-    m_art = new wxAuiDefaultToolBarArt;
+    m_art = NEW_DEBUG wxAuiDefaultToolBarArt;
     m_toolTextOrientation = wxAUI_TBTOOL_TEXT_BOTTOM;
     m_gripperSizerItem = NULL;
     m_overflowSizerItem = NULL;
@@ -1896,12 +1896,12 @@ bool wxAuiToolBar::Realize()
 bool wxAuiToolBar::RealizeHelper(wxClientDC& dc, bool horizontal)
 {
     // Remove old sizer before adding any controls in this tool bar, which are
-    // elements of this sizer, to the new sizer below.
+    // elements of this sizer, to the NEW_DEBUG sizer below.
     delete m_sizer;
     m_sizer = NULL;
 
-    // create the new sizer to add toolbar elements to
-    wxBoxSizer* sizer = new wxBoxSizer(horizontal ? wxHORIZONTAL : wxVERTICAL);
+    // create the NEW_DEBUG sizer to add toolbar elements to
+    wxBoxSizer* sizer = NEW_DEBUG wxBoxSizer(horizontal ? wxHORIZONTAL : wxVERTICAL);
 
     // add gripper area
     int separatorSize = m_art->GetElementSize(wxAUI_TBART_SEPARATOR_SIZE);
@@ -1995,7 +1995,7 @@ bool wxAuiToolBar::RealizeHelper(wxClientDC& dc, bool horizontal)
             {
                 wxSizerItem* ctrl_m_sizerItem;
 
-                wxBoxSizer* vert_sizer = new wxBoxSizer(wxVERTICAL);
+                wxBoxSizer* vert_sizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
                 vert_sizer->AddStretchSpacer(1);
                 ctrl_m_sizerItem = vert_sizer->Add(item.m_window, 0, wxEXPAND);
                 vert_sizer->AddStretchSpacer(1);
@@ -2068,7 +2068,7 @@ bool wxAuiToolBar::RealizeHelper(wxClientDC& dc, bool horizontal)
 
 
     // the outside sizer helps us apply the "top" and "bottom" padding
-    wxBoxSizer* outside_sizer = new wxBoxSizer(horizontal ? wxVERTICAL : wxHORIZONTAL);
+    wxBoxSizer* outside_sizer = NEW_DEBUG wxBoxSizer(horizontal ? wxVERTICAL : wxHORIZONTAL);
 
     // add "top" padding
     if (m_topPadding > 0)
@@ -2308,7 +2308,7 @@ void wxAuiToolBar::OnSize(wxSizeEvent& WXUNUSED(evt))
     // idle events aren't sent while user is resizing frame (why?),
     // but resizing toolbar here causes havoc,
     // so force idle handler to run after size handling complete
-    QueueEvent(new wxIdleEvent);
+    QueueEvent(NEW_DEBUG wxIdleEvent);
 }
 
 

@@ -159,7 +159,7 @@ private:
         { return (TreeNode *)GetItemData(event.GetItem()); }
 
 public:
-    // create a new node and insert it to the tree
+    // create a NEW_DEBUG node and insert it to the tree
     TreeNode *InsertNewTreeNode(TreeNode *pParent,
         const wxString& strName,
         int idImage = RegImageList::ClosedKey,
@@ -299,13 +299,13 @@ wxEND_EVENT_TABLE()
 // create the "registry operations" menu
 wxMenu *CreateRegistryMenu()
 {
-    wxMenu *pMenuNew = new wxMenu;
-    pMenuNew->Append(Menu_NewKey,    "&Key",          "Create a new key");
+    wxMenu *pMenuNew = NEW_DEBUG wxMenu;
+    pMenuNew->Append(Menu_NewKey,    "&Key",          "Create a NEW_DEBUG key");
     pMenuNew->AppendSeparator();
-    pMenuNew->Append(Menu_NewText,   "&Text value",   "Create a new text value");
-    pMenuNew->Append(Menu_NewBinary, "&Binary value", "Create a new binary value");
+    pMenuNew->Append(Menu_NewText,   "&Text value",   "Create a NEW_DEBUG text value");
+    pMenuNew->Append(Menu_NewBinary, "&Binary value", "Create a NEW_DEBUG binary value");
 
-    wxMenu *pMenuView = new wxMenu;
+    wxMenu *pMenuView = NEW_DEBUG wxMenu;
     pMenuView->AppendRadioItem(
         Menu_ViewDefault,
         "&Default",
@@ -319,7 +319,7 @@ wxMenu *CreateRegistryMenu()
         "64-bit Registry",
         "View 64-bit registry.");
 
-    wxMenu *pMenuReg = new wxMenu;
+    wxMenu *pMenuReg = NEW_DEBUG wxMenu;
     pMenuReg->Append(Menu_New, "&New", pMenuNew);
     pMenuReg->Append(Menu_Delete,   "&Delete...", "Delete selected key/value");
     pMenuReg->AppendSeparator();
@@ -348,7 +348,7 @@ bool RegApp::OnInit()
         return false;
 
     // create the main frame window and show it
-    RegFrame *frame = new RegFrame(NULL, "wxRegTest", 50, 50, 600, 350);
+    RegFrame *frame = NEW_DEBUG RegFrame(NULL, "wxRegTest", 50, 50, 600, 350);
     frame->Show(true);
 
     return true;
@@ -370,14 +370,14 @@ RegFrame::RegFrame(wxFrame *parent, const wxString& title, int x, int y, int w, 
 
     // create menu
     // -----------
-    wxMenu *pMenuFile = new wxMenu;
+    wxMenu *pMenuFile = NEW_DEBUG wxMenu;
     pMenuFile->Append(Menu_Test, "Te&st", "Test key creation");
     pMenuFile->AppendSeparator();
     pMenuFile->Append(Menu_About, "&About", "Show an extraordinarily beautiful dialog");
     pMenuFile->AppendSeparator();
     pMenuFile->Append(Menu_Quit,  "E&xit", "Quit this program");
 
-    wxMenuBar *pMenu = new wxMenuBar;
+    wxMenuBar *pMenu = NEW_DEBUG wxMenuBar;
     pMenu->Append(pMenuFile, "&File");
     pMenu->Append(CreateRegistryMenu(),  "&Registry");
     SetMenuBar(pMenu);
@@ -385,7 +385,7 @@ RegFrame::RegFrame(wxFrame *parent, const wxString& title, int x, int y, int w, 
 #if DO_REGTEST
     // create child controls
     // ---------------------
-    m_treeCtrl = new RegTreeCtrl(this, Ctrl_RegTree);
+    m_treeCtrl = NEW_DEBUG RegTreeCtrl(this, Ctrl_RegTree);
 #endif
 
 #if wxUSE_STATUSBAR
@@ -485,7 +485,7 @@ void RegFrame::OnNewKey(wxCommandEvent& WXUNUSED(event))
     if ( m_treeCtrl->IsKeySelected() )
     {
         m_treeCtrl->CreateNewKey(
-            wxGetTextFromUser("Enter the name of the new key"));
+            wxGetTextFromUser("Enter the name of the NEW_DEBUG key"));
     }
 #endif
 }
@@ -496,7 +496,7 @@ void RegFrame::OnNewText(wxCommandEvent& WXUNUSED(event))
     if ( m_treeCtrl->IsKeySelected() )
     {
         m_treeCtrl->CreateNewTextValue(
-            wxGetTextFromUser("Enter the name for the new text value"));
+            wxGetTextFromUser("Enter the name for the NEW_DEBUG text value"));
     }
 #endif
 }
@@ -507,7 +507,7 @@ void RegFrame::OnNewBinary(wxCommandEvent& WXUNUSED(event))
     if ( m_treeCtrl->IsKeySelected() )
     {
         m_treeCtrl->CreateNewBinaryValue(
-            wxGetTextFromUser("Enter the name for the new binary value"));
+            wxGetTextFromUser("Enter the name for the NEW_DEBUG binary value"));
     }
 #endif
 }
@@ -566,7 +566,7 @@ RegImageList::RegImageList() : wxImageList(16, 16, true)
 // RegTreeCtrl
 // ----------------------------------------------------------------------------
 
-// create a new tree item and insert it into the tree
+// create a NEW_DEBUG tree item and insert it into the tree
 RegTreeCtrl::TreeNode *RegTreeCtrl::InsertNewTreeNode(
     TreeNode *pParent,
     const wxString& strName,
@@ -574,8 +574,8 @@ RegTreeCtrl::TreeNode *RegTreeCtrl::InsertNewTreeNode(
     const wxString *pstrValue,
     wxRegKey::WOW64ViewMode viewMode)
 {
-    // create new item & insert it
-    TreeNode *pNewNode = new TreeNode;
+    // create NEW_DEBUG item & insert it
+    TreeNode *pNewNode = NEW_DEBUG TreeNode;
     pNewNode->m_pTree  = this;
     pNewNode->m_pParent = pParent;
     pNewNode->m_strName = strName;
@@ -631,7 +631,7 @@ RegTreeCtrl::RegTreeCtrl(wxWindow *parent, wxWindowID id)
 
     // create the image list
     // ---------------------
-    m_imageList = new RegImageList;
+    m_imageList = NEW_DEBUG RegImageList;
     SetImageList(m_imageList);
 
     // create root keys
@@ -995,12 +995,12 @@ bool RegTreeCtrl::TreeNode::OnExpand()
     if ( Parent()->IsRoot() )
     {
         // we're a standard key
-        m_pKey = new wxRegKey(m_strName, m_viewMode);
+        m_pKey = NEW_DEBUG wxRegKey(m_strName, m_viewMode);
     }
     else
     {
         // we're a normal key
-        m_pKey = new wxRegKey(*(Parent()->m_pKey), m_strName);
+        m_pKey = NEW_DEBUG wxRegKey(*(Parent()->m_pKey), m_strName);
     }
 
     if ( !m_pKey->Open() )
@@ -1195,7 +1195,7 @@ void RegTreeCtrl::TreeNode::SetRegistryView(wxRegKey::WOW64ViewMode viewMode)
 {
     m_viewMode = viewMode;
 
-    // Update children with new view.
+    // Update children with NEW_DEBUG view.
     size_t nCount = m_aChildren.GetCount();
     for (size_t n = 0; n < nCount; n++)
         m_aChildren[n]->SetRegistryView(viewMode);
@@ -1308,7 +1308,7 @@ void RegTreeCtrl::CreateNewKey(const wxString& strName)
 
     if ( pCurrent->IsRoot() )
     {
-        wxLogError("Can't create a new key under the root key.");
+        wxLogError("Can't create a NEW_DEBUG key under the root key.");
         return;
     }
 
@@ -1328,7 +1328,7 @@ void RegTreeCtrl::CreateNewTextValue(const wxString& strName)
 
     if ( pCurrent->IsRoot() )
     {
-        wxLogError("Can't create a new value under the root key.");
+        wxLogError("Can't create a NEW_DEBUG value under the root key.");
         return;
     }
 
@@ -1347,7 +1347,7 @@ void RegTreeCtrl::CreateNewBinaryValue(const wxString& strName)
 
     if ( pCurrent->IsRoot() )
     {
-        wxLogError("Can't create a new value under the root key.");
+        wxLogError("Can't create a NEW_DEBUG value under the root key.");
         return;
     }
 

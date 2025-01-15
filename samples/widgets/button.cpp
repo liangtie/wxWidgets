@@ -246,12 +246,12 @@ ButtonWidgetsPage::ButtonWidgetsPage(WidgetsBookCtrl *book,
 
 void ButtonWidgetsPage::CreateContent()
 {
-    wxSizer *sizerTop = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer *sizerTop = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
 
     // left pane
-    wxStaticBox *box = new wxStaticBox(this, wxID_ANY, "&Set style");
+    wxStaticBox *box = NEW_DEBUG wxStaticBox(this, wxID_ANY, "&Set style");
 
-    wxSizer *sizerLeft = new wxStaticBoxSizer(box, wxVERTICAL);
+    wxSizer *sizerLeft = NEW_DEBUG wxStaticBoxSizer(box, wxVERTICAL);
 
     m_chkBitmapOnly = CreateCheckBoxAndAddToSizer(sizerLeft, "&Bitmap only");
     m_chkTextAndBitmap = CreateCheckBoxAndAddToSizer(sizerLeft, "Text &and bitmap");
@@ -274,7 +274,7 @@ void ButtonWidgetsPage::CreateContent()
     sizerLeft->AddSpacer(5);
 
     wxSizer *sizerUseLabels =
-        new wxStaticBoxSizer(wxVERTICAL, this,
+        NEW_DEBUG wxStaticBoxSizer(wxVERTICAL, this,
                 "&Use the following bitmaps in addition to the normal one?");
     m_chkUsePressed = CreateCheckBoxAndAddToSizer(sizerUseLabels,
         "&Pressed (small help icon)");
@@ -292,7 +292,7 @@ void ButtonWidgetsPage::CreateContent()
     {
         "left", "right", "top", "bottom",
     };
-    m_radioImagePos = new wxRadioBox(this, wxID_ANY, "Image &position",
+    m_radioImagePos = NEW_DEBUG wxRadioBox(this, wxID_ANY, "Image &position",
                                      wxDefaultPosition, wxDefaultSize,
                                      WXSIZEOF(dirs), dirs);
     sizerLeft->Add(m_radioImagePos, wxSizerFlags().Expand().Border());
@@ -305,13 +305,13 @@ void ButtonWidgetsPage::CreateContent()
 
     wxIntegerValidator<int> validatorMargV;
     validatorMargV.SetRange(0, 100);
-    m_textImageMarginV = new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0, validatorMargV);
+    m_textImageMarginV = NEW_DEBUG wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0, validatorMargV);
     sizerImageMarginsRow->Add(m_textImageMarginV, wxSizerFlags(1).CentreVertical().Border(wxLEFT));
 
     m_textImageMarginH->SetValue(wxString::Format("%d", m_imageMarginH));
     m_textImageMarginV->SetValue(wxString::Format("%d", m_imageMarginV));
 
-    wxSizer* sizerImageMargins = new wxStaticBoxSizer(wxVERTICAL, this, "Image margins");
+    wxSizer* sizerImageMargins = NEW_DEBUG wxStaticBoxSizer(wxVERTICAL, this, "Image margins");
     sizerImageMargins->Add(sizerImageMarginsRow, wxSizerFlags().Border().Centre());
     sizerLeft->Add(sizerImageMargins, wxSizerFlags().Expand().Border());
 
@@ -332,10 +332,10 @@ void ButtonWidgetsPage::CreateContent()
         "bottom",
     };
 
-    m_radioHAlign = new wxRadioBox(this, wxID_ANY, "&Horz alignment",
+    m_radioHAlign = NEW_DEBUG wxRadioBox(this, wxID_ANY, "&Horz alignment",
                                    wxDefaultPosition, wxDefaultSize,
                                    WXSIZEOF(halign), halign);
-    m_radioVAlign = new wxRadioBox(this, wxID_ANY, "&Vert alignment",
+    m_radioVAlign = NEW_DEBUG wxRadioBox(this, wxID_ANY, "&Vert alignment",
                                    wxDefaultPosition, wxDefaultSize,
                                    WXSIZEOF(valign), valign);
 
@@ -344,12 +344,12 @@ void ButtonWidgetsPage::CreateContent()
 
     sizerLeft->AddSpacer(5);
 
-    wxButton *btn = new wxButton(this, ButtonPage_Reset, "&Reset");
+    wxButton *btn = NEW_DEBUG wxButton(this, ButtonPage_Reset, "&Reset");
     sizerLeft->Add(btn, wxSizerFlags().CentreHorizontal().TripleBorder(wxALL));
 
     // middle pane
-    wxStaticBox *box2 = new wxStaticBox(this, wxID_ANY, "&Operations");
-    wxSizer *sizerMiddle = new wxStaticBoxSizer(box2, wxVERTICAL);
+    wxStaticBox *box2 = NEW_DEBUG wxStaticBox(this, wxID_ANY, "&Operations");
+    wxSizer *sizerMiddle = NEW_DEBUG wxStaticBoxSizer(box2, wxVERTICAL);
 
     wxSizer *sizerRow = CreateSizerWithTextAndButton(ButtonPage_ChangeLabel,
                                                      "Change label",
@@ -369,7 +369,7 @@ void ButtonWidgetsPage::CreateContent()
 #endif
 
     // right pane
-    m_sizerButton = new wxBoxSizer(wxHORIZONTAL);
+    m_sizerButton = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     m_sizerButton->SetMinSize(FromDIP(150), 0);
 
     // the 3 panes panes compose the window
@@ -505,13 +505,13 @@ void ButtonWidgetsPage::CreateButton()
         wxButton *bbtn;
         if ( m_chkUseBitmapClass->GetValue() )
         {
-          bbtn = new wxBitmapButton(this, ButtonPage_Button,
+          bbtn = NEW_DEBUG wxBitmapButton(this, ButtonPage_Button,
                                     CreateBitmap("normal", wxART_INFORMATION),
                                     wxDefaultPosition, wxDefaultSize, flags);
         }
         else
         {
-          bbtn = new wxButton(this, ButtonPage_Button);
+          bbtn = NEW_DEBUG wxButton(this, ButtonPage_Button);
           bbtn->SetBitmapLabel(CreateBitmap("normal", wxART_INFORMATION));
         }
         bbtn->SetBitmapMargins((wxCoord)m_imageMarginH, (wxCoord)m_imageMarginV);
@@ -536,7 +536,7 @@ void ButtonWidgetsPage::CreateButton()
 
         if ( m_chkCommandLink->GetValue() )
         {
-            m_cmdLnkButton = new wxCommandLinkButton(this, ButtonPage_Button,
+            m_cmdLnkButton = NEW_DEBUG wxCommandLinkButton(this, ButtonPage_Button,
                                                      label,
                                                      m_textNote->GetValue(),
                                                      wxDefaultPosition,
@@ -547,7 +547,7 @@ void ButtonWidgetsPage::CreateButton()
         else
 #endif // wxUSE_COMMANDLINKBUTTON
         {
-            m_button = new wxButton(this, ButtonPage_Button, label,
+            m_button = NEW_DEBUG wxButton(this, ButtonPage_Button, label,
                                     wxDefaultPosition, wxDefaultSize,
                                     flags);
         }

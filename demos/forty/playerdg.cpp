@@ -35,9 +35,9 @@ PlayerSelectionDialog::PlayerSelectionDialog(
     wxDialog(parent, wxID_ANY, wxT("Player Selection"), wxDefaultPosition),
     m_scoreFile(file)
 {
-    wxStaticText* msg = new wxStaticText(this, wxID_ANY, wxT("Please select a name or type a new one:"));
+    wxStaticText* msg = NEW_DEBUG wxStaticText(this, wxID_ANY, wxT("Please select a name or type a NEW_DEBUG one:"));
 
-    wxListBox* list = new wxListBox(
+    wxListBox* list = NEW_DEBUG wxListBox(
                         this, ID_LISTBOX,
                         wxDefaultPosition, wxSize(-1, 150),
                         0, 0,
@@ -51,16 +51,16 @@ PlayerSelectionDialog::PlayerSelectionDialog(
         list->Append(players[i]);
     }
 
-    m_textField = new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize);
+    m_textField = NEW_DEBUG wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize);
 
-    m_OK = new wxButton(this, wxID_OK);
-    m_cancel = new wxButton(this, wxID_CANCEL);
+    m_OK = NEW_DEBUG wxButton(this, wxID_OK);
+    m_cancel = NEW_DEBUG wxButton(this, wxID_CANCEL);
 
-    wxBoxSizer *button_sizer = new wxBoxSizer( wxHORIZONTAL );
+    wxBoxSizer *button_sizer = NEW_DEBUG wxBoxSizer( wxHORIZONTAL );
     button_sizer->Add( m_OK, 0, wxALL, 10 );
     button_sizer->Add( m_cancel, 0, wxALL, 10 );
 
-    wxBoxSizer *topsizer = new wxBoxSizer( wxVERTICAL );
+    wxBoxSizer *topsizer = NEW_DEBUG wxBoxSizer( wxVERTICAL );
     topsizer->Add( msg, 0, wxALL , 10 );
     topsizer->Add( list, 1, wxEXPAND | wxLEFT | wxRIGHT, 10 );
     topsizer->Add( m_textField, 0, wxEXPAND | wxLEFT | wxRIGHT | wxTOP, 10 );

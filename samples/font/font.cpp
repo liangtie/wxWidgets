@@ -51,7 +51,7 @@ static wxString GetSampleTitle()
 // private classes
 // ----------------------------------------------------------------------------
 
-// Define a new application type, each program should derive a class from wxApp
+// Define a NEW_DEBUG application type, each program should derive a class from wxApp
 class MyApp : public wxApp
 {
 public:
@@ -182,7 +182,7 @@ private:
     FontCanvas* const m_canvas;
 };
 
-// Define a new frame type: this is going to be our main frame
+// Define a NEW_DEBUG frame type: this is going to be our main frame
 class MyFrame : public wxFrame
 {
 public:
@@ -369,7 +369,7 @@ wxBEGIN_EVENT_TABLE(MyFrame, wxFrame)
     EVT_MENU(Font_Private, MyFrame::OnPrivateFont)
 wxEND_EVENT_TABLE()
 
-// Create a new application object: this macro will allow wxWidgets to create
+// Create a NEW_DEBUG application object: this macro will allow wxWidgets to create
 // the application object during program execution (it's better than using a
 // static object for many reasons) and also declares the accessor function
 // wxGetApp() which will return the reference of the right type (i.e. MyApp and
@@ -391,7 +391,7 @@ bool MyApp::OnInit()
         return false;
 
     // Create the main application window
-    MyFrame *frame = new MyFrame();
+    MyFrame *frame = NEW_DEBUG MyFrame();
 
     // Show it
     frame->Show(true);
@@ -413,7 +413,7 @@ MyFrame::MyFrame()
     SetIcon(wxICON(sample));
 
     // create a menu bar
-    wxMenu *menuFile = new wxMenu;
+    wxMenu *menuFile = NEW_DEBUG wxMenu;
 
     menuFile->Append(Font_TestTextValue, "&Test text value",
                      "Verify that getting and setting text value doesn't change it");
@@ -424,7 +424,7 @@ MyFrame::MyFrame()
     menuFile->AppendSeparator();
     menuFile->Append(Font_Quit, "E&xit\tAlt-X", "Quit this program");
 
-    wxMenu *menuFont = new wxMenu;
+    wxMenu *menuFont = NEW_DEBUG wxMenu;
     menuFont->Append(Font_IncSize, "&Increase font size by 2 points\tCtrl-I");
     menuFont->Append(Font_DecSize, "&Decrease font size by 2 points\tCtrl-D");
     menuFont->Append(Font_GetBaseFont, "Use &base version of the font\tCtrl-0");
@@ -453,11 +453,11 @@ MyFrame::MyFrame()
     menuFont->Append(Font_SetFaceName, "Set font face name");
     menuFont->Append(Font_SetEncoding, "Set font &encoding\tShift-Ctrl-E");
 
-    wxMenu *menuSelect = new wxMenu;
+    wxMenu *menuSelect = NEW_DEBUG wxMenu;
     menuSelect->Append(Font_Choose, "&Select font...\tCtrl-S",
                        "Select a standard font");
 
-    wxMenu *menuStdFonts = new wxMenu;
+    wxMenu *menuStdFonts = NEW_DEBUG wxMenu;
     menuStdFonts->Append(Font_wxNORMAL_FONT, "wxNORMAL_FONT", "Normal font used by wxWidgets");
     menuStdFonts->Append(Font_wxSMALL_FONT,  "wxSMALL_FONT",  "Small font used by wxWidgets");
     menuStdFonts->Append(Font_wxITALIC_FONT, "wxITALIC_FONT", "Italic font used by wxWidgets");
@@ -465,7 +465,7 @@ MyFrame::MyFrame()
     menuStdFonts->Append(Font_wxFont_Default,  "wxFont()",  "wxFont constructed from default wxFontInfo");
     menuSelect->Append(Font_Standard, "Standar&d fonts", menuStdFonts);
 
-    wxMenu *menuSettingFonts = new wxMenu;
+    wxMenu *menuSettingFonts = NEW_DEBUG wxMenu;
     menuSettingFonts->Append(Font_wxSYS_OEM_FIXED_FONT, "wxSYS_OEM_FIXED_FONT",
                          "Original equipment manufacturer dependent fixed-pitch font.");
     menuSettingFonts->Append(Font_wxSYS_ANSI_FIXED_FONT,  "wxSYS_ANSI_FIXED_FONT",
@@ -530,7 +530,7 @@ MyFrame::MyFrame()
 
 
     // now append the freshly created menu to the menu bar...
-    wxMenuBar *menuBar = new wxMenuBar;
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar;
     menuBar->Append(menuFile, "&File");
     menuBar->Append(menuFont, "F&ont");
     menuBar->Append(menuSelect, "&Select");
@@ -538,13 +538,13 @@ MyFrame::MyFrame()
     // ... and attach this menu bar to the frame
     SetMenuBar(menuBar);
 
-    wxSplitterWindow *splitter = new wxSplitterWindow(this);
+    wxSplitterWindow *splitter = NEW_DEBUG wxSplitterWindow(this);
 
-    m_fontWindow = new FontWindow(splitter);
+    m_fontWindow = NEW_DEBUG FontWindow(splitter);
 
     m_fontWindow->Bind(wxEVT_BUTTON, &MyFrame::OnFontPanelApply, this);
 
-    m_textctrl = new wxTextCtrl(splitter, wxID_ANY,
+    m_textctrl = NEW_DEBUG wxTextCtrl(splitter, wxID_ANY,
                                 "Paste text here to see how it looks\nlike in the given font",
                                 wxDefaultPosition,
                                 wxSize(-1, 6*GetCharHeight()),
@@ -1173,12 +1173,12 @@ void MyFrame::OnAbout(wxCommandEvent& WXUNUSED(event))
 
 FontWindow::FontWindow(wxWindow *parent)
           : wxWindow(parent, wxID_ANY),
-            m_panel(new FontPanel(this)),
-            m_canvas(new FontCanvas(this))
+            m_panel(NEW_DEBUG FontPanel(this)),
+            m_canvas(NEW_DEBUG FontCanvas(this))
 {
-    wxSizer* const sizer = new wxBoxSizer(wxVERTICAL);
+    wxSizer* const sizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     sizer->Add(m_panel, wxSizerFlags().Expand().Border());
-    sizer->Add(new wxStaticLine(this), wxSizerFlags().Expand());
+    sizer->Add(NEW_DEBUG wxStaticLine(this), wxSizerFlags().Expand());
     sizer->Add(m_canvas, wxSizerFlags(1).Expand());
     SetSizer(sizer);
 }
@@ -1203,7 +1203,7 @@ FontPanel::FontPanel(wxWindow* parent)
     m_useFamily =
     m_useNumericWeight = false;
 
-    m_textFaceName = new wxTextCtrl(this, wxID_ANY, wxString(),
+    m_textFaceName = NEW_DEBUG wxTextCtrl(this, wxID_ANY, wxString(),
                                     wxDefaultPosition, wxDefaultSize,
                                     wxTE_PROCESS_ENTER);
     m_textFaceName->Bind(wxEVT_TEXT, &FontPanel::OnFacename, this);
@@ -1219,12 +1219,12 @@ FontPanel::FontPanel(wxWindow* parent)
         "Modern",
         "Teletype",
     };
-    m_choiceFamily = new wxChoice(this, wxID_ANY,
+    m_choiceFamily = NEW_DEBUG wxChoice(this, wxID_ANY,
                                   wxDefaultPosition, wxDefaultSize,
                                   WXSIZEOF(familiesNames), familiesNames);
     m_choiceFamily->Bind(wxEVT_CHOICE, &FontPanel::OnFamily, this);
 
-    m_spinPointSize = new wxSpinCtrlDouble(this, wxID_ANY, wxString(),
+    m_spinPointSize = NEW_DEBUG wxSpinCtrlDouble(this, wxID_ANY, wxString(),
                                            wxDefaultPosition, wxDefaultSize,
                                            wxSP_ARROW_KEYS,
                                            1.0, 100.0, 10.0, 0.1);
@@ -1242,7 +1242,7 @@ FontPanel::FontPanel(wxWindow* parent)
         "Slant",
     };
 
-    m_choiceStyle = new wxChoice(this, wxID_ANY,
+    m_choiceStyle = NEW_DEBUG wxChoice(this, wxID_ANY,
                                  wxDefaultPosition, wxDefaultSize,
                                  WXSIZEOF(stylesNames), stylesNames);
 
@@ -1261,12 +1261,12 @@ FontPanel::FontPanel(wxWindow* parent)
         "Extra heavy",
     };
 
-    m_choiceWeight = new wxChoice(this, wxID_ANY,
+    m_choiceWeight = NEW_DEBUG wxChoice(this, wxID_ANY,
                                  wxDefaultPosition, wxDefaultSize,
                                  WXSIZEOF(weightsNames), weightsNames);
     m_choiceWeight->Bind(wxEVT_CHOICE, &FontPanel::OnWeightChoice, this);
 
-    m_spinWeight = new wxSpinCtrl(this, wxID_ANY, wxString(),
+    m_spinWeight = NEW_DEBUG wxSpinCtrl(this, wxID_ANY, wxString(),
                                   wxDefaultPosition, wxDefaultSize,
                                   wxSP_ARROW_KEYS,
                                   1, wxFONTWEIGHT_MAX);
@@ -1276,62 +1276,62 @@ FontPanel::FontPanel(wxWindow* parent)
         );
     m_spinWeight->Bind(wxEVT_SPINCTRL, &FontPanel::OnWeightSpin, this);
 
-    m_checkUnderlined = new wxCheckBox(this, wxID_ANY, wxString());
-    m_checkStrikethrough = new wxCheckBox(this, wxID_ANY, wxString());
-    m_checkFixedWidth = new wxCheckBox(this, wxID_ANY, wxString());
+    m_checkUnderlined = NEW_DEBUG wxCheckBox(this, wxID_ANY, wxString());
+    m_checkStrikethrough = NEW_DEBUG wxCheckBox(this, wxID_ANY, wxString());
+    m_checkFixedWidth = NEW_DEBUG wxCheckBox(this, wxID_ANY, wxString());
     m_checkFixedWidth->Disable(); // Can't be changed by the user.
 
-    m_labelInfo = new wxStaticText(this, wxID_ANY, "\n\n\n");
+    m_labelInfo = NEW_DEBUG wxStaticText(this, wxID_ANY, "\n\n\n");
 
 
     const int border = wxSizerFlags::GetDefaultBorder();
 
     // Columns are: label, control, gap, label, control, label, control (there
     // is no second gap column because we don't want any gap in the weight row).
-    wxFlexGridSizer* const sizer = new wxFlexGridSizer(7, wxSize(border, border));
+    wxFlexGridSizer* const sizer = NEW_DEBUG wxFlexGridSizer(7, wxSize(border, border));
 
     const wxSizerFlags flagsLabel = wxSizerFlags().CentreVertical();
     const wxSizerFlags flagsValue = wxSizerFlags().Expand().CentreVertical();
 
-    sizer->Add(new wxStaticText(this, wxID_ANY, "Face &name:"), flagsLabel);
+    sizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "Face &name:"), flagsLabel);
     sizer->Add(m_textFaceName, flagsValue);
 
     sizer->AddSpacer(2*border);
 
-    sizer->Add(new wxStaticText(this, wxID_ANY, "&Family:"), flagsLabel);
+    sizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "&Family:"), flagsLabel);
     sizer->Add(m_choiceFamily, flagsValue);
 
-    sizer->Add(new wxStaticText(this, wxID_ANY, "&Point size:"),
+    sizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "&Point size:"),
                wxSizerFlags().DoubleBorder(wxLEFT).CentreVertical());
     sizer->Add(m_spinPointSize, flagsValue);
 
 
-    sizer->Add(new wxStaticText(this, wxID_ANY, "&Style:"), flagsLabel);
+    sizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "&Style:"), flagsLabel);
     sizer->Add(m_choiceStyle, flagsValue);
 
     sizer->AddSpacer(0);
 
-    sizer->Add(new wxStaticText(this, wxID_ANY, "&Weight:"), flagsLabel);
+    sizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "&Weight:"), flagsLabel);
     sizer->Add(m_choiceWeight, flagsValue);
 
-    sizer->Add(new wxStaticText(this, wxID_ANY, "or &raw value:"), flagsLabel);
+    sizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "or &raw value:"), flagsLabel);
     sizer->Add(m_spinWeight, flagsValue);
 
 
-    sizer->Add(new wxStaticText(this, wxID_ANY, "&Underlined:"), flagsLabel);
+    sizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "&Underlined:"), flagsLabel);
     sizer->Add(m_checkUnderlined, flagsValue);
 
     sizer->AddSpacer(0);
 
-    sizer->Add(new wxStaticText(this, wxID_ANY, "&Strike through:"), flagsLabel);
+    sizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "&Strike through:"), flagsLabel);
     sizer->Add(m_checkStrikethrough, flagsValue);
 
-    sizer->Add(new wxStaticText(this, wxID_ANY, "Fixed width:"), flagsLabel);
+    sizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "Fixed width:"), flagsLabel);
     sizer->Add(m_checkFixedWidth, flagsValue);
 
-    wxSizer* const sizerTop = new wxBoxSizer(wxVERTICAL);
+    wxSizer* const sizerTop = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     sizerTop->Add(sizer, wxSizerFlags().Expand().Border(wxBOTTOM));
-    sizerTop->Add(new wxButton(this, wxID_APPLY, "&Apply changes"),
+    sizerTop->Add(NEW_DEBUG wxButton(this, wxID_APPLY, "&Apply changes"),
                   wxSizerFlags().Border(wxBOTTOM).Centre());
     sizerTop->Add(m_labelInfo, wxSizerFlags().Expand().Border(wxTOP));
     SetSizer(sizerTop);

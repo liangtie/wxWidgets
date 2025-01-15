@@ -346,7 +346,7 @@ wxDialUpManagerMSW *wxDialUpManagerMSW::ms_dialer = NULL;
 // the static creator function is implemented here
 wxDialUpManager *wxDialUpManager::Create()
 {
-    return new wxDialUpManagerMSW;
+    return NEW_DEBUG wxDialUpManagerMSW;
 }
 
 #ifdef __VISUALC__
@@ -361,7 +361,7 @@ wxDialUpManagerMSW::wxDialUpManagerMSW()
     // initialize our data
     m_autoCheckLevel = 0;
     m_hThread = 0;
-    m_data = new wxRasThreadData;
+    m_data = NEW_DEBUG wxRasThreadData;
 
     if ( !m_dllRas.IsLoaded() )
     {
@@ -746,7 +746,7 @@ bool wxDialUpManagerMSW::Dial(const wxString& nameOfISP,
             default:
                 // several ISPs, let the user choose
                 {
-                    wxString *strings = new wxString[count];
+                    wxString *strings = NEW_DEBUG wxString[count];
                     for ( size_t i = 0; i < count; i++ )
                     {
                         strings[i] = names[i];

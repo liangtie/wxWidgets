@@ -446,7 +446,7 @@ void wxMSWDCImpl::SetClippingHrgn(WXHRGN hrgn, bool doRtlOffset)
     }
     AutoHRGN rgnRTL(hRgnRTL);
 
-    // note that we combine the new clipping region with the existing one: this
+    // note that we combine the NEW_DEBUG clipping region with the existing one: this
     // is compatible with what the other ports do and is the documented
     // behaviour now (starting with 2.3.3)
     if ( ::ExtSelectClipRgn(GetHdc(), (HRGN)rgnRTL ? (HRGN)rgnRTL : (HRGN)hrgn, RGN_AND) == ERROR )
@@ -2561,7 +2561,7 @@ wxDCCacheEntry* wxMSWDCImpl::FindBitmapInCache(WXHDC dc, int w, int h)
     {
         wxLogLastError(wxT("CreateCompatibleBitmap"));
     }
-    wxDCCacheEntry* entry = new wxDCCacheEntry(hBitmap, w, h, depth);
+    wxDCCacheEntry* entry = NEW_DEBUG wxDCCacheEntry(hBitmap, w, h, depth);
     AddToBitmapCache(entry);
     return entry;
 }
@@ -2590,7 +2590,7 @@ wxDCCacheEntry* wxMSWDCImpl::FindDCInCache(wxDCCacheEntry* notThis, WXHDC dc)
     {
         wxLogLastError(wxT("CreateCompatibleDC"));
     }
-    wxDCCacheEntry* entry = new wxDCCacheEntry(hDC, depth);
+    wxDCCacheEntry* entry = NEW_DEBUG wxDCCacheEntry(hDC, depth);
     AddToDCCache(entry);
     return entry;
 }

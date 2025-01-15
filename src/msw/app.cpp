@@ -17,6 +17,7 @@
 
 // For compilers that support precompilation, includes "wx.h".
 #include "wx/wxprec.h"
+#include <crtdbg.h>
 
 
 #ifndef WX_PRECOMP
@@ -217,12 +218,12 @@ void *wxGUIAppTraits::BeforeChildWaitLoop()
     wxWindow* const focus = wxWindow::FindFocus();
 
     // first disable all existing windows
-    wxWindowDisabler *wd = new wxWindowDisabler;
+    wxWindowDisabler *wd = NEW_DEBUG wxWindowDisabler;
 
     // then create an "invisible" dialog: it has minimal size, is positioned
     // (hopefully) outside the screen and doesn't appear in the Alt-TAB list
     // (unlike the frames, which is why we use a dialog here)
-    wxWindow *winActive = new wxDialog
+    wxWindow *winActive = NEW_DEBUG wxDialog
                     (
                         wxTheApp->GetTopWindow(),
                         wxID_ANY,
@@ -232,7 +233,7 @@ void *wxGUIAppTraits::BeforeChildWaitLoop()
                     );
     winActive->Show();
 
-    return new ChildWaitLoopData(wd, focus, winActive);
+    return NEW_DEBUG ChildWaitLoopData(wd, focus, winActive);
 }
 
 void wxGUIAppTraits::AfterChildWaitLoop(void *dataOrig)
@@ -305,14 +306,14 @@ wxPortId wxGUIAppTraits::GetToolkitVersion(int *majVer,
 
 wxTimerImpl *wxGUIAppTraits::CreateTimerImpl(wxTimer *timer)
 {
-    return new wxMSWTimerImpl(timer);
+    return NEW_DEBUG wxMSWTimerImpl(timer);
 }
 
 #endif // wxUSE_TIMER
 
 wxEventLoopBase* wxGUIAppTraits::CreateEventLoop()
 {
-    return new wxEventLoop;
+    return NEW_DEBUG wxEventLoop;
 }
 
 // ---------------------------------------------------------------------------
@@ -551,7 +552,7 @@ bool wxConsoleStderr::Write(const wxString& text)
         return false;
     }
 
-    // and calculate new position (where is empty line)
+    // and calculate NEW_DEBUG position (where is empty line)
     csbi.dwCursorPosition.X = 0;
     csbi.dwCursorPosition.Y -= m_dataLine;
 
@@ -778,7 +779,7 @@ const wxChar *wxApp::GetRegisteredClassName(const wxChar *name,
     gs_regClassesInfo.push_back(regClass);
 
     // take care to return the pointer which will remain valid after the
-    // function returns (it could be invalidated later if new elements are
+    // function returns (it could be invalidated later if NEW_DEBUG elements are
     // added to the vector and it's reallocated but this shouldn't matter as
     // this pointer should be used right now, not stored)
     return gs_regClassesInfo.back().GetRequestedName(flags);
@@ -850,6 +851,7 @@ wxApp::wxApp()
 
 wxApp::~wxApp()
 {
+    _CrtDumpMemoryLeaks();
 }
 
 // ----------------------------------------------------------------------------

@@ -236,7 +236,7 @@ static void DrawSelectedCellFocusRect(wxDC& dc, const wxRect& rect)
 wxRendererGeneric* wxRendererGeneric::DoGetGeneric()
 {
     if (!sm_rendererGeneric)
-        sm_rendererGeneric = new wxRendererGeneric;
+        sm_rendererGeneric = NEW_DEBUG wxRendererGeneric;
     return sm_rendererGeneric;
 }
 

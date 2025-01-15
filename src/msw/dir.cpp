@@ -329,7 +329,7 @@ bool wxDir::Open(const wxString& dirname)
     // The Unix code does a similar test
     if (wxDirExists(dirname))
     {
-        m_data = new wxDirData(dirname);
+        m_data = NEW_DEBUG wxDirData(dirname);
 
         return true;
     }

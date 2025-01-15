@@ -140,7 +140,7 @@ wxTipWindow::wxTipWindow(wxWindow *parent,
     Move(center, wxSIZE_NO_ADJUSTMENTS);
 
     // set size, position and show it
-    m_view = new wxTipWindowView(this);
+    m_view = NEW_DEBUG wxTipWindowView(this);
     m_view->Adjust(text, FromDIP(parent->ToDIP(maxLength)) );
 
     // we want to show the tip below the mouse, not over it, make sure to not

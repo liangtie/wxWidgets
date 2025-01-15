@@ -170,9 +170,9 @@ bool wxIFFDecoder::ConvertToImage(wxImage *image) const
 #if wxUSE_PALETTE
     if (pal && colors > 0)
     {
-        unsigned char* r = new unsigned char[colors];
-        unsigned char* g = new unsigned char[colors];
-        unsigned char* b = new unsigned char[colors];
+        unsigned char* r = NEW_DEBUG unsigned char[colors];
+        unsigned char* g = NEW_DEBUG unsigned char[colors];
+        unsigned char* b = NEW_DEBUG unsigned char[colors];
 
         for (i = 0; i < colors; i++)
         {
@@ -319,7 +319,7 @@ int wxIFFDecoder::ReadIFF()
 {
     Destroy();
 
-    m_image = new IFFImage();
+    m_image = NEW_DEBUG IFFImage();
     if (m_image == 0) {
         Destroy();
         return wxIFF_MEMERR;
@@ -339,7 +339,7 @@ int wxIFFDecoder::ReadIFF()
     }
 
     // allocate memory for complete file
-    if ((databuf = new byte[filesize]) == 0) {
+    if ((databuf = NEW_DEBUG byte[filesize]) == 0) {
         Destroy();
         return wxIFF_MEMERR;
     }
@@ -414,7 +414,7 @@ int wxIFFDecoder::ReadIFF()
         wxDELETEA(m_image->pal);
         m_image->colors = colors;
         if (colors > 0) {
-        m_image->pal = new byte[3*colors];
+        m_image->pal = NEW_DEBUG byte[3*colors];
         if (!m_image->pal) {
             Destroy();
             return wxIFF_MEMERR;
@@ -461,7 +461,7 @@ int wxIFFDecoder::ReadIFF()
         size_t decomp_bufsize = (((bmhd_width + 15) >> 4) << 1)
             * bmhd_height * bmhd_bitplanes;
 
-        if ((decomp_mem = new byte[decomp_bufsize]) == 0) {
+        if ((decomp_mem = NEW_DEBUG byte[decomp_bufsize]) == 0) {
             Destroy();
             return wxIFF_MEMERR;
         }
@@ -511,7 +511,7 @@ int wxIFFDecoder::ReadIFF()
         }
 
         if (colors > m_image->colors) {
-            byte *pal = new byte[colors*3];
+            byte *pal = NEW_DEBUG byte[colors*3];
             if (!pal) {
             Destroy();
             return wxIFF_MEMERR;
@@ -539,7 +539,7 @@ int wxIFFDecoder::ReadIFF()
         }
         }
 
-        m_image->p = new byte[bmhd_width * bmhd_height * 3];
+        m_image->p = NEW_DEBUG byte[bmhd_width * bmhd_height * 3];
         byte *picptr = m_image->p;
         if (!picptr) {
         Destroy();
@@ -726,7 +726,7 @@ bool wxIFFHandler::LoadFile(wxImage *image, wxInputStream& stream,
     int error;
     bool ok;
 
-    decod = new wxIFFDecoder(&stream);
+    decod = NEW_DEBUG wxIFFDecoder(&stream);
     error = decod->ReadIFF();
 
     if ((error != wxIFF_OK) && (error != wxIFF_TRUNCATED))

@@ -281,7 +281,7 @@ wxDocManager *wxDocument::GetDocumentManager() const
 bool wxDocument::OnNewDocument()
 {
     // notice that there is no need to either reset nor even check the
-    // modified flag here as the document itself is a new object (this is only
+    // modified flag here as the document itself is a NEW_DEBUG object (this is only
     // called from CreateDocument()) and so it shouldn't be saved anyhow even
     // if it is modified -- this could happen if the user code creates
     // documents pre-filled with some user-entered (and which hence must not be
@@ -511,7 +511,7 @@ wxWindow *wxDocument::GetDocumentWindow() const
 
 wxCommandProcessor *wxDocument::OnCreateCommandProcessor()
 {
-    return new wxCommandProcessor;
+    return NEW_DEBUG wxCommandProcessor;
 }
 
 // true if safe to close
@@ -799,7 +799,7 @@ bool wxView::OnClose(bool WXUNUSED(deleteWindow))
 #if wxUSE_PRINTING_ARCHITECTURE
 wxPrintout *wxView::OnCreatePrintout()
 {
-    return new wxDocPrintout(this);
+    return NEW_DEBUG wxDocPrintout(this);
 }
 #endif // wxUSE_PRINTING_ARCHITECTURE
 
@@ -1095,7 +1095,7 @@ wxString wxDocManager::GetLastDirectory() const
 
 wxFileHistory *wxDocManager::OnCreateFileHistory()
 {
-    return new wxFileHistory;
+    return NEW_DEBUG wxFileHistory;
 }
 
 void wxDocManager::OnFileClose(wxCommandEvent& WXUNUSED(event))
@@ -1230,7 +1230,7 @@ wxPreviewFrame* wxDocManager::CreatePreviewFrame(wxPrintPreviewBase* preview,
                                                  wxWindow *parent,
                                                  const wxString& title)
 {
-    return new wxPreviewFrame(preview, parent, title);
+    return NEW_DEBUG wxPreviewFrame(preview, parent, title);
 }
 
 void wxDocManager::OnPreview(wxCommandEvent& WXUNUSED(event))
@@ -1247,7 +1247,7 @@ void wxDocManager::OnPreview(wxCommandEvent& WXUNUSED(event))
 
         // Pass two printout objects: for preview, and possible printing.
         wxPrintPreviewBase *
-            preview = new wxPrintPreview(printout,
+            preview = NEW_DEBUG wxPrintPreview(printout,
                                          view->OnCreatePrintout(),
                                          &printDialogData);
         if ( !preview->IsOk() )
@@ -1480,7 +1480,7 @@ wxDocument *wxDocManager::CreateDocument(const wxString& pathOrig, long flags)
     }
     else // not silent, ask the user
     {
-        // for the new file we need just the template, for an existing one we
+        // for the NEW_DEBUG file we need just the template, for an existing one we
         // need the template and the path, unless it's already specified
         if ( (flags & wxDOC_NEW) || !path.empty() )
             temp = SelectDocumentType(&templates[0], numTemplates);
@@ -1503,7 +1503,7 @@ wxDocument *wxDocManager::CreateDocument(const wxString& pathOrig, long flags)
         }
     }
 
-    // no, we need to create a new document
+    // no, we need to create a NEW_DEBUG document
 
 
     // if we've reached the max number of docs, close the first one.
@@ -1511,13 +1511,13 @@ wxDocument *wxDocManager::CreateDocument(const wxString& pathOrig, long flags)
     {
         if ( !CloseDocument((wxDocument *)GetDocuments().GetFirst()->GetData()) )
         {
-            // can't open the new document if closing the old one failed
+            // can't open the NEW_DEBUG document if closing the old one failed
             return NULL;
         }
     }
 
 
-    // do create and initialize the new document finally
+    // do create and initialize the NEW_DEBUG document finally
     wxDocument * const docNew = temp->CreateDocument(path, flags);
     if ( !docNew )
         return NULL;
@@ -1527,7 +1527,7 @@ wxDocument *wxDocManager::CreateDocument(const wxString& pathOrig, long flags)
     wxTRY
     {
         // call the appropriate function depending on whether we're creating a
-        // new file or opening an existing one
+        // NEW_DEBUG file or opening an existing one
         if ( !(flags & wxDOC_NEW ? docNew->OnNewDocument()
                                  : docNew->OnOpenDocument(path)) )
         {
@@ -1544,7 +1544,7 @@ wxDocument *wxDocManager::CreateDocument(const wxString& pathOrig, long flags)
         AddFileToHistory(path);
 
     // at least under Mac (where views are top level windows) it seems to be
-    // necessary to manually activate the new document to bring it to the
+    // necessary to manually activate the NEW_DEBUG document to bring it to the
     // forefront -- and it shouldn't hurt doing this under the other platforms
     docNew->Activate();
 
@@ -1596,7 +1596,7 @@ wxCommandProcessor *wxDocManager::GetCurrentCommandProcessor() const
     return doc ? doc->GetCommandProcessor() : NULL;
 }
 
-// Make a default name for a new document
+// Make a default name for a NEW_DEBUG document
 #if WXWIN_COMPATIBILITY_2_8
 bool wxDocManager::MakeDefaultName(wxString& WXUNUSED(name))
 {

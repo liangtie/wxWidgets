@@ -48,7 +48,7 @@ public:
     GtkArray(const wxArrayString& a)
     {
         m_count = a.size();
-        m_strings = new const gchar *[m_count + 1];
+        m_strings = NEW_DEBUG const gchar *[m_count + 1];
 
         for ( size_t n = 0; n < m_count; n++ )
         {

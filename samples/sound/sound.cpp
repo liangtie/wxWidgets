@@ -141,7 +141,7 @@ wxBEGIN_EVENT_TABLE(MyFrame, wxFrame)
     EVT_MENU(Sound_PlayBell,         MyFrame::OnPlayBell)
 wxEND_EVENT_TABLE()
 
-// Create a new application object: this macro will allow wxWidgets to create
+// Create a NEW_DEBUG application object: this macro will allow wxWidgets to create
 // the application object during program execution (it's better than using a
 // static object for many reasons) and also implements the accessor function
 // wxGetApp() which will return the reference of the right type (i.e. MyApp and
@@ -163,7 +163,7 @@ bool MyApp::OnInit()
         return false;
 
     // create the main application window
-    MyFrame *frame = new MyFrame("wxWidgets Sound Sample");
+    MyFrame *frame = NEW_DEBUG MyFrame("wxWidgets Sound Sample");
 
     // and show it (the frames, unlike simple controls, are not shown when
     // created initially)
@@ -190,16 +190,16 @@ MyFrame::MyFrame(const wxString& title)
     // set the frame icon
     SetIcon(wxICON(sample));
 
-    wxMenu *menuFile = new wxMenu;
-    menuFile->Append(Sound_SelectFile, "Select WAV &file...\tCtrl-O", "Select a new wav file to play");
+    wxMenu *menuFile = NEW_DEBUG wxMenu;
+    menuFile->Append(Sound_SelectFile, "Select WAV &file...\tCtrl-O", "Select a NEW_DEBUG wav file to play");
 #ifdef __WXMSW__
-    menuFile->Append(Sound_SelectResource, "Select WAV &resource...\tCtrl-R", "Select a new resource to play");
+    menuFile->Append(Sound_SelectResource, "Select WAV &resource...\tCtrl-R", "Select a NEW_DEBUG resource to play");
     menuFile->Append(Sound_SelectMemory, "Select WAV &data\tCtrl-M", "Choose to play from memory buffer");
 #endif // __WXMSW__
 
     menuFile->Append(Sound_Quit, "E&xit\tAlt-X", "Quit this program");
 
-    wxMenu *playMenu = new wxMenu;
+    wxMenu *playMenu = NEW_DEBUG wxMenu;
     playMenu->Append(Sound_PlaySync, "Play sound &synchronously\tCtrl-S");
     playMenu->Append(Sound_PlayAsync, "Play sound &asynchronously\tCtrl-A");
     playMenu->Append(Sound_PlayAsyncOnStack, "Play sound asynchronously (&object on stack)\tCtrl-K");
@@ -209,11 +209,11 @@ MyFrame::MyFrame(const wxString& title)
     playMenu->AppendSeparator();
     playMenu->Append(Sound_PlayBell, "Play system bell");
 
-    wxMenu *helpMenu = new wxMenu;
+    wxMenu *helpMenu = NEW_DEBUG wxMenu;
     helpMenu->Append(Sound_About, "&About\tF1", "Show about dialog");
 
     // now append the freshly created menu to the menu bar...
-    wxMenuBar *menuBar = new wxMenuBar();
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar();
     menuBar->Append(menuFile, "&File");
     menuBar->Append(playMenu, "&Play");
     menuBar->Append(helpMenu, "&Help");
@@ -221,7 +221,7 @@ MyFrame::MyFrame(const wxString& title)
     // ... and attach this menu bar to the frame
     SetMenuBar(menuBar);
 
-    m_tc = new wxTextCtrl(this, wxID_ANY, wxEmptyString,
+    m_tc = NEW_DEBUG wxTextCtrl(this, wxID_ANY, wxEmptyString,
                           wxDefaultPosition, wxDefaultSize,
                           wxTE_MULTILINE|wxTE_READONLY);
     NotifyUsingFile(m_soundFile);
@@ -975,7 +975,7 @@ bool MyFrame::CreateSound(wxSound& snd) const
 
 wxSound* MyFrame::TryCreateSound() const
 {
-    wxSound* const sound = new wxSound;
+    wxSound* const sound = NEW_DEBUG wxSound;
     if ( !CreateSound(*sound) )
     {
         delete sound;

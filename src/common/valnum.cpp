@@ -103,7 +103,7 @@ wxNumValidatorBase::GetCurrentValueAndInsertionPoint(wxString& val,
         // Remove selected text because pressing a key would make it disappear.
         val.erase(selFrom, selLen);
 
-        // And adjust the insertion point to have correct position in the new
+        // And adjust the insertion point to have correct position in the NEW_DEBUG
         // string.
         if ( pos > selFrom )
         {
@@ -131,7 +131,7 @@ bool wxNumValidatorBase::IsMinusOk(const wxString& val, int pos) const
 
     // Notice that entering '-' can make our value invalid, for example if
     // we're limited to -5..15 range and the current value is 12, then the
-    // new value would be (invalid) -12. We consider it better to let the
+    // NEW_DEBUG value would be (invalid) -12. We consider it better to let the
     // user do this because perhaps he is going to press Delete key next to
     // make it -2 and forcing him to delete 1 first would be unnatural.
     //

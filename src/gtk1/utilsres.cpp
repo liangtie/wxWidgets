@@ -74,7 +74,7 @@ bool wxGetResource(const wxString& section, const wxString& entry, wxChar **valu
     {
         if (!result.empty())
         {
-            wxChar *s = new wxChar[result.Len()+1];
+            wxChar *s = NEW_DEBUG wxChar[result.Len()+1];
             wxStrcpy( s, result.c_str() );
             *value = s;
             return true;

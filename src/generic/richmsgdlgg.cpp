@@ -51,7 +51,7 @@ void wxGenericRichMessageDialog::AddMessageDialogCheckBox(wxSizer *sizer)
 {
     if ( !m_checkBoxText.empty() )
     {
-        m_checkBox = new wxCheckBox(this, wxID_ANY, m_checkBoxText);
+        m_checkBox = NEW_DEBUG wxCheckBox(this, wxID_ANY, m_checkBoxText);
         m_checkBox->SetValue(m_checkBoxValue);
 
         sizer->Add(m_checkBox, wxSizerFlags().Left().Border(wxLEFT|wxTOP, 10));
@@ -62,15 +62,15 @@ void wxGenericRichMessageDialog::AddMessageDialogDetails(wxSizer *sizer)
 {
     if ( !m_detailedText.empty() )
     {
-        wxSizer *sizerDetails = new wxBoxSizer( wxHORIZONTAL );
+        wxSizer *sizerDetails = NEW_DEBUG wxBoxSizer( wxHORIZONTAL );
 
         m_detailsPane =
-            new wxCollapsiblePane( this, -1, m_detailsExpanderCollapsedLabel );
+            NEW_DEBUG wxCollapsiblePane( this, -1, m_detailsExpanderCollapsedLabel );
 
         // add the detailed text
         wxWindow *windowPane = m_detailsPane->GetPane();
-        wxSizer *sizerPane = new wxBoxSizer( wxHORIZONTAL );
-        sizerPane->Add( new wxStaticText( windowPane, -1, m_detailedText ) );
+        wxSizer *sizerPane = NEW_DEBUG wxBoxSizer( wxHORIZONTAL );
+        sizerPane->Add( NEW_DEBUG wxStaticText( windowPane, -1, m_detailedText ) );
         windowPane->SetSizer( sizerPane );
 
         sizerDetails->Add( m_detailsPane, wxSizerFlags().Expand() );
@@ -80,19 +80,19 @@ void wxGenericRichMessageDialog::AddMessageDialogDetails(wxSizer *sizer)
     if ( !m_footerText.empty() )
     {
         // add footer
-        sizer->Add( new wxStaticLine(this), wxSizerFlags().Expand().Border() );
-        wxSizer *footerSizer = new wxBoxSizer(wxHORIZONTAL);
+        sizer->Add( NEW_DEBUG wxStaticLine(this), wxSizerFlags().Expand().Border() );
+        wxSizer *footerSizer = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
         if (m_footerIcon)
         {
             wxSize iconSize = wxArtProvider::GetNativeSizeHint(wxART_MENU);
 
-            wxStaticBitmap* footerIcon = new wxStaticBitmap(this, wxID_ANY,
+            wxStaticBitmap* footerIcon = NEW_DEBUG wxStaticBitmap(this, wxID_ANY,
                 wxArtProvider::GetIcon(wxArtProvider::GetMessageBoxIconId(m_footerIcon),
                 wxART_MESSAGE_BOX, iconSize));
             footerSizer->Add( footerIcon,
                 wxSizerFlags().Border(wxLEFT|wxRIGHT).CenterVertical() );
         }
-        footerSizer->Add( new wxStaticText(this, wxID_ANY, m_footerText),
+        footerSizer->Add( NEW_DEBUG wxStaticText(this, wxID_ANY, m_footerText),
             wxSizerFlags().CenterVertical() );
         sizer->Add( footerSizer, wxSizerFlags().Border().Expand() );
     }

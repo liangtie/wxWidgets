@@ -234,9 +234,9 @@ void wxGenericComboCtrl::OnPaintEvent( wxPaintEvent& WXUNUSED(event) )
     // use system-generated transparent background portions
     wxDC* dcPtr;
     if ( HasTransparentBackground() )
-        dcPtr = new wxPaintDC(this);
+        dcPtr = NEW_DEBUG wxPaintDC(this);
     else
-        dcPtr = new wxAutoBufferedPaintDC(this);
+        dcPtr = NEW_DEBUG wxAutoBufferedPaintDC(this);
     wxDC& dc = *dcPtr;
 
     wxSize sz = GetClientSize();

@@ -238,7 +238,7 @@ bool wxCheckListBox::Create(wxWindow *parent, wxWindowID id,
 // create a check list box item
 wxOwnerDrawn *wxCheckListBox::CreateLboxItem(size_t WXUNUSED(n))
 {
-    wxCheckListBoxItem *pItem = new wxCheckListBoxItem(this);
+    wxCheckListBoxItem *pItem = NEW_DEBUG wxCheckListBoxItem(this);
     return pItem;
 }
 

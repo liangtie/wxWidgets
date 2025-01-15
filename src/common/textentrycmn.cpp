@@ -71,7 +71,7 @@ public:
 
     // Set the hint to show, shouldn't be empty normally.
     //
-    // This should be called after creating a new wxTextEntryHintData object
+    // This should be called after creating a NEW_DEBUG wxTextEntryHintData object
     // and may be called more times in the future.
     void SetHintString(const wxString& hint)
     {
@@ -79,7 +79,7 @@ public:
 
         if ( !m_win->HasFocus() )
             ShowHintIfAppropriate();
-        //else: The new hint will be shown later when we lose focus.
+        //else: The NEW_DEBUG hint will be shown later when we lose focus.
     }
 
     const wxString& GetHintString() const { return m_hint; }
@@ -406,7 +406,7 @@ bool wxTextEntryBase::SetHint(const wxString& hint)
     if ( !hint.empty() )
     {
         if ( !m_hintData )
-            m_hintData = new wxTextEntryHintData(this, GetEditableWindow());
+            m_hintData = NEW_DEBUG wxTextEntryHintData(this, GetEditableWindow());
 
         m_hintData->SetHintString(hint);
     }

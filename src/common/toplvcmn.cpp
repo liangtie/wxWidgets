@@ -279,7 +279,7 @@ void wxTopLevelWindowBase::DoCentre(int dir)
     if ( !(dir & wxBOTH) )
         dir |= wxBOTH; // if neither is specified, center in both directions
 
-    // the new window rect candidate
+    // the NEW_DEBUG window rect candidate
     wxRect rect = GetRect().CentreIn(rectParent, dir & ~wxCENTRE_ON_SCREEN);
 
     // we don't want to place the window off screen if Centre() is called as
@@ -395,7 +395,7 @@ void wxTopLevelWindowBase::SetIcon(const wxIcon& icon)
 bool wxTopLevelWindowBase::IsTopNavigationDomain(NavigationKind kind) const
 {
     // This switch only exists to generate a compiler warning and force us to
-    // revisit this code if any new kinds of navigation are added in the
+    // revisit this code if any NEW_DEBUG kinds of navigation are added in the
     // future, but for now we block of them by default (some derived classes
     // relax this however).
     switch ( kind )

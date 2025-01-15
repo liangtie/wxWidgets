@@ -43,14 +43,14 @@
 // classes
 // --------------------------------------------------------------------------
 
-// Define a new application type
+// Define a NEW_DEBUG application type
 class MyApp : public wxApp
 {
 public:
   virtual bool OnInit() wxOVERRIDE;
 };
 
-// Define a new frame type: this is going to be our main frame
+// Define a NEW_DEBUG frame type: this is going to be our main frame
 class MyFrame : public wxFrame
 {
 public:
@@ -184,7 +184,7 @@ bool MyApp::OnInit()
       return false;
 
   // Create the main application window
-  MyFrame *frame = new MyFrame();
+  MyFrame *frame = NEW_DEBUG MyFrame();
 
   // Show it
   frame->Show(true);
@@ -206,12 +206,12 @@ MyFrame::MyFrame() : wxFrame((wxFrame *)NULL, wxID_ANY,
   SetIcon(wxICON(sample));
 
   // Make menus
-  m_menuFile = new wxMenu();
+  m_menuFile = NEW_DEBUG wxMenu();
   m_menuFile->Append(CLIENT_ABOUT, _("&About\tCtrl-A"), _("Show about dialog"));
   m_menuFile->AppendSeparator();
   m_menuFile->Append(CLIENT_QUIT, _("E&xit\tAlt-X"), _("Quit client"));
 
-  m_menuSocket = new wxMenu();
+  m_menuSocket = NEW_DEBUG wxMenu();
   m_menuSocket->Append(CLIENT_OPEN, _("&Open session\tCtrl-O"), _("Connect to server"));
 #if wxUSE_IPV6
   m_menuSocket->Append(CLIENT_OPENIPV6, _("&Open session(IPv6)\tShift-Ctrl-O"), _("Connect to server(IPv6)"));
@@ -223,17 +223,17 @@ MyFrame::MyFrame() : wxFrame((wxFrame *)NULL, wxID_ANY,
   m_menuSocket->AppendSeparator();
   m_menuSocket->Append(CLIENT_CLOSE, _("&Close session\tCtrl-C"), _("Close connection"));
 
-  m_menuDatagramSocket = new wxMenu();
+  m_menuDatagramSocket = NEW_DEBUG wxMenu();
   m_menuDatagramSocket->Append(CLIENT_DGRAM, _("&Datagram test\tCtrl-D"), _("Test UDP sockets"));
 
 #if wxUSE_URL
-  m_menuProtocols = new wxMenu();
+  m_menuProtocols = NEW_DEBUG wxMenu();
   m_menuProtocols->Append(CLIENT_TESTURL, _("Test URL\tCtrl-U"),
                           _("Get data from the specified URL"));
 #endif
 
   // Append menus to the menubar
-  m_menuBar = new wxMenuBar();
+  m_menuBar = NEW_DEBUG wxMenuBar();
   m_menuBar->Append(m_menuFile, _("&File"));
   m_menuBar->Append(m_menuSocket, _("&TCP"));
   m_menuBar->Append(m_menuDatagramSocket, _("&UDP"));
@@ -248,14 +248,14 @@ MyFrame::MyFrame() : wxFrame((wxFrame *)NULL, wxID_ANY,
 #endif // wxUSE_STATUSBAR
 
   // Make a textctrl for logging
-  m_text  = new wxTextCtrl(this, wxID_ANY,
+  m_text  = NEW_DEBUG wxTextCtrl(this, wxID_ANY,
                            _("Welcome to wxSocket demo: Client\nClient ready\n"),
                            wxDefaultPosition, wxDefaultSize,
                            wxTE_MULTILINE | wxTE_READONLY);
-  delete wxLog::SetActiveTarget(new wxLogTextCtrl(m_text));
+  delete wxLog::SetActiveTarget(NEW_DEBUG wxLogTextCtrl(m_text));
 
   // Create the socket
-  m_sock = new wxSocketClient();
+  m_sock = NEW_DEBUG wxSocketClient();
 
   // Setup the event handler and subscribe to most events
   m_sock->SetEventHandler(*this, SOCKET_ID);
@@ -654,7 +654,7 @@ void MyFrame::OnTestURL(wxCommandEvent& WXUNUSED(event))
 
     // NB: there is a race condition here, we don't check for this thread
     // termination before exiting the application, don't do this in real code!
-    new DownloadThread(urlname);
+    NEW_DEBUG DownloadThread(urlname);
 #endif // wxUSE_THREADS
 }
 

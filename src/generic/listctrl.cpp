@@ -134,7 +134,7 @@ wxListItemData::wxListItemData(wxListMainWindow *owner)
     if ( owner->InReportView() )
         m_rect = NULL;
     else
-        m_rect = new wxRect;
+        m_rect = NEW_DEBUG wxRect;
 }
 
 // Check if the item is visible
@@ -168,7 +168,7 @@ void wxListItemData::SetItem( const wxListItem &info )
         if ( m_attr )
             m_attr->AssignFrom(*info.GetAttributes());
         else
-            m_attr = new wxItemAttr(*info.GetAttributes());
+            m_attr = NEW_DEBUG wxItemAttr(*info.GetAttributes());
     }
 
     if ( m_rect )
@@ -285,7 +285,7 @@ wxListHeaderData::wxListHeaderData( const wxListItem &item )
 
     SetItem( item );
 
-    // Always give some initial width to the new columns (it's still possible
+    // Always give some initial width to the NEW_DEBUG columns (it's still possible
     // to set the width to 0 explicitly, however).
     if ( !(m_mask & wxLIST_MASK_WIDTH) )
         SetWidth(wxLIST_DEFAULT_COL_WIDTH);
@@ -414,7 +414,7 @@ wxListLineData::wxListLineData( wxListMainWindow *owner )
     if ( InReportView() )
         m_gi = NULL;
     else // !report
-        m_gi = new GeometryInfo;
+        m_gi = NEW_DEBUG GeometryInfo;
 
     m_highlighted = false;
     m_checked = false;
@@ -594,7 +594,7 @@ void wxListLineData::SetPosition( int x, int y, int WXUNUSED(spacing) )
 void wxListLineData::InitItems( int num )
 {
     for (int i = 0; i < num; i++)
-        m_items.Append( new wxListItemData(m_owner) );
+        m_items.Append( NEW_DEBUG wxListItemData(m_owner) );
 }
 
 void wxListLineData::SetItem( int index, const wxListItem &info )
@@ -987,7 +987,7 @@ bool wxListHeaderWindow::Create( wxWindow *win,
     Init();
 
     m_owner = owner;
-    m_resizeCursor = new wxCursor( wxCURSOR_SIZEWE );
+    m_resizeCursor = NEW_DEBUG wxCursor( wxCURSOR_SIZEWE );
 
 #if _USE_VISATTR
     wxVisualAttributes attr = wxPanel::GetClassDefaultAttributes();
@@ -1249,7 +1249,7 @@ void wxListHeaderWindow::OnMouse( wxMouseEvent &event )
             else
                 m_currentX = m_minX + 7;
 
-            // draw in the new location
+            // draw in the NEW_DEBUG location
             if ( m_currentX < w )
                 DrawCurrent();
         }
@@ -1590,7 +1590,7 @@ void wxListMainWindow::Init()
     m_isCreated = false;
 
     m_lastOnSame = false;
-    m_renameTimer = new wxListRenameTimer( this );
+    m_renameTimer = NEW_DEBUG wxListRenameTimer( this );
     m_findTimer = NULL;
     m_findBell = 0;  // default is to not ring bell at all
     m_textctrlWrapper = NULL;
@@ -1622,7 +1622,7 @@ wxListMainWindow::wxListMainWindow( wxWindow *parent,
 {
     Init();
 
-    m_highlightBrush = new wxBrush
+    m_highlightBrush = NEW_DEBUG wxBrush
                          (
                             wxSystemSettings::GetColour
                             (
@@ -1631,7 +1631,7 @@ wxListMainWindow::wxListMainWindow( wxWindow *parent,
                             wxBRUSHSTYLE_SOLID
                          );
 
-    m_highlightUnfocusedBrush = new wxBrush
+    m_highlightUnfocusedBrush = NEW_DEBUG wxBrush
                               (
                                  wxSystemSettings::GetColour
                                  (
@@ -1710,7 +1710,7 @@ wxListLineData *wxListMainWindow::GetDummyLine() const
 
     if ( m_lines.empty() )
     {
-        wxListLineData *line = new wxListLineData(self);
+        wxListLineData *line = NEW_DEBUG wxListLineData(self);
         self->m_lines.push_back(line);
 
         // don't waste extra memory -- there never going to be anything
@@ -2310,7 +2310,7 @@ void wxListMainWindow::HighlightOnly( size_t line, size_t oldLine )
 
     // _line_ should be the only selected item.
     HighlightLine(line);
-    // refresh the new focus to add it.
+    // refresh the NEW_DEBUG focus to add it.
     RefreshLine(line);
 }
 
@@ -2407,7 +2407,7 @@ wxTextCtrl *wxListMainWindow::EditLabel(long item, wxClassInfo* textControlClass
     }
 
     wxTextCtrl * const text = (wxTextCtrl *)textControlClass->CreateObject();
-    m_textctrlWrapper = new wxListTextCtrlWrapper(this, text, item);
+    m_textctrlWrapper = NEW_DEBUG wxListTextCtrlWrapper(this, text, item);
     return m_textctrlWrapper->GetText();
 }
 
@@ -2888,22 +2888,22 @@ bool wxListMainWindow::ScrollList(int WXUNUSED(dx), int dy)
 // multi-selection mode when selecting using mouse or arrows with Shift key down.
 void wxListMainWindow::ExtendSelection(size_t oldCurrent, size_t newCurrent)
 {
-    // Refresh the old/new focus to remove/add it
+    // Refresh the old/NEW_DEBUG focus to remove/add it
     RefreshLine(oldCurrent);
     RefreshLine(newCurrent);
 
-    // Given a selection [anchor, old], to change/extend it to new (i.e. the
-    // selection becomes [anchor, new]) we discriminate three possible cases:
+    // Given a selection [anchor, old], to change/extend it to NEW_DEBUG (i.e. the
+    // selection becomes [anchor, NEW_DEBUG]) we discriminate three possible cases:
     //
-    // Case 1) new < old <= anchor || anchor <= old < new
+    // Case 1) NEW_DEBUG < old <= anchor || anchor <= old < NEW_DEBUG
     // i.e. oldCurrent between anchor and newCurrent, in which case we:
     // - Highlight everything between anchor and newCurrent (inclusive).
     //
-    // Case 2) old < new <= anchor || anchor <= new < old
+    // Case 2) old < NEW_DEBUG <= anchor || anchor <= NEW_DEBUG < old
     // i.e. newCurrent between anchor and oldCurrent, in which case we:
     // - Unhighlight everything between oldCurrent and newCurrent (exclusive).
     //
-    // Case 3) old < anchor < new || new < anchor < old
+    // Case 3) old < anchor < NEW_DEBUG || NEW_DEBUG < anchor < old
     // i.e. anchor between oldCurrent and newCurrent, in which case we
     // - Highlight everything between anchor and newCurrent (inclusive).
     // - Unhighlight everything between anchor (exclusive) and oldCurrent.
@@ -2985,7 +2985,7 @@ void wxListMainWindow::OnArrowChar(size_t newCurrent, const wxKeyEvent& event)
         }
         else
         {
-            // refresh the old/new focus to remove/add it
+            // refresh the old/NEW_DEBUG focus to remove/add it
             RefreshLine(oldCurrent);
             RefreshLine(m_current);
         }
@@ -3219,10 +3219,10 @@ void wxListMainWindow::OnChar( wxKeyEvent &event )
 
                 // also start the timer to reset the current prefix if the user
                 // doesn't press any more alnum keys soon -- we wouldn't want
-                // to use this prefix for a new item search
+                // to use this prefix for a NEW_DEBUG item search
                 if ( !m_findTimer )
                 {
-                    m_findTimer = new wxListFindTimer( this );
+                    m_findTimer = NEW_DEBUG wxListFindTimer( this );
                 }
 
                 // Notice that we should start the timer even if we didn't find
@@ -4374,7 +4374,7 @@ void wxListMainWindow::DeleteItem( long lindex )
     RefreshAfter(index);
 
     // This might be a wxGTK bug, but when deleting the last item in a control
-    // with many items, the vertical scroll position may change so that the new
+    // with many items, the vertical scroll position may change so that the NEW_DEBUG
     // last item is not visible any longer, which is very annoying from the
     // user point of view. Ensure that whatever happens, this item is visible.
     if ( count > 1 && m_current != (size_t)-1 )
@@ -4633,12 +4633,12 @@ void wxListMainWindow::InsertItem( wxListItem &item )
         }
     }
 
-    wxListLineData *line = new wxListLineData(this);
+    wxListLineData *line = NEW_DEBUG wxListLineData(this);
 
     line->SetItem( item.m_col, item );
     if ( item.m_mask & wxLIST_MASK_IMAGE )
     {
-        // Reset the buffered height if it's not big enough for the new image.
+        // Reset the buffered height if it's not big enough for the NEW_DEBUG image.
         int image = item.GetImage();
         if ( m_small_images && image != -1 && InReportView() )
         {
@@ -4672,11 +4672,11 @@ long wxListMainWindow::InsertColumn( long col, const wxListItem &item )
     m_dirty = true;
     if ( InReportView() )
     {
-        wxListHeaderData *column = new wxListHeaderData( item );
+        wxListHeaderData *column = NEW_DEBUG wxListHeaderData( item );
         if (item.m_width == wxLIST_AUTOSIZE_USEHEADER)
             column->SetWidth(ComputeMinHeaderWidth(column));
 
-        wxColWidthInfo *colWidthInfo = new wxColWidthInfo(0, IsVirtual());
+        wxColWidthInfo *colWidthInfo = NEW_DEBUG wxColWidthInfo(0, IsVirtual());
 
         bool insert = (col >= 0) && ((size_t)col < m_columns.GetCount());
         if ( insert )
@@ -4700,7 +4700,7 @@ long wxListMainWindow::InsertColumn( long col, const wxListItem &item )
             for ( size_t i = 0; i < m_lines.size(); i++ )
             {
                 wxListLineData * const line = GetLine(i);
-                wxListItemData * const data = new wxListItemData(this);
+                wxListItemData * const data = NEW_DEBUG wxListItemData(this);
                 if ( insert )
                     line->m_items.Insert(col, data);
                 else
@@ -4944,7 +4944,7 @@ void wxGenericListCtrl::CreateOrDestroyHeaderWindowAsNeeded()
         // function blocks repeated creation of the header as it could happen
         // before via wxNavigationEnabled::AddChild() -> ToggleWindowStyle() ->
         // SetWindowStyleFlag().
-        m_headerWin = new wxListHeaderWindow();
+        m_headerWin = NEW_DEBUG wxListHeaderWindow();
         m_headerWin->Create
                       (
                         this, wxID_ANY, m_mainWin,
@@ -4991,7 +4991,7 @@ bool wxGenericListCtrl::Create(wxWindow *parent,
                                   validator, name ) )
         return false;
 
-    m_mainWin = new wxListMainWindow(this, wxID_ANY, wxPoint(0, 0), size);
+    m_mainWin = NEW_DEBUG wxListMainWindow(this, wxID_ANY, wxPoint(0, 0), size);
 
     SetTargetWindow( m_mainWin );
 
@@ -5000,7 +5000,7 @@ bool wxGenericListCtrl::Create(wxWindow *parent,
     // keyboard events forwarded to us from wxListMainWindow.
     DisableKeyboardScrolling();
 
-    wxBoxSizer *sizer = new wxBoxSizer( wxVERTICAL );
+    wxBoxSizer *sizer = NEW_DEBUG wxBoxSizer( wxVERTICAL );
     sizer->Add( m_mainWin, 1, wxGROW );
     SetSizer( sizer );
 
@@ -5171,7 +5171,7 @@ void wxGenericListCtrl::SetWindowStyleFlag( long flag )
     const bool wasInReportView = HasFlag(wxLC_REPORT);
 
     // update the window style first so that the header is created or destroyed
-    // corresponding to the new style
+    // corresponding to the NEW_DEBUG style
     wxWindow::SetWindowStyleFlag( flag );
 
     if (m_mainWin)

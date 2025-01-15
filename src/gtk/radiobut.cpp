@@ -74,7 +74,7 @@ bool wxRadioButton::Create( wxWindow *parent,
     }
 
     // Check if this radio button should be put into an existing group. This
-    // shouldn't be done if it's given a style to explicitly start a new group
+    // shouldn't be done if it's given a style to explicitly start a NEW_DEBUG group
     // or if it's not meant to be a part of a group at all.
     GSList* radioButtonGroup = NULL;
     if (!HasFlag(wxRB_GROUP) && !HasFlag(wxRB_SINGLE))

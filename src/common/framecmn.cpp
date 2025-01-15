@@ -76,7 +76,7 @@ bool wxFrameBase::ShouldUpdateMenuFromIdle()
 
 wxDEFINE_FLAGS( wxFrameStyle )
 wxBEGIN_FLAGS( wxFrameStyle )
-// new style border flags, we put them first to
+// NEW_DEBUG style border flags, we put them first to
 // use them for streaming out
 wxFLAGS_MEMBER(wxBORDER_SIMPLE)
 wxFLAGS_MEMBER(wxBORDER_SUNKEN)
@@ -175,7 +175,7 @@ wxFrame *wxFrameBase::New(wxWindow *parent,
                           long style,
                           const wxString& name)
 {
-    return new wxFrame(parent, id, title, pos, size, style, name);
+    return NEW_DEBUG wxFrame(parent, id, title, pos, size, style, name);
 }
 
 void wxFrameBase::DeleteAllBars()
@@ -281,7 +281,7 @@ bool wxFrameBase::ProcessCommand(wxMenuItem *item)
     {
         item->Toggle();
 
-        // use the new value
+        // use the NEW_DEBUG value
         checked = item->IsChecked();
     }
     else // Uncheckable item.
@@ -395,7 +395,7 @@ wxStatusBar *wxFrameBase::OnCreateStatusBar(int number,
                                             wxWindowID id,
                                             const wxString& name)
 {
-    wxStatusBar *statusBar = new wxStatusBar(this, id, style, name);
+    wxStatusBar *statusBar = NEW_DEBUG wxStatusBar(this, id, style, name);
 
     statusBar->SetFieldsCount(number);
 
@@ -578,7 +578,7 @@ wxToolBar* wxFrameBase::OnCreateToolBar(long style,
                                         wxWindowID id,
                                         const wxString& name)
 {
-    return new wxToolBar(this, id,
+    return NEW_DEBUG wxToolBar(this, id,
                          wxDefaultPosition, wxDefaultSize,
                          style, name);
 }

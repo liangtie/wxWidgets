@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 // Name:        samples/event/chessboard.cpp
-// Purpose:     Part of wxWidgets event sample, shows how to create a new wxEvent class
+// Purpose:     Part of wxWidgets event sample, shows how to create a NEW_DEBUG wxEvent class
 // Author:      PB <pbfordev@gmail.com>
 // Created:     2019-10-29
 // Copyright:   (c) 2019 wxWidgets development team
@@ -14,7 +14,7 @@
 // ChessBoardEvent
 //
 
-// Define new event types associated with ChessBoardEvent
+// Define NEW_DEBUG event types associated with ChessBoardEvent
 wxDEFINE_EVENT(myEVT_CHESSBOARD_CLICKED, ChessBoardEvent);
 wxDEFINE_EVENT(myEVT_CHESSBOARD_DRAGGED, ChessBoardEvent);
 
@@ -183,13 +183,13 @@ wxEND_EVENT_TABLE()
 MyChessBoardDialog::MyChessBoardDialog(wxWindow* parent)
     : wxDialog(parent, wxID_ANY, "New event class demonstration")
 {
-    wxSizer* mainSizer = new wxBoxSizer(wxVERTICAL);
+    wxSizer* mainSizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
     mainSizer->Add(
-        new wxStaticText(this, wxID_ANY, "Click or drag the mouse over the chessboard"),
+        NEW_DEBUG wxStaticText(this, wxID_ANY, "Click or drag the mouse over the chessboard"),
         wxSizerFlags().Border().CenterHorizontal());
 
-    mainSizer->Add(new ChessBoard(this),
+    mainSizer->Add(NEW_DEBUG ChessBoard(this),
         wxSizerFlags().TripleBorder().CenterHorizontal());
 
     mainSizer->Add(CreateStdDialogButtonSizer(wxCLOSE),

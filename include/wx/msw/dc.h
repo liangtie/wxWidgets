@@ -9,6 +9,9 @@
 
 #ifndef _WX_MSW_DC_H_
 #define _WX_MSW_DC_H_
+#include <crtdbg.h>
+#define NEW_DEBUG new(_NORMAL_BLOCK, __FILE__, __LINE__)
+#define NEW_DEBUG2(...) new(__VA_ARGS__)
 
 #include "wx/defs.h"
 #include "wx/dc.h"

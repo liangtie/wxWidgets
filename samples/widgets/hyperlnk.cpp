@@ -151,12 +151,12 @@ HyperlinkWidgetsPage::HyperlinkWidgetsPage(WidgetsBookCtrl *book,
 
 void HyperlinkWidgetsPage::CreateContent()
 {
-    wxSizer *sizerTop = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer *sizerTop = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
 
     // left pane
-    wxStaticBox *box = new wxStaticBox(this, wxID_ANY, "Hyperlink details");
+    wxStaticBox *box = NEW_DEBUG wxStaticBox(this, wxID_ANY, "Hyperlink details");
 
-    wxSizer *sizerLeft = new wxStaticBoxSizer(box, wxVERTICAL);
+    wxSizer *sizerLeft = NEW_DEBUG wxStaticBoxSizer(box, wxVERTICAL);
 
     sizerLeft->Add( CreateSizerWithTextAndButton( HyperlinkPage_SetLabel , "Set &Label", wxID_ANY, &m_label ),
                     0, wxALL | wxALIGN_RIGHT , 5 );
@@ -173,39 +173,39 @@ void HyperlinkWidgetsPage::CreateContent()
     wxCOMPILE_TIME_ASSERT( WXSIZEOF(alignments) == Align_Max,
                            AlignMismatch );
 
-    m_radioAlignMode = new wxRadioBox(this, wxID_ANY, "alignment",
+    m_radioAlignMode = NEW_DEBUG wxRadioBox(this, wxID_ANY, "alignment",
                                       wxDefaultPosition, wxDefaultSize,
                                       WXSIZEOF(alignments), alignments);
     m_radioAlignMode->SetSelection(1);  // start with "centre" selected since
                                         // wxHL_DEFAULT_STYLE contains wxHL_ALIGN_CENTRE
     sizerLeft->Add(m_radioAlignMode, 0, wxALL|wxGROW, 5);
 
-    m_checkGeneric = new wxCheckBox(this, wxID_ANY, "Use generic version",
+    m_checkGeneric = NEW_DEBUG wxCheckBox(this, wxID_ANY, "Use generic version",
                                     wxDefaultPosition, wxDefaultSize);
     sizerLeft->Add(m_checkGeneric, 0, wxALL|wxGROW, 5);
 
     // right pane
-    wxSizer *szHyperlinkLong = new wxBoxSizer(wxVERTICAL);
-    wxSizer *szHyperlink = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer *szHyperlinkLong = NEW_DEBUG wxBoxSizer(wxVERTICAL);
+    wxSizer *szHyperlink = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
 
-    m_visit = new wxStaticText(this, wxID_ANY, "Visit ");
+    m_visit = NEW_DEBUG wxStaticText(this, wxID_ANY, "Visit ");
 
     if (m_checkGeneric->IsChecked())
     {
-        m_hyperlink = new wxGenericHyperlinkCtrl(this,
+        m_hyperlink = NEW_DEBUG wxGenericHyperlinkCtrl(this,
                                           HyperlinkPage_Ctrl,
                                           "wxWidgets website",
                                           "www.wxwidgets.org");
     }
     else
     {
-        m_hyperlink = new wxHyperlinkCtrl(this,
+        m_hyperlink = NEW_DEBUG wxHyperlinkCtrl(this,
                                           HyperlinkPage_Ctrl,
                                           "wxWidgets website",
                                           "www.wxwidgets.org");
     }
 
-    m_fun = new wxStaticText(this, wxID_ANY, " for fun!");
+    m_fun = NEW_DEBUG wxStaticText(this, wxID_ANY, " for fun!");
 
     szHyperlink->Add(0, 0, 1, wxCENTRE);
     szHyperlink->Add(m_visit, 0, wxCENTRE);
@@ -216,14 +216,14 @@ void HyperlinkWidgetsPage::CreateContent()
 
     if (m_checkGeneric->IsChecked())
     {
-        m_hyperlinkLong = new wxGenericHyperlinkCtrl(this,
+        m_hyperlinkLong = NEW_DEBUG wxGenericHyperlinkCtrl(this,
                                               wxID_ANY,
                                               "This is a long hyperlink",
                                               "www.wxwidgets.org");
     }
     else
     {
-        m_hyperlinkLong = new wxHyperlinkCtrl(this,
+        m_hyperlinkLong = NEW_DEBUG wxHyperlinkCtrl(this,
                                               wxID_ANY,
                                               "This is a long hyperlink",
                                               "www.wxwidgets.org");
@@ -263,7 +263,7 @@ void HyperlinkWidgetsPage::CreateHyperlink()
     wxGenericHyperlinkCtrl *hyp;
     if (m_checkGeneric->IsChecked())
     {
-        hyp = new wxGenericHyperlinkCtrl(this,
+        hyp = NEW_DEBUG wxGenericHyperlinkCtrl(this,
                                   HyperlinkPage_Ctrl,
                                   label,
                                   url,
@@ -273,7 +273,7 @@ void HyperlinkWidgetsPage::CreateHyperlink()
     }
     else
     {
-        hyp = new wxHyperlinkCtrl(this,
+        hyp = NEW_DEBUG wxHyperlinkCtrl(this,
                                   HyperlinkPage_Ctrl,
                                   label,
                                   url,
@@ -302,7 +302,7 @@ void HyperlinkWidgetsPage::CreateHyperlinkLong(long align)
     wxGenericHyperlinkCtrl *hyp;
     if (m_checkGeneric->IsChecked())
     {
-        hyp = new wxGenericHyperlinkCtrl(this,
+        hyp = NEW_DEBUG wxGenericHyperlinkCtrl(this,
                                   wxID_ANY,
                                   "This is a long hyperlink",
                                   "www.wxwidgets.org",
@@ -312,7 +312,7 @@ void HyperlinkWidgetsPage::CreateHyperlinkLong(long align)
     }
     else
     {
-        hyp = new wxHyperlinkCtrl(this,
+        hyp = NEW_DEBUG wxHyperlinkCtrl(this,
                                   wxID_ANY,
                                   "This is a long hyperlink",
                                   "www.wxwidgets.org",

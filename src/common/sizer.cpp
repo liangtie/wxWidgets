@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 // Name:        src/common/sizer.cpp
-// Purpose:     provide new wxSizer class for layout
+// Purpose:     provide NEW_DEBUG wxSizer class for layout
 // Author:      Robert Roebling and Robin Dunn, contributions by
 //              Dirk Holtwick, Ron Lee
 // Modified by: Ron Lee
@@ -380,7 +380,7 @@ wxSizerItem::wxSizerItem(wxSizer *sizer,
 void wxSizerItem::DoSetSpacer(const wxSize& size)
 {
     m_kind = Item_Spacer;
-    m_spacer = new wxSizerSpacer(size);
+    m_spacer = NEW_DEBUG wxSizerSpacer(size);
     m_minSize = size;
     SetRatio(size);
 }
@@ -2657,7 +2657,7 @@ void wxBoxSizer::RepositionChildren(const wxSize& minSize)
             PosInMinorDir(posChild) += totalMinorSize - minorSize;
         }
         // NB: wxCENTRE is used here only for backwards compatibility,
-        //     wxALIGN_CENTRE should be used in new code
+        //     wxALIGN_CENTRE should be used in NEW_DEBUG code
         else if ( flag & (wxCENTER | (IsVertical() ? wxALIGN_CENTRE_HORIZONTAL
                                                    : wxALIGN_CENTRE_VERTICAL)) )
         {
@@ -2776,7 +2776,7 @@ wxStaticBoxSizer::wxStaticBoxSizer( wxStaticBox *box, int orient )
 
 wxStaticBoxSizer::wxStaticBoxSizer(int orient, wxWindow *win, const wxString& s)
                 : wxBoxSizer(orient),
-                  m_staticBox(new wxStaticBox(win, wxID_ANY, s))
+                  m_staticBox(NEW_DEBUG wxStaticBox(win, wxID_ANY, s))
 {
     // same as above
     m_staticBox->SetContainingSizer(this);

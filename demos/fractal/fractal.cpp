@@ -47,7 +47,7 @@ static int detail = 9; // CHANGE THIS... 7,8,9 etc
 static bool running = false;
 static wxMenuBar *menuBar = NULL;
 
-// Define a new application type
+// Define a NEW_DEBUG application type
 class MyApp: public wxApp
 {
 public:
@@ -56,7 +56,7 @@ public:
 
 wxIMPLEMENT_APP(MyApp);
 
-// Define a new frame type
+// Define a NEW_DEBUG frame type
 class MyFrame: public wxFrame
 {
 public:
@@ -68,7 +68,7 @@ public:
     wxDECLARE_EVENT_TABLE();
 };
 
-// Define a new canvas which can receive some events
+// Define a NEW_DEBUG canvas which can receive some events
 class MyCanvas: public wxWindow
 {
 public:
@@ -89,19 +89,19 @@ private:
 bool MyApp::OnInit()
 {
   // Create the main frame window
-  MyFrame *frame = new MyFrame(NULL, wxT("Fractal Mountains for wxWidgets"), wxDefaultPosition, wxSize(640, 480));
+  MyFrame *frame = NEW_DEBUG MyFrame(NULL, wxT("Fractal Mountains for wxWidgets"), wxDefaultPosition, wxSize(640, 480));
 
   // Make a menubar
-  wxMenu *file_menu = new wxMenu;
+  wxMenu *file_menu = NEW_DEBUG wxMenu;
   file_menu->Append(wxID_EXIT, wxGetStockLabel(wxID_EXIT));
-  menuBar = new wxMenuBar;
+  menuBar = NEW_DEBUG wxMenuBar;
   menuBar->Append(file_menu, wxT("&File"));
   frame->SetMenuBar(menuBar);
 
   int width, height;
   frame->GetClientSize(&width, &height);
 
-  (void) new MyCanvas(frame);
+  (void) NEW_DEBUG MyCanvas(frame);
 
   // Show the frame
   frame->Show(true);

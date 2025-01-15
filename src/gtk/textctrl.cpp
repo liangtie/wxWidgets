@@ -236,7 +236,7 @@ static void wxGtkTextApplyTagsFromAttr(GtkWidget *text,
                 break;
 #elif GTK_CHECK_VERSION(2,11,0)
 // gtk+ doesn't support justify before gtk+-2.11.0 with pango-1.17 being available
-// (but if new enough pango isn't available it's a mere gtk warning)
+// (but if NEW_DEBUG enough pango isn't available it's a mere gtk warning)
                 if (wx_is_at_least_gtk2(11))
                 {
                     align = GTK_JUSTIFY_FILL;
@@ -537,7 +537,7 @@ wx_insert_text_callback(GtkTextBuffer* buffer,
 {
     if ( win->GTKOnInsertText(text) )
     {
-        // If we already handled the new text insertion, don't do it again.
+        // If we already handled the NEW_DEBUG text insertion, don't do it again.
         g_signal_stop_emission_by_name (buffer, "insert_text");
     }
 }
@@ -793,7 +793,7 @@ bool wxTextCtrl::Create( wxWindow *parent,
         gtk_entry_set_width_chars((GtkEntry*)m_text, 1);
 
         // work around probable bug in GTK+ 2.18 when calling WriteText on a
-        // new, empty control, see https://github.com/wxWidgets/wxWidgets/issues/11409
+        // NEW_DEBUG, empty control, see https://github.com/wxWidgets/wxWidgets/issues/11409
         gtk_entry_get_text((GtkEntry*)m_text);
 
         if (style & wxNO_BORDER)
@@ -1232,7 +1232,7 @@ void wxTextCtrl::WriteText( const wxString &text )
     // make sure marking is re-enabled even if events are suppressed
     wxON_BLOCK_EXIT_SET(m_dontMarkDirty, false);
 
-    // Inserting new text into the control below will emit insert-text signal
+    // Inserting NEW_DEBUG text into the control below will emit insert-text signal
     // which assumes that if m_imKeyEvent is set, it is called in response to
     // this key press -- which is not the case here (but m_imKeyEvent might
     // still be set e.g. because we're called from a menu event handler

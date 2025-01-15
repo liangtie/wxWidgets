@@ -71,7 +71,7 @@ public:
 
     virtual wxVariantData* Clone() const wxOVERRIDE
     {
-        return new wxBitmapBundleVariantData(m_value);
+        return NEW_DEBUG wxBitmapBundleVariantData(m_value);
     }
 
     wxBitmapBundle m_value;
@@ -96,7 +96,7 @@ wxBitmapBundle& operator<<(wxBitmapBundle& value, const wxVariant& variant)
 WXDLLIMPEXP_CORE
 wxVariant& operator<<(wxVariant& variant, const wxBitmapBundle& value)
 {
-    variant.SetData(new wxBitmapBundleVariantData(value));
+    variant.SetData(NEW_DEBUG wxBitmapBundleVariantData(value));
     return variant;
 }
 
@@ -141,14 +141,14 @@ private:
     // generated it by rescaling the existing bitmap or not.
     struct Entry
     {
-        // Create a new entry from the original bitmap.
+        // Create a NEW_DEBUG entry from the original bitmap.
         explicit Entry(const wxBitmap& bitmap_)
             : bitmap(bitmap_)
         {
             generated = false;
         }
 
-        // Create a new entry of the given size by resizing the bitmap of an
+        // Create a NEW_DEBUG entry of the given size by resizing the bitmap of an
         // existing one.
         Entry(const Entry& entry, const wxSize& size)
             : bitmap(entry.bitmap)
@@ -347,7 +347,7 @@ void wxBitmapBundleImplSet::OSXCreateNSImage()
     {
         // The special case of only a single bitmap in the bundle is common and
         // occurs in older code using wxBitmap instead of wxBitmapBundle. We want
-        // to avoid creating a new NSImage as is done below in this case for two
+        // to avoid creating a NEW_DEBUG NSImage as is done below in this case for two
         // reasons:
         //
         // - performance - returning existing NSImage is much cheaper
@@ -396,22 +396,22 @@ wxBitmapBundle::wxBitmapBundle(wxBitmapBundleImpl* impl)
 }
 
 wxBitmapBundle::wxBitmapBundle(const wxBitmap& bitmap)
-    : m_impl(bitmap.IsOk() ? new wxBitmapBundleImplSet(bitmap) : NULL)
+    : m_impl(bitmap.IsOk() ? NEW_DEBUG wxBitmapBundleImplSet(bitmap) : NULL)
 {
 }
 
 wxBitmapBundle::wxBitmapBundle(const wxIcon& icon)
-    : m_impl(icon.IsOk() ? new wxBitmapBundleImplSet(wxBitmap(icon)) : NULL)
+    : m_impl(icon.IsOk() ? NEW_DEBUG wxBitmapBundleImplSet(wxBitmap(icon)) : NULL)
 {
 }
 
 wxBitmapBundle::wxBitmapBundle(const wxImage& image)
-    : m_impl(image.IsOk() ? new wxBitmapBundleImplSet(wxBitmap(image)) : NULL)
+    : m_impl(image.IsOk() ? NEW_DEBUG wxBitmapBundleImplSet(wxBitmap(image)) : NULL)
 {
 }
 
 wxBitmapBundle::wxBitmapBundle(const char* const* xpm)
-    : m_impl(new wxBitmapBundleImplSet(wxBitmap(xpm)))
+    : m_impl(NEW_DEBUG wxBitmapBundleImplSet(wxBitmap(xpm)))
 {
 }
 
@@ -442,7 +442,7 @@ wxBitmapBundle wxBitmapBundle::FromBitmaps(const wxVector<wxBitmap>& bitmaps)
     if ( bitmaps.empty() )
         return wxBitmapBundle();
 
-    return wxBitmapBundle(new wxBitmapBundleImplSet(bitmaps));
+    return wxBitmapBundle(NEW_DEBUG wxBitmapBundleImplSet(bitmaps));
 }
 
 /* static */
@@ -711,7 +711,7 @@ wxBitmapBundle::CreateImageList(wxWindow* win,
     // physical pixels are different.
     size /= win->GetContentScaleFactor();
 
-    wxImageList* const iml = new wxImageList(size.x, size.y);
+    wxImageList* const iml = NEW_DEBUG wxImageList(size.x, size.y);
 
     for ( size_t n = 0; n < bundles.size(); ++n )
     {

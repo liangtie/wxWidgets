@@ -155,7 +155,7 @@ wxFont *wxFontBase::New(int size,
                         const wxString& face,
                         wxFontEncoding encoding)
 {
-    return new wxFont(size, family, style, weight, underlined, face, encoding);
+    return NEW_DEBUG wxFont(size, family, style, weight, underlined, face, encoding);
 }
 
 /* static */
@@ -167,7 +167,7 @@ wxFont *wxFontBase::New(const wxSize& pixelSize,
                         const wxString& face,
                         wxFontEncoding encoding)
 {
-    return new wxFont(pixelSize, family, style, weight, underlined,
+    return NEW_DEBUG wxFont(pixelSize, family, style, weight, underlined,
                       face, encoding);
 }
 
@@ -202,7 +202,7 @@ wxFont *wxFontBase::New(const wxSize& pixelSize,
 /* static */
 wxFont *wxFontBase::New(const wxNativeFontInfo& info)
 {
-    return new wxFont(info);
+    return NEW_DEBUG wxFont(info);
 }
 
 /* static */
@@ -210,7 +210,7 @@ wxFont *wxFontBase::New(const wxString& strNativeFontDesc)
 {
     wxNativeFontInfo fontInfo;
     if ( !fontInfo.FromString(strNativeFontDesc) )
-        return new wxFont(*wxNORMAL_FONT);
+        return NEW_DEBUG wxFont(*wxNORMAL_FONT);
 
     return New(fontInfo);
 }
@@ -566,7 +566,7 @@ wxFontInfo wxFontBase::InfoFromLegacyParams(int pointSize,
                                             wxFontEncoding encoding)
 {
     // Old code specifies wxDEFAULT instead of -1 or wxNORMAL instead of the
-    // new type-safe wxFONTSTYLE_NORMAL or wxFONTWEIGHT_NORMAL, continue
+    // NEW_DEBUG type-safe wxFONTSTYLE_NORMAL or wxFONTWEIGHT_NORMAL, continue
     // handling this for compatibility.
     if ( pointSize == wxDEFAULT )
         pointSize = -1;

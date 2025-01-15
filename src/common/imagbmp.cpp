@@ -278,10 +278,10 @@ bool wxBMPHandler::SaveDib(wxImage *image,
     if ( (format == wxBMP_1BPP) || (format == wxBMP_4BPP) ||
          (format == wxBMP_8BPP) || (format == wxBMP_8BPP_PALETTE) )
     {
-        // make a new palette and quantize the image
+        // make a NEW_DEBUG palette and quantize the image
         if (format != wxBMP_8BPP_PALETTE)
         {
-            q_image.reset(new wxImage());
+            q_image.reset(NEW_DEBUG wxImage());
 
             // I get a delete error using Quantize when desired colors > 236
             int quantize = ((palette_size > 236) ? 236 : palette_size);
@@ -299,7 +299,7 @@ bool wxBMPHandler::SaveDib(wxImage *image,
         else
         {
 #if wxUSE_PALETTE
-            palette.reset(new wxPalette(image->GetPalette()));
+            palette.reset(NEW_DEBUG wxPalette(image->GetPalette()));
 #endif // wxUSE_PALETTE
         }
 
@@ -1251,7 +1251,7 @@ bool wxBMPHandler::LoadDib(wxImage *image, wxInputStream& stream,
         // Copy it into the format the existing code uses: this could probably
         // be optimized to avoid copying, but palette size is small enough for
         // an extra copy not to really matter.
-        desc.paletteData.reset(new BMPPalette[paletteSize]);
+        desc.paletteData.reset(NEW_DEBUG BMPPalette[paletteSize]);
         for ( int n = 0; n < desc.ncolors; ++n, data += paletteEntrySize )
         {
             BMPPalette& entry = desc.paletteData[n];

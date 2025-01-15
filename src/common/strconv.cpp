@@ -149,7 +149,7 @@ size_t
 wxMBConv::ToWChar(wchar_t *dst, size_t dstLen,
                   const char *src, size_t srcLen) const
 {
-    // although new conversion classes are supposed to implement this function
+    // although NEW_DEBUG conversion classes are supposed to implement this function
     // directly, the existing ones only implement the old MB2WC() and so, to
     // avoid to have to rewrite all conversion classes at once, we provide a
     // default (but not efficient) implementation of this one in terms of the
@@ -548,9 +548,9 @@ wxConvBrokenFileNames::wxConvBrokenFileNames(const wxString& charset)
 {
     if ( wxStricmp(charset, wxT("UTF-8")) == 0 ||
          wxStricmp(charset, wxT("UTF8")) == 0  )
-        m_conv = new wxMBConvUTF8(wxMBConvUTF8::MAP_INVALID_UTF8_TO_PUA);
+        m_conv = NEW_DEBUG wxMBConvUTF8(wxMBConvUTF8::MAP_INVALID_UTF8_TO_PUA);
     else
-        m_conv = new wxCSConv(charset);
+        m_conv = NEW_DEBUG wxCSConv(charset);
 }
 
 #endif // __UNIX__
@@ -743,7 +743,7 @@ size_t wxMBConvUTF7::ToWChar(wchar_t *dst, size_t dstLen,
     if ( !len )
     {
         // as we didn't read any characters we should be called with the same
-        // data (followed by some more new data) again later so don't save our
+        // data (followed by some more NEW_DEBUG data) again later so don't save our
         // state
         state = stateOrig;
 
@@ -2081,7 +2081,7 @@ public:
 
     virtual wxMBConv *Clone() const wxOVERRIDE
     {
-        wxMBConv_iconv *p = new wxMBConv_iconv(m_name);
+        wxMBConv_iconv *p = NEW_DEBUG wxMBConv_iconv(m_name);
         p->m_minMBCharWidth = m_minMBCharWidth;
         return p;
     }
@@ -2121,7 +2121,7 @@ private:
 // make the constructor available for unit testing
 WXDLLIMPEXP_BASE wxMBConv* new_wxMBConv_iconv( const char* name )
 {
-    wxMBConv_iconv* result = new wxMBConv_iconv( name );
+    wxMBConv_iconv* result = NEW_DEBUG wxMBConv_iconv( name );
     if ( !result->IsOk() )
     {
         delete result;
@@ -2677,7 +2677,7 @@ public:
         return m_minMBCharWidth;
     }
 
-    virtual wxMBConv *Clone() const wxOVERRIDE { return new wxMBConv_win32(*this); }
+    virtual wxMBConv *Clone() const wxOVERRIDE { return NEW_DEBUG wxMBConv_win32(*this); }
 
     bool IsOk() const { return m_CodePage != -1; }
 
@@ -2771,7 +2771,7 @@ public:
         }
     }
 
-    virtual wxMBConv *Clone() const wxOVERRIDE { return new wxMBConv_wxwin(m_enc); }
+    virtual wxMBConv *Clone() const wxOVERRIDE { return NEW_DEBUG wxMBConv_wxwin(m_enc); }
 
     bool IsOk() const { return m_ok; }
 
@@ -2789,7 +2789,7 @@ private:
 // make the constructors available for unit testing
 WXDLLIMPEXP_BASE wxMBConv* new_wxMBConv_wxwin( const char* name )
 {
-    wxMBConv_wxwin* result = new wxMBConv_wxwin( name );
+    wxMBConv_wxwin* result = NEW_DEBUG wxMBConv_wxwin( name );
     if ( !result->IsOk() )
     {
         delete result;
@@ -2968,7 +2968,7 @@ wxMBConv *wxCSConv::DoCreate() const
 
         if ( m_name )
         {
-            wxMBConv_iconv *conv = new wxMBConv_iconv(m_name);
+            wxMBConv_iconv *conv = NEW_DEBUG wxMBConv_iconv(m_name);
             if ( conv->IsOk() )
                 return conv;
 
@@ -2987,7 +2987,7 @@ wxMBConv *wxCSConv::DoCreate() const
                 if ( it->second.empty() )
                     return NULL;
 
-                wxMBConv_iconv *conv = new wxMBConv_iconv(it->second.ToAscii());
+                wxMBConv_iconv *conv = NEW_DEBUG wxMBConv_iconv(it->second.ToAscii());
                 if ( conv->IsOk() )
                     return conv;
 
@@ -3007,7 +3007,7 @@ wxMBConv *wxCSConv::DoCreate() const
                     // FIXME-UTF8: wxFontMapperBase::GetAllEncodingNames()
                     //             will need changes that will obsolete this
                     wxString name(*names);
-                    wxMBConv_iconv *conv = new wxMBConv_iconv(name.ToAscii());
+                    wxMBConv_iconv *conv = NEW_DEBUG wxMBConv_iconv(name.ToAscii());
                     if ( conv->IsOk() )
                     {
                         gs_nameCache[encoding] = *names;
@@ -3027,10 +3027,10 @@ wxMBConv *wxCSConv::DoCreate() const
 #ifdef wxHAVE_WIN32_MB2WC
     {
 #if wxUSE_FONTMAP
-        wxMBConv_win32 *conv = m_name ? new wxMBConv_win32(m_name)
-                                      : new wxMBConv_win32(m_encoding);
+        wxMBConv_win32 *conv = m_name ? NEW_DEBUG wxMBConv_win32(m_name)
+                                      : NEW_DEBUG wxMBConv_win32(m_encoding);
 #else
-        wxMBConv_win32* conv = new wxMBConv_win32(m_encoding);
+        wxMBConv_win32* conv = NEW_DEBUG wxMBConv_win32(m_encoding);
 #endif
         if ( conv->IsOk() )
             return conv;
@@ -3046,10 +3046,10 @@ wxMBConv *wxCSConv::DoCreate() const
             ( m_encoding >= wxFONTENCODING_MACMIN && m_encoding <= wxFONTENCODING_MACMAX ) ) )
         {
 #if wxUSE_FONTMAP
-            wxMBConv_cf *conv = m_name ? new wxMBConv_cf(m_name)
-                                          : new wxMBConv_cf(m_encoding);
+            wxMBConv_cf *conv = m_name ? NEW_DEBUG wxMBConv_cf(m_name)
+                                          : NEW_DEBUG wxMBConv_cf(m_encoding);
 #else
-            wxMBConv_cf *conv = new wxMBConv_cf(m_encoding);
+            wxMBConv_cf *conv = NEW_DEBUG wxMBConv_cf(m_encoding);
 #endif
 
             if ( conv->IsOk() )
@@ -3075,22 +3075,22 @@ wxMBConv *wxCSConv::DoCreate() const
     switch ( enc )
     {
         case wxFONTENCODING_UTF7:
-             return new wxMBConvUTF7;
+             return NEW_DEBUG wxMBConvUTF7;
 
         case wxFONTENCODING_UTF8:
-             return new wxMBConvUTF8;
+             return NEW_DEBUG wxMBConvUTF8;
 
         case wxFONTENCODING_UTF16BE:
-             return new wxMBConvUTF16BE;
+             return NEW_DEBUG wxMBConvUTF16BE;
 
         case wxFONTENCODING_UTF16LE:
-             return new wxMBConvUTF16LE;
+             return NEW_DEBUG wxMBConvUTF16LE;
 
         case wxFONTENCODING_UTF32BE:
-             return new wxMBConvUTF32BE;
+             return NEW_DEBUG wxMBConvUTF32BE;
 
         case wxFONTENCODING_UTF32LE:
-             return new wxMBConvUTF32LE;
+             return NEW_DEBUG wxMBConvUTF32LE;
 
         default:
              // nothing to do but put here to suppress gcc warnings
@@ -3100,8 +3100,8 @@ wxMBConv *wxCSConv::DoCreate() const
     // step (3)
 #if wxUSE_FONTMAP
     {
-        wxMBConv_wxwin *conv = m_name ? new wxMBConv_wxwin(m_name)
-                                      : new wxMBConv_wxwin(m_encoding);
+        wxMBConv_wxwin *conv = m_name ? NEW_DEBUG wxMBConv_wxwin(m_name)
+                                      : NEW_DEBUG wxMBConv_wxwin(m_encoding);
         if ( conv->IsOk() )
             return conv;
 

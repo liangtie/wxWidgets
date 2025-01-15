@@ -111,14 +111,14 @@ Life::Life()
 
     // pattern data
     m_numcells    = 0;
-    m_boxes       = new LifeCellBox *[HASHSIZE];
+    m_boxes       = NEW_DEBUG LifeCellBox *[HASHSIZE];
     m_head        = NULL;
     m_available   = NULL;
     for (int i = 0; i < HASHSIZE; i++)
         m_boxes[i] = NULL;
 
     // state vars for BeginFind & FindMore
-    m_cells       = new LifeCell[CELLSARRAYSIZE];
+    m_cells       = NEW_DEBUG LifeCell[CELLSARRAYSIZE];
     m_ncells      = 0;
     m_findmore    = false;
     m_changed     = false;
@@ -242,7 +242,7 @@ void Life::SetPattern(const LifePattern& pattern)
 
 // CreateBox:
 //  Creates a box in x, y, either taking it from the list
-//  of available boxes, or allocating a new one.
+//  of available boxes, or allocating a NEW_DEBUG one.
 //
 LifeCellBox* Life::CreateBox(wxInt32 x, wxInt32 y, wxUint32 hv)
 {
@@ -252,7 +252,7 @@ LifeCellBox* Life::CreateBox(wxInt32 x, wxInt32 y, wxUint32 hv)
     if (!m_available)
         for (int i = 1; i <= ALLOCBOXES; i++)
         {
-            c = new LifeCellBox();
+            c = NEW_DEBUG LifeCellBox();
 
             if (!c)
             {
@@ -295,7 +295,7 @@ LifeCellBox* Life::CreateBox(wxInt32 x, wxInt32 y, wxUint32 hv)
 
 // LinkBox:
 //  Returns a pointer to the box (x, y); if it didn't exist yet,
-//  it returns NULL or creates a new one, depending on the value
+//  it returns NULL or creates a NEW_DEBUG one, depending on the value
 //  of the 'create' parameter.
 //
 LifeCellBox* Life::LinkBox(wxInt32 x, wxInt32 y, bool create)
@@ -311,7 +311,7 @@ LifeCellBox* Life::LinkBox(wxInt32 x, wxInt32 y, bool create)
     for (c = m_boxes[hv]; c; c = c->m_hnext)
         if ((c->m_x == x) && (c->m_y == y)) return c;
 
-    // if not found, and (create == true), create a new one
+    // if not found, and (create == true), create a NEW_DEBUG one
     return create? CreateBox(x, y, hv) : (LifeCellBox*) NULL;
 }
 
@@ -932,7 +932,7 @@ wxIMPLEMENT_DYNAMIC_CLASS(LifeModule, wxModule);
 bool LifeModule::OnInit()
 {
     // see below
-    g_tab = new unsigned char [0xfffff];
+    g_tab = NEW_DEBUG unsigned char [0xfffff];
 
     if (!g_tab) return false;
 

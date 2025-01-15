@@ -55,7 +55,7 @@
 // private classes
 // ----------------------------------------------------------------------------
 
-// Define a new application type
+// Define a NEW_DEBUG application type
 class MyApp: public wxApp
 {
 public:
@@ -77,7 +77,7 @@ protected:
     } m_setLocale;
 };
 
-// Define a new frame type
+// Define a NEW_DEBUG frame type
 class MyFrame: public wxFrame
 {
 public:
@@ -244,7 +244,7 @@ bool MyApp::OnInit()
         wxFileTranslationsLoader::AddCatalogLookupPathPrefix(".");
 
         // Create the object for message translation and set it up for global use.
-        wxTranslations* const trans = new wxTranslations();
+        wxTranslations* const trans = NEW_DEBUG wxTranslations();
         wxTranslations::Set(trans);
 
         // Initialize the catalogs we'll be using.
@@ -270,7 +270,7 @@ bool MyApp::OnInit()
     }
 
     // Create the main frame window
-    MyFrame *frame = new MyFrame();
+    MyFrame *frame = NEW_DEBUG MyFrame();
 
     // Show the frame
     frame->Show(true);
@@ -291,7 +291,7 @@ MyFrame::MyFrame()
     SetIcon(wxICON(sample));
 
     // Make a menubar
-    wxMenu *file_menu = new wxMenu;
+    wxMenu *file_menu = NEW_DEBUG wxMenu;
     file_menu->Append(INTERNAT_TEST, _("&Test locale availability...\tCtrl-T"));
     file_menu->AppendSeparator();
 
@@ -299,7 +299,7 @@ MyFrame::MyFrame()
     // string; nice isn't it?
     file_menu->Append(wxID_EXIT, _("E&xit"));
 
-    wxMenu *test_menu = new wxMenu;
+    wxMenu *test_menu = NEW_DEBUG wxMenu;
     test_menu->Append(wxID_OPEN, _("&Open bogus file"), _("Shows a wxWidgets localized error message"));
     test_menu->Append(wxID_SAVE, _("&Save dummy file"), _("Shows a localized standard dialog"));
     test_menu->Append(INTERNAT_PLAY, _("&Play a game"), _("A little game; hint: 17 is a lucky number for many"));
@@ -312,7 +312,7 @@ MyFrame::MyFrame()
 
     // Note that all these strings are currently "translated" only in French
     // catalog, so you need to use French locale to see them in action.
-    wxMenu *macro_menu = new wxMenu;
+    wxMenu *macro_menu = NEW_DEBUG wxMenu;
     macro_menu->Append(INTERNAT_MACRO_1, _("item"));
     macro_menu->Append(INTERNAT_MACRO_2, wxGETTEXT_IN_CONTEXT("context_1", "item"));
     macro_menu->Append(INTERNAT_MACRO_3, wxGETTEXT_IN_CONTEXT("context_2", "item"));
@@ -323,14 +323,14 @@ MyFrame::MyFrame()
     macro_menu->Append(INTERNAT_MACRO_8, wxGETTEXT_IN_CONTEXT_PLURAL("context_2", "sing", "plur", 1));
     macro_menu->Append(INTERNAT_MACRO_9, wxGETTEXT_IN_CONTEXT_PLURAL("context_2", "sing", "plur", 2));
 
-    wxMenu *help_menu = new wxMenu;
+    wxMenu *help_menu = NEW_DEBUG wxMenu;
 #ifdef USE_COREUTILS_MO
     help_menu->Append(wxID_HELP, _("Show coreutils &help"));
     help_menu->AppendSeparator();
 #endif // USE_COREUTILS_MO
     help_menu->Append(wxID_ABOUT, _("&About"));
 
-    wxMenuBar *menu_bar = new wxMenuBar;
+    wxMenuBar *menu_bar = NEW_DEBUG wxMenuBar;
     // Using stock label here means that it will be automatically translated.
     menu_bar->Append(file_menu, wxGetStockLabel(wxID_FILE));
     menu_bar->Append(test_menu, _("&Test"));
@@ -346,12 +346,12 @@ MyFrame::MyFrame()
     // this demonstrates RTL support in wxStatusBar:
     CreateStatusBar(1);
 
-    wxPanel* const panel = new wxPanel(this);
+    wxPanel* const panel = NEW_DEBUG wxPanel(this);
 
-    wxSizer* const topSizer = new wxBoxSizer(wxVERTICAL);
+    wxSizer* const topSizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
     // create controls showing the locale being used
-    topSizer->Add(new wxStaticText
+    topSizer->Add(NEW_DEBUG wxStaticText
                       (
                         panel,
                         wxID_ANY,
@@ -364,7 +364,7 @@ MyFrame::MyFrame()
                       ),
                   wxSizerFlags().Center().Border());
 
-    topSizer->Add(new wxStaticText
+    topSizer->Add(NEW_DEBUG wxStaticText
                       (
                         panel,
                         wxID_ANY,
@@ -376,7 +376,7 @@ MyFrame::MyFrame()
                       ),
                   wxSizerFlags().Center().Border());
 
-    topSizer->Add(new wxStaticText
+    topSizer->Add(NEW_DEBUG wxStaticText
                       (
                         panel,
                         wxID_ANY,
@@ -392,11 +392,11 @@ MyFrame::MyFrame()
 
     // this demonstrates RTL layout mirroring for Arabic locales and using
     // locale-specific decimal separator in wxSpinCtrlDouble.
-    wxSizer *sizer = new wxBoxSizer(wxHORIZONTAL);
-    sizer->Add(new wxStaticText(panel, wxID_ANY, _("Numeric input:")),
+    wxSizer *sizer = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
+    sizer->Add(NEW_DEBUG wxStaticText(panel, wxID_ANY, _("Numeric input:")),
                wxSizerFlags().Center().Border());
 
-    wxSpinCtrlDouble* const spin = new wxSpinCtrlDouble(panel, wxID_ANY);
+    wxSpinCtrlDouble* const spin = NEW_DEBUG wxSpinCtrlDouble(panel, wxID_ANY);
     spin->SetDigits(2);
     spin->SetValue(12.34);
     sizer->Add(spin, wxSizerFlags().Center().Border());
@@ -404,11 +404,11 @@ MyFrame::MyFrame()
     topSizer->Add(sizer, wxSizerFlags().Center());
 
     // show that week days and months names are translated too
-    topSizer->Add(new wxCalendarCtrl(panel, wxID_ANY),
+    topSizer->Add(NEW_DEBUG wxCalendarCtrl(panel, wxID_ANY),
                   wxSizerFlags().Center().Border());
 
     // another control using locale-specific number and date format
-    wxGrid* const grid = new wxGrid(panel, wxID_ANY,
+    wxGrid* const grid = NEW_DEBUG wxGrid(panel, wxID_ANY,
                                     wxDefaultPosition, wxDefaultSize,
                                     wxBORDER_SIMPLE);
     grid->CreateGrid(2, 2);
@@ -428,7 +428,7 @@ MyFrame::MyFrame()
     // floating point number > 1000) between wxString::Format() and
     // wxNumberFormatter: the former uses the current C locale, while the
     // latter uses the UI locale
-    topSizer->Add(new wxStaticText
+    topSizer->Add(NEW_DEBUG wxStaticText
                       (
                         panel,
                         wxID_ANY,

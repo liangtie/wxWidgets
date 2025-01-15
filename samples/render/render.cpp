@@ -88,21 +88,21 @@ class MyTraits : public wxGUIAppTraits
     virtual wxRendererNative *CreateRenderer() wxOVERRIDE
     {
         // it will be deleted on program shutdown by wxWidgets itself
-        return new MyRenderer;
+        return NEW_DEBUG MyRenderer;
     }
 };
 
-// Define a new application type, each program should derive a class from wxApp
+// Define a NEW_DEBUG application type, each program should derive a class from wxApp
 class MyApp : public wxApp
 {
 public:
     virtual bool OnInit() wxOVERRIDE;
 
     // if we want MyTraits to be used we must override CreateTraits()
-    virtual wxAppTraits *CreateTraits() wxOVERRIDE { return new MyTraits; }
+    virtual wxAppTraits *CreateTraits() wxOVERRIDE { return NEW_DEBUG MyTraits; }
 };
 
-// Define a new frame type: this is going to be our main frame
+// Define a NEW_DEBUG frame type: this is going to be our main frame
 class MyFrame : public wxFrame
 {
 public:
@@ -527,7 +527,7 @@ wxBEGIN_EVENT_TABLE(MyFrame, wxFrame)
     EVT_MENU(Render_About, MyFrame::OnAbout)
 wxEND_EVENT_TABLE()
 
-// Create a new application object: this macro will allow wxWidgets to create
+// Create a NEW_DEBUG application object: this macro will allow wxWidgets to create
 // the application object during program execution (it's better than using a
 // static object for many reasons) and also implements the accessor function
 // wxGetApp() which will return the reference of the right type (i.e. MyApp and
@@ -552,11 +552,11 @@ bool MyApp::OnInit()
     // currently the images used by DrawTitleBarBitmap() are hard coded as PNG
     // images inside the library itself so we need to enable PNG support to use
     // this function
-    wxImage::AddHandler(new wxPNGHandler);
+    wxImage::AddHandler(NEW_DEBUG wxPNGHandler);
 #endif // OS X
 
     // create the main application window
-    new MyFrame;
+    NEW_DEBUG MyFrame;
 
     return true;
 }
@@ -576,7 +576,7 @@ MyFrame::MyFrame()
 
 #if wxUSE_MENUS
     // create a menu bar
-    wxMenu *menuFile = new wxMenu;
+    wxMenu *menuFile = NEW_DEBUG wxMenu;
     menuFile->AppendCheckItem(Render_DrawDisabled,
                               "Draw in &disabled state\tCtrl-D");
     menuFile->AppendCheckItem(Render_DrawFocused,
@@ -614,7 +614,7 @@ MyFrame::MyFrame()
     menuFile->Append(Render_Quit);
 
 #if wxUSE_GRAPHICS_CONTEXT
-    wxMenu* menuDC = new wxMenu;
+    wxMenu* menuDC = NEW_DEBUG wxMenu;
     // Number the different renderer choices consecutively, starting from 0.
     int accel = 0;
     menuDC->AppendRadioItem(DC_DC, wxString::Format("Use wx&DC\t%i", accel++));
@@ -633,11 +633,11 @@ MyFrame::MyFrame()
 #endif // wxUSE_GRAPHICS_CONTEXT
 
     // the "About" item should be in the help menu
-    wxMenu *helpMenu = new wxMenu;
+    wxMenu *helpMenu = NEW_DEBUG wxMenu;
     helpMenu->Append(Render_About);
 
     // now append the freshly created menu to the menu bar...
-    wxMenuBar *menuBar = new wxMenuBar();
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar();
     menuBar->Append(menuFile, "&File");
 #if wxUSE_GRAPHICS_CONTEXT
     menuBar->Append(menuDC, "&DC");
@@ -648,7 +648,7 @@ MyFrame::MyFrame()
     SetMenuBar(menuBar);
 #endif // wxUSE_MENUS
 
-    m_panel = new MyPanel(this);
+    m_panel = NEW_DEBUG MyPanel(this);
 
     SetClientSize(600, 600);
 

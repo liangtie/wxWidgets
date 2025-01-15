@@ -176,7 +176,7 @@ wxSizerItem* wxGridBagSizer::Add( wxWindow *window,
                                   const wxGBPosition& pos, const wxGBSpan& span,
                                   int flag, int border,  wxObject* userData )
 {
-    wxGBSizerItem* item = new wxGBSizerItem(window, pos, span, flag, border, userData);
+    wxGBSizerItem* item = NEW_DEBUG wxGBSizerItem(window, pos, span, flag, border, userData);
     if ( Add(item) )
         return item;
 
@@ -188,7 +188,7 @@ wxSizerItem* wxGridBagSizer::Add( wxSizer *sizer,
                           const wxGBPosition& pos, const wxGBSpan& span,
                           int flag, int border,  wxObject* userData )
 {
-    wxGBSizerItem* item = new wxGBSizerItem(sizer, pos, span, flag, border, userData);
+    wxGBSizerItem* item = NEW_DEBUG wxGBSizerItem(sizer, pos, span, flag, border, userData);
     if ( Add(item) )
         return item;
 
@@ -200,7 +200,7 @@ wxSizerItem* wxGridBagSizer::Add( int width, int height,
                           const wxGBPosition& pos, const wxGBSpan& span,
                           int flag, int border,  wxObject* userData )
 {
-    wxGBSizerItem* item = new wxGBSizerItem(width, height, pos, span, flag, border, userData);
+    wxGBSizerItem* item = NEW_DEBUG wxGBSizerItem(width, height, pos, span, flag, border, userData);
     if ( Add(item) )
         return item;
 

@@ -204,10 +204,10 @@ void wxOverlayImpl::Init( wxDC* dc, int x , int y , int width , int height )
             m_bmpSaved.Create(width, height, *dc);
             wxMemoryDC dcMem(m_bmpSaved);
 
-            // Get new area from window
+            // Get NEW_DEBUG area from window
             dcMem.Blit(rect.x - x, rect.y - y, rect.width, rect.height, dc, rect.x, rect.y);
 
-            // Copy old area to new position
+            // Copy old area to NEW_DEBUG position
             dcMem.DrawBitmap(bmpOld, m_x - x, m_y - y);
 
             m_x = x;
@@ -251,7 +251,7 @@ void wxOverlayImpl::EndDrawing(wxDC* WXUNUSED(dc))
 #ifndef wxHAS_NATIVE_OVERLAY
 wxOverlay::Impl* wxOverlay::Create()
 {
-    return new wxOverlayImpl;
+    return NEW_DEBUG wxOverlayImpl;
 }
 #endif
 
@@ -262,7 +262,7 @@ wxOverlay::wxOverlay()
     m_impl = Create();
 #if defined(wxHAS_GENERIC_OVERLAY) && defined(wxHAS_NATIVE_OVERLAY)
     if (m_impl == NULL)
-        m_impl = new wxOverlayImpl;
+        m_impl = NEW_DEBUG wxOverlayImpl;
 #endif
     m_inDrawing = false;
 }

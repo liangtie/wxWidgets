@@ -70,7 +70,7 @@ static wxClipboard *gs_clipboard = NULL;
 {
     if ( !gs_clipboard )
     {
-        gs_clipboard = new wxClipboard;
+        gs_clipboard = NEW_DEBUG wxClipboard;
     }
     return gs_clipboard;
 }
@@ -79,7 +79,7 @@ bool wxClipboardBase::IsSupportedAsync( wxEvtHandler *sink )
 {
     // We just imitate an asynchronous API on most platforms.
     // This method is overridden uner GTK.
-    wxClipboardEvent *event = new wxClipboardEvent(wxEVT_CLIPBOARD_CHANGED);
+    wxClipboardEvent *event = NEW_DEBUG wxClipboardEvent(wxEVT_CLIPBOARD_CHANGED);
     event->SetEventObject( this );
 
     sink->QueueEvent( event );

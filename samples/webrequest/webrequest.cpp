@@ -49,11 +49,11 @@ public:
         Bind(wxEVT_CLOSE_WINDOW, &WebRequestFrame::OnClose, this);
 
         // Prepare UI controls
-        wxSizer* mainSizer = new wxBoxSizer(wxVERTICAL);
+        wxSizer* mainSizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
-        mainSizer->Add(new wxStaticText(this, wxID_ANY, "Request URL:"),
+        mainSizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "Request URL:"),
             wxSizerFlags().Border());
-        m_urlTextCtrl = new wxTextCtrl(this, wxID_ANY,
+        m_urlTextCtrl = NEW_DEBUG wxTextCtrl(this, wxID_ANY,
             "https://www.wxwidgets.org/downloads/logos/blocks.png",
             wxDefaultPosition, wxDefaultSize,
             wxTE_PROCESS_ENTER);
@@ -61,14 +61,14 @@ public:
             wxSizerFlags().Expand().Border(wxLEFT | wxRIGHT));
         m_urlTextCtrl->Bind(wxEVT_TEXT_ENTER, &WebRequestFrame::OnStartButton, this);
 
-        m_notebook = new wxNotebook(this, wxID_ANY);
+        m_notebook = NEW_DEBUG wxNotebook(this, wxID_ANY);
         m_notebook->Bind(wxEVT_NOTEBOOK_PAGE_CHANGED, &WebRequestFrame::OnNotebookPageChanged, this);
 
         // Image page
-        wxPanel* imagePanel = new wxPanel(m_notebook);
-        wxSizer* imageSizer = new wxBoxSizer(wxVERTICAL);
+        wxPanel* imagePanel = NEW_DEBUG wxPanel(m_notebook);
+        wxSizer* imageSizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
-        m_imageStaticBitmap = new wxStaticBitmap(imagePanel,
+        m_imageStaticBitmap = NEW_DEBUG wxStaticBitmap(imagePanel,
             wxID_ANY, wxArtProvider::GetBitmap(wxART_MISSING_IMAGE));
         imageSizer->Add(m_imageStaticBitmap, wxSizerFlags(1).Expand());
 
@@ -76,29 +76,29 @@ public:
         m_notebook->AddPage(imagePanel, "Image", true);
 
         // Text page
-        wxPanel* textPanel = new wxPanel(m_notebook);
-        wxSizer* textSizer = new wxBoxSizer(wxVERTICAL);
+        wxPanel* textPanel = NEW_DEBUG wxPanel(m_notebook);
+        wxSizer* textSizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
-        m_postCheckBox = new wxCheckBox(textPanel, wxID_ANY, "Post request body");
+        m_postCheckBox = NEW_DEBUG wxCheckBox(textPanel, wxID_ANY, "Post request body");
         textSizer->Add(m_postCheckBox, wxSizerFlags().Border());
         m_postCheckBox->Bind(wxEVT_CHECKBOX, &WebRequestFrame::OnPostCheckBox, this);
 
-        m_postRequestTextCtrl = new wxTextCtrl(textPanel, wxID_ANY,
+        m_postRequestTextCtrl = NEW_DEBUG wxTextCtrl(textPanel, wxID_ANY,
             "app=WebRequestSample&version=1",
             wxDefaultPosition, wxSize(-1, FromDIP(60)), wxTE_MULTILINE);
         textSizer->Add(m_postRequestTextCtrl,
             wxSizerFlags().Expand().Border(wxLEFT | wxRIGHT));
 
-        textSizer->Add(new wxStaticText(textPanel, wxID_ANY, "Request body content type:"),
+        textSizer->Add(NEW_DEBUG wxStaticText(textPanel, wxID_ANY, "Request body content type:"),
             wxSizerFlags().Border());
-        m_postContentTypeTextCtrl = new wxTextCtrl(textPanel, wxID_ANY,
+        m_postContentTypeTextCtrl = NEW_DEBUG wxTextCtrl(textPanel, wxID_ANY,
             "application/x-www-form-urlencoded");
         textSizer->Add(m_postContentTypeTextCtrl,
             wxSizerFlags().Expand().Border(wxLEFT | wxRIGHT));
 
-        textSizer->Add(new wxStaticText(textPanel, wxID_ANY, "Response body:"),
+        textSizer->Add(NEW_DEBUG wxStaticText(textPanel, wxID_ANY, "Response body:"),
             wxSizerFlags().Border());
-        m_textResponseTextCtrl = new wxTextCtrl(textPanel, wxID_ANY, "",
+        m_textResponseTextCtrl = NEW_DEBUG wxTextCtrl(textPanel, wxID_ANY, "",
             wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE | wxTE_READONLY);
         m_textResponseTextCtrl->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_BTNFACE));
         textSizer->Add(m_textResponseTextCtrl,
@@ -108,17 +108,17 @@ public:
         m_notebook->AddPage(textPanel, "Text");
 
         // Download page
-        wxPanel* downloadPanel = new wxPanel(m_notebook);
-        wxSizer* downloadSizer = new wxBoxSizer(wxVERTICAL);
-        wxStaticText* downloadHeader = new wxStaticText(downloadPanel, wxID_ANY,
+        wxPanel* downloadPanel = NEW_DEBUG wxPanel(m_notebook);
+        wxSizer* downloadSizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
+        wxStaticText* downloadHeader = NEW_DEBUG wxStaticText(downloadPanel, wxID_ANY,
             "The URL will be downloaded to a file.\n"
             "Progress will be shown and you will be asked, where\n"
             "to save the file when the download completed.");
         downloadSizer->Add(downloadHeader, wxSizerFlags().Expand().Border());
         downloadSizer->AddStretchSpacer();
-        m_downloadGauge = new wxGauge(downloadPanel, wxID_ANY, 100);
+        m_downloadGauge = NEW_DEBUG wxGauge(downloadPanel, wxID_ANY, 100);
         downloadSizer->Add(m_downloadGauge, wxSizerFlags().Expand().Border());
-        m_downloadStaticText = new wxStaticText(downloadPanel, wxID_ANY, "");
+        m_downloadStaticText = NEW_DEBUG wxStaticText(downloadPanel, wxID_ANY, "");
         downloadSizer->Add(m_downloadStaticText, wxSizerFlags().Expand().Border());
 
         downloadSizer->AddStretchSpacer();
@@ -127,16 +127,16 @@ public:
         m_notebook->AddPage(downloadPanel, "Download");
 
         // Advanced page
-        wxPanel* advancedPanel = new wxPanel(m_notebook);
-        wxSizer* advSizer = new wxBoxSizer(wxVERTICAL);
-        wxStaticText* advHeader = new wxStaticText(advancedPanel, wxID_ANY,
+        wxPanel* advancedPanel = NEW_DEBUG wxPanel(m_notebook);
+        wxSizer* advSizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
+        wxStaticText* advHeader = NEW_DEBUG wxStaticText(advancedPanel, wxID_ANY,
             "As an example of processing data while\n"
             "it's being received from the server, every\n"
             "zero byte in the response will be counted below.");
         advSizer->Add(advHeader, wxSizerFlags().Expand().Border());
 
         advSizer->AddStretchSpacer();
-        m_advCountStaticText = new wxStaticText(advancedPanel, wxID_ANY, "0",
+        m_advCountStaticText = NEW_DEBUG wxStaticText(advancedPanel, wxID_ANY, "0",
             wxDefaultPosition, wxDefaultSize, wxALIGN_CENTRE_HORIZONTAL | wxST_NO_AUTORESIZE);
         m_advCountStaticText->SetFont(m_advCountStaticText->GetFont()
             .MakeBold().MakeLarger().MakeLarger());
@@ -149,13 +149,13 @@ public:
 
         mainSizer->Add(m_notebook, wxSizerFlags(1).Expand().Border());
 
-        wxStdDialogButtonSizer* btnSizer = new wxStdDialogButtonSizer();
-        m_cancelButton = new wxButton(this, wxID_CANCEL, "Cancel");
+        wxStdDialogButtonSizer* btnSizer = NEW_DEBUG wxStdDialogButtonSizer();
+        m_cancelButton = NEW_DEBUG wxButton(this, wxID_CANCEL, "Cancel");
         m_cancelButton->Bind(wxEVT_BUTTON, &WebRequestFrame::OnCancelButton, this);
         m_cancelButton->Disable();
         btnSizer->AddButton(m_cancelButton);
 
-        m_startButton = new wxButton(this, wxID_OK, "&Start Request");
+        m_startButton = NEW_DEBUG wxButton(this, wxID_OK, "&Start Request");
         m_startButton->Bind(wxEVT_BUTTON, &WebRequestFrame::OnStartButton, this);
         btnSizer->AddButton(m_startButton);
         btnSizer->Realize();
@@ -375,7 +375,7 @@ public:
 
         UpdateAdvCount();
 
-        // Make sure the new text is immediately visible.
+        // Make sure the NEW_DEBUG text is immediately visible.
         m_advCountStaticText->Update();
     }
 
@@ -494,7 +494,7 @@ public:
         wxInitAllImageHandlers();
 
         // create the main application window
-        WebRequestFrame *frame = new WebRequestFrame("wxWebRequest Sample App");
+        WebRequestFrame *frame = NEW_DEBUG WebRequestFrame("wxWebRequest Sample App");
         frame->Show(true);
 
         return true;

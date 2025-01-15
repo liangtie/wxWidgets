@@ -382,7 +382,7 @@ int wxListBox::DoInsertItems(const wxArrayStringsAdapter & items,
 
     const unsigned int numItems = items.GetCount();
 
-    XmString *text = new XmString[numItems];
+    XmString *text = NEW_DEBUG XmString[numItems];
     unsigned int i;
 #if XmVersion > 1001
     for (i = 0; i < numItems; i++)

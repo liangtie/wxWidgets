@@ -152,7 +152,7 @@ public:
         if ( inputId < 0 )
             return 0;
 
-        return new wxMotifEventLoopSource(inputId, handler, flags);
+        return NEW_DEBUG wxMotifEventLoopSource(inputId, handler, flags);
     }
 };
 
@@ -193,12 +193,12 @@ wxPortId wxGUIAppTraits::GetToolkitVersion(int *verMaj,
 
 wxEventLoopBase* wxGUIAppTraits::CreateEventLoop()
 {
-    return new wxEventLoop;
+    return NEW_DEBUG wxEventLoop;
 }
 
 wxTimerImpl* wxGUIAppTraits::CreateTimerImpl(wxTimer* timer)
 {
-    return new wxMotifTimerImpl(timer);
+    return NEW_DEBUG wxMotifTimerImpl(timer);
 }
 
 // ----------------------------------------------------------------------------
@@ -356,7 +356,7 @@ void wxAllocNearestColor(Display *d,Colormap cmp,XColor *xc)
     int screen = DefaultScreen(d);
     int num_colors = DisplayCells(d,screen);
 
-    XColor *color_defs = new XColor[num_colors];
+    XColor *color_defs = NEW_DEBUG XColor[num_colors];
     for(llp = 0;llp < num_colors;llp++) color_defs[llp].pixel = llp;
     XQueryColors(d,cmp,color_defs,num_colors);
 

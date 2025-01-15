@@ -85,19 +85,19 @@ bool wxNumberEntryDialog::Create(wxWindow *parent,
     m_max = max;
     m_min = min;
 
-    wxBoxSizer *topsizer = new wxBoxSizer( wxVERTICAL );
+    wxBoxSizer *topsizer = NEW_DEBUG wxBoxSizer( wxVERTICAL );
 #if wxUSE_STATTEXT
     // 1) text message
     topsizer->Add( CreateTextSizer( message ), wxSizerFlags().DoubleBorder() );
 #endif
 
     // 2) prompt and text ctrl
-    wxBoxSizer *inputsizer = new wxBoxSizer( wxHORIZONTAL );
+    wxBoxSizer *inputsizer = NEW_DEBUG wxBoxSizer( wxHORIZONTAL );
 
 #if wxUSE_STATTEXT
     // prompt if any
     if (!prompt.empty())
-        inputsizer->Add( new wxStaticText( this, wxID_ANY, prompt ),
+        inputsizer->Add( NEW_DEBUG wxStaticText( this, wxID_ANY, prompt ),
                          wxSizerFlags().Center().DoubleBorder(wxLEFT) );
 #endif
 
@@ -105,9 +105,9 @@ bool wxNumberEntryDialog::Create(wxWindow *parent,
     wxString valStr;
     valStr.Printf(wxT("%ld"), m_value);
 #if wxUSE_SPINCTRL
-    m_spinctrl = new wxSpinCtrl(this, wxID_ANY, valStr, wxDefaultPosition, wxSize( 140, wxDefaultCoord ), wxSP_ARROW_KEYS, (int)m_min, (int)m_max, (int)m_value);
+    m_spinctrl = NEW_DEBUG wxSpinCtrl(this, wxID_ANY, valStr, wxDefaultPosition, wxSize( 140, wxDefaultCoord ), wxSP_ARROW_KEYS, (int)m_min, (int)m_max, (int)m_value);
 #else
-    m_spinctrl = new wxTextCtrl(this, wxID_ANY, valStr, wxDefaultPosition, wxSize( 140, wxDefaultCoord ));
+    m_spinctrl = NEW_DEBUG wxTextCtrl(this, wxID_ANY, valStr, wxDefaultPosition, wxSize( 140, wxDefaultCoord ));
 #endif
     inputsizer->Add( m_spinctrl, wxSizerFlags(1).Center().DoubleBorder(wxLEFT | wxRIGHT));
     // add both

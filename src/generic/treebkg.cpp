@@ -86,7 +86,7 @@ wxTreebook::Create(wxWindow *parent,
                             style, wxDefaultValidator, name) )
         return false;
 
-    m_bookctrl = new wxTreeCtrl
+    m_bookctrl = NEW_DEBUG wxTreeCtrl
                  (
                     this,
                     wxID_ANY,
@@ -110,7 +110,7 @@ wxTreebook::Create(wxWindow *parent,
 }
 
 
-// insert a new page just before the pagePos
+// insert a NEW_DEBUG page just before the pagePos
 bool wxTreebook::InsertPage(size_t pagePos,
                             wxWindow *page,
                             const wxString& text,
@@ -163,7 +163,7 @@ bool wxTreebook::DoInsertPage(size_t pagePos,
 
         newId = tree->AppendItem(rootId, text, imageId);
     }
-    else // insert the new page before the given one
+    else // insert the NEW_DEBUG page before the given one
     {
         wxTreeItemId nodeId = m_treeIds[pagePos];
 
@@ -531,7 +531,7 @@ void wxTreebook::UpdateSelectedPage(size_t newsel)
 
 wxBookCtrlEvent* wxTreebook::CreatePageChangingEvent() const
 {
-    return new wxBookCtrlEvent(wxEVT_TREEBOOK_PAGE_CHANGING, m_windowId);
+    return NEW_DEBUG wxBookCtrlEvent(wxEVT_TREEBOOK_PAGE_CHANGING, m_windowId);
 }
 
 void wxTreebook::MakeChangedEvent(wxBookCtrlEvent &event)

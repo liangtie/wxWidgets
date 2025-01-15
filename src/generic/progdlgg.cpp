@@ -177,14 +177,14 @@ bool wxGenericProgressDialog::Create( const wxString& title,
     m_state = HasPDFlag(wxPD_CAN_ABORT) ? Continue : Uncancelable;
 
     // top-level sizerTop
-    wxSizer * const sizerTop = new wxBoxSizer(wxVERTICAL);
+    wxSizer * const sizerTop = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
     // We use wxST_NO_AUTORESIZE to prevent the label from snapping back to
     // smaller size if the message becomes shorter: we need this because we
     // always increase its size to fit the longest message and so we assume
     // that its current size is always this longest size and not some maybe
     // shorter size.
-    m_msg = new wxStaticText(this, wxID_ANY, message,
+    m_msg = NEW_DEBUG wxStaticText(this, wxID_ANY, message,
                              wxDefaultPosition, wxDefaultSize,
                              wxST_NO_AUTORESIZE);
     sizerTop->Add(m_msg, 0, wxLEFT | wxRIGHT | wxTOP, 2*LAYOUT_MARGIN);
@@ -198,7 +198,7 @@ bool wxGenericProgressDialog::Create( const wxString& title,
     maximum /= m_factor;
 #endif
 
-    m_gauge = new wxGauge
+    m_gauge = NEW_DEBUG wxGauge
                   (
                     this,
                     wxID_ANY,
@@ -217,7 +217,7 @@ bool wxGenericProgressDialog::Create( const wxString& title,
     m_estimated =
     m_remaining = NULL;
 
-    wxSizer * const sizerLabels = new wxFlexGridSizer(2);
+    wxSizer * const sizerLabels = NEW_DEBUG wxFlexGridSizer(2);
 
     if ( style & wxPD_ELAPSED_TIME )
     {
@@ -244,14 +244,14 @@ bool wxGenericProgressDialog::Create( const wxString& title,
 
     if ( HasPDFlag(wxPD_CAN_SKIP) )
     {
-        m_btnSkip = new wxButton(this, wxID_SKIP, _("&Skip"));
+        m_btnSkip = NEW_DEBUG wxButton(this, wxID_SKIP, _("&Skip"));
 
         buttonSizer->SetNegativeButton(m_btnSkip);
     }
 
     if ( HasPDFlag(wxPD_CAN_ABORT) )
     {
-        m_btnAbort = new wxButton(this, wxID_CANCEL);
+        m_btnAbort = NEW_DEBUG wxButton(this, wxID_CANCEL);
 
         buttonSizer->SetCancelButton(m_btnAbort);
     }
@@ -362,7 +362,7 @@ void wxGenericProgressDialog::EnsureActiveEventLoopExists()
 {
     if ( !wxEventLoopBase::GetActive() )
     {
-        m_tempEventLoop = new wxEventLoop;
+        m_tempEventLoop = NEW_DEBUG wxEventLoop;
         wxEventLoop::SetActive(m_tempEventLoop);
     }
 }
@@ -370,8 +370,8 @@ void wxGenericProgressDialog::EnsureActiveEventLoopExists()
 wxStaticText *
 wxGenericProgressDialog::CreateLabel(const wxString& text, wxSizer *sizer)
 {
-    wxStaticText *label = new wxStaticText(this, wxID_ANY, text);
-    wxStaticText *value = new wxStaticText(this, wxID_ANY, _("unknown"));
+    wxStaticText *label = NEW_DEBUG wxStaticText(this, wxID_ANY, text);
+    wxStaticText *value = NEW_DEBUG wxStaticText(this, wxID_ANY, _("unknown"));
 
     // select placement most native or nice on target GUI
 #if defined(__WXMSW__) || defined(__WXMAC__) || defined(__WXGTK20__)
@@ -457,7 +457,7 @@ wxGenericProgressDialog::Update(int value, const wxString& newmsg, bool *skip)
             //       should be no side-effects
             wxEventLoopBase::GetActive()->YieldFor(wxEVT_CATEGORY_UI);
 
-            // NOTE: this call results in a new event loop being created
+            // NOTE: this call results in a NEW_DEBUG event loop being created
             //       and to a call to ProcessPendingEvents() (which may generate
             //       unwanted re-entrancies).
             (void)ShowModal();
@@ -703,7 +703,7 @@ wxGenericProgressDialog::~wxGenericProgressDialog()
         // If another event loop has been installed as active during the life
         // time of this object, we shouldn't deactivate it, but we also can't
         // delete our m_tempEventLoop in this case because it risks leaving the
-        // new event loop with a dangling pointer, which it will set back as
+        // NEW_DEBUG event loop with a dangling pointer, which it will set back as
         // the active loop when it exits, resulting in a crash. So we have no
         // choice but to just leak this pointer then, which is, of course, bad
         // and usually easily avoidable by just destroying the progress dialog
@@ -724,7 +724,7 @@ void wxGenericProgressDialog::DisableOtherWindows()
 {
     if ( HasPDFlag(wxPD_APP_MODAL) )
     {
-        m_winDisabler = new wxWindowDisabler(this);
+        m_winDisabler = NEW_DEBUG wxWindowDisabler(this);
     }
     else
     {
@@ -797,7 +797,7 @@ void wxGenericProgressDialog::UpdateMessage(const wxString &newmsg)
         {
             m_msg->SetSize(sizeNeeded);
 
-            // Resize the dialog to fit its new, longer contents instead of
+            // Resize the dialog to fit its NEW_DEBUG, longer contents instead of
             // just truncating it.
             Fit();
         }

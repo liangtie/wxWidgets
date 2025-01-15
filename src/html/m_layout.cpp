@@ -37,7 +37,7 @@ FORCE_LINK_ME(m_layout)
 //
 // wxHtml maintains page breaks in wxHtmlPrintout::m_PageBreaks. The
 // tag handler below adds appropriate offsets to that array member.
-// wxHtmlDCRenderer::Render() accesses that array and makes a new page
+// wxHtmlDCRenderer::Render() accesses that array and makes a NEW_DEBUG page
 // begin after each page-break tag.
 
 // The page-break handler does all its work in AdjustPagebreak(). For
@@ -55,7 +55,7 @@ FORCE_LINK_ME(m_layout)
 // a page break, it would never 'fit' on the following page either.
 // Therefore it's necessary to compare each pagebreak candidate to the
 // array wxHtmlPrintout::m_PageBreaks of pagebreaks already set, and
-// set a new one only if it's not in that array.
+// set a NEW_DEBUG one only if it's not in that array.
 
 class wxHtmlPageBreakCell : public wxHtmlCell
 {
@@ -179,7 +179,7 @@ TAG_HANDLER_BEGIN(DIV, "DIV")
             if(style.IsSameAs(wxT("PAGE-BREAK-BEFORE:ALWAYS"), false))
             {
                 m_WParser->CloseContainer();
-                m_WParser->OpenContainer()->InsertCell(new wxHtmlPageBreakCell);
+                m_WParser->OpenContainer()->InsertCell(NEW_DEBUG wxHtmlPageBreakCell);
                 m_WParser->CloseContainer();
                 m_WParser->OpenContainer();
                 return false;
@@ -190,7 +190,7 @@ TAG_HANDLER_BEGIN(DIV, "DIV")
                 wxHtmlContainerCell *c = m_WParser->GetContainer();
                 if (c->GetFirstChild() != NULL)
                 {
-                    // If not, open a new one.
+                    // If not, open a NEW_DEBUG one.
                     m_WParser->CloseContainer();
                     c = m_WParser->OpenContainer();
                 }
@@ -206,7 +206,7 @@ TAG_HANDLER_BEGIN(DIV, "DIV")
                 ParseInner(tag);
 
                 // Close both the inner and the outer containers and reopen the
-                // new current one.
+                // NEW_DEBUG current one.
                 m_WParser->CloseContainer();
                 m_WParser->CloseContainer();
                 m_WParser->OpenContainer();
@@ -310,7 +310,7 @@ TAG_HANDLER_BEGIN(BODY, "BODY")
         if (tag.GetParamAsColour(wxT("TEXT"), &clr))
         {
             m_WParser->SetActualColor(clr);
-            m_WParser->GetContainer()->InsertCell(new wxHtmlColourCell(clr));
+            m_WParser->GetContainer()->InsertCell(NEW_DEBUG wxHtmlColourCell(clr));
         }
 
         if (tag.GetParamAsColour(wxT("LINK"), &clr))
@@ -342,7 +342,7 @@ TAG_HANDLER_BEGIN(BODY, "BODY")
         if (tag.GetParamAsColour(wxT("BGCOLOR"), &clr))
         {
             m_WParser->GetContainer()->InsertCell(
-                new wxHtmlColourCell(clr, wxHTML_CLR_TRANSPARENT_BACKGROUND));
+                NEW_DEBUG wxHtmlColourCell(clr, wxHTML_CLR_TRANSPARENT_BACKGROUND));
             winIface->SetHTMLBackgroundColour(clr);
         }
 
@@ -400,14 +400,14 @@ TAG_HANDLER_BEGIN(SUBSUP, "SUB,SUP")
 
         // select smaller font
         m_WParser->SetFontSize(m_WParser->GetFontSize()-2);
-        cont->InsertCell(new wxHtmlFontCell(m_WParser->CreateCurrentFont()));
+        cont->InsertCell(NEW_DEBUG wxHtmlFontCell(m_WParser->CreateCurrentFont()));
 
         ParseInner(tag);
 
         // restore font size
         m_WParser->SetFontSize(oldsize);
         m_WParser->GetContainer()->InsertCell(
-            new wxHtmlFontCell(m_WParser->CreateCurrentFont()));
+            NEW_DEBUG wxHtmlFontCell(m_WParser->CreateCurrentFont()));
 
         // restore base and alignment
         m_WParser->SetScriptBaseline(oldbase);

@@ -47,7 +47,7 @@ bool BombsGame::Init(int aWidth, int aHeight, bool easyCorner)
         delete[] m_field;
     }
 
-    m_field = new short[aWidth*aHeight];
+    m_field = NEW_DEBUG short[aWidth*aHeight];
     if (!m_field)
     {
         m_width = m_height = 0;

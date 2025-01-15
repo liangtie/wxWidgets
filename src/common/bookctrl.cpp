@@ -198,7 +198,7 @@ void wxBookCtrlBase::DoSize()
         Layout();
     else
     {
-        // resize controller and the page area to fit inside our new size
+        // resize controller and the page area to fit inside our NEW_DEBUG size
         const wxSize sizeClient( GetClientSize() ),
                     sizeBorder( m_bookctrl->GetSize() - m_bookctrl->GetClientSize() ),
                     sizeCtrl( GetControllerSize() );
@@ -238,7 +238,7 @@ void wxBookCtrlBase::DoSize()
             m_bookctrl->Move(posCtrl);
     }
 
-    // resize all pages to fit the new control size
+    // resize all pages to fit the NEW_DEBUG control size
     const wxRect pageRect = GetPageRect();
     const size_t pagesCount = m_pages.size();
     for ( size_t i = 0; i < pagesCount; ++i )

@@ -304,7 +304,7 @@ void wxColourDatabase::Initialize()
         return;
     }
 
-    m_map = new wxStringToColourHashMap;
+    m_map = NEW_DEBUG wxStringToColourHashMap;
 
     static const struct wxColourDesc
     {
@@ -424,7 +424,7 @@ void wxColourDatabase::AddColour(const wxString& name, const wxColour& colour)
     {
         it->second = colour;
     }
-    else // new colour
+    else // NEW_DEBUG colour
     {
         map[colName] = wxColour(colour);
     }
@@ -519,37 +519,37 @@ const wxBrush* wxStockGDI::GetBrush(Item item)
         switch (item)
         {
         case BRUSH_BLACK:
-            brush = new wxBrush(*GetColour(COLOUR_BLACK), wxBRUSHSTYLE_SOLID);
+            brush = NEW_DEBUG wxBrush(*GetColour(COLOUR_BLACK), wxBRUSHSTYLE_SOLID);
             break;
         case BRUSH_BLUE:
-            brush = new wxBrush(*GetColour(COLOUR_BLUE), wxBRUSHSTYLE_SOLID);
+            brush = NEW_DEBUG wxBrush(*GetColour(COLOUR_BLUE), wxBRUSHSTYLE_SOLID);
             break;
         case BRUSH_CYAN:
-            brush = new wxBrush(*GetColour(COLOUR_CYAN), wxBRUSHSTYLE_SOLID);
+            brush = NEW_DEBUG wxBrush(*GetColour(COLOUR_CYAN), wxBRUSHSTYLE_SOLID);
             break;
         case BRUSH_GREEN:
-            brush = new wxBrush(*GetColour(COLOUR_GREEN), wxBRUSHSTYLE_SOLID);
+            brush = NEW_DEBUG wxBrush(*GetColour(COLOUR_GREEN), wxBRUSHSTYLE_SOLID);
             break;
         case BRUSH_YELLOW:
-            brush = new wxBrush(*GetColour(COLOUR_YELLOW), wxBRUSHSTYLE_SOLID);
+            brush = NEW_DEBUG wxBrush(*GetColour(COLOUR_YELLOW), wxBRUSHSTYLE_SOLID);
             break;
         case BRUSH_GREY:
-            brush = new wxBrush(wxColour(wxT("GREY")), wxBRUSHSTYLE_SOLID);
+            brush = NEW_DEBUG wxBrush(wxColour(wxT("GREY")), wxBRUSHSTYLE_SOLID);
             break;
         case BRUSH_LIGHTGREY:
-            brush = new wxBrush(*GetColour(COLOUR_LIGHTGREY), wxBRUSHSTYLE_SOLID);
+            brush = NEW_DEBUG wxBrush(*GetColour(COLOUR_LIGHTGREY), wxBRUSHSTYLE_SOLID);
             break;
         case BRUSH_MEDIUMGREY:
-            brush = new wxBrush(wxColour(wxT("MEDIUM GREY")), wxBRUSHSTYLE_SOLID);
+            brush = NEW_DEBUG wxBrush(wxColour(wxT("MEDIUM GREY")), wxBRUSHSTYLE_SOLID);
             break;
         case BRUSH_RED:
-            brush = new wxBrush(*GetColour(COLOUR_RED), wxBRUSHSTYLE_SOLID);
+            brush = NEW_DEBUG wxBrush(*GetColour(COLOUR_RED), wxBRUSHSTYLE_SOLID);
             break;
         case BRUSH_TRANSPARENT:
-            brush = new wxBrush(*GetColour(COLOUR_BLACK), wxBRUSHSTYLE_TRANSPARENT);
+            brush = NEW_DEBUG wxBrush(*GetColour(COLOUR_BLACK), wxBRUSHSTYLE_TRANSPARENT);
             break;
         case BRUSH_WHITE:
-            brush = new wxBrush(*GetColour(COLOUR_WHITE), wxBRUSHSTYLE_SOLID);
+            brush = NEW_DEBUG wxBrush(*GetColour(COLOUR_WHITE), wxBRUSHSTYLE_SOLID);
             break;
         default:
             wxFAIL;
@@ -567,28 +567,28 @@ const wxColour* wxStockGDI::GetColour(Item item)
         switch (item)
         {
         case COLOUR_BLACK:
-            colour = new wxColour(0, 0, 0);
+            colour = NEW_DEBUG wxColour(0, 0, 0);
             break;
         case COLOUR_BLUE:
-            colour = new wxColour(0, 0, 255);
+            colour = NEW_DEBUG wxColour(0, 0, 255);
             break;
         case COLOUR_CYAN:
-            colour = new wxColour(0, 255, 255);
+            colour = NEW_DEBUG wxColour(0, 255, 255);
             break;
         case COLOUR_GREEN:
-            colour = new wxColour(0, 255, 0);
+            colour = NEW_DEBUG wxColour(0, 255, 0);
             break;
         case COLOUR_YELLOW:
-            colour = new wxColour(255, 255, 0);
+            colour = NEW_DEBUG wxColour(255, 255, 0);
             break;
         case COLOUR_LIGHTGREY:
-            colour = new wxColour(192, 192, 192);
+            colour = NEW_DEBUG wxColour(192, 192, 192);
             break;
         case COLOUR_RED:
-            colour = new wxColour(255, 0, 0);
+            colour = NEW_DEBUG wxColour(255, 0, 0);
             break;
         case COLOUR_WHITE:
-            colour = new wxColour(255, 255, 255);
+            colour = NEW_DEBUG wxColour(255, 255, 255);
             break;
         default:
             wxFAIL;
@@ -606,13 +606,13 @@ const wxCursor* wxStockGDI::GetCursor(Item item)
         switch (item)
         {
         case CURSOR_CROSS:
-            cursor = new wxCursor(wxCURSOR_CROSS);
+            cursor = NEW_DEBUG wxCursor(wxCURSOR_CROSS);
             break;
         case CURSOR_HOURGLASS:
-            cursor = new wxCursor(wxCURSOR_WAIT);
+            cursor = NEW_DEBUG wxCursor(wxCURSOR_WAIT);
             break;
         case CURSOR_STANDARD:
-            cursor = new wxCursor(wxCURSOR_ARROW);
+            cursor = NEW_DEBUG wxCursor(wxCURSOR_ARROW);
             break;
         default:
             wxFAIL;
@@ -630,14 +630,14 @@ const wxFont* wxStockGDI::GetFont(Item item)
         switch (item)
         {
         case FONT_ITALIC:
-            font = new wxFont(GetFont(FONT_NORMAL)->GetPointSize(),
+            font = NEW_DEBUG wxFont(GetFont(FONT_NORMAL)->GetPointSize(),
                               wxFONTFAMILY_ROMAN, wxFONTSTYLE_ITALIC, wxFONTWEIGHT_NORMAL);
             break;
         case FONT_NORMAL:
-            font = new wxFont(wxSystemSettings::GetFont(wxSYS_DEFAULT_GUI_FONT));
+            font = NEW_DEBUG wxFont(wxSystemSettings::GetFont(wxSYS_DEFAULT_GUI_FONT));
             break;
         case FONT_SMALL:
-            font = new wxFont(GetFont(FONT_NORMAL)->GetPointSize()
+            font = NEW_DEBUG wxFont(GetFont(FONT_NORMAL)->GetPointSize()
                     // Using the font 2 points smaller than the normal one
                     // results in font so small as to be unreadable under MSW.
                     // We might want to actually use -1 under the other
@@ -652,7 +652,7 @@ const wxFont* wxStockGDI::GetFont(Item item)
                     wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
             break;
         case FONT_SWISS:
-            font = new wxFont(GetFont(FONT_NORMAL)->GetPointSize(),
+            font = NEW_DEBUG wxFont(GetFont(FONT_NORMAL)->GetPointSize(),
                               wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
             break;
         default:
@@ -671,40 +671,40 @@ const wxPen* wxStockGDI::GetPen(Item item)
         switch (item)
         {
         case PEN_BLACK:
-            pen = new wxPen(*GetColour(COLOUR_BLACK), 1, wxPENSTYLE_SOLID);
+            pen = NEW_DEBUG wxPen(*GetColour(COLOUR_BLACK), 1, wxPENSTYLE_SOLID);
             break;
         case PEN_BLACKDASHED:
-            pen = new wxPen(*GetColour(COLOUR_BLACK), 1, wxPENSTYLE_SHORT_DASH);
+            pen = NEW_DEBUG wxPen(*GetColour(COLOUR_BLACK), 1, wxPENSTYLE_SHORT_DASH);
             break;
         case PEN_BLUE:
-            pen = new wxPen(*GetColour(COLOUR_BLUE), 1, wxPENSTYLE_SOLID);
+            pen = NEW_DEBUG wxPen(*GetColour(COLOUR_BLUE), 1, wxPENSTYLE_SOLID);
             break;
         case PEN_CYAN:
-            pen = new wxPen(*GetColour(COLOUR_CYAN), 1, wxPENSTYLE_SOLID);
+            pen = NEW_DEBUG wxPen(*GetColour(COLOUR_CYAN), 1, wxPENSTYLE_SOLID);
             break;
         case PEN_GREEN:
-            pen = new wxPen(*GetColour(COLOUR_GREEN), 1, wxPENSTYLE_SOLID);
+            pen = NEW_DEBUG wxPen(*GetColour(COLOUR_GREEN), 1, wxPENSTYLE_SOLID);
             break;
         case PEN_YELLOW:
-            pen = new wxPen(*GetColour(COLOUR_YELLOW), 1, wxPENSTYLE_SOLID);
+            pen = NEW_DEBUG wxPen(*GetColour(COLOUR_YELLOW), 1, wxPENSTYLE_SOLID);
             break;
         case PEN_GREY:
-            pen = new wxPen(wxColour(wxT("GREY")), 1, wxPENSTYLE_SOLID);
+            pen = NEW_DEBUG wxPen(wxColour(wxT("GREY")), 1, wxPENSTYLE_SOLID);
             break;
         case PEN_LIGHTGREY:
-            pen = new wxPen(*GetColour(COLOUR_LIGHTGREY), 1, wxPENSTYLE_SOLID);
+            pen = NEW_DEBUG wxPen(*GetColour(COLOUR_LIGHTGREY), 1, wxPENSTYLE_SOLID);
             break;
         case PEN_MEDIUMGREY:
-            pen = new wxPen(wxColour(wxT("MEDIUM GREY")), 1, wxPENSTYLE_SOLID);
+            pen = NEW_DEBUG wxPen(wxColour(wxT("MEDIUM GREY")), 1, wxPENSTYLE_SOLID);
             break;
         case PEN_RED:
-            pen = new wxPen(*GetColour(COLOUR_RED), 1, wxPENSTYLE_SOLID);
+            pen = NEW_DEBUG wxPen(*GetColour(COLOUR_RED), 1, wxPENSTYLE_SOLID);
             break;
         case PEN_TRANSPARENT:
-            pen = new wxPen(*GetColour(COLOUR_BLACK), 1, wxPENSTYLE_TRANSPARENT);
+            pen = NEW_DEBUG wxPen(*GetColour(COLOUR_BLACK), 1, wxPENSTYLE_TRANSPARENT);
             break;
         case PEN_WHITE:
-            pen = new wxPen(*GetColour(COLOUR_WHITE), 1, wxPENSTYLE_SOLID);
+            pen = NEW_DEBUG wxPen(*GetColour(COLOUR_WHITE), 1, wxPENSTYLE_SOLID);
             break;
         default:
             wxFAIL;
@@ -716,11 +716,11 @@ const wxPen* wxStockGDI::GetPen(Item item)
 
 void wxInitializeStockLists()
 {
-    wxTheColourDatabase = new wxColourDatabase;
+    wxTheColourDatabase = NEW_DEBUG wxColourDatabase;
 
-    wxTheBrushList = new wxBrushList;
-    wxThePenList = new wxPenList;
-    wxTheFontList = new wxFontList;
+    wxTheBrushList = NEW_DEBUG wxBrushList;
+    wxThePenList = NEW_DEBUG wxPenList;
+    wxTheFontList = NEW_DEBUG wxFontList;
 }
 
 void wxDeleteStockLists()
@@ -765,7 +765,7 @@ wxPen *wxPenList::FindOrCreatePen (const wxColour& colour, int width, wxPenStyle
     wxPen penTmp(colour, width, style);
     if (penTmp.IsOk())
     {
-        pen = new wxPen(penTmp);
+        pen = NEW_DEBUG wxPen(penTmp);
         list.Append(pen);
     }
 
@@ -787,7 +787,7 @@ wxBrush *wxBrushList::FindOrCreateBrush (const wxColour& colour, wxBrushStyle st
     wxBrush brushTmp(colour, style);
     if (brushTmp.IsOk())
     {
-        brush = new wxBrush(brushTmp);
+        brush = NEW_DEBUG wxBrush(brushTmp);
         list.Append(brush);
     }
 
@@ -864,12 +864,12 @@ wxFont *wxFontList::FindOrCreateFont(int pointSize,
         }
     }
 
-    // font not found, create the new one
+    // font not found, create the NEW_DEBUG one
     font = NULL;
     wxFont fontTmp(pointSize, family, style, weight, underline, facename, encoding);
     if (fontTmp.IsOk())
     {
-        font = new wxFont(fontTmp);
+        font = NEW_DEBUG wxFont(fontTmp);
         list.Append(font);
     }
 

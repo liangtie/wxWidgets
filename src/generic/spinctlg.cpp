@@ -242,8 +242,8 @@ bool wxSpinCtrlGenericBase::Create(wxWindow *parent,
             m_value = AdjustAndSnap(d);
     }
 
-    m_textCtrl   = new wxSpinCtrlTextGeneric(this, DoValueToText(m_value), style);
-    m_spinButton = new wxSpinCtrlButtonGeneric(this, style);
+    m_textCtrl   = NEW_DEBUG wxSpinCtrlTextGeneric(this, DoValueToText(m_value), style);
+    m_spinButton = NEW_DEBUG wxSpinCtrlButtonGeneric(this, style);
 
 #if wxUSE_TOOLTIPS
     m_textCtrl->SetToolTip(GetToolTipText());
@@ -539,7 +539,7 @@ double wxSpinCtrlGenericBase::AdjustAndSnap(double val) const
         val = m_min;
     if ( val > m_max )
         val = m_max;
-    
+
     if ( m_snap_to_ticks && (m_increment != 0) )
     {
         double snap_value = val / m_increment;
@@ -657,7 +657,7 @@ bool wxSpinCtrl::SetBase(int base)
     if ( !wxSpinCtrlImpl::IsBaseCompatibleWithRange(m_min, m_max, base) )
         return false;
 
-    // Update the current control contents to show in the new base: be careful
+    // Update the current control contents to show in the NEW_DEBUG base: be careful
     // to call DoTextToValue() before changing the base...
     double val;
     const bool hasValidVal = DoTextToValue(m_textCtrl->GetValue(), &val);

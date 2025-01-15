@@ -235,8 +235,8 @@ wxHtmlListBox::wxHtmlListBox(wxWindow *parent,
 void wxHtmlListBox::Init()
 {
     m_htmlParser = NULL;
-    m_htmlRendStyle = new wxHtmlListBoxStyle(*this);
-    m_cache = new wxHtmlListBoxCache;
+    m_htmlRendStyle = NEW_DEBUG wxHtmlListBoxStyle(*this);
+    m_cache = NEW_DEBUG wxHtmlListBoxCache;
 }
 
 bool wxHtmlListBox::Create(wxWindow *parent,
@@ -300,8 +300,8 @@ wxHtmlCell* wxHtmlListBox::CreateCellForItem(size_t n) const
     {
         wxHtmlListBox *self = wxConstCast(this, wxHtmlListBox);
 
-        self->m_htmlParser = new wxHtmlWinParser(self);
-        m_htmlParser->SetDC(new wxClientDC(self));
+        self->m_htmlParser = NEW_DEBUG wxHtmlWinParser(self);
+        m_htmlParser->SetDC(NEW_DEBUG wxClientDC(self));
         m_htmlParser->SetFS(&self->m_filesystem);
 #if !wxUSE_UNICODE
         if (GetFont().IsOk())

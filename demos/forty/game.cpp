@@ -33,22 +33,22 @@ Game::Game(int wins, int games, int score) :
 {
     int i;
 
-    m_pack = new Pack(2, 2 + 4 * (CardHeight + 2));
+    m_pack = NEW_DEBUG Pack(2, 2 + 4 * (CardHeight + 2));
     srand(time(0));
 
     for (i = 0; i < 5; i++) m_pack->Shuffle();
 
-    m_discard = new Discard(2, 2 + 5 * (CardHeight + 2));
+    m_discard = NEW_DEBUG Discard(2, 2 + 5 * (CardHeight + 2));
 
     for (i = 0; i < 8; i++)
     {
-        m_foundations[i] = new Foundation(2 + (i / 4) * (CardWidth + 2),
+        m_foundations[i] = NEW_DEBUG Foundation(2 + (i / 4) * (CardWidth + 2),
                     2 + (i % 4) * (CardHeight + 2));
     }
 
     for (i = 0; i < 10; i++)
     {
-        m_bases[i] = new Base(8 + (i + 2) * (CardWidth + 2), 2);
+        m_bases[i] = NEW_DEBUG Base(8 + (i + 2) * (CardWidth + 2), 2);
     }
     Deal();
     m_srcPile = 0;
@@ -106,9 +106,9 @@ Game::~Game()
 }
 
 /*
-Set the score for a new player.
-NB: call Deal() first if the new player is to start
-a new game
+Set the score for a NEW_DEBUG player.
+NB: call Deal() first if the NEW_DEBUG player is to start
+a NEW_DEBUG game
 */
 void Game::NewPlayer(int wins, int games, int score)
 {
@@ -327,8 +327,8 @@ void Game::Redraw(wxDC& dc)
 
     if (m_bmap == 0)
     {
-        m_bmap = new wxBitmap(CardWidth, CardHeight);
-        m_bmapCard = new wxBitmap(CardWidth, CardHeight);
+        m_bmap = NEW_DEBUG wxBitmap(CardWidth, CardHeight);
+        m_bmapCard = NEW_DEBUG wxBitmap(CardWidth, CardHeight);
 
         // Initialise the card bitmap to the background colour
         wxMemoryDC memoryDC;
@@ -607,10 +607,10 @@ void Game::LButtonUp(wxDC& dc, int x, int y)
         dc.Blit(m_xPos, m_yPos, CardWidth, CardHeight,
                &memoryDC, 0, 0, wxCOPY);
 
-        // Draw the card in its new position
+        // Draw the card in its NEW_DEBUG position
         if (nearestPile)
         {
-            // Add to new pile
+            // Add to NEW_DEBUG pile
             nearestPile->AddCard(dc, m_liftedCard);
             if (nearestPile != m_srcPile)
             {
@@ -660,7 +660,7 @@ void Game::MouseMove(wxDC& dc, int mx, int my)
             dc.Blit(m_xPos, m_yPos, CardWidth, CardHeight,
                &memoryDC, 0, 0, wxCOPY);
 
-            // Copy the area under the card in the new position
+            // Copy the area under the card in the NEW_DEBUG position
             memoryDC.Blit(0, 0, CardWidth, CardHeight,
                &dc, m_xPos + dx, m_yPos + dy, wxCOPY);
         }
@@ -719,7 +719,7 @@ void Game::MouseMove(wxDC& dc, int mx, int my)
         m_xPos += dx;
         m_yPos += dy;
 
-        // draw the card in its new position
+        // draw the card in its NEW_DEBUG position
         memoryDC.SelectObject(*m_bmapCard);
         dc.Blit(m_xPos, m_yPos, CardWidth, CardHeight,
                &memoryDC, 0, 0, wxCOPY);
@@ -735,7 +735,7 @@ Pack::Pack(int x, int y) : Pile(x, y, 0, 0)
 {
     for (m_topCard = 0; m_topCard < NumCards; m_topCard++)
     {
-        m_cards[m_topCard] = new Card(1 + m_topCard / 2, facedown);
+        m_cards[m_topCard] = NEW_DEBUG Card(1 + m_topCard / 2, facedown);
     }
     m_topCard = NumCards - 1;
 }

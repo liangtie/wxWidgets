@@ -574,7 +574,7 @@ void wxChoice::DoSetSize(int x, int y,
     }
     else if ( height != wxDefaultCoord ) // non-default height specified
     {
-        // set our new own height but be careful not to make it too big: the
+        // set our NEW_DEBUG own height but be careful not to make it too big: the
         // native control apparently stores it as a single byte and so setting
         // own height to 256 pixels results in default height being used (255
         // is still ok)

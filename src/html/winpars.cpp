@@ -238,18 +238,18 @@ void wxHtmlWinParser::InitParser(const wxString& source)
     }
 #endif
 
-    m_Container->InsertCell(new wxHtmlColourCell(m_ActualColor));
+    m_Container->InsertCell(NEW_DEBUG wxHtmlColourCell(m_ActualColor));
 
     m_Container->InsertCell
                  (
-                   new wxHtmlColourCell
+                   NEW_DEBUG wxHtmlColourCell
                        (
                          m_ActualBackgroundColor,
                          m_ActualBackgroundMode == wxBRUSHSTYLE_TRANSPARENT ? wxHTML_CLR_TRANSPARENT_BACKGROUND : wxHTML_CLR_BACKGROUND
                        )
                   );
 
-    m_Container->InsertCell(new wxHtmlFontCell(CreateCurrentFont()));
+    m_Container->InsertCell(NEW_DEBUG wxHtmlFontCell(CreateCurrentFont()));
 }
 
 void wxHtmlWinParser::DoneParser()
@@ -357,7 +357,7 @@ void wxHtmlWinParser::AddText(const wxString& txt)
         if (lng+1 > m_tmpStrBufSize)
         {
             delete[] m_tmpStrBuf;
-            m_tmpStrBuf = new wxChar[lng+1];
+            m_tmpStrBuf = NEW_DEBUG wxChar[lng+1];
             m_tmpStrBufSize = lng+1;
         }
         wxChar *temp = m_tmpStrBuf;
@@ -491,7 +491,7 @@ void wxHtmlWinParser::AddPreBlock(const wxString& text)
         if ( copyFrom != text.end() )
             text2.append(copyFrom, text.end());
 
-        AddWord(new wxHtmlWordWithTabsCell(text2, text, m_posColumn, *(GetDC())));
+        AddWord(NEW_DEBUG wxHtmlWordWithTabsCell(text2, text, m_posColumn, *(GetDC())));
 
         m_posColumn = posColumn;
     }
@@ -506,7 +506,7 @@ void wxHtmlWinParser::AddPreBlock(const wxString& text)
 
 wxHtmlContainerCell* wxHtmlWinParser::OpenContainer()
 {
-    m_Container = new wxHtmlContainerCell(m_Container);
+    m_Container = NEW_DEBUG wxHtmlContainerCell(m_Container);
     m_Container->SetAlignHor(m_Align);
     m_posColumn = 0;
     m_tmpLastWasSpace = true;
@@ -606,7 +606,7 @@ wxFont* wxHtmlWinParser::CreateCurrentFont()
     if (*fontptr == NULL)
     {
         *faceptr = face;
-        *fontptr = new wxFont(
+        *fontptr = NEW_DEBUG wxFont(
                        (int) (m_FontsSizes[fs] * m_FontScale),
                        ff ? wxFONTFAMILY_MODERN : wxFONTFAMILY_SWISS,
                        fi ? wxFONTSTYLE_ITALIC : wxFONTSTYLE_NORMAL,
@@ -718,7 +718,7 @@ void wxHtmlWinParser::SetInputEncoding(wxFontEncoding enc)
     if (m_InputEnc == m_OutputEnc)
         return;
 
-    m_EncConv = new wxEncodingConverter();
+    m_EncConv = NEW_DEBUG wxEncodingConverter();
     if (!m_EncConv->Init(m_InputEnc,
                            (m_OutputEnc == wxFONTENCODING_DEFAULT) ?
                                       wxFONTENCODING_ISO8859_1 : m_OutputEnc,
@@ -752,7 +752,7 @@ void wxHtmlWinTagHandler::ApplyStyle(const wxHtmlStyleParams &styleParams)
         if ( wxHtmlTag::ParseAsColour(str, &clr) )
         {
             m_WParser->SetActualColor(clr);
-            m_WParser->GetContainer()->InsertCell(new wxHtmlColourCell(clr));
+            m_WParser->GetContainer()->InsertCell(NEW_DEBUG wxHtmlColourCell(clr));
         }
     }
 
@@ -764,7 +764,7 @@ void wxHtmlWinTagHandler::ApplyStyle(const wxHtmlStyleParams &styleParams)
         {
             m_WParser->SetActualBackgroundColor(clr);
             m_WParser->SetActualBackgroundMode(wxBRUSHSTYLE_SOLID);
-            m_WParser->GetContainer()->InsertCell(new wxHtmlColourCell(clr, wxHTML_CLR_BACKGROUND));
+            m_WParser->GetContainer()->InsertCell(NEW_DEBUG wxHtmlColourCell(clr, wxHTML_CLR_BACKGROUND));
         }
     }
 
@@ -783,7 +783,7 @@ void wxHtmlWinTagHandler::ApplyStyle(const wxHtmlStyleParams &styleParams)
                 // Set point size
                 m_WParser->SetFontPointSize(sizeValue);
                 m_WParser->GetContainer()->InsertCell(
-                    new wxHtmlFontCell(m_WParser->CreateCurrentFont()));
+                    NEW_DEBUG wxHtmlFontCell(m_WParser->CreateCurrentFont()));
             }
         }
         // else: check for other ways of specifying size (TODO)
@@ -797,13 +797,13 @@ void wxHtmlWinTagHandler::ApplyStyle(const wxHtmlStyleParams &styleParams)
         {
             m_WParser->SetFontBold(true);
             m_WParser->GetContainer()->InsertCell(
-                new wxHtmlFontCell(m_WParser->CreateCurrentFont()));
+                NEW_DEBUG wxHtmlFontCell(m_WParser->CreateCurrentFont()));
         }
         else if ( str == wxS("normal") )
         {
             m_WParser->SetFontBold(false);
             m_WParser->GetContainer()->InsertCell(
-                new wxHtmlFontCell(m_WParser->CreateCurrentFont()));
+                NEW_DEBUG wxHtmlFontCell(m_WParser->CreateCurrentFont()));
         }
     }
 
@@ -816,13 +816,13 @@ void wxHtmlWinTagHandler::ApplyStyle(const wxHtmlStyleParams &styleParams)
         {
             m_WParser->SetFontItalic(true);
             m_WParser->GetContainer()->InsertCell(
-                new wxHtmlFontCell(m_WParser->CreateCurrentFont()));
+                NEW_DEBUG wxHtmlFontCell(m_WParser->CreateCurrentFont()));
         }
         else if ( str == wxS("normal") )
         {
             m_WParser->SetFontItalic(false);
             m_WParser->GetContainer()->InsertCell(
-                new wxHtmlFontCell(m_WParser->CreateCurrentFont()));
+                NEW_DEBUG wxHtmlFontCell(m_WParser->CreateCurrentFont()));
         }
     }
 
@@ -834,7 +834,7 @@ void wxHtmlWinTagHandler::ApplyStyle(const wxHtmlStyleParams &styleParams)
         {
             m_WParser->SetFontUnderlined(true);
             m_WParser->GetContainer()->InsertCell(
-                new wxHtmlFontCell(m_WParser->CreateCurrentFont()));
+                NEW_DEBUG wxHtmlFontCell(m_WParser->CreateCurrentFont()));
         }
     }
 
@@ -843,7 +843,7 @@ void wxHtmlWinTagHandler::ApplyStyle(const wxHtmlStyleParams &styleParams)
     {
         m_WParser->SetFontFace(str);
         m_WParser->GetContainer()->InsertCell(
-            new wxHtmlFontCell(m_WParser->CreateCurrentFont()));
+            NEW_DEBUG wxHtmlFontCell(m_WParser->CreateCurrentFont()));
     }
 }
 
@@ -856,7 +856,7 @@ void wxHtmlWinTagHandler::ApplyStyle(const wxHtmlStyleParams &styleParams)
 //     in m_*.cpp files with TAGS_MODULE_BEGIN...TAGS_MODULE_END construct.
 //
 //     Do not add any winpars.cpp shutdown or initialization code to it,
-//     create a new module instead!
+//     create a NEW_DEBUG module instead!
 
 wxIMPLEMENT_DYNAMIC_CLASS(wxHtmlTagsModule, wxModule);
 

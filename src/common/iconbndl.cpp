@@ -107,12 +107,12 @@ wxIconBundle::wxIconBundle(const wxString& resourceName, WXHINSTANCE module)
 
 wxGDIRefData *wxIconBundle::CreateGDIRefData() const
 {
-    return new wxIconBundleRefData;
+    return NEW_DEBUG wxIconBundleRefData;
 }
 
 wxGDIRefData *wxIconBundle::CloneGDIRefData(const wxGDIRefData *data) const
 {
-    return new wxIconBundleRefData(*static_cast<const wxIconBundleRefData *>(data));
+    return NEW_DEBUG wxIconBundleRefData(*static_cast<const wxIconBundleRefData *>(data));
 }
 
 void wxIconBundle::DeleteIcons()
@@ -377,7 +377,7 @@ void wxIconBundle::AddIcon(const wxIcon& icon)
         }
     }
 
-    // if we don't, add an icon with new size
+    // if we don't, add an icon with NEW_DEBUG size
     iconArray.Add(icon);
 }
 

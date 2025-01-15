@@ -45,11 +45,11 @@ bool MyApp::OnInit()
 #endif // __WXGTK__
 
 #if wxUSE_HELP
-    wxHelpProvider::Set( new wxSimpleHelpProvider );
+    wxHelpProvider::Set( NEW_DEBUG wxSimpleHelpProvider );
 #endif
 
     // Create the main window
-    MyFrame *frame = new MyFrame();
+    MyFrame *frame = NEW_DEBUG MyFrame();
 
     // Problem with generic wxNotebook implementation whereby it doesn't size
     // properly unless you set the size again
@@ -71,13 +71,13 @@ bool MyApp::OnInit()
 
 wxPanel *CreateUserCreatedPage(wxBookCtrlBase *parent)
 {
-    wxPanel *panel = new wxPanel(parent);
+    wxPanel *panel = NEW_DEBUG wxPanel(parent);
 
 #if wxUSE_HELP
     panel->SetHelpText("Panel with a Button");
 #endif
 
-    (void) new wxButton( panel, wxID_ANY, "Button",
+    (void) NEW_DEBUG wxButton( panel, wxID_ANY, "Button",
                          wxPoint(10, 10), wxDefaultSize );
 
     return panel;
@@ -85,7 +85,7 @@ wxPanel *CreateUserCreatedPage(wxBookCtrlBase *parent)
 
 wxPanel *CreateRadioButtonsPage(wxBookCtrlBase *parent)
 {
-    wxPanel *panel = new wxPanel(parent);
+    wxPanel *panel = NEW_DEBUG wxPanel(parent);
 
 #if wxUSE_HELP
     panel->SetHelpText("Panel with some Radio Buttons");
@@ -95,18 +95,18 @@ wxPanel *CreateRadioButtonsPage(wxBookCtrlBase *parent)
       { "Fox", "Hare", "Rabbit",
         "Sabre-toothed tiger", "T Rex" };
 
-    wxRadioBox *radiobox1 = new wxRadioBox(panel, wxID_ANY, "Choose one",
+    wxRadioBox *radiobox1 = NEW_DEBUG wxRadioBox(panel, wxID_ANY, "Choose one",
         wxDefaultPosition, wxDefaultSize, 5, animals, 2, wxRA_SPECIFY_ROWS);
 
     wxString computers[] =
       { "Amiga", "Commodore 64", "PET",
         "Another" };
 
-    wxRadioBox *radiobox2 = new wxRadioBox(panel, wxID_ANY,
+    wxRadioBox *radiobox2 = NEW_DEBUG wxRadioBox(panel, wxID_ANY,
         "Choose your favourite", wxDefaultPosition, wxDefaultSize,
         4, computers, 0, wxRA_SPECIFY_COLS);
 
-    wxBoxSizer *sizerPanel = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer *sizerPanel = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     sizerPanel->Add(radiobox1, 2, wxEXPAND);
     sizerPanel->Add(radiobox2, 1, wxEXPAND);
     panel->SetSizer(sizerPanel);
@@ -116,13 +116,13 @@ wxPanel *CreateRadioButtonsPage(wxBookCtrlBase *parent)
 
 wxPanel *CreateVetoPage(wxBookCtrlBase *parent)
 {
-    wxPanel *panel = new wxPanel(parent);
+    wxPanel *panel = NEW_DEBUG wxPanel(parent);
 
 #if wxUSE_HELP
     panel->SetHelpText("An empty panel");
 #endif
 
-    (void) new wxStaticText( panel, wxID_ANY,
+    (void) NEW_DEBUG wxStaticText( panel, wxID_ANY,
                              "This page intentionally left blank",
                              wxPoint(10, 10) );
 
@@ -131,7 +131,7 @@ wxPanel *CreateVetoPage(wxBookCtrlBase *parent)
 
 wxWindow *CreateFullPageText(wxBookCtrlBase *parent)
 {
-    wxTextCtrl *text = new wxTextCtrl(parent, wxID_ANY, "Full page text",
+    wxTextCtrl *text = NEW_DEBUG wxTextCtrl(parent, wxID_ANY, "Full page text",
                                       wxDefaultPosition, wxDefaultSize,
                                       wxTE_MULTILINE);
 
@@ -144,14 +144,14 @@ wxWindow *CreateFullPageText(wxBookCtrlBase *parent)
 
 wxPanel *CreateInsertPage(wxBookCtrlBase *parent)
 {
-    wxPanel *panel = new wxPanel(parent);
+    wxPanel *panel = NEW_DEBUG wxPanel(parent);
 
 #if wxUSE_HELP
     panel->SetHelpText("Maroon panel");
 #endif
 
     panel->SetBackgroundColour( wxColour( "MAROON" ) );
-    (void) new wxStaticText( panel, wxID_ANY,
+    (void) NEW_DEBUG wxStaticText( panel, wxID_ANY,
                              "This page has been inserted, not added.",
                              wxPoint(10, 10) );
 
@@ -315,7 +315,7 @@ MyFrame::MyFrame()
     SetIcon(wxICON(sample));
 
     // menu of the sample
-    wxMenu *menuType = new wxMenu;
+    wxMenu *menuType = NEW_DEBUG wxMenu;
 #if wxUSE_NOTEBOOK
     menuType->AppendRadioItem(ID_BOOK_NOTEBOOK,   "&Notebook\tCtrl-1");
 #endif
@@ -338,14 +338,14 @@ MyFrame::MyFrame()
 
     menuType->Check(static_cast<int>(ID_BOOK_NOTEBOOK) + m_type, true);
 
-    wxMenu *menuOrient = new wxMenu;
+    wxMenu *menuOrient = NEW_DEBUG wxMenu;
     menuOrient->AppendRadioItem(ID_ORIENT_DEFAULT, "&Default\tAlt-0");
     menuOrient->AppendRadioItem(ID_ORIENT_TOP,     "&Top\tAlt-1");
     menuOrient->AppendRadioItem(ID_ORIENT_BOTTOM,  "&Bottom\tAlt-2");
     menuOrient->AppendRadioItem(ID_ORIENT_LEFT,    "&Left\tAlt-3");
     menuOrient->AppendRadioItem(ID_ORIENT_RIGHT,   "&Right\tAlt-4");
 
-    wxMenu *menuStyle = new wxMenu;
+    wxMenu *menuStyle = NEW_DEBUG wxMenu;
 #if wxUSE_NOTEBOOK
     menuStyle->AppendCheckItem(ID_FIXEDWIDTH, "&Fixed Width (wxNotebook)");
     menuStyle->AppendCheckItem(ID_MULTI, "&Multiple lines (wxNotebook)");
@@ -356,7 +356,7 @@ MyFrame::MyFrame()
     menuStyle->AppendCheckItem(ID_HORZ_LAYOUT, "&Horizontal layout (wxToolbook)");
 #endif
 
-    wxMenu *menuPageOperations = new wxMenu;
+    wxMenu *menuPageOperations = NEW_DEBUG wxMenu;
     menuPageOperations->Append(ID_ADD_PAGE, "&Add page\tAlt-A");
     menuPageOperations->Append(ID_ADD_PAGE_NO_SELECT, "&Add page (don't select)\tAlt-B");
     menuPageOperations->Append(ID_INSERT_PAGE, "&Insert page\tAlt-I");
@@ -375,13 +375,13 @@ MyFrame::MyFrame()
     menuPageOperations->Append(ID_GET_PAGE_SIZE, "Sho&w page size");
     menuPageOperations->Append(ID_SET_PAGE_SIZE, "Set &page size");
 
-    wxMenu *menuOperations = new wxMenu;
+    wxMenu *menuOperations = NEW_DEBUG wxMenu;
 #if wxUSE_HELP
     menuOperations->Append(ID_CONTEXT_HELP, "&Context help\tCtrl-F1");
 #endif // wxUSE_HELP
     menuOperations->Append(ID_HITTEST, "&Hit test\tCtrl-H");
 
-    wxMenu *menuFile = new wxMenu;
+    wxMenu *menuFile = NEW_DEBUG wxMenu;
     menuFile->Append(wxID_ANY, "&Type", menuType, "Type of control");
     menuFile->Append(wxID_ANY, "&Orientation", menuOrient, "Orientation of control");
     menuFile->AppendCheckItem(ID_SHOW_IMAGES, "&Show images\tAlt-S");
@@ -390,7 +390,7 @@ MyFrame::MyFrame()
     menuFile->Append(wxID_EXIT, "E&xit", "Quits the application");
     menuFile->Check(ID_SHOW_IMAGES, m_chkShowImages);
 
-    wxMenuBar *menuBar = new wxMenuBar;
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar;
     menuBar->Append(menuFile, "&File");
     menuBar->Append(menuPageOperations, "&Pages");
     menuBar->Append(menuOperations, "&Operations");
@@ -408,18 +408,18 @@ MyFrame::MyFrame()
     m_images.push_back(wxArtProvider::GetBitmapBundle(wxART_WARNING, wxART_OTHER, imageSize));
     m_images.push_back(wxArtProvider::GetBitmapBundle(wxART_ERROR, wxART_OTHER, imageSize));
 
-    m_panel = new wxPanel(this);
+    m_panel = NEW_DEBUG wxPanel(this);
 
 #if USE_LOG
-    m_text = new wxTextCtrl(m_panel, wxID_ANY, wxEmptyString,
+    m_text = NEW_DEBUG wxTextCtrl(m_panel, wxID_ANY, wxEmptyString,
                             wxDefaultPosition, wxDefaultSize,
                             wxTE_MULTILINE | wxTE_READONLY);
 
-    m_logTargetOld = wxLog::SetActiveTarget( new wxLogTextCtrl(m_text) );
+    m_logTargetOld = wxLog::SetActiveTarget( NEW_DEBUG wxLogTextCtrl(m_text) );
 #endif // USE_LOG
 
     // Set sizers
-    m_sizerFrame = new wxBoxSizer(wxVERTICAL);
+    m_sizerFrame = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
 #if USE_LOG
     m_sizerFrame->Add(m_text, 1, wxEXPAND);
@@ -430,7 +430,7 @@ MyFrame::MyFrame()
     m_panel->SetSizer(m_sizerFrame);
     m_panel->Layout();
 
-    wxBoxSizer *sizer = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer *sizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     sizer->Add(m_panel, wxSizerFlags(1).Expand());
     SetSizerAndFit(sizer);
 }
@@ -543,7 +543,7 @@ void MyFrame::RecreateBook()
 
     m_bookCtrl = NULL;
 
-    DISPATCH_ON_TYPE(m_bookCtrl = new,
+    DISPATCH_ON_TYPE(m_bookCtrl = NEW_DEBUG,
                          wxNotebook,
                          wxListbook,
                          wxChoicebook,
@@ -632,14 +632,14 @@ void MyFrame::AddFlagStrIfFlagPresent(wxString & flagStr, long flags, long flag,
 
 wxPanel *MyFrame::CreateNewPage() const
 {
-    wxPanel *panel = new wxPanel(m_bookCtrl, wxID_ANY );
+    wxPanel *panel = NEW_DEBUG wxPanel(m_bookCtrl, wxID_ANY );
 
 #if wxUSE_HELP
     panel->SetHelpText("Panel with \"First\" and \"Second\" buttons");
 #endif
 
-    (void) new wxButton(panel, wxID_ANY, "First button", wxPoint(10, 30));
-    (void) new wxButton(panel, wxID_ANY, "Second button", wxPoint(150, 30));
+    (void) NEW_DEBUG wxButton(panel, wxID_ANY, "First button", wxPoint(10, 30));
+    (void) NEW_DEBUG wxButton(panel, wxID_ANY, "Second button", wxPoint(150, 30));
 
     return panel;
 }
@@ -1064,7 +1064,7 @@ void MyFrame::OnBookCtrl(wxBookCtrlBaseEvent& event)
 
     static int s_num = 0;
 
-    wxLogMessage("Event #%d: %s: %s (%d) new sel %d, old %d, current %d%s",
+    wxLogMessage("Event #%d: %s: %s (%d) NEW_DEBUG sel %d, old %d, current %d%s",
                  ++s_num,
                  nameControl,
                  nameEvent,

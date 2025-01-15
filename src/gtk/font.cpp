@@ -236,7 +236,7 @@ wxFont::wxFont(const wxNativeFontInfo& info)
 
 wxFont::wxFont(const wxFontInfo& info)
 {
-    m_refData = new wxFontRefData(info);
+    m_refData = NEW_DEBUG wxFontRefData(info);
 
     wxSize pixelSize = info.GetPixelSize();
     if ( pixelSize != wxDefaultSize )
@@ -253,7 +253,7 @@ bool wxFont::Create( int pointSize,
 {
     UnRef();
 
-    m_refData = new wxFontRefData(InfoFromLegacyParams(pointSize, family,
+    m_refData = NEW_DEBUG wxFontRefData(InfoFromLegacyParams(pointSize, family,
                                                        style, weight, underlined,
                                                        face, encoding));
 
@@ -270,7 +270,7 @@ bool wxFont::Create(const wxString& fontname)
         return true;
     }
 
-    m_refData = new wxFontRefData(fontname);
+    m_refData = NEW_DEBUG wxFontRefData(fontname);
 
     return true;
 }
@@ -312,7 +312,7 @@ wxFontStyle wxFont::GetStyle() const
 int wxFont::GetNumericWeight() const
 {
     wxCHECK_MSG( IsOk(), wxFONTWEIGHT_MAX, "invalid font" );
-    
+
     return M_FONTDATA->m_nativeFontInfo.GetNumericWeight();
 }
 
@@ -380,7 +380,7 @@ void wxFont::SetStyle(wxFontStyle style)
 void wxFont::SetNumericWeight(int weight)
 {
     AllocExclusive();
-    
+
     M_FONTDATA->SetNumericWeight(weight);
 }
 
@@ -422,12 +422,12 @@ void wxFont::DoSetNativeFontInfo( const wxNativeFontInfo& info )
 
 wxGDIRefData* wxFont::CreateGDIRefData() const
 {
-    return new wxFontRefData;
+    return NEW_DEBUG wxFontRefData;
 }
 
 wxGDIRefData* wxFont::CloneGDIRefData(const wxGDIRefData* data) const
 {
-    return new wxFontRefData(*static_cast<const wxFontRefData*>(data));
+    return NEW_DEBUG wxFontRefData(*static_cast<const wxFontRefData*>(data));
 }
 
 bool wxFont::GTKSetPangoAttrs(PangoLayout* layout) const

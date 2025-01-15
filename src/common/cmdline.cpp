@@ -534,7 +534,7 @@ wxCmdLineParserData::FindOptionByAnyName(const wxString& name)
 
 void wxCmdLineParser::Init()
 {
-    m_data = new wxCmdLineParserData;
+    m_data = NEW_DEBUG wxCmdLineParserData;
 }
 
 void wxCmdLineParser::SetCmdLine(int argc, char **argv)
@@ -639,7 +639,7 @@ void wxCmdLineParser::AddSwitch(const wxString& shortName,
     wxASSERT_MSG( m_data->FindOption(shortName) == wxNOT_FOUND,
                   wxT("duplicate switch") );
 
-    wxCmdLineOption *option = new wxCmdLineOption(wxCMD_LINE_SWITCH,
+    wxCmdLineOption *option = NEW_DEBUG wxCmdLineOption(wxCMD_LINE_SWITCH,
                                                   shortName, longName, desc,
                                                   wxCMD_LINE_VAL_NONE, flags);
 
@@ -655,7 +655,7 @@ void wxCmdLineParser::AddOption(const wxString& shortName,
     wxASSERT_MSG( m_data->FindOption(shortName) == wxNOT_FOUND,
                   wxT("duplicate option") );
 
-    wxCmdLineOption *option = new wxCmdLineOption(wxCMD_LINE_OPTION,
+    wxCmdLineOption *option = NEW_DEBUG wxCmdLineOption(wxCMD_LINE_OPTION,
                                                   shortName, longName, desc,
                                                   type, flags);
 
@@ -684,7 +684,7 @@ void wxCmdLineParser::AddParam(const wxString& desc,
     }
 #endif // wxDEBUG_LEVEL
 
-    wxCmdLineParam *param = new wxCmdLineParam(desc, type, flags);
+    wxCmdLineParam *param = NEW_DEBUG wxCmdLineParam(desc, type, flags);
 
     m_data->m_paramDesc.Add(param);
 }
@@ -693,7 +693,7 @@ void wxCmdLineParser::AddUsageText(const wxString& text)
 {
     wxASSERT_MSG( !text.empty(), wxT("text can't be empty") );
 
-    wxCmdLineOption *option = new wxCmdLineOption(wxCMD_LINE_USAGE_TEXT,
+    wxCmdLineOption *option = NEW_DEBUG wxCmdLineOption(wxCMD_LINE_USAGE_TEXT,
                                                   wxEmptyString, wxEmptyString,
                                                   text, wxCMD_LINE_VAL_NONE, 0);
 

@@ -222,7 +222,7 @@ wxFont::wxFont(const wxString& nativeFontInfoString)
 
 wxFont::wxFont(const wxFontInfo& info)
 {
-    m_refData = new wxFontRefData(info);
+    m_refData = NEW_DEBUG wxFontRefData(info);
 
     if ( info.IsUsingSizeInPixels() )
         SetPixelSize(info.GetPixelSize());
@@ -238,7 +238,7 @@ bool wxFont::Create(int pointSize,
 {
     UnRef();
 
-    m_refData = new wxFontRefData(InfoFromLegacyParams(pointSize, family,
+    m_refData = NEW_DEBUG wxFontRefData(InfoFromLegacyParams(pointSize, family,
                                                        style, weight, underlined,
                                                        faceName, encoding));
 
@@ -253,7 +253,7 @@ bool wxFont::Create(const wxString& fontname, wxFontEncoding enc)
         return true;
     }
 
-    m_refData = new wxFontRefData();
+    m_refData = NEW_DEBUG wxFontRefData();
 
     M_FONTDATA->m_nativeFontInfo.SetXFontName(fontname);  // X font name
 
@@ -354,12 +354,12 @@ wxFont::~wxFont()
 
 wxGDIRefData *wxFont::CreateGDIRefData() const
 {
-    return new wxFontRefData;
+    return NEW_DEBUG wxFontRefData;
 }
 
 wxGDIRefData *wxFont::CloneGDIRefData(const wxGDIRefData *data) const
 {
-    return new wxFontRefData(*static_cast<const wxFontRefData *>(data));
+    return NEW_DEBUG wxFontRefData(*static_cast<const wxFontRefData *>(data));
 }
 
 // ----------------------------------------------------------------------------
@@ -371,11 +371,11 @@ void wxFont::Unshare()
     // Don't change shared data
     if (!m_refData)
     {
-        m_refData = new wxFontRefData();
+        m_refData = NEW_DEBUG wxFontRefData();
     }
     else
     {
-        wxFontRefData* ref = new wxFontRefData(*(wxFontRefData*)m_refData);
+        wxFontRefData* ref = NEW_DEBUG wxFontRefData(*(wxFontRefData*)m_refData);
         UnRef();
         m_refData = ref;
     }
@@ -510,7 +510,7 @@ const wxNativeFontInfo *wxFont::GetNativeFontInfo() const
 // real implementation
 // ----------------------------------------------------------------------------
 
-// Find an existing, or create a new, XFontStruct
+// Find an existing, or create a NEW_DEBUG, XFontStruct
 // based on this wxFont and the given scale. Append the
 // font to list in the private data for future reference.
 wxXFont* wxFont::GetInternalFont(double scale, WXDisplay* display) const
@@ -531,7 +531,7 @@ wxXFont* wxFont::GetInternalFont(double scale, WXDisplay* display) const
         node = node->GetNext();
     }
 
-    // not found, create a new one
+    // not found, create a NEW_DEBUG one
     wxString xFontSpec;
     XFontStruct *font = (XFontStruct *)
                         wxLoadQueryNearestFont(pointSize,
@@ -550,7 +550,7 @@ wxXFont* wxFont::GetInternalFont(double scale, WXDisplay* display) const
         return NULL;
     }
 
-    wxXFont* f = new wxXFont;
+    wxXFont* f = NEW_DEBUG wxXFont;
 #if wxMOTIF_NEW_FONT_HANDLING
     XFreeFont( (Display*) display, font );
 #else

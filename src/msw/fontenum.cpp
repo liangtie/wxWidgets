@@ -157,7 +157,7 @@ bool wxFontEnumeratorHelper::OnFont(const LPLOGFONT lf,
 {
     if ( m_enumEncodings )
     {
-        // is this a new charset?
+        // is this a NEW_DEBUG charset?
         int cs = lf->lfCharSet;
         if ( m_charsets.Index(cs) == wxNOT_FOUND )
         {

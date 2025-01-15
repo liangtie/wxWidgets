@@ -196,7 +196,7 @@ wxRendererNative *wxRendererNative::Load(const wxString& name)
 
     // finally wrap the renderer in an object which will delete it and unload
     // the library when it is deleted and return it to the caller
-    return new wxRendererFromDynLib(dll, renderer);
+    return NEW_DEBUG wxRendererFromDynLib(dll, renderer);
 }
 
 #endif // wxUSE_DYNLIB_CLASS

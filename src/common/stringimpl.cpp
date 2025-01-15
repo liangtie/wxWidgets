@@ -258,7 +258,7 @@ bool wxStringImpl::AllocBeforeWrite(size_t nLen)
   // must not share string and must have enough space
   wxStringData* pData = GetStringData();
   if ( pData->IsShared() || pData->IsEmpty() ) {
-    // can't work with old buffer, get new one
+    // can't work with old buffer, get NEW_DEBUG one
     pData->Unlock();
     if ( !AllocBuffer(nLen) ) {
       // allocation failures are handled by the caller
@@ -591,8 +591,8 @@ wxStringImpl& wxStringImpl::replace(size_t nStart, size_t nLen,
     if ( nCount == npos )
         nCount = wxStrlen(sz);
 
-    // build the new string from 3 pieces: part of this string before nStart,
-    // the new substring and the part of this string after nStart+nLen
+    // build the NEW_DEBUG string from 3 pieces: part of this string before nStart,
+    // the NEW_DEBUG substring and the part of this string after nStart+nLen
     wxStringImpl tmp;
     const size_t lenNew = lenOld + nCount - nLen;
     if ( lenNew )
@@ -609,7 +609,7 @@ wxStringImpl& wxStringImpl::replace(size_t nStart, size_t nLen,
         memcpy(dst, m_pchData + nEnd, (lenOld - nEnd)*sizeof(wxStringCharType));
     }
 
-    // and replace this string contents with the new one
+    // and replace this string contents with the NEW_DEBUG one
     swap(tmp);
     return *this;
 }
@@ -714,7 +714,7 @@ bool wxStringImpl::ConcatSelf(size_t nSrcLen,
 
     size_t nNewLen = nLen + nSrcLen;
 
-    // alloc new buffer if current is too small
+    // alloc NEW_DEBUG buffer if current is too small
     if ( pData->IsShared() ) {
       STATISTICS_ADD(ConcatHit, 0);
 

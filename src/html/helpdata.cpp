@@ -40,7 +40,7 @@ WX_DEFINE_OBJARRAY(wxHtmlHelpDataItems)
 // static helper functions
 //-----------------------------------------------------------------------------
 
-// Reads one line, stores it into buf and returns pointer to new line or NULL.
+// Reads one line, stores it into buf and returns pointer to NEW_DEBUG line or NULL.
 static const wxChar* ReadLine(const wxChar *line, wxChar *buf, size_t bufsize)
 {
     wxChar *writeptr = buf;
@@ -207,7 +207,7 @@ bool HP_TagHandler::HandleTag(const wxHtmlTag& tag)
 #endif
         if (tag.GetParam(wxT("TYPE")) == wxT("text/sitemap"))
         {
-            wxHtmlHelpDataItem *item = new wxHtmlHelpDataItem();
+            wxHtmlHelpDataItem *item = NEW_DEBUG wxHtmlHelpDataItem();
             item->parent = m_parentItem;
             item->level = m_level;
             item->id = m_id;
@@ -279,7 +279,7 @@ bool wxHtmlHelpData::LoadMSProject(wxHtmlBookRecord *book, wxFileSystem& fsys,
     wxString string;
 
     HP_Parser parser;
-    HP_TagHandler *handler = new HP_TagHandler(book);
+    HP_TagHandler *handler = NEW_DEBUG HP_TagHandler(book);
     parser.AddTagHandler(handler);
 
     f = ( contentsfile.empty() ? NULL : fsys.OpenFile(contentsfile) );
@@ -361,7 +361,7 @@ bool wxHtmlHelpData::LoadCachedBook(wxHtmlBookRecord *book, wxInputStream *f)
         // NB: We can just silently return false here and don't worry about
         //     it anymore, because AddBookParam will load the MS project in
         //     absence of (properly versioned) .cached file and automatically
-        //     create new .cached file immediately afterward.
+        //     create NEW_DEBUG .cached file immediately afterward.
         return false;
     }
 
@@ -374,7 +374,7 @@ bool wxHtmlHelpData::LoadCachedBook(wxHtmlBookRecord *book, wxInputStream *f)
     m_contents.Alloc(newsize);
     for (i = st; i < newsize; i++)
     {
-        wxHtmlHelpDataItem *item = new wxHtmlHelpDataItem;
+        wxHtmlHelpDataItem *item = NEW_DEBUG wxHtmlHelpDataItem;
         item->level = CacheReadInt32(f);
         item->id = CacheReadInt32(f);
         item->name = CacheReadString(f);
@@ -389,7 +389,7 @@ bool wxHtmlHelpData::LoadCachedBook(wxHtmlBookRecord *book, wxInputStream *f)
     m_index.Alloc(newsize);
     for (i = st; i < newsize; i++)
     {
-        wxHtmlHelpDataItem *item = new wxHtmlHelpDataItem;
+        wxHtmlHelpDataItem *item = NEW_DEBUG wxHtmlHelpDataItem;
         item->name = CacheReadString(f);
         item->page = CacheReadString(f);
         item->level = CacheReadInt32(f);
@@ -533,9 +533,9 @@ bool wxHtmlHelpData::AddBookParam(const wxFSFile& bookfile,
             title1 = title;
     }
 
-    bookr = new wxHtmlBookRecord(bookfile.GetLocation(), fsys.GetPath(), title1, deftopic);
+    bookr = NEW_DEBUG wxHtmlBookRecord(bookfile.GetLocation(), fsys.GetPath(), title1, deftopic);
 
-    wxHtmlHelpDataItem *bookitem = new wxHtmlHelpDataItem;
+    wxHtmlHelpDataItem *bookitem = NEW_DEBUG wxHtmlHelpDataItem;
     bookitem->level = 0;
     bookitem->id = 0;
     bookitem->page = deftopic;
@@ -571,7 +571,7 @@ bool wxHtmlHelpData::AddBookParam(const wxFSFile& bookfile,
             LoadMSProject(bookr, fsys, indexfile, contfile);
             if (!m_tempPath.empty())
             {
-                wxFileOutputStream *outs = new wxFileOutputStream(m_tempPath +
+                wxFileOutputStream *outs = NEW_DEBUG wxFileOutputStream(m_tempPath +
                                                   SafeFileName(wxFileNameFromPath(bookfile.GetLocation())) + wxT(".cached"));
                 SaveCachedBook(bookr, outs);
                 delete outs;

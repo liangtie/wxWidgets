@@ -23,7 +23,7 @@
 
 ScoreFile::ScoreFile(const wxString& appName)
 {
-    m_config = new wxConfig(appName, wxT("wxWidgets"), appName, wxEmptyString,
+    m_config = NEW_DEBUG wxConfig(appName, wxT("wxWidgets"), appName, wxEmptyString,
                                 wxCONFIG_USE_LOCAL_FILE);  // only local
 }
 

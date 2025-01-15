@@ -63,7 +63,7 @@
 // private classes
 // ----------------------------------------------------------------------------
 
-// Define a new application type, each program should derive a class from wxApp
+// Define a NEW_DEBUG application type, each program should derive a class from wxApp
 class MyApp : public wxApp
 {
 public:
@@ -79,7 +79,7 @@ public:
 
 #if wxUSE_ACCESSIBILITY
 
-// Define a new frame type: this is going to be our main frame
+// Define a NEW_DEBUG frame type: this is going to be our main frame
 class MyFrame : public wxFrame
 {
 public:
@@ -141,7 +141,7 @@ wxEND_EVENT_TABLE()
 
 #endif // wxUSE_ACCESSIBILITY
 
-// Create a new application object: this macro will allow wxWidgets to create
+// Create a NEW_DEBUG application object: this macro will allow wxWidgets to create
 // the application object during program execution (it's better than using a
 // static object for many reasons) and also declares the accessor function
 // wxGetApp() which will return the reference of the right type (i.e. MyApp and
@@ -165,13 +165,13 @@ bool MyApp::OnInit()
 #if wxUSE_ACCESSIBILITY
     // Note: JAWS for Windows will only speak the context-sensitive
     // help if you use this help provider:
-    // wxHelpProvider::Set(new wxHelpControllerHelpProvider(m_helpController)).
+    // wxHelpProvider::Set(NEW_DEBUG wxHelpControllerHelpProvider(m_helpController)).
     // JAWS does not seem to be getting the help text from
     // the wxAccessible object.
-    wxHelpProvider::Set(new wxSimpleHelpProvider());
+    wxHelpProvider::Set(NEW_DEBUG wxSimpleHelpProvider());
 
     // create the main application window
-    MyFrame *frame = new MyFrame("AccessTest wxWidgets App",
+    MyFrame *frame = NEW_DEBUG MyFrame("AccessTest wxWidgets App",
                                  wxPoint(50, 50), wxSize(450, 340));
 
     // and show it (the frames, unlike simple controls, are not shown when
@@ -322,17 +322,17 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size, 
 {
     m_textCtrl = NULL;
 
-    SetAccessible(new FrameAccessible(this));
+    SetAccessible(NEW_DEBUG FrameAccessible(this));
 
     // set the frame icon
     SetIcon(wxICON(sample));
 
 #if wxUSE_MENUS
     // create a menu bar
-    wxMenu *menuFile = new wxMenu;
+    wxMenu *menuFile = NEW_DEBUG wxMenu;
 
     // the "About" item should be in the help menu
-    wxMenu *helpMenu = new wxMenu;
+    wxMenu *helpMenu = NEW_DEBUG wxMenu;
     helpMenu->Append(AccessTest_About, "&About", "Show about dialog");
 
     menuFile->Append(AccessTest_Query, "Query", "Query the window hierarchy");
@@ -340,7 +340,7 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size, 
     menuFile->Append(AccessTest_Quit, "E&xit\tAlt-X", "Quit this program");
 
     // now append the freshly created menu to the menu bar...
-    wxMenuBar *menuBar = new wxMenuBar();
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar();
     menuBar->Append(menuFile, "&File");
     menuBar->Append(helpMenu, "&Help");
 
@@ -355,10 +355,10 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size, 
 #endif // wxUSE_STATUSBAR
 
 
-    wxSplitterWindow* splitter = new wxSplitterWindow(this, wxID_ANY);
-    splitter->SetAccessible(new SplitterWindowAccessible(splitter));
+    wxSplitterWindow* splitter = NEW_DEBUG wxSplitterWindow(this, wxID_ANY);
+    splitter->SetAccessible(NEW_DEBUG SplitterWindowAccessible(splitter));
 
-    wxListBox* listBox = new wxListBox(splitter, wxID_ANY);
+    wxListBox* listBox = NEW_DEBUG wxListBox(splitter, wxID_ANY);
     listBox->Append("Cabbages");
     listBox->Append("Kings");
     listBox->Append("Sealing wax");
@@ -366,7 +366,7 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size, 
     listBox->CreateAccessible();
     listBox->SetHelpText("This is a sample wxWidgets listbox, with a number of items in it.");
 
-    m_textCtrl = new wxTextCtrl(splitter, wxID_ANY, "", wxDefaultPosition,
+    m_textCtrl = NEW_DEBUG wxTextCtrl(splitter, wxID_ANY, "", wxDefaultPosition,
         wxDefaultSize, wxTE_MULTILINE);
     m_textCtrl->CreateAccessible();
     m_textCtrl->SetHelpText("This is a sample wxWidgets multiline text control.");
@@ -374,8 +374,8 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size, 
     splitter->SplitHorizontally(listBox, m_textCtrl, 150);
 
 #if 0
-    wxScrolledWindow* scrolledWindow = new wxScrolledWindow(this, wxID_ANY);
-    scrolledWindow->SetAccessible(new ScrolledWindowAccessible(scrolledWindow));
+    wxScrolledWindow* scrolledWindow = NEW_DEBUG wxScrolledWindow(this, wxID_ANY);
+    scrolledWindow->SetAccessible(NEW_DEBUG ScrolledWindowAccessible(scrolledWindow));
 #endif
 }
 
@@ -430,7 +430,7 @@ void MyFrame::OnQuery(wxCommandEvent& WXUNUSED(event))
 
 
         long obtained = 0;
-        VARIANT *var = new VARIANT[childCount];
+        VARIANT *var = NEW_DEBUG VARIANT[childCount];
         int i;
         for (i = 0; i < childCount; i++)
         {

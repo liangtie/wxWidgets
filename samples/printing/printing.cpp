@@ -73,7 +73,7 @@ bool MyApp::OnInit(void)
     // init global objects
     // -------------------
 
-    g_printData = new wxPrintData;
+    g_printData = NEW_DEBUG wxPrintData;
 
     // You could set an initial paper size here
 #if 0
@@ -81,7 +81,7 @@ bool MyApp::OnInit(void)
     g_printData->SetPaperId(wxPAPER_A4);    // for everyone else
 #endif
 
-    g_pageSetupData = new wxPageSetupDialogData;
+    g_pageSetupData = NEW_DEBUG wxPageSetupDialogData;
 
     // copy over initial paper size from print record
     (*g_pageSetupData) = *g_printData;
@@ -110,7 +110,7 @@ bool MyApp::OnInit(void)
     // Create the main frame window
     // ----------------------------
 
-    MyFrame* frame = new MyFrame("wxWidgets Printing Demo");
+    MyFrame* frame = NEW_DEBUG MyFrame("wxWidgets Printing Demo");
     frame->Show();
 
     return true;
@@ -290,7 +290,7 @@ MyFrame::MyFrame(const wxString& title)
     SetIcon( wxICON( sample) );
 
     // Make a menubar
-    wxMenu *file_menu = new wxMenu;
+    wxMenu *file_menu = NEW_DEBUG wxMenu;
 
     file_menu->Append(wxID_PRINT, "&Print...",                 "Print");
     file_menu->Append(WXPRINT_PAGE_SETUP, "Page Set&up...",    "Page setup");
@@ -299,7 +299,7 @@ MyFrame::MyFrame(const wxString& title)
 #endif
     file_menu->Append(wxID_PREVIEW, "Print Pre&view",          "Preview");
 
-    wxMenu * const menuModalKind = new wxMenu;
+    wxMenu * const menuModalKind = NEW_DEBUG wxMenu;
     menuModalKind->AppendRadioItem(WXPRINT_FRAME_MODAL_APP, "&App modal");
     menuModalKind->AppendRadioItem(WXPRINT_FRAME_MODAL_WIN, "&Window modal");
     menuModalKind->AppendRadioItem(WXPRINT_FRAME_MODAL_NON, "&Not modal");
@@ -325,10 +325,10 @@ MyFrame::MyFrame(const wxString& title)
     file_menu->AppendSeparator();
     file_menu->Append(wxID_EXIT, "E&xit",                                "Exit program");
 
-    wxMenu *help_menu = new wxMenu;
+    wxMenu *help_menu = NEW_DEBUG wxMenu;
     help_menu->Append(wxID_ABOUT, "&About",                              "About this demo");
 
-    wxMenuBar *menu_bar = new wxMenuBar;
+    wxMenuBar *menu_bar = NEW_DEBUG wxMenuBar;
 
     menu_bar->Append(file_menu, "&File");
     menu_bar->Append(help_menu, "&Help");
@@ -340,7 +340,7 @@ MyFrame::MyFrame(const wxString& title)
     // create the canvas
     // -----------------
 
-    m_canvas = new MyCanvas(this, wxRETAINED | wxHSCROLL | wxVSCROLL);
+    m_canvas = NEW_DEBUG MyCanvas(this, wxRETAINED | wxHSCROLL | wxVSCROLL);
 
     // Give it scrollbars: the virtual canvas is 20 * 50 = 1000 pixels in each direction
     m_canvas->SetScrollbars(20, 20, 50, 50);
@@ -382,7 +382,7 @@ void MyFrame::OnPrintPreview(wxCommandEvent& WXUNUSED(event))
     // Pass two printout objects: for preview, and possible printing.
     wxPrintDialogData printDialogData(* g_printData);
     wxPrintPreview *preview =
-        new wxPrintPreview(new MyPrintout(this), new MyPrintout(this), &printDialogData);
+        NEW_DEBUG wxPrintPreview(NEW_DEBUG MyPrintout(this), NEW_DEBUG MyPrintout(this), &printDialogData);
     if (!preview->IsOk())
     {
         delete preview;
@@ -390,7 +390,7 @@ void MyFrame::OnPrintPreview(wxCommandEvent& WXUNUSED(event))
         return;
     }
 
-    wxPreviewFrame *frame = new wxPreviewFrame(preview, this, "Demo Print Preview");
+    wxPreviewFrame *frame = NEW_DEBUG wxPreviewFrame(preview, this, "Demo Print Preview");
     frame->InitializeWithModality(m_previewModality);
     frame->Centre(wxBOTH);
     frame->Show();
@@ -423,8 +423,8 @@ void MyFrame::OnPrintPreviewPS(wxCommandEvent& WXUNUSED(event))
 {
     // Pass two printout objects: for preview, and possible printing.
     wxPrintDialogData printDialogData(* g_printData);
-    wxPrintPreview *preview = new wxPrintPreview(new MyPrintout(this), new MyPrintout(this), &printDialogData);
-    wxPreviewFrame *frame = new wxPreviewFrame(preview, this, "Demo Print Preview");
+    wxPrintPreview *preview = NEW_DEBUG wxPrintPreview(NEW_DEBUG MyPrintout(this), NEW_DEBUG MyPrintout(this), &printDialogData);
+    wxPreviewFrame *frame = NEW_DEBUG wxPreviewFrame(preview, this, "Demo Print Preview");
     frame->Initialize();
     frame->Centre(wxBOTH);
     frame->Show();

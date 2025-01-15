@@ -64,7 +64,7 @@ bool MyApp::OnInit()
     }
 
     // Create the main window
-    gs_dialog = new MyDialog("wxTaskBarIcon Test Dialog");
+    gs_dialog = NEW_DEBUG MyDialog("wxTaskBarIcon Test Dialog");
 
     gs_dialog->Show(true);
 
@@ -87,19 +87,19 @@ wxEND_EVENT_TABLE()
 MyDialog::MyDialog(const wxString& title)
         : wxDialog(NULL, wxID_ANY, title)
 {
-    wxSizer * const sizerTop = new wxBoxSizer(wxVERTICAL);
+    wxSizer * const sizerTop = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
     wxSizerFlags flags;
     flags.Border(wxALL, 10);
 
-    sizerTop->Add(new wxStaticText
+    sizerTop->Add(NEW_DEBUG wxStaticText
                       (
                         this,
                         wxID_ANY,
                         "Press 'Hide me' to hide this window, Exit to quit."
                       ), flags);
 
-    sizerTop->Add(new wxStaticText
+    sizerTop->Add(NEW_DEBUG wxStaticText
                       (
                         this,
                         wxID_ANY,
@@ -108,16 +108,16 @@ MyDialog::MyDialog(const wxString& title)
 
     sizerTop->AddStretchSpacer()->SetMinSize(200, 50);
 
-    wxSizer * const sizerBtns = new wxBoxSizer(wxHORIZONTAL);
-    sizerBtns->Add(new wxButton(this, wxID_ABOUT, "&About"), flags);
-    sizerBtns->Add(new wxButton(this, wxID_OK, "&Hide"), flags);
-    sizerBtns->Add(new wxButton(this, wxID_EXIT, "E&xit"), flags);
+    wxSizer * const sizerBtns = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
+    sizerBtns->Add(NEW_DEBUG wxButton(this, wxID_ABOUT, "&About"), flags);
+    sizerBtns->Add(NEW_DEBUG wxButton(this, wxID_OK, "&Hide"), flags);
+    sizerBtns->Add(NEW_DEBUG wxButton(this, wxID_EXIT, "E&xit"), flags);
 
     sizerTop->Add(sizerBtns, flags.Align(wxALIGN_CENTER_HORIZONTAL));
     SetSizerAndFit(sizerTop);
     Centre();
 
-    m_taskBarIcon = new MyTaskBarIcon();
+    m_taskBarIcon = NEW_DEBUG MyTaskBarIcon();
 
     // we should be able to show up to 128 characters on Windows
     if (!m_taskBarIcon->SetIcon(wxArtProvider::GetBitmapBundle(wxART_WX_LOGO, wxART_OTHER, wxSize(32, 32)),
@@ -130,7 +130,7 @@ MyDialog::MyDialog(const wxString& title)
     }
 
 #if defined(__WXOSX__) && wxOSX_USE_COCOA
-    m_dockIcon = new MyTaskBarIcon(wxTBI_DOCK);
+    m_dockIcon = NEW_DEBUG MyTaskBarIcon(wxTBI_DOCK);
     if ( !m_dockIcon->SetIcon(wxArtProvider::GetBitmapBundle(wxART_WX_LOGO, wxART_OTHER, wxSize(32, 32))) )
     {
         wxLogError("Could not set icon.");
@@ -236,7 +236,7 @@ void MyTaskBarIcon::OnMenuSetNewIcon(wxCommandEvent&)
                      wxBitmap(smile2_xpm)
                  ),
                  "wxTaskBarIcon Sample - a different icon"))
-        wxMessageBox("Could not set new icon.");
+        wxMessageBox("Could not set NEW_DEBUG icon.");
 }
 
 void MyTaskBarIcon::OnMenuSub(wxCommandEvent&)
@@ -247,14 +247,14 @@ void MyTaskBarIcon::OnMenuSub(wxCommandEvent&)
 // Overridables
 wxMenu *MyTaskBarIcon::CreatePopupMenu()
 {
-    wxMenu *menu = new wxMenu;
+    wxMenu *menu = NEW_DEBUG wxMenu;
     menu->Append(PU_RESTORE, "&Restore main window");
     menu->AppendSeparator();
     menu->Append(PU_NEW_ICON, "&Set New Icon");
     menu->AppendSeparator();
     menu->AppendCheckItem(PU_CHECKMARK, "Test &check mark");
     menu->AppendSeparator();
-    wxMenu *submenu = new wxMenu;
+    wxMenu *submenu = NEW_DEBUG wxMenu;
     submenu->Append(PU_SUB1, "One submenu");
     submenu->AppendSeparator();
     submenu->Append(PU_SUB2, "Another submenu");

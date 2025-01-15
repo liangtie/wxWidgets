@@ -350,9 +350,9 @@ wxPNGImageData::DoLoadPNGFile(wxImage* image, wxPNGInfoStruct& wxinfo)
 
         (void) png_get_PLTE(png_ptr, info_ptr, &palette, &numPalette);
 
-        unsigned char* r = new unsigned char[numPalette];
-        unsigned char* g = new unsigned char[numPalette];
-        unsigned char* b = new unsigned char[numPalette];
+        unsigned char* r = NEW_DEBUG unsigned char[numPalette];
+        unsigned char* g = NEW_DEBUG unsigned char[numPalette];
+        unsigned char* b = NEW_DEBUG unsigned char[numPalette];
 
         for (int j = 0; j < numPalette; j++)
         {
@@ -848,7 +848,7 @@ bool wxPNGHandler::SaveFile( wxImage *image, wxOutputStream& stream, bool verbos
 /*static*/ wxVersionInfo wxPNGHandler::GetLibraryVersionInfo()
 {
     // The version string seems to always have a leading space and a trailing
-    // new line, get rid of them both.
+    // NEW_DEBUG line, get rid of them both.
     wxString str = png_get_header_version(NULL) + 1;
     str.Replace("\n", "");
 

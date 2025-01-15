@@ -187,7 +187,7 @@ protected:
         // Unfortunately we don't know what bitmap sizes are available here as
         // there is simply nothing in wxArtProvider API that returns this (and
         // adding something to the API doesn't make sense as all this is only
-        // used for compatibility with the existing custom art providers -- new
+        // used for compatibility with the existing custom art providers -- NEW_DEBUG
         // ones should just override CreateBitmapBundle() directly), so we only
         // return the original bitmap scale, but hope that perhaps the provider
         // will have other (e.g. x2) scales too, when our GetBitmap() is called.
@@ -254,8 +254,8 @@ wxArtProvider::~wxArtProvider()
 {
     if ( !sm_providers )
     {
-        sm_providers = new wxArtProvidersList;
-        sm_cache = new wxArtProviderCache;
+        sm_providers = NEW_DEBUG wxArtProvidersList;
+        sm_cache = NEW_DEBUG wxArtProviderCache;
     }
 
     sm_cache->Clear();
@@ -505,7 +505,7 @@ wxBitmapBundle wxArtProvider::GetBitmapBundle(const wxArtID& id,
             if ( bitmap.IsOk() )
             {
                 bitmapbundle = wxBitmapBundle::FromImpl(
-                        new wxBitmapBundleImplArt(bitmap, id, client, size)
+                        NEW_DEBUG wxBitmapBundleImplArt(bitmap, id, client, size)
                     );
                 break;
             }

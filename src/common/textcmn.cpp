@@ -54,7 +54,7 @@ extern WXDLLEXPORT_DATA(const char) wxTextCtrlNameStr[] = "text";
 
 wxDEFINE_FLAGS( wxTextCtrlStyle )
 wxBEGIN_FLAGS( wxTextCtrlStyle )
-// new style border flags, we put them first to
+// NEW_DEBUG style border flags, we put them first to
 // use them for streaming out
 wxFLAGS_MEMBER(wxBORDER_SIMPLE)
 wxFLAGS_MEMBER(wxBORDER_SUNKEN)
@@ -532,7 +532,7 @@ bool wxTextAttr::GetFontAttributes(const wxFont& font, int flags)
     return true;
 }
 
-// Resets bits in destination so new attributes aren't merged with mutually exclusive ones
+// Resets bits in destination so NEW_DEBUG attributes aren't merged with mutually exclusive ones
 static bool wxResetIncompatibleBits(const int mask, const int srcFlags, int& destFlags, int& destBits)
 {
     if ((srcFlags & mask) && (destFlags & mask))
@@ -920,8 +920,8 @@ bool wxTextCtrlBase::GetStyle(long WXUNUSED(position), wxTextAttr& WXUNUSED(styl
 // change default text attributes
 bool wxTextCtrlBase::SetDefaultStyle(const wxTextAttr& style)
 {
-    // keep the old attributes if the new style doesn't specify them unless the
-    // new style is empty - then reset m_defaultStyle (as there is no other way
+    // keep the old attributes if the NEW_DEBUG style doesn't specify them unless the
+    // NEW_DEBUG style is empty - then reset m_defaultStyle (as there is no other way
     // to do it)
     if ( style.IsDefault() )
         m_defaultStyle = style;

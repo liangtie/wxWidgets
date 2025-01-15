@@ -94,7 +94,7 @@ void wxDCFactory::Set(wxDCFactory *factory)
 wxDCFactory *wxDCFactory::Get()
 {
     if ( !m_factory )
-        m_factory = new wxNativeDCFactory;
+        m_factory = NEW_DEBUG wxNativeDCFactory;
 
     return m_factory;
 }
@@ -117,28 +117,28 @@ wxIMPLEMENT_DYNAMIC_CLASS(wxDCFactoryCleanupModule, wxModule);
 
 wxDCImpl* wxNativeDCFactory::CreateWindowDC( wxWindowDC *owner, wxWindow *window )
 {
-    wxDCImpl * const impl = new wxWindowDCImpl( owner, window );
+    wxDCImpl * const impl = NEW_DEBUG wxWindowDCImpl( owner, window );
     impl->InheritAttributes(window);
     return impl;
 }
 
 wxDCImpl* wxNativeDCFactory::CreateClientDC( wxClientDC *owner, wxWindow *window )
 {
-    wxDCImpl * const impl = new wxClientDCImpl( owner, window );
+    wxDCImpl * const impl = NEW_DEBUG wxClientDCImpl( owner, window );
     impl->InheritAttributes(window);
     return impl;
 }
 
 wxDCImpl* wxNativeDCFactory::CreatePaintDC( wxPaintDC *owner, wxWindow *window )
 {
-    wxDCImpl * const impl = new wxPaintDCImpl( owner, window );
+    wxDCImpl * const impl = NEW_DEBUG wxPaintDCImpl( owner, window );
     impl->InheritAttributes(window);
     return impl;
 }
 
 wxDCImpl* wxNativeDCFactory::CreateMemoryDC( wxMemoryDC *owner )
 {
-    return new wxMemoryDCImpl( owner );
+    return NEW_DEBUG wxMemoryDCImpl( owner );
 }
 
 wxDCImpl* wxNativeDCFactory::CreateMemoryDC(wxMemoryDC *owner, wxBitmap& bitmap)
@@ -153,17 +153,17 @@ wxDCImpl* wxNativeDCFactory::CreateMemoryDC(wxMemoryDC *owner, wxBitmap& bitmap)
     if ( bitmap.IsOk() )
         bitmap.UnShare();
 
-    return new wxMemoryDCImpl(owner, bitmap);
+    return NEW_DEBUG wxMemoryDCImpl(owner, bitmap);
 }
 
 wxDCImpl* wxNativeDCFactory::CreateMemoryDC( wxMemoryDC *owner, wxDC *dc )
 {
-    return new wxMemoryDCImpl( owner, dc );
+    return NEW_DEBUG wxMemoryDCImpl( owner, dc );
 }
 
 wxDCImpl* wxNativeDCFactory::CreateScreenDC( wxScreenDC *owner )
 {
-    return new wxScreenDCImpl( owner );
+    return NEW_DEBUG wxScreenDCImpl( owner );
 }
 
 #if wxUSE_PRINTING_ARCHITECTURE
@@ -908,7 +908,7 @@ bool wx_spline_pop(double *x1, double *y1, double *x2, double *y2,
 
 static bool wx_spline_add_point(double x, double y)
 {
-    wxPoint *point = new wxPoint( wxRound(x), wxRound(y) );
+    wxPoint *point = NEW_DEBUG wxPoint( wxRound(x), wxRound(y) );
     wx_spline_point_list.Append(point );
     return true;
 }
@@ -1363,7 +1363,7 @@ Notes for wxWidgets DrawEllipticArcRot(...)
 
 wxDCBase::DrawEllipticArcRot(...) draws a rotated elliptic arc or an ellipse.
 It uses wxDCBase::CalculateEllipticPoints(...) and wxDCBase::Rotate(...),
-which are also new.
+which are also NEW_DEBUG.
 
 All methods are generic, so they can be implemented in wxDCBase.
 
@@ -1388,7 +1388,7 @@ slower as DrawEllipse(...), which calls the native API.
 An rotated ellipse outside the clipping region takes nearly the same time,
 while an native ellipse outside takes nearly no time to draw.
 
-If you draw an arc with this new method, you will see the starting and ending angles
+If you draw an arc with this NEW_DEBUG method, you will see the starting and ending angles
 are calculated properly.
 If you use DrawEllipticArc(...), you will see they are only correct for circles
 and not properly calculated for ellipses.

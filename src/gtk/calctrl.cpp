@@ -116,7 +116,7 @@ bool wxGtkCalendarCtrl::Create(wxWindow *parent,
 
 void wxGtkCalendarCtrl::GTKGenerateEvent(wxEventType type)
 {
-    // First check if the new date is in the specified range.
+    // First check if the NEW_DEBUG date is in the specified range.
     wxDateTime dt = GetDate();
     if ( !IsInValidRange(dt) )
     {
@@ -132,7 +132,7 @@ void wxGtkCalendarCtrl::GTKGenerateEvent(wxEventType type)
 
     if ( type == wxEVT_CALENDAR_SEL_CHANGED )
     {
-        // Don't generate this event if the new date is the same as the old
+        // Don't generate this event if the NEW_DEBUG date is the same as the old
         // one.
         if ( m_selectedDate == dt )
             return;
@@ -141,7 +141,7 @@ void wxGtkCalendarCtrl::GTKGenerateEvent(wxEventType type)
 
         GenerateEvent(type);
 
-        // Also send the deprecated event together with the new one.
+        // Also send the deprecated event together with the NEW_DEBUG one.
         GenerateEvent(wxEVT_CALENDAR_DAY_CHANGED);
     }
     else
@@ -226,7 +226,7 @@ wxDateTime wxGtkCalendarCtrl::GetDate() const
     gtk_calendar_get_date(GTK_CALENDAR(m_widget), &year, &monthGTK, &day);
 
     // GTK may return an invalid date, this happens at least when switching the
-    // month (or the year in case of February in a leap year) and the new month
+    // month (or the year in case of February in a leap year) and the NEW_DEBUG month
     // has fewer days than the currently selected one making the currently
     // selected day invalid, e.g. just choosing May 31 and going back a month
     // results in the date being (non existent) April 31 when we're called from

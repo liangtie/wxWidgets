@@ -120,7 +120,7 @@ wxDialog *wxGenericFileButton::CreateDialog()
     if ( initialDir.empty() )
         initialDir = m_initialDir;
 
-    return new wxFileDialog
+    return NEW_DEBUG wxFileDialog
                (
                     GetDialogParent(),
                     m_message,
@@ -137,7 +137,7 @@ wxDialog *wxGenericFileButton::CreateDialog()
 
 wxDialog *wxGenericDirButton::CreateDialog()
 {
-    wxDirDialog* const dialog = new wxDirDialog
+    wxDirDialog* const dialog = NEW_DEBUG wxDirDialog
                                     (
                                         GetDialogParent(),
                                         m_message,

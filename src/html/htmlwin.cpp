@@ -300,7 +300,7 @@ void wxHtmlWindow::CleanUpStatics()
 void wxHtmlWindow::Init()
 {
     m_tmpCanDrawLocks = 0;
-    m_FS = new wxFileSystem();
+    m_FS = NEW_DEBUG wxFileSystem();
 #if wxUSE_STATUSBAR
     m_RelatedStatusBar = NULL;
     m_RelatedStatusBarIndex = -1;
@@ -311,11 +311,11 @@ void wxHtmlWindow::Init()
     m_OpenedAnchor.clear();
     m_OpenedPageTitle.clear();
     m_Cell = NULL;
-    m_Parser = new wxHtmlWinParser(this);
+    m_Parser = NEW_DEBUG wxHtmlWinParser(this);
     m_Parser->SetFS(m_FS);
     m_HistoryPos = -1;
     m_HistoryOn = true;
-    m_History = new wxHtmlHistoryArray;
+    m_History = NEW_DEBUG wxHtmlHistoryArray;
     m_Processors = NULL;
     SetBorders(10);
     m_selection = NULL;
@@ -657,7 +657,7 @@ bool wxHtmlWindow::LoadPage(const wxString& location)
             m_HistoryPos++;
             for (int i = 0; i < c; i++)
                 m_History->RemoveAt(m_HistoryPos);
-            m_History->Add(new wxHtmlHistoryItem(m_OpenedPage, m_OpenedAnchor));
+            m_History->Add(NEW_DEBUG wxHtmlHistoryItem(m_OpenedPage, m_OpenedAnchor));
         }
     }
 
@@ -861,7 +861,7 @@ bool wxHtmlWindow::HistoryForward()
     if (m_HistoryPos == -1) return false;
     if (m_HistoryPos >= (int)m_History->GetCount() - 1)return false;
 
-    m_OpenedPage.clear(); // this will disable adding new entry into history in LoadPage()
+    m_OpenedPage.clear(); // this will disable adding NEW_DEBUG entry into history in LoadPage()
 
     m_HistoryPos++;
     l = (*m_History)[m_HistoryPos].GetPage();
@@ -895,7 +895,7 @@ void wxHtmlWindow::AddProcessor(wxHtmlProcessor *processor)
 {
     if (!m_Processors)
     {
-        m_Processors = new wxHtmlProcessorList;
+        m_Processors = NEW_DEBUG wxHtmlProcessorList;
     }
     wxHtmlProcessorList::compatibility_iterator node;
 
@@ -914,7 +914,7 @@ void wxHtmlWindow::AddProcessor(wxHtmlProcessor *processor)
 {
     if (!m_GlobalProcessors)
     {
-        m_GlobalProcessors = new wxHtmlProcessorList;
+        m_GlobalProcessors = NEW_DEBUG wxHtmlProcessorList;
     }
     wxHtmlProcessorList::compatibility_iterator node;
 
@@ -962,11 +962,11 @@ wxString wxHtmlWindow::DoSelectionToText(wxHtmlSelection *sel)
     while ( i )
     {
         // When converting HTML content to plain text, the entire paragraph
-        // (container in wxHTML) goes on single line. A new paragraph (that
+        // (container in wxHTML) goes on single line. A NEW_DEBUG paragraph (that
         // should go on its own line) has its own container. Therefore, the
         // simplest way of detecting where to insert newlines in plain text
         // is to check if the parent container changed -- if it did, we moved
-        // to a new paragraph.
+        // to a NEW_DEBUG paragraph.
         if ( prev && prev->GetParent() != i->GetParent() )
             text << '\n';
 
@@ -1014,7 +1014,7 @@ bool wxHtmlWindow::CopySelection(ClipboardType t)
         if ( wxTheClipboard->Open() )
         {
             const wxString txt(SelectionToText());
-            wxTheClipboard->SetData(new wxTextDataObject(txt));
+            wxTheClipboard->SetData(NEW_DEBUG wxTextDataObject(txt));
             wxTheClipboard->Close();
             wxLogTrace(wxT("wxhtmlselection"),
                        _("Copied to clipboard:\"%s\""), txt);
@@ -1508,7 +1508,7 @@ void wxHtmlWindow::OnInternalIdle()
                     wxPoint diff = m_tmpSelFromPos - wxPoint(x,y);
                     if (abs(diff.x) > PRECISION || abs(diff.y) > PRECISION)
                     {
-                        m_selection = new wxHtmlSelection();
+                        m_selection = NEW_DEBUG wxHtmlSelection();
                     }
                 }
                 if ( m_selection )
@@ -1533,7 +1533,7 @@ void wxHtmlWindow::OnInternalIdle()
 
         // NB: because we're passing in 'cell' and not 'm_Cell' (so that the
         //     leaf cell lookup isn't done twice), we need to adjust the
-        //     position for the new root:
+        //     position for the NEW_DEBUG root:
         wxPoint posInCell(x, y);
         if (cell)
             posInCell -= cell->GetAbsPos();
@@ -1609,7 +1609,7 @@ void wxHtmlWindow::OnMouseLeave(wxMouseEvent& event)
             return;
 
         delete m_timerAutoScroll;
-        m_timerAutoScroll = new wxHtmlWinAutoScrollTimer
+        m_timerAutoScroll = NEW_DEBUG wxHtmlWinAutoScrollTimer
                                 (
                                     this,
                                     pos == 0 ? wxEVT_SCROLLWIN_LINEUP
@@ -1669,7 +1669,7 @@ void wxHtmlWindow::SelectWord(const wxPoint& pos)
         if ( cell )
         {
             delete m_selection;
-            m_selection = new wxHtmlSelection();
+            m_selection = NEW_DEBUG wxHtmlSelection();
             m_selection->Set(cell, cell);
             RefreshRect(wxRect(CalcScrolledPosition(cell->GetAbsPos()),
                                wxSize(cell->GetWidth(), cell->GetHeight())));
@@ -1725,7 +1725,7 @@ void wxHtmlWindow::SelectLine(const wxPoint& pos)
                 before = cell;
 
             delete m_selection;
-            m_selection = new wxHtmlSelection();
+            m_selection = NEW_DEBUG wxHtmlSelection();
             m_selection->Set(before, after);
 
             Refresh();
@@ -1738,7 +1738,7 @@ void wxHtmlWindow::SelectAll()
     if ( m_Cell )
     {
         delete m_selection;
-        m_selection = new wxHtmlSelection();
+        m_selection = NEW_DEBUG wxHtmlSelection();
         m_selection->Set(m_Cell->GetFirstTerminal(), m_Cell->GetLastTerminal());
         Refresh();
     }
@@ -1862,18 +1862,18 @@ wxCursor wxHtmlWindow::GetDefaultHTMLCursor(HTMLCursor type)
     {
         case HTMLCursor_Link:
             if ( !ms_cursorLink )
-                ms_cursorLink = new wxCursor(wxCURSOR_HAND);
+                ms_cursorLink = NEW_DEBUG wxCursor(wxCURSOR_HAND);
             return *ms_cursorLink;
 
         case HTMLCursor_Text:
             if ( !ms_cursorText )
-                ms_cursorText = new wxCursor(wxCURSOR_IBEAM);
+                ms_cursorText = NEW_DEBUG wxCursor(wxCURSOR_IBEAM);
             return *ms_cursorText;
 
         case HTMLCursor_Default:
         default:
             if ( !ms_cursorDefault )
-                ms_cursorDefault = new wxCursor(wxCURSOR_ARROW);
+                ms_cursorDefault = NEW_DEBUG wxCursor(wxCURSOR_ARROW);
             return *ms_cursorDefault;
     }
 }
@@ -1890,18 +1890,18 @@ void wxHtmlWindow::SetDefaultHTMLCursor(HTMLCursor type, const wxCursor& cursor)
     {
         case HTMLCursor_Link:
             delete ms_cursorLink;
-            ms_cursorLink = new wxCursor(cursor);
+            ms_cursorLink = NEW_DEBUG wxCursor(cursor);
             return;
 
         case HTMLCursor_Text:
             delete ms_cursorText;
-            ms_cursorText = new wxCursor(cursor);
+            ms_cursorText = NEW_DEBUG wxCursor(cursor);
             return;
 
         case HTMLCursor_Default:
         default:
             delete ms_cursorText;
-            ms_cursorDefault = new wxCursor(cursor);
+            ms_cursorDefault = NEW_DEBUG wxCursor(cursor);
     }
 }
 

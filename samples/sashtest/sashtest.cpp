@@ -41,7 +41,7 @@ bool MyApp::OnInit(void)
 
   // Create the main frame window
 
-  frame = new MyFrame(NULL, wxID_ANY, "Sash Demo", wxPoint(0, 0), wxSize(500, 400),
+  frame = NEW_DEBUG MyFrame(NULL, wxID_ANY, "Sash Demo", wxPoint(0, 0), wxSize(500, 400),
                       wxDEFAULT_FRAME_STYLE |
                       wxHSCROLL | wxVSCROLL);
 
@@ -51,16 +51,16 @@ bool MyApp::OnInit(void)
 #endif
 
   // Make a menubar
-  wxMenu *file_menu = new wxMenu;
+  wxMenu *file_menu = NEW_DEBUG wxMenu;
 
   file_menu->Append(SASHTEST_NEW_WINDOW, "&New window");
   file_menu->Append(SASHTEST_TOGGLE_WINDOW, "&Toggle window");
   file_menu->Append(SASHTEST_QUIT, "&Exit");
 
-  wxMenu *help_menu = new wxMenu;
+  wxMenu *help_menu = NEW_DEBUG wxMenu;
   help_menu->Append(SASHTEST_ABOUT, "&About");
 
-  wxMenuBar *menu_bar = new wxMenuBar;
+  wxMenuBar *menu_bar = NEW_DEBUG wxMenuBar;
 
   menu_bar->Append(file_menu, "&File");
   menu_bar->Append(help_menu, "&Help");
@@ -96,7 +96,7 @@ MyFrame::MyFrame(wxWindow *parent, const wxWindowID id, const wxString& title, c
 
   // A window like a toolbar
   wxSashLayoutWindow* win =
-      new wxSashLayoutWindow(this, ID_WINDOW_TOP,
+      NEW_DEBUG wxSashLayoutWindow(this, ID_WINDOW_TOP,
                              wxDefaultPosition, wxSize(200, 30),
                              wxNO_BORDER | wxSW_3D | wxCLIP_CHILDREN);
 
@@ -109,7 +109,7 @@ MyFrame::MyFrame(wxWindow *parent, const wxWindowID id, const wxString& title, c
   m_topWindow = win;
 
   // A window like a statusbar
-  win = new wxSashLayoutWindow(this, ID_WINDOW_BOTTOM,
+  win = NEW_DEBUG wxSashLayoutWindow(this, ID_WINDOW_BOTTOM,
                                wxDefaultPosition, wxSize(200, 30),
                                wxNO_BORDER | wxSW_3D | wxCLIP_CHILDREN);
   win->SetDefaultSize(wxSize(1000, 30));
@@ -121,7 +121,7 @@ MyFrame::MyFrame(wxWindow *parent, const wxWindowID id, const wxString& title, c
   m_bottomWindow = win;
 
   // A window to the left of the client window
-  win = new wxSashLayoutWindow(this, ID_WINDOW_LEFT1,
+  win = NEW_DEBUG wxSashLayoutWindow(this, ID_WINDOW_LEFT1,
                                wxDefaultPosition, wxSize(200, 30),
                                wxNO_BORDER | wxSW_3D | wxCLIP_CHILDREN);
   win->SetDefaultSize(wxSize(120, 1000));
@@ -131,7 +131,7 @@ MyFrame::MyFrame(wxWindow *parent, const wxWindowID id, const wxString& title, c
   win->SetSashVisible(wxSASH_RIGHT, true);
   win->SetExtraBorderSize(10);
 
-  wxTextCtrl* textWindow = new wxTextCtrl(win, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize,
+  wxTextCtrl* textWindow = NEW_DEBUG wxTextCtrl(win, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize,
         wxTE_MULTILINE|wxSUNKEN_BORDER);
 //        wxTE_MULTILINE|wxNO_BORDER);
   textWindow->SetValue("A help window");
@@ -139,7 +139,7 @@ MyFrame::MyFrame(wxWindow *parent, const wxWindowID id, const wxString& title, c
   m_leftWindow1 = win;
 
   // Another window to the left of the client window
-  win = new wxSashLayoutWindow(this, ID_WINDOW_LEFT2,
+  win = NEW_DEBUG wxSashLayoutWindow(this, ID_WINDOW_LEFT2,
                                wxDefaultPosition, wxSize(200, 30),
                                wxNO_BORDER | wxSW_3D | wxCLIP_CHILDREN);
   win->SetDefaultSize(wxSize(120, 1000));
@@ -218,7 +218,7 @@ void MyFrame::OnSashDrag(wxSashEvent& event)
 void MyFrame::OnNewWindow(wxCommandEvent& WXUNUSED(event))
 {
       // Make another frame, containing a canvas
-      MyChild *subframe = new MyChild(frame, "Canvas Frame",
+      MyChild *subframe = NEW_DEBUG MyChild(frame, "Canvas Frame",
                                       wxPoint(10, 10), wxSize(300, 300));
 
       subframe->SetTitle(wxString::Format("Canvas Frame %d", winNumber));
@@ -235,21 +235,21 @@ void MyFrame::OnNewWindow(wxCommandEvent& WXUNUSED(event))
 #endif // wxUSE_STATUSBAR
 
       // Make a menubar
-      wxMenu *file_menu = new wxMenu;
+      wxMenu *file_menu = NEW_DEBUG wxMenu;
 
       file_menu->Append(SASHTEST_NEW_WINDOW, "&New window");
       file_menu->Append(SASHTEST_CHILD_QUIT, "&Close child");
       file_menu->Append(SASHTEST_QUIT, "&Exit");
 
-      wxMenu *option_menu = new wxMenu;
+      wxMenu *option_menu = NEW_DEBUG wxMenu;
 
       // Dummy option
       option_menu->Append(SASHTEST_REFRESH, "&Refresh picture");
 
-      wxMenu *help_menu = new wxMenu;
+      wxMenu *help_menu = NEW_DEBUG wxMenu;
       help_menu->Append(SASHTEST_ABOUT, "&About");
 
-      wxMenuBar *menu_bar = new wxMenuBar;
+      wxMenuBar *menu_bar = NEW_DEBUG wxMenuBar;
 
       menu_bar->Append(file_menu, "&File");
       menu_bar->Append(option_menu, "&Options");
@@ -260,7 +260,7 @@ void MyFrame::OnNewWindow(wxCommandEvent& WXUNUSED(event))
 
       int width, height;
       subframe->GetClientSize(&width, &height);
-      MyCanvas *canvas = new MyCanvas(subframe, wxPoint(0, 0), wxSize(width, height));
+      MyCanvas *canvas = NEW_DEBUG MyCanvas(subframe, wxPoint(0, 0), wxSize(width, height));
       canvas->SetCursor(wxCursor(wxCURSOR_PENCIL));
       subframe->canvas = canvas;
 

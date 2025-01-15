@@ -90,14 +90,14 @@ GetAddressFromName(const wxString& serverName,
     // socket instead of AF_INET one
     if ( serverName.Find(wxT('/')) != wxNOT_FOUND )
     {
-        wxUNIXaddress *addr = new wxUNIXaddress;
+        wxUNIXaddress *addr = NEW_DEBUG wxUNIXaddress;
         addr->Filename(serverName);
 
         return addr;
     }
 #endif // Unix/!Unix
     {
-        wxIPV4address *addr = new wxIPV4address;
+        wxIPV4address *addr = NEW_DEBUG wxIPV4address;
         addr->Service(serverName);
         if ( !host.empty() )
         {
@@ -146,7 +146,7 @@ public:
     static wxTCPEventHandler& GetHandler()
     {
         if ( !ms_handler )
-            ms_handler = new wxTCPEventHandler;
+            ms_handler = NEW_DEBUG wxTCPEventHandler;
 
         return *ms_handler;
     }
@@ -374,8 +374,8 @@ wxConnectionBase *wxTCPClient::MakeConnection(const wxString& host,
     if ( !addr )
         return NULL;
 
-    wxSocketClient * const client = new wxSocketClient(wxSOCKET_WAITALL);
-    wxIPCSocketStreams * const streams = new wxIPCSocketStreams(*client);
+    wxSocketClient * const client = NEW_DEBUG wxSocketClient(wxSOCKET_WAITALL);
+    wxIPCSocketStreams * const streams = NEW_DEBUG wxIPCSocketStreams(*client);
 
     bool ok = client->Connect(*addr);
     delete addr;
@@ -425,7 +425,7 @@ wxConnectionBase *wxTCPClient::MakeConnection(const wxString& host,
 
 wxConnectionBase *wxTCPClient::OnMakeConnection()
 {
-    return new wxTCPConnection();
+    return NEW_DEBUG wxTCPConnection();
 }
 
 // --------------------------------------------------------------------------
@@ -479,7 +479,7 @@ bool wxTCPServer::Create(const wxString& serverName)
     // Create a socket listening on the specified port (reusing it to allow
     // restarting the server listening on the same port as was used by the
     // previous instance of this server)
-    m_server = new wxSocketServer(*addr, wxSOCKET_WAITALL | wxSOCKET_REUSEADDR);
+    m_server = NEW_DEBUG wxSocketServer(*addr, wxSOCKET_WAITALL | wxSOCKET_REUSEADDR);
 
 #ifdef __UNIX_LIKE__
     if ( addr->Type() == wxSockAddress::UNIX )
@@ -533,7 +533,7 @@ wxTCPServer::~wxTCPServer()
 wxConnectionBase *
 wxTCPServer::OnAcceptConnection(const wxString& WXUNUSED(topic))
 {
-    return new wxTCPConnection();
+    return NEW_DEBUG wxTCPConnection();
 }
 
 // --------------------------------------------------------------------------
@@ -869,7 +869,7 @@ void wxTCPEventHandler::Server_OnRequest(wxSocketEvent &event)
     if (event.GetSocketEvent() != wxSOCKET_CONNECTION)
         return;
 
-    // Accept the connection, getting a new socket
+    // Accept the connection, getting a NEW_DEBUG socket
     wxSocketBase *sock = server->Accept();
     if (!sock)
         return;
@@ -879,7 +879,7 @@ void wxTCPEventHandler::Server_OnRequest(wxSocketEvent &event)
         return;
     }
 
-    wxIPCSocketStreams *streams = new wxIPCSocketStreams(*sock);
+    wxIPCSocketStreams *streams = NEW_DEBUG wxIPCSocketStreams(*sock);
 
     {
         IPCOutput out(streams);

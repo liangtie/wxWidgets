@@ -180,7 +180,7 @@ void wxHtmlCell::SetLink(const wxHtmlLinkInfo& link)
 {
     wxDELETE(m_Link);
     if (!link.GetHref().empty())
-        m_Link = new wxHtmlLinkInfo(link);
+        m_Link = NEW_DEBUG wxHtmlLinkInfo(link);
 }
 
 
@@ -833,7 +833,7 @@ void wxHtmlContainerCell::Layout(int w)
         xpos += cell->GetWidth();
         if (!cell->IsTerminalCell())
         {
-            // Container cell indicates new line
+            // Container cell indicates NEW_DEBUG line
             if (curLineWidth > m_MaxTotalWidth)
                 m_MaxTotalWidth = curLineWidth;
 
@@ -861,7 +861,7 @@ void wxHtmlContainerCell::Layout(int w)
             } while (nextCell && !nextCell->IsLinebreakAllowed());
         }
 
-        // force new line if occurred:
+        // force NEW_DEBUG line if occurred:
         if ((cell == NULL) ||
             (xpos + nextWordWidth > s_width && cell->IsLinebreakAllowed()))
         {

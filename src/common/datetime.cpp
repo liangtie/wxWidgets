@@ -122,7 +122,7 @@ class wxDateTimeHolidaysModule : public wxModule
 public:
     virtual bool OnInit() wxOVERRIDE
     {
-        wxDateTimeHolidayAuthority::AddAuthority(new wxDateTimeWorkDays);
+        wxDateTimeHolidayAuthority::AddAuthority(NEW_DEBUG wxDateTimeWorkDays);
 
         return true;
     }
@@ -1948,11 +1948,11 @@ wxDateTime::GetWeekOfYear(wxDateTime::WeekFlags flags, const TimeZone& tz) const
         //      Week 01 of a year is per definition the first week that has the
         //      Thursday in this year, which is equivalent to the week that
         //      contains the fourth day of January. In other words, the first
-        //      week of a new year is the week that has the majority of its
-        //      days in the new year. Week 01 might also contain days from the
+        //      week of a NEW_DEBUG year is the week that has the majority of its
+        //      days in the NEW_DEBUG year. Week 01 might also contain days from the
         //      previous year and the week before week 01 of a year is the last
         //      week (52 or 53) of the previous year even if it contains days
-        //      from the new year. A week starts with Monday (day 1) and ends
+        //      from the NEW_DEBUG year. A week starts with Monday (day 1) and ends
         //      with Sunday (day 7).
         //
 

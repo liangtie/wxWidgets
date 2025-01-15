@@ -158,7 +158,7 @@ int wxGetTimeZone()
     wxUnusedVar(s_tzSet);
 
     // Starting with VC++ 8 timezone variable is deprecated and is not even
-    // available in some standard library version so use the new function for
+    // available in some standard library version so use the NEW_DEBUG function for
     // accessing it instead.
     #if wxCHECK_VISUALC_VERSION(8)
         long t;

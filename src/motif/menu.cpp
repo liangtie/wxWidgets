@@ -102,7 +102,7 @@ void wxMenu::Break()
     m_numColumns++;
 }
 
-// function appends a new item or submenu to the menu
+// function appends a NEW_DEBUG item or submenu to the menu
 wxMenuItem* wxMenu::DoAppend(wxMenuItem *pItem)
 {
     return DoInsert(GetMenuItemCount(), pItem);

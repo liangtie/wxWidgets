@@ -342,7 +342,7 @@ wxPlatform& wxPlatform::Else(const wxString& value)
 void wxPlatform::AddPlatform(int platform)
 {
     if (!sm_customPlatforms)
-        sm_customPlatforms = new wxArrayInt;
+        sm_customPlatforms = NEW_DEBUG wxArrayInt;
     sm_customPlatforms->Add(platform);
 }
 
@@ -647,7 +647,7 @@ static long wxDoExecuteWithCapture(const wxString& command,
                                    const wxExecuteEnv *env)
 {
     // create a wxProcess which will capture the output
-    wxProcess *process = new wxProcess;
+    wxProcess *process = NEW_DEBUG wxProcess;
     process->Redirect();
 
     long rc = wxExecute(command, wxEXEC_SYNC | flags, process, env);

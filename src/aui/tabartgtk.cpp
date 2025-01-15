@@ -51,7 +51,7 @@ wxAuiGtkTabArt::wxAuiGtkTabArt()
 
 wxAuiTabArt* wxAuiGtkTabArt::Clone()
 {
-    wxAuiGtkTabArt* clone = new wxAuiGtkTabArt();
+    wxAuiGtkTabArt* clone = NEW_DEBUG wxAuiGtkTabArt();
 
     clone->SetNormalFont(m_normalFont);
     clone->SetSelectedFont(m_normalFont);

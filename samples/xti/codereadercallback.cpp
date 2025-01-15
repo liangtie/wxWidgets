@@ -72,7 +72,7 @@ struct wxObjectCodeReaderCallback::wxObjectCodeReaderCallbackInternal
 wxObjectCodeReaderCallback::wxObjectCodeReaderCallback(wxString& headerincludes, wxString &source)
 : m_headerincludes(headerincludes),m_source(source)
 {
-    m_data = new wxObjectCodeReaderCallbackInternal;
+    m_data = NEW_DEBUG wxObjectCodeReaderCallbackInternal;
 }
 
 wxObjectCodeReaderCallback::~wxObjectCodeReaderCallback()
@@ -93,7 +93,7 @@ void wxObjectCodeReaderCallback::AllocateObject(int objectID, wxClassInfo *class
     }
 
     wxString objectName = wxString::Format( "LocalObject_%d", objectID );
-    m_source += ( wxString::Format( "\t%s *%s = new %s;\n",
+    m_source += ( wxString::Format( "\t%s *%s = NEW_DEBUG %s;\n",
         classInfo->GetClassName(),
         objectName,
         classInfo->GetClassName()) );
@@ -223,7 +223,7 @@ void wxObjectCodeReaderCallback::ConstructObject(int objectID,
                                      )
 {
     wxString objectName = wxString::Format( "LocalObject_%d", objectID );
-    m_source += ( wxString::Format( "\t%s *%s = new %s(",
+    m_source += ( wxString::Format( "\t%s *%s = NEW_DEBUG %s(",
         classInfo->GetClassName(),
         objectName,
         classInfo->GetClassName()) );

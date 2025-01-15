@@ -107,7 +107,7 @@ WXDWORD wxConsoleAppTraits::WaitForThread(WXHANDLE hThread, int WXUNUSED(flags))
 
 wxTimerImpl *wxConsoleAppTraits::CreateTimerImpl(wxTimer *timer)
 {
-    return new wxMSWTimerImpl(timer);
+    return NEW_DEBUG wxMSWTimerImpl(timer);
 }
 
 #endif // wxUSE_TIMER
@@ -116,7 +116,7 @@ wxTimerImpl *wxConsoleAppTraits::CreateTimerImpl(wxTimer *timer)
 wxEventLoopBase *wxConsoleAppTraits::CreateEventLoop()
 {
 #if wxUSE_CONSOLE_EVENTLOOP
-    return new wxEventLoop();
+    return NEW_DEBUG wxEventLoop();
 #else // !wxUSE_CONSOLE_EVENTLOOP
     return NULL;
 #endif // wxUSE_CONSOLE_EVENTLOOP/!wxUSE_CONSOLE_EVENTLOOP

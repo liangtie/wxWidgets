@@ -245,7 +245,7 @@ int wxDialog::ShowModal()
     wxASSERT_MSG( !IsModal(), wxT("ShowModal() can't be called twice") );
 
     wxDialogModalDataTiedPtr modalData(&m_modalData,
-                                       new wxDialogModalData(this));
+                                       NEW_DEBUG wxDialogModalData(this));
 
     Show();
 

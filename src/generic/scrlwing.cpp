@@ -455,7 +455,7 @@ void wxScrollHelperBase::DoSetTargetWindow(wxWindow *target)
         // if we already have a handler, delete it first
         DeleteEvtHandler();
 
-        m_handler = new wxScrollHelperEvtHandler(this);
+        m_handler = NEW_DEBUG wxScrollHelperEvtHandler(this);
         m_targetWindow->PushEventHandler(m_handler);
     }
 }
@@ -988,7 +988,7 @@ void wxScrollHelperBase::HandleOnMouseLeave(wxMouseEvent& event)
 
 #if wxUSE_TIMER
         delete m_timerAutoScroll;
-        m_timerAutoScroll = new wxAutoScrollTimer
+        m_timerAutoScroll = NEW_DEBUG wxAutoScrollTimer
                                 (
                                     m_targetWindow, this,
                                     pos == 0 ? wxEVT_SCROLLWIN_LINEUP
@@ -1413,7 +1413,7 @@ void wxScrollHelper::DoScroll( int x_pos, int y_pos )
     int w = 0, h = 0;
     GetTargetSize(&w, &h);
 
-    // compute new position:
+    // compute NEW_DEBUG position:
     int new_x = m_xScrollPosition;
     int new_y = m_yScrollPosition;
 

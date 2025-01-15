@@ -126,30 +126,30 @@ static const wxAlignment gs_colAlignFlags[] = { wxALIGN_NOT, wxALIGN_LEFT, wxALI
 void HeaderCtrlWidgetsPage::CreateContent()
 {
     // top pane
-    wxSizer *sizerTop = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer *sizerTop = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
 
     // header style
-    wxSizer *sizerHeader = new wxStaticBoxSizer(wxVERTICAL, this, "&Header style");
+    wxSizer *sizerHeader = NEW_DEBUG wxStaticBoxSizer(wxVERTICAL, this, "&Header style");
     m_chkAllowReorder = CreateCheckBoxAndAddToSizer(sizerHeader, "Allow &reorder");
     m_chkAllowHide = CreateCheckBoxAndAddToSizer(sizerHeader, "Alow &hide");
     m_chkBitmapOnRight = CreateCheckBoxAndAddToSizer(sizerHeader, "&Bitmap on right");
     ResetHeaderStyle();
 
     sizerHeader->AddStretchSpacer();
-    wxButton* btnReset = new wxButton(this, wxID_ANY, "&Reset");
+    wxButton* btnReset = NEW_DEBUG wxButton(this, wxID_ANY, "&Reset");
     sizerHeader->Add(btnReset, wxSizerFlags().CenterHorizontal().Border());
     sizerTop->Add(sizerHeader, wxSizerFlags().Expand());
 
     // column flags
     for ( int i = 0; i < (int)WXSIZEOF(m_colSettings); i++ )
     {
-        wxSizer* sizerCol = new wxStaticBoxSizer(wxVERTICAL, this, wxString::Format("Column %i style", i+1));
+        wxSizer* sizerCol = NEW_DEBUG wxStaticBoxSizer(wxVERTICAL, this, wxString::Format("Column %i style", i+1));
         m_colSettings[i].chkAllowResize = CreateCheckBoxAndAddToSizer(sizerCol, "Allow resize");
         m_colSettings[i].chkAllowReorder = CreateCheckBoxAndAddToSizer(sizerCol, "Allow reorder");
         m_colSettings[i].chkAllowSort = CreateCheckBoxAndAddToSizer(sizerCol, "Allow sort");
         m_colSettings[i].chkAllowHide = CreateCheckBoxAndAddToSizer(sizerCol, "Hidden");
         m_colSettings[i].chkWithBitmap = CreateCheckBoxAndAddToSizer(sizerCol, "With bitmap");
-        m_colSettings[i].rbAlignments = new wxRadioBox(this, wxID_ANY, "Alignment",
+        m_colSettings[i].rbAlignments = NEW_DEBUG wxRadioBox(this, wxID_ANY, "Alignment",
                wxDefaultPosition, wxDefaultSize, WXSIZEOF(gs_colAlignments), gs_colAlignments,
                2, wxRA_SPECIFY_COLS);
         sizerCol->Add(m_colSettings[i].rbAlignments, wxSizerFlags().Expand().Border());
@@ -159,11 +159,11 @@ void HeaderCtrlWidgetsPage::CreateContent()
     }
 
     // bottom pane
-    m_sizerHeader = new wxStaticBoxSizer(wxVERTICAL, this, "Header");
+    m_sizerHeader = NEW_DEBUG wxStaticBoxSizer(wxVERTICAL, this, "Header");
     RecreateWidget();
 
     // the 2 panes compose the window
-    wxSizer* sizerAll = new wxBoxSizer(wxVERTICAL);
+    wxSizer* sizerAll = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     sizerAll->Add(sizerTop, wxSizerFlags().Expand().Border());
     sizerAll->Add(m_sizerHeader, wxSizerFlags(1).Expand().Border());
 
@@ -192,7 +192,7 @@ void HeaderCtrlWidgetsPage::RecreateWidget()
 
     long flags = GetAttrs().m_defaultFlags | GetHeaderStyleFlags();
 
-    m_header = new wxHeaderCtrlSimple(this, wxID_ANY,
+    m_header = NEW_DEBUG wxHeaderCtrlSimple(this, wxID_ANY,
                                       wxDefaultPosition, wxDefaultSize,
                                       flags);
 

@@ -87,7 +87,7 @@ class wxCursorModule : public wxModule
 public:
     virtual bool OnInit() wxOVERRIDE
     {
-        gs_globalCursor = new wxCursor;
+        gs_globalCursor = NEW_DEBUG wxCursor;
 
         return true;
     }
@@ -206,7 +206,7 @@ void wxCursor::InitFromImage(const wxImage& image)
         return;
     }
 
-    m_refData = new wxCursorRefData(hcursor, true /* delete it later */);
+    m_refData = NEW_DEBUG wxCursorRefData(hcursor, true /* delete it later */);
 }
 #endif // wxUSE_IMAGE
 
@@ -253,7 +253,7 @@ wxCursor::wxCursor(const wxString& filename,
 
     if ( hcursor )
     {
-        m_refData = new wxCursorRefData(hcursor, true /* delete it later */);
+        m_refData = NEW_DEBUG wxCursorRefData(hcursor, true /* delete it later */);
     }
 }
 
@@ -398,7 +398,7 @@ void wxCursor::InitFromStock(wxStockCursor idCursor)
     }
     else
     {
-        m_refData = new wxCursorRefData(hcursor, deleteLater);
+        m_refData = NEW_DEBUG wxCursorRefData(hcursor, deleteLater);
     }
 }
 
@@ -412,7 +412,7 @@ wxCursor::~wxCursor()
 
 wxGDIImageRefData *wxCursor::CreateData() const
 {
-    return new wxCursorRefData;
+    return NEW_DEBUG wxCursorRefData;
 }
 
 // ----------------------------------------------------------------------------

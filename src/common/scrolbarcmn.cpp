@@ -27,7 +27,7 @@ extern WXDLLEXPORT_DATA(const char) wxScrollBarNameStr[] = "scrollBar";
 
 wxDEFINE_FLAGS( wxScrollBarStyle )
 wxBEGIN_FLAGS( wxScrollBarStyle )
-    // new style border flags, we put them first to
+    // NEW_DEBUG style border flags, we put them first to
     // use them for streaming out
     wxFLAGS_MEMBER(wxBORDER_SIMPLE)
     wxFLAGS_MEMBER(wxBORDER_SUNKEN)

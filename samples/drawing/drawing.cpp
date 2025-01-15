@@ -75,7 +75,7 @@ static wxBitmap *gs_bmpNoMask = NULL,
 // private classes
 // ----------------------------------------------------------------------------
 
-// Define a new application type, each program should derive a class from wxApp
+// Define a NEW_DEBUG application type, each program should derive a class from wxApp
 class MyApp : public wxApp
 {
 public:
@@ -181,7 +181,7 @@ private:
 };
 
 
-// Define a new frame type: this is going to be our main frame
+// Define a NEW_DEBUG frame type: this is going to be our main frame
 class MyFrame : public wxFrame
 {
 public:
@@ -376,7 +376,7 @@ enum
 // ----------------------------------------------------------------------------
 
 
-// Create a new application object: this macro will allow wxWidgets to create
+// Create a NEW_DEBUG application object: this macro will allow wxWidgets to create
 // the application object during program execution (it's better than using a
 // static object for many reasons) and also declares the accessor function
 // wxGetApp() which will return the reference of the right type (i.e. MyApp and
@@ -393,13 +393,13 @@ wxIMPLEMENT_APP(MyApp);
 
 bool MyApp::LoadImages()
 {
-    gs_bmpNoMask = new wxBitmap;
-    gs_bmpWithColMask = new wxBitmap;
-    gs_bmpMask = new wxBitmap;
-    gs_bmpWithMask = new wxBitmap;
-    gs_bmp4 = new wxBitmap;
-    gs_bmp4_mono = new wxBitmap;
-    gs_bmp36 = new wxBitmap;
+    gs_bmpNoMask = NEW_DEBUG wxBitmap;
+    gs_bmpWithColMask = NEW_DEBUG wxBitmap;
+    gs_bmpMask = NEW_DEBUG wxBitmap;
+    gs_bmpWithMask = NEW_DEBUG wxBitmap;
+    gs_bmp4 = NEW_DEBUG wxBitmap;
+    gs_bmp4_mono = NEW_DEBUG wxBitmap;
+    gs_bmp36 = NEW_DEBUG wxBitmap;
 
     wxPathList pathList;
     // special hack for Unix in-tree sample build, don't do this in real
@@ -418,14 +418,14 @@ bool MyApp::LoadImages()
     gs_bmp4->LoadFile(path, wxBITMAP_TYPE_BMP);
     /* turn into mono-bitmap */
     gs_bmp4_mono->LoadFile(path, wxBITMAP_TYPE_BMP);
-    wxMask* mask4 = new wxMask(*gs_bmp4_mono, *wxBLACK);
+    wxMask* mask4 = NEW_DEBUG wxMask(*gs_bmp4_mono, *wxBLACK);
     gs_bmp4_mono->SetMask(mask4);
 
     path = pathList.FindValidPath("pat36.bmp");
     if ( !path )
         return false;
     gs_bmp36->LoadFile(path, wxBITMAP_TYPE_BMP);
-    wxMask* mask36 = new wxMask(*gs_bmp36, *wxBLACK);
+    wxMask* mask36 = NEW_DEBUG wxMask(*gs_bmp36, *wxBLACK);
     gs_bmp36->SetMask(mask36);
 
     path = pathList.FindValidPath("image.bmp");
@@ -440,10 +440,10 @@ bool MyApp::LoadImages()
         return false;
     gs_bmpMask->LoadFile(path, wxBITMAP_TYPE_BMP);
 
-    wxMask *mask = new wxMask(*gs_bmpMask, *wxBLACK);
+    wxMask *mask = NEW_DEBUG wxMask(*gs_bmpMask, *wxBLACK);
     gs_bmpWithMask->SetMask(mask);
 
-    mask = new wxMask(*gs_bmpWithColMask, *wxWHITE);
+    mask = NEW_DEBUG wxMask(*gs_bmpWithColMask, *wxWHITE);
     gs_bmpWithColMask->SetMask(mask);
 
     return true;
@@ -456,11 +456,11 @@ bool MyApp::OnInit()
         return false;
 
 #if wxUSE_LIBPNG
-      wxImage::AddHandler( new wxPNGHandler );
+      wxImage::AddHandler( NEW_DEBUG wxPNGHandler );
 #endif
 
     // Create the main application window
-    MyFrame *frame = new MyFrame("Drawing sample");
+    MyFrame *frame = NEW_DEBUG MyFrame("Drawing sample");
 
     // Show it
     frame->Show(true);
@@ -716,7 +716,7 @@ void MyCanvas::DrawDefault(wxDC& dc)
                 mdc.FloodFill(dc.FromDIP(11), dc.FromDIP(11), c, wxFLOOD_SURFACE);
             }
         }
-        bmp.SetMask(new wxMask(bmp, wxColour(1, 1, 1)));
+        bmp.SetMask(NEW_DEBUG wxMask(bmp, wxColour(1, 1, 1)));
         dc.DrawBitmap(bmp, dc.FromDIP(-10), dc.FromDIP(-10), true);
     }
 
@@ -1197,7 +1197,7 @@ void MyCanvas::DrawGraphics(wxGraphicsContext* gc)
     // and changing colors as we go
     for ( int angle = 0 ; angle < 360 ; angle += 30 )
     {
-        gc->PushState(); // save this new current state so we can
+        gc->PushState(); // save this NEW_DEBUG current state so we can
         //  pop back to it at the end of the loop
         wxImage::RGBValue val = wxImage::HSVtoRGB(wxImage::HSVValue(angle / 360.0, 1, 1));
         gc->SetBrush(wxBrush(wxColour(val.red, val.green, val.blue, 64)));
@@ -2115,25 +2115,25 @@ public:
         , m_scy(scy)
         , m_rotAngle(rotAngle)
     {
-        wxBoxSizer* sizer = new wxBoxSizer(wxVERTICAL);
+        wxBoxSizer* sizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
         const int border = wxSizerFlags::GetDefaultBorder();
-        wxFlexGridSizer* paramSizer = new wxFlexGridSizer(2, wxSize(border, border));
-        paramSizer->Add(new wxStaticText(this, wxID_ANY, "Translation X:"), wxSizerFlags().CentreVertical());
+        wxFlexGridSizer* paramSizer = NEW_DEBUG wxFlexGridSizer(2, wxSize(border, border));
+        paramSizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "Translation X:"), wxSizerFlags().CentreVertical());
         wxFloatingPointValidator<wxDouble> val_dx(1, &m_dx, wxNUM_VAL_NO_TRAILING_ZEROES);
-        paramSizer->Add(new wxTextCtrl(this, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, 0, val_dx), wxSizerFlags().CentreVertical());
-        paramSizer->Add(new wxStaticText(this, wxID_ANY, "Translation Y:"), wxSizerFlags().CentreVertical());
+        paramSizer->Add(NEW_DEBUG wxTextCtrl(this, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, 0, val_dx), wxSizerFlags().CentreVertical());
+        paramSizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "Translation Y:"), wxSizerFlags().CentreVertical());
         wxFloatingPointValidator<wxDouble> val_dy(1, &m_dy, wxNUM_VAL_NO_TRAILING_ZEROES);
-        paramSizer->Add(new wxTextCtrl(this, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, 0, val_dy), wxSizerFlags().CentreVertical());
-        paramSizer->Add(new wxStaticText(this, wxID_ANY, "Scale X (0.2 - 5):"), wxSizerFlags().CentreVertical());
+        paramSizer->Add(NEW_DEBUG wxTextCtrl(this, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, 0, val_dy), wxSizerFlags().CentreVertical());
+        paramSizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "Scale X (0.2 - 5):"), wxSizerFlags().CentreVertical());
         wxFloatingPointValidator<wxDouble> val_scx(2, &m_scx, wxNUM_VAL_NO_TRAILING_ZEROES);
-        paramSizer->Add(new wxTextCtrl(this, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, 0, val_scx), wxSizerFlags().CentreVertical());
-        paramSizer->Add(new wxStaticText(this, wxID_ANY, "Scale Y (0.2 - 5):"), wxSizerFlags().CentreVertical());
+        paramSizer->Add(NEW_DEBUG wxTextCtrl(this, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, 0, val_scx), wxSizerFlags().CentreVertical());
+        paramSizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "Scale Y (0.2 - 5):"), wxSizerFlags().CentreVertical());
         wxFloatingPointValidator<wxDouble> val_scy(2, &m_scy, wxNUM_VAL_NO_TRAILING_ZEROES);
-        paramSizer->Add(new wxTextCtrl(this, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, 0, val_scy), wxSizerFlags().CentreVertical());
-        paramSizer->Add(new wxStaticText(this, wxID_ANY, "Rotation angle (deg):"), wxSizerFlags().CentreVertical());
+        paramSizer->Add(NEW_DEBUG wxTextCtrl(this, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, 0, val_scy), wxSizerFlags().CentreVertical());
+        paramSizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "Rotation angle (deg):"), wxSizerFlags().CentreVertical());
         wxFloatingPointValidator<wxDouble> val_rot(1, &m_rotAngle, wxNUM_VAL_NO_TRAILING_ZEROES);
-        paramSizer->Add(new wxTextCtrl(this, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, 0, val_rot), wxSizerFlags().CentreVertical());
+        paramSizer->Add(NEW_DEBUG wxTextCtrl(this, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, 0, val_rot), wxSizerFlags().CentreVertical());
         sizer->Add(paramSizer, wxSizerFlags().DoubleBorder());
 
         wxSizer *btnSizer = CreateSeparatedButtonSizer(wxOK | wxCANCEL);
@@ -2233,7 +2233,7 @@ MyFrame::MyFrame(const wxString& title)
     // set the frame icon
     SetIcon(wxICON(sample));
 
-    wxMenu *menuScreen = new wxMenu;
+    wxMenu *menuScreen = NEW_DEBUG wxMenu;
     menuScreen->Append(File_ShowDefault, "&Default screen\tF1");
     menuScreen->Append(File_ShowText, "&Text screen\tF2");
     menuScreen->Append(File_ShowLines, "&Lines screen\tF3");
@@ -2254,7 +2254,7 @@ MyFrame::MyFrame(const wxString& title)
 #endif
     menuScreen->Append(File_ShowSystemColours, "System &colours");
 
-    wxMenu *menuFile = new wxMenu;
+    wxMenu *menuFile = NEW_DEBUG wxMenu;
 #if wxUSE_GRAPHICS_CONTEXT
     // Number the different renderer choices consecutively, starting from 0.
     int accel = 0;
@@ -2313,14 +2313,14 @@ MyFrame::MyFrame(const wxString& title)
     menuFile->AppendSeparator();
     menuFile->Append(File_Quit, "E&xit\tAlt-X", "Quit this program");
 
-    wxMenu *menuMapMode = new wxMenu;
+    wxMenu *menuMapMode = NEW_DEBUG wxMenu;
     menuMapMode->Append( MapMode_Text, "&TEXT map mode" );
     menuMapMode->Append( MapMode_Lometric, "&LOMETRIC map mode" );
     menuMapMode->Append( MapMode_Twips, "T&WIPS map mode" );
     menuMapMode->Append( MapMode_Points, "&POINTS map mode" );
     menuMapMode->Append( MapMode_Metric, "&METRIC map mode" );
 
-    wxMenu *menuUserScale = new wxMenu;
+    wxMenu *menuUserScale = NEW_DEBUG wxMenu;
     menuUserScale->Append( UserScale_StretchHoriz, "Stretch &horizontally\tCtrl-H" );
     menuUserScale->Append( UserScale_ShrinkHoriz, "Shrin&k horizontally\tCtrl-G" );
     menuUserScale->Append( UserScale_StretchVertic, "Stretch &vertically\tCtrl-V" );
@@ -2328,11 +2328,11 @@ MyFrame::MyFrame(const wxString& title)
     menuUserScale->AppendSeparator();
     menuUserScale->Append( UserScale_Restore, "&Restore to normal\tCtrl-0" );
 
-    wxMenu *menuAxis = new wxMenu;
+    wxMenu *menuAxis = NEW_DEBUG wxMenu;
     menuAxis->AppendCheckItem( AxisMirror_Horiz, "Mirror horizontally\tCtrl-M" );
     menuAxis->AppendCheckItem( AxisMirror_Vertic, "Mirror vertically\tCtrl-N" );
 
-    wxMenu *menuLogical = new wxMenu;
+    wxMenu *menuLogical = NEW_DEBUG wxMenu;
     menuLogical->Append( LogicalOrigin_MoveDown, "Move &down\tCtrl-D" );
     menuLogical->Append( LogicalOrigin_MoveUp, "Move &up\tCtrl-U" );
     menuLogical->Append( LogicalOrigin_MoveLeft, "Move &right\tCtrl-L" );
@@ -2342,13 +2342,13 @@ MyFrame::MyFrame(const wxString& title)
     menuLogical->Append( LogicalOrigin_Restore, "&Restore to normal\tShift-Ctrl-0" );
 
 #if wxUSE_DC_TRANSFORM_MATRIX
-    wxMenu *menuTransformMatrix = new wxMenu;
+    wxMenu *menuTransformMatrix = NEW_DEBUG wxMenu;
     menuTransformMatrix->Append(TransformMatrix_Set, "Set &transformation matrix");
     menuTransformMatrix->AppendSeparator();
     menuTransformMatrix->Append(TransformMatrix_Reset, "Restore to &normal");
 #endif // wxUSE_DC_TRANSFORM_MATRIX
 
-    wxMenu *menuColour = new wxMenu;
+    wxMenu *menuColour = NEW_DEBUG wxMenu;
 #if wxUSE_COLOURDLG
     menuColour->Append( Colour_TextForeground, "Text &foreground..." );
     menuColour->Append( Colour_TextBackground, "Text &background..." );
@@ -2358,7 +2358,7 @@ MyFrame::MyFrame(const wxString& title)
     menuColour->AppendCheckItem( Colour_TextureBackgound, "Draw textured back&ground\tCtrl-T" );
 
     // now append the freshly created menu to the menu bar...
-    wxMenuBar *menuBar = new wxMenuBar;
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar;
     menuBar->Append(menuFile, "&Drawing");
     menuBar->Append(menuScreen, "Scree&n");
     menuBar->Append(menuMapMode, "&Mode");
@@ -2397,7 +2397,7 @@ MyFrame::MyFrame(const wxString& title)
     m_colourBackground = *wxLIGHT_GREY;
     m_textureBackground = false;
 
-    m_canvas = new MyCanvas( this );
+    m_canvas = NEW_DEBUG MyCanvas( this );
     m_canvas->SetScrollbars( 10, 10, 100, 240 );
 
     SetSize(FromDIP(wxSize(800, 700)));
@@ -2487,7 +2487,7 @@ void MyFrame::OnSave(wxCommandEvent& WXUNUSED(event))
                               canvasSize.GetHeight(),
                               72,
                               "Drawing sample");
-            svgdc.SetBitmapHandler(new wxSVGBitmapEmbedHandler());
+            svgdc.SetBitmapHandler(NEW_DEBUG wxSVGBitmapEmbedHandler());
             m_canvas->Draw(svgdc);
 #if wxUSE_GRAPHICS_CONTEXT
             m_canvas->UseGraphicRenderer(tempRenderer);

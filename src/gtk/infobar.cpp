@@ -112,7 +112,7 @@ bool wxInfoBar::Create(wxWindow *parent, wxWindowID winid)
     if ( !UseNative() )
         return wxInfoBarGeneric::Create(parent, winid);
 
-    m_impl = new wxInfoBarGTKImpl;
+    m_impl = NEW_DEBUG wxInfoBarGTKImpl;
 
     // this control is created initially hidden
     Hide();
@@ -145,7 +145,7 @@ bool wxInfoBar::Create(wxWindow *parent, wxWindowID winid)
     // by disabling the transition when showing it: without this, it's not
     // shown at all.
     //
-    // Compile-time check is needed because GtkRevealer is new in 3.10.
+    // Compile-time check is needed because GtkRevealer is NEW_DEBUG in 3.10.
 #if GTK_CHECK_VERSION(3, 10, 0)
     // Run-time check is needed because the bug was introduced in 3.10 and
     // fixed in 3.22.29 (see 6b4d95e86dabfcdaa805fbf068a99e19736a39a4 and a

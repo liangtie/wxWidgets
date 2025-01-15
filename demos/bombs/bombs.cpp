@@ -34,7 +34,7 @@ bool BombsApp::OnInit()
 {
     srand((unsigned) time(NULL));
 
-    m_frame = new BombsFrame(&m_game);
+    m_frame = NEW_DEBUG BombsFrame(&m_game);
 
     m_frame->NewGame(bombsID_EASY, false);
 
@@ -66,15 +66,15 @@ BombsFrame::BombsFrame(BombsGame *game)
 #endif
 
     // Create a menu bar for the frame
-    wxMenuBar *menuBar = new wxMenuBar;
-    wxMenu *menuFile = new wxMenu;
-    wxMenu *menuLevel = new wxMenu;
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar;
+    wxMenu *menuFile = NEW_DEBUG wxMenu;
+    wxMenu *menuLevel = NEW_DEBUG wxMenu;
     menuLevel->AppendRadioItem(bombsID_EASY, wxT("&Easy (10x10)\tCtrl-1"));
     menuLevel->AppendRadioItem(bombsID_MEDIUM, wxT("&Medium (15x15)\tCtrl-2"));
     menuLevel->AppendRadioItem(bombsID_HARD, wxT("&Hard (25x20)\tCtrl-3"));
 
     menuFile->Append(wxID_NEW, wxT("&New game\tCtrl-N"));
-    menuFile->Append(bombsID_LEVEL, wxT("&Level"),menuLevel, wxT("Starts a new game"));
+    menuFile->Append(bombsID_LEVEL, wxT("&Level"),menuLevel, wxT("Starts a NEW_DEBUG game"));
     menuFile->AppendCheckItem(bombsID_EASYCORNER, wxT("&Easy corner"));
 
     menuFile->AppendSeparator();
@@ -83,7 +83,7 @@ BombsFrame::BombsFrame(BombsGame *game)
     menuBar->Append(menuFile, wxT("&File"));
 
 
-    wxMenu *menuHelp = new wxMenu;
+    wxMenu *menuHelp = NEW_DEBUG wxMenu;
     menuHelp->Append(wxID_ABOUT, wxT("&About"),
         wxT("Displays the program information") );
 
@@ -92,7 +92,7 @@ BombsFrame::BombsFrame(BombsGame *game)
     SetMenuBar(menuBar);
 
     // Create child subwindows.
-    m_canvas = new BombsCanvas(this, m_game);
+    m_canvas = NEW_DEBUG BombsCanvas(this, m_game);
 
     // Ensure the subwindows get resized o.k.
     //  OnSize(width, height);
@@ -114,7 +114,7 @@ void BombsFrame::NewGame(int level, bool query)
     if(query)
     {
        int ok = wxMessageBox(
-                  wxT("Start new game regardless previous board?"),
+                  wxT("Start NEW_DEBUG game regardless previous board?"),
                   wxT("Confirm"),
                   wxYES_NO | wxICON_QUESTION,
                   this
@@ -266,7 +266,7 @@ void BombsCanvas::OnPaint(wxPaintEvent& WXUNUSED(event))
     if (!m_bmp)
     {
         wxSize size = dc.GetSize();
-        m_bmp = new wxBitmap(size.GetWidth(), size.GetHeight());
+        m_bmp = NEW_DEBUG wxBitmap(size.GetWidth(), size.GetHeight());
         if (m_bmp)
         {
             wxMemoryDC memDC;

@@ -268,14 +268,14 @@ wxToolBarToolBase *wxButtonToolBar::CreateTool(int id,
                                          const wxString& shortHelp,
                                          const wxString& longHelp)
 {
-    return new wxButtonToolBarTool(this, id, label, bmpNormal, bmpDisabled, kind,
+    return NEW_DEBUG wxButtonToolBarTool(this, id, label, bmpNormal, bmpDisabled, kind,
                              clientData, shortHelp, longHelp);
 }
 
 wxToolBarToolBase *wxButtonToolBar::CreateTool(wxControl *control,
                                                const wxString& label)
 {
-    return new wxButtonToolBarTool(this, control, label);
+    return NEW_DEBUG wxButtonToolBarTool(this, control, label);
 }
 
 // ----------------------------------------------------------------------------
@@ -385,7 +385,7 @@ void wxButtonToolBar::DoLayout()
         {
             if (!tool->GetButton())
             {
-                wxBitmapButton* bmpButton = new wxBitmapButton(this, tool->GetId(), tool->GetNormalBitmap(), wxPoint(tool->m_x, tool->m_y), wxDefaultSize,
+                wxBitmapButton* bmpButton = NEW_DEBUG wxBitmapButton(this, tool->GetId(), tool->GetNormalBitmap(), wxPoint(tool->m_x, tool->m_y), wxDefaultSize,
                                                                wxBORDER_NONE);
                 if (!tool->GetShortHelp().empty())
                     bmpButton->SetLabel(tool->GetShortHelp());
@@ -415,7 +415,7 @@ void wxButtonToolBar::DoLayout()
                         dc.GetTextExtent(tool->GetShortHelp(), & tw, & th);
 
                         // If the label is bigger than the icon, the label width
-                        // becomes the new tool width, and we need to centre the
+                        // becomes the NEW_DEBUG tool width, and we need to centre the
                         // the bitmap in this box.
                         if (tw > sz.x)
                         {

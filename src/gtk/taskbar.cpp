@@ -320,7 +320,7 @@ wxIMPLEMENT_DYNAMIC_CLASS(wxTaskBarIcon, wxEvtHandler);
 
 wxTaskBarIcon::wxTaskBarIcon(wxTaskBarIconType WXUNUSED(iconType))
 {
-    m_priv = new Private(this);
+    m_priv = NEW_DEBUG Private(this);
 }
 
 wxTaskBarIcon::~wxTaskBarIcon()
@@ -339,7 +339,7 @@ bool wxTaskBarIcon::SetIcon(const wxBitmapBundle& icon, const wxString& tooltip)
 bool wxTaskBarIcon::RemoveIcon()
 {
     delete m_priv;
-    m_priv = new Private(this);
+    m_priv = NEW_DEBUG Private(this);
     return true;
 }
 
@@ -357,7 +357,7 @@ bool wxTaskBarIcon::PopupMenu(wxMenu* menu)
 #if wxUSE_MENUS
     if (m_priv->m_win == NULL)
     {
-        m_priv->m_win = new wxTopLevelWindow(
+        m_priv->m_win = NEW_DEBUG wxTopLevelWindow(
             NULL, wxID_ANY, wxString(), wxDefaultPosition, wxDefaultSize, 0);
         m_priv->m_win->PushEventHandler(this);
     }

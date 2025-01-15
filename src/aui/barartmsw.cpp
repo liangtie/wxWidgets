@@ -65,7 +65,7 @@ wxAuiMSWToolBarArt::wxAuiMSWToolBarArt()
 
 wxAuiToolBarArt* wxAuiMSWToolBarArt::Clone()
 {
-    return new wxAuiMSWToolBarArt;
+    return NEW_DEBUG wxAuiMSWToolBarArt;
 }
 
 void wxAuiMSWToolBarArt::DrawBackground(

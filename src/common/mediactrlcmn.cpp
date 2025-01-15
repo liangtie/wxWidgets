@@ -236,7 +236,7 @@ bool wxMediaCtrl::DoCreate(const wxClassInfo* classInfo,
 // STL isn't compatible with and will have a compilation error
 // on a wxNode, however, wxHashTable::compatibility_iterator is
 // incompatible with the old 2.4 stable version - but since
-// we're in 2.5+ only we don't need to worry about the new version
+// we're in 2.5+ only we don't need to worry about the NEW_DEBUG version
 //---------------------------------------------------------------------------
 const wxClassInfo* wxMediaCtrl::NextBackend(wxClassInfo::const_iterator* it)
 {
@@ -469,7 +469,7 @@ void wxMediaBackendCommonBase::NotifyMovieSizeChanged()
     if ( m_ctrl->HasFlag(wxMC_NO_AUTORESIZE) )
         return;
 
-    // our best size changed after opening a new file
+    // our best size changed after opening a NEW_DEBUG file
     m_ctrl->InvalidateBestSize();
     m_ctrl->SetSize(m_ctrl->GetSize());
 

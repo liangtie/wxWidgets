@@ -194,7 +194,7 @@ bool MyApp::OnInit()
         return false;
 
     // Create the main frame window
-    MyFrame *frame = new MyFrame("wxTreeCtrl Test", 50, 50, 450, 600);
+    MyFrame *frame = NEW_DEBUG MyFrame("wxTreeCtrl Test", 50, 50, 450, 600);
 
     // Show the frame
     frame->Show(true);
@@ -221,10 +221,10 @@ MyFrame::MyFrame(const wxString& title, int x, int y, int w, int h)
 
 #if wxUSE_MENUS
     // Make a menubar
-    wxMenu *file_menu = new wxMenu,
-           *style_menu = new wxMenu,
-           *tree_menu = new wxMenu,
-           *item_menu = new wxMenu;
+    wxMenu *file_menu = NEW_DEBUG wxMenu,
+           *style_menu = NEW_DEBUG wxMenu,
+           *tree_menu = NEW_DEBUG wxMenu,
+           *item_menu = NEW_DEBUG wxMenu;
 
 #if wxUSE_LOG
     file_menu->Append(TreeTest_ClearLog, "&Clear log\tCtrl-L");
@@ -263,9 +263,9 @@ MyFrame::MyFrame(const wxString& title, int x, int y, int w, int h)
     tree_menu->Append(TreeTest_Recreate, "&Recreate the tree");
     tree_menu->Append(TreeTest_CollapseAndReset, "C&ollapse and reset");
     tree_menu->AppendSeparator();
-    tree_menu->Append(TreeTest_AddItem, "Append a &new item");
+    tree_menu->Append(TreeTest_AddItem, "Append a &NEW_DEBUG item");
     tree_menu->Append(TreeTest_AddManyItems, "Appends &many items");
-    tree_menu->Append(TreeTest_InsertItem, "&Insert a new item");
+    tree_menu->Append(TreeTest_InsertItem, "&Insert a NEW_DEBUG item");
     tree_menu->Append(TreeTest_Delete, "&Delete this item");
     tree_menu->Append(TreeTest_DeleteChildren, "Delete &children");
     tree_menu->Append(TreeTest_DeleteAll, "Delete &all items");
@@ -324,7 +324,7 @@ MyFrame::MyFrame(const wxString& title, int x, int y, int w, int h)
     item_menu->Append(TreeTest_SelectChildren, "Select all children\tCtrl-A");
 #endif // NO_MULTIPLE_SELECTION
 
-    wxMenuBar *menu_bar = new wxMenuBar;
+    wxMenuBar *menu_bar = NEW_DEBUG wxMenuBar;
     menu_bar->Append(file_menu, "&File");
     menu_bar->Append(style_menu, "&Style");
     menu_bar->Append(tree_menu, "&Tree");
@@ -332,21 +332,21 @@ MyFrame::MyFrame(const wxString& title, int x, int y, int w, int h)
     SetMenuBar(menu_bar);
 #endif // wxUSE_MENUS
 
-    m_panel = new wxPanel(this);
+    m_panel = NEW_DEBUG wxPanel(this);
 
 #if wxUSE_LOG
     // create the controls
-    m_textCtrl = new wxTextCtrl(m_panel, wxID_ANY, "",
+    m_textCtrl = NEW_DEBUG wxTextCtrl(m_panel, wxID_ANY, "",
                                 wxDefaultPosition, wxDefaultSize,
                                 wxTE_MULTILINE | wxSUNKEN_BORDER);
 
 #ifdef __WXMOTIF__
     // For some reason, we get a memcpy crash in wxLogStream::DoLogStream
     // on gcc/wxMotif, if we use wxLogTextCtl. Maybe it's just gcc?
-    delete wxLog::SetActiveTarget(new wxLogStderr);
+    delete wxLog::SetActiveTarget(NEW_DEBUG wxLogStderr);
 #else
     // set our text control as the log target
-    wxLogTextCtrl *logWindow = new wxLogTextCtrl(m_textCtrl);
+    wxLogTextCtrl *logWindow = NEW_DEBUG wxLogTextCtrl(m_textCtrl);
     delete wxLog::SetActiveTarget(logWindow);
 #endif
 #endif // wxUSE_LOG
@@ -396,7 +396,7 @@ void MyFrame::CreateTreeWithDefStyle()
 
 void MyFrame::CreateTree(long style)
 {
-    m_treeCtrl = new MyTreeCtrl(m_panel, TreeTest_Ctrl,
+    m_treeCtrl = NEW_DEBUG MyTreeCtrl(m_panel, TreeTest_Ctrl,
                                 wxDefaultPosition, wxDefaultSize,
                                 style);
 
@@ -1036,7 +1036,7 @@ void MyTreeCtrl::CreateImages(int size)
 
     for ( size_t i = 0; i < WXSIZEOF(icons); i++ )
     {
-        images.push_back(wxBitmapBundle::FromImpl(new FixedSizeImpl(iconSize, icons[i])));
+        images.push_back(wxBitmapBundle::FromImpl(NEW_DEBUG FixedSizeImpl(iconSize, icons[i])));
     }
 
     SetImages(images);
@@ -1066,7 +1066,7 @@ void MyTreeCtrl::CreateStateImageList(bool del)
             height = icons[0].GetHeight();
 
         // Make a state image list containing small icons
-        states = new wxImageList(width, height, true);
+        states = NEW_DEBUG wxImageList(width, height, true);
 
         for ( size_t i = 0; i < WXSIZEOF(icons); i++ )
             states->Add(icons[i]);
@@ -1081,7 +1081,7 @@ void MyTreeCtrl::CreateStateImageList(bool del)
             height = icons[0].GetHeight();
 
         // Make an state image list containing small icons
-        states = new wxImageList(width, height, true);
+        states = NEW_DEBUG wxImageList(width, height, true);
 
         for ( size_t i = 0; i < WXSIZEOF(icons); i++ )
             states->Add(icons[i]);
@@ -1100,7 +1100,7 @@ void MyTreeCtrl::CreateButtonsImageList(int size)
     }
 
     // Make an image list containing small icons
-    wxImageList *images = new wxImageList(size, size, true);
+    wxImageList *images = NEW_DEBUG wxImageList(size, size, true);
 
     // should correspond to TreeCtrlIcon_xxx enum
     wxBusyCursor wait;
@@ -1187,7 +1187,7 @@ void MyTreeCtrl::AddItemsRecursively(const wxTreeItemId& idParent,
                 image = imageSel = -1;
             }
             wxTreeItemId id = AppendItem(idParent, str, image, imageSel,
-                                         new MyTreeItemData(str));
+                                         NEW_DEBUG MyTreeItemData(str));
 
             if ( wxGetApp().ShowStates() )
                 SetItemState(id, 0);
@@ -1211,7 +1211,7 @@ void MyTreeCtrl::AddTestItemsToTree(size_t numChildren,
     int image = wxGetApp().ShowImages() ? MyTreeCtrl::TreeCtrlIcon_Folder : -1;
     wxTreeItemId rootId = AddRoot("Root",
                                   image, image,
-                                  new MyTreeItemData("Root item"));
+                                  NEW_DEBUG MyTreeItemData("Root item"));
     if ( !HasFlag(wxTR_HIDE_ROOT) && image != -1 )
     {
         SetItemImage(rootId, TreeCtrlIcon_FolderOpened, wxTreeItemIcon_Expanded);
@@ -1600,7 +1600,7 @@ void MyTreeCtrl::OnEndLabelEdit(wxTreeEvent& event)
     // don't allow anything except letters in the labels
     if ( !event.GetLabel().IsWord() )
     {
-        wxMessageBox("The new label should be a single word.");
+        wxMessageBox("The NEW_DEBUG label should be a single word.");
 
         event.Veto();
     }

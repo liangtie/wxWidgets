@@ -301,7 +301,7 @@ public:
         int nID = this->GetItemCount();
         kNewItem.SetId(nID);
         kNewItem.SetMask(wxLIST_MASK_DATA);
-        kNewItem.SetData(new wxString(szString));
+        kNewItem.SetData(NEW_DEBUG wxString(szString));
 
         this->InsertItem(kNewItem);
         this->SetItem(nID, 0, "*");
@@ -456,7 +456,7 @@ bool wxMediaPlayerApp::OnInit()
     SetAppName("wxMediaPlayer");
 
     wxMediaPlayerFrame *frame =
-        new wxMediaPlayerFrame("MediaPlayer wxWidgets Sample");
+        NEW_DEBUG wxMediaPlayerFrame("MediaPlayer wxWidgets Sample");
     frame->Show(true);
 
 #if wxUSE_CMDLINE_PARSER
@@ -478,7 +478,7 @@ bool wxMediaPlayerApp::OnInit()
 void wxMediaPlayerApp::MacOpenFiles(const wxArrayString & fileNames )
 {
     // Called when a user drags files over our app
-    m_frame->DoOpenFile(fileNames[0], true /* new page */);
+    m_frame->DoOpenFile(fileNames[0], true /* NEW_DEBUG page */);
 }
 
 #endif // __WXMAC__
@@ -507,20 +507,20 @@ wxMediaPlayerFrame::wxMediaPlayerFrame(const wxString& title)
     //
     //  Create Menus
     //
-    wxMenu *fileMenu = new wxMenu;
-    wxMenu *controlsMenu = new wxMenu;
-    wxMenu *optionsMenu = new wxMenu;
-    wxMenu *helpMenu = new wxMenu;
-    wxMenu *debugMenu = new wxMenu;
+    wxMenu *fileMenu = NEW_DEBUG wxMenu;
+    wxMenu *controlsMenu = NEW_DEBUG wxMenu;
+    wxMenu *optionsMenu = NEW_DEBUG wxMenu;
+    wxMenu *helpMenu = NEW_DEBUG wxMenu;
+    wxMenu *debugMenu = NEW_DEBUG wxMenu;
 
     fileMenu->Append(wxID_OPENFILESAMEPAGE, "&Open File\tCtrl-Shift-O",
                         "Open a File in the current notebook page");
-    fileMenu->Append(wxID_OPENFILENEWPAGE, "&Open File in a new page",
-                        "Open a File in a new notebook page");
+    fileMenu->Append(wxID_OPENFILENEWPAGE, "&Open File in a NEW_DEBUG page",
+                        "Open a File in a NEW_DEBUG notebook page");
     fileMenu->Append(wxID_OPENURLSAMEPAGE, "&Open URL",
                         "Open a URL in the current notebook page");
-    fileMenu->Append(wxID_OPENURLNEWPAGE, "&Open URL in a new page",
-                        "Open a URL in a new notebook page");
+    fileMenu->Append(wxID_OPENURLNEWPAGE, "&Open URL in a NEW_DEBUG page",
+                        "Open a URL in a NEW_DEBUG notebook page");
     fileMenu->AppendSeparator();
     fileMenu->Append(wxID_CLOSECURRENTPAGE, "&Close Current Page\tCtrl-C",
                         "Close current notebook page");
@@ -551,7 +551,7 @@ wxMediaPlayerFrame::wxMediaPlayerFrame(const wxString& title)
                      "Show about dialog");
 
 
-    wxMenuBar *menuBar = new wxMenuBar();
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar();
     menuBar->Append(fileMenu, "&File");
     menuBar->Append(controlsMenu, "&Controls");
     menuBar->Append(optionsMenu, "&Options");
@@ -563,7 +563,7 @@ wxMediaPlayerFrame::wxMediaPlayerFrame(const wxString& title)
     // Create our notebook - using wxNotebook is luckily pretty
     // simple and self-explanatory in most cases
     //
-    m_notebook = new wxNotebook(this, wxID_NOTEBOOK);
+    m_notebook = NEW_DEBUG wxNotebook(this, wxID_NOTEBOOK);
 
     //
     //  Create our status bar
@@ -628,7 +628,7 @@ wxMediaPlayerFrame::wxMediaPlayerFrame(const wxString& title)
     //  to work with without having to go file->open every time :).
     //
     wxMediaPlayerNotebookPage* page =
-        new wxMediaPlayerNotebookPage(this, m_notebook);
+        NEW_DEBUG wxMediaPlayerNotebookPage(this, m_notebook);
     m_notebook->AddPage(page,
                         "",
                         true);
@@ -666,7 +666,7 @@ wxMediaPlayerFrame::wxMediaPlayerFrame(const wxString& title)
     //
     //  Create a timer to update our status bar
     //
-    m_timer = new wxMediaPlayerTimer(this);
+    m_timer = NEW_DEBUG wxMediaPlayerTimer(this);
     m_timer->Start(500);
 }
 
@@ -691,7 +691,7 @@ wxMediaPlayerFrame::~wxMediaPlayerFrame()
     //
     //  We need to do conf->DeleteAll() here because by default
     //  the config still contains the same files as last time
-    //  so we need to clear it before writing our new ones.
+    //  so we need to clear it before writing our NEW_DEBUG ones.
     //
     //  TODO:  Maybe you could add a menu option to the
     //  options menu to delete the configuration on exit -
@@ -834,7 +834,7 @@ void wxMediaPlayerFrame::OnOpenFileSamePage(wxCommandEvent& WXUNUSED(event))
 // wxMediaPlayerFrame::OnOpenFileNewPage
 //
 // Called from file->openfileinnewpage.
-// Opens and plays a media file in a new notebook page
+// Opens and plays a media file in a NEW_DEBUG notebook page
 // ----------------------------------------------------------------------------
 void wxMediaPlayerFrame::OnOpenFileNewPage(wxCommandEvent& WXUNUSED(event))
 {
@@ -868,7 +868,7 @@ void wxMediaPlayerFrame::DoOpenFile(const wxString& path, bool bNewPage)
     if(bNewPage)
     {
         m_notebook->AddPage(
-            new wxMediaPlayerNotebookPage(this, m_notebook),
+            NEW_DEBUG wxMediaPlayerNotebookPage(this, m_notebook),
             path,
             true);
     }
@@ -888,7 +888,7 @@ void wxMediaPlayerFrame::DoOpenFile(const wxString& path, bool bNewPage)
     newlistitem.SetId(nID = currentpage->m_playlist->GetItemCount());
     newlistitem.SetMask(wxLIST_MASK_DATA | wxLIST_MASK_STATE);
     newlistitem.SetState(wxLIST_STATE_SELECTED);
-    newlistitem.SetData(new wxString(path));
+    newlistitem.SetData(NEW_DEBUG wxString(path));
 
     currentpage->m_playlist->InsertItem(newlistitem);
     currentpage->m_playlist->SetItem(nID, 0, "*");
@@ -1026,7 +1026,7 @@ void wxMediaPlayerFrame::OnSelectBackend(wxCommandEvent& WXUNUSED(evt))
             m_notebook->DeletePage(sel);
         }
 
-        m_notebook->AddPage(new wxMediaPlayerNotebookPage(this, m_notebook,
+        m_notebook->AddPage(NEW_DEBUG wxMediaPlayerNotebookPage(this, m_notebook,
                                                         sBackend
                                                         ), "", true);
 
@@ -1051,7 +1051,7 @@ void wxMediaPlayerFrame::OnOpenURLSamePage(wxCommandEvent& WXUNUSED(event))
 // wxMediaPlayerFrame::OnOpenURLNewPage
 //
 // Called from file->openurlinnewpage.
-// Opens and plays a media file from a URL in a new notebook page
+// Opens and plays a media file from a URL in a NEW_DEBUG notebook page
 // ----------------------------------------------------------------------------
 void wxMediaPlayerFrame::OnOpenURLNewPage(wxCommandEvent& WXUNUSED(event))
 {
@@ -1481,14 +1481,14 @@ wxMediaPlayerNotebookPage::wxMediaPlayerNotebookPage(wxMediaPlayerFrame* parentF
     //
     //  Create and attach a 2-column grid sizer
     //
-    wxFlexGridSizer* sizer = new wxFlexGridSizer(2);
+    wxFlexGridSizer* sizer = NEW_DEBUG wxFlexGridSizer(2);
     sizer->AddGrowableCol(0);
     this->SetSizer(sizer);
 
     //
     //  Create our media control
     //
-    m_mediactrl = new wxMediaCtrl();
+    m_mediactrl = NEW_DEBUG wxMediaCtrl();
 
     //  Make sure creation was successful
     bool bOK = m_mediactrl->Create(this, wxID_MEDIACTRL, wxEmptyString,
@@ -1510,7 +1510,7 @@ wxMediaPlayerNotebookPage::wxMediaPlayerNotebookPage(wxMediaPlayerFrame* parentF
     //
     //  Create the playlist/listctrl
     //
-    m_playlist = new wxMediaPlayerListCtrl();
+    m_playlist = NEW_DEBUG wxMediaPlayerListCtrl();
     m_playlist->Create(this, wxID_LISTCTRL, wxDefaultPosition,
                     wxDefaultSize,
                     wxLC_REPORT // wxLC_LIST
@@ -1539,7 +1539,7 @@ wxMediaPlayerNotebookPage::wxMediaPlayerNotebookPage(wxMediaPlayerFrame* parentF
     m_playlist->AppendColumn(_("Length"), wxLIST_FORMAT_CENTER, 75);
 
 #if wxUSE_DRAG_AND_DROP
-    m_playlist->SetDropTarget(new wxPlayListDropTarget(*m_playlist));
+    m_playlist->SetDropTarget(NEW_DEBUG wxPlayListDropTarget(*m_playlist));
 #endif
 
     sizer->Add(m_playlist, 0, wxALIGN_CENTER_HORIZONTAL|wxALL|wxEXPAND, 5);
@@ -1549,15 +1549,15 @@ wxMediaPlayerNotebookPage::wxMediaPlayerNotebookPage(wxMediaPlayerFrame* parentF
     //  TODO/FIXME/HACK:  This part about sizers is really a nice hack
     //                    and probably isn't proper
     //
-    wxBoxSizer* horsizer1 = new wxBoxSizer(wxHORIZONTAL);
-    wxBoxSizer* vertsizer = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer* horsizer1 = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer* vertsizer = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
 
-    m_prevButton = new wxButton();
-    m_playButton = new wxButton();
-    m_stopButton = new wxButton();
-    m_nextButton = new wxButton();
-    m_vdButton = new wxButton();
-    m_vuButton = new wxButton();
+    m_prevButton = NEW_DEBUG wxButton();
+    m_playButton = NEW_DEBUG wxButton();
+    m_stopButton = NEW_DEBUG wxButton();
+    m_nextButton = NEW_DEBUG wxButton();
+    m_vdButton = NEW_DEBUG wxButton();
+    m_vuButton = NEW_DEBUG wxButton();
 
     m_prevButton->Create(this, wxID_BUTTONPREV, "|<");
     m_prevButton->SetToolTip("Previous");
@@ -1585,7 +1585,7 @@ wxMediaPlayerNotebookPage::wxMediaPlayerNotebookPage(wxMediaPlayerFrame* parentF
     //
     //  Create our slider
     //
-    m_slider = new wxSlider(this, wxID_SLIDER, 0, // init
+    m_slider = NEW_DEBUG wxSlider(this, wxID_SLIDER, 0, // init
                             0, // start
                             1, // end, dummy but must be greater than start
                             wxDefaultPosition, wxDefaultSize,
@@ -1595,7 +1595,7 @@ wxMediaPlayerNotebookPage::wxMediaPlayerNotebookPage(wxMediaPlayerFrame* parentF
     //
     //  Create the gauge
     //
-    m_gauge = new wxGauge();
+    m_gauge = NEW_DEBUG wxGauge();
     m_gauge->Create(this, wxID_GAUGE, 0, wxDefaultPosition, wxDefaultSize,
                         wxGA_HORIZONTAL | wxGA_SMOOTH);
     sizer->Add(m_gauge, 0, wxALIGN_CENTER_HORIZONTAL|wxALL|wxEXPAND , 5);
@@ -1604,16 +1604,16 @@ wxMediaPlayerNotebookPage::wxMediaPlayerNotebookPage(wxMediaPlayerFrame* parentF
     //
     //  Create the speed/volume sliders
     //
-    wxBoxSizer* horsizer3 = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer* horsizer3 = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
 
-    m_volSlider = new wxSlider(this, wxID_VOLSLIDER, 100, // init
+    m_volSlider = NEW_DEBUG wxSlider(this, wxID_VOLSLIDER, 100, // init
                             0, // start
                             100, // end
                             wxDefaultPosition, wxDefaultSize,
                             wxSL_HORIZONTAL );
     horsizer3->Add(m_volSlider, 1, wxALL, 5);
 
-    m_pbSlider = new wxSlider(this, wxID_PBSLIDER, 4, // init
+    m_pbSlider = NEW_DEBUG wxSlider(this, wxID_PBSLIDER, 4, // init
                             1, // start
                             16, // end
                             wxDefaultPosition, wxDefaultSize,

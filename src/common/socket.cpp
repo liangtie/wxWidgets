@@ -723,7 +723,7 @@ int wxSocketImpl::SendDgram(const void *buffer, int size)
 
 int wxSocketImpl::Read(void *buffer, int size)
 {
-    // server sockets can't be used for IO, only to accept new connections
+    // server sockets can't be used for IO, only to accept NEW_DEBUG connections
     if ( m_fd == INVALID_SOCKET || m_server )
     {
         m_error = wxSOCKET_INVSOCK;
@@ -1312,7 +1312,7 @@ wxSocketBase& wxSocketBase::Unread(const void *buffer, wxUint32 nbytes)
 
 wxSocketBase& wxSocketBase::Discard()
 {
-    char *buffer = new char[MAX_DISCARD_SIZE];
+    char *buffer = NEW_DEBUG char[MAX_DISCARD_SIZE];
     wxUint32 ret;
     wxUint32 total = 0;
 
@@ -1660,7 +1660,7 @@ void wxSocketBase::SaveState()
 {
     wxSocketState *state;
 
-    state = new wxSocketState();
+    state = NEW_DEBUG wxSocketState();
 
     state->m_flags      = m_flags;
     state->m_notify     = m_notify;
@@ -1959,7 +1959,7 @@ bool wxSocketServer::AcceptWith(wxSocketBase& sock, bool wait)
 
 wxSocketBase *wxSocketServer::Accept(bool wait)
 {
-    wxSocketBase* sock = new wxSocketBase();
+    wxSocketBase* sock = NEW_DEBUG wxSocketBase();
 
     sock->SetFlags(m_flags);
 
@@ -2057,7 +2057,7 @@ bool wxSocketClient::DoConnect(const wxSockAddress& remote,
     m_connected = false;
     m_establishing = false;
 
-    // Create and set up the new one
+    // Create and set up the NEW_DEBUG one
     wxSocketManager * const manager = wxSocketManager::Get();
     m_impl = manager ? manager->CreateSocket(*this) : NULL;
     if ( !m_impl )

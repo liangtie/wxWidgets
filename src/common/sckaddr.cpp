@@ -220,7 +220,7 @@ hostent *deepCopyHostent(hostent *h,
     while(*(p++) != 0)
         pos += sizeof(char *);
 
-    /* copy addresses and fill new pointer list */
+    /* copy addresses and fill NEW_DEBUG pointer list */
     for (p = h->h_addr_list, q = h_addr_list; *p != 0; p++, q++)
     {
         if (size < pos + len)
@@ -246,7 +246,7 @@ hostent *deepCopyHostent(hostent *h,
     while(*(p++) != 0)
         pos += sizeof(char *);
 
-    /* copy aliases and fill new pointer list */
+    /* copy aliases and fill NEW_DEBUG pointer list */
     for (p = h->h_aliases, q = h_aliases; *p != 0; p++, q++)
     {
         len = strlen(*p);
@@ -375,7 +375,7 @@ servent *deepCopyServent(servent *s,
     while(*(p++) != 0)
         pos += sizeof(char *);
 
-    /* copy addresses and fill new pointer list */
+    /* copy addresses and fill NEW_DEBUG pointer list */
     for (p = s->s_aliases, q = s_aliases; *p != 0; p++, q++){
         len = strlen(*p);
         if (size <= pos + len)
@@ -752,7 +752,7 @@ wxSockAddress::wxSockAddress()
 {
     Init();
 
-    m_impl = new wxSockAddressImpl();
+    m_impl = NEW_DEBUG wxSockAddressImpl();
 }
 
 wxSockAddress::wxSockAddress(const wxSockAddress& other)
@@ -760,7 +760,7 @@ wxSockAddress::wxSockAddress(const wxSockAddress& other)
 {
     Init();
 
-    m_impl = new wxSockAddressImpl(*other.m_impl);
+    m_impl = NEW_DEBUG wxSockAddressImpl(*other.m_impl);
 }
 
 wxSockAddress::~wxSockAddress()
@@ -773,7 +773,7 @@ void wxSockAddress::SetAddress(const wxSockAddressImpl& address)
     if ( &address != m_impl )
     {
         delete m_impl;
-        m_impl = new wxSockAddressImpl(address);
+        m_impl = NEW_DEBUG wxSockAddressImpl(address);
     }
 }
 

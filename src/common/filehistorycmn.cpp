@@ -117,7 +117,7 @@ void wxFileHistoryBase::AddFileToHistory(const wxString& file)
         RemoveFileFromHistory(--numFiles);
     }
 
-    // add a new menu item to all file menus (they will be updated below)
+    // add a NEW_DEBUG menu item to all file menus (they will be updated below)
     for ( wxList::compatibility_iterator node = m_fileMenus.GetFirst();
         node;
         node = node->GetNext() )
@@ -132,7 +132,7 @@ void wxFileHistoryBase::AddFileToHistory(const wxString& file)
         menu->Append(m_idBase + numFiles, " ");
     }
 
-    // insert the new file in the beginning of the file history
+    // insert the NEW_DEBUG file in the beginning of the file history
     m_fileHistory.insert(m_fileHistory.begin(), file);
     numFiles++;
 

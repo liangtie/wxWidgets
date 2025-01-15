@@ -192,12 +192,12 @@ RadioWidgetsPage::RadioWidgetsPage(WidgetsBookCtrl *book,
 
 void RadioWidgetsPage::CreateContent()
 {
-    wxSizer *sizerTop = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer *sizerTop = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
 
     // left pane
-    wxStaticBox *box = new wxStaticBox(this, wxID_ANY, "&Set style");
+    wxStaticBox *box = NEW_DEBUG wxStaticBox(this, wxID_ANY, "&Set style");
 
-    wxSizer *sizerLeft = new wxStaticBoxSizer(box, wxVERTICAL);
+    wxSizer *sizerLeft = NEW_DEBUG wxStaticBoxSizer(box, wxVERTICAL);
 
     m_chkSpecifyRows = CreateCheckBoxAndAddToSizer
                        (
@@ -217,17 +217,17 @@ void RadioWidgetsPage::CreateContent()
     sizerLeft->Add(sizerRow, wxSizerFlags().Expand().Border());
 
     wxButton *btn;
-    btn = new wxButton(this, RadioPage_Update, "&Update");
+    btn = NEW_DEBUG wxButton(this, RadioPage_Update, "&Update");
     sizerLeft->Add(btn, wxSizerFlags().CentreHorizontal().Border());
 
     sizerLeft->AddSpacer(5);
 
-    btn = new wxButton(this, RadioPage_Reset, "&Reset");
+    btn = NEW_DEBUG wxButton(this, RadioPage_Reset, "&Reset");
     sizerLeft->Add(btn, wxSizerFlags().CentreHorizontal().Border(wxALL, 15));
 
     // middle pane
-    wxStaticBox *box2 = new wxStaticBox(this, wxID_ANY, "&Change parameters");
-    wxSizer *sizerMiddle = new wxStaticBoxSizer(box2, wxVERTICAL);
+    wxStaticBox *box2 = NEW_DEBUG wxStaticBox(this, wxID_ANY, "&Change parameters");
+    wxSizer *sizerMiddle = NEW_DEBUG wxStaticBoxSizer(box2, wxVERTICAL);
 
     sizerRow = CreateSizerWithTextAndLabel("Current selection:",
                                            wxID_ANY,
@@ -260,7 +260,7 @@ void RadioWidgetsPage::CreateContent()
                                                 RadioPage_ShowItem);
 
     // right pane
-    wxSizer *sizerRight = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer *sizerRight = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     m_sizerRadio = sizerRight; // save it to modify it later
 
     Reset();
@@ -342,7 +342,7 @@ void RadioWidgetsPage::CreateRadio()
 
     flags |= GetAttrs().m_defaultFlags;
 
-    m_radio = new wxRadioBox(this, RadioPage_Radio,
+    m_radio = NEW_DEBUG wxRadioBox(this, RadioPage_Radio,
                              m_textLabel->GetValue(),
                              wxDefaultPosition, wxDefaultSize,
                              items,
@@ -413,7 +413,7 @@ void RadioWidgetsPage::OnButtonSelection(wxCommandEvent& WXUNUSED(event))
     if ( !m_textSel->GetValue().ToULong(&sel) ||
             (sel >= (size_t)m_radio->GetCount()) )
     {
-        wxLogWarning("Invalid number specified as new selection.");
+        wxLogWarning("Invalid number specified as NEW_DEBUG selection.");
     }
     else
     {

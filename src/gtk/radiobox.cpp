@@ -313,7 +313,7 @@ bool wxRadioBox::Create( wxWindow *parent, wxWindowID id, const wxString& title,
         g_signal_connect (rbtn, "key_press_event",
                           G_CALLBACK (gtk_radiobox_keypress_callback), this);
 
-        m_buttonsInfo.Append( new wxGTKRadioButtonInfo( rbtn, wxRect() ) );
+        m_buttonsInfo.Append( NEW_DEBUG wxGTKRadioButtonInfo( rbtn, wxRect() ) );
 
 #ifdef __WXGTK3__
         int left, top;

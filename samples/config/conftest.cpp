@@ -106,14 +106,14 @@ bool MyApp::OnInit()
     pConfig->SetRecordDefaults();
 
     // or you could also write something like this:
-    //  wxFileConfig *pConfig = new wxFileConfig("conftest");
+    //  wxFileConfig *pConfig = NEW_DEBUG wxFileConfig("conftest");
     //  wxConfigBase::Set(pConfig);
     // where you can also specify the file names explicitly if you wish.
     // Of course, calling Set() is optional and you only must do it if
     // you want to later retrieve this pointer with Get().
 
     // create the main program window
-    MyFrame *frame = new MyFrame;
+    MyFrame *frame = NEW_DEBUG MyFrame;
     frame->Show(true);
 
     // use our config object...
@@ -149,14 +149,14 @@ MyFrame::MyFrame()
     SetIcon(wxICON(sample));
 
     // menu
-    wxMenu *file_menu = new wxMenu;
+    wxMenu *file_menu = NEW_DEBUG wxMenu;
 
     file_menu->Append(wxID_DELETE, "&Delete", "Delete config file");
     file_menu->AppendSeparator();
     file_menu->Append(wxID_ABOUT, "&About\tF1", "About this sample");
     file_menu->AppendSeparator();
     file_menu->Append(wxID_EXIT, "E&xit\tAlt-X", "Exit the program");
-    wxMenuBar *menu_bar = new wxMenuBar;
+    wxMenuBar *menu_bar = NEW_DEBUG wxMenuBar;
     menu_bar->Append(file_menu, "&File");
     SetMenuBar(menu_bar);
 
@@ -165,13 +165,13 @@ MyFrame::MyFrame()
 #endif // wxUSE_STATUSBAR
 
     // child controls
-    wxPanel *panel = new wxPanel(this);
-    wxStaticText* st = new wxStaticText(panel, wxID_ANY, "These controls remember their values!");
-    m_text = new wxTextCtrl(panel, wxID_ANY);
-    m_check = new wxCheckBox(panel, wxID_ANY, "show welcome message box at startup");
+    wxPanel *panel = NEW_DEBUG wxPanel(this);
+    wxStaticText* st = NEW_DEBUG wxStaticText(panel, wxID_ANY, "These controls remember their values!");
+    m_text = NEW_DEBUG wxTextCtrl(panel, wxID_ANY);
+    m_check = NEW_DEBUG wxCheckBox(panel, wxID_ANY, "show welcome message box at startup");
 
     // put everything in a sizer
-    wxBoxSizer* sizer = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer* sizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     sizer->Add(st, wxSizerFlags().Border(wxLEFT|wxBOTTOM|wxTOP, 10));
     sizer->Add(m_text, wxSizerFlags().Border(wxLEFT|wxBOTTOM|wxRIGHT, 10).Expand());
     sizer->Add(m_check, wxSizerFlags().Border(wxLEFT, 10));

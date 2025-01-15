@@ -491,11 +491,11 @@ static inline bool NeedsOwnerDrawnForImageLayout(wxDirection dir, int margH, int
 
 void wxMSWButton::UpdateMultilineStyle(HWND hwnd, const wxString& label)
 {
-    // update BS_MULTILINE style depending on the new label (resetting it
+    // update BS_MULTILINE style depending on the NEW_DEBUG label (resetting it
     // doesn't seem to do anything very useful but it shouldn't hurt and we do
     // have to set it whenever the label becomes multi line as otherwise it
     // wouldn't be shown correctly as we don't use BS_MULTILINE when creating
-    // the control unless it already has new lines in its label)
+    // the control unless it already has NEW_DEBUG lines in its label)
     wxMSWWinStyleUpdater updateStyle(hwnd);
     if ( label.find(wxT('\n')) != wxString::npos )
         updateStyle.TurnOn(BS_MULTILINE);
@@ -780,7 +780,7 @@ void wxAnyButton::DoSetBitmap(const wxBitmapBundle& bitmapBundle, State which)
 {
     // Normal image sets images for all states of the button, or deletes the
     // images if the bundle is invalid.
-    // Delete the wxButtonImageData so when the new one is created, all states
+    // Delete the wxButtonImageData so when the NEW_DEBUG one is created, all states
     // are initialized.
     if ( which == State_Normal )
     {
@@ -816,12 +816,12 @@ void wxAnyButton::DoSetBitmap(const wxBitmapBundle& bitmapBundle, State which)
             m_imageData->GetBitmapBundle(State_Normal).GetDefaultSize() )
     {
         wxASSERT_MSG( which == State_Normal,
-                      "Must set normal bitmap with the new size first" );
+                      "Must set normal bitmap with the NEW_DEBUG size first" );
 
 #if wxUSE_UXTHEME
         // We can't change the size of the images stored in wxImageList
         // in wxXPButtonImageData::m_iml so force recreating it below but
-        // keep the current data to copy its values into the new one.
+        // keep the current data to copy its values into the NEW_DEBUG one.
         oldData = wxDynamicCast(m_imageData, wxXPButtonImageData);
         if ( oldData )
         {
@@ -841,7 +841,7 @@ void wxAnyButton::DoSetBitmap(const wxBitmapBundle& bitmapBundle, State which)
         // strategy for bitmap-only buttons
         if ( ShowsLabel() && wxUxThemeIsActive() )
         {
-            m_imageData = new wxXPButtonImageData(this, bitmapBundle);
+            m_imageData = NEW_DEBUG wxXPButtonImageData(this, bitmapBundle);
 
             if ( oldData )
             {
@@ -860,7 +860,7 @@ void wxAnyButton::DoSetBitmap(const wxBitmapBundle& bitmapBundle, State which)
         else
 #endif // wxUSE_UXTHEME
         {
-            m_imageData = new wxODButtonImageData(this, bitmapBundle);
+            m_imageData = NEW_DEBUG wxODButtonImageData(this, bitmapBundle);
             MakeOwnerDrawn();
         }
     }
@@ -934,7 +934,7 @@ bool wxAnyButton::DoSetLabelMarkup(const wxString& markup)
 
     if ( !m_markupText )
     {
-        m_markupText = new wxMarkupText(markup);
+        m_markupText = NEW_DEBUG wxMarkupText(markup);
         MakeOwnerDrawn();
     }
     else
@@ -1325,7 +1325,7 @@ void wxAnyButton::MakeOwnerDrawn()
         // if necessary.
         if ( m_imageData && wxDynamicCast(m_imageData, wxODButtonImageData) == NULL )
         {
-            wxODButtonImageData* newData = new wxODButtonImageData(this, m_imageData->GetBitmapBundle(State_Normal));
+            wxODButtonImageData* newData = NEW_DEBUG wxODButtonImageData(this, m_imageData->GetBitmapBundle(State_Normal));
             for ( int n = 0; n < State_Max; n++ )
             {
                 State st = static_cast<State>(n);

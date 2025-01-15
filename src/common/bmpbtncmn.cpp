@@ -31,7 +31,7 @@
 
 wxDEFINE_FLAGS( wxBitmapButtonStyle )
 wxBEGIN_FLAGS( wxBitmapButtonStyle )
-    // new style border flags, we put them first to
+    // NEW_DEBUG style border flags, we put them first to
     // use them for streaming out
     wxFLAGS_MEMBER(wxBORDER_SIMPLE)
     wxFLAGS_MEMBER(wxBORDER_SUNKEN)
@@ -147,7 +147,7 @@ GetCloseButtonBitmap(wxWindow* win,
                      const wxColour& colBg,
                      int flags = 0)
 {
-    return wxBitmapBundle::FromImpl(new wxBitmapBundleImplCloseButton
+    return wxBitmapBundle::FromImpl(NEW_DEBUG wxBitmapBundleImplCloseButton
                                         (
                                             win, size, colBg, flags
                                         ));
@@ -199,7 +199,7 @@ wxBitmapButtonBase::NewCloseButton(wxWindow* parent,
                                    wxWindowID winid,
                                    const wxString& name)
 {
-    wxBitmapButton* const button = new wxBitmapButton();
+    wxBitmapButton* const button = NEW_DEBUG wxBitmapButton();
 
     button->CreateCloseButton(parent, winid, name);
 

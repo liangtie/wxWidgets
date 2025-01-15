@@ -111,7 +111,7 @@ void wxNotebook::AddChildGTK(wxWindowGTK* child)
 {
     // Hack Alert! (Part I): This sets the notebook as the parent of the child
     // widget, and takes care of some details such as updating the state and
-    // style of the child to reflect its new location.  We do this early
+    // style of the child to reflect its NEW_DEBUG location.  We do this early
     // because without it GetBestSize (which is used to set the initial size
     // of controls if an explicit size is not given) will often report
     // incorrect sizes since the widget's style context is not fully known.
@@ -471,7 +471,7 @@ bool wxNotebook::InsertPage( size_t position,
 
     GtkNotebook *notebook = GTK_NOTEBOOK(m_widget);
 
-    wxGtkNotebookPage* pageData = new wxGtkNotebookPage;
+    wxGtkNotebookPage* pageData = NEW_DEBUG wxGtkNotebookPage;
 
     m_pages.insert(m_pages.begin() + position, win);
     m_pagesData.Insert(position, pageData);

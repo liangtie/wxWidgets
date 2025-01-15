@@ -295,7 +295,7 @@ public:
                      wxRect labelRect,
                      const wxVariant& value) wxOVERRIDE
     {
-        wxTextCtrl* text = new wxTextCtrl(parent, wxID_ANY, value,
+        wxTextCtrl* text = NEW_DEBUG wxTextCtrl(parent, wxID_ANY, value,
                                           labelRect.GetPosition(),
                                           labelRect.GetSize(),
                                           wxTE_PROCESS_ENTER);
@@ -328,7 +328,7 @@ private:
 class MultiLineCustomRenderer : public wxDataViewCustomRenderer
 {
 public:
-    // a simple renderer that wraps each word on a new line
+    // a simple renderer that wraps each word on a NEW_DEBUG line
     explicit MultiLineCustomRenderer()
         : wxDataViewCustomRenderer("string", wxDATAVIEW_CELL_INERT, 0)
     { }
@@ -384,7 +384,7 @@ bool MyApp::OnInit()
         return false;
 
     MyFrame *frame =
-        new MyFrame(NULL, "wxDataViewCtrl sample", 40, 40, 1000, 540);
+        NEW_DEBUG MyFrame(NULL, "wxDataViewCtrl sample", 40, 40, 1000, 540);
 
     frame->Show(true);
     return true;
@@ -575,14 +575,14 @@ MyFrame::MyFrame(wxFrame *frame, const wxString &title, int x, int y, int w, int
     // build the menus
     // ----------------
 
-    wxMenu *style_menu = new wxMenu;
+    wxMenu *style_menu = NEW_DEBUG wxMenu;
     //style_menu->AppendCheckItem(ID_SINGLE, "Single selection"));
     style_menu->AppendCheckItem(ID_MULTIPLE, "Multiple selection");
     style_menu->AppendCheckItem(ID_ROW_LINES, "Alternating colours");
     style_menu->AppendCheckItem(ID_HORIZ_RULES, "Display horizontal rules");
     style_menu->AppendCheckItem(ID_VERT_RULES, "Display vertical rules");
 
-    wxMenu* align_menu = new wxMenu;
+    wxMenu* align_menu = NEW_DEBUG wxMenu;
     align_menu->AppendRadioItem(ID_ALIGN_LEFT, "Left\tCtrl-1");
     align_menu->AppendRadioItem(ID_ALIGN_CENTRE_H, "Centre Horizontal\tCtrl-2");
     align_menu->AppendRadioItem(ID_ALIGN_RIGHT, "Right\tCtrl-3");
@@ -591,7 +591,7 @@ MyFrame::MyFrame(wxFrame *frame, const wxString &title, int x, int y, int w, int
     align_menu->AppendRadioItem(ID_ALIGN_CENTRE_V, "Centre Vertical\tCtrl-5");
     align_menu->AppendRadioItem(ID_ALIGN_BOTTOM, "Bottom\tCtrl-6");
 
-    wxMenu* size_menu = new wxMenu;
+    wxMenu* size_menu = NEW_DEBUG wxMenu;
     size_menu->AppendCheckItem(ID_TOGGLE_USE_TALL_ROWS,
         "Use Tall Rows\tCtrl-7");
     size_menu->AppendCheckItem(ID_TOGGLE_KEEP_LOGO_SMALL,
@@ -599,7 +599,7 @@ MyFrame::MyFrame(wxFrame *frame, const wxString &title, int x, int y, int w, int
     size_menu->AppendCheckItem(ID_TOGGLE_USE_MULTI_LINE_TEXT,
         "Use Multi-line Text\tCtrl-9");
 
-    wxMenu *file_menu = new wxMenu;
+    wxMenu *file_menu = NEW_DEBUG wxMenu;
     file_menu->Append(ID_CLEARLOG, "&Clear log\tCtrl-L");
     file_menu->Append(ID_GET_PAGE_INFO, "Show current &page info");
     file_menu->AppendCheckItem(ID_DISABLE, "&Disable\tCtrl-D");
@@ -621,10 +621,10 @@ MyFrame::MyFrame(wxFrame *frame, const wxString &title, int x, int y, int w, int
     file_menu->AppendSeparator();
     file_menu->Append(ID_EXIT, "E&xit");
 
-    wxMenu *about_menu = new wxMenu;
+    wxMenu *about_menu = NEW_DEBUG wxMenu;
     about_menu->Append(ID_ABOUT, "&About");
 
-    wxMenuBar *menu_bar = new wxMenuBar;
+    wxMenuBar *menu_bar = NEW_DEBUG wxMenuBar;
     menu_bar->Append(file_menu, "&File");
     menu_bar->Append(about_menu, "&About");
 
@@ -633,41 +633,41 @@ MyFrame::MyFrame(wxFrame *frame, const wxString &title, int x, int y, int w, int
 
 
     // redirect logs from our event handlers to text control
-    m_log = new wxTextCtrl( this, wxID_ANY, wxString(), wxDefaultPosition,
+    m_log = NEW_DEBUG wxTextCtrl( this, wxID_ANY, wxString(), wxDefaultPosition,
                             wxDefaultSize, wxTE_MULTILINE );
     m_log->SetMinSize(wxSize(-1, 100));
-    m_logOld = wxLog::SetActiveTarget(new wxLogTextCtrl(m_log));
+    m_logOld = wxLog::SetActiveTarget(NEW_DEBUG wxLogTextCtrl(m_log));
     wxLogMessage( "This is the log window" );
 
 
     // first page of the notebook
     // --------------------------
 
-    m_notebook = new wxNotebook( this, wxID_ANY );
+    m_notebook = NEW_DEBUG wxNotebook( this, wxID_ANY );
 
-    wxPanel *firstPanel = new wxPanel( m_notebook, wxID_ANY );
+    wxPanel *firstPanel = NEW_DEBUG wxPanel( m_notebook, wxID_ANY );
 
     BuildDataViewCtrl(firstPanel, Page_Music);
 
     const wxSizerFlags border = wxSizerFlags().DoubleBorder();
 
-    wxBoxSizer *button_sizer = new wxBoxSizer( wxHORIZONTAL );
-    button_sizer->Add( new wxButton( firstPanel, ID_ADD_MOZART,  "Add Mozart"),             border );
-    button_sizer->Add( new wxButton( firstPanel, ID_DELETE_SEL,  "Delete selected"),        border );
-    button_sizer->Add( new wxButton( firstPanel, ID_DELETE_YEAR, "Delete \"Year\" column"), border );
-    button_sizer->Add( new wxButton( firstPanel, ID_SELECT_NINTH,"Select ninth symphony"),  border );
-    button_sizer->Add( new wxButton( firstPanel, ID_COLLAPSE,    "Collapse"),               border );
-    button_sizer->Add( new wxButton( firstPanel, ID_EXPAND,      "Expand"),                 border );
+    wxBoxSizer *button_sizer = NEW_DEBUG wxBoxSizer( wxHORIZONTAL );
+    button_sizer->Add( NEW_DEBUG wxButton( firstPanel, ID_ADD_MOZART,  "Add Mozart"),             border );
+    button_sizer->Add( NEW_DEBUG wxButton( firstPanel, ID_DELETE_SEL,  "Delete selected"),        border );
+    button_sizer->Add( NEW_DEBUG wxButton( firstPanel, ID_DELETE_YEAR, "Delete \"Year\" column"), border );
+    button_sizer->Add( NEW_DEBUG wxButton( firstPanel, ID_SELECT_NINTH,"Select ninth symphony"),  border );
+    button_sizer->Add( NEW_DEBUG wxButton( firstPanel, ID_COLLAPSE,    "Collapse"),               border );
+    button_sizer->Add( NEW_DEBUG wxButton( firstPanel, ID_EXPAND,      "Expand"),                 border );
 
-    wxBoxSizer *sizerCurrent = new wxBoxSizer(wxHORIZONTAL);
-    sizerCurrent->Add(new wxButton(firstPanel, ID_SHOW_CURRENT,
+    wxBoxSizer *sizerCurrent = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
+    sizerCurrent->Add(NEW_DEBUG wxButton(firstPanel, ID_SHOW_CURRENT,
                                    "&Show current"), border);
-    sizerCurrent->Add(new wxButton(firstPanel, ID_SET_NINTH_CURRENT,
+    sizerCurrent->Add(NEW_DEBUG wxButton(firstPanel, ID_SET_NINTH_CURRENT,
                                    "Make &ninth symphony current"), border);
-    sizerCurrent->Add(new wxButton(firstPanel, ID_CHANGE_NINTH_TITLE,
+    sizerCurrent->Add(NEW_DEBUG wxButton(firstPanel, ID_CHANGE_NINTH_TITLE,
                                    "Change ninth &title"), border);
 
-    wxSizer *firstPanelSz = new wxBoxSizer( wxVERTICAL );
+    wxSizer *firstPanelSz = NEW_DEBUG wxBoxSizer( wxVERTICAL );
     m_ctrl[Page_Music]->SetMinSize(wxSize(-1, 200));
     firstPanelSz->Add(m_ctrl[Page_Music], 1, wxGROW|wxALL, 5);
     firstPanelSz->Add(button_sizer);
@@ -678,25 +678,25 @@ MyFrame::MyFrame(wxFrame *frame, const wxString &title, int x, int y, int w, int
     // second page of the notebook
     // ---------------------------
 
-    wxPanel *secondPanel = new wxPanel( m_notebook, wxID_ANY );
+    wxPanel *secondPanel = NEW_DEBUG wxPanel( m_notebook, wxID_ANY );
 
     BuildDataViewCtrl(secondPanel, Page_List);
 
-    wxBoxSizer *button_sizer2 = new wxBoxSizer( wxHORIZONTAL );
-    button_sizer2->Add( new wxButton( secondPanel, ID_PREPEND_LIST,"Prepend"),                0, wxALL, 10 );
-    button_sizer2->Add( new wxButton( secondPanel, ID_DELETE_LIST, "Delete selected"),        0, wxALL, 10 );
-    button_sizer2->Add( new wxButton( secondPanel, ID_GOTO,        "Goto 50"),                0, wxALL, 10 );
-    button_sizer2->Add( new wxButton( secondPanel, ID_ADD_MANY,    "Add 1000"),               0, wxALL, 10 );
-    button_sizer2->Add( new wxButton( secondPanel, ID_HIDE_ATTRIBUTES,    "Hide attributes"), 0, wxALL, 10 );
-    button_sizer2->Add( new wxButton( secondPanel, ID_SHOW_ATTRIBUTES,    "Show attributes"), 0, wxALL, 10 );
+    wxBoxSizer *button_sizer2 = NEW_DEBUG wxBoxSizer( wxHORIZONTAL );
+    button_sizer2->Add( NEW_DEBUG wxButton( secondPanel, ID_PREPEND_LIST,"Prepend"),                0, wxALL, 10 );
+    button_sizer2->Add( NEW_DEBUG wxButton( secondPanel, ID_DELETE_LIST, "Delete selected"),        0, wxALL, 10 );
+    button_sizer2->Add( NEW_DEBUG wxButton( secondPanel, ID_GOTO,        "Goto 50"),                0, wxALL, 10 );
+    button_sizer2->Add( NEW_DEBUG wxButton( secondPanel, ID_ADD_MANY,    "Add 1000"),               0, wxALL, 10 );
+    button_sizer2->Add( NEW_DEBUG wxButton( secondPanel, ID_HIDE_ATTRIBUTES,    "Hide attributes"), 0, wxALL, 10 );
+    button_sizer2->Add( NEW_DEBUG wxButton( secondPanel, ID_SHOW_ATTRIBUTES,    "Show attributes"), 0, wxALL, 10 );
 
-    wxBoxSizer *sortSizer = new wxBoxSizer(wxHORIZONTAL);
-    sortSizer->Add(new wxCheckBox(secondPanel, ID_SORT_BY_FIRST_COLUMN, "Sort by first column"),
+    wxBoxSizer *sortSizer = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
+    sortSizer->Add(NEW_DEBUG wxCheckBox(secondPanel, ID_SORT_BY_FIRST_COLUMN, "Sort by first column"),
                    wxSizerFlags().Centre().DoubleBorder());
-    sortSizer->Add(new wxCheckBox(secondPanel, ID_MULTIPLE_SORT, "Allow multisort"),
+    sortSizer->Add(NEW_DEBUG wxCheckBox(secondPanel, ID_MULTIPLE_SORT, "Allow multisort"),
                    wxSizerFlags().Centre().DoubleBorder());
 
-    wxSizer *secondPanelSz = new wxBoxSizer( wxVERTICAL );
+    wxSizer *secondPanelSz = NEW_DEBUG wxBoxSizer( wxVERTICAL );
     secondPanelSz->Add(m_ctrl[Page_List], 1, wxGROW|wxALL, 5);
     secondPanelSz->Add(button_sizer2);
     secondPanelSz->Add(sortSizer);
@@ -706,11 +706,11 @@ MyFrame::MyFrame(wxFrame *frame, const wxString &title, int x, int y, int w, int
     // third page of the notebook
     // ---------------------------
 
-    wxPanel *thirdPanel = new wxPanel( m_notebook, wxID_ANY );
+    wxPanel *thirdPanel = NEW_DEBUG wxPanel( m_notebook, wxID_ANY );
 
     BuildDataViewCtrl(thirdPanel, Page_ListStore);
 
-    wxSizer *thirdPanelSz = new wxBoxSizer( wxVERTICAL );
+    wxSizer *thirdPanelSz = NEW_DEBUG wxBoxSizer( wxVERTICAL );
     thirdPanelSz->Add(m_ctrl[Page_ListStore], 1, wxGROW|wxALL, 5);
     thirdPanel->SetSizerAndFit(thirdPanelSz);
 
@@ -718,17 +718,17 @@ MyFrame::MyFrame(wxFrame *frame, const wxString &title, int x, int y, int w, int
     // fourth page of the notebook
     // ---------------------------
 
-    wxPanel *fourthPanel = new wxPanel( m_notebook, wxID_ANY );
+    wxPanel *fourthPanel = NEW_DEBUG wxPanel( m_notebook, wxID_ANY );
 
     BuildDataViewCtrl(fourthPanel, Page_TreeStore);
     // Buttons
-    wxBoxSizer *button_sizer4 = new wxBoxSizer( wxHORIZONTAL );
-    button_sizer4->Add( new wxButton( fourthPanel, ID_DELETE_TREE_ITEM, "Delete Selected"), 0, wxALL, 10 );
-    button_sizer4->Add( new wxButton( fourthPanel, ID_DELETE_ALL_TREE_ITEMS, "Delete All"), 0, wxALL, 10 );
-    button_sizer4->Add( new wxButton( fourthPanel, ID_ADD_TREE_ITEM, "Add Item"), 0, wxALL, 10 );
-    button_sizer4->Add( new wxButton( fourthPanel, ID_ADD_TREE_CONTAINER_ITEM, "Add Container"), 0, wxALL, 10 );
+    wxBoxSizer *button_sizer4 = NEW_DEBUG wxBoxSizer( wxHORIZONTAL );
+    button_sizer4->Add( NEW_DEBUG wxButton( fourthPanel, ID_DELETE_TREE_ITEM, "Delete Selected"), 0, wxALL, 10 );
+    button_sizer4->Add( NEW_DEBUG wxButton( fourthPanel, ID_DELETE_ALL_TREE_ITEMS, "Delete All"), 0, wxALL, 10 );
+    button_sizer4->Add( NEW_DEBUG wxButton( fourthPanel, ID_ADD_TREE_ITEM, "Add Item"), 0, wxALL, 10 );
+    button_sizer4->Add( NEW_DEBUG wxButton( fourthPanel, ID_ADD_TREE_CONTAINER_ITEM, "Add Container"), 0, wxALL, 10 );
 
-    wxSizer *fourthPanelSz = new wxBoxSizer( wxVERTICAL );
+    wxSizer *fourthPanelSz = NEW_DEBUG wxBoxSizer( wxVERTICAL );
     fourthPanelSz->Add(m_ctrl[Page_TreeStore], 1, wxGROW|wxALL, 5);
     fourthPanelSz->Add(button_sizer4);
     fourthPanel->SetSizerAndFit(fourthPanelSz);
@@ -736,17 +736,17 @@ MyFrame::MyFrame(wxFrame *frame, const wxString &title, int x, int y, int w, int
     // fifth page of the notebook
     // ---------------------------
 
-    wxPanel *fifthPanel = new wxPanel(m_notebook, wxID_ANY);
+    wxPanel *fifthPanel = NEW_DEBUG wxPanel(m_notebook, wxID_ANY);
 
     BuildDataViewCtrl(fifthPanel, Page_VarHeight);
 
-    wxBoxSizer* button_sizer5 = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer* button_sizer5 = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     button_sizer5->Add(
-        new wxButton(fifthPanel, ID_ENSURE_NINTH_SECOND_COLUMN,
+        NEW_DEBUG wxButton(fifthPanel, ID_ENSURE_NINTH_SECOND_COLUMN,
             "Make ninth symphony and second column visible"),
         wxSizerFlags().DoubleBorder());
 
-    wxSizer *fifthPanelSz = new wxBoxSizer(wxVERTICAL);
+    wxSizer *fifthPanelSz = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     fifthPanelSz->Add(m_ctrl[Page_VarHeight], 1, wxGROW | wxALL, 5);
     fifthPanelSz->Add(button_sizer5);
     fifthPanel->SetSizerAndFit(fifthPanelSz);
@@ -754,19 +754,19 @@ MyFrame::MyFrame(wxFrame *frame, const wxString &title, int x, int y, int w, int
     // page showing the indexed list model
     // -----------------------------------
 
-    wxPanel* sixthPanel = new wxPanel(m_notebook, wxID_ANY);
+    wxPanel* sixthPanel = NEW_DEBUG wxPanel(m_notebook, wxID_ANY);
 
     BuildDataViewCtrl(sixthPanel, Page_IndexList);
 
-    wxBoxSizer *button_sizer6 = new wxBoxSizer(wxHORIZONTAL);
-    button_sizer6->Add(new wxButton(sixthPanel, ID_INDEX_LIST_USE_ENGLISH, "&English"),
+    wxBoxSizer *button_sizer6 = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
+    button_sizer6->Add(NEW_DEBUG wxButton(sixthPanel, ID_INDEX_LIST_USE_ENGLISH, "&English"),
                        wxSizerFlags().DoubleBorder());
-    button_sizer6->Add(new wxButton(sixthPanel, ID_INDEX_LIST_USE_FRENCH, "&French"),
+    button_sizer6->Add(NEW_DEBUG wxButton(sixthPanel, ID_INDEX_LIST_USE_FRENCH, "&French"),
                        wxSizerFlags().DoubleBorder());
-    button_sizer6->Add(new wxButton(sixthPanel, ID_INDEX_LIST_RESET_MODEL, "Reset &model"),
+    button_sizer6->Add(NEW_DEBUG wxButton(sixthPanel, ID_INDEX_LIST_RESET_MODEL, "Reset &model"),
                        wxSizerFlags().DoubleBorder());
 
-    wxSizer *sixthPanelSz = new wxBoxSizer(wxVERTICAL);
+    wxSizer *sixthPanelSz = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     sixthPanelSz->Add(m_ctrl[Page_IndexList], wxSizerFlags(1).Expand().Border());
     sixthPanelSz->Add(button_sizer6);
     sixthPanel->SetSizerAndFit(sixthPanelSz);
@@ -774,11 +774,11 @@ MyFrame::MyFrame(wxFrame *frame, const wxString &title, int x, int y, int w, int
     // page showing that some columns don't have values for some items
     // ---------------------------------------------------------------
 
-    wxPanel *seventhPanel = new wxPanel( m_notebook, wxID_ANY );
+    wxPanel *seventhPanel = NEW_DEBUG wxPanel( m_notebook, wxID_ANY );
 
     BuildDataViewCtrl(seventhPanel, Page_HasValue);
 
-    wxSizer *seventhPanelSz = new wxBoxSizer( wxVERTICAL );
+    wxSizer *seventhPanelSz = NEW_DEBUG wxBoxSizer( wxVERTICAL );
     seventhPanelSz->Add(m_ctrl[Page_HasValue], 1, wxGROW|wxALL, 5);
     seventhPanel->SetSizerAndFit(seventhPanelSz);
 
@@ -793,7 +793,7 @@ MyFrame::MyFrame(wxFrame *frame, const wxString &title, int x, int y, int w, int
     m_notebook->AddPage(sixthPanel, "MyIndexListModel");
     m_notebook->AddPage(seventhPanel, "MyDataViewHasValue");
 
-    wxSizer* mainSizer = new wxBoxSizer(wxVERTICAL);
+    wxSizer* mainSizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
     mainSizer->Add( m_notebook, 1, wxGROW );
     mainSizer->Add( m_log, 0, wxGROW );
@@ -822,11 +822,11 @@ void MyFrame::BuildDataViewCtrl(wxPanel* parent, unsigned int nPanel,
     case Page_Music:
         {
             m_ctrl[Page_Music] =
-                new wxDataViewCtrl( parent, ID_MUSIC_CTRL, wxDefaultPosition,
+                NEW_DEBUG wxDataViewCtrl( parent, ID_MUSIC_CTRL, wxDefaultPosition,
                                     wxDefaultSize, style );
             m_ctrl[Page_Music]->Bind(wxEVT_CHAR, &MyFrame::OnDataViewChar, this);
 
-            m_music_model = new MyMusicTreeModel;
+            m_music_model = NEW_DEBUG MyMusicTreeModel;
             m_ctrl[Page_Music]->AssociateModel( m_music_model.get() );
 
 #if wxUSE_DRAG_AND_DROP && wxUSE_UNICODE
@@ -837,9 +837,9 @@ void MyFrame::BuildDataViewCtrl(wxPanel* parent, unsigned int nPanel,
             // column 0 of the view control:
 
             wxDataViewTextRenderer *tr =
-                new wxDataViewTextRenderer( "string", wxDATAVIEW_CELL_INERT );
+                NEW_DEBUG wxDataViewTextRenderer( "string", wxDATAVIEW_CELL_INERT );
             wxDataViewColumn *column0 =
-                new wxDataViewColumn( "title", tr, 0, FromDIP(200), wxALIGN_LEFT,
+                NEW_DEBUG wxDataViewColumn( "title", tr, 0, FromDIP(200), wxALIGN_LEFT,
                                       wxDATAVIEW_COL_SORTABLE | wxDATAVIEW_COL_RESIZABLE );
             m_ctrl[Page_Music]->AppendColumn( column0 );
 #if 0
@@ -850,9 +850,9 @@ void MyFrame::BuildDataViewCtrl(wxPanel* parent, unsigned int nPanel,
 
             // column 1 of the view control:
 
-            tr = new wxDataViewTextRenderer( "string", wxDATAVIEW_CELL_EDITABLE );
+            tr = NEW_DEBUG wxDataViewTextRenderer( "string", wxDATAVIEW_CELL_EDITABLE );
             wxDataViewColumn *column1 =
-                new wxDataViewColumn( "artist", tr, 1, FromDIP(150), wxALIGN_LEFT,
+                NEW_DEBUG wxDataViewColumn( "artist", tr, 1, FromDIP(150), wxALIGN_LEFT,
                                       wxDATAVIEW_COL_SORTABLE | wxDATAVIEW_COL_REORDERABLE |
                                       wxDATAVIEW_COL_RESIZABLE );
             column1->SetMinWidth(FromDIP(150)); // this column can't be resized to be smaller
@@ -861,10 +861,10 @@ void MyFrame::BuildDataViewCtrl(wxPanel* parent, unsigned int nPanel,
             // column 2 of the view control:
 
             wxDataViewSpinRenderer *sr =
-                new wxDataViewSpinRenderer( 0, 2010, wxDATAVIEW_CELL_EDITABLE,
+                NEW_DEBUG wxDataViewSpinRenderer( 0, 2010, wxDATAVIEW_CELL_EDITABLE,
                                             wxALIGN_RIGHT | wxALIGN_CENTRE_VERTICAL);
             wxDataViewColumn *column2 =
-                new wxDataViewColumn( "year", sr, 2, FromDIP(60), wxALIGN_LEFT,
+                NEW_DEBUG wxDataViewColumn( "year", sr, 2, FromDIP(60), wxALIGN_LEFT,
                                       wxDATAVIEW_COL_SORTABLE | wxDATAVIEW_COL_REORDERABLE );
             m_ctrl[Page_Music]->AppendColumn( column2 );
 
@@ -875,10 +875,10 @@ void MyFrame::BuildDataViewCtrl(wxPanel* parent, unsigned int nPanel,
             choices.Add( "bad" );
             choices.Add( "lousy" );
             wxDataViewChoiceRenderer *c =
-                new wxDataViewChoiceRenderer( choices, wxDATAVIEW_CELL_EDITABLE,
+                NEW_DEBUG wxDataViewChoiceRenderer( choices, wxDATAVIEW_CELL_EDITABLE,
                                               wxALIGN_RIGHT | wxALIGN_CENTRE_VERTICAL);
             wxDataViewColumn *column3 =
-                new wxDataViewColumn( "rating", c, 3, FromDIP(100), wxALIGN_LEFT,
+                NEW_DEBUG wxDataViewColumn( "rating", c, 3, FromDIP(100), wxALIGN_LEFT,
                                       wxDATAVIEW_COL_REORDERABLE | wxDATAVIEW_COL_RESIZABLE );
             m_ctrl[Page_Music]->AppendColumn( column3 );
 
@@ -888,9 +888,9 @@ void MyFrame::BuildDataViewCtrl(wxPanel* parent, unsigned int nPanel,
 
             // column 5 of the view control:
 
-            MyCustomRenderer *cr = new MyCustomRenderer(wxDATAVIEW_CELL_ACTIVATABLE);
+            MyCustomRenderer *cr = NEW_DEBUG MyCustomRenderer(wxDATAVIEW_CELL_ACTIVATABLE);
             wxDataViewColumn *column5 =
-                new wxDataViewColumn( "custom", cr, 5, wxCOL_WIDTH_DEFAULT, wxALIGN_LEFT,
+                NEW_DEBUG wxDataViewColumn( "custom", cr, 5, wxCOL_WIDTH_DEFAULT, wxALIGN_LEFT,
                                       wxDATAVIEW_COL_RESIZABLE );
             column5->SetBitmap(wxArtProvider::GetBitmapBundle(wxART_INFORMATION, wxART_MENU));
             m_ctrl[Page_Music]->AppendColumn( column5 );
@@ -905,16 +905,16 @@ void MyFrame::BuildDataViewCtrl(wxPanel* parent, unsigned int nPanel,
 
     case Page_List:
         {
-            m_ctrl[Page_List] = new wxDataViewCtrl( parent, ID_ATTR_CTRL, wxDefaultPosition,
+            m_ctrl[Page_List] = NEW_DEBUG wxDataViewCtrl( parent, ID_ATTR_CTRL, wxDefaultPosition,
                                             wxDefaultSize, style );
 
-            m_list_model = new MyListModel(modelFlags);
+            m_list_model = NEW_DEBUG MyListModel(modelFlags);
             m_ctrl[Page_List]->AssociateModel( m_list_model.get() );
 
-            wxDataViewColumn* const colCheckIconText = new wxDataViewColumn
+            wxDataViewColumn* const colCheckIconText = NEW_DEBUG wxDataViewColumn
                 (
                      L"\u2714 + icon + text",
-                     new wxDataViewCheckIconTextRenderer(),
+                     NEW_DEBUG wxDataViewCheckIconTextRenderer(),
                      MyListModel::Col_ToggleIconText,
                      wxCOL_WIDTH_AUTOSIZE
                 );
@@ -934,12 +934,12 @@ void MyFrame::BuildDataViewCtrl(wxPanel* parent, unsigned int nPanel,
             m_ctrl[Page_List]->AppendDateColumn("date",
                                         MyListModel::Col_Date);
 
-            wxDataViewTextRenderer* const markupRenderer = new wxDataViewTextRenderer();
+            wxDataViewTextRenderer* const markupRenderer = NEW_DEBUG wxDataViewTextRenderer();
 #if wxUSE_MARKUP
             markupRenderer->EnableMarkup();
 #endif // wxUSE_MARKUP
             m_attributes =
-                new wxDataViewColumn("attributes",
+                NEW_DEBUG wxDataViewColumn("attributes",
                                      markupRenderer,
                                      MyListModel::Col_TextWithAttr,
                                      wxCOL_WIDTH_AUTOSIZE,
@@ -948,8 +948,8 @@ void MyFrame::BuildDataViewCtrl(wxPanel* parent, unsigned int nPanel,
             m_ctrl[Page_List]->AppendColumn( m_attributes );
 
             m_ctrl[Page_List]->AppendColumn(
-                new wxDataViewColumn("custom renderer",
-                                     new MyCustomRenderer(wxDATAVIEW_CELL_EDITABLE),
+                NEW_DEBUG wxDataViewColumn("custom renderer",
+                                     NEW_DEBUG MyCustomRenderer(wxDATAVIEW_CELL_EDITABLE),
                                      MyListModel::Col_Custom)
             );
         }
@@ -958,11 +958,11 @@ void MyFrame::BuildDataViewCtrl(wxPanel* parent, unsigned int nPanel,
     case Page_ListStore:
         {
             wxDataViewListCtrl* lc =
-                new wxDataViewListCtrl( parent, wxID_ANY, wxDefaultPosition,
+                NEW_DEBUG wxDataViewListCtrl( parent, wxID_ANY, wxDefaultPosition,
                                         wxDefaultSize, style );
             m_ctrl[Page_ListStore] = lc;
 
-            MyListStoreDerivedModel* page2_model = new MyListStoreDerivedModel();
+            MyListStoreDerivedModel* page2_model = NEW_DEBUG MyListStoreDerivedModel();
             lc->AssociateModel(page2_model);
             page2_model->DecRef();
 
@@ -972,10 +972,10 @@ void MyFrame::BuildDataViewCtrl(wxPanel* parent, unsigned int nPanel,
             // can also be done fully manually, which allows us to customize
             // the renderer being used.
             wxDataViewToggleRenderer* const rendererRadio =
-                new wxDataViewToggleRenderer("bool", wxDATAVIEW_CELL_ACTIVATABLE);
+                NEW_DEBUG wxDataViewToggleRenderer("bool", wxDATAVIEW_CELL_ACTIVATABLE);
             rendererRadio->ShowAsRadio();
             wxDataViewColumn* const colRadio =
-                new wxDataViewColumn("Radio", rendererRadio, 1);
+                NEW_DEBUG wxDataViewColumn("Radio", rendererRadio, 1);
             lc->AppendColumn(colRadio, "bool");
 
             lc->AppendTextColumn( "Text" );
@@ -1000,7 +1000,7 @@ void MyFrame::BuildDataViewCtrl(wxPanel* parent, unsigned int nPanel,
     case Page_TreeStore:
         {
             wxDataViewTreeCtrl* tc =
-                new wxDataViewTreeCtrl( parent, wxID_ANY, wxDefaultPosition,
+                NEW_DEBUG wxDataViewTreeCtrl( parent, wxID_ANY, wxDefaultPosition,
                                         wxDefaultSize, style | wxDV_NO_HEADER );
             m_ctrl[Page_TreeStore] = tc;
 
@@ -1030,24 +1030,24 @@ void MyFrame::BuildDataViewCtrl(wxPanel* parent, unsigned int nPanel,
     case Page_VarHeight:
         {
             m_ctrl[Page_VarHeight] =
-                new wxDataViewCtrl( parent, wxID_ANY, wxDefaultPosition,
+                NEW_DEBUG wxDataViewCtrl( parent, wxID_ANY, wxDefaultPosition,
                                     wxDefaultSize, style | wxDV_VARIABLE_LINE_HEIGHT );
 
-            m_long_music_model = new MyLongMusicTreeModel;
+            m_long_music_model = NEW_DEBUG MyLongMusicTreeModel;
             m_ctrl[Page_VarHeight]->AssociateModel(m_long_music_model.get());
 
             // column 0 of the view control:
             MultiLineCustomRenderer *tr =
-                new MultiLineCustomRenderer();
+                NEW_DEBUG MultiLineCustomRenderer();
             wxDataViewColumn *column0 =
-                new wxDataViewColumn("title", tr, 0, FromDIP(200), wxALIGN_LEFT,
+                NEW_DEBUG wxDataViewColumn("title", tr, 0, FromDIP(200), wxALIGN_LEFT,
                     wxDATAVIEW_COL_SORTABLE | wxDATAVIEW_COL_RESIZABLE);
             m_ctrl[Page_VarHeight]->AppendColumn(column0);
 
             // column 1 of the view control:
-            tr = new MultiLineCustomRenderer();
+            tr = NEW_DEBUG MultiLineCustomRenderer();
             wxDataViewColumn *column1 =
-                new wxDataViewColumn("artist", tr, 1, FromDIP(150), wxALIGN_LEFT,
+                NEW_DEBUG wxDataViewColumn("artist", tr, 1, FromDIP(150), wxALIGN_LEFT,
                     wxDATAVIEW_COL_SORTABLE | wxDATAVIEW_COL_REORDERABLE |
                     wxDATAVIEW_COL_RESIZABLE);
             column1->SetMinWidth(FromDIP(150)); // this column can't be resized to be smaller
@@ -1057,12 +1057,12 @@ void MyFrame::BuildDataViewCtrl(wxPanel* parent, unsigned int nPanel,
 
     case Page_IndexList:
         {
-            m_ctrl[Page_IndexList] = new wxDataViewCtrl(parent, wxID_ANY,
+            m_ctrl[Page_IndexList] = NEW_DEBUG wxDataViewCtrl(parent, wxID_ANY,
                                                         wxDefaultPosition,
                                                         wxDefaultSize,
                                                         style);
 
-            m_index_list_model = new MyIndexListModel;
+            m_index_list_model = NEW_DEBUG MyIndexListModel;
             m_ctrl[Page_IndexList]->AssociateModel(m_index_list_model.get());
             m_ctrl[Page_IndexList]->AppendTextColumn("String", 0);
 
@@ -1077,11 +1077,11 @@ void MyFrame::BuildDataViewCtrl(wxPanel* parent, unsigned int nPanel,
     case Page_HasValue:
         {
             wxDataViewListCtrl* lc =
-                new wxDataViewListCtrl( parent, wxID_ANY, wxDefaultPosition,
+                NEW_DEBUG wxDataViewListCtrl( parent, wxID_ANY, wxDefaultPosition,
                                         wxDefaultSize, style );
             m_ctrl[Page_HasValue] = lc;
 
-            MyListStoreDerivedModel* page7_model = new MyListStoreHasValueModel();
+            MyListStoreDerivedModel* page7_model = NEW_DEBUG MyListStoreHasValueModel();
             lc->AssociateModel(page7_model);
             page7_model->DecRef();
 
@@ -1091,10 +1091,10 @@ void MyFrame::BuildDataViewCtrl(wxPanel* parent, unsigned int nPanel,
             // can also be done fully manually, which allows us to customize
             // the renderer being used.
             wxDataViewToggleRenderer* const rendererRadio =
-                new wxDataViewToggleRenderer("bool", wxDATAVIEW_CELL_ACTIVATABLE);
+                NEW_DEBUG wxDataViewToggleRenderer("bool", wxDATAVIEW_CELL_ACTIVATABLE);
             rendererRadio->ShowAsRadio();
             wxDataViewColumn* const colRadio =
-                new wxDataViewColumn("Radio", rendererRadio, 1);
+                NEW_DEBUG wxDataViewColumn("Radio", rendererRadio, 1);
             lc->AppendColumn(colRadio, "bool");
 
             lc->AppendTextColumn( "Text" );
@@ -1421,7 +1421,7 @@ void MyFrame::OnBeginDrag( wxDataViewEvent &event )
     }
 
     MyMusicTreeModelNode *node = (MyMusicTreeModelNode*) item.GetID();
-    wxTextDataObject *obj = new wxTextDataObject;
+    wxTextDataObject *obj = NEW_DEBUG wxTextDataObject;
     obj->SetText( node->m_title );
     event.SetDataObject( obj );
     event.SetDragFlags(wxDrag_AllowMove); // allows both copy and move
@@ -1447,7 +1447,7 @@ void MyFrame::OnDrop( wxDataViewEvent &event )
         return;
     }
 
-    // Note that instead of recreating a new data object here we could also
+    // Note that instead of recreating a NEW_DEBUG data object here we could also
     // retrieve the data object from the event, using its GetDataObject()
     // method. This would be more efficient as it would avoid copying the text
     // one more time, but would require a cast in the code and we don't really
@@ -1641,7 +1641,7 @@ void MyFrame::OnEditingStarted( wxDataViewEvent &event )
 
 void MyFrame::OnEditingDone( wxDataViewEvent &event )
 {
-    wxLogMessage("wxEVT_DATAVIEW_ITEM_EDITING_DONE, new value %s",
+    wxLogMessage("wxEVT_DATAVIEW_ITEM_EDITING_DONE, NEW_DEBUG value %s",
                  event.IsEditCancelled()
                     ? wxString("unavailable because editing was cancelled")
                     : event.GetValue().GetString());

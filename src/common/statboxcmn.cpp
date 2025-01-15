@@ -118,7 +118,7 @@ bool wxStaticBoxBase::Enable(bool enable)
 
 wxDEFINE_FLAGS( wxStaticBoxStyle )
 wxBEGIN_FLAGS( wxStaticBoxStyle )
-    // new style border flags, we put them first to
+    // NEW_DEBUG style border flags, we put them first to
     // use them for streaming out
     wxFLAGS_MEMBER(wxBORDER_SIMPLE)
     wxFLAGS_MEMBER(wxBORDER_SUNKEN)

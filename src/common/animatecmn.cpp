@@ -250,10 +250,10 @@ const wxAnimationDecoder *wxAnimation::FindHandler( wxAnimationType animType )
 void wxAnimation::InitStandardHandlers()
 {
 #if wxUSE_GIF
-    AddHandler(new wxGIFDecoder);
+    AddHandler(NEW_DEBUG wxGIFDecoder);
 #endif // wxUSE_GIF
 #if wxUSE_ICO_CUR
-    AddHandler(new wxANIDecoder);
+    AddHandler(NEW_DEBUG wxANIDecoder);
 #endif // wxUSE_ICO_CUR
 }
 

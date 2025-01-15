@@ -45,9 +45,9 @@ public:
                    wxDefaultPosition, wxDefaultSize,
                    wxDEFAULT_FRAME_STYLE & ~(wxRESIZE_BORDER | wxMAXIMIZE_BOX | wxMINIMIZE_BOX))
     {
-        wxSizer *sizer = new wxBoxSizer(wxVERTICAL);
+        wxSizer *sizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
-        m_notebook = new wxNotebook(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxNB_MULTILINE);
+        m_notebook = NEW_DEBUG wxNotebook(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxNB_MULTILINE);
         sizer->Add(m_notebook, wxSizerFlags(1).Expand().DoubleBorder());
 
 #ifdef __WXGTK__
@@ -117,7 +117,7 @@ protected:
             m_title.Printf(_("%s Preferences"), wxTheApp->GetAppDisplayName());
         }
 
-        wxGenericPrefsDialog *dlg = new wxGenericPrefsDialog(parent, m_title);
+        wxGenericPrefsDialog *dlg = NEW_DEBUG wxGenericPrefsDialog(parent, m_title);
 
         // TODO: Don't create all pages immediately like this, do it on demand
         //       when a page is selected in the notebook (as is done on OS X).
@@ -194,7 +194,7 @@ private:
 inline
 wxGenericPreferencesEditorImplBase* NewGenericImpl()
 {
-    return new wxModelessPreferencesEditorImpl;
+    return NEW_DEBUG wxModelessPreferencesEditorImpl;
 }
 
 #else // !wxHAS_PREF_EDITOR_MODELESS
@@ -245,7 +245,7 @@ private:
 inline
 wxGenericPreferencesEditorImplBase* NewGenericImpl()
 {
-    return new wxModalPreferencesEditorImpl;
+    return NEW_DEBUG wxModalPreferencesEditorImpl;
 }
 
 #endif // !wxHAS_PREF_EDITOR_MODELESS

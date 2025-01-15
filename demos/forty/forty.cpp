@@ -44,7 +44,7 @@ wxBEGIN_EVENT_TABLE(FortyFrame, wxFrame)
     EVT_CLOSE(FortyFrame::OnCloseWindow)
 wxEND_EVENT_TABLE()
 
-// Create a new application object
+// Create a NEW_DEBUG application object
 wxIMPLEMENT_APP(FortyApp);
 
 wxColour* FortyApp::m_backgroundColour = 0;
@@ -78,7 +78,7 @@ bool FortyApp::OnInit()
         size = wxSize(1000,750);
     }
 
-    FortyFrame* frame = new FortyFrame(
+    FortyFrame* frame = NEW_DEBUG FortyFrame(
             0,
             wxT("Forty Thieves"),
             wxDefaultPosition,
@@ -98,7 +98,7 @@ const wxColour& FortyApp::BackgroundColour()
 {
     if (!m_backgroundColour)
     {
-        m_backgroundColour = new wxColour(0, 128, 0);
+        m_backgroundColour = NEW_DEBUG wxColour(0, 128, 0);
     }
 
     return *m_backgroundColour;
@@ -108,7 +108,7 @@ const wxBrush& FortyApp::BackgroundBrush()
 {
     if (!m_backgroundBrush)
     {
-        m_backgroundBrush = new wxBrush(BackgroundColour());
+        m_backgroundBrush = NEW_DEBUG wxBrush(BackgroundColour());
     }
 
     return *m_backgroundBrush;
@@ -118,7 +118,7 @@ const wxColour& FortyApp::TextColour()
 {
     if (!m_textColour)
     {
-        m_textColour = new wxColour(*wxBLACK);
+        m_textColour = NEW_DEBUG wxColour(*wxBLACK);
     }
 
     return *m_textColour;
@@ -139,16 +139,16 @@ FortyFrame::FortyFrame(wxFrame* frame, const wxString& title, const wxPoint& pos
 #endif
 
     // Make a menu bar
-    wxMenu* gameMenu = new wxMenu;
-    gameMenu->Append(wxID_NEW, wxGetStockLabel(wxID_NEW), wxT("Start a new game"));
+    wxMenu* gameMenu = NEW_DEBUG wxMenu;
+    gameMenu->Append(wxID_NEW, wxGetStockLabel(wxID_NEW), wxT("Start a NEW_DEBUG game"));
     gameMenu->Append(SCORES, wxT("&Scores..."), wxT("Displays scores"));
     gameMenu->Append(wxID_EXIT, wxGetStockLabel(wxID_EXIT), wxT("Exits Forty Thieves"));
 
-    wxMenu* editMenu = new wxMenu;
+    wxMenu* editMenu = NEW_DEBUG wxMenu;
     editMenu->Append(wxID_UNDO, wxGetStockLabel(wxID_UNDO), wxT("Undo the last move"));
     editMenu->Append(wxID_REDO, wxGetStockLabel(wxID_REDO), wxT("Redo a move that has been undone"));
 
-    wxMenu* optionsMenu = new wxMenu;
+    wxMenu* optionsMenu = NEW_DEBUG wxMenu;
     optionsMenu->Append(RIGHT_BUTTON_UNDO,
             wxT("&Right button undo"),
             wxT("Enables/disables right mouse button undo and redo"),
@@ -168,11 +168,11 @@ FortyFrame::FortyFrame(wxFrame* frame, const wxString& title, const wxPoint& pos
     optionsMenu->Check(RIGHT_BUTTON_UNDO, true);
     optionsMenu->Check(LARGE_CARDS, largecards ? true : false);
 
-    wxMenu* helpMenu = new wxMenu;
+    wxMenu* helpMenu = NEW_DEBUG wxMenu;
     helpMenu->Append(wxID_HELP_CONTENTS, wxT("&Help Contents"), wxT("Displays information about playing the game"));
     helpMenu->Append(wxID_ABOUT, wxT("&About"), wxT("About Forty Thieves"));
 
-    m_menuBar = new wxMenuBar;
+    m_menuBar = NEW_DEBUG wxMenuBar;
     m_menuBar->Append(gameMenu,    wxT("&Game"));
     m_menuBar->Append(editMenu,    wxT("&Edit"));
     m_menuBar->Append(optionsMenu, wxT("&Options"));
@@ -183,9 +183,9 @@ FortyFrame::FortyFrame(wxFrame* frame, const wxString& title, const wxPoint& pos
     if (largecards)
         Card::SetScale(1.3);
 
-    m_canvas = new FortyCanvas(this, wxDefaultPosition, size);
+    m_canvas = NEW_DEBUG FortyCanvas(this, wxDefaultPosition, size);
 
-    wxBoxSizer *topsizer = new wxBoxSizer( wxVERTICAL );
+    wxBoxSizer *topsizer = NEW_DEBUG wxBoxSizer( wxVERTICAL );
     topsizer->Add( m_canvas, 1, wxEXPAND | wxALL, 0);
     SetSizer( topsizer );
 
@@ -341,19 +341,19 @@ bool FortyAboutDialog::AddControls(wxWindow* parent)
     long borderStyle = wxRAISED_BORDER;
 #endif
 
-    wxHtmlWindow* html = new wxHtmlWindow(this, ID_ABOUT_HTML_WINDOW, wxDefaultPosition, htmlSize, borderStyle);
+    wxHtmlWindow* html = NEW_DEBUG wxHtmlWindow(this, ID_ABOUT_HTML_WINDOW, wxDefaultPosition, htmlSize, borderStyle);
     html -> SetBorders(10);
     html -> SetPage(htmlText);
 
     //// Start of sizer-based control creation
 
-    wxSizer *item0 = new wxBoxSizer( wxVERTICAL );
+    wxSizer *item0 = NEW_DEBUG wxBoxSizer( wxVERTICAL );
 
     wxWindow *item1 = parent->FindWindow( ID_ABOUT_HTML_WINDOW );
     wxASSERT( item1 );
     item0->Add( item1, 0, wxALIGN_CENTRE|wxALL, 5 );
 
-    wxButton *item2 = new wxButton( parent, wxID_CLOSE );
+    wxButton *item2 = NEW_DEBUG wxButton( parent, wxID_CLOSE );
     item2->SetDefault();
     item2->SetFocus();
     SetAffirmativeId(wxID_CLOSE);

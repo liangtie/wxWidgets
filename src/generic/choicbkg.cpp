@@ -75,7 +75,7 @@ wxChoicebook::Create(wxWindow *parent,
                             wxDefaultValidator, name) )
         return false;
 
-    m_bookctrl = new wxChoice
+    m_bookctrl = NEW_DEBUG wxChoice
                  (
                     this,
                     wxID_ANY,
@@ -83,12 +83,12 @@ wxChoicebook::Create(wxWindow *parent,
                     wxDefaultSize
                  );
 
-    wxSizer* mainSizer = new wxBoxSizer(IsVertical() ? wxVERTICAL : wxHORIZONTAL);
+    wxSizer* mainSizer = NEW_DEBUG wxBoxSizer(IsVertical() ? wxVERTICAL : wxHORIZONTAL);
 
     if (style & wxBK_RIGHT || style & wxBK_BOTTOM)
         mainSizer->Add(0, 0, 1, wxEXPAND, 0);
 
-    m_controlSizer = new wxBoxSizer(IsVertical() ? wxHORIZONTAL : wxVERTICAL);
+    m_controlSizer = NEW_DEBUG wxBoxSizer(IsVertical() ? wxHORIZONTAL : wxVERTICAL);
     m_controlSizer->Add(m_bookctrl, wxSizerFlags(1).Expand());
     wxSizerFlags flags;
     if ( IsVertical() )
@@ -156,7 +156,7 @@ void wxChoicebook::SetImageList(wxImageList *imageList)
 
 wxBookCtrlEvent* wxChoicebook::CreatePageChangingEvent() const
 {
-    return new wxBookCtrlEvent(wxEVT_CHOICEBOOK_PAGE_CHANGING, m_windowId);
+    return NEW_DEBUG wxBookCtrlEvent(wxEVT_CHOICEBOOK_PAGE_CHANGING, m_windowId);
 }
 
 void wxChoicebook::MakeChangedEvent(wxBookCtrlEvent &event)

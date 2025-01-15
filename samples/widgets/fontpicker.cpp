@@ -134,15 +134,15 @@ FontPickerWidgetsPage::FontPickerWidgetsPage(WidgetsBookCtrl *book,
 void FontPickerWidgetsPage::CreateContent()
 {
     // left pane
-    wxSizer *boxleft = new wxBoxSizer(wxVERTICAL);
+    wxSizer *boxleft = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
-    wxStaticBoxSizer *fontbox = new wxStaticBoxSizer(wxVERTICAL, this, "&FontPicker style");
+    wxStaticBoxSizer *fontbox = NEW_DEBUG wxStaticBoxSizer(wxVERTICAL, this, "&FontPicker style");
     m_chkFontTextCtrl = CreateCheckBoxAndAddToSizer(fontbox, "With textctrl");
     m_chkFontDescAsLabel = CreateCheckBoxAndAddToSizer(fontbox, "Font desc as btn label");
     m_chkFontUseFontForLabel = CreateCheckBoxAndAddToSizer(fontbox, "Use font for label");
     boxleft->Add(fontbox, 0, wxALL|wxGROW, 5);
 
-    boxleft->Add(new wxButton(this, PickerPage_Reset, "&Reset"),
+    boxleft->Add(NEW_DEBUG wxButton(this, PickerPage_Reset, "&Reset"),
                  0, wxALIGN_CENTRE_HORIZONTAL | wxALL, 15);
 
     Reset();    // set checkboxes state
@@ -152,13 +152,13 @@ void FontPickerWidgetsPage::CreateContent()
     CreatePicker();
 
     // right pane
-    m_sizer = new wxBoxSizer(wxVERTICAL);
+    m_sizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     m_sizer->Add(1, 1, 1, wxGROW | wxALL, 5); // spacer
     m_sizer->Add(m_fontPicker, 0, wxALIGN_CENTER|wxALL, 5);
     m_sizer->Add(1, 1, 1, wxGROW | wxALL, 5); // spacer
 
     // global pane
-    wxSizer *sz = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer *sz = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     sz->Add(boxleft, 0, wxGROW|wxALL, 5);
     sz->Add(m_sizer, 1, wxGROW|wxALL, 5);
 
@@ -180,7 +180,7 @@ void FontPickerWidgetsPage::CreatePicker()
     if ( m_chkFontDescAsLabel->GetValue() )
         style |= wxFNTP_FONTDESC_AS_LABEL;
 
-    m_fontPicker = new wxFontPickerCtrl(this, PickerPage_Font,
+    m_fontPicker = NEW_DEBUG wxFontPickerCtrl(this, PickerPage_Font,
                                         *wxSWISS_FONT,
                                         wxDefaultPosition, wxDefaultSize,
                                         style);

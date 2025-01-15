@@ -80,7 +80,7 @@ public:
 
     virtual wxEvent* Clone() const wxOVERRIDE
     {
-        return new WorkerEvent(*this);
+        return NEW_DEBUG WorkerEvent(*this);
     }
 
     void* m_sender;
@@ -307,7 +307,7 @@ Server::OnCmdLineParsed(wxCmdLineParser& pParser)
 
 bool Server::OnInit()
 {
-    wxLog* logger = new wxLogStderr();
+    wxLog* logger = NEW_DEBUG wxLogStderr();
     wxLog::SetActiveTarget(logger);
 
     m_port = 3000;
@@ -319,7 +319,7 @@ bool Server::OnInit()
     //setup listening socket
     wxIPV4address la;
     la.Service(m_port);
-    m_listeningSocket = new wxSocketServer(la,wxSOCKET_NOWAIT|wxSOCKET_REUSEADDR);
+    m_listeningSocket = NEW_DEBUG wxSocketServer(la,wxSOCKET_NOWAIT|wxSOCKET_REUSEADDR);
     m_listeningSocket->SetEventHandler(*this);
     m_listeningSocket->SetNotify(wxSOCKET_CONNECTION_FLAG);
     m_listeningSocket->Notify(true);
@@ -396,7 +396,7 @@ void Server::OnSocketEvent(wxSocketEvent& pEvent)
 
             if (createThread)
             {
-                ThreadWorker* c = new ThreadWorker(sock);
+                ThreadWorker* c = NEW_DEBUG ThreadWorker(sock);
                 if (c->Create() == wxTHREAD_NO_ERROR)
                 {
                     m_threadWorkers.Append(c);
@@ -412,7 +412,7 @@ void Server::OnSocketEvent(wxSocketEvent& pEvent)
             }
             else
             {
-                EventWorker* w = new EventWorker(sock);
+                EventWorker* w = NEW_DEBUG EventWorker(sock);
                 m_eventWorkers.Append(w);
                 if (m_eventWorkers.GetCount() > m_maxEventWorkers)
                 m_maxEventWorkers++;
@@ -533,7 +533,7 @@ wxThread::ExitCode ThreadWorker::Entry()
             return 0;
         }
         int size = signature[1] * (signature[0] == 0xBE ? 1 : 1024);
-        char* buf = new char[size];
+        char* buf = NEW_DEBUG char[size];
         LogWorker(wxString::Format("Message signature: chunks: %d, kilobytes: %d, size: %d (bytes)",signature[0],signature[1],size));
 
         to_process = size;
@@ -631,8 +631,8 @@ EventWorker::DoRead()
                     else if (type == 0xBE || type == 0xDE)
                     {
                         m_size = chunks * (type == 0xBE ? 1 : 1024);
-                        m_inbuf = new char[m_size];
-                        m_outbuf = new char[m_size];
+                        m_inbuf = NEW_DEBUG char[m_size];
+                        m_outbuf = NEW_DEBUG char[m_size];
                         m_infill = 0;
                         m_outfill = 0;
                         m_written = 0;

@@ -78,7 +78,7 @@ wxBitmap wxGenericImageList::GetImageListBitmap(const wxBitmap& bitmap) const
     {
         // Like for wxMSW, use the light grey from standard colour map as transparent colour.
         wxColour col = wxSystemSettings::GetColour(wxSYS_COLOUR_BTNFACE);
-        bmp.SetMask(new wxMask(bmp, col));
+        bmp.SetMask(NEW_DEBUG wxMask(bmp, col));
     }
 
     // Ensure image size is the same as the size of the images on the image list.
@@ -97,7 +97,7 @@ wxBitmap wxGenericImageList::GetImageListBitmap(const wxBitmap& bitmap) const
     {
 #if wxUSE_IMAGE
         wxImage img = bmp.ConvertToImage();
-        // We need image with new physical size
+        // We need image with NEW_DEBUG physical size
         const double scaleFactor = bmp.GetScaleFactor();
         wxImage imgResized = img.Size(scaleFactor * m_size, wxPoint(0, 0), 0, 0, 0);
         bmpResized = wxBitmap(imgResized, -1, scaleFactor);
@@ -147,14 +147,14 @@ int wxGenericImageList::Add( const wxBitmap& bitmap, const wxBitmap& mask )
 {
     wxBitmap bmp(bitmap);
     if (mask.IsOk())
-        bmp.SetMask(new wxMask(mask));
+        bmp.SetMask(NEW_DEBUG wxMask(mask));
     return Add(bmp);
 }
 
 int wxGenericImageList::Add( const wxBitmap& bitmap, const wxColour& maskColour )
 {
     wxBitmap bmp(bitmap);
-    bmp.SetMask(new wxMask(bitmap, maskColour));
+    bmp.SetMask(NEW_DEBUG wxMask(bitmap, maskColour));
     return Add(bmp);
 }
 
@@ -199,7 +199,7 @@ wxGenericImageList::Replace(int index,
 
     wxBitmap bmp(bitmap);
     if ( mask.IsOk() )
-        bmp.SetMask(new wxMask(mask));
+        bmp.SetMask(NEW_DEBUG wxMask(mask));
 
     m_images[index] = GetImageListBitmap(bmp);
 

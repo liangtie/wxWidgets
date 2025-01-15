@@ -280,9 +280,9 @@ wxFSFile* wxLocalFSHandler::OpenFile(wxFileSystem& WXUNUSED(fs), const wxString&
     // we need to check whether we can really read from this file, otherwise
     // wxFSFile is not going to work
 #if wxUSE_FFILE
-    wxFFileInputStream *is = new wxFFileInputStream(fullpath);
+    wxFFileInputStream *is = NEW_DEBUG wxFFileInputStream(fullpath);
 #elif wxUSE_FILE
-    wxFileInputStream *is = new wxFileInputStream(fullpath);
+    wxFileInputStream *is = NEW_DEBUG wxFileInputStream(fullpath);
 #else
 #error One of wxUSE_FILE or wxUSE_FFILE must be set to 1 for wxFSHandler to work
 #endif
@@ -292,7 +292,7 @@ wxFSFile* wxLocalFSHandler::OpenFile(wxFileSystem& WXUNUSED(fs), const wxString&
         return NULL;
     }
 
-    return new wxFSFile(is,
+    return NEW_DEBUG wxFSFile(is,
                         location,
                         wxEmptyString,
                         GetAnchor(location)
@@ -513,7 +513,7 @@ wxFSFile* wxFileSystem::OpenFile(const wxString& location, int flags)
     if (s && (flags & wxFS_SEEKABLE) != 0 && !s->GetStream()->IsSeekable())
     {
         wxBackedInputStream *stream;
-        stream = new wxBackedInputStream(s->DetachStream());
+        stream = NEW_DEBUG wxBackedInputStream(s->DetachStream());
         stream->FindLength();
         s->SetStream(stream);
     }
@@ -670,7 +670,7 @@ class wxFileSystemModule : public wxModule
 
         virtual bool OnInit() wxOVERRIDE
         {
-            m_handler = new wxLocalFSHandler;
+            m_handler = NEW_DEBUG wxLocalFSHandler;
             wxFileSystem::AddHandler(m_handler);
             return true;
         }

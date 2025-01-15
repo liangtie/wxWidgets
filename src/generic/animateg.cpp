@@ -34,7 +34,7 @@
 /* static */
 wxAnimationImpl *wxAnimationImpl::CreateDefault()
 {
-    return new wxAnimationGenericImpl();
+    return NEW_DEBUG wxAnimationGenericImpl();
 }
 
 #endif // !wxHAS_NATIVE_ANIMATIONCTRL
@@ -225,12 +225,12 @@ bool wxGenericAnimationCtrl::Load(wxInputStream& stream, wxAnimationType type)
 
 wxAnimation wxGenericAnimationCtrl::CreateCompatibleAnimation()
 {
-    return MakeAnimFromImpl(new wxAnimationGenericImpl());
+    return MakeAnimFromImpl(NEW_DEBUG wxAnimationGenericImpl());
 }
 
 wxAnimationImpl* wxGenericAnimationCtrl::DoCreateAnimationImpl() const
 {
-    return new wxAnimationGenericImpl();
+    return NEW_DEBUG wxAnimationGenericImpl();
 }
 
 wxSize wxGenericAnimationCtrl::DoGetBestSize() const
@@ -246,7 +246,7 @@ void wxGenericAnimationCtrl::SetAnimation(const wxAnimation& animation)
     if (IsPlaying())
         Stop();
 
-    // set new animation even if it's wxNullAnimation
+    // set NEW_DEBUG animation even if it's wxNullAnimation
     m_animation = animation;
     if (!m_animation.IsOk())
     {

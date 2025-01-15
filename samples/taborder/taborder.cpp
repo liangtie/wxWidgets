@@ -170,7 +170,7 @@ bool MyApp::OnInit()
     if ( !wxApp::OnInit() )
         return false;
 
-    MyFrame *frame = new MyFrame;
+    MyFrame *frame = NEW_DEBUG MyFrame;
     frame->Show(true);
 
     return true;
@@ -196,24 +196,24 @@ MyFrame::MyFrame()
 {
     SetIcon(wxICON(sample));
 
-    wxMenu *menuFile = new wxMenu;
+    wxMenu *menuFile = NEW_DEBUG wxMenu;
     menuFile->Append(TabOrder_About);
     menuFile->AppendSeparator();
     menuFile->Append(TabOrder_Quit);
 
-    wxMenu *menuNav = new wxMenu;
+    wxMenu *menuNav = NEW_DEBUG wxMenu;
     menuNav->Append(TabOrder_TabForward, "Tab &forward\tCtrl-F",
                     "Emulate a <Tab> press");
     menuNav->Append(TabOrder_TabBackward, "Tab &backward\tCtrl-B",
                     "Emulate a <Shift-Tab> press");
 
-    wxMenuBar *mbar = new wxMenuBar;
+    wxMenuBar *mbar = NEW_DEBUG wxMenuBar;
     mbar->Append(menuFile, "&File");
     mbar->Append(menuNav, "&Navigate");
 
     SetMenuBar(mbar);
 
-    m_panel = new MyPanel(this);
+    m_panel = NEW_DEBUG MyPanel(this);
 
     CreateStatusBar(StatusPane_Max);
 }
@@ -269,14 +269,14 @@ void MyFrame::OnIdle( wxIdleEvent& WXUNUSED(event) )
 MyPanel::MyPanel(wxWindow *parent)
        : wxPanel(parent, wxID_ANY)
 {
-    wxNotebook *notebook = new wxNotebook(this, wxID_ANY);
+    wxNotebook *notebook = NEW_DEBUG wxNotebook(this, wxID_ANY);
     notebook->AddPage(CreateButtonPage(notebook), "Button");
     notebook->AddPage(CreateTextPage(notebook), "Text");
 
-    wxSizer *sizerV = new wxBoxSizer(wxVERTICAL);
+    wxSizer *sizerV = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     sizerV->Add(notebook, wxSizerFlags(1).Expand());
 
-    wxListBox *lbox = new wxListBox(this, wxID_ANY);
+    wxListBox *lbox = NEW_DEBUG wxListBox(this, wxID_ANY);
     lbox->AppendString("Just a");
     lbox->AppendString("simple");
     lbox->AppendString("listbox");
@@ -289,12 +289,12 @@ wxWindow *MyPanel::CreateButtonPage(wxWindow *parent)
 {
     wxSizerFlags flagsBorder = wxSizerFlags().Border().Centre();
 
-    wxPanel *page = new wxPanel(parent);
-    wxSizer *sizerPage = new wxBoxSizer(wxHORIZONTAL);
-    sizerPage->Add(new wxButton(page, wxID_ANY, "&First"), flagsBorder);
-    sizerPage->Add(new wxStaticText(page, wxID_ANY, "[st&atic]"),
+    wxPanel *page = NEW_DEBUG wxPanel(parent);
+    wxSizer *sizerPage = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
+    sizerPage->Add(NEW_DEBUG wxButton(page, wxID_ANY, "&First"), flagsBorder);
+    sizerPage->Add(NEW_DEBUG wxStaticText(page, wxID_ANY, "[st&atic]"),
                    flagsBorder);
-    sizerPage->Add(new wxButton(page, wxID_ANY, "&Second"), flagsBorder);
+    sizerPage->Add(NEW_DEBUG wxButton(page, wxID_ANY, "&Second"), flagsBorder);
 
     page->SetSizer(sizerPage);
 
@@ -305,18 +305,18 @@ wxWindow *MyPanel::CreateTextPage(wxWindow *parent)
 {
     wxSizerFlags flagsBorder = wxSizerFlags().Border();
 
-    wxSizer *sizerPage = new wxBoxSizer(wxVERTICAL);
-    wxPanel *page = new wxPanel(parent);
+    wxSizer *sizerPage = NEW_DEBUG wxBoxSizer(wxVERTICAL);
+    wxPanel *page = NEW_DEBUG wxPanel(parent);
 
-    wxSizer *sizerH = new wxBoxSizer(wxHORIZONTAL);
-    sizerH->Add(new wxStaticText(page, wxID_ANY, "&Label:"), flagsBorder);
-    sizerH->Add(new MyTabTextCtrl(page, "TAB ignored here"), flagsBorder);
+    wxSizer *sizerH = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
+    sizerH->Add(NEW_DEBUG wxStaticText(page, wxID_ANY, "&Label:"), flagsBorder);
+    sizerH->Add(NEW_DEBUG MyTabTextCtrl(page, "TAB ignored here"), flagsBorder);
     sizerPage->Add(sizerH, wxSizerFlags(1).Expand());
 
-    sizerH = new wxBoxSizer(wxHORIZONTAL);
-    sizerH->Add(new wxStaticText(page, wxID_ANY, "&Another one:"),
+    sizerH = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
+    sizerH->Add(NEW_DEBUG wxStaticText(page, wxID_ANY, "&Another one:"),
                 flagsBorder);
-    sizerH->Add(new MyTabTextCtrl(page, "press Tab here", wxTE_PROCESS_TAB),
+    sizerH->Add(NEW_DEBUG MyTabTextCtrl(page, "press Tab here", wxTE_PROCESS_TAB),
                 flagsBorder);
     sizerPage->Add(sizerH, wxSizerFlags(1).Expand());
 

@@ -147,7 +147,7 @@ const wxMenuInfoHelperList& wxMenuBarBase::GetMenuInfos() const
     WX_CLEAR_LIST( wxMenuInfoHelperList, *list);
     for (size_t i = 0 ; i < GetMenuCount(); ++i)
     {
-        wxMenuInfoHelper* info = new wxMenuInfoHelper();
+        wxMenuInfoHelper* info = NEW_DEBUG wxMenuInfoHelper();
         info->Create( GetMenu(i), GetMenuLabel(i));
         list->Append(info);
     }

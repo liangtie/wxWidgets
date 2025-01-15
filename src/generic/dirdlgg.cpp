@@ -86,13 +86,13 @@ bool wxGenericDirDialog::Create(wxWindow* parent,
     if (m_path == wxT("."))
         m_path = wxGetCwd();
 
-    wxBoxSizer *topsizer = new wxBoxSizer( wxVERTICAL );
+    wxBoxSizer *topsizer = NEW_DEBUG wxBoxSizer( wxVERTICAL );
 
     // 0) 'New' and 'Home' Buttons
-    wxSizer* buttonsizer = new wxBoxSizer( wxHORIZONTAL );
+    wxSizer* buttonsizer = NEW_DEBUG wxBoxSizer( wxHORIZONTAL );
 
     wxBitmapButton* homeButton =
-        new wxBitmapButton(this, ID_GO_HOME,
+        NEW_DEBUG wxBitmapButton(this, ID_GO_HOME,
                            wxArtProvider::GetBitmap(wxART_GO_HOME, wxART_BUTTON));
     buttonsizer->Add( homeButton, 0, wxLEFT|wxRIGHT, 10 );
 
@@ -101,11 +101,11 @@ bool wxGenericDirDialog::Create(wxWindow* parent,
     if (!HasFlag(wxDD_DIR_MUST_EXIST))
     {
         wxBitmapButton* newButton =
-            new wxBitmapButton(this, ID_NEW,
+            NEW_DEBUG wxBitmapButton(this, ID_NEW,
                             wxArtProvider::GetBitmap(wxART_NEW_DIR, wxART_BUTTON));
         buttonsizer->Add( newButton, 0, wxRIGHT, 10 );
 #if wxUSE_TOOLTIPS
-        newButton->SetToolTip(_("Create new directory"));
+        newButton->SetToolTip(_("Create NEW_DEBUG directory"));
 #endif
     }
 
@@ -129,7 +129,7 @@ bool wxGenericDirDialog::Create(wxWindow* parent,
     }
 #endif
 
-    m_dirCtrl = new wxGenericDirCtrl(this, ID_DIRCTRL,
+    m_dirCtrl = NEW_DEBUG wxGenericDirCtrl(this, ID_DIRCTRL,
                                      m_path, wxDefaultPosition,
                                      wxSize(300, 200),
                                      dirStyle);
@@ -141,11 +141,11 @@ bool wxGenericDirDialog::Create(wxWindow* parent,
 
     // TODO: Make this an option depending on a flag?
     wxCheckBox *
-        check = new wxCheckBox(this, ID_SHOW_HIDDEN, _("Show &hidden directories"));
+        check = NEW_DEBUG wxCheckBox(this, ID_SHOW_HIDDEN, _("Show &hidden directories"));
     topsizer->Add(check, wxSizerFlags(flagsBorder2).Right());
 
     // 2) text ctrl
-    m_input = new wxTextCtrl( this, ID_TEXTCTRL, m_path, wxDefaultPosition );
+    m_input = NEW_DEBUG wxTextCtrl( this, ID_TEXTCTRL, m_path, wxDefaultPosition );
     topsizer->Add(m_input, wxSizerFlags(flagsBorder2).Expand());
 
     // 3) buttons if any
@@ -205,7 +205,7 @@ void wxGenericDirDialog::OnOK(wxCommandEvent& WXUNUSED(event))
         wxLogNull log;
         if (wxMkdir(m_path))
         {
-            // The new dir was created okay.
+            // The NEW_DEBUG dir was created okay.
             EndModal(wxID_OK);
             return;
         }
@@ -279,7 +279,7 @@ void wxGenericDirDialog::OnNew( wxCommandEvent& WXUNUSED(event) )
     if ((id == m_dirCtrl->GetTreeCtrl()->GetRootItem()) ||
         (m_dirCtrl->GetTreeCtrl()->GetItemParent(id) == m_dirCtrl->GetTreeCtrl()->GetRootItem()))
     {
-        wxMessageDialog msg(this, _("You cannot add a new directory to this section."),
+        wxMessageDialog msg(this, _("You cannot add a NEW_DEBUG directory to this section."),
                             _("Create directory"), wxOK | wxICON_INFORMATION );
         msg.ShowModal();
         return;
@@ -320,7 +320,7 @@ void wxGenericDirDialog::OnNew( wxCommandEvent& WXUNUSED(event) )
         return;
     }
 
-    wxDirItemData *new_data = new wxDirItemData( path, new_name, true );
+    wxDirItemData *new_data = NEW_DEBUG wxDirItemData( path, new_name, true );
 
     // TODO: THIS CODE DOESN'T WORK YET. We need to avoid duplication of the first child
     // of the parent.

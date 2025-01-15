@@ -359,9 +359,9 @@ public:
     {
         m_surface = data.m_surface ? data.m_surface->Clone() : NULL;
 
-        m_mask = data.m_mask ? new wxMask(*data.m_mask) : NULL;
+        m_mask = data.m_mask ? NEW_DEBUG wxMask(*data.m_mask) : NULL;
 #if wxUSE_PALETTE
-        m_palette = data.m_palette ? new wxPalette(*data.m_palette) : NULL;
+        m_palette = data.m_palette ? NEW_DEBUG wxPalette(*data.m_palette) : NULL;
 #endif
     }
 
@@ -396,7 +396,7 @@ bool wxBitmap::Create(const wxIDirectFBSurfacePtr& surface)
 
     wxCHECK_MSG( surface, false, "invalid surface" );
 
-    m_refData = new wxBitmapRefData();
+    m_refData = NEW_DEBUG wxBitmapRefData();
     M_BITMAP->m_surface = surface;
     return true;
 }
@@ -640,7 +640,7 @@ bool wxBitmap::LoadFile(const wxString &name, wxBitmapType type)
         }
     }
 
-    m_refData = new wxBitmapRefData();
+    m_refData = NEW_DEBUG wxBitmapRefData();
 
     return handler->LoadFile(this, name, type, -1, -1);
 }
@@ -690,7 +690,7 @@ void wxBitmap::SetPalette(const wxPalette& palette)
 
     if ( !palette.IsOk() ) return;
 
-    M_BITMAP->m_palette = new wxPalette(palette);
+    M_BITMAP->m_palette = NEW_DEBUG wxPalette(palette);
 }
 #endif // wxUSE_PALETTE
 
@@ -740,12 +740,12 @@ wxIDirectFBSurfacePtr wxBitmap::GetDirectFBSurface() const
 
 wxGDIRefData *wxBitmap::CreateGDIRefData() const
 {
-    return new wxBitmapRefData;
+    return NEW_DEBUG wxBitmapRefData;
 }
 
 wxGDIRefData *wxBitmap::CloneGDIRefData(const wxGDIRefData *data) const
 {
-    return new wxBitmapRefData(*(wxBitmapRefData *)data);
+    return NEW_DEBUG wxBitmapRefData(*(wxBitmapRefData *)data);
 }
 
 

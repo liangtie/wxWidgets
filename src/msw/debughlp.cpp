@@ -169,7 +169,7 @@ bool wxDbgHelpDLL::DoInit()
 
         gs_errMsg += wxT("\nPlease update your dbghelp.dll version, ")
                      wxT("at least version 5.1 is needed!\n")
-                     wxT("(if you already have a new version, please ")
+                     wxT("(if you already have a NEW_DEBUG version, please ")
                      wxT("put it in the same directory where the program is.)\n");
     }
     else // failed to load dbghelp.dll
@@ -720,11 +720,11 @@ wxDbgHelpDLL::CallEnumerateLoadedModules(HANDLE handle,
         wxEnumLoadedCallbackBridge br(callback, callbackParam);
         if ( EnumerateLoadedModulesW64(handle, &wxEnumLoadedW64Callback, &br) )
             return TRUE;
-#else // new SDK
+#else // NEW_DEBUG SDK
         // We can use our callback directly.
         if ( EnumerateLoadedModulesW64(handle, callback, callbackParam) )
             return TRUE;
-#endif // old/new SDK
+#endif // old/NEW_DEBUG SDK
     }
 #endif // UNICODE
 

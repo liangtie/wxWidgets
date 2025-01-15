@@ -229,7 +229,7 @@ static GdkGC* wxGetPoolGC( GdkWindow *window, wxPoolGCType type )
         wxGCPool[wxGCPoolSize].m_type = type;
         wxGCPool[wxGCPoolSize].m_used = true;
 
-        // Set new value of pool size.
+        // Set NEW_DEBUG value of pool size.
         wxGCPoolSize += GC_POOL_ALLOC_SIZE;
 
         // Return newly allocated entry.

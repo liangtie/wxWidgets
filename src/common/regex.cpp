@@ -302,7 +302,7 @@ class wxRegExMatches
 public:
     typedef regmatch_t *match_type;
 
-    wxRegExMatches(size_t n)        { m_matches = new regmatch_t[n]; }
+    wxRegExMatches(size_t n)        { m_matches = NEW_DEBUG regmatch_t[n]; }
     ~wxRegExMatches()               { delete [] m_matches; }
 
     // we just use casts here because the fields of regmatch_t struct may be 64
@@ -336,8 +336,8 @@ public:
     wxRegExMatches(size_t n)
     {
         m_matches.num_regs = n;
-        m_matches.start = new regoff_t[n];
-        m_matches.end = new regoff_t[n];
+        m_matches.start = NEW_DEBUG regoff_t[n];
+        m_matches.end = NEW_DEBUG regoff_t[n];
     }
 
     ~wxRegExMatches()
@@ -539,7 +539,7 @@ wxString wxRegEx::ConvertFromBasic(const wxString& bre)
         character if it appears at the beginning of the RE or the beginning of
         a parenthesized subexpression (after a possible leading '^').
 
-        Finally, there is one new type of atom, a back reference: '\' followed
+        Finally, there is one NEW_DEBUG type of atom, a back reference: '\' followed
         by a nonzero decimal digit d matches the same sequence of characters
         matched by the dth parenthesized subexpression [...]
      */
@@ -592,7 +592,7 @@ wxString wxRegEx::ConvertFromBasic(const wxString& bre)
             switch ( c.GetValue() )
             {
                 case '(':
-                    // It's the start of a new subexpression.
+                    // It's the start of a NEW_DEBUG subexpression.
                     current.sinceStart = SinceStart_None;
                     wxFALLTHROUGH;
 
@@ -1199,7 +1199,7 @@ bool wxRegExImpl::Matches(const wxRegChar *str,
     wxRegExImpl *self = wxConstCast(this, wxRegExImpl);
     if ( !m_Matches && m_nMatches )
     {
-        self->m_Matches = new wxRegExMatches(m_nMatches);
+        self->m_Matches = NEW_DEBUG wxRegExMatches(m_nMatches);
     }
 
     wxRegExMatches::match_type matches = m_Matches ? m_Matches->get() : NULL;
@@ -1404,7 +1404,7 @@ bool wxRegEx::Compile(const wxString& expr, int flags)
 {
     if ( !m_impl )
     {
-        m_impl = new wxRegExImpl;
+        m_impl = NEW_DEBUG wxRegExImpl;
     }
 
     if ( !m_impl->Compile(expr, flags) )

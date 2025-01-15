@@ -83,12 +83,12 @@ bool wxSetClipboardData(wxDataFormat dataFormat, wxObject *obj,
     if( dataFormat == wxDF_TEXT )
     {
         wxChar* data = (wxChar*)obj;
-        dobj = new wxTextDataObject( data );
+        dobj = NEW_DEBUG wxTextDataObject( data );
     }
     else if( dataFormat = wxDF_BITMAP )
     {
         wxBitmap* data = (wxBitmap*)obj;
-        dobj = new wxBitmapDataObject( *data );
+        dobj = NEW_DEBUG wxBitmapDataObject( *data );
     }
 
     if( !dobj )
@@ -105,11 +105,11 @@ wxObject *wxGetClipboardData(wxDataFormat dataFormat, long *len)
 
     if( dataFormat == wxDF_TEXT )
     {
-        dobj = tobj = new wxTextDataObject;
+        dobj = tobj = NEW_DEBUG wxTextDataObject;
     }
     else if( dataFormat = wxDF_BITMAP )
     {
-        dobj = bobj = new wxBitmapDataObject;
+        dobj = bobj = NEW_DEBUG wxBitmapDataObject;
     }
 
     if( !dobj || !wxTheClipboard->GetData( *dobj ) )
@@ -118,7 +118,7 @@ wxObject *wxGetClipboardData(wxDataFormat dataFormat, long *len)
     if( tobj )
     {
         wxString text = tobj->GetText();
-        wxChar* buf = new wxChar[text.length() + 1];
+        wxChar* buf = NEW_DEBUG wxChar[text.length() + 1];
 
         if( len ) *len = text.length();
         return (wxObject*)wxStrcpy( buf, text.c_str() );
@@ -126,7 +126,7 @@ wxObject *wxGetClipboardData(wxDataFormat dataFormat, long *len)
     else if( bobj )
     {
         if( len ) *len = 0;
-        return new wxBitmap( bobj->GetBitmap() );
+        return NEW_DEBUG wxBitmap( bobj->GetBitmap() );
     }
 
     return NULL; // just in case...
@@ -314,7 +314,7 @@ bool wxClipboard::AddData( wxDataObject *data )
                                            NULL, size, i, &data_id ) )
                == XmClipboardLocked );
 
-        m_idToObject.Append( new wxDataIdToDataObject( data, data_id, size ) );
+        m_idToObject.Append( NEW_DEBUG wxDataIdToDataObject( data, data_id, size ) );
     }
 
     while( XmClipboardEndCopy( xdisplay, xwindow, itemId )

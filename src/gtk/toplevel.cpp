@@ -1210,7 +1210,7 @@ bool wxTopLevelWindowGTK::Show( bool show )
         }
 
         // make sure window has a non-default position, so when it is shown
-        // again, it won't be repositioned by WM as if it were a new window
+        // again, it won't be repositioned by WM as if it were a NEW_DEBUG window
         // Note that this must be done _after_ the window is hidden.
         gtk_window_move((GtkWindow*)m_widget, m_x, m_y);
     }

@@ -544,7 +544,7 @@ wxSocketBase *wxFTP::GetPort()
         return NULL;
     }
 
-    // Now set the time for the new socket to the default or user selected
+    // Now set the time for the NEW_DEBUG socket to the default or user selected
     // timeout period
     socket->SetTimeout(m_uiDefaultTimeout);
 
@@ -580,7 +580,7 @@ wxSocketBase *wxFTP::GetActivePort()
     addrNew.Service(0); // pick an open port number.
 
     wxSocketServer* const
-        sockSrv = new wxSocketServer
+        sockSrv = NEW_DEBUG wxSocketServer
                       (
                         addrNew,
                         wxSocketServer::GetBlockingFlagIfNeeded()
@@ -594,7 +594,7 @@ wxSocketBase *wxFTP::GetActivePort()
         return NULL;
     }
 
-    //gets the new address, actually it is just the port number
+    //gets the NEW_DEBUG address, actually it is just the port number
     sockSrv->GetLocal(addrNew);
 
     // Now we create the argument of the PORT command, we send in both
@@ -653,7 +653,7 @@ wxSocketBase *wxFTP::GetPassivePort()
     // If we're used from a worker thread or can't dispatch events even though
     // we're in the main one, we can't use non-blocking sockets.
     wxSocketClient* const
-        client = new wxSocketClient(wxSocketClient::GetBlockingFlagIfNeeded());
+        client = NEW_DEBUG wxSocketClient(wxSocketClient::GetBlockingFlagIfNeeded());
 
     if ( !client->Connect(addr) )
     {
@@ -790,7 +790,7 @@ wxInputStream *wxFTP::GetInputStream(const wxString& path)
 
     m_streaming = true;
 
-    wxInputFTPStream *in_stream = new wxInputFTPStream(this, sock);
+    wxInputFTPStream *in_stream = NEW_DEBUG wxInputFTPStream(this, sock);
 
     m_lastError = wxPROTO_NOERR;
     return in_stream;
@@ -819,7 +819,7 @@ wxOutputStream *wxFTP::GetOutputStream(const wxString& path)
     m_streaming = true;
 
     m_lastError = wxPROTO_NOERR;
-    return new wxOutputFTPStream(this, sock);
+    return NEW_DEBUG wxOutputFTPStream(this, sock);
 }
 
 // ----------------------------------------------------------------------------

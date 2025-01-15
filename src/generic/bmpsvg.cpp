@@ -22,7 +22,7 @@
 #if defined(wxHAS_SVG) && !wxUSE_NANOSVG_EXTERNAL
 
 // Try to help people updating their sources from Git and forgetting to
-// initialize new submodules, if possible: if you get this error, it means that
+// initialize NEW_DEBUG submodules, if possible: if you get this error, it means that
 // your source tree doesn't contain 3rdparty/nanosvg and you should initialize
 // and update the corresponding submodule.
 #ifdef __has_include
@@ -238,7 +238,7 @@ wxBitmapBundle wxBitmapBundle::FromSVG(char* data, const wxSize& sizeDef)
         return wxBitmapBundle();
     }
 
-    return wxBitmapBundle(new wxBitmapBundleImplSVG(svgImage, sizeDef));
+    return wxBitmapBundle(NEW_DEBUG wxBitmapBundleImplSVG(svgImage, sizeDef));
 }
 
 /* static */

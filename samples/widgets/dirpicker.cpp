@@ -142,9 +142,9 @@ DirPickerWidgetsPage::DirPickerWidgetsPage(WidgetsBookCtrl *book,
 void DirPickerWidgetsPage::CreateContent()
 {
     // left pane
-    wxSizer *boxleft = new wxBoxSizer(wxVERTICAL);
+    wxSizer *boxleft = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
-    wxStaticBoxSizer *dirbox = new wxStaticBoxSizer(wxVERTICAL, this, "&DirPicker style");
+    wxStaticBoxSizer *dirbox = NEW_DEBUG wxStaticBoxSizer(wxVERTICAL, this, "&DirPicker style");
     m_chkDirTextCtrl = CreateCheckBoxAndAddToSizer(dirbox, "With textctrl");
     m_chkDirMustExist = CreateCheckBoxAndAddToSizer(dirbox, "Dir must exist");
     m_chkDirChangeDir = CreateCheckBoxAndAddToSizer(dirbox, "Change working dir");
@@ -161,7 +161,7 @@ void DirPickerWidgetsPage::CreateContent()
 
     boxleft->AddSpacer(10);
 
-    boxleft->Add(new wxButton(this, PickerPage_Reset, "&Reset"),
+    boxleft->Add(NEW_DEBUG wxButton(this, PickerPage_Reset, "&Reset"),
                  0, wxALIGN_CENTRE_HORIZONTAL | wxALL, 15);
 
     Reset();    // set checkboxes state
@@ -171,13 +171,13 @@ void DirPickerWidgetsPage::CreateContent()
     CreatePicker();
 
     // right pane
-    m_sizer = new wxBoxSizer(wxVERTICAL);
+    m_sizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     m_sizer->Add(1, 1, 1, wxGROW | wxALL, 5); // spacer
     m_sizer->Add(m_dirPicker, 0, wxEXPAND|wxALL, 5);
     m_sizer->Add(1, 1, 1, wxGROW | wxALL, 5); // spacer
 
     // global pane
-    wxSizer *sz = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer *sz = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     sz->Add(boxleft, 0, wxGROW|wxALL, 5);
     sz->Add(m_sizer, 1, wxGROW|wxALL, 5);
 
@@ -202,7 +202,7 @@ void DirPickerWidgetsPage::CreatePicker()
     if ( m_chkSmall->GetValue() )
         style |= wxDIRP_SMALL;
 
-    m_dirPicker = new wxDirPickerCtrl(this, PickerPage_Dir,
+    m_dirPicker = NEW_DEBUG wxDirPickerCtrl(this, PickerPage_Dir,
                                       wxGetHomeDir(), "Hello!",
                                       wxDefaultPosition, wxDefaultSize,
                                       style);

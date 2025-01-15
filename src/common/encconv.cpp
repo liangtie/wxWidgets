@@ -83,7 +83,7 @@ CompareCharsetItems(const void *i1, const void *i2)
 
 static CharsetItem* BuildReverseTable(const wxUint16 *tbl)
 {
-    CharsetItem *rev = new CharsetItem[128];
+    CharsetItem *rev = NEW_DEBUG CharsetItem[128];
 
     for (int i = 0; i < 128; i++)
         rev[i].c = wxUint8(128 + i), rev[i].u = tbl[i];
@@ -121,7 +121,7 @@ bool wxEncodingConverter::Init(wxFontEncoding input_enc, wxFontEncoding output_e
     {
         if ((out_tbl = GetEncTable(output_enc)) == NULL) return false;
 
-        m_Table = new wchar_t[65536];
+        m_Table = NEW_DEBUG wchar_t[65536];
         for (i = 0; i < 128; i++)  m_Table[i] = (wchar_t)i; // 7bit ASCII
         for (i = 128; i < 65536; i++)  m_Table[i] = (wchar_t)0;
 
@@ -144,7 +144,7 @@ bool wxEncodingConverter::Init(wxFontEncoding input_enc, wxFontEncoding output_e
 
         m_UnicodeInput = false;
 
-        m_Table = new wchar_t[256];
+        m_Table = NEW_DEBUG wchar_t[256];
         for (i = 0; i < 128; i++)  m_Table[i] = (wchar_t)i; // 7bit ASCII
 
         if (output_enc == wxFONTENCODING_UNICODE)

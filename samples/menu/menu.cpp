@@ -49,8 +49,8 @@
     #define USE_CONTEXT_MENU 1
 #endif
 
-// this sample is useful when a new port is developed
-// and usually a new port has majority of flags turned off
+// this sample is useful when a NEW_DEBUG port is developed
+// and usually a NEW_DEBUG port has majority of flags turned off
 #if wxUSE_LOG && wxUSE_TEXTCTRL
     #define USE_LOG_WINDOW 1
 #else
@@ -65,14 +65,14 @@
 // classes
 // ----------------------------------------------------------------------------
 
-// Define a new application
+// Define a NEW_DEBUG application
 class MyApp: public wxApp
 {
 public:
     bool OnInit() wxOVERRIDE;
 };
 
-// Define a new frame
+// Define a NEW_DEBUG frame
 class MyFrame: public wxFrame
 {
 public:
@@ -449,7 +449,7 @@ bool MyApp::OnInit()
         return false;
 
     // Create the main frame window
-    MyFrame* frame = new MyFrame;
+    MyFrame* frame = NEW_DEBUG MyFrame;
 
     frame->Show(true);
 
@@ -482,9 +482,9 @@ MyFrame::MyFrame()
 #endif // wxUSE_STATUSBAR
 
     // create the menubar
-    wxMenu *fileMenu = new wxMenu;
+    wxMenu *fileMenu = NEW_DEBUG wxMenu;
 
-    wxMenu *stockSubMenu = new wxMenu;
+    wxMenu *stockSubMenu = NEW_DEBUG wxMenu;
     stockSubMenu->Append(wxID_ADD);
     stockSubMenu->Append(wxID_APPLY);
     stockSubMenu->Append(wxID_BACKWARD);
@@ -556,7 +556,7 @@ MyFrame::MyFrame()
     fileMenu->AppendSubMenu(stockSubMenu, "&Standard items demo");
 
 #if USE_LOG_WINDOW
-    wxMenuItem *item = new wxMenuItem(fileMenu, Menu_File_ClearLog,
+    wxMenuItem *item = NEW_DEBUG wxMenuItem(fileMenu, Menu_File_ClearLog,
                                       "Clear &log\tCtrl-L");
     item->SetBitmap(wxArtProvider::GetBitmapBundle(wxART_DELETE, wxART_MENU));
     fileMenu->Append(item);
@@ -568,9 +568,9 @@ MyFrame::MyFrame()
     fileMenu->AppendSeparator();
 
 #if wxUSE_FILE_HISTORY
-    m_fileHistoryMenu = new wxMenu();
+    m_fileHistoryMenu = NEW_DEBUG wxMenu();
 
-    m_fileHistory = new wxFileHistory();
+    m_fileHistory = NEW_DEBUG wxFileHistory();
     m_fileHistory->UseMenu(m_fileHistoryMenu);
 
     m_fileHistory->AddFileToHistory( wxFileName("menu.cpp").GetAbsolutePath() );
@@ -582,7 +582,7 @@ MyFrame::MyFrame()
 
     fileMenu->Append(Menu_File_Quit, "E&xit\tAlt-X", "Quit menu sample");
 
-    wxMenu *menubarMenu = new wxMenu;
+    wxMenu *menubarMenu = NEW_DEBUG wxMenu;
     menubarMenu->Append(Menu_MenuBar_Append, "&Append menu\tCtrl-A",
                         "Append a menu to the menubar");
     menubarMenu->Append(Menu_MenuBar_Insert, "&Insert menu\tCtrl-I",
@@ -605,7 +605,7 @@ MyFrame::MyFrame()
                         "Find a menu by searching for its label");
 #endif
 
-    wxMenu* subMenu = new wxMenu;
+    wxMenu* subMenu = NEW_DEBUG wxMenu;
     subMenu->Append(Menu_SubMenu_Normal, "&Normal submenu item", "Disabled submenu item");
     subMenu->AppendCheckItem(Menu_SubMenu_Check, "&Check submenu item", "Check submenu item");
     subMenu->AppendRadioItem(Menu_SubMenu_Radio1, "Radio item &1", "Radio item");
@@ -614,7 +614,7 @@ MyFrame::MyFrame()
 
     menubarMenu->Append(Menu_SubMenu, "Submenu", subMenu);
 
-    wxMenu *menuMenu = new wxMenu;
+    wxMenu *menuMenu = NEW_DEBUG wxMenu;
     menuMenu->Append(Menu_Menu_Append, "&Append menu item\tAlt-A",
                      "Append a menu item to the 'Test' menu");
     menuMenu->Append(Menu_Menu_AppendSub, "&Append sub menu\tAlt-S",
@@ -651,7 +651,7 @@ MyFrame::MyFrame()
                      "Find a menu item by searching for its label");
 #endif
 #if wxUSE_FILE_HISTORY
-    wxMenu* menuFileHistoryStyle = new wxMenu();
+    wxMenu* menuFileHistoryStyle = NEW_DEBUG wxMenu();
 
     menuFileHistoryStyle->AppendRadioItem(Menu_Menu_FileHistory1, "Hide current path");
     menuFileHistoryStyle->AppendRadioItem(Menu_Menu_FileHistory2, "Hide all paths");
@@ -661,7 +661,7 @@ MyFrame::MyFrame()
     menuMenu->AppendSubMenu(menuFileHistoryStyle, "Select file history menu style");
 #endif
 
-    wxMenu *testMenu = new wxMenu;
+    wxMenu *testMenu = NEW_DEBUG wxMenu;
     testMenu->Append(Menu_Test_Normal, "&Normal item");
     testMenu->AppendSeparator();
     testMenu->AppendCheckItem(Menu_Test_Check, "&Check item");
@@ -674,17 +674,17 @@ MyFrame::MyFrame()
     imageChecked.Clear(0xff);
     wxBitmap bmpChecked(imageChecked);
 
-    wxMenuItem *checkedBitmapItem = new wxMenuItem(testMenu, wxID_ANY,
+    wxMenuItem *checkedBitmapItem = NEW_DEBUG wxMenuItem(testMenu, wxID_ANY,
         "Check item with bitmaps", "", wxITEM_CHECK);
     checkedBitmapItem->SetBitmaps(bmpChecked, bmpUnchecked);
     testMenu->Append(checkedBitmapItem);
 
-    checkedBitmapItem = new wxMenuItem(testMenu, wxID_ANY,
+    checkedBitmapItem = NEW_DEBUG wxMenuItem(testMenu, wxID_ANY,
         "Check item with bitmaps set afterwards", "", wxITEM_CHECK);
     testMenu->Append(checkedBitmapItem);
     checkedBitmapItem->SetBitmaps(bmpChecked, bmpUnchecked);
 
-    checkedBitmapItem = new wxMenuItem(testMenu, wxID_ANY,
+    checkedBitmapItem = NEW_DEBUG wxMenuItem(testMenu, wxID_ANY,
         "Check item with bitmaps set afterwards (initially checked)", "", wxITEM_CHECK);
     testMenu->Append(checkedBitmapItem);
     checkedBitmapItem->Check();
@@ -697,10 +697,10 @@ MyFrame::MyFrame()
     testMenu->AppendRadioItem(Menu_Test_Radio2, "Radio item &2");
     testMenu->AppendRadioItem(Menu_Test_Radio3, "Radio item &3");
 
-    wxMenu *helpMenu = new wxMenu;
+    wxMenu *helpMenu = NEW_DEBUG wxMenu;
     helpMenu->Append(Menu_Help_About, "&About\tF1", "About menu sample");
 
-    wxMenuBar* menuBar = new wxMenuBar( wxMB_DOCKABLE );
+    wxMenuBar* menuBar = NEW_DEBUG wxMenuBar( wxMB_DOCKABLE );
 
     menuBar->Append(fileMenu, "&File");
     menuBar->Append(menubarMenu, "Menu&bar");
@@ -718,17 +718,17 @@ MyFrame::MyFrame()
     SetMenuBar(menuBar);
 
     // intercept all menu events and log them in this custom event handler
-    PushEventHandler(new MyEvtHandler(this));
+    PushEventHandler(NEW_DEBUG MyEvtHandler(this));
 
 #if USE_LOG_WINDOW
     // create the log text window
-    m_textctrl = new wxTextCtrl(this, wxID_ANY, wxEmptyString,
+    m_textctrl = NEW_DEBUG wxTextCtrl(this, wxID_ANY, wxEmptyString,
                                 wxDefaultPosition, wxDefaultSize,
                                 wxTE_MULTILINE);
     m_textctrl->SetEditable(false);
 
     wxLog::DisableTimestamp();
-    m_logOld = wxLog::SetActiveTarget(new wxLogTextCtrl(m_textctrl));
+    m_logOld = wxLog::SetActiveTarget(NEW_DEBUG wxLogTextCtrl(m_textctrl));
 
     wxLogMessage("Brief explanations: the commands in the \"Menu\" menu "
                  "append/insert/delete items to/from the \"Test\" menu.\n"
@@ -754,7 +754,7 @@ MyFrame::~MyFrame()
 
 wxMenu *MyFrame::CreateDummyMenu(wxString *title)
 {
-    wxMenu *menu = new wxMenu;
+    wxMenu *menu = NEW_DEBUG wxMenu;
     menu->Append(Menu_Dummy_First, "&First item\tCtrl-F1");
     menu->AppendSeparator();
     menu->AppendCheckItem(Menu_Dummy_Second, "&Second item\tCtrl-F2");
@@ -920,7 +920,7 @@ void MyFrame::OnSetLabelMenu(wxCommandEvent& WXUNUSED(event))
 
     wxString label = wxGetTextFromUser
                      (
-                        "Enter new label: ",
+                        "Enter NEW_DEBUG label: ",
                         "Change last menu text",
                         mbar->GetMenuLabel(count - 1),
                         this
@@ -1086,7 +1086,7 @@ void MyFrame::OnSetLabelMenuItem(wxCommandEvent& WXUNUSED(event))
     {
         wxString label = wxGetTextFromUser
                          (
-                            "Enter new label: ",
+                            "Enter NEW_DEBUG label: ",
                             "Change last menu item text",
                             item->GetItemLabel(),
                             this
@@ -1409,7 +1409,7 @@ MyDialog::MyDialog(wxWindow* parent)
 {
 #if USE_LOG_WINDOW
     // create the log text window
-    m_textctrl = new wxTextCtrl(this, wxID_ANY, wxEmptyString,
+    m_textctrl = NEW_DEBUG wxTextCtrl(this, wxID_ANY, wxEmptyString,
                                 wxDefaultPosition, wxDefaultSize,
                                 wxTE_MULTILINE);
     m_textctrl->SetEditable(false);

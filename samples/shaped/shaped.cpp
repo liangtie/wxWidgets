@@ -68,7 +68,7 @@ enum
 // private classes
 // ----------------------------------------------------------------------------
 
-// Define a new application type, each program should derive a class from wxApp
+// Define a NEW_DEBUG application type, each program should derive a class from wxApp
 class MyApp : public wxApp
 {
 public:
@@ -97,7 +97,7 @@ private:
     wxDECLARE_EVENT_TABLE();
 };
 
-// Define a new frame type: this is going to the frame showing the
+// Define a NEW_DEBUG frame type: this is going to the frame showing the
 // effect of wxFRAME_SHAPED
 class ShapedFrame : public wxFrame
 {
@@ -132,7 +132,7 @@ private:
     wxDECLARE_EVENT_TABLE();
 };
 
-// Define a new frame type: this is going to the frame showing the
+// Define a NEW_DEBUG frame type: this is going to the frame showing the
 // effect of wxWindow::SetTransparent and of
 // wxWindow::SetBackgroundStyle(wxBG_STYLE_TRANSPARENT)
 class SeeThroughFrame : public wxFrame
@@ -165,10 +165,10 @@ public:
           m_effect(effect),
           m_timeout(timeout)
     {
-        new wxStaticText(this, wxID_ANY,
+        NEW_DEBUG wxStaticText(this, wxID_ANY,
                          wxString::Format("Effect: %s", GetEffectName(effect)),
                          wxPoint(20, 20));
-        new wxStaticText(this, wxID_ANY,
+        NEW_DEBUG wxStaticText(this, wxID_ANY,
                          wxString::Format("Timeout: %ums", m_timeout),
                          wxPoint(20, 60));
 
@@ -229,7 +229,7 @@ bool MyApp::OnInit()
 
     wxInitAllImageHandlers();
 
-    new MainFrame;
+    NEW_DEBUG MainFrame;
 
     // success: wxApp::OnRun() will be called which will enter the main message
     // loop and the application will run. If we returned false here, the
@@ -255,8 +255,8 @@ MainFrame::MainFrame()
 {
     SetIcon(wxICON(sample));
 
-    wxMenuBar * const mbar = new wxMenuBar;
-    wxMenu * const menuFrames = new wxMenu;
+    wxMenuBar * const mbar = NEW_DEBUG wxMenuBar;
+    wxMenu * const menuFrames = NEW_DEBUG wxMenu;
     menuFrames->Append(Show_Shaped, "Show &shaped window\tCtrl-S");
     menuFrames->Append(Show_Transparent, "Show &transparent window\tCtrl-T");
     menuFrames->Append(Show_TransparentBg,
@@ -277,13 +277,13 @@ MainFrame::MainFrame()
 
 void MainFrame::OnShowShaped(wxCommandEvent& WXUNUSED(event))
 {
-    ShapedFrame *shapedFrame = new ShapedFrame(this);
+    ShapedFrame *shapedFrame = NEW_DEBUG ShapedFrame(this);
     shapedFrame->Show(true);
 }
 
 void MainFrame::OnShowTransparent(wxCommandEvent& event)
 {
-    SeeThroughFrame *seeThroughFrame = new SeeThroughFrame;
+    SeeThroughFrame *seeThroughFrame = NEW_DEBUG SeeThroughFrame;
 
     if ( event.GetId() == Show_TransparentBg )
     {
@@ -369,7 +369,7 @@ void MainFrame::OnShowEffect(wxCommandEvent& event)
             return;
     }
 
-    new EffectFrame(this,  eff, 1000);
+    NEW_DEBUG EffectFrame(this,  eff, 1000);
 }
 
 void MainFrame::OnExit(wxCommandEvent& WXUNUSED(event))
@@ -504,8 +504,8 @@ SeeThroughFrame::Create(wxWindow* parent)
     const int initialAlpha = wxALPHA_OPAQUE / 2;
 
     // Create control for choosing alpha and put it in the middle of the window.
-    wxPanel* panel = new wxPanel(this);
-    wxSlider* slider = new wxSlider
+    wxPanel* panel = NEW_DEBUG wxPanel(this);
+    wxSlider* slider = NEW_DEBUG wxSlider
                            (
                                 panel,
                                 wxID_ANY,
@@ -520,12 +520,12 @@ SeeThroughFrame::Create(wxWindow* parent)
 
     const wxSizerFlags center = wxSizerFlags().Center().Border();
 
-    wxSizer* sizer = new wxBoxSizer(wxVERTICAL);
-    sizer->Add(new wxStaticText(panel, wxID_ANY, "Window opacity:"), center);
+    wxSizer* sizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
+    sizer->Add(NEW_DEBUG wxStaticText(panel, wxID_ANY, "Window opacity:"), center);
     sizer->Add(slider, center);
     panel->SetSizer(sizer);
 
-    wxSizer* sizerTop = new wxBoxSizer(wxVERTICAL);
+    wxSizer* sizerTop = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     sizerTop->AddStretchSpacer();
     sizerTop->Add(panel, center);
     sizerTop->AddStretchSpacer();

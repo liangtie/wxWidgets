@@ -65,7 +65,7 @@ private:
 
 
 // these functions live in dockart.cpp -- they'll eventually
-// be moved to a new utility cpp file
+// be moved to a NEW_DEBUG utility cpp file
 
 wxBitmap wxAuiBitmapFromBits(const unsigned char bits[], int w, int h,
                              const wxColour& color);
@@ -223,7 +223,7 @@ void wxAuiGenericTabArt::UpdateColoursFromSystem()
 
 wxAuiTabArt* wxAuiGenericTabArt::Clone()
 {
-    return new wxAuiGenericTabArt(*this);
+    return NEW_DEBUG wxAuiGenericTabArt(*this);
 }
 
 void wxAuiGenericTabArt::SetFlags(unsigned int flags)
@@ -817,7 +817,7 @@ int wxAuiGenericTabArt::ShowDropDown(wxWindow* wnd,
         if (caption.IsEmpty())
             caption = wxT(" ");
 
-        wxMenuItem* item = new wxMenuItem(NULL, 1000+i, caption);
+        wxMenuItem* item = NEW_DEBUG wxMenuItem(NULL, 1000+i, caption);
         if (page.bitmap.IsOk())
             item->SetBitmap(page.bitmap.GetBitmapFor(wnd));
         menuPopup.Append(item);
@@ -831,7 +831,7 @@ int wxAuiGenericTabArt::ShowDropDown(wxWindow* wnd,
     wxRect cli_rect = wnd->GetClientRect();
     pt.y = cli_rect.y + cli_rect.height;
 
-    wxAuiCommandCapture* cc = new wxAuiCommandCapture;
+    wxAuiCommandCapture* cc = NEW_DEBUG wxAuiCommandCapture;
     wnd->PushEventHandler(cc);
     wnd->PopupMenu(&menuPopup, pt);
     int command = cc->GetCommandId();
@@ -960,7 +960,7 @@ wxAuiSimpleTabArt::~wxAuiSimpleTabArt()
 
 wxAuiTabArt* wxAuiSimpleTabArt::Clone()
 {
-    return new wxAuiSimpleTabArt(*this);
+    return NEW_DEBUG wxAuiSimpleTabArt(*this);
 }
 
 void wxAuiSimpleTabArt::SetFlags(unsigned int flags)
@@ -1354,7 +1354,7 @@ int wxAuiSimpleTabArt::ShowDropDown(wxWindow* wnd,
     wxRect cli_rect = wnd->GetClientRect();
     pt.y = cli_rect.y + cli_rect.height;
 
-    wxAuiCommandCapture* cc = new wxAuiCommandCapture;
+    wxAuiCommandCapture* cc = NEW_DEBUG wxAuiCommandCapture;
     wnd->PushEventHandler(cc);
     wnd->PopupMenu(&menuPopup, pt);
     int command = cc->GetCommandId();

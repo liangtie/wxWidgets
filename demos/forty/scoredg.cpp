@@ -136,7 +136,7 @@ ScoreDialog::ScoreDialog(wxWindow* parent, ScoreFile* file) :
     wxSize sz = wxSize(400, 300);
 
 #if USE_GRID_FOR_SCORE
-    wxGrid* list = new wxGrid(this, wxID_ANY, wxDefaultPosition, sz, 0);
+    wxGrid* list = NEW_DEBUG wxGrid(this, wxID_ANY, wxDefaultPosition, sz, 0);
     list->CreateGrid(players.Count(), 4);
     for (unsigned int i = 0; i < players.Count(); i++)
     {
@@ -172,15 +172,15 @@ ScoreDialog::ScoreDialog(wxWindow* parent, ScoreFile* file) :
     list->EnableEditing(false);
     sz.x = wxDefaultCoord;
 #else
-    ScoreCanvas* list = new ScoreCanvas(this, file, wxDefaultPosition, sz);
+    ScoreCanvas* list = NEW_DEBUG ScoreCanvas(this, file, wxDefaultPosition, sz);
 #endif
 
     list->SetInitialSize(sz);
 
     // locate and resize with sizers
-    wxBoxSizer *topsizer = new wxBoxSizer( wxVERTICAL );
+    wxBoxSizer *topsizer = NEW_DEBUG wxBoxSizer( wxVERTICAL );
     topsizer->Add( list, 1, wxALL|wxGROW, 10 );
-    wxButton *button = new wxButton(this, wxID_OK);
+    wxButton *button = NEW_DEBUG wxButton(this, wxID_OK);
     topsizer->Add( button, 0, wxALIGN_CENTER_HORIZONTAL|wxALL , 10 );
     button->SetFocus();
 

@@ -94,20 +94,20 @@ wxSizer *wxGenericMessageDialog::CreateMsgDlgButtonSizer()
 {
     if ( HasCustomLabels() )
     {
-        wxStdDialogButtonSizer * const sizerStd = new wxStdDialogButtonSizer;
+        wxStdDialogButtonSizer * const sizerStd = NEW_DEBUG wxStdDialogButtonSizer;
 
         wxButton *btnDef = NULL;
 
         if ( m_dialogStyle & wxOK )
         {
-            btnDef = new wxButton(this, wxID_OK, GetCustomOKLabel());
+            btnDef = NEW_DEBUG wxButton(this, wxID_OK, GetCustomOKLabel());
             sizerStd->AddButton(btnDef);
         }
 
         if ( m_dialogStyle & wxCANCEL )
         {
             wxButton * const
-                cancel = new wxButton(this, wxID_CANCEL, GetCustomCancelLabel());
+                cancel = NEW_DEBUG wxButton(this, wxID_CANCEL, GetCustomCancelLabel());
             sizerStd->AddButton(cancel);
 
             if ( m_dialogStyle & wxCANCEL_DEFAULT )
@@ -117,11 +117,11 @@ wxSizer *wxGenericMessageDialog::CreateMsgDlgButtonSizer()
         if ( m_dialogStyle & wxYES_NO )
         {
             wxButton * const
-                yes = new wxButton(this, wxID_YES, GetCustomYesLabel());
+                yes = NEW_DEBUG wxButton(this, wxID_YES, GetCustomYesLabel());
             sizerStd->AddButton(yes);
 
             wxButton * const
-                no = new wxButton(this, wxID_NO, GetCustomNoLabel());
+                no = NEW_DEBUG wxButton(this, wxID_NO, GetCustomNoLabel());
             sizerStd->AddButton(no);
             if ( m_dialogStyle & wxNO_DEFAULT )
                 btnDef = no;
@@ -132,7 +132,7 @@ wxSizer *wxGenericMessageDialog::CreateMsgDlgButtonSizer()
         if ( m_dialogStyle & wxHELP )
         {
             wxButton * const
-                help = new wxButton(this, wxID_HELP, GetCustomHelpLabel());
+                help = NEW_DEBUG wxButton(this, wxID_HELP, GetCustomHelpLabel());
             sizerStd->AddButton(help);
         }
 
@@ -159,15 +159,15 @@ void wxGenericMessageDialog::DoCreateMsgdialog()
 {
     wxDialog::Create(m_parent, wxID_ANY, m_caption, m_pos, wxDefaultSize, wxDEFAULT_DIALOG_STYLE);
 
-    wxBoxSizer *topsizer = new wxBoxSizer( wxVERTICAL );
+    wxBoxSizer *topsizer = NEW_DEBUG wxBoxSizer( wxVERTICAL );
 
-    wxBoxSizer *icon_text = new wxBoxSizer( wxHORIZONTAL );
+    wxBoxSizer *icon_text = NEW_DEBUG wxBoxSizer( wxHORIZONTAL );
 
 #if wxUSE_STATBMP
     // 1) icon
     if (m_dialogStyle & wxICON_MASK)
     {
-        wxStaticBitmap *icon = new wxStaticBitmap
+        wxStaticBitmap *icon = NEW_DEBUG wxStaticBitmap
                                    (
                                     this,
                                     wxID_ANY,
@@ -183,7 +183,7 @@ void wxGenericMessageDialog::DoCreateMsgdialog()
 #if wxUSE_STATTEXT
     // 2) text
 
-    wxBoxSizer * const textsizer = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer * const textsizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
     // To prevent clipping
     int maxWidth = wxSystemSettings::GetMetric(wxSYS_SCREEN_X, this) - FromDIP(25);

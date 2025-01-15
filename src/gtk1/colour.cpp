@@ -157,12 +157,12 @@ bool wxColour::operator == ( const wxColour& col ) const
 
 wxGDIRefData *wxColour::CreateGDIRefData() const
 {
-    return new wxColourRefData;
+    return NEW_DEBUG wxColourRefData;
 }
 
 wxGDIRefData *wxColour::CloneGDIRefData(const wxGDIRefData *data) const
 {
-    return new wxColourRefData(*(wxColourRefData *)data);
+    return NEW_DEBUG wxColourRefData(*(wxColourRefData *)data);
 }
 
 void wxColour::InitRGBA(unsigned char red, unsigned char green, unsigned char blue,
@@ -228,7 +228,7 @@ bool wxColour::FromString(const wxString& str)
     {
         UnRef();
 
-        m_refData = new wxColourRefData;
+        m_refData = NEW_DEBUG wxColourRefData;
         M_COLDATA->m_color = colGDK;
         return true;
     }

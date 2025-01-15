@@ -62,14 +62,14 @@ bool wxPickerBase::CreateBase(wxWindow *parent,
 
     SetMinSize( size );
 
-    m_sizer = new wxBoxSizer(wxHORIZONTAL);
+    m_sizer = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
 
     if (HasFlag(wxPB_USE_TEXTCTRL))
     {
         // NOTE: the style of this class (wxPickerBase) and the style of the
         //       attached text control are different: GetTextCtrlStyle() extracts
         //       the styles related to the textctrl from the styles passed here
-        m_text = new wxTextCtrl(this, wxID_ANY, wxEmptyString,
+        m_text = NEW_DEBUG wxTextCtrl(this, wxID_ANY, wxEmptyString,
                                 wxDefaultPosition, wxDefaultSize,
                                 GetTextCtrlStyle(style));
         if (!m_text)
@@ -142,7 +142,7 @@ void wxPickerBase::DoSetToolTip(wxToolTip *tip)
 
     // do a copy as wxWindow will own the pointer we pass
     if ( m_text )
-        m_text->SetToolTip(tip ? new wxToolTip(tip->GetTip()) : NULL);
+        m_text->SetToolTip(tip ? NEW_DEBUG wxToolTip(tip->GetTip()) : NULL);
 }
 
 #endif // wxUSE_TOOLTIPS

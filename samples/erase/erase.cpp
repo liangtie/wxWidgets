@@ -218,7 +218,7 @@ bool MyApp::OnInit()
     if ( !wxApp::OnInit() )
         return false;
 
-    MyFrame *frame = new MyFrame;
+    MyFrame *frame = NEW_DEBUG MyFrame;
 
     frame->Show(true);
 
@@ -251,7 +251,7 @@ MyFrame::MyFrame()
 {
     SetIcon(wxICON(sample));
 
-    wxMenu *menuFile = new wxMenu("", wxMENU_TEAROFF);
+    wxMenu *menuFile = NEW_DEBUG wxMenu("", wxMENU_TEAROFF);
     menuFile->AppendCheckItem(Erase_Menu_UseBuffer, "&Use memory DC\tCtrl-M");
     menuFile->AppendCheckItem(Erase_Menu_UseBgBitmap,
                               "Use background &bitmap\tCtrl-B");
@@ -268,16 +268,16 @@ MyFrame::MyFrame()
     menuFile->Append(Erase_Menu_Exit, "E&xit\tAlt-X", "Quit this program");
 
 
-    wxMenu *helpMenu = new wxMenu;
+    wxMenu *helpMenu = NEW_DEBUG wxMenu;
     helpMenu->Append(Erase_Menu_About, "&About\tCtrl-A", "Show about dialog");
 
-    wxMenuBar *menuBar = new wxMenuBar();
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar();
     menuBar->Append(menuFile, "&File");
     menuBar->Append(helpMenu, "&Help");
 
     SetMenuBar(menuBar);
 
-    m_canvas = new MyCanvas( this );
+    m_canvas = NEW_DEBUG MyCanvas( this );
 }
 
 
@@ -342,14 +342,14 @@ MyCanvas::MyCanvas(wxFrame *parent)
 
     m_bitmap = wxBitmap( wxICON(sample) );
 
-    new wxStaticBitmap( this, wxID_ANY, m_bitmap, wxPoint(80,20) );
+    NEW_DEBUG wxStaticBitmap( this, wxID_ANY, m_bitmap, wxPoint(80,20) );
 
-    new wxStaticText(this, wxID_ANY,
+    NEW_DEBUG wxStaticText(this, wxID_ANY,
                      "Right bitmap is a wxStaticBitmap,\n"
                      "left one drawn directly",
                      wxPoint(150, 20));
 
-    new ControlWithTransparency(this, wxPoint(65, 125), wxSize(350, 22));
+    NEW_DEBUG ControlWithTransparency(this, wxPoint(65, 125), wxSize(350, 22));
 
     SetFocusIgnoringChildren();
     SetBackgroundColour(*wxCYAN);

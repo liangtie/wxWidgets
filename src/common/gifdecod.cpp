@@ -296,7 +296,7 @@ int wxGIFDecoder::getcode(wxInputStream& stream, int bits, int ab_fin)
     mask = (1 << bits) - 1;
     code = (m_lastbyte >> (8 - m_restbits)) & mask;
 
-    // keep reading new bytes while needed
+    // keep reading NEW_DEBUG bytes while needed
     while (bits > m_restbits)
     {
         // if no bytes left in this block, read the next block
@@ -443,7 +443,7 @@ wxGIFDecoder::dgif(wxInputStream& stream, GIFImage *img, int interl, int bits)
         stack[pos] = code;              // push last code into the stack
         abcabca    = code;              // save for special case
 
-        // make new entry in alphabet (only if NOT just cleared)
+        // make NEW_DEBUG entry in alphabet (only if NOT just cleared)
         if (lastcode != -1)
         {
             // The GIF specification does not require sending a CLEAR code
@@ -496,7 +496,7 @@ wxGIFDecoder::dgif(wxInputStream& stream, GIFImage *img, int interl, int bits)
                     decoding (At this point the image is successfully
                     decoded).
                     If we don't loop, but merely set y to some other
-                    value, that new value might still be invalid depending
+                    value, that NEW_DEBUG value might still be invalid depending
                     on the height of the image. This would cause out of
                     bounds writing.
                     */
@@ -781,7 +781,7 @@ wxGIFErrorCode wxGIFDecoder::LoadGIF(wxInputStream& stream)
             case GIF_MARKER_SEP:
             {
                 // allocate memory for IMAGEN struct
-                GIFImagePtr pimg(new GIFImage());
+                GIFImagePtr pimg(NEW_DEBUG GIFImage());
 
                 wxScopeGuard guardDestroy = wxMakeObjGuard(*this, &wxGIFDecoder::Destroy);
 

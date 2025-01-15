@@ -248,7 +248,7 @@ proxy_g_signal(GDBusProxy*, const char*, const char* signal_name, GVariant* para
 // Some notes on using GtkStyleContext. Style information from a context
 // attached to a non-visible GtkWidget is not accurate. The context has an
 // internal visibility state, controlled by the widget, which it presumably
-// uses to avoid doing unnecessary work. Creating a new style context from the
+// uses to avoid doing unnecessary work. Creating a NEW_DEBUG style context from the
 // GtkWidgetPath in a context attached to a widget also does not work. The path
 // does not accurately reproduce the context state with older versions of GTK+,
 // and there is no context hierarchy (parent contexts). The hierarchy of parent

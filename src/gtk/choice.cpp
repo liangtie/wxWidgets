@@ -74,7 +74,7 @@ bool wxChoice::Create( wxWindow *parent, wxWindowID id,
     {
         // if our m_strings != NULL, Append() will check for it and insert
         // items in the correct order
-        m_strings = new wxGtkCollatedArrayString;
+        m_strings = NEW_DEBUG wxGtkCollatedArrayString;
     }
 
 #ifdef __WXGTK3__

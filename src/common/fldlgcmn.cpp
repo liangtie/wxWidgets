@@ -271,37 +271,37 @@ wxFileDialogCustomize::StoreAndReturn(T* control)
 wxFileDialogButton*
 wxFileDialogCustomize::AddButton(const wxString& label)
 {
-    return StoreAndReturn(new wxFileDialogButton(m_impl->AddButton(label)));
+    return StoreAndReturn(NEW_DEBUG wxFileDialogButton(m_impl->AddButton(label)));
 }
 
 wxFileDialogCheckBox*
 wxFileDialogCustomize::AddCheckBox(const wxString& label)
 {
-    return StoreAndReturn(new wxFileDialogCheckBox(m_impl->AddCheckBox(label)));
+    return StoreAndReturn(NEW_DEBUG wxFileDialogCheckBox(m_impl->AddCheckBox(label)));
 }
 
 wxFileDialogRadioButton*
 wxFileDialogCustomize::AddRadioButton(const wxString& label)
 {
-    return StoreAndReturn(new wxFileDialogRadioButton(m_impl->AddRadioButton(label)));
+    return StoreAndReturn(NEW_DEBUG wxFileDialogRadioButton(m_impl->AddRadioButton(label)));
 }
 
 wxFileDialogChoice*
 wxFileDialogCustomize::AddChoice(size_t n, const wxString* strings)
 {
-    return StoreAndReturn(new wxFileDialogChoice(m_impl->AddChoice(n, strings)));
+    return StoreAndReturn(NEW_DEBUG wxFileDialogChoice(m_impl->AddChoice(n, strings)));
 }
 
 wxFileDialogTextCtrl*
 wxFileDialogCustomize::AddTextCtrl(const wxString& label)
 {
-    return StoreAndReturn(new wxFileDialogTextCtrl(m_impl->AddTextCtrl(label)));
+    return StoreAndReturn(NEW_DEBUG wxFileDialogTextCtrl(m_impl->AddTextCtrl(label)));
 }
 
 wxFileDialogStaticText*
 wxFileDialogCustomize::AddStaticText(const wxString& label)
 {
-    return StoreAndReturn(new wxFileDialogStaticText(m_impl->AddStaticText(label)));
+    return StoreAndReturn(NEW_DEBUG wxFileDialogStaticText(m_impl->AddStaticText(label)));
 }
 
 // ----------------------------------------------------------------------------
@@ -356,7 +356,7 @@ public:
     ButtonImpl(wxWindow* parent, const wxString& label)
         : ControlImplBase<wxFileDialogButtonImpl>
           (
-            new wxButton(parent, wxID_ANY, label)
+            NEW_DEBUG wxButton(parent, wxID_ANY, label)
           )
     {
         m_handler = NULL;
@@ -398,7 +398,7 @@ public:
     CheckBoxImpl(wxWindow* parent, const wxString& label)
         : ControlImplBase<wxFileDialogCheckBoxImpl>
           (
-            new wxCheckBox(parent, wxID_ANY, label)
+            NEW_DEBUG wxCheckBox(parent, wxID_ANY, label)
           )
     {
         m_handler = NULL;
@@ -450,7 +450,7 @@ public:
     RadioButtonImpl(wxWindow* parent, const wxString& label)
         : ControlImplBase<wxFileDialogRadioButtonImpl>
           (
-            new wxRadioButton(parent, wxID_ANY, label)
+            NEW_DEBUG wxRadioButton(parent, wxID_ANY, label)
           )
     {
         m_handler = NULL;
@@ -502,7 +502,7 @@ public:
     ChoiceImpl(wxWindow* parent, size_t n, const wxString* strings)
         : ControlImplBase<wxFileDialogChoiceImpl>
           (
-            new wxChoice(parent, wxID_ANY,
+            NEW_DEBUG wxChoice(parent, wxID_ANY,
                          wxDefaultPosition, wxDefaultSize,
                          n, strings)
           )
@@ -558,7 +558,7 @@ public:
     explicit TextCtrlImpl(wxWindow* parent, const wxString& WXUNUSED(dummy))
         : ControlImplBase<wxFileDialogTextCtrlImpl>
           (
-            new wxTextCtrl(parent, wxID_ANY)
+            NEW_DEBUG wxTextCtrl(parent, wxID_ANY)
           )
     {
     }
@@ -587,7 +587,7 @@ public:
     StaticTextImpl(wxWindow* parent, const wxString& label)
         : ControlImplBase<wxFileDialogStaticTextImpl>
           (
-            new wxStaticText(parent, wxID_ANY, wxControl::EscapeMnemonics(label))
+            NEW_DEBUG wxStaticText(parent, wxID_ANY, wxControl::EscapeMnemonics(label))
           )
     {
     }
@@ -620,7 +620,7 @@ public:
           m_lastWasRadio(false)
     {
         // Use a simple horizontal sizer to layout all the controls for now.
-        wxBoxSizer* const sizer = new wxBoxSizer(wxHORIZONTAL);
+        wxBoxSizer* const sizer = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
         SetSizer(sizer);
 
         // Leave a margin before the first item.
@@ -655,7 +655,7 @@ public:
         RadioButtonImpl* const impl = AddToLayoutAndReturn<RadioButtonImpl>(label);
         if ( !m_lastWasRadio )
         {
-            // Select the first button of a new radio group.
+            // Select the first button of a NEW_DEBUG radio group.
             impl->SetValue(true);
 
             m_lastWasRadio = true;
@@ -670,7 +670,7 @@ public:
 
         // TODO-C++11: Can't use AddToLayoutAndReturn() here easily without
         // variadic templates.
-        ChoiceImpl* const impl = new ChoiceImpl(this, n, strings);
+        ChoiceImpl* const impl = NEW_DEBUG ChoiceImpl(this, n, strings);
 
         AddToLayout(impl->m_win);
 
@@ -684,7 +684,7 @@ public:
 
         if ( !label.empty() )
         {
-            AddToLayout(new wxStaticText(this, wxID_ANY, label));
+            AddToLayout(NEW_DEBUG wxStaticText(this, wxID_ANY, label));
         }
 
         return AddToLayoutAndReturn<TextCtrlImpl>();
@@ -706,7 +706,7 @@ private:
     template <typename T>
     T* AddToLayoutAndReturn(const wxString& label = wxString())
     {
-        T* const controlImpl = new T(this, label);
+        T* const controlImpl = NEW_DEBUG T(this, label);
 
         AddToLayout(controlImpl->m_win);
 
@@ -886,7 +886,7 @@ bool wxFileDialogBase::SetExtraControlCreator(ExtraControlCreatorFunction creato
 wxWindow* wxFileDialogBase::CreateExtraControlWithParent(wxWindow* parent) const
 {
     if ( m_customizeHook )
-        return new wxGenericCustomizer::Panel(parent, *m_customizeHook);
+        return NEW_DEBUG wxGenericCustomizer::Panel(parent, *m_customizeHook);
 
     if ( m_extraControlCreator )
         return (*m_extraControlCreator)(parent);
@@ -997,7 +997,7 @@ wxString wxFileSelector(const wxString& title,
                         int x, int y)
 {
     // The defaultExtension, if non-empty, is
-    // appended to the filename if the user fails to type an extension. The new
+    // appended to the filename if the user fails to type an extension. The NEW_DEBUG
     // implementation (taken from wxFileSelectorEx) appends the extension
     // automatically, by looking at the filter specification. In fact this
     // should be better than the native Microsoft implementation because

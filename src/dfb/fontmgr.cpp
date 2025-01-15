@@ -68,7 +68,7 @@ wxFontInstance::wxFontInstance(float ptSize, bool aa,
 
 wxFontInstance *wxFontFace::CreateFontInstance(float ptSize, bool aa)
 {
-    return new wxFontInstance(ptSize, aa, m_fileName);
+    return NEW_DEBUG wxFontInstance(ptSize, aa, m_fileName);
 }
 
 // ----------------------------------------------------------------------------
@@ -86,13 +86,13 @@ wxFontBundle::wxFontBundle(const wxString& name,
     m_isFixed = isFixed;
 
     if ( !fileRegular.empty() )
-        m_faces[FaceType_Regular] = new wxFontFace(fileRegular);
+        m_faces[FaceType_Regular] = NEW_DEBUG wxFontFace(fileRegular);
     if ( !fileItalic.empty() )
-        m_faces[FaceType_Italic] = new wxFontFace(fileItalic);
+        m_faces[FaceType_Italic] = NEW_DEBUG wxFontFace(fileItalic);
     if ( !fileBold.empty() )
-        m_faces[FaceType_Bold] = new wxFontFace(fileBold);
+        m_faces[FaceType_Bold] = NEW_DEBUG wxFontFace(fileBold);
     if ( !fileBoldItalic.empty() )
-        m_faces[FaceType_BoldItalic] = new wxFontFace(fileBoldItalic);
+        m_faces[FaceType_BoldItalic] = NEW_DEBUG wxFontFace(fileBoldItalic);
 }
 
 // ----------------------------------------------------------------------------
@@ -172,7 +172,7 @@ void wxFontsManager::AddAllFonts()
 
         AddBundle
         (
-          new wxFontBundle
+          NEW_DEBUG wxFontBundle
               (
                 _("Default font"),
                 BUILTIN_DFB_FONT_FILENAME,
@@ -237,7 +237,7 @@ void wxFontsManager::AddFont(const wxString& dir,
 
     AddBundle
     (
-      new wxFontBundle
+      NEW_DEBUG wxFontBundle
           (
             name,
             ReadFilePath("Regular", dir, cfg),

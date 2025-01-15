@@ -92,7 +92,7 @@ bool wxPostScriptPrinter::Print(wxWindow *parent, wxPrintout *printout, bool pro
     }
     else
     {
-        dc = new wxPostScriptDC(GetPrintDialogData().GetPrintData());
+        dc = NEW_DEBUG wxPostScriptDC(GetPrintDialogData().GetPrintData());
     }
 
     // May have pressed cancel.
@@ -138,7 +138,7 @@ bool wxPostScriptPrinter::Print(wxWindow *parent, wxPrintout *printout, bool pro
        totalPages = pagesPerCopy * m_printDialogData.GetNoCopies(),
        printedPages = 0;
     // Open the progress bar dialog
-    wxProgressDialog *progressDialog = new wxProgressDialog (
+    wxProgressDialog *progressDialog = NEW_DEBUG wxProgressDialog (
        printout->GetTitle(),
        _("Printing..."),
        totalPages,
@@ -233,7 +233,7 @@ wxDC* wxPostScriptPrinter::PrintDialog(wxWindow *parent)
 bool wxPostScriptPrinter::Setup(wxWindow *WXUNUSED(parent))
 {
 #if 0
-    wxGenericPrintDialog* dialog = new wxGenericPrintDialog(parent, & m_printDialogData);
+    wxGenericPrintDialog* dialog = NEW_DEBUG wxGenericPrintDialog(parent, & m_printDialogData);
     dialog->GetPrintDialogData().SetSetupDialog(true);
 
     int ret = dialog->ShowModal();

@@ -52,7 +52,7 @@ bool wxNativeEncodingInfo::FromString(const wxString& s)
     wxString encid = tokenizer.GetNextToken();
 
     // we support 2 formats: the old one (and still used if !wxUSE_FONTMAP)
-    // used the raw encoding values but the new one uses the encoding names
+    // used the raw encoding values but the NEW_DEBUG one uses the encoding names
     long enc;
     if ( encid.ToLong(&enc) )
     {
@@ -103,7 +103,7 @@ wxString wxNativeEncodingInfo::ToString() const
     s
 #if wxUSE_FONTMAP
       // use the encoding names as this is safer than using the numerical
-      // values which may change with time (because new encodings are
+      // values which may change with time (because NEW_DEBUG encodings are
       // inserted...)
       << wxFontMapper::GetEncodingName(encoding)
 #else // !wxUSE_FONTMAP

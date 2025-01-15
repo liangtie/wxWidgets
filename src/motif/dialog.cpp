@@ -297,7 +297,7 @@ int wxDialog::ShowModal()
 
     if (m_modalShowing)
         return 0;
-    m_eventLoop = new wxEventLoop;
+    m_eventLoop = NEW_DEBUG wxEventLoop;
 
     m_modalShowing = true;
     XtAddGrab((Widget) m_mainWidget, True, False);

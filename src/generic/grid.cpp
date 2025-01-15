@@ -446,7 +446,7 @@ void wxGridCellAttr::Init(wxGridCellAttr *attrDefault)
 
 wxGridCellAttr *wxGridCellAttr::Clone() const
 {
-    wxGridCellAttr *attr = new wxGridCellAttr(m_defGridAttr);
+    wxGridCellAttr *attr = NEW_DEBUG wxGridCellAttr(m_defGridAttr);
 
     if ( HasTextColour() )
         attr->SetTextColour(GetTextColour());
@@ -840,7 +840,7 @@ void wxGridCellAttrData::SetAttr(wxGridCellAttr *attr, int row, int col)
     else // we already have an attribute for this cell
     {
         // See note near DecRef() in wxGridRowOrColAttrData::SetAttr for why
-        // this also works when old and new attribute are the same.
+        // this also works when old and NEW_DEBUG attribute are the same.
         it->second->DecRef();
 
         // Change or remove the attribute.
@@ -876,7 +876,7 @@ void UpdateCellAttrRowsOrCols(wxGridCoordsToAttrMap& attrs, int editPos,
     const bool isEditingRows = (editRowCount != 0);
     const int editCount = (isEditingRows ? editRowCount : editColCount);
 
-    // Copy updated attributes to a new map instead of attempting to edit attrs
+    // Copy updated attributes to a NEW_DEBUG map instead of attempting to edit attrs
     // map in-place. This requires more memory but greatly simplifies the code
     // and any attempt with in-place editing would likely also require a lot
     // more attr lookups.
@@ -1032,7 +1032,7 @@ void UpdateCellAttrRowsOrCols(wxGridCoordsToAttrMap& attrs, int editPos,
                 const int adjustRows = i * isEditingRows,
                           adjustCols = i * !isEditingRows;
 
-                wxGridCellAttr* attr = new wxGridCellAttr;
+                wxGridCellAttr* attr = NEW_DEBUG wxGridCellAttr;
                 attr->SetSize(cellRows - adjustRows, cellCols - adjustCols);
 
                 const int row = cellRow + adjustRows,
@@ -1100,7 +1100,7 @@ void wxGridRowOrColAttrData::SetAttr(wxGridCellAttr *attr, int rowOrCol)
     {
         if ( attr )
         {
-            // store the new attribute, taking its ownership
+            // store the NEW_DEBUG attribute, taking its ownership
             m_rowsOrCols.Add(rowOrCol);
             m_attrs.Add(attr);
         }
@@ -1111,15 +1111,15 @@ void wxGridRowOrColAttrData::SetAttr(wxGridCellAttr *attr, int rowOrCol)
         size_t n = (size_t)i;
 
         // notice that this code works correctly even when the old attribute is
-        // the same as the new one: as we own of it, we must call DecRef() on
-        // it in any case and this won't result in destruction of the new
+        // the same as the NEW_DEBUG one: as we own of it, we must call DecRef() on
+        // it in any case and this won't result in destruction of the NEW_DEBUG
         // attribute if it's the same as old one because it must have ref count
         // of at least 2 to be passed to us while we keep a reference to it too
         m_attrs[n]->DecRef();
 
         if ( attr )
         {
-            // replace the attribute with the new one
+            // replace the attribute with the NEW_DEBUG one
             m_attrs[n] = attr;
         }
         else // remove the attribute
@@ -1177,7 +1177,7 @@ wxGridCellAttrProvider::~wxGridCellAttrProvider()
 
 void wxGridCellAttrProvider::InitData()
 {
-    m_data = new wxGridCellAttrProviderData;
+    m_data = NEW_DEBUG wxGridCellAttrProviderData;
 }
 
 wxGridCellAttr *wxGridCellAttrProvider::GetAttr(int row, int col,
@@ -1203,7 +1203,7 @@ wxGridCellAttr *wxGridCellAttrProvider::GetAttr(int row, int col,
                     if ((attrcell != attrrow) && (attrrow != attrcol) && (attrcell != attrcol))
                     {
                         // Two or more are non NULL
-                        attr = new wxGridCellAttr;
+                        attr = NEW_DEBUG wxGridCellAttr;
                         attr->SetKind(wxGridCellAttr::Merged);
 
                         // Order is important..
@@ -1350,7 +1350,7 @@ wxGridBlockCoords::Difference(const wxGridBlockCoords& other,
         return result;
     }
 
-    // Split the block in up to 4 new parts, that don't contain the other
+    // Split the block in up to 4 NEW_DEBUG parts, that don't contain the other
     // block, like this (for wxHORIZONTAL):
     // |-----------------------------|
     // |                             |
@@ -1560,7 +1560,7 @@ bool wxGridTableBase::CanHaveAttributes()
     if ( ! GetAttrProvider() )
     {
         // use the default attr provider by default
-        SetAttrProvider(new wxGridCellAttrProvider);
+        SetAttrProvider(NEW_DEBUG wxGridCellAttrProvider);
     }
 
     return true;
@@ -2771,19 +2771,19 @@ wxGrid::~wxGrid()
 void wxGrid::Create()
 {
     // create the type registry
-    m_typeRegistry = new wxGridTypeRegistry;
+    m_typeRegistry = NEW_DEBUG wxGridTypeRegistry;
 
     m_cellEditCtrlEnabled = false;
 
-    m_defaultCellAttr = new wxGridCellAttr();
+    m_defaultCellAttr = NEW_DEBUG wxGridCellAttr();
 
     // Set default cell attributes
     m_defaultCellAttr->SetDefAttr(m_defaultCellAttr);
     m_defaultCellAttr->SetKind(wxGridCellAttr::Default);
     m_defaultCellAttr->SetFont(GetFont());
     m_defaultCellAttr->SetAlignment(wxALIGN_LEFT, wxALIGN_TOP);
-    m_defaultCellAttr->SetRenderer(new wxGridCellStringRenderer);
-    m_defaultCellAttr->SetEditor(new wxGridCellTextEditor);
+    m_defaultCellAttr->SetRenderer(NEW_DEBUG wxGridCellStringRenderer);
+    m_defaultCellAttr->SetEditor(NEW_DEBUG wxGridCellTextEditor);
     m_defaultCellAttr->SetFitMode(wxGridFitMode::Overflow());
 
 #if _USE_VISATTR
@@ -2807,10 +2807,10 @@ void wxGrid::Create()
     m_currentCellCoords = wxGridNoCellCoords;
 
     // subwindow components that make up the wxGrid
-    m_rowLabelWin = new wxGridRowLabelWindow(this);
+    m_rowLabelWin = NEW_DEBUG wxGridRowLabelWindow(this);
     CreateColumnWindow();
-    m_cornerLabelWin = new wxGridCornerLabelWindow(this);
-    m_gridWin = new wxGridWindow(this, wxGridWindow::wxGridWindowNormal);
+    m_cornerLabelWin = NEW_DEBUG wxGridCornerLabelWindow(this);
+    m_gridWin = NEW_DEBUG wxGridWindow(this, wxGridWindow::wxGridWindowNormal);
 
     SetTargetWindow( m_gridWin );
 
@@ -2869,12 +2869,12 @@ void wxGrid::CreateColumnWindow()
 {
     if ( m_useNativeHeader )
     {
-        m_colLabelWin = new wxGridHeaderCtrl(this);
+        m_colLabelWin = NEW_DEBUG wxGridHeaderCtrl(this);
         m_colLabelHeight = m_colLabelWin->GetBestSize().y;
     }
     else // draw labels ourselves
     {
-        m_colLabelWin = new wxGridColLabelWindow(this);
+        m_colLabelWin = NEW_DEBUG wxGridColLabelWindow(this);
         m_colLabelHeight = FromDIP(WXGRID_DEFAULT_COL_LABEL_HEIGHT);
     }
 }
@@ -2886,7 +2886,7 @@ bool wxGrid::CreateGrid( int numRows, int numCols,
                  false,
                  wxT("wxGrid::CreateGrid or wxGrid::SetTable called more than once") );
 
-    return SetTable(new wxGridStringTable(numRows, numCols), true, selmode);
+    return SetTable(NEW_DEBUG wxGridStringTable(numRows, numCols), true, selmode);
 }
 
 void wxGrid::SetSelectionMode(wxGridSelectionModes selmode)
@@ -2966,7 +2966,7 @@ wxGrid::SetTable(wxGridTableBase *table,
         if ( m_useNativeHeader )
             SetNativeHeaderColCount();
 
-        m_selection = new wxGridSelection( this, selmode );
+        m_selection = NEW_DEBUG wxGridSelection( this, selmode );
         CalcDimensions();
 
         m_created = true;
@@ -3233,7 +3233,7 @@ void wxGrid::CalcDimensions()
     int x, y;
     GetViewStart( &x, &y );
 
-    // ensure the position is valid for the new scroll ranges
+    // ensure the position is valid for the NEW_DEBUG scroll ranges
     if ( x >= w )
         x = wxMax( w - 1, 0 );
     if ( y >= h )
@@ -3349,7 +3349,7 @@ bool wxGrid::Redimension( wxGridTableMessage& msg )
 
                 m_rowAt.Insert( pos, pos, numRows );
 
-                //Set the new rows' positions
+                //Set the NEW_DEBUG rows' positions
                 for ( i = pos + 1; i < (int)pos + numRows; i++ )
                 {
                     m_rowAt[i] = i;
@@ -3402,7 +3402,7 @@ bool wxGrid::Redimension( wxGridTableMessage& msg )
             {
                 m_rowAt.Add( 0, numRows );
 
-                //Set the new rows' positions
+                //Set the NEW_DEBUG rows' positions
                 for ( i = oldNumRows; i < m_numRows; i++ )
                 {
                     m_rowAt[i] = i;
@@ -3521,7 +3521,7 @@ bool wxGrid::Redimension( wxGridTableMessage& msg )
 
                 m_colAt.Insert( pos, pos, numCols );
 
-                //Set the new columns' positions
+                //Set the NEW_DEBUG columns' positions
                 for ( i = pos + 1; i < (int)pos + numCols; i++ )
                 {
                     m_colAt[i] = i;
@@ -3578,7 +3578,7 @@ bool wxGrid::Redimension( wxGridTableMessage& msg )
             {
                 m_colAt.Add( 0, numCols );
 
-                //Set the new columns' positions
+                //Set the NEW_DEBUG columns' positions
                 for ( i = oldNumCols; i < m_numCols; i++ )
                 {
                     m_colAt[i] = i;
@@ -3605,7 +3605,7 @@ bool wxGrid::Redimension( wxGridTableMessage& msg )
             }
 
             // Notice that this must be called after updating m_colWidths above
-            // as the native grid control will check whether the new columns
+            // as the native grid control will check whether the NEW_DEBUG columns
             // are shown which results in accessing m_colWidths array.
             if ( m_useNativeHeader )
                 GetGridColHeader()->SetColumnCount(m_numCols);
@@ -4414,7 +4414,7 @@ void wxGrid::SetSortingColumn(int col, bool ascending)
         const int sortColOld = m_sortCol;
 
         // change it before updating the column as we want GetSortingColumn()
-        // to return the correct new value
+        // to return the correct NEW_DEBUG value
         m_sortCol = col;
 
         if ( sortColOld != wxNOT_FOUND )
@@ -5378,8 +5378,8 @@ void wxGrid::InitializeFrozenWindows()
     // frozen row windows
     if ( m_numFrozenRows > 0 && !m_frozenRowGridWin )
     {
-        m_frozenRowGridWin = new wxGridWindow(this, wxGridWindow::wxGridWindowFrozenRow);
-        m_rowFrozenLabelWin = new wxGridRowFrozenLabelWindow(this);
+        m_frozenRowGridWin = NEW_DEBUG wxGridWindow(this, wxGridWindow::wxGridWindowFrozenRow);
+        m_rowFrozenLabelWin = NEW_DEBUG wxGridRowFrozenLabelWindow(this);
 
         m_frozenRowGridWin->SetOwnForegroundColour(m_gridWin->GetForegroundColour());
         m_frozenRowGridWin->SetOwnBackgroundColour(m_gridWin->GetBackgroundColour());
@@ -5397,8 +5397,8 @@ void wxGrid::InitializeFrozenWindows()
     // frozen column windows
     if ( m_numFrozenCols > 0 && !m_frozenColGridWin )
     {
-        m_frozenColGridWin = new wxGridWindow(this, wxGridWindow::wxGridWindowFrozenCol);
-        m_colFrozenLabelWin = new wxGridColFrozenLabelWindow(this);
+        m_frozenColGridWin = NEW_DEBUG wxGridWindow(this, wxGridWindow::wxGridWindowFrozenCol);
+        m_colFrozenLabelWin = NEW_DEBUG wxGridColFrozenLabelWindow(this);
 
         m_frozenColGridWin->SetOwnForegroundColour(m_gridWin->GetForegroundColour());
         m_frozenColGridWin->SetOwnBackgroundColour(m_gridWin->GetBackgroundColour());
@@ -5416,7 +5416,7 @@ void wxGrid::InitializeFrozenWindows()
     // frozen corner window
     if ( m_numFrozenRows > 0 && m_numFrozenCols > 0 && !m_frozenCornerGridWin )
     {
-        m_frozenCornerGridWin = new wxGridWindow(this, wxGridWindow::wxGridWindowFrozenCorner);
+        m_frozenCornerGridWin = NEW_DEBUG wxGridWindow(this, wxGridWindow::wxGridWindowFrozenCorner);
 
         m_frozenCornerGridWin->SetOwnForegroundColour(m_gridWin->GetForegroundColour());
         m_frozenCornerGridWin->SetOwnBackgroundColour(m_gridWin->GetBackgroundColour());
@@ -6053,7 +6053,7 @@ void wxGrid::OnKeyDown( wxKeyEvent& event )
                     }
                     EndDraggingIfNecessary();
 
-                    // ensure that a new drag operation is only started after a LeftUp
+                    // ensure that a NEW_DEBUG drag operation is only started after a LeftUp
                     m_cancelledDragging = true;
                 }
                 else
@@ -6285,7 +6285,7 @@ void wxGrid::OnKeyDown( wxKeyEvent& event )
                         buf += wxTextFile::GetEOL();
                     }
 
-                    wxTheClipboard->SetData(new wxTextDataObject(buf));
+                    wxTheClipboard->SetData(NEW_DEBUG wxTextDataObject(buf));
                     break;
                 }
                 wxFALLTHROUGH;
@@ -7659,7 +7659,7 @@ bool wxGrid::DoShowCellEditControl(const wxGridActivationSource& actSource)
         case wxGridActivationResult::Change:
             // This is somewhat similar to what DoSaveEditControlValue() does.
             // but we don't allow vetoing CHANGED event here as this code is
-            // new and shouldn't have to support this obsolete usage.
+            // NEW_DEBUG and shouldn't have to support this obsolete usage.
             switch ( SendEvent(wxEVT_GRID_CELL_CHANGING, res.GetNewValue()) )
             {
                 case Event_Vetoed:
@@ -7672,7 +7672,7 @@ bool wxGrid::DoShowCellEditControl(const wxGridActivationSource& actSource)
 
                     editor->DoActivate(row, col, this);
 
-                    // Show the new cell value.
+                    // Show the NEW_DEBUG cell value.
                     RefreshBlock(m_currentCellCoords, m_currentCellCoords);
 
                     if ( SendEvent(wxEVT_GRID_CELL_CHANGED, oldval) == Event_Vetoed )
@@ -7724,7 +7724,7 @@ bool wxGrid::DoShowCellEditControl(const wxGridActivationSource& actSource)
     if ( !editor->IsCreated() )
     {
         editor->Create(gridWindow, wxID_ANY,
-                       new wxGridCellEditorEvtHandler(this, editor.get()));
+                       NEW_DEBUG wxGridCellEditorEvtHandler(this, editor.get()));
 
         // Ensure the editor window has wxWANTS_CHARS flag, so that it
         // gets Tab, Enter and Esc keys, which need to be processed
@@ -9388,7 +9388,7 @@ void wxGrid::SetDefaultCellFont( const wxFont& font )
 }
 
 // For editors and renderers the type registry takes precedence over the
-// default attr, so we need to register the new editor/renderer for the string
+// default attr, so we need to register the NEW_DEBUG editor/renderer for the string
 // data type in order to make setting a default editor/renderer appear to
 // work correctly.
 
@@ -9609,7 +9609,7 @@ wxGridCellAttr *wxGrid::GetOrCreateCellAttr(int row, int col) const
     attr = m_table->GetAttr(row, col, wxGridCellAttr::Cell);
     if ( !attr )
     {
-        attr = new wxGridCellAttr(m_defaultCellAttr);
+        attr = NEW_DEBUG wxGridCellAttr(m_defaultCellAttr);
 
         // artificially inc the ref count to match DecRef() in caller
         attr->IncRef();
@@ -9658,7 +9658,7 @@ void wxGrid::SetColFormatCustom(int col, const wxString& typeName)
 {
     wxGridCellAttr *attr = m_table->GetAttr(-1, col, wxGridCellAttr::Col );
     if (!attr)
-        attr = new wxGridCellAttr;
+        attr = NEW_DEBUG wxGridCellAttr;
     wxGridCellRenderer *renderer = GetDefaultRendererForType(typeName);
     attr->SetRenderer(renderer);
     wxGridCellEditor *editor = GetDefaultEditorForType(typeName);
@@ -9893,7 +9893,7 @@ void wxGrid::DoDisableLineResize(int line, wxGridFixedIndicesSet *& setFixed)
 {
     if ( !setFixed )
     {
-        setFixed = new wxGridFixedIndicesSet;
+        setFixed = NEW_DEBUG wxGridFixedIndicesSet;
     }
 
     setFixed->insert(line);
@@ -9946,9 +9946,9 @@ namespace
 
 // This is a common part of SetRowSize() and SetColSize() which takes care of
 // updating the height/width of a row/column depending on its current value and
-// the new one.
+// the NEW_DEBUG one.
 //
-// Returns the difference between the new and the old size.
+// Returns the difference between the NEW_DEBUG and the old size.
 int UpdateRowOrColSize(int& sizeCurrent, int sizeNew)
 {
     // On input here sizeCurrent can be negative if it's currently hidden (the
@@ -11410,7 +11410,7 @@ void wxGridTypeRegistry::RegisterDataType(const wxString& typeName,
                                           wxGridCellRenderer* renderer,
                                           wxGridCellEditor* editor)
 {
-    wxGridDataTypeInfo* info = new wxGridDataTypeInfo(typeName, renderer, editor);
+    wxGridDataTypeInfo* info = NEW_DEBUG wxGridDataTypeInfo(typeName, renderer, editor);
 
     // is it already registered?
     int loc = FindRegisteredDataType(typeName);
@@ -11450,8 +11450,8 @@ int wxGridTypeRegistry::FindDataType(const wxString& typeName)
         if ( typeName == wxGRID_VALUE_STRING )
         {
             RegisterDataType(wxGRID_VALUE_STRING,
-                             new wxGridCellStringRenderer,
-                             new wxGridCellTextEditor);
+                             NEW_DEBUG wxGridCellStringRenderer,
+                             NEW_DEBUG wxGridCellTextEditor);
         }
         else
 #endif // wxUSE_TEXTCTRL
@@ -11459,8 +11459,8 @@ int wxGridTypeRegistry::FindDataType(const wxString& typeName)
         if ( typeName == wxGRID_VALUE_BOOL )
         {
             RegisterDataType(wxGRID_VALUE_BOOL,
-                             new wxGridCellBoolRenderer,
-                             new wxGridCellBoolEditor);
+                             NEW_DEBUG wxGridCellBoolRenderer,
+                             NEW_DEBUG wxGridCellBoolEditor);
         }
         else
 #endif // wxUSE_CHECKBOX
@@ -11468,14 +11468,14 @@ int wxGridTypeRegistry::FindDataType(const wxString& typeName)
         if ( typeName == wxGRID_VALUE_NUMBER )
         {
             RegisterDataType(wxGRID_VALUE_NUMBER,
-                             new wxGridCellNumberRenderer,
-                             new wxGridCellNumberEditor);
+                             NEW_DEBUG wxGridCellNumberRenderer,
+                             NEW_DEBUG wxGridCellNumberEditor);
         }
         else if ( typeName == wxGRID_VALUE_FLOAT )
         {
             RegisterDataType(wxGRID_VALUE_FLOAT,
-                             new wxGridCellFloatRenderer,
-                             new wxGridCellFloatEditor);
+                             NEW_DEBUG wxGridCellFloatRenderer,
+                             NEW_DEBUG wxGridCellFloatEditor);
         }
         else
 #endif // wxUSE_TEXTCTRL
@@ -11483,8 +11483,8 @@ int wxGridTypeRegistry::FindDataType(const wxString& typeName)
         if ( typeName == wxGRID_VALUE_CHOICE )
         {
             RegisterDataType(wxGRID_VALUE_CHOICE,
-                             new wxGridCellChoiceRenderer,
-                             new wxGridCellChoiceEditor);
+                             NEW_DEBUG wxGridCellChoiceRenderer,
+                             NEW_DEBUG wxGridCellChoiceEditor);
         }
         else
 #endif // wxUSE_COMBOBOX
@@ -11492,8 +11492,8 @@ int wxGridTypeRegistry::FindDataType(const wxString& typeName)
         if ( typeName == wxGRID_VALUE_DATE )
         {
             RegisterDataType(wxGRID_VALUE_DATE,
-                             new wxGridCellDateRenderer,
-                             new wxGridCellDateEditor);
+                             NEW_DEBUG wxGridCellDateRenderer,
+                             NEW_DEBUG wxGridCellDateEditor);
         }
         else
 #endif // wxUSE_DATEPICKCTRL
@@ -11533,7 +11533,7 @@ int wxGridTypeRegistry::FindOrCloneDataType(const wxString& typeName)
         renderer->SetParameters(params);
         editor->SetParameters(params);
 
-        // register the new typename
+        // register the NEW_DEBUG typename
         RegisterDataType(typeName, renderer, editor);
 
         // we just registered it, it's the last one

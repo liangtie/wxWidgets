@@ -42,7 +42,7 @@
   (LIBCURL_VERSION_NUM >= CURL_VERSION_BITS(x, y, z))
 #endif
 
-// The new name was introduced in curl 7.21.6.
+// The NEW_DEBUG name was introduced in curl 7.21.6.
 #ifndef CURLOPT_ACCEPT_ENCODING
     #define CURLOPT_ACCEPT_ENCODING CURLOPT_ENCODING
 #endif
@@ -286,7 +286,7 @@ wxWebRequestCURL::~wxWebRequestCURL()
 
 void wxWebRequestCURL::Start()
 {
-    m_response.reset(new wxWebResponseCURL(*this));
+    m_response.reset(NEW_DEBUG wxWebResponseCURL(*this));
 
     if ( m_dataSize )
     {
@@ -364,7 +364,7 @@ void wxWebRequestCURL::HandleCompletion()
     }
     else if ( status == 401 || status == 407 )
     {
-        m_authChallenge.reset(new wxWebAuthChallengeCURL(
+        m_authChallenge.reset(NEW_DEBUG wxWebAuthChallengeCURL(
             (status == 407) ? wxWebAuthChallenge::Source_Proxy : wxWebAuthChallenge::Source_Server, *this));
         SetState(wxWebRequest::State_Unauthorized, m_response->GetStatusText());
     }
@@ -672,7 +672,7 @@ LRESULT CALLBACK WinSock1SocketPoller::MsgProc(WXHWND hwnd, WXUINT uMsg,
             curl_socket_t sock = wParam;
 
             wxThreadEvent* event =
-                new wxThreadEvent(wxEVT_SOCKET_POLLER_RESULT);
+                NEW_DEBUG wxThreadEvent(wxEVT_SOCKET_POLLER_RESULT);
             event->SetPayload<curl_socket_t>(sock);
             event->SetInt(pollResult);
 
@@ -697,7 +697,7 @@ LRESULT CALLBACK WinSock1SocketPoller::MsgProc(WXHWND hwnd, WXUINT uMsg,
 
 SocketPollerImpl* SocketPollerImpl::Create(wxEvtHandler* hndlr)
 {
-    return new WinSock1SocketPoller(hndlr);
+    return NEW_DEBUG WinSock1SocketPoller(hndlr);
 }
 
 #else
@@ -822,12 +822,12 @@ bool SourceSocketPoller::StartPolling(curl_socket_t sock, int pollAction)
     }
     else
     {
-        // Otherwise create a new source handler.
+        // Otherwise create a NEW_DEBUG source handler.
         srcHandler =
-            new SocketPollerSourceHandler(sock, m_handler);
+            NEW_DEBUG SocketPollerSourceHandler(sock, m_handler);
     }
 
-    // Get a new source object for these polling checks.
+    // Get a NEW_DEBUG source object for these polling checks.
     bool socketIsPolled = true;
     int eventSourceFlag = SocketPoller2EventSource(pollAction);
     wxEventLoopSource* newSrc =
@@ -880,7 +880,7 @@ void SourceSocketPoller::CleanUpSocketSource(wxEventLoopSource* source)
 
 SocketPollerImpl* SocketPollerImpl::Create(wxEvtHandler* hndlr)
 {
-    return new SourceSocketPoller(hndlr);
+    return NEW_DEBUG SourceSocketPoller(hndlr);
 }
 
 #endif
@@ -911,7 +911,7 @@ wxWebSessionCURL::wxWebSessionCURL() :
 
     ms_activeSessions++;
 
-    m_socketPoller = new SocketPoller(this);
+    m_socketPoller = NEW_DEBUG SocketPoller(this);
     m_timeoutTimer.SetOwner(this);
     Bind(wxEVT_TIMER, &wxWebSessionCURL::TimeoutNotification, this);
     Bind(wxEVT_SOCKET_POLLER_RESULT,
@@ -955,7 +955,7 @@ wxWebSessionCURL::CreateRequest(wxWebSession& session,
         }
     }
 
-    return wxWebRequestImplPtr(new wxWebRequestCURL(session, *this, handler, url, id));
+    return wxWebRequestImplPtr(NEW_DEBUG wxWebRequestCURL(session, *this, handler, url, id));
 }
 
 bool wxWebSessionCURL::StartRequest(wxWebRequestCURL & request)

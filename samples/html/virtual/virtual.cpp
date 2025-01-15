@@ -24,7 +24,7 @@
     #include "../../sample.xpm"
 #endif
 
-// new handler class:
+// NEW_DEBUG handler class:
 
 #include "wx/wfstream.h"
 #include "wx/mstream.h"
@@ -64,13 +64,13 @@ wxFSFile* MyVFS::OpenFile(wxFileSystem& WXUNUSED(fs), const wxString& location)
                 (const char*)loc, (const char*)loc, (const char*)loc,
                 (const char*)loc);
 
-    // NB: There's a terrible hack involved: we fill 'buf' with new data every
-    //     time this method is called and return new wxMemoryInputStream pointing to it.
+    // NB: There's a terrible hack involved: we fill 'buf' with NEW_DEBUG data every
+    //     time this method is called and return NEW_DEBUG wxMemoryInputStream pointing to it.
     //     This won't work as soon as there are 2+ myVFS files opened. Fortunately,
     //     this won't happen because wxHTML keeps only one "page" file opened at the
     //     time.
-    str = new wxMemoryInputStream(buf, strlen(buf));
-    f = new wxFSFile(str, location, "text/html", wxEmptyString, wxDateTime::Today());
+    str = NEW_DEBUG wxMemoryInputStream(buf, strlen(buf));
+    f = NEW_DEBUG wxFSFile(str, location, "text/html", wxEmptyString, wxDateTime::Today());
 
     return f;
 }
@@ -81,7 +81,7 @@ wxFSFile* MyVFS::OpenFile(wxFileSystem& WXUNUSED(fs), const wxString& location)
 // private classes
 // ----------------------------------------------------------------------------
 
-// Define a new application type, each program should derive a class from wxApp
+// Define a NEW_DEBUG application type, each program should derive a class from wxApp
 class MyApp : public wxApp
 {
 public:
@@ -94,7 +94,7 @@ public:
     virtual bool OnInit() wxOVERRIDE;
 };
 
-// Define a new frame type: this is going to be our main frame
+// Define a NEW_DEBUG frame type: this is going to be our main frame
 class MyFrame : public wxFrame
 {
 public:
@@ -140,7 +140,7 @@ wxBEGIN_EVENT_TABLE(MyFrame, wxFrame)
     EVT_MENU(Minimal_Forward, MyFrame::OnForward)
 wxEND_EVENT_TABLE()
 
-// Create a new application object: this macro will allow wxWidgets to create
+// Create a NEW_DEBUG application object: this macro will allow wxWidgets to create
 // the application object during program execution (it's better than using a
 // static object for many reasons) and also declares the accessor function
 // wxGetApp() which will return the reference of the right type (i.e. MyApp and
@@ -162,13 +162,13 @@ bool MyApp::OnInit()
         return false;
 
     // Create the main application window
-    MyFrame *frame = new MyFrame(_("wxHtmlWindow testing application"),
+    MyFrame *frame = NEW_DEBUG MyFrame(_("wxHtmlWindow testing application"),
         wxDefaultPosition, wxSize(640, 480));
 
     // Show it
     frame->Show(true);
 
-    wxFileSystem::AddHandler(new MyVFS);
+    wxFileSystem::AddHandler(NEW_DEBUG MyVFS);
 
     // success: wxApp::OnRun() will be called which will enter the main message
     // loop and the application will run. If we returned false here, the
@@ -189,15 +189,15 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
     SetIcon(wxICON(sample));
 
     // create a menu bar
-    wxMenu *menuFile = new wxMenu;
-    wxMenu *menuNav = new wxMenu;
+    wxMenu *menuFile = NEW_DEBUG wxMenu;
+    wxMenu *menuNav = NEW_DEBUG wxMenu;
 
     menuFile->Append(Minimal_Quit, _("E&xit"));
     menuNav->Append(Minimal_Back, _("Go &BACK"));
     menuNav->Append(Minimal_Forward, _("Go &FORWARD"));
 
     // now append the freshly created menu to the menu bar...
-    wxMenuBar *menuBar = new wxMenuBar;
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar;
     menuBar->Append(menuFile, _("&File"));
     menuBar->Append(menuNav, _("&Navigate"));
 
@@ -208,7 +208,7 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
     CreateStatusBar(2);
 #endif // wxUSE_STATUSBAR
 
-    html = new wxHtmlWindow(this);
+    html = NEW_DEBUG wxHtmlWindow(this);
     html -> SetRelatedFrame(this, _("VFS Demo: '%s'"));
 #if wxUSE_STATUSBAR
     html -> SetRelatedStatusBar(1);

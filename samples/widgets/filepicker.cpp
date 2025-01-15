@@ -159,15 +159,15 @@ FilePickerWidgetsPage::FilePickerWidgetsPage(WidgetsBookCtrl *book,
 void FilePickerWidgetsPage::CreateContent()
 {
     // left pane
-    wxSizer *boxleft = new wxBoxSizer(wxVERTICAL);
+    wxSizer *boxleft = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
     static const wxString mode[] = { "open", "save" };
-    m_radioFilePickerMode = new wxRadioBox(this, wxID_ANY, "wxFilePicker mode",
+    m_radioFilePickerMode = NEW_DEBUG wxRadioBox(this, wxID_ANY, "wxFilePicker mode",
                                            wxDefaultPosition, wxDefaultSize,
                                            WXSIZEOF(mode), mode);
     boxleft->Add(m_radioFilePickerMode, 0, wxALL|wxGROW, 5);
 
-    wxStaticBoxSizer *filebox = new wxStaticBoxSizer(wxVERTICAL, this, "&FilePicker style");
+    wxStaticBoxSizer *filebox = NEW_DEBUG wxStaticBoxSizer(wxVERTICAL, this, "&FilePicker style");
     m_chkFileTextCtrl = CreateCheckBoxAndAddToSizer(filebox, "With textctrl");
     m_chkFileOverwritePrompt = CreateCheckBoxAndAddToSizer(filebox, "Overwrite prompt");
     m_chkFileMustExist = CreateCheckBoxAndAddToSizer(filebox, "File must exist");
@@ -186,19 +186,19 @@ void FilePickerWidgetsPage::CreateContent()
 
     boxleft->AddSpacer(10);
 
-    boxleft->Add(new wxButton(this, PickerPage_Reset, "&Reset"),
+    boxleft->Add(NEW_DEBUG wxButton(this, PickerPage_Reset, "&Reset"),
                  0, wxALIGN_CENTRE_HORIZONTAL | wxALL, 15);
 
     Reset();    // set checkboxes state
 
     // create the picker and the static text displaying its current value
-    m_labelPath = new wxStaticText(this, PickerPage_CurrentPath, "");
+    m_labelPath = NEW_DEBUG wxStaticText(this, PickerPage_CurrentPath, "");
 
     m_filePicker = NULL;
     CreatePicker();
 
     // right pane
-    m_sizer = new wxBoxSizer(wxVERTICAL);
+    m_sizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     m_sizer->AddStretchSpacer();
     m_sizer->Add(m_filePicker, wxSizerFlags().Expand().Border());
     m_sizer->AddStretchSpacer();
@@ -206,7 +206,7 @@ void FilePickerWidgetsPage::CreateContent()
     m_sizer->AddStretchSpacer();
 
     // global pane
-    wxSizer *sz = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer *sz = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     sz->Add(boxleft, 0, wxGROW|wxALL, 5);
     sz->Add(m_sizer, 1, wxGROW|wxALL, 5);
 
@@ -240,7 +240,7 @@ void FilePickerWidgetsPage::CreatePicker()
         style |= wxFLP_SAVE;
 
     // pass an empty string as initial file
-    m_filePicker = new wxFilePickerCtrl(this, PickerPage_File,
+    m_filePicker = NEW_DEBUG wxFilePickerCtrl(this, PickerPage_File,
                                         wxEmptyString,
                                         "Hello!", "*",
                                         wxDefaultPosition, wxDefaultSize,

@@ -552,7 +552,7 @@ public:
             return NULL;
         }
 
-        return new wxFileDialogButtonImplFDC(m_fdc, m_lastId);
+        return NEW_DEBUG wxFileDialogButtonImplFDC(m_fdc, m_lastId);
     }
 
     wxFileDialogCheckBoxImpl* AddCheckBox(const wxString& label) wxOVERRIDE
@@ -566,7 +566,7 @@ public:
             return NULL;
         }
 
-        return new wxFileDialogCheckBoxImplFDC(m_fdc, m_lastId);
+        return NEW_DEBUG wxFileDialogCheckBoxImplFDC(m_fdc, m_lastId);
     }
 
     wxFileDialogRadioButtonImpl* AddRadioButton(const wxString& label) wxOVERRIDE
@@ -595,9 +595,9 @@ public:
         }
 
         wxFileDialogRadioButtonImplFDC* const
-            impl = new wxFileDialogRadioButtonImplFDC(m_fdc, m_radioListId, m_lastId);
+            impl = NEW_DEBUG wxFileDialogRadioButtonImplFDC(m_fdc, m_radioListId, m_lastId);
 
-        // Select the first button of a new radio group.
+        // Select the first button of a NEW_DEBUG radio group.
         if ( firstButton )
             impl->SetValue(true);
 
@@ -616,7 +616,7 @@ public:
         // We pass the ID of the first control that will be added to the
         // combobox as the ctor argument.
         wxScopedPtr<wxFileDialogChoiceImplFDC>
-            impl(new wxFileDialogChoiceImplFDC(m_fdc, m_lastId, m_lastAuxId - 1));
+            impl(NEW_DEBUG wxFileDialogChoiceImplFDC(m_fdc, m_lastId, m_lastAuxId - 1));
 
         for ( size_t i = 0; i < n; ++i )
         {
@@ -658,7 +658,7 @@ public:
                 wxLogApiError(wxS("IFileDialogCustomize::EndVisualGroup"), hr);
         }
 
-        return new wxFileDialogTextCtrlImplFDC(m_fdc, m_lastId);
+        return NEW_DEBUG wxFileDialogTextCtrlImplFDC(m_fdc, m_lastId);
     }
 
     wxFileDialogStaticTextImpl* AddStaticText(const wxString& label) wxOVERRIDE
@@ -672,7 +672,7 @@ public:
             return NULL;
         }
 
-        return new wxFileDialogStaticTextImplFDC(m_fdc, m_lastId);
+        return NEW_DEBUG wxFileDialogStaticTextImplFDC(m_fdc, m_lastId);
     }
 
 private:
@@ -1046,7 +1046,7 @@ wxFileDialog::~wxFileDialog()
 wxFileDialogMSWData& wxFileDialog::MSWData()
 {
     if ( !m_data )
-        m_data = new wxFileDialogMSWData(this);
+        m_data = NEW_DEBUG wxFileDialogMSWData(this);
 
     return *m_data;
 }
@@ -1200,7 +1200,7 @@ static bool DoShowCommFileDialog(OPENFILENAME *of, long style, DWORD *err)
     // so entire file-dialog is resized.
     wxScopedPtr<wxMSWImpl::AutoSystemDpiAware> dpiAwareness;
     if ( of->Flags & OFN_ENABLEHOOK )
-        dpiAwareness.reset(new wxMSWImpl::AutoSystemDpiAware());
+        dpiAwareness.reset(NEW_DEBUG wxMSWImpl::AutoSystemDpiAware());
 
     if ( style & wxFD_SAVE ? GetSaveFileName(of) : GetOpenFileName(of) )
         return true;
@@ -1254,7 +1254,7 @@ int wxFileDialog::ShowModal()
     wxWindowDisabler disableOthers(this, parent);
 
     /*
-        We prefer to use the new style dialog if possible, but have to fall
+        We prefer to use the NEW_DEBUG style dialog if possible, but have to fall
         back on the old common dialog in a few cases.
     */
 #if wxUSE_IFILEOPENDIALOG

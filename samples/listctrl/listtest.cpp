@@ -94,7 +94,7 @@ bool MyApp::OnInit()
         return false;
 
     // Create the main frame window
-    MyFrame *frame = new MyFrame("wxListCtrl Test");
+    MyFrame *frame = NEW_DEBUG MyFrame("wxListCtrl Test");
 
     // Show the frame
     frame->Show(true);
@@ -208,12 +208,12 @@ MyFrame::MyFrame(const wxString& title)
 #endif
 
     // Make a menubar
-    wxMenu *menuFile = new wxMenu;
+    wxMenu *menuFile = NEW_DEBUG wxMenu;
     menuFile->Append(LIST_ABOUT, "&About");
     menuFile->AppendSeparator();
     menuFile->Append(LIST_QUIT, "E&xit\tAlt-X");
 
-    wxMenu *menuView = new wxMenu;
+    wxMenu *menuView = NEW_DEBUG wxMenu;
     menuView->Append(LIST_LIST_VIEW, "&List view\tF1");
     menuView->Append(LIST_REPORT_VIEW, "&Report view\tF2");
     menuView->Append(LIST_ICON_VIEW, "&Icon view\tF3");
@@ -225,7 +225,7 @@ MyFrame::MyFrame(const wxString& title)
     menuView->AppendSeparator();
     menuView->Append(LIST_SET_ITEMS_COUNT, "Set &number of items");
 
-    wxMenu *menuList = new wxMenu;
+    wxMenu *menuList = NEW_DEBUG wxMenu;
     menuList->Append(LIST_GOTO, "&Go to item #3\tCtrl-3");
     menuList->Append(LIST_FOCUS_LAST, "&Make last item current\tCtrl-L");
     menuList->Append(LIST_TOGGLE_FIRST, "To&ggle first item\tCtrl-G");
@@ -266,26 +266,26 @@ MyFrame::MyFrame(const wxString& title)
     menuList->Append(LIST_TOGGLE_CHECKBOX, "Toggle the item checkbox state");
     menuList->Append(LIST_GET_CHECKBOX, "Get the item checkbox state");
 
-    wxMenu *menuCol = new wxMenu;
+    wxMenu *menuCol = NEW_DEBUG wxMenu;
     menuCol->Append(LIST_SET_FG_COL, "&Foreground colour...");
     menuCol->Append(LIST_SET_BG_COL, "&Background colour...");
     menuCol->AppendCheckItem(LIST_ROW_LINES, "Alternating colours");
     menuCol->AppendCheckItem(LIST_ROW_LINES_ON_BLANK, "Extend to whole window");
     menuCol->AppendCheckItem(LIST_CUSTOM_HEADER_ATTR, "&Custom header attributes");
 
-    wxMenuBar *menubar = new wxMenuBar;
+    wxMenuBar *menubar = NEW_DEBUG wxMenuBar;
     menubar->Append(menuFile, "&File");
     menubar->Append(menuView, "&View");
     menubar->Append(menuList, "&List");
     menubar->Append(menuCol, "&Colour");
     SetMenuBar(menubar);
 
-    m_panel = new wxPanel(this, wxID_ANY);
-    m_logWindow = new wxTextCtrl(m_panel, wxID_ANY, wxEmptyString,
+    m_panel = NEW_DEBUG wxPanel(this, wxID_ANY);
+    m_logWindow = NEW_DEBUG wxTextCtrl(m_panel, wxID_ANY, wxEmptyString,
                                  wxDefaultPosition, wxDefaultSize,
                                  wxTE_READONLY | wxTE_MULTILINE | wxSUNKEN_BORDER);
 
-    m_logOld = wxLog::SetActiveTarget(new wxLogTextCtrl(m_logWindow));
+    m_logOld = wxLog::SetActiveTarget(NEW_DEBUG wxLogTextCtrl(m_logWindow));
 
     RecreateList(wxLC_REPORT | wxLC_SINGLE_SEL);
 
@@ -299,7 +299,7 @@ MyFrame::MyFrame(const wxString& title)
     CreateStatusBar();
 #endif // wxUSE_STATUSBAR
 
-    wxBoxSizer* const sizer = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer* const sizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     sizer->Add(m_listCtrl, wxSizerFlags(2).Expand().Border());
     sizer->Add(m_logWindow, wxSizerFlags(1).Expand().Border());
     m_panel->SetSizer(sizer);
@@ -456,7 +456,7 @@ void MyFrame::RecreateList(long flags, bool withText)
     {
         wxListCtrl* const old = m_listCtrl;
 
-        m_listCtrl = new MyListCtrl(m_panel, LIST_CTRL,
+        m_listCtrl = NEW_DEBUG MyListCtrl(m_panel, LIST_CTRL,
                                     wxDefaultPosition, wxDefaultSize,
                                     flags |
                                     wxBORDER_THEME | wxLC_EDIT_LABELS);

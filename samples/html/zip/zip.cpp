@@ -30,7 +30,7 @@
 // private classes
 // ----------------------------------------------------------------------------
 
-// Define a new application type, each program should derive a class from wxApp
+// Define a NEW_DEBUG application type, each program should derive a class from wxApp
 class MyApp : public wxApp
 {
 public:
@@ -43,7 +43,7 @@ public:
     virtual bool OnInit() wxOVERRIDE;
 };
 
-// Define a new frame type: this is going to be our main frame
+// Define a NEW_DEBUG frame type: this is going to be our main frame
 class MyFrame : public wxFrame
 {
 public:
@@ -86,7 +86,7 @@ wxBEGIN_EVENT_TABLE(MyFrame, wxFrame)
     EVT_MENU(Minimal_Forward, MyFrame::OnForward)
 wxEND_EVENT_TABLE()
 
-// Create a new application object: this macro will allow wxWidgets to create
+// Create a NEW_DEBUG application object: this macro will allow wxWidgets to create
 // the application object during program execution (it's better than using a
 // static object for many reasons) and also declares the accessor function
 // wxGetApp() which will return the reference of the right type (i.e. MyApp and
@@ -107,16 +107,16 @@ bool MyApp::OnInit()
         return false;
 
 #if wxUSE_LIBPNG
-    wxImage::AddHandler(new wxPNGHandler);
+    wxImage::AddHandler(NEW_DEBUG wxPNGHandler);
 #endif
 #if wxUSE_LIBJPEG
-    wxImage::AddHandler(new wxJPEGHandler);
+    wxImage::AddHandler(NEW_DEBUG wxJPEGHandler);
 #endif
 
-    wxFileSystem::AddHandler(new wxZipFSHandler);
+    wxFileSystem::AddHandler(NEW_DEBUG wxZipFSHandler);
 
     // Create the main application window
-    MyFrame *frame = new MyFrame(_("wxHtmlWindow testing application"),
+    MyFrame *frame = NEW_DEBUG MyFrame(_("wxHtmlWindow testing application"),
         wxDefaultPosition, wxSize(640, 480) );
 
     // Show it
@@ -142,15 +142,15 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
     SetIcon(wxICON(sample));
 
     // create a menu bar
-    wxMenu *menuFile = new wxMenu;
-    wxMenu *menuNav = new wxMenu;
+    wxMenu *menuFile = NEW_DEBUG wxMenu;
+    wxMenu *menuNav = NEW_DEBUG wxMenu;
 
     menuFile->Append(Minimal_Quit, _("E&xit"));
     menuNav->Append(Minimal_Back, _("Go &BACK"));
     menuNav->Append(Minimal_Forward, _("Go &FORWARD"));
 
     // now append the freshly created menu to the menu bar...
-    wxMenuBar *menuBar = new wxMenuBar;
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar;
     menuBar->Append(menuFile, _("&File"));
     menuBar->Append(menuNav, _("&Navigate"));
 
@@ -161,7 +161,7 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
     CreateStatusBar(1);
 #endif // wxUSE_STATUSBAR
 
-    html = new wxHtmlWindow(this);
+    html = NEW_DEBUG wxHtmlWindow(this);
     html -> SetRelatedFrame(this, _("HTML : %s"));
 #if wxUSE_STATUSBAR
     html -> SetRelatedStatusBar(0);

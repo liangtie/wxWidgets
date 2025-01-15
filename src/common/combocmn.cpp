@@ -36,7 +36,7 @@ extern WXDLLEXPORT_DATA(const char) wxComboBoxNameStr[] = "comboBox";
 
 wxDEFINE_FLAGS( wxComboBoxStyle )
 wxBEGIN_FLAGS( wxComboBoxStyle )
-// new style border flags, we put them first to
+// NEW_DEBUG style border flags, we put them first to
 // use them for streaming out
 wxFLAGS_MEMBER(wxBORDER_SIMPLE)
 wxFLAGS_MEMBER(wxBORDER_SUNKEN)
@@ -921,7 +921,7 @@ wxComboCtrlBase::CreateTextCtrl(int style)
         if ( HasFlag(wxTE_PROCESS_ENTER) )
             style |= wxTE_PROCESS_ENTER;
 
-        m_text = new wxComboCtrlTextCtrl();
+        m_text = NEW_DEBUG wxComboCtrlTextCtrl();
         m_mainWindow = m_text;
 
         m_text->Create(this, wxID_ANY, m_valueString,
@@ -1221,7 +1221,7 @@ wxSize wxComboCtrlBase::DoGetSizeFromTextSize(int xlen, int ylen) const
     }
     else
     {
-        wxComboBox* cb = new wxComboBox;
+        wxComboBox* cb = NEW_DEBUG wxComboBox;
 #ifndef __WXGTK3__
         // GTK3 returns zero for the preferred size of a hidden widget
         cb->Hide();
@@ -1651,7 +1651,7 @@ void wxComboCtrlBase::OnTextCtrlEvent(wxCommandEvent& event)
         }
     }
 
-    // For safety, completely re-create a new wxCommandEvent
+    // For safety, completely re-create a NEW_DEBUG wxCommandEvent
     wxCommandEvent evt2(event);
     evt2.SetId(GetId());
     evt2.SetEventObject(this);
@@ -1952,7 +1952,7 @@ void wxComboCtrlBase::CreatePopup()
 
     if ( !m_winPopup )
     {
-        m_winPopup = new wxComboPopupWindow( this, wxNO_BORDER );
+        m_winPopup = NEW_DEBUG wxComboPopupWindow( this, wxNO_BORDER );
 
         m_winPopup->Bind(wxEVT_KEY_DOWN, &wxComboCtrlBase::OnPopupKey, this);
         m_winPopup->Bind(wxEVT_CHAR, &wxComboCtrlBase::OnPopupKey, this);
@@ -2233,7 +2233,7 @@ void wxComboCtrlBase::ShowPopup()
 #if !wxUSE_POPUPWIN
     // Put top level window event handler into place
     if ( !m_toplevEvtHandler )
-        m_toplevEvtHandler = new wxComboFrameEventHandler(this);
+        m_toplevEvtHandler = NEW_DEBUG wxComboFrameEventHandler(this);
 
     wxWindow* toplev = ::wxGetTopLevelParent( this );
     wxASSERT( toplev );

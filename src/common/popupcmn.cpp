@@ -314,7 +314,7 @@ void wxPopupTransientWindow::Popup(wxWindow *winFocus)
     wxASSERT(!m_handlerPopup || !m_handlerPopup->GetNextHandler());
 
     if (!m_handlerPopup)
-        m_handlerPopup = new wxPopupWindowHandler(this);
+        m_handlerPopup = NEW_DEBUG wxPopupWindowHandler(this);
 
     m_child->PushEventHandler(m_handlerPopup);
 
@@ -330,7 +330,7 @@ void wxPopupTransientWindow::Popup(wxWindow *winFocus)
     if ( m_focus )
     {
         if (!m_handlerFocus)
-            m_handlerFocus = new wxPopupFocusHandler(this);
+            m_handlerFocus = NEW_DEBUG wxPopupFocusHandler(this);
 
         m_focus->PushEventHandler(m_handlerFocus);
     }
@@ -603,7 +603,7 @@ void wxPopupWindowHandler::OnLeftDown(wxMouseEvent& event)
 #endif // __WXUNIVERSAL__ && wxUSE_SCROLLBAR
 
         default:
-            // forgot to update the switch after adding a new hit test code?
+            // forgot to update the switch after adding a NEW_DEBUG hit test code?
             wxFAIL_MSG( wxT("unexpected HitTest() return value") );
             wxFALLTHROUGH;
 

@@ -76,7 +76,7 @@ bool MyApp::OnInit()
         return false;
 
     // Create the main frame window
-    m_frame = new MyFrame(NULL, "Client");
+    m_frame = NEW_DEBUG MyFrame(NULL, "Client");
     m_frame->Show(true);
 
     return true;
@@ -96,11 +96,11 @@ MyFrame::MyFrame(wxFrame *frame, const wxString& title)
     SetIcon(wxICON(sample));
 
     // Make a menubar
-    wxMenu *file_menu = new wxMenu;
+    wxMenu *file_menu = NEW_DEBUG wxMenu;
 
     file_menu->Append(wxID_EXIT, "&Quit\tCtrl-Q");
 
-    wxMenuBar *menu_bar = new wxMenuBar;
+    wxMenuBar *menu_bar = NEW_DEBUG wxMenuBar;
 
     menu_bar->Append(file_menu, "&File");
 
@@ -124,25 +124,25 @@ MyFrame::MyFrame(wxFrame *frame, const wxString& title)
         IPC_TOPIC, "..."
     };
 
-    wxBoxSizer *item0 = new wxBoxSizer( wxVERTICAL );
+    wxBoxSizer *item0 = NEW_DEBUG wxBoxSizer( wxVERTICAL );
 
-    wxBoxSizer *item1 = new wxBoxSizer( wxHORIZONTAL );
+    wxBoxSizer *item1 = NEW_DEBUG wxBoxSizer( wxHORIZONTAL );
 
-    wxGridSizer *item2 = new wxGridSizer( 4, 0, 0 );
+    wxGridSizer *item2 = NEW_DEBUG wxGridSizer( 4, 0, 0 );
 
-    wxButton *item3 = new wxButton( this, ID_START, "Connect to server", wxDefaultPosition, wxDefaultSize, 0 );
+    wxButton *item3 = NEW_DEBUG wxButton( this, ID_START, "Connect to server", wxDefaultPosition, wxDefaultSize, 0 );
     item2->Add( item3, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
-    wxChoice *item5 = new wxChoice( this, ID_HOSTNAME, wxDefaultPosition, wxSize(100,-1), 2, strs5, 0 );
+    wxChoice *item5 = NEW_DEBUG wxChoice( this, ID_HOSTNAME, wxDefaultPosition, wxSize(100,-1), 2, strs5, 0 );
     item2->Add( item5, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxChoice *item4 = new wxChoice( this, ID_SERVERNAME, wxDefaultPosition, wxSize(100,-1), 2, strs4, 0 );
+    wxChoice *item4 = NEW_DEBUG wxChoice( this, ID_SERVERNAME, wxDefaultPosition, wxSize(100,-1), 2, strs4, 0 );
     item2->Add( item4, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
-    wxChoice *item6 = new wxChoice( this, ID_TOPIC, wxDefaultPosition, wxSize(100,-1), 2, strs6, 0 );
+    wxChoice *item6 = NEW_DEBUG wxChoice( this, ID_TOPIC, wxDefaultPosition, wxSize(100,-1), 2, strs6, 0 );
     item2->Add( item6, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxButton *item7 = new wxButton( this, ID_DISCONNECT, "Disconnect ", wxDefaultPosition, wxDefaultSize, 0 );
+    wxButton *item7 = NEW_DEBUG wxButton( this, ID_DISCONNECT, "Disconnect ", wxDefaultPosition, wxDefaultSize, 0 );
     item2->Add( item7, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
     item2->Add( 20, 20, 0, wxALIGN_CENTER|wxALL, 5 );
@@ -151,17 +151,17 @@ MyFrame::MyFrame(wxFrame *frame, const wxString& title)
 
     item2->Add( 20, 20, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxButton *item8 = new wxButton( this, ID_STARTADVISE, "StartAdvise", wxDefaultPosition, wxDefaultSize, 0 );
+    wxButton *item8 = NEW_DEBUG wxButton( this, ID_STARTADVISE, "StartAdvise", wxDefaultPosition, wxDefaultSize, 0 );
     item2->Add( item8, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
-    wxButton *item9 = new wxButton( this, ID_STOPADVISE, "StopAdvise", wxDefaultPosition, wxDefaultSize, 0 );
+    wxButton *item9 = NEW_DEBUG wxButton( this, ID_STOPADVISE, "StopAdvise", wxDefaultPosition, wxDefaultSize, 0 );
     item2->Add( item9, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
     item2->Add( 20, 20, 0, wxALIGN_CENTER|wxALL, 5 );
 
     item2->Add( 20, 20, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxButton *item10 = new wxButton( this, ID_EXECUTE, "Execute", wxDefaultPosition, wxDefaultSize, 0 );
+    wxButton *item10 = NEW_DEBUG wxButton( this, ID_EXECUTE, "Execute", wxDefaultPosition, wxDefaultSize, 0 );
     item2->Add( item10, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
     item2->Add( 20, 20, 0, wxALIGN_CENTER|wxALL, 5 );
@@ -170,7 +170,7 @@ MyFrame::MyFrame(wxFrame *frame, const wxString& title)
 
     item2->Add( 20, 20, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxButton *item11 = new wxButton( this, ID_POKE, "Poke", wxDefaultPosition, wxDefaultSize, 0 );
+    wxButton *item11 = NEW_DEBUG wxButton( this, ID_POKE, "Poke", wxDefaultPosition, wxDefaultSize, 0 );
     item2->Add( item11, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
     item2->Add( 20, 20, 0, wxALIGN_CENTER|wxALL, 5 );
@@ -179,7 +179,7 @@ MyFrame::MyFrame(wxFrame *frame, const wxString& title)
 
     item2->Add( 20, 20, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxButton *item12 = new wxButton( this, ID_REQUEST, "Request", wxDefaultPosition, wxDefaultSize, 0 );
+    wxButton *item12 = NEW_DEBUG wxButton( this, ID_REQUEST, "Request", wxDefaultPosition, wxDefaultSize, 0 );
     item2->Add( item12, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
     item2->Add( 20, 20, 0, wxALIGN_CENTER|wxALL, 5 );
@@ -188,10 +188,10 @@ MyFrame::MyFrame(wxFrame *frame, const wxString& title)
 
     item0->Add( item1, wxSizerFlags().Expand().Border(wxALL, 5) );
 
-    wxStaticBox *item14 = new wxStaticBox( this, -1, "Client log" );
-    wxStaticBoxSizer *item13 = new wxStaticBoxSizer( item14, wxVERTICAL );
+    wxStaticBox *item14 = NEW_DEBUG wxStaticBox( this, -1, "Client log" );
+    wxStaticBoxSizer *item13 = NEW_DEBUG wxStaticBoxSizer( item14, wxVERTICAL );
 
-    wxTextCtrl *item15 = new wxTextCtrl( this, ID_LOG, wxEmptyString, wxDefaultPosition, wxSize(500,140), wxTE_MULTILINE );
+    wxTextCtrl *item15 = NEW_DEBUG wxTextCtrl( this, ID_LOG, wxEmptyString, wxDefaultPosition, wxSize(500,140), wxTE_MULTILINE );
     item13->Add( item15, wxSizerFlags(1).Expand().Border(wxALL, 5) );
 
     item0->Add( item13, wxSizerFlags(0).Expand().Border(wxALL, 5) );
@@ -204,7 +204,7 @@ MyFrame::MyFrame(wxFrame *frame, const wxString& title)
     GetServername()->SetSelection(0);
     GetHostname()->SetSelection(0);
     GetTopic()->SetSelection(0);
-    wxLogTextCtrl *logWindow = new wxLogTextCtrl(GetLog());
+    wxLogTextCtrl *logWindow = NEW_DEBUG wxLogTextCtrl(GetLog());
     delete wxLog::SetActiveTarget(logWindow);
     wxLogMessage("Click on Connect to connect to the server");
     EnableControls();
@@ -245,7 +245,7 @@ void MyFrame::OnStart(wxCommandEvent& WXUNUSED(event))
     wxString hostname = GetHostname()->GetStringSelection();
     wxString topic = GetTopic()->GetStringSelection();
 
-    m_client = new MyClient;
+    m_client = NEW_DEBUG MyClient;
     bool retval = m_client->Connect(hostname, servername, topic);
 
     wxLogMessage("Client host=\"%s\" port=\"%s\" topic=\"%s\" %s",
@@ -382,7 +382,7 @@ bool MyClient::Connect(const wxString& sHost, const wxString& sService, const wx
 
 wxConnectionBase *MyClient::OnMakeConnection()
 {
-    return new MyConnection;
+    return NEW_DEBUG MyConnection;
 }
 
 void MyClient::Disconnect()

@@ -286,7 +286,7 @@ void wxSelectionStore::SetItemCount(unsigned count)
         }
     }
 
-    // remember the new number of items
+    // remember the NEW_DEBUG number of items
     m_count = count;
 }
 

@@ -58,7 +58,7 @@ public:
 wxMutex::wxMutex()
 {
   m_locked = 0;
-  p_internal = new wxMutexInternal;
+  p_internal = NEW_DEBUG wxMutexInternal;
   init_lock(&(p_internal->p_mutex));
 }
 
@@ -226,7 +226,7 @@ bool wxThread::IsRunning() const
 
 wxThread::wxThread()
 {
-  p_internal = new wxThreadPrivate();
+  p_internal = NEW_DEBUG wxThreadPrivate();
 }
 
 wxThread::~wxThread()
@@ -258,7 +258,7 @@ wxIMPLEMENT_DYNAMIC_CLASS(wxThreadModule, wxModule);
 
 bool wxThreadModule::OnInit()
 {
-    wxMainMutex = new wxMutex();
+    wxMainMutex = NEW_DEBUG wxMutex();
     wxThreadGuiInit();
     p_mainid = (int)getpid();
     wxMainMutex->Lock();

@@ -29,7 +29,7 @@
 WX_DEFINE_LIST(wxTabLayerList)
 
 // not defined: use old, square tab implementation (fills in tabs)
-// defined: use new, rounded tab implementation (doesn't colour in tabs)
+// defined: use NEW_DEBUG, rounded tab implementation (doesn't colour in tabs)
 // #define wxUSE_NEW_METHOD
 
 wxIMPLEMENT_DYNAMIC_CLASS(wxTabControl, wxObject);
@@ -543,7 +543,7 @@ wxTabControl *wxTabView::AddTab(int id, const wxString& label, wxTabControl *exi
   wxTabLayerList::compatibility_iterator node = m_layers.GetLast();
   if (!node)
   {
-    wxTabLayer *newLayer = new wxTabLayer;
+    wxTabLayer *newLayer = NEW_DEBUG wxTabLayer;
     node = m_layers.Append(newLayer);
   }
   // Check if adding another tab control would go off the
@@ -562,7 +562,7 @@ wxTabControl *wxTabView::AddTab(int id, const wxString& label, wxTabControl *exi
               > GetViewRect().width)) ||
         ((tabLayer != m_layers.GetFirst()->GetData()) && (tabLayer->GetCount() == ((wxTabLayer *)m_layers.GetFirst()->GetData())->GetCount())))
     {
-      tabLayer = new wxTabLayer;
+      tabLayer = NEW_DEBUG wxTabLayer;
       m_layers.Append(tabLayer);
       lastTabNode = wxList::compatibility_iterator();
     }
@@ -579,7 +579,7 @@ wxTabControl *wxTabView::AddTab(int id, const wxString& label, wxTabControl *exi
   if (lastTabNode)
     lastTab = (wxTabControl *)lastTabNode->GetData();
 
-  // Top of new tab
+  // Top of NEW_DEBUG tab
   int verticalOffset = (- GetTopMargin()) - ((layer+1)*GetTabHeight());
   // Offset from view top-left
   int horizontalOffset = 0;
@@ -727,7 +727,7 @@ void wxTabView::LayoutTabs(void)
 
   wxTabControl *lastTab = NULL;
 
-  wxTabLayer *currentLayer = new wxTabLayer;
+  wxTabLayer *currentLayer = NEW_DEBUG wxTabLayer;
   m_layers.Append(currentLayer);
 
   wxList::compatibility_iterator node = controls.GetFirst();
@@ -745,7 +745,7 @@ void wxTabView::LayoutTabs(void)
                 > GetViewRect().width)) ||
           ((currentLayer != m_layers.GetFirst()->GetData()) && (currentLayer->GetCount() == ((wxTabLayer *)m_layers.GetFirst()->GetData())->GetCount())))
      {
-       currentLayer = new wxTabLayer;
+       currentLayer = NEW_DEBUG wxTabLayer;
        m_layers.Append(currentLayer);
        lastTab = NULL;
      }
@@ -756,7 +756,7 @@ void wxTabView::LayoutTabs(void)
     tabControl->SetRowPosition(currentLayer->GetCount());
     tabControl->SetColPosition(layer);
 
-    // Top of new tab
+    // Top of NEW_DEBUG tab
     int verticalOffset = (- GetTopMargin()) - ((layer+1)*GetTabHeight());
     // Offset from view top-left
     int horizontalOffset = 0;

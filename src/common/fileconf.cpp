@@ -175,7 +175,7 @@ private:
   wxString      m_strName;          // group's name
   wxFileConfigLineList *m_pLine;    // pointer to our line in the linked list
   wxFileConfigEntry *m_pLastEntry;  // last entry/subgroup of this group in the
-  wxFileConfigGroup *m_pLastGroup;  // local file (we insert new ones after it)
+  wxFileConfigGroup *m_pLastGroup;  // local file (we insert NEW_DEBUG ones after it)
 
   // DeleteSubgroupByName helper
   bool DeleteSubgroup(wxFileConfigGroup *pGroup);
@@ -207,7 +207,7 @@ public:
   bool DeleteSubgroupByName(const wxString& name);
   bool DeleteEntry(const wxString& name);
 
-  // create new entry/subgroup returning pointer to newly created element
+  // create NEW_DEBUG entry/subgroup returning pointer to newly created element
   wxFileConfigGroup *AddSubgroup(const wxString& strName);
   wxFileConfigEntry *AddEntry   (const wxString& strName, int nLine = wxNOT_FOUND);
 
@@ -292,7 +292,7 @@ wxIMPLEMENT_ABSTRACT_CLASS(wxFileConfig, wxConfigBase);
 void wxFileConfig::Init()
 {
     m_pCurrentGroup =
-    m_pRootGroup    = new wxFileConfigGroup(NULL, wxEmptyString, this);
+    m_pRootGroup    = NEW_DEBUG wxFileConfigGroup(NULL, wxEmptyString, this);
 
     m_linesHead =
     m_linesTail = NULL;
@@ -399,7 +399,7 @@ wxFileConfig::wxFileConfig(wxInputStream &inStream, const wxMBConv& conv)
     SetStyle(GetStyle() | wxCONFIG_USE_LOCAL_FILE);
 
     m_pCurrentGroup =
-    m_pRootGroup    = new wxFileConfigGroup(NULL, wxEmptyString, this);
+    m_pRootGroup    = NEW_DEBUG wxFileConfigGroup(NULL, wxEmptyString, this);
 
     m_linesHead =
     m_linesTail = NULL;
@@ -524,7 +524,7 @@ void wxFileConfig::Parse(const wxTextBuffer& buffer, bool bLocal)
     if ( *pStart == wxT('\0')|| *pStart == wxT(';') || *pStart == wxT('#') )
       continue;
 
-    if ( *pStart == wxT('[') ) {          // a new group
+    if ( *pStart == wxT('[') ) {          // a NEW_DEBUG group
       pEnd = pStart;
 
       while ( *++pEnd != wxT(']') ) {
@@ -612,7 +612,7 @@ void wxFileConfig::Parse(const wxTextBuffer& buffer, bool bLocal)
         wxFileConfigEntry *pEntry = m_pCurrentGroup->FindEntry(strKey);
 
         if ( pEntry == NULL ) {
-          // new entry
+          // NEW_DEBUG entry
           pEntry = m_pCurrentGroup->AddEntry(strKey, n);
         }
         else {
@@ -1054,11 +1054,11 @@ bool wxFileConfig::RenameEntry(const wxString& oldName,
     if ( !oldEntry )
         return false;
 
-    // check that the new entry doesn't already exist
+    // check that the NEW_DEBUG entry doesn't already exist
     if ( m_pCurrentGroup->FindEntry(newName) )
         return false;
 
-    // delete the old entry, create the new one
+    // delete the old entry, create the NEW_DEBUG one
     wxString value = oldEntry->Value();
     if ( !m_pCurrentGroup->DeleteEntry(oldName) )
         return false;
@@ -1079,7 +1079,7 @@ bool wxFileConfig::RenameGroup(const wxString& oldName,
     if ( !group )
         return false;
 
-    // check that the new group doesn't already exist
+    // check that the NEW_DEBUG group doesn't already exist
     if ( m_pCurrentGroup->FindSubgroup(newName) )
         return false;
 
@@ -1153,7 +1153,7 @@ bool wxFileConfig::DeleteAll()
 // linked list functions
 // ----------------------------------------------------------------------------
 
-    // append a new line to the end of the list
+    // append a NEW_DEBUG line to the end of the list
 
 wxFileConfigLineList *wxFileConfig::LineListAppend(const wxString& str)
 {
@@ -1169,7 +1169,7 @@ wxFileConfigLineList *wxFileConfig::LineListAppend(const wxString& str)
                 ((m_linesTail) ? m_linesTail->Text()
                                : wxString()) );
 
-    wxFileConfigLineList *pLine = new wxFileConfigLineList(str);
+    wxFileConfigLineList *pLine = NEW_DEBUG wxFileConfigLineList(str);
 
     if ( m_linesTail == NULL )
     {
@@ -1197,7 +1197,7 @@ wxFileConfigLineList *wxFileConfig::LineListAppend(const wxString& str)
     return m_linesTail;
 }
 
-// insert a new line after the given one or in the very beginning if !pLine
+// insert a NEW_DEBUG line after the given one or in the very beginning if !pLine
 wxFileConfigLineList *wxFileConfig::LineListInsert(const wxString& str,
                                                    wxFileConfigLineList *pLine)
 {
@@ -1218,7 +1218,7 @@ wxFileConfigLineList *wxFileConfig::LineListInsert(const wxString& str,
     if ( pLine == m_linesTail )
         return LineListAppend(str);
 
-    wxFileConfigLineList *pNewLine = new wxFileConfigLineList(str);
+    wxFileConfigLineList *pNewLine = NEW_DEBUG wxFileConfigLineList(str);
     if ( pLine == NULL )
     {
         // prepend to the list
@@ -1352,7 +1352,7 @@ void wxFileConfigGroup::SetLine(wxFileConfigLineList *pLine)
   This is a bit complicated, so let me explain it in details. All lines that
   were read from the local file (the only one we will ever modify) are stored
   in a (doubly) linked list. Our problem is to know at which position in this
-  list should we insert the new entries/subgroups. To solve it we keep three
+  list should we insert the NEW_DEBUG entries/subgroups. To solve it we keep three
   variables for each group: m_pLine, m_pLastEntry and m_pLastGroup.
 
   m_pLine points to the line containing "[group_name]"
@@ -1366,13 +1366,13 @@ void wxFileConfigGroup::SetLine(wxFileConfigLineList *pLine)
   See the following functions (and comments preceding them) for the details of
   how we do it.
 
-  Also, when our last entry/group are deleted we need to find the new last
+  Also, when our last entry/group are deleted we need to find the NEW_DEBUG last
   element - the code in DeleteEntry/Subgroup does this by backtracking the list
-  of lines until it either founds an entry/subgroup (and this is the new last
+  of lines until it either founds an entry/subgroup (and this is the NEW_DEBUG last
   element) or the m_pLine of the group, in which case there are no more entries
   (or subgroups) left and m_pLast<element> becomes NULL.
 
-  NB: This last problem could be avoided for entries if we added new entries
+  NB: This last problem could be avoided for entries if we added NEW_DEBUG entries
       immediately after m_pLine, but in this case the entries would appear
       backwards in the config file (OTOH, it's not that important) and as we
       would still need to do it for the subgroups the code wouldn't have been
@@ -1420,7 +1420,7 @@ wxFileConfigLineList *wxFileConfigGroup::GetGroupLine()
 }
 
 // Return the last line belonging to the subgroups of this group (after which
-// we can add a new subgroup), if we don't have any subgroups or entries our
+// we can add a NEW_DEBUG subgroup), if we don't have any subgroups or entries our
 // last line is the group line (m_pLine) itself.
 wxFileConfigLineList *wxFileConfigGroup::GetLastGroupLine()
 {
@@ -1440,7 +1440,7 @@ wxFileConfigLineList *wxFileConfigGroup::GetLastGroupLine()
 }
 
 // return the last line belonging to the entries of this group (after which
-// we can add a new entry), if we don't have any entries we will add the new
+// we can add a NEW_DEBUG entry), if we don't have any entries we will add the NEW_DEBUG
 // one immediately after the group line itself.
 wxFileConfigLineList *wxFileConfigGroup::GetLastEntryLine()
 {
@@ -1506,7 +1506,7 @@ void wxFileConfigGroup::Rename(const wxString& newName)
     if ( newName == m_strName )
         return;
 
-    // we need to remove the group from the parent and it back under the new
+    // we need to remove the group from the parent and it back under the NEW_DEBUG
     // name to keep the parents array of subgroups alphabetically sorted
     m_pParent->m_aSubgroups.Remove(this);
 
@@ -1595,26 +1595,26 @@ wxFileConfigGroup::FindSubgroup(const wxString& name) const
 }
 
 // ----------------------------------------------------------------------------
-// create a new item
+// create a NEW_DEBUG item
 // ----------------------------------------------------------------------------
 
-// create a new entry and add it to the current group
+// create a NEW_DEBUG entry and add it to the current group
 wxFileConfigEntry *wxFileConfigGroup::AddEntry(const wxString& strName, int nLine)
 {
     wxASSERT( FindEntry(strName) == 0 );
 
-    wxFileConfigEntry   *pEntry = new wxFileConfigEntry(this, strName, nLine);
+    wxFileConfigEntry   *pEntry = NEW_DEBUG wxFileConfigEntry(this, strName, nLine);
 
     m_aEntries.Add(pEntry);
     return pEntry;
 }
 
-// create a new group and add it to the current group
+// create a NEW_DEBUG group and add it to the current group
 wxFileConfigGroup *wxFileConfigGroup::AddSubgroup(const wxString& strName)
 {
     wxASSERT( FindSubgroup(strName) == 0 );
 
-    wxFileConfigGroup   *pGroup = new wxFileConfigGroup(this, strName, m_pConfig);
+    wxFileConfigGroup   *pGroup = NEW_DEBUG wxFileConfigGroup(this, strName, m_pConfig);
 
     m_aSubgroups.Add(pGroup);
     return pGroup;
@@ -1881,10 +1881,10 @@ void wxFileConfigEntry::SetValue(const wxString& strValue, bool bUser)
         }
         else // this entry didn't exist in the local file
         {
-            // add a new line to the file: note that line returned by
+            // add a NEW_DEBUG line to the file: note that line returned by
             // GetLastEntryLine() may be NULL if we're in the root group and it
             // doesn't have any entries yet, but this is ok as passing NULL
-            // line to LineListInsert() means to prepend new line to the list
+            // line to LineListInsert() means to prepend NEW_DEBUG line to the list
             wxFileConfigLineList *line = Group()->GetLastEntryLine();
             m_pLine = Group()->Config()->LineListInsert(strLine, line);
 

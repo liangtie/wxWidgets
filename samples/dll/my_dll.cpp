@@ -81,12 +81,12 @@ wxEND_EVENT_TABLE()
 MyDllFrame::MyDllFrame(wxWindow *parent, const wxString& label)
     : wxFrame(parent, wxID_ANY, label)
 {
-    wxPanel *p = new wxPanel(this, wxID_ANY);
-    wxSizer *sizer = new wxBoxSizer(wxVERTICAL);
+    wxPanel *p = NEW_DEBUG wxPanel(this, wxID_ANY);
+    wxSizer *sizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
     sizer->Add
            (
-               new wxStaticText
+               NEW_DEBUG wxStaticText
                    (
                        p, wxID_ANY,
                        wxString::Format
@@ -103,13 +103,13 @@ MyDllFrame::MyDllFrame(wxWindow *parent, const wxString& label)
 
     sizer->Add
            (
-               new wxButton(p, wxID_ABOUT, "Show info"),
+               NEW_DEBUG wxButton(p, wxID_ABOUT, "Show info"),
                wxSizerFlags(0).Right().Border(wxALL, 10)
            );
 
     p->SetSizerAndFit(sizer);
 
-    wxSizer *fsizer = new wxBoxSizer(wxVERTICAL);
+    wxSizer *fsizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     fsizer->Add(p, wxSizerFlags(1).Expand());
     SetSizerAndFit(fsizer);
 }
@@ -140,7 +140,7 @@ MyDllApp::MyDllApp()
     // destroyed.
     //
     // Also note that this is efficient, because if there are no windows, the
-    // thread will sleep waiting for a new event. We could safe some memory
+    // thread will sleep waiting for a NEW_DEBUG event. We could safe some memory
     // by shutting the thread down when it's no longer needed, though.
     SetExitOnFrameDelete(false);
 
@@ -150,7 +150,7 @@ MyDllApp::MyDllApp()
 
 void MyDllApp::OnShowWindow(wxThreadEvent& event)
 {
-    wxFrame *f = new MyDllFrame(NULL, event.GetString());
+    wxFrame *f = NEW_DEBUG MyDllFrame(NULL, event.GetString());
     f->Show(true);
 }
 
@@ -277,9 +277,9 @@ void run_wx_gui_from_dll(const char *title)
         CloseHandle(hEvent);
     }
 
-    // Send a message to wx thread to show a new frame:
+    // Send a message to wx thread to show a NEW_DEBUG frame:
     wxThreadEvent *event =
-        new wxThreadEvent(wxEVT_THREAD, CMD_SHOW_WINDOW);
+        NEW_DEBUG wxThreadEvent(wxEVT_THREAD, CMD_SHOW_WINDOW);
     event->SetString(title);
     wxQueueEvent(wxApp::GetInstance(), event);
 }
@@ -294,7 +294,7 @@ void wx_dll_cleanup()
     // If wx main thread is running, we need to stop it. To accomplish this,
     // send a message telling it to terminate the app.
     wxThreadEvent *event =
-        new wxThreadEvent(wxEVT_THREAD, CMD_TERMINATE);
+        NEW_DEBUG wxThreadEvent(wxEVT_THREAD, CMD_TERMINATE);
     wxQueueEvent(wxApp::GetInstance(), event);
 
     // We must then wait for the thread to actually terminate.

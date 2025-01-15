@@ -58,7 +58,7 @@ void gdk_pixbuf_area_updated(GdkPixbufLoader    *loader,
 /* static */
 wxAnimationImpl *wxAnimationImpl::CreateDefault()
 {
-    return new wxAnimationGTKImpl();
+    return NEW_DEBUG wxAnimationGTKImpl();
 }
 
 #endif // wxHAS_NATIVE_ANIMATIONCTRL
@@ -267,12 +267,12 @@ bool wxAnimationCtrl::Load(wxInputStream& stream, wxAnimationType type)
 
 wxAnimation wxAnimationCtrl::CreateCompatibleAnimation()
 {
-    return MakeAnimFromImpl(new wxAnimationGTKImpl());
+    return MakeAnimFromImpl(NEW_DEBUG wxAnimationGTKImpl());
 }
 
 wxAnimationImpl* wxAnimationCtrl::DoCreateAnimationImpl() const
 {
-    return new wxAnimationGTKImpl();
+    return NEW_DEBUG wxAnimationGTKImpl();
 }
 
 void wxAnimationCtrl::SetAnimation(const wxAnimation &anim)
@@ -461,7 +461,7 @@ void wxAnimationCtrl::OnTimer(wxTimerEvent& WXUNUSED(ev))
     // the animation, if necessary and we have no way to know !!
     if (gdk_pixbuf_animation_iter_advance(m_iter, NULL))
     {
-        // start a new one-shot timer
+        // start a NEW_DEBUG one-shot timer
         int n = gdk_pixbuf_animation_iter_get_delay_time(m_iter);
         if (n >= 0)
             m_timer.Start(n, true);

@@ -402,7 +402,7 @@ bool wxGIFHandler::CompressLine(wxOutputStream *stream,
         // Decode lineLen items.
         wxUint8 pixel;
         pixel = line[i++];                    // Get next pixel from stream.
-        // Form a new unique key to search hash table for the code combines
+        // Form a NEW_DEBUG unique key to search hash table for the code combines
         // crntCode as Prefix string with Pixel as postfix char.
         unsigned long newKey;
         newKey = (((unsigned long) crntCode) << 8) + pixel;
@@ -410,7 +410,7 @@ bool wxGIFHandler::CompressLine(wxOutputStream *stream,
         if ((newCode = ExistsHashTable(newKey)) >= 0)
         {
             // This Key is already there, or the string is old one, so
-            // simply take new code as our crntCode:
+            // simply take NEW_DEBUG code as our crntCode:
             crntCode = newCode;
         }
         else
@@ -468,7 +468,7 @@ bool wxGIFHandler::InitHashTable()
 {
     if (!m_hashTable)
     {
-        m_hashTable = new GifHashTableType();
+        m_hashTable = NEW_DEBUG GifHashTableType();
     }
 
     if (!m_hashTable)

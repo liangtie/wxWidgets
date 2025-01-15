@@ -202,7 +202,7 @@ bool wxExtHelpController::ParseMapFileLine(const wxString& line)
         doc = p;
     }
 
-    m_MapList->Append(new wxExtHelpMapEntry(id, url, doc));
+    m_MapList->Append(NEW_DEBUG wxExtHelpMapEntry(id, url, doc));
     m_NumOfEntries++;
 
     return true;
@@ -277,7 +277,7 @@ bool wxExtHelpController::LoadFile(const wxString& file)
     }
 
     DeleteList();
-    m_MapList = new wxList;
+    m_MapList = NEW_DEBUG wxList;
     m_NumOfEntries = 0;
 
     wxTextFile input;
@@ -380,8 +380,8 @@ bool wxExtHelpController::KeywordSearch(const wxString& k,
    if (! m_NumOfEntries)
       return false;
 
-   wxString *choices = new wxString[m_NumOfEntries];
-   wxString *urls = new wxString[m_NumOfEntries];
+   wxString *choices = NEW_DEBUG wxString[m_NumOfEntries];
+   wxString *urls = NEW_DEBUG wxString[m_NumOfEntries];
 
    int          idx = 0;
    bool         rc = false;

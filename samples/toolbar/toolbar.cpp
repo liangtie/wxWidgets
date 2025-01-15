@@ -97,14 +97,14 @@ enum Positions
 // classes
 // ----------------------------------------------------------------------------
 
-// Define a new application
+// Define a NEW_DEBUG application
 class MyApp : public wxApp
 {
 public:
     bool OnInit() wxOVERRIDE;
 };
 
-// Define a new frame
+// Define a NEW_DEBUG frame
 class MyFrame: public wxFrame
 {
 public:
@@ -328,10 +328,10 @@ bool MyApp::OnInit()
 
     // Because we use PNG icons in the frame ctor, we need to register this
     // image handler before creating the frame.
-    wxImage::AddHandler(new wxPNGHandler);
+    wxImage::AddHandler(NEW_DEBUG wxPNGHandler);
 
     // Create the main frame window
-    MyFrame* frame = new MyFrame();
+    MyFrame* frame = NEW_DEBUG MyFrame();
 
     frame->Show(true);
 
@@ -416,7 +416,7 @@ void MyFrame::PopulateToolbar(wxToolBarBase* toolBar)
     //  2. Have name_png and name_2x_png arrays defined under the other
     //     platforms (as is done in this sample by including the corresponding
     //     *_png.c files above).
-    toolBarBitmaps[Tool_new  ] = wxBITMAP_BUNDLE_2(new  );
+    toolBarBitmaps[Tool_new  ] = wxBITMAP_BUNDLE_2(NEW_DEBUG  );
     toolBarBitmaps[Tool_open ] = wxBITMAP_BUNDLE_2(open );
     toolBarBitmaps[Tool_save ] = wxBITMAP_BUNDLE_2(save );
     toolBarBitmaps[Tool_copy ] = wxBITMAP_BUNDLE_2(copy );
@@ -447,9 +447,9 @@ void MyFrame::PopulateToolbar(wxToolBarBase* toolBar)
 
     toolBar->AddTool(wxID_NEW, "New",
                      toolBarBitmaps[Tool_new], wxNullBitmap, wxITEM_DROPDOWN,
-                     "New file", "This is help for new file tool");
+                     "New file", "This is help for NEW_DEBUG file tool");
 
-    wxMenu* menu = new wxMenu;
+    wxMenu* menu = NEW_DEBUG wxMenu;
     menu->Append(wxID_ANY, "&First dummy item");
     menu->Append(wxID_ANY, "&Second dummy item");
     menu->AppendSeparator();
@@ -464,7 +464,7 @@ void MyFrame::PopulateToolbar(wxToolBarBase* toolBar)
     // adding a combo to a vertical toolbar is not very smart
     if ( !toolBar->IsVertical() )
     {
-        wxComboBox *combo = new wxComboBox(toolBar, ID_COMBO, wxEmptyString, wxDefaultPosition, FromDIP(wxSize(100,-1)) );
+        wxComboBox *combo = NEW_DEBUG wxComboBox(toolBar, ID_COMBO, wxEmptyString, wxDefaultPosition, FromDIP(wxSize(100,-1)) );
         combo->Append("This");
         combo->Append("is a");
         combo->Append("combobox with extremely, extremely, extremely, extremely long label");
@@ -573,7 +573,7 @@ void MyFrame::PopulateToolbar(wxToolBarBase* toolBar)
             };
 
             wxBitmapBundleImpl* const
-                impl = new MyCustomBitmapBundleImpl(image, sizeBitmap);
+                impl = NEW_DEBUG MyCustomBitmapBundleImpl(image, sizeBitmap);
 
             toolBar->AddSeparator();
             toolBar->AddTool(wxID_ANY, "Custom", wxBitmapBundle::FromImpl(impl));
@@ -616,7 +616,7 @@ MyFrame::MyFrame()
     SetIcon(wxICON(sample));
 
     // Make a menubar
-    wxMenu *tbarMenu = new wxMenu;
+    wxMenu *tbarMenu = NEW_DEBUG wxMenu;
     tbarMenu->AppendCheckItem(IDM_TOOLBAR_TOGGLE_TOOLBAR,
                               "Toggle &toolbar\tCtrl-Z",
                               "Show or hide the toolbar");
@@ -668,7 +668,7 @@ MyFrame::MyFrame()
     tbarMenu->Append(IDM_TOOLBAR_BG_COL, "Choose bac&kground colour...");
     tbarMenu->Append(IDM_TOOLBAR_CUSTOM_PATH, "Custom &bitmap...\tCtrl-B");
 
-    wxMenu *toolMenu = new wxMenu;
+    wxMenu *toolMenu = NEW_DEBUG wxMenu;
     toolMenu->Append(IDM_TOOLBAR_ENABLEPRINT, "&Enable print button\tCtrl-E");
     toolMenu->Append(IDM_TOOLBAR_DELETEPRINT, "&Delete print button\tCtrl-D");
     toolMenu->Append(IDM_TOOLBAR_INSERTPRINT, "&Insert print button\tCtrl-I");
@@ -684,13 +684,13 @@ MyFrame::MyFrame()
     toolMenu->Append(IDM_TOOLBAR_INC_TOOL_SPACING, "Increase spacing\tCtrl-+");
     toolMenu->Append(IDM_TOOLBAR_DEC_TOOL_SPACING, "Decrease spacing\tCtrl--");
 
-    wxMenu *fileMenu = new wxMenu;
+    wxMenu *fileMenu = NEW_DEBUG wxMenu;
     fileMenu->Append(wxID_EXIT, "E&xit\tAlt-X", "Quit toolbar sample" );
 
-    wxMenu *helpMenu = new wxMenu;
+    wxMenu *helpMenu = NEW_DEBUG wxMenu;
     helpMenu->Append(wxID_ABOUT, "&About", "About toolbar sample");
 
-    wxMenuBar* menuBar = new wxMenuBar( wxMB_DOCKABLE );
+    wxMenuBar* menuBar = NEW_DEBUG wxMenuBar( wxMB_DOCKABLE );
 
     menuBar->Append(fileMenu, "&File");
     menuBar->Append(tbarMenu, "&Toolbar");
@@ -710,16 +710,16 @@ MyFrame::MyFrame()
     // Create the toolbar
     RecreateToolbar();
 
-    m_panel = new wxPanel(this, wxID_ANY);
+    m_panel = NEW_DEBUG wxPanel(this, wxID_ANY);
 #if USE_UNMANAGED_TOOLBAR
-    m_extraToolBar = new wxToolBar(m_panel, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTB_TEXT|wxTB_FLAT|wxTB_TOP);
+    m_extraToolBar = NEW_DEBUG wxToolBar(m_panel, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTB_TEXT|wxTB_FLAT|wxTB_TOP);
     PopulateToolbar(m_extraToolBar);
 #endif
 
     // Use a read-only text control; Cut tool will not cut selected text anyway.
-    m_textWindow = new wxTextCtrl(m_panel, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE|wxTE_READONLY);
+    m_textWindow = NEW_DEBUG wxTextCtrl(m_panel, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE|wxTE_READONLY);
 
-    wxBoxSizer* sizer = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer* sizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     m_panel->SetSizer(sizer);
 #if USE_UNMANAGED_TOOLBAR
     if (m_extraToolBar)
@@ -810,13 +810,13 @@ void MyFrame::OnToggleAnotherToolbar(wxCommandEvent& WXUNUSED(event))
         style &= ~wxTB_HORIZONTAL;
         style |= wxTB_VERTICAL;
 
-        m_tbar = new wxToolBar(this, wxID_ANY,
+        m_tbar = NEW_DEBUG wxToolBar(this, wxID_ANY,
                                wxDefaultPosition, wxDefaultSize,
                                style);
 
         m_tbar->SetMargins(4, 4);
 
-        m_tbar->AddRadioTool(IDM_TOOLBAR_OTHER_1, "First", wxBITMAP_PNG(new));
+        m_tbar->AddRadioTool(IDM_TOOLBAR_OTHER_1, "First", wxBITMAP_PNG(NEW_DEBUG));
         m_tbar->AddRadioTool(IDM_TOOLBAR_OTHER_2, "Second", wxBITMAP_PNG(open));
         m_tbar->AddRadioTool(IDM_TOOLBAR_OTHER_3, "Third", wxBITMAP_PNG(save));
         m_tbar->AddSeparator();
@@ -966,7 +966,7 @@ void MyFrame::OnToggleSearch(wxCommandEvent& WXUNUSED(event))
     wxToolBarBase * const tb = GetToolBar();
     if ( !m_searchTool )
     {
-        wxSearchCtrl * const srch = new wxSearchCtrl(tb, wxID_ANY, "needle");
+        wxSearchCtrl * const srch = NEW_DEBUG wxSearchCtrl(tb, wxID_ANY, "needle");
         srch->SetMinSize(FromDIP(wxSize(80, -1)));
         m_searchTool = tb->AddControl(srch);
     }
@@ -1074,7 +1074,7 @@ void MyFrame::OnInsertPrint(wxCommandEvent& WXUNUSED(event))
                    "Delete this tool",
                    "This button was inserted into the toolbar");
 
-    // must call Realize() after adding a new button
+    // must call Realize() after adding a NEW_DEBUG button
     tb->Realize();
 }
 

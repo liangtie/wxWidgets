@@ -136,7 +136,7 @@ private:
     // thread helper functions
     // -----------------------
 
-    // helper function - creates a new thread (but doesn't run it)
+    // helper function - creates a NEW_DEBUG thread (but doesn't run it)
     MyThread *CreateThread();
 
     // update display in our status bar: called during idle handling
@@ -292,7 +292,7 @@ private:
 // the application class
 // ----------------------------------------------------------------------------
 
-// Create a new application object
+// Create a NEW_DEBUG application object
 wxIMPLEMENT_APP(MyApp);
 
 MyApp::MyApp()
@@ -311,7 +311,7 @@ bool MyApp::OnInit()
     wxLog::AddTraceMask("thread");
 
     // Create the main frame window
-    new MyFrame("wxWidgets threads sample");
+    NEW_DEBUG MyFrame("wxWidgets threads sample");
 
     return true;
 }
@@ -350,16 +350,16 @@ MyFrame::MyFrame(const wxString& title)
     SetIcon(wxICON(sample));
 
     // Make a menubar
-    wxMenuBar *menuBar = new wxMenuBar;
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar;
 
-    wxMenu *menuFile = new wxMenu;
+    wxMenu *menuFile = NEW_DEBUG wxMenu;
     menuFile->Append(THREAD_CLEAR, "&Clear log\tCtrl-L");
     menuFile->AppendSeparator();
     menuFile->Append(THREAD_QUIT, "E&xit\tAlt-X");
     menuBar->Append(menuFile, "&File");
 
-    wxMenu *menuThread = new wxMenu;
-    menuThread->Append(THREAD_START_THREAD, "&Start a new thread\tCtrl-N");
+    wxMenu *menuThread = NEW_DEBUG wxMenu;
+    menuThread->Append(THREAD_START_THREAD, "&Start a NEW_DEBUG thread\tCtrl-N");
     menuThread->Append(THREAD_START_THREADS, "Start &many threads at once");
     menuThread->Append(THREAD_STOP_THREAD, "S&top the last spawned thread\tCtrl-S");
     menuThread->AppendSeparator();
@@ -371,7 +371,7 @@ MyFrame::MyFrame(const wxString& title)
     menuThread->Append(THREAD_START_GUI_THREAD, "Launch a &GUI thread\tF6");
     menuBar->Append(menuThread, "&Thread");
 
-    wxMenu *menuHelp = new wxMenu;
+    wxMenu *menuHelp = NEW_DEBUG wxMenu;
     menuHelp->Append(THREAD_SHOWCPUS, "&Show CPU count");
     menuHelp->AppendSeparator();
     menuHelp->Append(THREAD_ABOUT, "&About");
@@ -389,11 +389,11 @@ MyFrame::MyFrame(const wxString& title)
 
     // create the logging text control and a header showing the meaning of the
     // different columns
-    wxTextCtrl *header = new wxTextCtrl(this, wxID_ANY, "",
+    wxTextCtrl *header = NEW_DEBUG wxTextCtrl(this, wxID_ANY, "",
                                         wxDefaultPosition, wxDefaultSize,
                                         wxTE_READONLY);
     DoLogLine(header, "  Time", " Thread", "Message");
-    m_txtctrl = new wxTextCtrl(this, wxID_ANY, "",
+    m_txtctrl = NEW_DEBUG wxTextCtrl(this, wxID_ANY, "",
                                wxDefaultPosition, wxDefaultSize,
                                wxTE_MULTILINE | wxTE_READONLY);
     wxLog::SetActiveTarget(this);
@@ -406,7 +406,7 @@ MyFrame::MyFrame(const wxString& title)
     m_txtctrl->SetFocus();
 
     // layout and show the frame
-    wxBoxSizer *sizer = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer *sizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     sizer->Add(header, wxSizerFlags().Expand());
     sizer->Add(m_txtctrl, wxSizerFlags(1).Expand());
     SetSizer(sizer);
@@ -481,7 +481,7 @@ MyFrame::DoLogRecord(wxLogLevel level,
 
 MyThread *MyFrame::CreateThread()
 {
-    MyThread *thread = new MyThread;
+    MyThread *thread = NEW_DEBUG MyThread;
 
     if ( thread->Create() != wxTHREAD_NO_ERROR )
     {
@@ -565,7 +565,7 @@ void MyFrame::OnStartThreads(wxCommandEvent& WXUNUSED(event) )
 
 #if wxUSE_STATUSBAR
     wxString msg;
-    msg.Printf("%d new threads created.", count);
+    msg.Printf("%d NEW_DEBUG threads created.", count);
     SetStatusText(msg, 1);
 #endif // wxUSE_STATUSBAR
 
@@ -745,7 +745,7 @@ void MyFrame::OnUpdateWorker(wxUpdateUIEvent& event)
 
 void MyFrame::OnStartWorker(wxCommandEvent& WXUNUSED(event))
 {
-    MyWorkerThread *thread = new MyWorkerThread(this);
+    MyWorkerThread *thread = NEW_DEBUG MyWorkerThread(this);
 
     if ( thread->Create() != wxTHREAD_NO_ERROR )
     {
@@ -753,7 +753,7 @@ void MyFrame::OnStartWorker(wxCommandEvent& WXUNUSED(event))
         return;
     }
 
-    m_dlgProgress = new wxProgressDialog
+    m_dlgProgress = NEW_DEBUG wxProgressDialog
                         (
                          "Progress dialog",
                          "Wait until the thread terminates or press [Cancel]",

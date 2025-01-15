@@ -46,7 +46,7 @@
 // private functions
 // ----------------------------------------------------------------------------
 
-// helper: inserts the new text in the value of the text ctrl and returns the
+// helper: inserts the NEW_DEBUG text in the value of the text ctrl and returns the
 // result in place
 static void MergeChangesIntoString(wxString& value,
                                    XmTextVerifyCallbackStruct *textStruct);
@@ -558,10 +558,10 @@ static void MergeChangesIntoString(wxString& value,
 
         len += ( cbs->text->ptr ?
                  strlen(cbs->text->ptr) :
-                 0 ) + 1;                      // + new text (if any) + NUL
+                 0 ) + 1;                      // + NEW_DEBUG text (if any) + NUL
         len -= cbs->endPos - cbs->startPos;    // - text from affected region.
 
-        char * newS = new char [len];
+        char * newS = NEW_DEBUG char [len];
         char * dest = newS,
              * insert = cbs->text->ptr;
 

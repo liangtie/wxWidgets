@@ -443,7 +443,7 @@ bool myOGLShaders::Compile(GLuint shaId)
 
         if ( Param > 0 )
         {
-            GLchar* InfoLog = new GLchar[Param];
+            GLchar* InfoLog = NEW_DEBUG GLchar[Param];
             int nChars = 0;
             glGetShaderInfoLog(shaId, Param, &nChars, InfoLog);
             MyOnGLError(myoglERR_SHADERCOMPILE, InfoLog);
@@ -468,7 +468,7 @@ bool myOGLShaders::LinkProg(GLuint proId)
 
         if ( Param > 0 )
         {
-            GLchar* InfoLog = new GLchar[Param];
+            GLchar* InfoLog = NEW_DEBUG GLchar[Param];
             int nChars = 0;
             glGetProgramInfoLog(proId, Param, &nChars, InfoLog);
             MyOnGLError(myoglERR_SHADERLINK, InfoLog);

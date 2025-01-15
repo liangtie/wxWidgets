@@ -418,10 +418,10 @@ wxTarUser::wxTarUser()
     wxString grp = _("unknown");
 #endif
 
-    uname = new wxChar[usr.length() + 1];
+    uname = NEW_DEBUG wxChar[usr.length() + 1];
     wxStrcpy(uname, usr.c_str());
 
-    gname = new wxChar[grp.length() + 1];
+    gname = NEW_DEBUG wxChar[grp.length() + 1];
     wxStrcpy(gname, grp.c_str());
 }
 
@@ -657,7 +657,7 @@ void wxTarInputStream::Init()
     m_size = wxInvalidOffset;
     m_sumType = SUM_UNKNOWN;
     m_tarType = TYPE_USTAR;
-    m_hdr = new wxTarHeaderBlock;
+    m_hdr = NEW_DEBUG wxTarHeaderBlock;
     m_HeaderRecs = NULL;
     m_GlobalHeaderRecs = NULL;
     m_lasterror = m_parent_i_stream->GetLastError();
@@ -677,7 +677,7 @@ wxTarEntry *wxTarInputStream::GetNextEntry()
     if (!IsOk())
         return NULL;
 
-    wxTarEntryPtr entry(new wxTarEntry);
+    wxTarEntryPtr entry(NEW_DEBUG wxTarEntry);
 
     entry->SetMode(GetHeaderNumber(TAR_MODE));
     entry->SetUserId(GetHeaderNumber(TAR_UID));
@@ -921,7 +921,7 @@ wxString wxTarInputStream::GetHeaderString(int id) const
 bool wxTarInputStream::ReadExtendedHeader(wxTarHeaderRecords*& recs)
 {
     if (!recs)
-        recs = new wxTarHeaderRecords;
+        recs = NEW_DEBUG wxTarHeaderRecords;
 
     // round length up to a whole number of blocks
     size_t len = m_hdr->GetOctal(TAR_SIZE);
@@ -1075,7 +1075,7 @@ void wxTarOutputStream::Init(wxTarFormat format)
     m_BlockingFactor = m_pax ? 10 : 20;
     m_chksum = 0;
     m_large = false;
-    m_hdr = new wxTarHeaderBlock;
+    m_hdr = NEW_DEBUG wxTarHeaderBlock;
     m_hdr2 = NULL;
     m_extendedHdr = NULL;
     m_extendedSize = 0;
@@ -1133,13 +1133,13 @@ bool wxTarOutputStream::PutNextEntry(const wxString& name,
                                      const wxDateTime& dt,
                                      wxFileOffset size)
 {
-    return PutNextEntry(new wxTarEntry(name, dt, size));
+    return PutNextEntry(NEW_DEBUG wxTarEntry(name, dt, size));
 }
 
 bool wxTarOutputStream::PutNextDirEntry(const wxString& name,
                                         const wxDateTime& dt)
 {
-    wxTarEntry *entry = new wxTarEntry(name, dt);
+    wxTarEntry *entry = NEW_DEBUG wxTarEntry(name, dt);
     entry->SetIsDir();
     return PutNextEntry(entry);
 }
@@ -1267,7 +1267,7 @@ bool wxTarOutputStream::WriteHeaders(wxTarEntry& entry)
         // the extended headers are written to the tar as a file entry,
         // so prepare a regular header block for the pseudo-file.
         if (!m_hdr2)
-            m_hdr2 = new wxTarHeaderBlock;
+            m_hdr2 = NEW_DEBUG wxTarHeaderBlock;
         m_hdr2->Clear();
 
         // an old tar that doesn't understand extended headers will
@@ -1466,7 +1466,7 @@ void wxTarOutputStream::SetExtendedHeader(const wxString& key,
             if (rounded > m_extendedSize)
                 m_extendedSize = rounded;
             char *oldHdr = m_extendedHdr;
-            m_extendedHdr = new char[m_extendedSize];
+            m_extendedHdr = NEW_DEBUG char[m_extendedSize];
             if (oldHdr) {
                 strcpy(m_extendedHdr, oldHdr);
                 delete [] oldHdr;
@@ -1475,7 +1475,7 @@ void wxTarOutputStream::SetExtendedHeader(const wxString& key,
             }
         }
 
-        // append the new record
+        // append the NEW_DEBUG record
         char *append = strchr(m_extendedHdr, 0);
         sprintf(append, "%s %s=%s\012", buf,
                 (const char*)utf_key, (const char*)utf_value);

@@ -81,7 +81,7 @@ bool wxVListBox::Create(wxWindow *parent,
         return false;
 
     if ( style & wxLB_MULTIPLE )
-        m_selStore = new wxSelectionStore;
+        m_selStore = NEW_DEBUG wxSelectionStore;
 
     // make sure the native widget has the right colour since we do
     // transparent drawing by default
@@ -532,7 +532,7 @@ void wxVListBox::DoHandleItemClick(int item, int flags)
 
                 select = false;
 
-                // only the range from the selection anchor to new m_current
+                // only the range from the selection anchor to NEW_DEBUG m_current
                 // must be selected
                 if ( DeselectAll() )
                     notify = true;

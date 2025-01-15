@@ -416,7 +416,7 @@ bool wxBitmapDataObject::SetData(size_t size, const void *buf)
     Clear();
 
     wxCHECK_MSG( wxImage::FindHandler(wxBITMAP_TYPE_PNG) != NULL,
-                 false, wxT("You must call wxImage::AddHandler(new wxPNGHandler); to be able to use clipboard with bitmaps!") );
+                 false, wxT("You must call wxImage::AddHandler(NEW_DEBUG wxPNGHandler); to be able to use clipboard with bitmaps!") );
 
     m_pngSize = size;
     m_pngData = malloc(m_pngSize);
@@ -441,7 +441,7 @@ void wxBitmapDataObject::DoConvertToPng()
         return;
 
     wxCHECK_RET( wxImage::FindHandler(wxBITMAP_TYPE_PNG) != NULL,
-                 wxT("You must call wxImage::AddHandler(new wxPNGHandler); to be able to use clipboard with bitmaps!") );
+                 wxT("You must call wxImage::AddHandler(NEW_DEBUG wxPNGHandler); to be able to use clipboard with bitmaps!") );
 
     wxImage image = m_bitmap.ConvertToImage();
 
@@ -532,8 +532,8 @@ private:
 };
 
 wxURLDataObject::wxURLDataObject(const wxString& url) :
-    m_dobjURIList(new wxTextURIListDataObject(url)),
-    m_dobjText(new wxTextDataObject(url))
+    m_dobjURIList(NEW_DEBUG wxTextURIListDataObject(url)),
+    m_dobjText(NEW_DEBUG wxTextDataObject(url))
 {
     // Use both URL-specific format and a plain text one to ensure that URLs
     // can be pasted into any application.

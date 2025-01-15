@@ -88,7 +88,7 @@ wxImageFloodFill(wxImage *image,
 
         //queue size (physical)
         long qSz= height * width * 2;
-        qst = new size_t [qSz];
+        qst = NEW_DEBUG size_t [qSz];
 
         //temporary x and y locations
         int xt, yt;
@@ -108,7 +108,7 @@ wxImageFloodFill(wxImage *image,
         //Main queue loop
         while(qr!=qs)
         {
-            //Add new members to queue
+            //Add NEW_DEBUG members to queue
             //Above current pixel
             if(MatchPixel(image,xt,yt-1,width,height,testColour))
             {
@@ -183,7 +183,7 @@ wxImageFloodFill(wxImage *image,
 
         //queue size (physical)
         long qSz= height * width * 2;
-        qst = new size_t [qSz];
+        qst = NEW_DEBUG size_t [qSz];
 
         //temporary x and y locations
         int xt, yt;
@@ -203,7 +203,7 @@ wxImageFloodFill(wxImage *image,
         //Main queue loop
         while (qr!=qs)
         {
-            //Add new members to queue
+            //Add NEW_DEBUG members to queue
             //Above current pixel
             if(!MatchBoundaryPixel(image,xt,yt-1,width,height,fillColour,testColour))
             {

@@ -210,7 +210,7 @@ void wxCaret::OnKillFocus()
         if ( !m_blinkedOut )
             Blink();
 
-        // .. and show it in the new style
+        // .. and show it in the NEW_DEBUG style
         Blink();
     }
 }

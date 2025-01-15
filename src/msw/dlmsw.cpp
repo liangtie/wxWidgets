@@ -100,7 +100,7 @@ wxDynamicLibraryDetailsCreator::EnumModulesProc(const wxChar* name,
 {
     EnumModulesProcParams *params = (EnumModulesProcParams *)data;
 
-    wxDynamicLibraryDetails *details = new wxDynamicLibraryDetails;
+    wxDynamicLibraryDetails *details = NEW_DEBUG wxDynamicLibraryDetails;
 
     // fill in simple properties
     details->m_name = name;

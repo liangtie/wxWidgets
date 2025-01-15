@@ -267,10 +267,10 @@ bool ImageDocument::OnOpenDocument(const wxString& filename)
 
     // we don't have a wxDocTemplate for the image details document as it's
     // never created by wxWidgets automatically, instead just do it manually
-    ImageDetailsDocument * const docDetails = new ImageDetailsDocument(this);
+    ImageDetailsDocument * const docDetails = NEW_DEBUG ImageDetailsDocument(this);
     docDetails->SetFilename(filename);
 
-    new ImageDetailsView(docDetails);
+    NEW_DEBUG ImageDetailsView(docDetails);
 
     return true;
 }

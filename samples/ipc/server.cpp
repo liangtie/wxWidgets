@@ -66,7 +66,7 @@ bool MyApp::OnInit()
         return false;
 
     // Create the main frame window
-    m_frame = new MyFrame(NULL, "Server");
+    m_frame = NEW_DEBUG MyFrame(NULL, "Server");
     m_frame->Show(true);
 
     return true;
@@ -88,20 +88,20 @@ MyFrame::MyFrame(wxFrame *frame, const wxString& title)
 
     m_server = NULL;
 
-    wxPanel * const panel = new wxPanel(this);
+    wxPanel * const panel = NEW_DEBUG wxPanel(this);
 
-    wxBoxSizer * const sizerMain = new wxBoxSizer( wxVERTICAL );
+    wxBoxSizer * const sizerMain = NEW_DEBUG wxBoxSizer( wxVERTICAL );
 
-    wxFlexGridSizer * const sizerCmds = new wxFlexGridSizer( 2, 0, 0 );
+    wxFlexGridSizer * const sizerCmds = NEW_DEBUG wxFlexGridSizer( 2, 0, 0 );
     sizerCmds->AddGrowableCol( 1 );
 
     wxButton *btn;
 
-    btn = new wxButton(panel, ID_START, "&Start Server");
+    btn = NEW_DEBUG wxButton(panel, ID_START, "&Start Server");
     sizerCmds->Add(btn, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
     const wxString choices[] = { IPC_SERVICE, "..." };
-    wxChoice * const choice = new wxChoice
+    wxChoice * const choice = NEW_DEBUG wxChoice
                                   (
                                     panel,
                                     ID_SERVERNAME,
@@ -110,20 +110,20 @@ MyFrame::MyFrame(wxFrame *frame, const wxString& title)
                                   );
     sizerCmds->Add(choice, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    btn = new wxButton(panel, ID_DISCONNECT, "&Disconnect Client");
+    btn = NEW_DEBUG wxButton(panel, ID_DISCONNECT, "&Disconnect Client");
     sizerCmds->Add(btn, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5);
     sizerCmds->AddSpacer(20);
 
-    btn = new wxButton( panel, ID_ADVISE, "&Advise");
+    btn = NEW_DEBUG wxButton( panel, ID_ADVISE, "&Advise");
     sizerCmds->Add(btn, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5);
     sizerCmds->AddSpacer(20);
 
     sizerMain->Add(sizerCmds, wxSizerFlags().Expand().Border(wxALL, 5));
 
     wxStaticBoxSizer * const
-        sizerLog = new wxStaticBoxSizer(wxVERTICAL, panel, "Server &log");
+        sizerLog = NEW_DEBUG wxStaticBoxSizer(wxVERTICAL, panel, "Server &log");
 
-    wxTextCtrl * const textLog = new wxTextCtrl
+    wxTextCtrl * const textLog = NEW_DEBUG wxTextCtrl
                                  (
                                     panel,
                                     wxID_ANY,
@@ -140,7 +140,7 @@ MyFrame::MyFrame(wxFrame *frame, const wxString& title)
     SetClientSize(panel->GetSize());
 
     GetServername()->SetSelection(0);
-    wxLogTextCtrl *logWindow = new wxLogTextCtrl(textLog);
+    wxLogTextCtrl *logWindow = NEW_DEBUG wxLogTextCtrl(textLog);
     delete wxLog::SetActiveTarget(logWindow);
     wxLogMessage("Click on Start to start the server");
     UpdateUI();
@@ -162,8 +162,8 @@ void MyFrame::OnClose(wxCloseEvent& event)
 
 void MyFrame::OnStart(wxCommandEvent& WXUNUSED(event))
 {
-    // Create a new server
-    m_server = new MyServer;
+    // Create a NEW_DEBUG server
+    m_server = NEW_DEBUG MyServer;
     wxString servername = GetServername()->GetStringSelection();
     if (m_server->Create(servername))
     {
@@ -238,7 +238,7 @@ wxConnectionBase *MyServer::OnAcceptConnection(const wxString& topic)
 
     if ( topic == IPC_TOPIC )
     {
-        m_connection = new MyConnection();
+        m_connection = NEW_DEBUG MyConnection();
         wxGetApp().GetFrame()->UpdateUI();
         wxLogMessage("Connection accepted");
         return m_connection;

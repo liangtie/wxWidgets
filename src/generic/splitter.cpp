@@ -74,7 +74,7 @@ static bool IsLive(wxSplitterWindow* wnd)
 {
     // with wxSP_LIVE_UPDATE style the splitter windows are always resized
     // following the mouse movement while it drags the sash, without it we only
-    // draw the sash at the new position but only resize the windows when the
+    // draw the sash at the NEW_DEBUG position but only resize the windows when the
     // dragging is finished
 #if defined( __WXMAC__ ) && defined(TARGET_API_MAC_OSX) && TARGET_API_MAC_OSX == 1
     return true; // Mac can't paint outside paint event - always need live mode
@@ -150,7 +150,7 @@ void wxSplitterWindow::Init()
     m_minimumPaneSize = 0;
     m_sashCursorWE = wxCursor(wxCURSOR_SIZEWE);
     m_sashCursorNS = wxCursor(wxCURSOR_SIZENS);
-    m_sashTrackerPen = new wxPen(*wxBLACK, 2, wxPENSTYLE_SOLID);
+    m_sashTrackerPen = NEW_DEBUG wxPen(*wxBLACK, 2, wxPENSTYLE_SOLID);
 
     m_needUpdating = false;
     m_isHot = false;
@@ -396,7 +396,7 @@ void wxSplitterWindow::OnMouseEvent(wxMouseEvent& event)
                 m_oldY = 0;
 #endif // __WXMSW__
 
-            // Draw new one
+            // Draw NEW_DEBUG one
             DrawSashTracker(m_oldX, m_oldY);
         }
         else
@@ -406,7 +406,7 @@ void wxSplitterWindow::OnMouseEvent(wxMouseEvent& event)
 
             DoSetSashPosition(posSashNew);
 
-            // in live mode, the new position is the actual sash position, clear requested position!
+            // in live mode, the NEW_DEBUG position is the actual sash position, clear requested position!
             m_requestedSashPosition = INT_MAX;
             m_needUpdating = true;
         }
@@ -496,7 +496,7 @@ void wxSplitterWindow::OnSize(wxSizeEvent& event)
             }
 
             // Send an event with the newly calculated position. The handler
-            // can then override the new position by setting the new position.
+            // can then override the NEW_DEBUG position by setting the NEW_DEBUG position.
             wxSplitterEvent update(wxEVT_SPLITTER_SASH_POS_RESIZE, this);
             update.m_data.resize.pos = newPosition;
             update.m_data.resize.oldSize = old_size;
@@ -508,7 +508,7 @@ void wxSplitterWindow::OnSize(wxSizeEvent& event)
                 {
                     // If the user set the sashposition to -1
                     // we keep the already calculated value,
-                    // otherwise the user provided the new position.
+                    // otherwise the user provided the NEW_DEBUG position.
                     int userPos = update.GetSashPosition();
                     if (userPos != -1)
                         newPosition = userPos;
@@ -1089,7 +1089,7 @@ void wxSplitterWindow::OnDoubleClickSash(int x, int y)
 {
     wxCHECK_RET(m_windowTwo, wxT("splitter: no window to remove"));
 
-    // new code should handle events instead of using the virtual functions
+    // NEW_DEBUG code should handle events instead of using the virtual functions
     wxSplitterEvent event(wxEVT_SPLITTER_DOUBLECLICKED, this);
     event.m_data.pt.x = x;
     event.m_data.pt.y = y;

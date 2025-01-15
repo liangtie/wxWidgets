@@ -190,8 +190,8 @@ class wxHtmlFilterModule : public wxModule
     public:
         virtual bool OnInit() wxOVERRIDE
         {
-            wxHtmlWindow::AddFilter(new wxHtmlFilterHTML);
-            wxHtmlWindow::AddFilter(new wxHtmlFilterImage);
+            wxHtmlWindow::AddFilter(NEW_DEBUG wxHtmlFilterHTML);
+            wxHtmlWindow::AddFilter(NEW_DEBUG wxHtmlFilterImage);
             return true;
         }
         virtual void OnExit() wxOVERRIDE {}

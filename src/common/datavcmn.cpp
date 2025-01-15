@@ -736,7 +736,7 @@ bool wxDataViewRendererBase::StartEditing( const wxDataViewItem &item, wxRect la
     }
 
     wxDataViewEditorCtrlEvtHandler *handler =
-        new wxDataViewEditorCtrlEvtHandler( m_editorCtrl, (wxDataViewRenderer*) this );
+        NEW_DEBUG wxDataViewEditorCtrlEvtHandler( m_editorCtrl, (wxDataViewRenderer*) this );
 
     m_editorCtrl->PushEventHandler( handler );
 
@@ -1254,7 +1254,7 @@ bool wxDataViewCtrlBase::AssociateModel( wxDataViewModel *model )
         m_model->DecRef();   // discard old model, if any
     }
 
-    // add our own reference to the new model:
+    // add our own reference to the NEW_DEBUG model:
     m_model = model;
     if (m_model)
     {
@@ -1350,7 +1350,7 @@ struct RendererFactory
     static Renderer*
     New(wxDataViewCellMode mode, int align)
     {
-        return new Renderer(Renderer::GetDefaultType(), mode, align);
+        return NEW_DEBUG Renderer(Renderer::GetDefaultType(), mode, align);
     }
 };
 
@@ -1360,7 +1360,7 @@ struct RendererFactory<wxDataViewProgressRenderer>
     static wxDataViewProgressRenderer*
     New(wxDataViewCellMode mode, int align)
     {
-        return new wxDataViewProgressRenderer(
+        return NEW_DEBUG wxDataViewProgressRenderer(
                         wxString(),
                         wxDataViewProgressRenderer::GetDefaultType(),
                         mode,
@@ -1391,7 +1391,7 @@ CreateColumnWithRenderer(const LabelType& label,
     // (without speaking that vertical alignment is completely unsupported in
     // native OS X version), that it's preferable to do the right thing by
     // default here rather than account for it.
-    return new wxDataViewColumn(
+    return NEW_DEBUG wxDataViewColumn(
                     label,
                     RendererFactory<Renderer>::New(
                         mode,
@@ -1700,7 +1700,7 @@ wxDataViewCtrlBase::CreateDataObject(const wxVector<wxDataFormat>& formats)
          return NULL;
     }
 
-    wxDataObjectComposite *dataObject(new wxDataObjectComposite);
+    wxDataObjectComposite *dataObject(NEW_DEBUG wxDataObjectComposite);
     for (size_t i = 0; i < formats.size(); ++i)
     {
         switch (formats[i].GetType())
@@ -1708,20 +1708,20 @@ wxDataViewCtrlBase::CreateDataObject(const wxVector<wxDataFormat>& formats)
             case wxDF_TEXT:
             case wxDF_OEMTEXT:
             case wxDF_UNICODETEXT:
-                dataObject->Add(new wxTextDataObject);
+                dataObject->Add(NEW_DEBUG wxTextDataObject);
                 break;
 
             case wxDF_BITMAP:
             case wxDF_PNG:
-                dataObject->Add(new wxBitmapDataObject);
+                dataObject->Add(NEW_DEBUG wxBitmapDataObject);
                 break;
 
             case wxDF_FILENAME:
-                dataObject->Add(new wxFileDataObject);
+                dataObject->Add(NEW_DEBUG wxFileDataObject);
                 break;
 
             case wxDF_HTML:
-                dataObject->Add(new wxHTMLDataObject);
+                dataObject->Add(NEW_DEBUG wxHTMLDataObject);
                 break;
 
             case wxDF_METAFILE:
@@ -1737,7 +1737,7 @@ wxDataViewCtrlBase::CreateDataObject(const wxVector<wxDataFormat>& formats)
             case wxDF_LOCALE:
             case wxDF_PRIVATE:
             default: // any other custom format
-                dataObject->Add(new wxCustomDataObject(formats[i]));
+                dataObject->Add(NEW_DEBUG wxCustomDataObject(formats[i]));
                 break;
 
             case wxDF_INVALID:
@@ -1847,7 +1847,7 @@ wxWindow* wxDataViewSpinRenderer::CreateEditorCtrl( wxWindow *parent, wxRect lab
     long l = value;
     wxString str;
     str.Printf( wxT("%d"), (int) l );
-    wxSpinCtrl *sc = new wxSpinCtrl( parent, wxID_ANY, str,
+    wxSpinCtrl *sc = NEW_DEBUG wxSpinCtrl( parent, wxID_ANY, str,
                labelRect.GetTopLeft(), labelRect.GetSize(), wxSP_ARROW_KEYS|wxTE_PROCESS_ENTER, m_min, m_max, l );
 #ifdef __WXMAC__
     const wxSize size = sc->GetSize();
@@ -1922,7 +1922,7 @@ wxDataViewChoiceRenderer::wxDataViewChoiceRenderer( const wxArrayString& choices
 
 wxWindow* wxDataViewChoiceRenderer::CreateEditorCtrl( wxWindow *parent, wxRect labelRect, const wxVariant &value )
 {
-    wxChoice* c = new wxChoice
+    wxChoice* c = NEW_DEBUG wxChoice
                       (
                           parent,
                           wxID_ANY,
@@ -2056,7 +2056,7 @@ wxDataViewDateRenderer::wxDataViewDateRenderer(const wxString& varianttype,
 wxWindow *
 wxDataViewDateRenderer::CreateEditorCtrl(wxWindow *parent, wxRect labelRect, const wxVariant& value)
 {
-    return new wxDatePickerCtrl
+    return NEW_DEBUG wxDatePickerCtrl
                (
                    parent,
                    wxID_ANY,
@@ -2361,7 +2361,7 @@ void wxDataViewListStore::AppendItem( const wxVector<wxVariant> &values, wxUIntP
     wxCHECK_RET( m_data.empty() || values.size() == m_data[0]->m_values.size(),
                  "wrong number of values" );
 
-    wxDataViewListStoreLine *line = new wxDataViewListStoreLine( data );
+    wxDataViewListStoreLine *line = NEW_DEBUG wxDataViewListStoreLine( data );
     line->m_values = values;
     m_data.push_back( line );
 
@@ -2373,7 +2373,7 @@ void wxDataViewListStore::PrependItem( const wxVector<wxVariant> &values, wxUInt
     wxCHECK_RET( m_data.empty() || values.size() == m_data[0]->m_values.size(),
                  "wrong number of values" );
 
-    wxDataViewListStoreLine *line = new wxDataViewListStoreLine( data );
+    wxDataViewListStoreLine *line = NEW_DEBUG wxDataViewListStoreLine( data );
     line->m_values = values;
     m_data.insert( m_data.begin(), line );
 
@@ -2386,7 +2386,7 @@ void wxDataViewListStore::InsertItem(  unsigned int row, const wxVector<wxVarian
     wxCHECK_RET( m_data.empty() || values.size() == m_data[0]->m_values.size(),
                  "wrong number of values" );
 
-    wxDataViewListStoreLine *line = new wxDataViewListStoreLine( data );
+    wxDataViewListStoreLine *line = NEW_DEBUG wxDataViewListStoreLine( data );
     line->m_values = values;
     m_data.insert( m_data.begin()+row, line );
 
@@ -2480,7 +2480,7 @@ bool wxDataViewListCtrl::Create( wxWindow *parent, wxWindowID id,
     if ( !wxDataViewCtrl::Create( parent, id, pos, size, style, validator ) )
         return false;
 
-    wxDataViewListStore *store = new wxDataViewListStore;
+    wxDataViewListStore *store = NEW_DEBUG wxDataViewListStore;
     AssociateModel( store );
     store->DecRef();
 
@@ -2531,8 +2531,8 @@ wxDataViewColumn *wxDataViewListCtrl::AppendTextColumn( const wxString &label,
 {
     GetStore()->AppendColumn( wxT("string") );
 
-    wxDataViewColumn *ret = new wxDataViewColumn( label,
-        new wxDataViewTextRenderer( wxT("string"), mode ),
+    wxDataViewColumn *ret = NEW_DEBUG wxDataViewColumn( label,
+        NEW_DEBUG wxDataViewTextRenderer( wxT("string"), mode ),
         GetColumnCount(), width, align, flags );
 
     wxDataViewCtrl::AppendColumn( ret );
@@ -2545,8 +2545,8 @@ wxDataViewColumn *wxDataViewListCtrl::AppendToggleColumn( const wxString &label,
 {
     GetStore()->AppendColumn( wxT("bool") );
 
-    wxDataViewColumn *ret = new wxDataViewColumn( label,
-        new wxDataViewToggleRenderer( wxT("bool"), mode ),
+    wxDataViewColumn *ret = NEW_DEBUG wxDataViewColumn( label,
+        NEW_DEBUG wxDataViewToggleRenderer( wxT("bool"), mode ),
         GetColumnCount(), width, align, flags );
 
     return wxDataViewCtrl::AppendColumn( ret ) ? ret : NULL;
@@ -2557,8 +2557,8 @@ wxDataViewColumn *wxDataViewListCtrl::AppendProgressColumn( const wxString &labe
 {
     GetStore()->AppendColumn( wxT("long") );
 
-    wxDataViewColumn *ret = new wxDataViewColumn( label,
-        new wxDataViewProgressRenderer( wxEmptyString, wxT("long"), mode ),
+    wxDataViewColumn *ret = NEW_DEBUG wxDataViewColumn( label,
+        NEW_DEBUG wxDataViewProgressRenderer( wxEmptyString, wxT("long"), mode ),
         GetColumnCount(), width, align, flags );
 
     return wxDataViewCtrl::AppendColumn( ret ) ? ret : NULL;
@@ -2569,8 +2569,8 @@ wxDataViewColumn *wxDataViewListCtrl::AppendIconTextColumn( const wxString &labe
 {
     GetStore()->AppendColumn( wxT("wxDataViewIconText") );
 
-    wxDataViewColumn *ret = new wxDataViewColumn( label,
-        new wxDataViewIconTextRenderer( wxT("wxDataViewIconText"), mode ),
+    wxDataViewColumn *ret = NEW_DEBUG wxDataViewColumn( label,
+        NEW_DEBUG wxDataViewIconTextRenderer( wxT("wxDataViewIconText"), mode ),
         GetColumnCount(), width, align, flags );
 
     return wxDataViewCtrl::AppendColumn( ret ) ? ret : NULL;
@@ -2637,7 +2637,7 @@ void wxDataViewTreeStoreContainerNode::DestroyChildren()
 
 wxDataViewTreeStore::wxDataViewTreeStore()
 {
-    m_root = new wxDataViewTreeStoreContainerNode( NULL, wxEmptyString );
+    m_root = NEW_DEBUG wxDataViewTreeStoreContainerNode( NULL, wxEmptyString );
 }
 
 wxDataViewTreeStore::~wxDataViewTreeStore()
@@ -2652,7 +2652,7 @@ wxDataViewItem wxDataViewTreeStore::AppendItem( const wxDataViewItem& parent,
     if (!parent_node) return wxDataViewItem(0);
 
     wxDataViewTreeStoreNode *node =
-        new wxDataViewTreeStoreNode( parent_node, text, icon, data );
+        NEW_DEBUG wxDataViewTreeStoreNode( parent_node, text, icon, data );
     parent_node->GetChildren().push_back( node );
 
     return node->GetItem();
@@ -2665,7 +2665,7 @@ wxDataViewItem wxDataViewTreeStore::PrependItem( const wxDataViewItem& parent,
     if (!parent_node) return wxDataViewItem(0);
 
     wxDataViewTreeStoreNode *node =
-        new wxDataViewTreeStoreNode( parent_node, text, icon, data );
+        NEW_DEBUG wxDataViewTreeStoreNode( parent_node, text, icon, data );
     wxDataViewTreeStoreNodes& children = parent_node->GetChildren();
     children.insert(children.begin(), node);
 
@@ -2688,7 +2688,7 @@ wxDataViewTreeStore::InsertItem(const wxDataViewItem& parent,
     if (iter == children.end()) return wxDataViewItem(0);
 
     wxDataViewTreeStoreNode *node =
-        new wxDataViewTreeStoreNode( parent_node, text, icon, data );
+        NEW_DEBUG wxDataViewTreeStoreNode( parent_node, text, icon, data );
     children.insert(iter, node);
 
     return node->GetItem();
@@ -2702,7 +2702,7 @@ wxDataViewItem wxDataViewTreeStore::PrependContainer( const wxDataViewItem& pare
     if (!parent_node) return wxDataViewItem(0);
 
     wxDataViewTreeStoreContainerNode *node =
-        new wxDataViewTreeStoreContainerNode( parent_node, text, icon, expanded, data );
+        NEW_DEBUG wxDataViewTreeStoreContainerNode( parent_node, text, icon, expanded, data );
     wxDataViewTreeStoreNodes& children = parent_node->GetChildren();
     children.insert(children.begin(), node);
 
@@ -2720,7 +2720,7 @@ wxDataViewTreeStore::AppendContainer(const wxDataViewItem& parent,
     if (!parent_node) return wxDataViewItem(0);
 
     wxDataViewTreeStoreContainerNode *node =
-        new wxDataViewTreeStoreContainerNode( parent_node, text, icon, expanded, data );
+        NEW_DEBUG wxDataViewTreeStoreContainerNode( parent_node, text, icon, expanded, data );
     parent_node->GetChildren().push_back( node );
 
     return node->GetItem();
@@ -2743,7 +2743,7 @@ wxDataViewTreeStore::InsertContainer(const wxDataViewItem& parent,
     if (iter == children.end()) return wxDataViewItem(0);
 
     wxDataViewTreeStoreContainerNode *node =
-        new wxDataViewTreeStoreContainerNode( parent_node, text, icon, expanded, data );
+        NEW_DEBUG wxDataViewTreeStoreContainerNode( parent_node, text, icon, expanded, data );
     children.insert(iter, node);
 
     return node->GetItem();
@@ -3026,7 +3026,7 @@ bool wxDataViewTreeCtrl::Create( wxWindow *parent, wxWindowID id,
         return false;
 
     // create the standard model and a column in the tree
-    wxDataViewTreeStore *store = new wxDataViewTreeStore;
+    wxDataViewTreeStore *store = NEW_DEBUG wxDataViewTreeStore;
     AssociateModel( store );
     store->DecRef();
 

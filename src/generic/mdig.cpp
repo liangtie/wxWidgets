@@ -89,7 +89,7 @@ bool wxGenericMDIParentFrame::Create(wxWindow *parent,
     if ( !(style & wxFRAME_NO_WINDOW_MENU) )
     {
 #if wxUSE_MENUS
-        m_windowMenu = new wxMenu;
+        m_windowMenu = NEW_DEBUG wxMenu;
 
         m_windowMenu->Append(wxWINDOWCLOSE,    _("Cl&ose"));
         m_windowMenu->Append(wxWINDOWCLOSEALL, _("Close All"));
@@ -117,7 +117,7 @@ bool wxGenericMDIParentFrame::Create(wxWindow *parent,
 
 wxGenericMDIClientWindow *wxGenericMDIParentFrame::OnCreateGenericClient()
 {
-    return new wxGenericMDIClientWindow;
+    return NEW_DEBUG wxGenericMDIClientWindow;
 }
 
 bool wxGenericMDIParentFrame::CloseAll()
@@ -165,7 +165,7 @@ void wxGenericMDIParentFrame::SetMenuBar(wxMenuBar *pMenuBar)
 {
     // Remove the Window menu from the old menu bar
     RemoveWindowMenu(GetMenuBar());
-    // Add the Window menu to the new menu bar.
+    // Add the Window menu to the NEW_DEBUG menu bar.
     AddWindowMenu(pMenuBar);
 
     wxFrame::SetMenuBar(pMenuBar);
@@ -262,7 +262,7 @@ void wxGenericMDIParentFrame::WXRemoveChild(wxGenericMDIChildFrame *child)
 
     if ( removingActive )
     {
-        // Set the new selection to a remaining page
+        // Set the NEW_DEBUG selection to a remaining page
         const size_t count = book->GetPageCount();
         if ( count > (size_t)pos )
         {
@@ -542,7 +542,7 @@ wxGenericMDIClientWindow::CreateGenericClient(wxWindow *parent)
     if ( !wxWindow::Create(parent, wxID_ANY) )
         return false;
 
-    m_notebook = new wxNotebook(this, wxID_ANY);
+    m_notebook = NEW_DEBUG wxNotebook(this, wxID_ANY);
     m_notebook->Bind
                 (
                     wxEVT_NOTEBOOK_PAGE_CHANGED,
@@ -606,7 +606,7 @@ void wxGenericMDIClientWindow::PageChanged(int oldSelection, int newSelection)
         }
     }
 
-    // Notify new active child that it has been activated
+    // Notify NEW_DEBUG active child that it has been activated
     if (newSelection != -1)
     {
         wxGenericMDIChildFrame * const activeChild = GetChild(newSelection);

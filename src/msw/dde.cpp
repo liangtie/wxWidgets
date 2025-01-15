@@ -333,7 +333,7 @@ wxDDEServer::~wxDDEServer()
 
 wxConnectionBase *wxDDEServer::OnAcceptConnection(const wxString& /* topic */)
 {
-    return new wxDDEConnection;
+    return NEW_DEBUG wxDDEConnection;
 }
 
 wxDDEConnection *wxDDEServer::FindConnection(WXHCONV conv)
@@ -450,7 +450,7 @@ wxConnectionBase *wxDDEClient::MakeConnection(const wxString& WXUNUSED(host),
 
 wxConnectionBase *wxDDEClient::OnMakeConnection()
 {
-    return new wxDDEConnection;
+    return NEW_DEBUG wxDDEConnection;
 }
 
 wxDDEConnection *wxDDEClient::FindConnection(WXHCONV conv)

@@ -86,7 +86,7 @@ LifeSamplesDialog::LifeSamplesDialog(wxWindow *parent)
     }
 
     // create and populate the list of available samples
-    m_list = new wxListBox( this, ID_LISTBOX,
+    m_list = NEW_DEBUG wxListBox( this, ID_LISTBOX,
         wxDefaultPosition,
         listSize,
         0, NULL,
@@ -96,11 +96,11 @@ LifeSamplesDialog::LifeSamplesDialog(wxWindow *parent)
         m_list->Append(g_patterns[i].m_name);
 
     // descriptions
-    wxStaticBox *statbox = new wxStaticBox( this, wxID_ANY, _("Description"));
-    m_life   = new Life();
+    wxStaticBox *statbox = NEW_DEBUG wxStaticBox( this, wxID_ANY, _("Description"));
+    m_life   = NEW_DEBUG Life();
     m_life->SetPattern(g_patterns[0]);
-    m_canvas = new LifeCanvas( this, m_life, false );
-    m_text   = new wxTextCtrl( this, wxID_ANY,
+    m_canvas = NEW_DEBUG LifeCanvas( this, m_life, false );
+    m_text   = NEW_DEBUG wxTextCtrl( this, wxID_ANY,
         g_patterns[0].m_description,
         wxDefaultPosition,
         wxSize(300, 60),
@@ -108,19 +108,19 @@ LifeSamplesDialog::LifeSamplesDialog(wxWindow *parent)
 
     // layout components
 
-    wxStaticBoxSizer *sizer1 = new wxStaticBoxSizer( statbox, wxVERTICAL );
+    wxStaticBoxSizer *sizer1 = NEW_DEBUG wxStaticBoxSizer( statbox, wxVERTICAL );
     sizer1->Add( m_canvas, 2, wxGROW | wxALL, 5);
     sizer1->Add( m_text, 1, wxGROW | wxALL, 5 );
 
-    wxBoxSizer *sizer2 = new wxBoxSizer( screenIsHorizontal ? wxHORIZONTAL : wxVERTICAL );
+    wxBoxSizer *sizer2 = NEW_DEBUG wxBoxSizer( screenIsHorizontal ? wxHORIZONTAL : wxVERTICAL );
     sizer2->Add( m_list, 0, wxGROW | wxALL, 5 );
     sizer2->Add( sizer1, 1, wxGROW | wxALL, 5 );
 
-    wxBoxSizer *sizer3 = new wxBoxSizer( wxVERTICAL );
+    wxBoxSizer *sizer3 = NEW_DEBUG wxBoxSizer( wxVERTICAL );
     sizer3->Add( CreateTextSizer(_("Select a configuration")), 0, wxALL|wxCENTRE, isPDA ? 2 : 10 );
 #if wxUSE_STATLINE
     if (!isPDA)
-        sizer3->Add( new wxStaticLine(this, wxID_ANY), 0, wxGROW | wxLEFT | wxRIGHT, 10 );
+        sizer3->Add( NEW_DEBUG wxStaticLine(this, wxID_ANY), 0, wxGROW | wxLEFT | wxRIGHT, 10 );
 #endif // wxUSE_STATLINE
     sizer3->Add( sizer2, 1, wxGROW | wxALL, 5 );
 
@@ -174,13 +174,13 @@ LifeAboutDialog::LifeAboutDialog(wxWindow *parent)
                           wxDefaultPosition, wxDefaultSize)
 {
     // logo
-    wxStaticBitmap *sbmp = new wxStaticBitmap(this, wxID_ANY, wxBitmap(life_xpm));
+    wxStaticBitmap *sbmp = NEW_DEBUG wxStaticBitmap(this, wxID_ANY, wxBitmap(life_xpm));
 
     // layout components
-    wxBoxSizer *sizer = new wxBoxSizer( wxVERTICAL );
+    wxBoxSizer *sizer = NEW_DEBUG wxBoxSizer( wxVERTICAL );
     sizer->Add( sbmp, 0, wxCENTRE | wxALL, 10 );
 #if wxUSE_STATLINE
-    sizer->Add( new wxStaticLine(this, wxID_ANY), 0, wxGROW | wxLEFT | wxRIGHT, 5 );
+    sizer->Add( NEW_DEBUG wxStaticLine(this, wxID_ANY), 0, wxGROW | wxLEFT | wxRIGHT, 5 );
 #endif // wxUSE_STATLINE
     sizer->Add( CreateTextSizer(_("Life! version 2.2 for wxWidgets\n\n\
 (c) 2000 Guillermo Rodriguez Garcia\n\n\

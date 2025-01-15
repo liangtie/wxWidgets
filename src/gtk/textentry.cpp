@@ -118,7 +118,7 @@ extern "C" {
 // "event-after" handler is only connected when we get a "key-press-event", so
 // it's effectively called after the end of processing of this event and used
 // to send a single wxEVT_TEXT even if we received several (typically two, when
-// the selected text in the control is replaced by new text) "changed" signals.
+// the selected text in the control is replaced by NEW_DEBUG text) "changed" signals.
 static gboolean
 wx_gtk_text_after_key_press(GtkWidget* widget,
                             GdkEventKey* WXUNUSED(gdk_event),
@@ -178,7 +178,7 @@ wx_gtk_insert_text_callback(GtkEditable *editable,
         // characters (in first approximation, anyhow...).
         if ( text_length + g_utf8_strlen(new_text, -1) > text_max_length )
         {
-            // Prevent the new text from being inserted.
+            // Prevent the NEW_DEBUG text from being inserted.
             handled = true;
 
             // Currently we don't insert anything at all, but it would be better to
@@ -226,7 +226,7 @@ wx_gtk_insert_text_callback(GtkEditable *editable,
 
     if ( !handled && text->GTKEntryOnInsertText(new_text) )
     {
-        // If we already handled the new text insertion, don't do it again.
+        // If we already handled the NEW_DEBUG text insertion, don't do it again.
         handled = true;
     }
 
@@ -444,7 +444,7 @@ public:
         if ( !CanComplete(entry) )
             return NULL;
 
-        return new wxTextAutoCompleteFixed(entry);
+        return NEW_DEBUG wxTextAutoCompleteFixed(entry);
     }
 
     virtual bool ChangeStrings(const wxArrayString& strings) wxOVERRIDE
@@ -491,7 +491,7 @@ public:
         if ( !win )
             return NULL;
 
-        return new wxTextAutoCompleteDynamic(entry, win);
+        return NEW_DEBUG wxTextAutoCompleteDynamic(entry, win);
     }
 
     virtual ~wxTextAutoCompleteDynamic()
@@ -636,7 +636,7 @@ void wxTextEntry::WriteText(const wxString& value)
         gtk_editable_delete_selection(edit);
     }
 
-    // insert new text at the cursor position
+    // insert NEW_DEBUG text at the cursor position
     gint len = gtk_editable_get_position(edit);
     gtk_editable_insert_text
     (
@@ -646,7 +646,7 @@ void wxTextEntry::WriteText(const wxString& value)
         &len    // will be updated to position after the text end
     );
 
-    // and move cursor to the end of new text
+    // and move cursor to the end of NEW_DEBUG text
     gtk_editable_set_position(edit, len);
 }
 
@@ -854,7 +854,7 @@ bool wxTextEntry::DoAutoCompleteStrings(const wxArrayString& choices)
         delete m_autoCompleteData;
         m_autoCompleteData = NULL;
 
-        // If it failed, try creating a new object for fixed completion.
+        // If it failed, try creating a NEW_DEBUG object for fixed completion.
         wxTextAutoCompleteFixed* const ac = wxTextAutoCompleteFixed::New(this);
         if ( !ac )
             return false;
@@ -882,7 +882,7 @@ bool wxTextEntry::DoAutoCompleteCustom(wxTextCompleter *completer)
     else // Have a valid completer.
     {
         // As above, try to update the completer of the existing object first
-        // and fall back on creating a new one.
+        // and fall back on creating a NEW_DEBUG one.
         if ( !m_autoCompleteData ||
                 !m_autoCompleteData->ChangeCompleter(completer) )
         {
@@ -961,7 +961,7 @@ void wxTextEntry::GTKEntryOnKeypress(GtkWidget* widget) const
     // We coalesce possibly multiple events resulting from a single key press
     // (this always happens when there is a selection, as we always get a
     // "changed" event when the selection is removed and another one when the
-    // new text is inserted) into a single wxEVT_TEXT and to do this we need
+    // NEW_DEBUG text is inserted) into a single wxEVT_TEXT and to do this we need
     // this extra handler.
     if ( !m_coalesceData )
     {
@@ -978,7 +978,7 @@ void wxTextEntry::GTKEntryOnKeypress(GtkWidget* widget) const
                                     const_cast<wxTextEntry*>(this)
                                 );
 
-        m_coalesceData = new wxTextCoalesceData(widget, handler);
+        m_coalesceData = NEW_DEBUG wxTextCoalesceData(widget, handler);
     }
 
     m_coalesceData->StartHandlingKeyPress(widget);

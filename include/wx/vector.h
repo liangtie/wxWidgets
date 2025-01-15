@@ -14,6 +14,10 @@
 
 #include "wx/defs.h"
 
+#include <crtdbg.h>
+#define NEW_DEBUG new(_NORMAL_BLOCK, __FILE__, __LINE__)
+#define NEW_DEBUG2(...) new(__VA_ARGS__)
+
 #if wxUSE_STD_CONTAINERS
 
 #include <vector>

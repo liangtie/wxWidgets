@@ -142,7 +142,7 @@ static const struct ControlValues
 // TextWidgetsPage
 // ----------------------------------------------------------------------------
 
-// Define a new frame type: this is going to be our main frame
+// Define a NEW_DEBUG frame type: this is going to be our main frame
 class TextWidgetsPage : public WidgetsPage
 {
 public:
@@ -416,13 +416,13 @@ void TextWidgetsPage::CreateContent()
         "multi line",
     };
 
-    wxStaticBox *box = new wxStaticBox(this, wxID_ANY, "&Set textctrl parameters");
-    m_radioTextLines = new wxRadioBox(this, wxID_ANY, "&Number of lines:",
+    wxStaticBox *box = NEW_DEBUG wxStaticBox(this, wxID_ANY, "&Set textctrl parameters");
+    m_radioTextLines = NEW_DEBUG wxRadioBox(this, wxID_ANY, "&Number of lines:",
                                       wxDefaultPosition, wxDefaultSize,
                                       WXSIZEOF(modes), modes,
                                       1, wxRA_SPECIFY_COLS);
 
-    wxSizer *sizerLeft = new wxStaticBoxSizer(box, wxVERTICAL);
+    wxSizer *sizerLeft = NEW_DEBUG wxStaticBoxSizer(box, wxVERTICAL);
 
     sizerLeft->Add(m_radioTextLines, 0, wxGROW | wxALL, 5);
     sizerLeft->AddSpacer(5);
@@ -457,7 +457,7 @@ void TextWidgetsPage::CreateContent()
         "best wrap",
     };
 
-    m_radioWrap = new wxRadioBox(this, TextPage_WrapLines, "&Wrap style:",
+    m_radioWrap = NEW_DEBUG wxRadioBox(this, TextPage_WrapLines, "&Wrap style:",
                                  wxDefaultPosition, wxDefaultSize,
                                  WXSIZEOF(wrap), wrap,
                                  1, wxRA_SPECIFY_COLS);
@@ -470,7 +470,7 @@ void TextWidgetsPage::CreateContent()
         "right",
     };
 
-    m_radioAlign = new wxRadioBox(this, wxID_ANY, "&Text alignment",
+    m_radioAlign = NEW_DEBUG wxRadioBox(this, wxID_ANY, "&Text alignment",
                                     wxDefaultPosition, wxDefaultSize,
                                     WXSIZEOF(halign), halign, 1);
     sizerLeft->Add(m_radioAlign, 0, wxGROW | wxALL, 5);
@@ -483,7 +483,7 @@ void TextWidgetsPage::CreateContent()
         "rich edit 2.0",
     };
 
-    m_radioKind = new wxRadioBox(this, wxID_ANY, "Control &kind",
+    m_radioKind = NEW_DEBUG wxRadioBox(this, wxID_ANY, "Control &kind",
                                  wxDefaultPosition, wxDefaultSize,
                                  WXSIZEOF(kinds), kinds,
                                  1, wxRA_SPECIFY_COLS);
@@ -492,40 +492,40 @@ void TextWidgetsPage::CreateContent()
     sizerLeft->Add(m_radioKind, 0, wxGROW | wxALL, 5);
 #endif // __WXMSW__
 
-    wxButton *btn = new wxButton(this, TextPage_Reset, "&Reset");
+    wxButton *btn = NEW_DEBUG wxButton(this, TextPage_Reset, "&Reset");
     sizerLeft->Add(2, 2, 0, wxGROW | wxALL, 1); // spacer
     sizerLeft->Add(btn, 0, wxALIGN_CENTRE_HORIZONTAL | wxALL, 15);
 
     // middle pane
-    wxStaticBox *box2 = new wxStaticBox(this, wxID_ANY, "&Change contents:");
-    wxSizer *sizerMiddleUp = new wxStaticBoxSizer(box2, wxVERTICAL);
+    wxStaticBox *box2 = NEW_DEBUG wxStaticBox(this, wxID_ANY, "&Change contents:");
+    wxSizer *sizerMiddleUp = NEW_DEBUG wxStaticBoxSizer(box2, wxVERTICAL);
 
-    btn = new wxButton(this, TextPage_Set, "&Set text value");
+    btn = NEW_DEBUG wxButton(this, TextPage_Set, "&Set text value");
     sizerMiddleUp->Add(btn, 0, wxALL | wxGROW, 1);
 
-    btn = new wxButton(this, TextPage_Add, "&Append text");
+    btn = NEW_DEBUG wxButton(this, TextPage_Add, "&Append text");
     sizerMiddleUp->Add(btn, 0, wxALL | wxGROW, 1);
 
-    btn = new wxButton(this, TextPage_Insert, "&Insert text");
+    btn = NEW_DEBUG wxButton(this, TextPage_Insert, "&Insert text");
     sizerMiddleUp->Add(btn, 0, wxALL | wxGROW, 1);
 
-    btn = new wxButton(this, TextPage_Load, "&Load file");
+    btn = NEW_DEBUG wxButton(this, TextPage_Load, "&Load file");
     sizerMiddleUp->Add(btn, 0, wxALL | wxGROW, 1);
 
-    btn = new wxButton(this, TextPage_Clear, "&Clear");
+    btn = NEW_DEBUG wxButton(this, TextPage_Clear, "&Clear");
     sizerMiddleUp->Add(btn, 0, wxALL | wxGROW, 1);
 
-    btn = new wxButton(this, TextPage_StreamRedirector, "St&ream redirection");
+    btn = NEW_DEBUG wxButton(this, TextPage_StreamRedirector, "St&ream redirection");
     sizerMiddleUp->Add(btn, 0, wxALL | wxGROW, 1);
 
-    wxStaticBox *box4 = new wxStaticBox(this, wxID_ANY, "&Info:");
-    wxSizer *sizerMiddleDown = new wxStaticBoxSizer(box4, wxVERTICAL);
+    wxStaticBox *box4 = NEW_DEBUG wxStaticBox(this, wxID_ANY, "&Info:");
+    wxSizer *sizerMiddleDown = NEW_DEBUG wxStaticBoxSizer(box4, wxVERTICAL);
 
     m_textPosCur = CreateInfoText();
     m_textRowCur = CreateInfoText();
     m_textColCur = CreateInfoText();
 
-    wxSizer *sizerRow = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer *sizerRow = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     sizerRow->Add(CreateTextWithLabelSizer
                   (
                     "Current pos:",
@@ -574,7 +574,7 @@ void TextWidgetsPage::CreateContent()
                         0, wxALL, 5
                      );
 
-    m_textRange = new wxTextCtrl(this, wxID_ANY, wxEmptyString,
+    m_textRange = NEW_DEBUG wxTextCtrl(this, wxID_ANY, wxEmptyString,
                                  wxDefaultPosition, wxDefaultSize,
                                  wxTE_READONLY);
     sizerMiddleDown->Add
@@ -589,7 +589,7 @@ void TextWidgetsPage::CreateContent()
 
     sizerMiddleDown->Add
                      (
-                          new wxStaticText
+                          NEW_DEBUG wxStaticText
                           (
                             this,
                             wxID_ANY,
@@ -598,19 +598,19 @@ void TextWidgetsPage::CreateContent()
                           wxSizerFlags().Border()
                      );
 
-    wxSizer *sizerMiddle = new wxBoxSizer(wxVERTICAL);
+    wxSizer *sizerMiddle = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     sizerMiddle->Add(sizerMiddleUp, 0, wxGROW);
     sizerMiddle->Add(sizerMiddleDown, 1, wxGROW | wxTOP, 5);
 
     // right pane
-    wxStaticBox *box3 = new wxStaticBox(this, wxID_ANY, "&Text:");
-    m_sizerText = new wxStaticBoxSizer(box3, wxHORIZONTAL);
+    wxStaticBox *box3 = NEW_DEBUG wxStaticBox(this, wxID_ANY, "&Text:");
+    m_sizerText = NEW_DEBUG wxStaticBoxSizer(box3, wxHORIZONTAL);
     Reset();
     CreateText();
     m_sizerText->SetMinSize(150, 0);
 
     // the 3 panes panes compose the upper part of the window
-    wxSizer *sizerTop = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer *sizerTop = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     sizerTop->Add(sizerLeft, 0, wxGROW | (wxALL & ~wxLEFT), 10);
     sizerTop->Add(sizerMiddle, 0, wxGROW | wxALL, 10);
     sizerTop->Add(m_sizerText, 1, wxGROW | (wxALL & ~wxRIGHT), 10);
@@ -631,7 +631,7 @@ wxTextCtrl *TextWidgetsPage::CreateInfoText()
         GetTextExtent("9999999", &s_maxWidth, NULL);
     }
 
-    wxTextCtrl *text = new wxTextCtrl(this, wxID_ANY, wxEmptyString,
+    wxTextCtrl *text = NEW_DEBUG wxTextCtrl(this, wxID_ANY, wxEmptyString,
                                       wxDefaultPosition,
                                       wxSize(s_maxWidth, wxDefaultCoord),
                                       wxTE_READONLY);
@@ -643,13 +643,13 @@ wxSizer *TextWidgetsPage::CreateTextWithLabelSizer(const wxString& label,
                                                  const wxString& label2,
                                                  wxTextCtrl *text2)
 {
-    wxSizer *sizerRow = new wxBoxSizer(wxHORIZONTAL);
-    sizerRow->Add(new wxStaticText(this, wxID_ANY, label), 0,
+    wxSizer *sizerRow = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
+    sizerRow->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, label), 0,
                   wxALIGN_CENTRE_VERTICAL | wxRIGHT, 5);
     sizerRow->Add(text, 0, wxALIGN_CENTRE_VERTICAL);
     if ( text2 )
     {
-        sizerRow->Add(new wxStaticText(this, wxID_ANY, label2), 0,
+        sizerRow->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, label2), 0,
                       wxALIGN_CENTRE_VERTICAL | wxLEFT | wxRIGHT, 5);
         sizerRow->Add(text2, 0, wxALIGN_CENTRE_VERTICAL);
     }
@@ -781,7 +781,7 @@ void TextWidgetsPage::CreateText()
         valueOld = "Hello, Universe!";
     }
 
-    m_text = new WidgetsTextCtrl(this, TextPage_Textctrl, valueOld, flags);
+    m_text = NEW_DEBUG WidgetsTextCtrl(this, TextPage_Textctrl, valueOld, flags);
 
 #if 0
     if ( m_chkFilename->GetValue() )

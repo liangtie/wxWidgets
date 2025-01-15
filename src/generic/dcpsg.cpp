@@ -204,7 +204,7 @@ static const char *wxPostScriptHeaderStrSplit =
 "  [ 3 1 roll\n"     // [ str delim
 "    {\n"            // [ str-items str delim
 "      search {\n"   // [ str-items post match pre
-"        3 1 roll\n" // [ str-items pre post match => [ str-items new-item remaining-str delim
+"        3 1 roll\n" // [ str-items pre post match => [ str-items NEW_DEBUG-item remaining-str delim
 "      }{\n"         // [ str-items str
 "      exit\n"       // [ str-items str => exit from loop
 "      }ifelse\n"
@@ -219,12 +219,12 @@ static const char *wxPostScriptHeaderStrSplit =
 wxIMPLEMENT_DYNAMIC_CLASS(wxPostScriptDC, wxDC);
 
 wxPostScriptDC::wxPostScriptDC()
-              : wxDC(new wxPostScriptDCImpl(this))
+              : wxDC(NEW_DEBUG wxPostScriptDCImpl(this))
 {
 }
 
 wxPostScriptDC::wxPostScriptDC(const wxPrintData& printData)
-              : wxDC(new wxPostScriptDCImpl(this, printData))
+              : wxDC(NEW_DEBUG wxPostScriptDCImpl(this, printData))
 {
 }
 
@@ -1980,7 +1980,7 @@ void wxPostScriptDCImpl::DoGetTextExtent(const wxString& string,
     /      dc.StartDoc("Test");
     /      dc.StartPage();
     /      wxCoord w,h;
-    /      dc.SetFont(new wxFontInfo(10).Family(wxFONTFAMILY_ROMAN));
+    /      dc.SetFont(NEW_DEBUG wxFontInfo(10).Family(wxFONTFAMILY_ROMAN));
     /      dc.GetTextExtent("Hallo",&w,&h);
     /      dc.EndPage();
     /      dc.EndDoc();

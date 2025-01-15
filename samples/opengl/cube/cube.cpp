@@ -2,7 +2,7 @@
 // Name:        cube.cpp
 // Purpose:     wxGLCanvas demo program
 // Author:      Julian Smart
-// Modified by: Vadim Zeitlin to use new wxGLCanvas API (2007-04-09)
+// Modified by: Vadim Zeitlin to use NEW_DEBUG wxGLCanvas API (2007-04-09)
 // Created:     04/01/98
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
@@ -257,7 +257,7 @@ bool MyApp::OnInit()
     if ( !wxApp::OnInit() )
         return false;
 
-    new MyFrame();
+    NEW_DEBUG MyFrame();
 
     return true;
 }
@@ -279,7 +279,7 @@ TestGLContext& MyApp::GetContext(wxGLCanvas *canvas, bool useStereo)
         {
             // Create the OpenGL context for the first stereo window which needs it:
             // subsequently created windows will all share the same context.
-            m_glStereoContext = new TestGLContext(canvas);
+            m_glStereoContext = NEW_DEBUG TestGLContext(canvas);
         }
         glContext = m_glStereoContext;
     }
@@ -289,7 +289,7 @@ TestGLContext& MyApp::GetContext(wxGLCanvas *canvas, bool useStereo)
         {
             // Create the OpenGL context for the first mono window which needs it:
             // subsequently created windows will all share the same context.
-            m_glContext = new TestGLContext(canvas);
+            m_glContext = NEW_DEBUG TestGLContext(canvas);
         }
         glContext = m_glContext;
     }
@@ -312,7 +312,7 @@ wxEND_EVENT_TABLE()
 TestGLCanvas::TestGLCanvas(wxWindow *parent, int *attribList)
     // With perspective OpenGL graphics, the wxFULL_REPAINT_ON_RESIZE style
     // flag should always be set, because even making the canvas smaller should
-    // be followed by a paint event that updates the entire canvas with new
+    // be followed by a paint event that updates the entire canvas with NEW_DEBUG
     // viewport settings.
     : wxGLCanvas(parent, wxID_ANY, attribList,
                  wxDefaultPosition, wxDefaultSize,
@@ -460,17 +460,17 @@ MyFrame::MyFrame( bool stereoWindow )
 {
     int stereoAttribList[] = { WX_GL_RGBA, WX_GL_DOUBLEBUFFER, WX_GL_STEREO, 0 };
 
-    new TestGLCanvas(this, stereoWindow ? stereoAttribList : NULL);
+    NEW_DEBUG TestGLCanvas(this, stereoWindow ? stereoAttribList : NULL);
 
     SetIcon(wxICON(sample));
 
     // Make a menubar
-    wxMenu *menu = new wxMenu;
+    wxMenu *menu = NEW_DEBUG wxMenu;
     menu->Append(wxID_NEW);
     menu->Append(NEW_STEREO_WINDOW, "New Stereo Window");
     menu->AppendSeparator();
     menu->Append(wxID_CLOSE);
-    wxMenuBar *menuBar = new wxMenuBar;
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar;
     menuBar->Append(menu, "&Cube");
 
     SetMenuBar(menuBar);
@@ -503,10 +503,10 @@ void MyFrame::OnClose(wxCommandEvent& WXUNUSED(event))
 
 void MyFrame::OnNewWindow( wxCommandEvent& WXUNUSED(event) )
 {
-    new MyFrame();
+    NEW_DEBUG MyFrame();
 }
 
 void MyFrame::OnNewStereoWindow( wxCommandEvent& WXUNUSED(event) )
 {
-    new MyFrame(true);
+    NEW_DEBUG MyFrame(true);
 }

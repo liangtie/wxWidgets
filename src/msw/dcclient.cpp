@@ -245,8 +245,8 @@ wxPaintDCImpl::wxPaintDCImpl( wxDC *owner, wxWindow *window ) :
     m_hDC = FindDCInCache(m_window);
     if ( !m_hDC )
     {
-        // not in cache, create a new one
-        wxPaintDCInfoOur* const info = new wxPaintDCInfoOur(m_window);
+        // not in cache, create a NEW_DEBUG one
+        wxPaintDCInfoOur* const info = NEW_DEBUG wxPaintDCInfoOur(m_window);
         gs_PaintDCInfos[m_window] = info;
         m_hDC = info->GetHDC();
     }
@@ -319,7 +319,7 @@ public:
 wxIMPLEMENT_ABSTRACT_CLASS(wxPaintDCEx, wxPaintDC);
 
 wxPaintDCEx::wxPaintDCEx(wxWindow *window, WXHDC dc)
-           : wxPaintDC(new wxPaintDCExImpl(this, window, dc))
+           : wxPaintDC(NEW_DEBUG wxPaintDCExImpl(this, window, dc))
 {
 }
 

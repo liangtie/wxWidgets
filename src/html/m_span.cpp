@@ -51,13 +51,13 @@ TAG_HANDLER_BEGIN(SPAN, "SPAN" )
         m_WParser->SetFontFace(oldfontface);
         m_WParser->SetFontItalic(olditalic);
         m_WParser->GetContainer()->InsertCell(
-                new wxHtmlFontCell(m_WParser->CreateCurrentFont()));
+                NEW_DEBUG wxHtmlFontCell(m_WParser->CreateCurrentFont()));
 
         if (oldclr != m_WParser->GetActualColor())
         {
             m_WParser->SetActualColor(oldclr);
             m_WParser->GetContainer()->InsertCell(
-                new wxHtmlColourCell(oldclr));
+                NEW_DEBUG wxHtmlColourCell(oldclr));
         }
 
         if (oldbackmode != m_WParser->GetActualBackgroundMode() ||
@@ -66,7 +66,7 @@ TAG_HANDLER_BEGIN(SPAN, "SPAN" )
             m_WParser->SetActualBackgroundMode(oldbackmode);
             m_WParser->SetActualBackgroundColor(oldbackclr);
             m_WParser->GetContainer()->InsertCell(
-                new wxHtmlColourCell(oldbackclr, oldbackmode == wxBRUSHSTYLE_TRANSPARENT ? wxHTML_CLR_TRANSPARENT_BACKGROUND : wxHTML_CLR_BACKGROUND));
+                NEW_DEBUG wxHtmlColourCell(oldbackclr, oldbackmode == wxBRUSHSTYLE_TRANSPARENT ? wxHTML_CLR_TRANSPARENT_BACKGROUND : wxHTML_CLR_BACKGROUND));
         }
 
         return true;

@@ -60,5 +60,5 @@ public:
 extern "C"
 WXEXPORT wxRendererNative *wxCreateRenderer()
 {
-    return new MyDllRenderer;
+    return NEW_DEBUG MyDllRenderer;
 }

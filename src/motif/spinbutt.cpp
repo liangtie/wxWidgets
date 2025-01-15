@@ -99,7 +99,7 @@ public:
                  const wxPoint& pos = wxDefaultPosition,
                  const wxSize& size = wxDefaultSize );
 private:
-    // creates a new timer object, or stops the currently running one
+    // creates a NEW_DEBUG timer object, or stops the currently running one
     wxTimer* GetFreshTimer();
     wxSpinButton* GetSpinButton() { return (wxSpinButton*)GetParent(); }
     static void SpinButtonCallback( Widget w, XtPointer clientData,
@@ -143,7 +143,7 @@ wxTimer* wxArrowButton::GetFreshTimer()
         m_timer->Reset();
     }
     else
-        m_timer = new wxArrowButtonTimer( this, m_increment );
+        m_timer = NEW_DEBUG wxArrowButtonTimer( this, m_increment );
 
     return m_timer;
 }
@@ -283,9 +283,9 @@ bool wxSpinButton::Create( wxWindow *parent, wxWindowID id,
     wxPoint pt1, pt2;
     wxSize sz1, sz2;
     CalcSizes( wxPoint(0,0), newSize, pt1, sz1, pt2, sz2, isVert );
-    m_up = new wxArrowButton( this, -1, isVert ? wxARROW_UP : wxARROW_RIGHT,
+    m_up = NEW_DEBUG wxArrowButton( this, -1, isVert ? wxARROW_UP : wxARROW_RIGHT,
                               pt1, sz1, 1 );
-    m_down = new wxArrowButton( this, -1,
+    m_down = NEW_DEBUG wxArrowButton( this, -1,
                                 isVert ? wxARROW_DOWN : wxARROW_LEFT,
                                 pt2, sz2, -1 );
 

@@ -95,7 +95,7 @@ void MyResizableListCtrl::ContextSensitiveMenu( wxMouseEvent& event )
     // Make an instance of a menu.
     wxMenu      a_menu;
 
-    a_menu.Append( PU_ADD_RECORD, _( "Add a new record...") );
+    a_menu.Append( PU_ADD_RECORD, _( "Add a NEW_DEBUG record...") );
     a_menu.Append( PU_EDIT_RECORD, _( "Edit selected record..." ) );
     a_menu.Append( PU_DELETE_RECORD, _( "Delete selected record" ) );
 
@@ -134,7 +134,7 @@ void MyResizableListCtrl::SetColumnWidths()
     leftmostColumnWidth -= wxSystemSettings::GetMetric( wxSYS_VSCROLL_X );
     leftmostColumnWidth -= 5;
 
-    // Set the column width to the new value.
+    // Set the column width to the NEW_DEBUG value.
     SetColumnWidth( RECORD_COLUMN, leftmostColumnWidth );
 
     // This is just a debug message in case you want to watch the

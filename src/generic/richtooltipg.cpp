@@ -72,15 +72,15 @@ public:
         // so below calculations are based on the correct DPI.
         Move(GetTipPoint(), wxSIZE_ALLOW_MINUS_ONE);
 
-        wxBoxSizer* const sizerTitle = new wxBoxSizer(wxHORIZONTAL);
+        wxBoxSizer* const sizerTitle = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
         if ( icon.IsOk() )
         {
-            sizerTitle->Add(new wxStaticBitmap(this, wxID_ANY, icon),
+            sizerTitle->Add(NEW_DEBUG wxStaticBitmap(this, wxID_ANY, icon),
                             wxSizerFlags().Centre().Border(wxRIGHT));
         }
         //else: Simply don't show any icon.
 
-        wxStaticText* const labelTitle = new wxStaticText(this, wxID_ANY, wxString());
+        wxStaticText* const labelTitle = NEW_DEBUG wxStaticText(this, wxID_ANY, wxString());
         labelTitle->SetLabelText(title);
 
         wxFont titleFont(titleFont_);
@@ -124,7 +124,7 @@ public:
         labelTitle->SetFont(titleFont);
         sizerTitle->Add(labelTitle, wxSizerFlags().Centre());
 
-        wxBoxSizer* const sizerTop = new wxBoxSizer(wxVERTICAL);
+        wxBoxSizer* const sizerTop = NEW_DEBUG wxBoxSizer(wxVERTICAL);
         sizerTop->Add(sizerTitle,
                         wxSizerFlags().DoubleBorder(wxLEFT|wxRIGHT|wxTOP));
 
@@ -140,7 +140,7 @@ public:
         {
             // Themed tooltips under MSW align the text with the title, not
             // with the icon, so use a helper horizontal sizer in this case.
-            wxBoxSizer* const sizerTextIndent = new wxBoxSizer(wxHORIZONTAL);
+            wxBoxSizer* const sizerTextIndent = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
             sizerTextIndent->AddSpacer(icon.GetPreferredLogicalSizeFor(this).x);
             sizerTextIndent->Add(sizerText,
                                     wxSizerFlags().Border(wxLEFT).Centre());
@@ -667,7 +667,7 @@ void wxRichToolTipGenericImpl::SetTitleFont(const wxFont& font)
 
 void wxRichToolTipGenericImpl::ShowFor(wxWindow* win, const wxRect* rect)
 {
-    wxRichToolTipPopup* const popup = new wxRichToolTipPopup
+    wxRichToolTipPopup* const popup = NEW_DEBUG wxRichToolTipPopup
                                           (
                                             win,
                                             m_title,
@@ -691,7 +691,7 @@ void wxRichToolTipGenericImpl::ShowFor(wxWindow* win, const wxRect* rect)
 wxRichToolTipImpl*
 wxRichToolTipImpl::Create(const wxString& title, const wxString& message)
 {
-    return new wxRichToolTipGenericImpl(title, message);
+    return NEW_DEBUG wxRichToolTipGenericImpl(title, message);
 }
 
 #endif // !__WXMSW__

@@ -61,7 +61,7 @@ TAG_HANDLER_BEGIN(A, "A")
         wxString name;
         if (tag.GetParamAsString(wxT("NAME"), &name))
         {
-            m_WParser->GetContainer()->InsertCell(new wxHtmlAnchorCell(name));
+            m_WParser->GetContainer()->InsertCell(NEW_DEBUG wxHtmlAnchorCell(name));
         }
 
         wxString href;
@@ -80,9 +80,9 @@ TAG_HANDLER_BEGIN(A, "A")
 
             // set default styles, might get overridden by ApplyStyle
             m_WParser->SetActualColor(m_WParser->GetLinkColor());
-            m_WParser->GetContainer()->InsertCell(new wxHtmlColourCell(m_WParser->GetLinkColor()));
+            m_WParser->GetContainer()->InsertCell(NEW_DEBUG wxHtmlColourCell(m_WParser->GetLinkColor()));
             m_WParser->SetFontUnderlined(true);
-            m_WParser->GetContainer()->InsertCell(new wxHtmlFontCell(m_WParser->CreateCurrentFont()));
+            m_WParser->GetContainer()->InsertCell(NEW_DEBUG wxHtmlFontCell(m_WParser->CreateCurrentFont()));
             m_WParser->SetLink(wxHtmlLinkInfo(href, target));
 
             // Load any style parameters
@@ -97,9 +97,9 @@ TAG_HANDLER_BEGIN(A, "A")
             m_WParser->SetFontFace(oldfontface);
             m_WParser->SetFontItalic(olditalic);
             m_WParser->SetFontUnderlined(oldund);
-            m_WParser->GetContainer()->InsertCell(new wxHtmlFontCell(m_WParser->CreateCurrentFont()));
+            m_WParser->GetContainer()->InsertCell(NEW_DEBUG wxHtmlFontCell(m_WParser->CreateCurrentFont()));
             m_WParser->SetActualColor(oldclr);
-            m_WParser->GetContainer()->InsertCell(new wxHtmlColourCell(oldclr));
+            m_WParser->GetContainer()->InsertCell(NEW_DEBUG wxHtmlColourCell(oldclr));
 
             if (oldbackmode != m_WParser->GetActualBackgroundMode() ||
                 oldbackclr != m_WParser->GetActualBackgroundColor())
@@ -107,7 +107,7 @@ TAG_HANDLER_BEGIN(A, "A")
                m_WParser->SetActualBackgroundMode(oldbackmode);
                m_WParser->SetActualBackgroundColor(oldbackclr);
                m_WParser->GetContainer()->InsertCell(
-                   new wxHtmlColourCell(oldbackclr, oldbackmode == wxBRUSHSTYLE_TRANSPARENT ? wxHTML_CLR_TRANSPARENT_BACKGROUND : wxHTML_CLR_BACKGROUND));
+                   NEW_DEBUG wxHtmlColourCell(oldbackclr, oldbackmode == wxBRUSHSTYLE_TRANSPARENT ? wxHTML_CLR_TRANSPARENT_BACKGROUND : wxHTML_CLR_BACKGROUND));
             }
 
             return true;

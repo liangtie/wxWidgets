@@ -93,7 +93,7 @@ void wxPrintData::SetPrivData( char *privData, int len )
     m_privDataLen = len;
     if (m_privDataLen > 0)
     {
-        m_privData = new char[m_privDataLen];
+        m_privData = NEW_DEBUG char[m_privDataLen];
         memcpy( m_privData, privData, m_privDataLen );
     }
 }
@@ -144,7 +144,7 @@ wxPrintData& wxPrintData::operator=(const wxPrintData& data)
         if (m_nativeData->m_ref == 0)
             delete m_nativeData;
     }
-    // Set Ref new one
+    // Set Ref NEW_DEBUG one
     m_nativeData = data.GetNativeData();
     m_nativeData->m_ref++;
 
@@ -152,7 +152,7 @@ wxPrintData& wxPrintData::operator=(const wxPrintData& data)
     m_privDataLen = data.GetPrivDataLen();
     if (m_privDataLen > 0)
     {
-        m_privData = new char[m_privDataLen];
+        m_privData = NEW_DEBUG char[m_privDataLen];
         memcpy( m_privData, data.GetPrivData(), m_privDataLen );
     }
 

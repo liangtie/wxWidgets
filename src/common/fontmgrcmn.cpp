@@ -41,7 +41,7 @@ class wxFontBundleHash : public wxFontBundleHashBase
 wxFontFaceBase::wxFontFaceBase()
     : m_refCnt(0)
 {
-    m_instances = new wxFontInstanceList;
+    m_instances = NEW_DEBUG wxFontInstanceList;
     m_instances->DeleteContents(true);
 }
 
@@ -153,8 +153,8 @@ wxFontsManager *wxFontsManagerBase::ms_instance = NULL;
 
 wxFontsManagerBase::wxFontsManagerBase()
 {
-    m_hash = new wxFontBundleHash();
-    m_list = new wxFontBundleList;
+    m_hash = NEW_DEBUG wxFontBundleHash();
+    m_list = NEW_DEBUG wxFontBundleList;
     m_list->DeleteContents(true);
 }
 
@@ -168,7 +168,7 @@ wxFontsManagerBase::~wxFontsManagerBase()
 wxFontsManager *wxFontsManagerBase::Get()
 {
     if ( !ms_instance )
-        ms_instance = new wxFontsManager();
+        ms_instance = NEW_DEBUG wxFontsManager();
     return ms_instance;
 }
 

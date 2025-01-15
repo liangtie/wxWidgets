@@ -148,7 +148,7 @@ bool wxNotebook::Create(wxWindow *parent,
     if (!wxControl::Create(parent, id, pos, size, style|wxNO_BORDER, wxDefaultValidator, name))
         return false;
 
-    SetTabView(new wxNotebookTabView(this));
+    SetTabView(NEW_DEBUG wxNotebookTabView(this));
 
     return true;
 }
@@ -502,7 +502,7 @@ bool wxNotebook::RefreshLayout(bool force)
         m_tabView->LayoutTabs();
 
         // Need to do it a 2nd time to get the tab height with
-        // the new view width, since changing the view width changes the
+        // the NEW_DEBUG view width, since changing the view width changes the
         // tab layout.
         tabHeight = m_tabView->GetTotalTabHeight();
         rect.x = 4;
@@ -600,7 +600,7 @@ void wxNotebook::Command(wxCommandEvent& WXUNUSED(event))
 // wxNotebook helper functions
 // ----------------------------------------------------------------------------
 
-// hide the currently active panel and show the new one
+// hide the currently active panel and show the NEW_DEBUG one
 void wxNotebook::ChangePage(int nOldSel, int nSel)
 {
   //  cout << "ChangePage: " << nOldSel << ", " << nSel << "\n";

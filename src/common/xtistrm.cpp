@@ -47,7 +47,7 @@ struct wxObjectWriter::wxObjectWriterInternal
 
 wxObjectWriter::wxObjectWriter()
 {
-    m_data = new wxObjectWriterInternal;
+    m_data = NEW_DEBUG wxObjectWriterInternal;
     m_data->m_nextId = 0;
 }
 
@@ -64,7 +64,7 @@ struct wxObjectWriter::wxObjectWriterInternalPropertiesData
 void wxObjectWriter::ClearObjectContext()
 {
     delete m_data;
-    m_data = new wxObjectWriterInternal();
+    m_data = NEW_DEBUG wxObjectWriterInternal();
     m_data->m_nextId = 0;
 }
 
@@ -387,7 +387,7 @@ struct wxObjectReader::wxObjectReaderInternal
 
 wxObjectReader::wxObjectReader()
 {
-    m_data = new wxObjectReaderInternal;
+    m_data = NEW_DEBUG wxObjectReaderInternal;
 }
 
 wxObjectReader::~wxObjectReader()
@@ -480,7 +480,7 @@ struct wxObjectRuntimeReaderCallback::wxObjectRuntimeReaderCallbackInternal
 
 wxObjectRuntimeReaderCallback::wxObjectRuntimeReaderCallback()
 {
-    m_data = new wxObjectRuntimeReaderCallbackInternal();
+    m_data = NEW_DEBUG wxObjectRuntimeReaderCallbackInternal();
 }
 
 wxObjectRuntimeReaderCallback::~wxObjectRuntimeReaderCallback()

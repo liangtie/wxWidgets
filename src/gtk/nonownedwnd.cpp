@@ -273,7 +273,7 @@ bool wxNonOwnedWindow::DoSetRegionShape(const wxRegion& region)
     }
     else // Create an object that will set shape when we're realized.
     {
-        m_shapeImpl = new wxNonOwnedWindowShapeImplRegion(this, region);
+        m_shapeImpl = NEW_DEBUG wxNonOwnedWindowShapeImplRegion(this, region);
 
         // In general we don't know whether we are going to succeed or not, so
         // be optimistic.
@@ -290,7 +290,7 @@ bool wxNonOwnedWindow::DoSetPathShape(const wxGraphicsPath& path)
     // even if we're already realized
 
     delete m_shapeImpl;
-    m_shapeImpl = new wxNonOwnedWindowShapeImplPath(this, path);
+    m_shapeImpl = NEW_DEBUG wxNonOwnedWindowShapeImplPath(this, path);
 
     if ( gtk_widget_get_realized(m_widget) )
     {

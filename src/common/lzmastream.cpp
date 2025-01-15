@@ -90,8 +90,8 @@ wxVersionInfo wxGetLibLZMAVersionInfo()
 
 wxLZMAData::wxLZMAData()
 {
-    m_stream = new wxLZMAStream;
-    m_streamBuf = new wxUint8[wxLZMA_BUF_SIZE];
+    m_stream = NEW_DEBUG wxLZMAStream;
+    m_streamBuf = NEW_DEBUG wxUint8[wxLZMA_BUF_SIZE];
     m_pos = 0;
 }
 

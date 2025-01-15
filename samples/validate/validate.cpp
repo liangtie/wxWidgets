@@ -134,7 +134,7 @@ bool MyApp::OnInit()
         return false;
 
     // Create and display the main frame window.
-    MyFrame *frame = new MyFrame((wxFrame *) NULL, "Validator Test",
+    MyFrame *frame = NEW_DEBUG MyFrame((wxFrame *) NULL, "Validator Test",
                                  50, 50, 300, 250);
     frame->Show(true);
 
@@ -158,17 +158,17 @@ MyFrame::MyFrame(wxFrame *frame, const wxString&title, int x, int y, int w, int 
     SetIcon(wxICON(sample));
 
     // Create a listbox to display the validated data.
-    m_listbox = new wxListBox(this, wxID_ANY);
+    m_listbox = NEW_DEBUG wxListBox(this, wxID_ANY);
     m_listbox->Append(wxString("Try 'File|Test' to see how validators work."));
 
-    wxMenu *file_menu = new wxMenu;
+    wxMenu *file_menu = NEW_DEBUG wxMenu;
 
     file_menu->Append(VALIDATE_TEST_DIALOG, "&Test dialog...\tCtrl-T", "Demonstrate validators");
     file_menu->AppendCheckItem(VALIDATE_TOGGLE_BELL, "&Bell on error", "Toggle bell on error");
     file_menu->AppendSeparator();
     file_menu->Append(wxID_EXIT, "E&xit");
 
-    wxMenuBar *menu_bar = new wxMenuBar;
+    wxMenuBar *menu_bar = NEW_DEBUG wxMenuBar;
     menu_bar->Append(file_menu, "&File");
     SetMenuBar(menu_bar);
 
@@ -242,29 +242,29 @@ MyDialog::MyDialog( wxWindow *parent, const wxString& title,
     // setup the flex grid sizer
     // -------------------------
 
-    wxFlexGridSizer *flexgridsizer = new wxFlexGridSizer(3, 2, 5, 5);
+    wxFlexGridSizer *flexgridsizer = NEW_DEBUG wxFlexGridSizer(3, 2, 5, 5);
 
     // Create and add controls to sizers.
     // Pointers to some of these controls are saved in member variables
     // so that we can use them elsewhere, like this one.
-    m_text = new wxTextCtrl(this, VALIDATE_TEXT);
+    m_text = NEW_DEBUG wxTextCtrl(this, VALIDATE_TEXT);
     m_text->SetToolTip("wxTextValidator not set");
     m_text->SetHint("Enter some text here, please...");
     flexgridsizer->Add(m_text, 1, wxGROW);
 
     // Make it possible to change the wxTextValidator for m_text at runtime.
     wxButton* const button =
-        new wxButton(this, wxID_ANY, "Set new wxTextValidator...");
+        NEW_DEBUG wxButton(this, wxID_ANY, "Set NEW_DEBUG wxTextValidator...");
     button->Bind(wxEVT_BUTTON, &MyDialog::OnChangeValidator, this);
     flexgridsizer->Add(button, wxSizerFlags().Center());
 
-    flexgridsizer->Add(new wxListBox((wxWindow*)this, VALIDATE_LIST,
+    flexgridsizer->Add(NEW_DEBUG wxListBox((wxWindow*)this, VALIDATE_LIST,
                         wxDefaultPosition, wxDefaultSize,
                         3, g_listbox_choices, wxLB_MULTIPLE,
                         wxGenericValidator(&g_data.m_listbox_choices)),
                        1, wxGROW);
 
-    m_combobox = new wxComboBox(this, VALIDATE_COMBO, wxEmptyString,
+    m_combobox = NEW_DEBUG wxComboBox(this, VALIDATE_COMBO, wxEmptyString,
                                 wxDefaultPosition, wxDefaultSize,
                                 3, g_combobox_choices, 0L,
                                 MyComboBoxValidator(&g_data.m_combobox_choice));
@@ -275,7 +275,7 @@ MyDialog::MyDialog( wxWindow *parent, const wxString& title,
     // because we don't use it elsewhere--it can be anonymous.
     // We don't need any such pointer to query its state, which
     // can be gotten directly from g_data.
-    flexgridsizer->Add(new wxCheckBox(this, VALIDATE_CHECK, "Sample checkbox",
+    flexgridsizer->Add(NEW_DEBUG wxCheckBox(this, VALIDATE_CHECK, "Sample checkbox",
                         wxDefaultPosition, wxDefaultSize, 0,
                         wxGenericValidator(&g_data.m_checkbox_state)),
                        1, wxALIGN_CENTER|wxALL, 15);
@@ -289,7 +289,7 @@ MyDialog::MyDialog( wxWindow *parent, const wxString& title,
     // ------------------------------------------------------
 
     wxFlexGridSizer* const
-        numSizer = new wxFlexGridSizer(5, FromDIP(wxSize(5, 5)));
+        numSizer = NEW_DEBUG wxFlexGridSizer(5, FromDIP(wxSize(5, 5)));
 
     const wxSizerFlags center = wxSizerFlags().CenterVertical();
 
@@ -298,7 +298,7 @@ MyDialog::MyDialog( wxWindow *parent, const wxString& title,
                                    wxNUM_VAL_ZERO_AS_BLANK);
     valInt.SetMin(0); // Only allow positive numbers
 
-    m_numericTextInt = new wxTextCtrl
+    m_numericTextInt = NEW_DEBUG wxTextCtrl
                            (
                                 this,
                                 wxID_ANY,
@@ -308,13 +308,13 @@ MyDialog::MyDialog( wxWindow *parent, const wxString& title,
                                 wxTE_RIGHT,
                                 valInt
                             );
-    numSizer->Add(new wxStaticText(this, wxID_ANY, "Positive integer:"),
+    numSizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "Positive integer:"),
                   center);
     numSizer->Add(m_numericTextInt, wxSizerFlags(center).Expand());
 
     numSizer->AddSpacer(FromDIP(10));
 
-    m_numericTextDouble = new wxTextCtrl
+    m_numericTextDouble = NEW_DEBUG wxTextCtrl
                               (
                                 this,
                                 wxID_ANY,
@@ -330,15 +330,15 @@ MyDialog::MyDialog( wxWindow *parent, const wxString& title,
                                     wxNUM_VAL_NO_TRAILING_ZEROES
                                 )
                               );
-    numSizer->Add(new wxStaticText(this, wxID_ANY, "Up to 3 decimals:"),
+    numSizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "Up to 3 decimals:"),
                   center);
     numSizer->Add(m_numericTextDouble, wxSizerFlags(center).Expand());
 
     wxIntegerValidator<unsigned short> smallIntVal(&g_data.m_smallIntValue);
     smallIntVal.SetRange(1, 5);
-    numSizer->Add(new wxStaticText(this, wxID_ANY, "Int between 1 and 5:"),
+    numSizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "Int between 1 and 5:"),
                   center);
-    numSizer->Add(new wxTextCtrl(this, wxID_ANY, "",
+    numSizer->Add(NEW_DEBUG wxTextCtrl(this, wxID_ANY, "",
                                  wxDefaultPosition, wxDefaultSize, wxTE_RIGHT,
                                  smallIntVal),
                   wxSizerFlags(center).Expand());
@@ -349,9 +349,9 @@ MyDialog::MyDialog( wxWindow *parent, const wxString& title,
     percentVal.SetPrecision(2);
     percentVal.SetFactor(100.0);
 
-    numSizer->Add(new wxStaticText(this, wxID_ANY, "Value displayed in %:"),
+    numSizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "Value displayed in %:"),
                   center);
-    numSizer->Add(new wxTextCtrl(this, wxID_ANY, "",
+    numSizer->Add(NEW_DEBUG wxTextCtrl(this, wxID_ANY, "",
                                  wxDefaultPosition, wxDefaultSize, wxTE_RIGHT,
                                  percentVal),
                   wxSizerFlags(center).Expand());
@@ -359,11 +359,11 @@ MyDialog::MyDialog( wxWindow *parent, const wxString& title,
     // setup the main sizer
     // --------------------
 
-    wxBoxSizer *mainsizer = new wxBoxSizer( wxVERTICAL );
+    wxBoxSizer *mainsizer = NEW_DEBUG wxBoxSizer( wxVERTICAL );
 
     mainsizer->Add(flexgridsizer, 1, wxGROW | wxALL, 10);
 
-    mainsizer->Add(new wxRadioBox((wxWindow*)this, VALIDATE_RADIO, "Pick a color",
+    mainsizer->Add(NEW_DEBUG wxRadioBox((wxWindow*)this, VALIDATE_RADIO, "Pick a color",
                                     wxDefaultPosition, wxDefaultSize,
                                     3, g_radiobox_choices, 1, wxRA_SPECIFY_ROWS,
                                     wxGenericValidator(&g_data.m_radiobox_choice)),
@@ -423,74 +423,74 @@ TextValidatorDialog::TextValidatorDialog(wxWindow *parent, wxTextCtrl* txtCtrl)
         }
     }
 
-    wxFlexGridSizer *fgSizer = new wxFlexGridSizer(2, FromDIP(wxSize(5, 5)));
+    wxFlexGridSizer *fgSizer = NEW_DEBUG wxFlexGridSizer(2, FromDIP(wxSize(5, 5)));
     const wxSizerFlags center = wxSizerFlags().CenterVertical();
 
     const StyleValidator styleVal(&m_validatorStyle);
 
-    wxCheckBox* filterNone = new wxCheckBox(this, Id_None, "wxFILTER_NONE");
+    wxCheckBox* filterNone = NEW_DEBUG wxCheckBox(this, Id_None, "wxFILTER_NONE");
     filterNone->SetValue(m_noValidation);
     fgSizer->Add(filterNone);
-    fgSizer->Add(new wxStaticText(this, wxID_ANY, "No filtering takes place."));
+    fgSizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "No filtering takes place."));
 
-    fgSizer->Add(new wxCheckBox(this, Id_Empty, "wxFILTER_EMPTY"))
+    fgSizer->Add(NEW_DEBUG wxCheckBox(this, Id_Empty, "wxFILTER_EMPTY"))
         ->GetWindow()->SetValidator(styleVal);
-    fgSizer->Add(new wxStaticText(this, wxID_ANY, "Empty strings are filtered out."));
+    fgSizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "Empty strings are filtered out."));
 
-    fgSizer->Add(new wxCheckBox(this, Id_Ascii, "wxFILTER_ASCII"))
+    fgSizer->Add(NEW_DEBUG wxCheckBox(this, Id_Ascii, "wxFILTER_ASCII"))
         ->GetWindow()->SetValidator(styleVal);
-    fgSizer->Add(new wxStaticText(this, wxID_ANY, "Non-ASCII characters are filtered out."));
+    fgSizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "Non-ASCII characters are filtered out."));
 
-    fgSizer->Add(new wxCheckBox(this, Id_Alpha, "wxFILTER_ALPHA"))
+    fgSizer->Add(NEW_DEBUG wxCheckBox(this, Id_Alpha, "wxFILTER_ALPHA"))
         ->GetWindow()->SetValidator(styleVal);
-    fgSizer->Add(new wxStaticText(this, wxID_ANY, "Non-alpha characters are filtered out."));
+    fgSizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "Non-alpha characters are filtered out."));
 
-    fgSizer->Add(new wxCheckBox(this, Id_Alphanumeric, "wxFILTER_ALPHANUMERIC"))
+    fgSizer->Add(NEW_DEBUG wxCheckBox(this, Id_Alphanumeric, "wxFILTER_ALPHANUMERIC"))
         ->GetWindow()->SetValidator(styleVal);
-    fgSizer->Add(new wxStaticText(this, wxID_ANY, "Non-alphanumeric characters are filtered out."));
+    fgSizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "Non-alphanumeric characters are filtered out."));
 
-    fgSizer->Add(new wxCheckBox(this, Id_Digits, "wxFILTER_DIGITS"))
+    fgSizer->Add(NEW_DEBUG wxCheckBox(this, Id_Digits, "wxFILTER_DIGITS"))
         ->GetWindow()->SetValidator(styleVal);
-    fgSizer->Add(new wxStaticText(this, wxID_ANY, "Non-digit characters are filtered out."));
+    fgSizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "Non-digit characters are filtered out."));
 
-    fgSizer->Add(new wxCheckBox(this, Id_Numeric, "wxFILTER_NUMERIC"))
+    fgSizer->Add(NEW_DEBUG wxCheckBox(this, Id_Numeric, "wxFILTER_NUMERIC"))
         ->GetWindow()->SetValidator(styleVal);
-    fgSizer->Add(new wxStaticText(this, wxID_ANY, "Non-numeric characters are filtered out."));
+    fgSizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "Non-numeric characters are filtered out."));
 
-    fgSizer->Add(new wxCheckBox(this, Id_IncludeList, "wxFILTER_INCLUDE_LIST"), center)
+    fgSizer->Add(NEW_DEBUG wxCheckBox(this, Id_IncludeList, "wxFILTER_INCLUDE_LIST"), center)
         ->GetWindow()->SetValidator(styleVal);
-    fgSizer->Add(new wxTextCtrl(this, Id_IncludeListTxt), wxSizerFlags().Expand())
+    fgSizer->Add(NEW_DEBUG wxTextCtrl(this, Id_IncludeListTxt), wxSizerFlags().Expand())
         ->GetWindow()->Bind(wxEVT_KILL_FOCUS, &TextValidatorDialog::OnKillFocus, this);
 
-    fgSizer->Add(new wxCheckBox(this, Id_IncludeCharList, "wxFILTER_INCLUDE_CHAR_LIST"), center)
+    fgSizer->Add(NEW_DEBUG wxCheckBox(this, Id_IncludeCharList, "wxFILTER_INCLUDE_CHAR_LIST"), center)
         ->GetWindow()->SetValidator(styleVal);
-    fgSizer->Add(new wxTextCtrl(this, Id_IncludeCharListTxt, wxString(), wxDefaultPosition,
+    fgSizer->Add(NEW_DEBUG wxTextCtrl(this, Id_IncludeCharListTxt, wxString(), wxDefaultPosition,
                                 wxDefaultSize, 0, wxGenericValidator(&m_charIncludes)),
                  wxSizerFlags().Expand())
         ->GetWindow()->Bind(wxEVT_KILL_FOCUS, &TextValidatorDialog::OnKillFocus, this);
 
-    fgSizer->Add(new wxCheckBox(this, Id_ExcludeList, "wxFILTER_EXCLUDE_LIST"), center)
+    fgSizer->Add(NEW_DEBUG wxCheckBox(this, Id_ExcludeList, "wxFILTER_EXCLUDE_LIST"), center)
         ->GetWindow()->SetValidator(styleVal);
-    fgSizer->Add(new wxTextCtrl(this, Id_ExcludeListTxt), wxSizerFlags().Expand())
+    fgSizer->Add(NEW_DEBUG wxTextCtrl(this, Id_ExcludeListTxt), wxSizerFlags().Expand())
         ->GetWindow()->Bind(wxEVT_KILL_FOCUS, &TextValidatorDialog::OnKillFocus, this);
 
-    fgSizer->Add(new wxCheckBox(this, Id_ExcludeCharList, "wxFILTER_EXCLUDE_CHAR_LIST"), center)
+    fgSizer->Add(NEW_DEBUG wxCheckBox(this, Id_ExcludeCharList, "wxFILTER_EXCLUDE_CHAR_LIST"), center)
         ->GetWindow()->SetValidator(styleVal);
-    fgSizer->Add(new wxTextCtrl(this, Id_ExcludeCharListTxt, wxString(), wxDefaultPosition,
+    fgSizer->Add(NEW_DEBUG wxTextCtrl(this, Id_ExcludeCharListTxt, wxString(), wxDefaultPosition,
                                 wxDefaultSize, 0, wxGenericValidator(&m_charExcludes)),
                  wxSizerFlags().Expand())
         ->GetWindow()->Bind(wxEVT_KILL_FOCUS, &TextValidatorDialog::OnKillFocus, this);
 
-    fgSizer->Add(new wxCheckBox(this, Id_Xdigits, "wxFILTER_XDIGITS"))
+    fgSizer->Add(NEW_DEBUG wxCheckBox(this, Id_Xdigits, "wxFILTER_XDIGITS"))
         ->GetWindow()->SetValidator(styleVal);
-    fgSizer->Add(new wxStaticText(this, wxID_ANY, "Non-xdigit characters are filtered out."));
+    fgSizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "Non-xdigit characters are filtered out."));
 
-    fgSizer->Add(new wxCheckBox(this, Id_Space, "wxFILTER_SPACE"))
+    fgSizer->Add(NEW_DEBUG wxCheckBox(this, Id_Space, "wxFILTER_SPACE"))
         ->GetWindow()->SetValidator(styleVal);
-    fgSizer->Add(new wxStaticText(this, wxID_ANY, "Allow spaces."));
+    fgSizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "Allow spaces."));
 
     // Set the main sizer.
-    wxBoxSizer *mainsizer = new wxBoxSizer( wxVERTICAL );
+    wxBoxSizer *mainsizer = NEW_DEBUG wxBoxSizer( wxVERTICAL );
 
     mainsizer->Add(fgSizer, wxSizerFlags(1).Border(wxALL, 10).Expand());
 

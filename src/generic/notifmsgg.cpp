@@ -137,14 +137,14 @@ wxNotificationMessageWindow::wxNotificationMessageWindow(wxGenericNotificationMe
 
     SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_BTNSHADOW));
 
-    m_messagePanel = new wxPanel(this, wxID_ANY);
-    wxSizer * const msgSizer = new wxBoxSizer(wxHORIZONTAL);
+    m_messagePanel = NEW_DEBUG wxPanel(this, wxID_ANY);
+    wxSizer * const msgSizer = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     m_messagePanel->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOW));
     m_messagePanel->SetSizer(msgSizer);
     PrepareNotificationControl(m_messagePanel);
 
     // Add message icon to layout
-    m_messageBmp = new wxStaticBitmap
+    m_messageBmp = NEW_DEBUG wxStaticBitmap
         (
         m_messagePanel,
         wxID_ANY,
@@ -155,15 +155,15 @@ wxNotificationMessageWindow::wxNotificationMessageWindow(wxGenericNotificationMe
     msgSizer->Add(m_messageBmp, wxSizerFlags().Centre().DoubleBorder());
 
     // Create title and message sizers
-    wxSizer* textSizer = new wxBoxSizer(wxVERTICAL);
-    
-    m_messageTitle = new wxStaticText(m_messagePanel, wxID_ANY, wxString());
+    wxSizer* textSizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
+
+    m_messageTitle = NEW_DEBUG wxStaticText(m_messagePanel, wxID_ANY, wxString());
     m_messageTitle->SetFont(m_messageTitle->GetFont().MakeBold());
     textSizer->Add(m_messageTitle, wxSizerFlags(0).Border());
     m_messageTitle->Hide();
     PrepareNotificationControl(m_messageTitle);
 
-    m_messageText = new wxStaticText(m_messagePanel, wxID_ANY, wxString());
+    m_messageText = NEW_DEBUG wxStaticText(m_messagePanel, wxID_ANY, wxString());
     textSizer->Add(m_messageText, wxSizerFlags(0).Border(wxLEFT | wxRIGHT | wxBOTTOM));
     PrepareNotificationControl(m_messageText);
 
@@ -175,7 +175,7 @@ wxNotificationMessageWindow::wxNotificationMessageWindow(wxGenericNotificationMe
     m_closeBtn->Bind(wxEVT_BUTTON, &wxNotificationMessageWindow::OnCloseClicked, this);
     PrepareNotificationControl(m_closeBtn, false);
 
-    wxSizer * const sizerTop = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer * const sizerTop = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     sizerTop->Add(m_messagePanel, wxSizerFlags().Border(wxALL, FromDIP(1)));
     SetSizer(sizerTop);
 }
@@ -219,11 +219,11 @@ bool wxNotificationMessageWindow::AddAction(wxWindowID actionid, const wxString 
     {
         msgSizer->Detach(m_closeBtn);
         m_closeBtn->Hide();
-        m_buttonSizer = new wxBoxSizer(wxVERTICAL);
+        m_buttonSizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
         msgSizer->Add(m_buttonSizer, wxSizerFlags(0).Center().Border());
     }
 
-    wxButton* actionButton = new wxButton(m_messagePanel, actionid, label);
+    wxButton* actionButton = NEW_DEBUG wxButton(m_messagePanel, actionid, label);
     actionButton->Bind(wxEVT_BUTTON, &wxNotificationMessageWindow::OnActionButtonClicked, this);
     PrepareNotificationControl(actionButton, false);
     int borderDir = (m_buttonSizer->GetChildren().empty()) ? 0 : wxTOP;
@@ -435,7 +435,7 @@ void wxNotificationMessageWindow::ResizeAndFitVisibleNotifications()
 
 void wxGenericNotificationMessage::Init()
 {
-    m_impl = new wxGenericNotificationMessageImpl(this);
+    m_impl = NEW_DEBUG wxGenericNotificationMessageImpl(this);
 }
 
 // ----------------------------------------------------------------------------
@@ -447,7 +447,7 @@ int wxGenericNotificationMessageImpl::ms_timeout = 3;
 wxGenericNotificationMessageImpl::wxGenericNotificationMessageImpl(wxNotificationMessageBase* notification) :
     wxNotificationMessageImpl(notification)
 {
-    m_window = new wxNotificationMessageWindow(this);
+    m_window = NEW_DEBUG wxNotificationMessageWindow(this);
 }
 
 wxGenericNotificationMessageImpl::~wxGenericNotificationMessageImpl()

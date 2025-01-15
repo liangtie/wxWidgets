@@ -136,7 +136,7 @@ bool MyApp::OnInit()
 {
     // Create the main frame window
 
-    MyFrame* frame = new MyFrame(NULL, -1, "SVG Demo",
+    MyFrame* frame = NEW_DEBUG MyFrame(NULL, -1, "SVG Demo",
                                  wxDefaultPosition, wxSize(500, 400));
 
     frame->Show(true);
@@ -161,15 +161,15 @@ MyFrame::MyFrame(wxWindow *parent, const wxWindowID id, const wxString& title,
     #endif // wxUSE_STATUSBAR
 
     // Make a menubar
-    wxMenu *file_menu = new wxMenu;
+    wxMenu *file_menu = NEW_DEBUG wxMenu;
 
     file_menu->Append(wxID_SAVE);
     file_menu->Append(wxID_EXIT);
 
-    wxMenu *help_menu = new wxMenu;
+    wxMenu *help_menu = NEW_DEBUG wxMenu;
     help_menu->Append(wxID_ABOUT);
 
-    wxMenuBar *menu_bar = new wxMenuBar;
+    wxMenuBar *menu_bar = NEW_DEBUG wxMenuBar;
 
     menu_bar->Append(file_menu, "&File");
     menu_bar->Append(help_menu, "&Help");
@@ -178,12 +178,12 @@ MyFrame::MyFrame(wxWindow *parent, const wxWindowID id, const wxString& title,
     SetMenuBar(menu_bar);
 
     // Create a notebook
-    m_notebook = new wxNotebook(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxBK_TOP);
+    m_notebook = NEW_DEBUG wxNotebook(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxBK_TOP);
 
     //Add SVG Windows to a notebook
     for (int i = 0; i < Page_Max; ++i)
     {
-        m_notebook->AddPage(new MyPage(m_notebook, i), pageNames[i]);
+        m_notebook->AddPage(NEW_DEBUG MyPage(m_notebook, i), pageNames[i]);
 
     }
 }

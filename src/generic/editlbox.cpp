@@ -113,20 +113,20 @@ bool wxEditableListBox::Create(wxWindow *parent, wxWindowID id,
 
     m_style = style;
 
-    wxSizer *sizer = new wxBoxSizer(wxVERTICAL);
+    wxSizer *sizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
-    wxPanel *subp = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxDefaultSize,
+    wxPanel *subp = NEW_DEBUG wxPanel(this, wxID_ANY, wxDefaultPosition, wxDefaultSize,
                                 wxSUNKEN_BORDER | wxTAB_TRAVERSAL);
-    wxSizer *subsizer = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer *subsizer = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
 
-    subsizer->Add(new wxStaticText(subp, wxID_ANY, label),
+    subsizer->Add(NEW_DEBUG wxStaticText(subp, wxID_ANY, label),
                   wxSizerFlags(1).Center().Border(wxLEFT));
 
     const wxSizerFlags flagsCentered = wxSizerFlags().Center();
 
     if ( m_style & wxEL_ALLOW_EDIT )
     {
-        m_bEdit = new wxBitmapButton(subp, wxID_ELB_EDIT,
+        m_bEdit = NEW_DEBUG wxBitmapButton(subp, wxID_ELB_EDIT,
                                      wxArtProvider::GetBitmap(wxART_EDIT, wxART_BUTTON));
         m_bEdit->SetToolTip(_("Edit item"));
         subsizer->Add(m_bEdit, flagsCentered);
@@ -134,7 +134,7 @@ bool wxEditableListBox::Create(wxWindow *parent, wxWindowID id,
 
     if ( m_style & wxEL_ALLOW_NEW )
     {
-        m_bNew = new wxBitmapButton(subp, wxID_ELB_NEW,
+        m_bNew = NEW_DEBUG wxBitmapButton(subp, wxID_ELB_NEW,
                                     wxArtProvider::GetBitmap(wxART_NEW, wxART_BUTTON));
         m_bNew->SetToolTip(_("New item"));
         subsizer->Add(m_bNew, flagsCentered);
@@ -142,7 +142,7 @@ bool wxEditableListBox::Create(wxWindow *parent, wxWindowID id,
 
     if ( m_style & wxEL_ALLOW_DELETE )
     {
-        m_bDel = new wxBitmapButton(subp, wxID_ELB_DELETE,
+        m_bDel = NEW_DEBUG wxBitmapButton(subp, wxID_ELB_DELETE,
                                     wxArtProvider::GetBitmap(wxART_DELETE, wxART_BUTTON));
         m_bDel->SetToolTip(_("Delete item"));
         subsizer->Add(m_bDel, flagsCentered);
@@ -150,12 +150,12 @@ bool wxEditableListBox::Create(wxWindow *parent, wxWindowID id,
 
     if (!(m_style & wxEL_NO_REORDER))
     {
-        m_bUp = new wxBitmapButton(subp, wxID_ELB_UP,
+        m_bUp = NEW_DEBUG wxBitmapButton(subp, wxID_ELB_UP,
                                    wxArtProvider::GetBitmap(wxART_GO_UP, wxART_BUTTON));
         m_bUp->SetToolTip(_("Move up"));
         subsizer->Add(m_bUp, flagsCentered);
 
-        m_bDown = new wxBitmapButton(subp, wxID_ELB_DOWN,
+        m_bDown = NEW_DEBUG wxBitmapButton(subp, wxID_ELB_DOWN,
                                      wxArtProvider::GetBitmap(wxART_GO_DOWN, wxART_BUTTON));
         m_bDown->SetToolTip(_("Move down"));
         subsizer->Add(m_bDown, flagsCentered);
@@ -169,7 +169,7 @@ bool wxEditableListBox::Create(wxWindow *parent, wxWindowID id,
     long st = wxLC_REPORT | wxLC_NO_HEADER | wxLC_SINGLE_SEL | wxSUNKEN_BORDER;
     if ( style & wxEL_ALLOW_EDIT )
          st |= wxLC_EDIT_LABELS;
-    m_listCtrl = new CleverListCtrl(this, wxID_ELB_LISTCTRL,
+    m_listCtrl = NEW_DEBUG CleverListCtrl(this, wxID_ELB_LISTCTRL,
                                     wxDefaultPosition, wxDefaultSize, st);
     wxArrayString empty_ar;
     SetStrings(empty_ar);
@@ -229,12 +229,12 @@ void wxEditableListBox::OnEndLabelEdit(wxListEvent& event)
     if ( event.GetIndex() == m_listCtrl->GetItemCount()-1 &&
          !event.GetText().empty() )
     {
-        // The user edited last (empty) line, i.e. added new entry. We have to
-        // add new empty line here so that adding one more line is still
+        // The user edited last (empty) line, i.e. added NEW_DEBUG entry. We have to
+        // add NEW_DEBUG empty line here so that adding one more line is still
         // possible:
         m_listCtrl->InsertItem(m_listCtrl->GetItemCount(), wxEmptyString);
 
-        // Simulate a wxEVT_LIST_ITEM_SELECTED event for the new item,
+        // Simulate a wxEVT_LIST_ITEM_SELECTED event for the NEW_DEBUG item,
         // so that the buttons are enabled/disabled properly
         wxListEvent selectionEvent(wxEVT_LIST_ITEM_SELECTED, m_listCtrl->GetId());
         selectionEvent.m_itemIndex = event.GetIndex();

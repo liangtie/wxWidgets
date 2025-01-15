@@ -163,7 +163,7 @@ WX_DEFINE_OBJARRAY(wxHtmlHelpMergedIndex)
 void wxHtmlHelpWindow::UpdateMergedIndex()
 {
     delete m_mergedIndex;
-    m_mergedIndex = new wxHtmlHelpMergedIndex;
+    m_mergedIndex = NEW_DEBUG wxHtmlHelpMergedIndex;
     wxHtmlHelpMergedIndex& merged = *m_mergedIndex;
 
     const wxHtmlHelpDataItems& items = m_Data->GetIndexArray();
@@ -184,8 +184,8 @@ void wxHtmlHelpWindow::UpdateMergedIndex()
         }
         else
         {
-            // new index entry
-            wxHtmlHelpMergedIndexItem *mi = new wxHtmlHelpMergedIndexItem();
+            // NEW_DEBUG index entry
+            wxHtmlHelpMergedIndexItem *mi = NEW_DEBUG wxHtmlHelpMergedIndexItem();
             mi->name = item.GetIndentedName();
             mi->items.Add(&item);
             mi->parent = (item.level == 0) ? NULL : history[item.level - 1];
@@ -235,7 +235,7 @@ void wxHtmlHelpWindow::Init(wxHtmlHelpData* data)
     }
     else
     {
-        m_Data = new wxHtmlHelpData();
+        m_Data = NEW_DEBUG wxHtmlHelpData();
         m_DataCreated = true;
     }
 
@@ -324,14 +324,14 @@ bool wxHtmlHelpWindow::Create(wxWindow* parent, wxWindowID id,
     int notebook_page = 0;
 
     // The sizer for the whole top-level window.
-    wxSizer *topWindowSizer = new wxBoxSizer(wxVERTICAL);
+    wxSizer *topWindowSizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     SetSizer(topWindowSizer);
 
 #if wxUSE_TOOLBAR
     // toolbar?
     if (helpStyle & (wxHF_TOOLBAR | wxHF_FLAT_TOOLBAR))
     {
-        wxToolBar *toolBar = new wxToolBar(this, wxID_ANY, wxDefaultPosition, wxDefaultSize,
+        wxToolBar *toolBar = NEW_DEBUG wxToolBar(this, wxID_ANY, wxDefaultPosition, wxDefaultSize,
                                            wxNO_BORDER | wxTB_HORIZONTAL |
                                            wxTB_DOCKABLE | wxTB_NODIVIDER |
                                            (helpStyle & wxHF_FLAT_TOOLBAR ? wxTB_FLAT : 0));
@@ -362,19 +362,19 @@ bool wxHtmlHelpWindow::Create(wxWindow* parent, wxWindowID id,
         splitterStyle = 0; // 3D style looks poor on Mac
         splitterStyle |= wxSP_LIVE_UPDATE;
 #endif
-        m_Splitter = new wxSplitterWindow(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, splitterStyle);
+        m_Splitter = NEW_DEBUG wxSplitterWindow(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, splitterStyle);
 
         topWindowSizer->Add(m_Splitter, 1, wxEXPAND);
 
-        m_HtmlWin = new wxHtmlHelpHtmlWindow(this, m_Splitter, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxHW_DEFAULT_STYLE|htmlWindowBorder);
-        m_NavigPan = new wxPanel(m_Splitter, wxID_ANY);
-        m_NavigNotebook = new wxNotebook(m_NavigPan, wxID_HTML_NOTEBOOK,
+        m_HtmlWin = NEW_DEBUG wxHtmlHelpHtmlWindow(this, m_Splitter, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxHW_DEFAULT_STYLE|htmlWindowBorder);
+        m_NavigPan = NEW_DEBUG wxPanel(m_Splitter, wxID_ANY);
+        m_NavigNotebook = NEW_DEBUG wxNotebook(m_NavigPan, wxID_HTML_NOTEBOOK,
                                          wxDefaultPosition, wxDefaultSize);
 #ifdef __WXMAC__
         m_NavigNotebook->SetWindowVariant(wxWINDOW_VARIANT_SMALL);
 #endif
 
-        navigSizer = new wxBoxSizer(wxVERTICAL);
+        navigSizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
         navigSizer->Add(m_NavigNotebook, 1, wxEXPAND);
 
         m_NavigPan->SetSizer(navigSizer);
@@ -382,7 +382,7 @@ bool wxHtmlHelpWindow::Create(wxWindow* parent, wxWindowID id,
     else
     {
         // only html window, no notebook with index,contents etc
-        m_HtmlWin = new wxHtmlWindow(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxHW_DEFAULT_STYLE|htmlWindowBorder);
+        m_HtmlWin = NEW_DEBUG wxHtmlWindow(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxHW_DEFAULT_STYLE|htmlWindowBorder);
         topWindowSizer->Add(m_HtmlWin, 1, wxEXPAND);
     }
 
@@ -394,8 +394,8 @@ bool wxHtmlHelpWindow::Create(wxWindow* parent, wxWindowID id,
     // contents tree panel?
     if ( helpStyle & wxHF_CONTENTS )
     {
-        wxWindow *dummy = new wxPanel(m_NavigNotebook, wxID_HTML_INDEXPAGE);
-        wxSizer *topsizer = new wxBoxSizer(wxVERTICAL);
+        wxWindow *dummy = NEW_DEBUG wxPanel(m_NavigNotebook, wxID_HTML_INDEXPAGE);
+        wxSizer *topsizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
         topsizer->Add(0, 10);
 
@@ -409,7 +409,7 @@ bool wxHtmlHelpWindow::Create(wxWindow* parent, wxWindowID id,
             comboStyle |= wxCB_SORT;
 
 #endif
-            m_Bookmarks = new wxComboBox(dummy, wxID_HTML_BOOKMARKSLIST,
+            m_Bookmarks = NEW_DEBUG wxComboBox(dummy, wxID_HTML_BOOKMARKSLIST,
                                          wxEmptyString,
                                          wxDefaultPosition, wxDefaultSize,
                                          0, NULL, comboStyle);
@@ -419,10 +419,10 @@ bool wxHtmlHelpWindow::Create(wxWindow* parent, wxWindowID id,
             m_Bookmarks->SetSelection(0);
 
             wxBitmapButton *bmpbt1, *bmpbt2;
-            bmpbt1 = new wxBitmapButton(dummy, wxID_HTML_BOOKMARKSADD,
+            bmpbt1 = NEW_DEBUG wxBitmapButton(dummy, wxID_HTML_BOOKMARKSADD,
                                  wxArtProvider::GetBitmap(wxART_ADD_BOOKMARK,
                                                           wxART_BUTTON));
-            bmpbt2 = new wxBitmapButton(dummy, wxID_HTML_BOOKMARKSREMOVE,
+            bmpbt2 = NEW_DEBUG wxBitmapButton(dummy, wxID_HTML_BOOKMARKSREMOVE,
                                  wxArtProvider::GetBitmap(wxART_DEL_BOOKMARK,
                                                           wxART_BUTTON));
 #if wxUSE_TOOLTIPS
@@ -430,7 +430,7 @@ bool wxHtmlHelpWindow::Create(wxWindow* parent, wxWindowID id,
             bmpbt2->SetToolTip(_("Remove current page from bookmarks"));
 #endif // wxUSE_TOOLTIPS
 
-            wxSizer *sizer = new wxBoxSizer(wxHORIZONTAL);
+            wxSizer *sizer = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
 
             sizer->Add(m_Bookmarks, 1, wxALIGN_CENTRE_VERTICAL | wxRIGHT, 5);
             sizer->Add(bmpbt1, 0, wxALIGN_CENTRE_VERTICAL | wxRIGHT, 2);
@@ -439,7 +439,7 @@ bool wxHtmlHelpWindow::Create(wxWindow* parent, wxWindowID id,
             topsizer->Add(sizer, 0, wxEXPAND | wxLEFT | wxBOTTOM | wxRIGHT, 10);
         }
 
-        m_ContentsBox = new wxTreeCtrl(dummy, wxID_HTML_TREECTRL,
+        m_ContentsBox = NEW_DEBUG wxTreeCtrl(dummy, wxID_HTML_TREECTRL,
                                        wxDefaultPosition, wxDefaultSize,
 #if defined(__WXGTK20__) || defined(__WXMAC__)
                                        wxSUNKEN_BORDER |
@@ -452,7 +452,7 @@ bool wxHtmlHelpWindow::Create(wxWindow* parent, wxWindowID id,
 #endif
                                        );
 
-        wxImageList *ContentsImageList = new wxImageList(16, 16);
+        wxImageList *ContentsImageList = NEW_DEBUG wxImageList(16, 16);
         ContentsImageList->Add(wxArtProvider::GetIcon(wxART_HELP_BOOK,
                                                       wxART_HELP_BROWSER,
                                                       wxSize(16, 16)));
@@ -476,22 +476,22 @@ bool wxHtmlHelpWindow::Create(wxWindow* parent, wxWindowID id,
     // index listbox panel?
     if ( helpStyle & wxHF_INDEX )
     {
-        wxWindow *dummy = new wxPanel(m_NavigNotebook, wxID_HTML_INDEXPAGE);
-        wxSizer *topsizer = new wxBoxSizer(wxVERTICAL);
+        wxWindow *dummy = NEW_DEBUG wxPanel(m_NavigNotebook, wxID_HTML_INDEXPAGE);
+        wxSizer *topsizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
         dummy->SetSizer(topsizer);
 
-        m_IndexText = new wxTextCtrl(dummy, wxID_HTML_INDEXTEXT, wxEmptyString,
+        m_IndexText = NEW_DEBUG wxTextCtrl(dummy, wxID_HTML_INDEXTEXT, wxEmptyString,
                                      wxDefaultPosition, wxDefaultSize,
                                      wxTE_PROCESS_ENTER);
-        m_IndexButton = new wxButton(dummy, wxID_HTML_INDEXBUTTON, _("Find"));
-        m_IndexButtonAll = new wxButton(dummy, wxID_HTML_INDEXBUTTONALL,
+        m_IndexButton = NEW_DEBUG wxButton(dummy, wxID_HTML_INDEXBUTTON, _("Find"));
+        m_IndexButtonAll = NEW_DEBUG wxButton(dummy, wxID_HTML_INDEXBUTTONALL,
                                         _("Show all"));
-        m_IndexCountInfo = new wxStaticText(dummy, wxID_HTML_COUNTINFO,
+        m_IndexCountInfo = NEW_DEBUG wxStaticText(dummy, wxID_HTML_COUNTINFO,
                                             wxEmptyString, wxDefaultPosition,
                                             wxDefaultSize,
                                             wxALIGN_RIGHT | wxST_NO_AUTORESIZE);
-        m_IndexList = new wxListBox(dummy, wxID_HTML_INDEXLIST,
+        m_IndexList = NEW_DEBUG wxListBox(dummy, wxID_HTML_INDEXLIST,
                                     wxDefaultPosition, wxDefaultSize,
                                     0, NULL, wxLB_SINGLE);
 
@@ -501,7 +501,7 @@ bool wxHtmlHelpWindow::Create(wxWindow* parent, wxWindowID id,
 #endif //wxUSE_TOOLTIPS
 
         topsizer->Add(m_IndexText, 0, wxEXPAND | wxALL, 10);
-        wxSizer *btsizer = new wxBoxSizer(wxHORIZONTAL);
+        wxSizer *btsizer = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
         btsizer->Add(m_IndexButton, 0, wxRIGHT, 2);
         btsizer->Add(m_IndexButtonAll);
         topsizer->Add(btsizer, 0,
@@ -516,24 +516,24 @@ bool wxHtmlHelpWindow::Create(wxWindow* parent, wxWindowID id,
     // search list panel?
     if ( helpStyle & wxHF_SEARCH )
     {
-        wxWindow *dummy = new wxPanel(m_NavigNotebook, wxID_HTML_INDEXPAGE);
-        wxSizer *sizer = new wxBoxSizer(wxVERTICAL);
+        wxWindow *dummy = NEW_DEBUG wxPanel(m_NavigNotebook, wxID_HTML_INDEXPAGE);
+        wxSizer *sizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
         dummy->SetSizer(sizer);
 
-        m_SearchText = new wxTextCtrl(dummy, wxID_HTML_SEARCHTEXT,
+        m_SearchText = NEW_DEBUG wxTextCtrl(dummy, wxID_HTML_SEARCHTEXT,
                                       wxEmptyString,
                                       wxDefaultPosition, wxDefaultSize,
                                       wxTE_PROCESS_ENTER);
-        m_SearchChoice = new wxChoice(dummy, wxID_HTML_SEARCHCHOICE,
+        m_SearchChoice = NEW_DEBUG wxChoice(dummy, wxID_HTML_SEARCHCHOICE,
                                       wxDefaultPosition, wxSize(125,wxDefaultCoord));
-        m_SearchCaseSensitive = new wxCheckBox(dummy, wxID_ANY, _("Case sensitive"));
-        m_SearchWholeWords = new wxCheckBox(dummy, wxID_ANY, _("Whole words only"));
-        m_SearchButton = new wxButton(dummy, wxID_HTML_SEARCHBUTTON, _("Search"));
+        m_SearchCaseSensitive = NEW_DEBUG wxCheckBox(dummy, wxID_ANY, _("Case sensitive"));
+        m_SearchWholeWords = NEW_DEBUG wxCheckBox(dummy, wxID_ANY, _("Whole words only"));
+        m_SearchButton = NEW_DEBUG wxButton(dummy, wxID_HTML_SEARCHBUTTON, _("Search"));
 #if wxUSE_TOOLTIPS
         m_SearchButton->SetToolTip(_("Search contents of help book(s) for all occurrences of the text you typed above"));
 #endif //wxUSE_TOOLTIPS
-        m_SearchList = new wxListBox(dummy, wxID_HTML_SEARCHLIST,
+        m_SearchList = NEW_DEBUG wxListBox(dummy, wxID_HTML_SEARCHLIST,
                                      wxDefaultPosition, wxDefaultSize,
                                      0, NULL, wxLB_SINGLE);
 
@@ -944,7 +944,7 @@ void wxHtmlHelpWindow::CreateContents()
 
     size_t cnt = contents.size();
 
-    m_PagesHash = new wxHashTable(wxKEY_STRING, 2 * cnt);
+    m_PagesHash = NEW_DEBUG wxHashTable(wxKEY_STRING, 2 * cnt);
 
     const int MAX_ROOTS = 64;
     wxTreeItemId roots[MAX_ROOTS];
@@ -977,7 +977,7 @@ void wxHtmlHelpWindow::CreateContents()
             {
                 roots[1] = m_ContentsBox->AppendItem(roots[0],
                                          it->name, IMG_Book, -1,
-                                         new wxHtmlHelpTreeItemData(i));
+                                         NEW_DEBUG wxHtmlHelpTreeItemData(i));
                 m_ContentsBox->SetItemBold(roots[1], true);
             }
             imaged[1] = true;
@@ -987,12 +987,12 @@ void wxHtmlHelpWindow::CreateContents()
         {
             roots[it->level + 1] = m_ContentsBox->AppendItem(
                                      roots[it->level], it->name, IMG_Page,
-                                     -1, new wxHtmlHelpTreeItemData(i));
+                                     -1, NEW_DEBUG wxHtmlHelpTreeItemData(i));
             imaged[it->level + 1] = false;
         }
 
         m_PagesHash->Put(it->GetFullPath(),
-                         new wxHtmlHelpHashData(i, roots[it->level + 1]));
+                         NEW_DEBUG wxHtmlHelpHashData(i, roots[it->level + 1]));
 
         // Set the icon for the node one level up in the hierarchy,
         // unless already done (see comment above imaged[] declaration)
@@ -1196,40 +1196,40 @@ public:
     wxHtmlHelpWindowOptionsDialog(wxWindow *parent)
         : wxDialog(parent, wxID_ANY, wxString(_("Help Browser Options")))
     {
-        wxBoxSizer *topsizer = new wxBoxSizer(wxVERTICAL);
-        wxFlexGridSizer *sizer = new wxFlexGridSizer(2, 3, 2, 5);
+        wxBoxSizer *topsizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
+        wxFlexGridSizer *sizer = NEW_DEBUG wxFlexGridSizer(2, 3, 2, 5);
 
-        sizer->Add(new wxStaticText(this, wxID_ANY, _("Normal font:")));
-        sizer->Add(new wxStaticText(this, wxID_ANY, _("Fixed font:")));
-        sizer->Add(new wxStaticText(this, wxID_ANY, _("Font size:")));
+        sizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, _("Normal font:")));
+        sizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, _("Fixed font:")));
+        sizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, _("Font size:")));
 
-        sizer->Add(NormalFont = new wxComboBox(this, wxID_ANY, wxEmptyString, wxDefaultPosition,
+        sizer->Add(NormalFont = NEW_DEBUG wxComboBox(this, wxID_ANY, wxEmptyString, wxDefaultPosition,
                       wxSize(200, wxDefaultCoord),
                       0, NULL, wxCB_DROPDOWN | wxCB_READONLY));
 
-        sizer->Add(FixedFont = new wxComboBox(this, wxID_ANY, wxEmptyString, wxDefaultPosition,
+        sizer->Add(FixedFont = NEW_DEBUG wxComboBox(this, wxID_ANY, wxEmptyString, wxDefaultPosition,
                       wxSize(200, wxDefaultCoord),
                       0, NULL, wxCB_DROPDOWN | wxCB_READONLY));
 
-        sizer->Add(FontSize = new wxSpinCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition,
+        sizer->Add(FontSize = NEW_DEBUG wxSpinCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition,
                       wxDefaultSize, wxSP_ARROW_KEYS, 2, 100, 2, wxT("wxSpinCtrl")));
 
         topsizer->Add(sizer, 0, wxLEFT|wxRIGHT|wxTOP, 10);
 
-        topsizer->Add(new wxStaticText(this, wxID_ANY, _("Preview:")),
+        topsizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, _("Preview:")),
                         0, wxLEFT | wxTOP, 10);
 
         topsizer->AddSpacer(5);
 
-        topsizer->Add(TestWin = new wxHtmlWindow(this, wxID_ANY, wxDefaultPosition, wxSize(20, 150),
+        topsizer->Add(TestWin = NEW_DEBUG wxHtmlWindow(this, wxID_ANY, wxDefaultPosition, wxSize(20, 150),
                                                  wxHW_SCROLLBAR_AUTO|wxBORDER_THEME),
                         1, wxEXPAND | wxLEFT | wxRIGHT, 10);
 
-        wxBoxSizer *sizer2 = new wxBoxSizer(wxHORIZONTAL);
+        wxBoxSizer *sizer2 = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
         wxButton *ok;
-        sizer2->Add(ok = new wxButton(this, wxID_OK), 0, wxALL, 10);
+        sizer2->Add(ok = NEW_DEBUG wxButton(this, wxID_OK), 0, wxALL, 10);
         ok->SetDefault();
-        sizer2->Add(new wxButton(this, wxID_CANCEL), 0, wxALL, 10);
+        sizer2->Add(NEW_DEBUG wxButton(this, wxID_CANCEL), 0, wxALL, 10);
         topsizer->Add(sizer2, 0, wxALIGN_RIGHT);
 
         SetSizer(topsizer);
@@ -1295,12 +1295,12 @@ void wxHtmlHelpWindow::OptionsDialog()
 
     if (m_NormalFonts == NULL)
     {
-        m_NormalFonts = new wxArrayString(wxFontEnumerator::GetFacenames());
+        m_NormalFonts = NEW_DEBUG wxArrayString(wxFontEnumerator::GetFacenames());
         m_NormalFonts->Sort(); // ascending sort
     }
     if (m_FixedFonts == NULL)
     {
-        m_FixedFonts = new wxArrayString(
+        m_FixedFonts = NEW_DEBUG wxArrayString(
                     wxFontEnumerator::GetFacenames(wxFONTENCODING_SYSTEM,
                     true /*enum fixed width only*/));
         m_FixedFonts->Sort(); // ascending sort
@@ -1525,7 +1525,7 @@ void wxHtmlHelpWindow::OnToolbar(wxCommandEvent& event)
         case wxID_HTML_PRINT :
             {
                 if (m_Printer == NULL)
-                    m_Printer = new wxHtmlEasyPrinting(_("Help Printing"), this);
+                    m_Printer = NEW_DEBUG wxHtmlEasyPrinting(_("Help Printing"), this);
                 if (!m_HtmlWin->GetOpenedPage())
                 {
                     wxLogWarning(_("Cannot print empty page."));

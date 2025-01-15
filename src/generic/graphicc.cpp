@@ -129,7 +129,7 @@ public :
     // These are the path primitives from which everything else can be constructed
     //
 
-    // begins a new subpath at (x,y)
+    // begins a NEW_DEBUG subpath at (x,y)
     virtual void MoveToPoint( wxDouble x, wxDouble y ) override;
 
     // adds a straight line from the current point to (x,y)
@@ -156,13 +156,13 @@ public :
     // using the primitives from above
     //
 
-    // appends a rectangle as a new closed subpath
+    // appends a rectangle as a NEW_DEBUG closed subpath
     virtual void AddRectangle(wxDouble x, wxDouble y, wxDouble w, wxDouble h) override;
 
-    // appends a circle as a new closed subpath
+    // appends a circle as a NEW_DEBUG closed subpath
     virtual void AddCircle(wxDouble x, wxDouble y, wxDouble r) override;
 
-    // appends an ellipse as a new closed subpath fitting the passed rectangle
+    // appends an ellipse as a NEW_DEBUG closed subpath fitting the passed rectangle
     virtual void AddEllipse(wxDouble x, wxDouble y, wxDouble w, wxDouble h) override;
 
     /*
@@ -760,7 +760,7 @@ void wxCairoPenBrushBaseData::InitStipple(wxBitmap* bmp)
 {
     wxCHECK_RET( bmp && bmp->IsOk(), wxS("Invalid stippled bitmap") );
 
-    m_bmpdata = new wxCairoBitmapData(GetRenderer(), *bmp);
+    m_bmpdata = NEW_DEBUG wxCairoBitmapData(GetRenderer(), *bmp);
     m_pattern = m_bmpdata->GetCairoPattern();
     cairo_pattern_set_extend(m_pattern, CAIRO_EXTEND_REPEAT);
 }
@@ -951,7 +951,7 @@ wxCairoPenData::wxCairoPenData( wxGraphicsRenderer* renderer, const wxGraphicsPe
 
     case wxPENSTYLE_DOT :
         m_count = WXSIZEOF(dotted);
-        m_userLengths = new double[ m_count ] ;
+        m_userLengths = NEW_DEBUG double[ m_count ] ;
         memcpy( m_userLengths, dotted, sizeof(dotted) );
         m_lengths = m_userLengths;
         break;
@@ -977,7 +977,7 @@ wxCairoPenData::wxCairoPenData( wxGraphicsRenderer* renderer, const wxGraphicsPe
             m_count = info.GetDashes( &wxdashes ) ;
             if ((wxdashes != nullptr) && (m_count > 0))
             {
-                m_userLengths = new double[m_count] ;
+                m_userLengths = NEW_DEBUG double[m_count] ;
                 for ( int i = 0 ; i < m_count ; ++i )
                 {
                     m_userLengths[i] = wxdashes[i] * dashUnit ;
@@ -1279,7 +1279,7 @@ wxGraphicsObjectRefData *wxCairoPathData::Clone() const
     cairo_path_t* path = cairo_copy_path(m_pathContext);
     cairo_append_path(pathcontext, path);
     cairo_path_destroy(path);
-    return new wxCairoPathData( GetRenderer() ,pathcontext);
+    return NEW_DEBUG wxCairoPathData( GetRenderer() ,pathcontext);
 }
 
 
@@ -1449,7 +1449,7 @@ wxCairoMatrixData::~wxCairoMatrixData()
 
 wxGraphicsObjectRefData *wxCairoMatrixData::Clone() const
 {
-    return new wxCairoMatrixData(GetRenderer(),&m_matrix);
+    return NEW_DEBUG wxCairoMatrixData(GetRenderer(),&m_matrix);
 }
 
 // concatenates the matrix
@@ -1586,7 +1586,7 @@ int wxCairoBitmapData::InitBuffer(int width, int height, cairo_format_t format)
 
     m_width = width;
     m_height = height;
-    m_buffer = new unsigned char[height*stride];
+    m_buffer = NEW_DEBUG unsigned char[height*stride];
 
     return stride;
 }
@@ -3405,20 +3405,20 @@ static wxCairoRenderer gs_cairoGraphicsRenderer;
 wxGraphicsContext * wxCairoRenderer::CreateContext( const wxWindowDC& dc)
 {
     ENSURE_LOADED_OR_RETURN(nullptr);
-    return new wxCairoContext(this,dc);
+    return NEW_DEBUG wxCairoContext(this,dc);
 }
 
 wxGraphicsContext * wxCairoRenderer::CreateContext( const wxMemoryDC& dc)
 {
     ENSURE_LOADED_OR_RETURN(nullptr);
-    return new wxCairoContext(this,dc);
+    return NEW_DEBUG wxCairoContext(this,dc);
 }
 
 #if wxUSE_PRINTING_ARCHITECTURE
 wxGraphicsContext * wxCairoRenderer::CreateContext( const wxPrinterDC& dc)
 {
     ENSURE_LOADED_OR_RETURN(nullptr);
-    return new wxCairoContext(this, dc);
+    return NEW_DEBUG wxCairoContext(this, dc);
 }
 #endif
 
@@ -3426,7 +3426,7 @@ wxGraphicsContext * wxCairoRenderer::CreateContext( const wxPrinterDC& dc)
 wxGraphicsContext * wxCairoRenderer::CreateContext(const wxEnhMetaFileDC& dc)
 {
     ENSURE_LOADED_OR_RETURN(nullptr);
-    return new wxCairoContext(this, dc);
+    return NEW_DEBUG wxCairoContext(this, dc);
 }
 #endif // __WXMSW__ && wxUSE_ENH_METAFILE
 
@@ -3436,14 +3436,14 @@ wxGraphicsContext * wxCairoRenderer::CreateContextFromNativeContext(void * conte
 #ifdef __WXMSW__
     DWORD objType = ::GetObjectType((HGDIOBJ)context);
     if (objType == 0)
-        return new wxCairoContext(this, (cairo_t*)context);
+        return NEW_DEBUG wxCairoContext(this, (cairo_t*)context);
 
     if (objType == OBJ_DC || objType == OBJ_MEMDC)
-        return new wxCairoContext(this, (HDC)context);
+        return NEW_DEBUG wxCairoContext(this, (HDC)context);
 
     return nullptr;
 #else
-    return new wxCairoContext(this,(cairo_t*)context);
+    return NEW_DEBUG wxCairoContext(this,(cairo_t*)context);
 #endif
 }
 
@@ -3452,9 +3452,9 @@ wxGraphicsContext * wxCairoRenderer::CreateContextFromNativeWindow( void * windo
 {
     ENSURE_LOADED_OR_RETURN(nullptr);
 #ifdef __WXGTK__
-    return new wxCairoContext(this, static_cast<GdkWindow*>(window));
+    return NEW_DEBUG wxCairoContext(this, static_cast<GdkWindow*>(window));
 #elif defined(__WXMSW__)
-    return new wxCairoContext(this, static_cast<HWND>(window));
+    return NEW_DEBUG wxCairoContext(this, static_cast<HWND>(window));
 #else
     wxUnusedVar(window);
     return nullptr;
@@ -3465,7 +3465,7 @@ wxGraphicsContext * wxCairoRenderer::CreateContextFromNativeWindow( void * windo
 wxGraphicsContext * wxCairoRenderer::CreateContextFromNativeHDC(WXHDC dc)
 {
     ENSURE_LOADED_OR_RETURN(nullptr);
-    return new wxCairoContext(this, (HDC)dc);
+    return NEW_DEBUG wxCairoContext(this, (HDC)dc);
 }
 #endif
 
@@ -3473,7 +3473,7 @@ wxGraphicsContext * wxCairoRenderer::CreateContextFromNativeHDC(WXHDC dc)
 wxGraphicsContext * wxCairoRenderer::CreateContextFromImage(wxImage& image)
 {
     ENSURE_LOADED_OR_RETURN(nullptr);
-    return new wxCairoImageContext(this, image);
+    return NEW_DEBUG wxCairoImageContext(this, image);
 }
 #endif // wxUSE_IMAGE
 
@@ -3483,7 +3483,7 @@ wxGraphicsContext * wxCairoRenderer::CreateMeasuringContext()
     return CreateContextFromNativeWindow(gdk_get_default_root_window());
 #elif defined(__WXMSW__)
     ENSURE_LOADED_OR_RETURN(nullptr);
-    return new wxCairoMeasuringContext(this);
+    return NEW_DEBUG wxCairoMeasuringContext(this);
 #else
     return nullptr;
     // TODO
@@ -3493,7 +3493,7 @@ wxGraphicsContext * wxCairoRenderer::CreateMeasuringContext()
 wxGraphicsContext * wxCairoRenderer::CreateContext( wxWindow* window )
 {
     ENSURE_LOADED_OR_RETURN(nullptr);
-    return new wxCairoContext(this, window );
+    return NEW_DEBUG wxCairoContext(this, window );
 }
 
 // Path
@@ -3502,7 +3502,7 @@ wxGraphicsPath wxCairoRenderer::CreatePath()
 {
     wxGraphicsPath path;
     ENSURE_LOADED_OR_RETURN(path);
-    path.SetRefData( new wxCairoPathData(this) );
+    path.SetRefData( NEW_DEBUG wxCairoPathData(this) );
     return path;
 }
 
@@ -3515,7 +3515,7 @@ wxGraphicsMatrix wxCairoRenderer::CreateMatrix( wxDouble a, wxDouble b, wxDouble
 {
     wxGraphicsMatrix m;
     ENSURE_LOADED_OR_RETURN(m);
-    wxCairoMatrixData* data = new wxCairoMatrixData( this );
+    wxCairoMatrixData* data = NEW_DEBUG wxCairoMatrixData( this );
     data->Set( a,b,c,d,tx,ty ) ;
     m.SetRefData(data);
     return m;
@@ -3527,7 +3527,7 @@ wxGraphicsPen wxCairoRenderer::CreatePen(const wxGraphicsPenInfo& info)
     ENSURE_LOADED_OR_RETURN(p);
     if (info.GetStyle() != wxPENSTYLE_TRANSPARENT)
     {
-        p.SetRefData(new wxCairoPenData( this, info ));
+        p.SetRefData(NEW_DEBUG wxCairoPenData( this, info ));
     }
     return p;
 }
@@ -3538,7 +3538,7 @@ wxGraphicsBrush wxCairoRenderer::CreateBrush(const wxBrush& brush )
     ENSURE_LOADED_OR_RETURN(p);
     if (brush.IsOk() && brush.GetStyle() != wxBRUSHSTYLE_TRANSPARENT)
     {
-        p.SetRefData(new wxCairoBrushData( this, brush ));
+        p.SetRefData(NEW_DEBUG wxCairoBrushData( this, brush ));
     }
     return p;
 }
@@ -3551,7 +3551,7 @@ wxCairoRenderer::CreateLinearGradientBrush(wxDouble x1, wxDouble y1,
 {
     wxGraphicsBrush p;
     ENSURE_LOADED_OR_RETURN(p);
-    wxCairoBrushData* d = new wxCairoBrushData( this );
+    wxCairoBrushData* d = NEW_DEBUG wxCairoBrushData( this );
     d->CreateLinearGradientPattern(x1, y1, x2, y2, stops, matrix);
     p.SetRefData(d);
     return p;
@@ -3565,7 +3565,7 @@ wxCairoRenderer::CreateRadialGradientBrush(wxDouble startX, wxDouble startY,
 {
     wxGraphicsBrush p;
     ENSURE_LOADED_OR_RETURN(p);
-    wxCairoBrushData* d = new wxCairoBrushData( this );
+    wxCairoBrushData* d = NEW_DEBUG wxCairoBrushData( this );
     d->CreateRadialGradientPattern(startX, startY, endX, endY, r, stops, matrix);
     p.SetRefData(d);
     return p;
@@ -3585,7 +3585,7 @@ wxCairoRenderer::CreateFont(double sizeInPixels,
 {
     wxGraphicsFont font;
     ENSURE_LOADED_OR_RETURN(font);
-    font.SetRefData(new wxCairoFontData(this, sizeInPixels, facename, flags, col));
+    font.SetRefData(NEW_DEBUG wxCairoFontData(this, sizeInPixels, facename, flags, col));
     return font;
 }
 
@@ -3598,7 +3598,7 @@ wxCairoRenderer::CreateFontAtDPI(const wxFont& font,
     ENSURE_LOADED_OR_RETURN(p);
     if ( font.IsOk() )
     {
-        p.SetRefData(new wxCairoFontData( this, font, dpi, col ));
+        p.SetRefData(NEW_DEBUG wxCairoFontData( this, font, dpi, col ));
     }
     return p;
 }
@@ -3609,7 +3609,7 @@ wxGraphicsBitmap wxCairoRenderer::CreateBitmap( const wxBitmap& bmp )
     ENSURE_LOADED_OR_RETURN(p);
     if ( bmp.IsOk() )
     {
-        p.SetRefData(new wxCairoBitmapData( this , bmp ));
+        p.SetRefData(NEW_DEBUG wxCairoBitmapData( this , bmp ));
     }
     return p;
 }
@@ -3624,7 +3624,7 @@ wxGraphicsBitmap wxCairoRenderer::CreateBitmapFromImage(const wxImage& image)
 
     if ( image.IsOk() )
     {
-        bmp.SetRefData(new wxCairoBitmapData(this, image));
+        bmp.SetRefData(NEW_DEBUG wxCairoBitmapData(this, image));
     }
 
     return bmp;
@@ -3652,7 +3652,7 @@ wxGraphicsBitmap wxCairoRenderer::CreateBitmapFromNativeBitmap( void* bitmap )
     ENSURE_LOADED_OR_RETURN(p);
     if ( bitmap != nullptr )
     {
-        p.SetRefData(new wxCairoBitmapData( this , (cairo_surface_t*) bitmap ));
+        p.SetRefData(NEW_DEBUG wxCairoBitmapData( this , (cairo_surface_t*) bitmap ));
     }
     return p;
 }
@@ -3705,7 +3705,7 @@ wxCairoRenderer::CreateSubBitmap(const wxGraphicsBitmap& bitmap,
     cairo_destroy(cr);
 
     wxGraphicsBitmap bmpRes;
-    bmpRes.SetRefData(new wxCairoBitmapData(this, dstSurface));
+    bmpRes.SetRefData(NEW_DEBUG wxCairoBitmapData(this, dstSurface));
     return bmpRes;
 }
 

@@ -312,7 +312,7 @@ protected:
     };
 
     // called to handle %S or %s; 'conv' is conversion specifier ('S' or 's'
-    // respectively), 'size' is the preceding size modifier; the new values of
+    // respectively), 'size' is the preceding size modifier; the NEW_DEBUG values of
     // conversion and size specifiers must be written to outConv and outSize
     virtual void HandleString(CharType conv, SizeModifier size,
                               CharType& outConv, SizeModifier& outSize) = 0;

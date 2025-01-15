@@ -180,7 +180,7 @@ void wxDatePickerCtrl::SetRange(const wxDateTime& dt1, const wxDateTime& dt2)
     }
 
     // Setting the range could have changed the current control value if the
-    // old one wasn't inside the new range, so update it.
+    // old one wasn't inside the NEW_DEBUG range, so update it.
     m_date = MSWGetControlValue();
 }
 

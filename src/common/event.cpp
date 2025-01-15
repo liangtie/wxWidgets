@@ -245,7 +245,7 @@ wxDEFINE_EVENT( wxEVT_SCROLL_CHANGED, wxScrollEvent );
 // Due to a bug in older wx versions, wxSpinEvents were being sent with type of
 // wxEVT_SCROLL_LINEUP, wxEVT_SCROLL_LINEDOWN and wxEVT_SCROLL_THUMBTRACK. But
 // with the type-safe events in place, these event types are associated with
-// wxScrollEvent. To allow handling of spin events, new event types have been
+// wxScrollEvent. To allow handling of spin events, NEW_DEBUG event types have been
 // defined in spinbutt.h/spinnbuttcmn.cpp. To maintain backward compatibility
 // the spin event types are being initialized with the scroll event types.
 
@@ -372,7 +372,7 @@ wxEventFunctor::~wxEventFunctor()
  * General wxWidgets events, covering all interesting things that might happen
  * (button clicking, resizing, setting text in widgets, etc.).
  *
- * For each completely new event type, derive a new event class.
+ * For each completely NEW_DEBUG event type, derive a NEW_DEBUG event class.
  *
  */
 
@@ -1145,7 +1145,7 @@ void wxEventHashTable::AddEntry(const wxEventTableEntry &entry)
     }
     else
     {
-        eTTnode = new EventTypeTable;
+        eTTnode = NEW_DEBUG EventTypeTable;
         eTTnode->eventType = entry.m_eventType;
         *peTTnode = eTTnode;
     }
@@ -1156,7 +1156,7 @@ void wxEventHashTable::AddEntry(const wxEventTableEntry &entry)
 
 void wxEventHashTable::AllocEventTypeTable(size_t size)
 {
-    m_eventTypeTable = new EventTypeTablePointer[size];
+    m_eventTypeTable = NEW_DEBUG EventTypeTablePointer[size];
     memset((void *)m_eventTypeTable, 0, sizeof(EventTypeTablePointer)*size);
     m_size = size;
 }
@@ -1186,7 +1186,7 @@ void wxEventHashTable::GrowEventTypeTable()
             }
             else
             {
-                // Get the old value and put it in the new table.
+                // Get the old value and put it in the NEW_DEBUG table.
                 *peTTnode = oldEventTypeTable[i];
             }
         }
@@ -1350,7 +1350,7 @@ void wxEvtHandler::QueueEvent(wxEvent *event)
     wxENTER_CRIT_SECT( m_pendingEventsLock );
 
     if ( !m_pendingEvents )
-        m_pendingEvents = new wxList;
+        m_pendingEvents = NEW_DEBUG wxList;
 
     m_pendingEvents->Append(event);
 
@@ -1367,7 +1367,7 @@ void wxEvtHandler::QueueEvent(wxEvent *event)
     // any pending events to process
     wxLEAVE_CRIT_SECT( m_pendingEventsLock );
 
-    // 3) Inform the system that new pending events are somewhere,
+    // 3) Inform the system that NEW_DEBUG pending events are somewhere,
     //    and that these should be processed in idle time.
     wxWakeUpIdle();
 }
@@ -1812,7 +1812,7 @@ void wxEvtHandler::DoBind(int id,
                           wxObject *userData)
 {
     wxDynamicEventTableEntry *entry =
-        new wxDynamicEventTableEntry(eventType, id, lastId, func, userData);
+        NEW_DEBUG wxDynamicEventTableEntry(eventType, id, lastId, func, userData);
 
     // Check if the derived class allows binding such event handlers.
     if ( !OnDynamicBind(*entry) )
@@ -1822,7 +1822,7 @@ void wxEvtHandler::DoBind(int id,
     }
 
     if (!m_dynamicEvents)
-        m_dynamicEvents = new DynamicEvents;
+        m_dynamicEvents = NEW_DEBUG DynamicEvents;
 
     // We prefer to push back the entry here and then iterate over the vector
     // in reverse direction in GetNextDynamicEntry() as it's more efficient
@@ -1837,7 +1837,7 @@ void wxEvtHandler::DoBind(int id,
         if ( evtConnRef )
             evtConnRef->IncRef( );
         else
-            new wxEventConnectionRef(this, eventSink);
+            NEW_DEBUG wxEventConnectionRef(this, eventSink);
     }
 }
 

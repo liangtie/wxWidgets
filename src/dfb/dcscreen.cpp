@@ -53,7 +53,7 @@
 //        In conclusion, wxScreenDC as currently implemented is only usable
 //        for measuring things (e.g. font sizes). For this task, however, it
 //        is quite expensive to create in DFSCL_NORMAL mode, because it
-//        involves creation of a new surface as big as the screen.
+//        involves creation of a NEW_DEBUG surface as big as the screen.
 //
 //        The surface, as obtained from GetPrimarySurface(), is double-buffered
 //        for the sole purpose of silencing the warning from 3) above.

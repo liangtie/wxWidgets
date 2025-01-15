@@ -147,30 +147,30 @@ DatePickerWidgetsPage::DatePickerWidgetsPage(WidgetsBookCtrl *book,
 
 void DatePickerWidgetsPage::CreateContent()
 {
-    wxSizer *sizerTop = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer *sizerTop = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
 
     // left pane: style
-    wxSizer* const sizerLeft = new wxBoxSizer(wxVERTICAL);
+    wxSizer* const sizerLeft = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
     static const wxString kinds[] = { "&Default", "&Spin", "Drop do&wn" };
-    m_radioKind = new wxRadioBox(this, wxID_ANY, "&Kind",
+    m_radioKind = NEW_DEBUG wxRadioBox(this, wxID_ANY, "&Kind",
                                  wxDefaultPosition, wxDefaultSize,
                                  WXSIZEOF(kinds), kinds,
                                  1, wxRA_SPECIFY_COLS);
     sizerLeft->Add(m_radioKind, wxSizerFlags().Expand().Border());
 
-    wxSizer* const sizerStyle = new wxStaticBoxSizer(wxVERTICAL, this, "&Style");
+    wxSizer* const sizerStyle = NEW_DEBUG wxStaticBoxSizer(wxVERTICAL, this, "&Style");
     m_chkStyleCentury = CreateCheckBoxAndAddToSizer(sizerStyle, "Show &century");
     m_chkStyleAllowNone = CreateCheckBoxAndAddToSizer(sizerStyle, "Allow &no value");
 
     sizerLeft->Add(sizerStyle, wxSizerFlags().Expand().Border());
 
-    sizerLeft->Add(new wxButton(this, DatePickerPage_Reset, "&Recreate"),
+    sizerLeft->Add(NEW_DEBUG wxButton(this, DatePickerPage_Reset, "&Recreate"),
                    wxSizerFlags().Centre().Border());
 
 
     // middle pane: operations
-    wxSizer* const sizerMiddle = new wxBoxSizer(wxVERTICAL);
+    wxSizer* const sizerMiddle = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     sizerMiddle->Add(CreateSizerWithTextAndButton
                      (
                         DatePickerPage_Set,
@@ -198,7 +198,7 @@ void DatePickerWidgetsPage::CreateContent()
                         &m_textMax
                      ),
                      wxSizerFlags().Expand().Border());
-    sizerMiddle->Add(new wxButton(this, DatePickerPage_SetRange, "Set &range"),
+    sizerMiddle->Add(NEW_DEBUG wxButton(this, DatePickerPage_SetRange, "Set &range"),
                      wxSizerFlags().Centre().Border());
 
     sizerMiddle->AddSpacer(10);
@@ -211,15 +211,15 @@ void DatePickerWidgetsPage::CreateContent()
                      ),
                      wxSizerFlags().Expand().Border());
 
-    sizerMiddle->Add(new wxButton(this, DatePickerPage_SetNullText,
+    sizerMiddle->Add(NEW_DEBUG wxButton(this, DatePickerPage_SetNullText,
                                   "Set &null text"),
                      wxSizerFlags().Centre().Border());
 
 
     // right pane: control itself
-    wxSizer *sizerRight = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer *sizerRight = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
 
-    m_datePicker = new wxDatePickerCtrl(this, DatePickerPage_Picker);
+    m_datePicker = NEW_DEBUG wxDatePickerCtrl(this, DatePickerPage_Picker);
 
     sizerRight->Add(0, 0, 1, wxCENTRE);
     sizerRight->Add(m_datePicker, 1, wxCENTRE);
@@ -279,7 +279,7 @@ void DatePickerWidgetsPage::CreateDatePicker()
     if ( m_chkStyleAllowNone->GetValue() )
         style |= wxDP_ALLOWNONE;
 
-    m_datePicker = new wxDatePickerCtrl(this, DatePickerPage_Picker, value,
+    m_datePicker = NEW_DEBUG wxDatePickerCtrl(this, DatePickerPage_Picker, value,
                                         wxDefaultPosition, wxDefaultSize,
                                         style);
 

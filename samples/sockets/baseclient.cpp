@@ -54,7 +54,7 @@ public:
 
     virtual wxEvent* Clone() const wxOVERRIDE
     {
-        return new WorkerEvent(*this);
+        return NEW_DEBUG WorkerEvent(*this);
     }
     void* m_sender;
     bool m_isFailed;
@@ -309,7 +309,7 @@ Client::OnExit()
 // message size and place for data
 // msgsize parameter contains size of data in bytes and
 // if input value does not fit into 250 bytes then
-// on exit is updated to new value that is multiply of 1024 bytes
+// on exit is updated to NEW_DEBUG value that is multiply of 1024 bytes
 char*
 Client::CreateBuffer(int* msgsize)
 {
@@ -323,7 +323,7 @@ Client::CreateBuffer(int* msgsize)
         int size = (*msgsize)/1024 + 1;
         //returned buffer will contain test indicator, message size in KB and data
         bufsize = size*1024+2;
-        buf = new char[bufsize];
+        buf = NEW_DEBUG char[bufsize];
         buf[0] = (unsigned char)0xDE; //second byte contains size in kilobytes
         buf[1] = (char)(size);
         *msgsize = size*1024;
@@ -332,7 +332,7 @@ Client::CreateBuffer(int* msgsize)
     {
         //returned buffer will contain test indicator, message size in KB and data
         bufsize = (*msgsize)+2;
-        buf = new char[bufsize];
+        buf = NEW_DEBUG char[bufsize];
         buf[0] = (unsigned char)0xBE; //second byte contains size in bytes
         buf[1] = (char)(*msgsize);
     }
@@ -350,7 +350,7 @@ Client::StartWorker(workMode pMode) {
     }
 
     if (pMode == THREADS) {
-        ThreadWorker* c = new ThreadWorker(m_host,buf,msgsize+2);
+        ThreadWorker* c = NEW_DEBUG ThreadWorker(m_host,buf,msgsize+2);
         if (c->Create() != wxTHREAD_NO_ERROR) {
             wxLogError("Cannot create more threads");
         } else {
@@ -358,7 +358,7 @@ Client::StartWorker(workMode pMode) {
             m_threadWorkers.Append(c);
         }
     } else {
-        EventWorker* e = new EventWorker(m_host,buf,msgsize+2);
+        EventWorker* e = NEW_DEBUG EventWorker(m_host,buf,msgsize+2);
         e->Run();
         m_eventWorkers.Append(e);
     }
@@ -375,7 +375,7 @@ Client::StartWorker(workMode pMode, const wxString& pMessage) {
     free(tmpbuf);
 
     if (pMode == THREADS) {
-        ThreadWorker* c = new ThreadWorker(m_host,buf,msgsize+2);
+        ThreadWorker* c = NEW_DEBUG ThreadWorker(m_host,buf,msgsize+2);
         if (c->Create() != wxTHREAD_NO_ERROR) {
             wxLogError("Cannot create more threads");
         } else {
@@ -383,7 +383,7 @@ Client::StartWorker(workMode pMode, const wxString& pMessage) {
             m_threadWorkers.Append(c);
         }
     } else {
-        EventWorker* e = new EventWorker(m_host,buf,msgsize+2);
+        EventWorker* e = NEW_DEBUG EventWorker(m_host,buf,msgsize+2);
         e->Run();
         m_eventWorkers.Append(e);
     }
@@ -518,10 +518,10 @@ EventWorker::EventWorker(const wxString& p_host, char* p_buf, int p_size)
     m_written(0),
     m_readed(0)
 {
-    m_clientSocket = new wxSocketClient(wxSOCKET_NOWAIT);
+    m_clientSocket = NEW_DEBUG wxSocketClient(wxSOCKET_NOWAIT);
     m_clientSocket->SetEventHandler(*this);
     m_insize = m_outsize - 2;
-    m_inbuf = new char[m_insize];
+    m_inbuf = NEW_DEBUG char[m_insize];
 }
 
 void
@@ -657,9 +657,9 @@ ThreadWorker::ThreadWorker(const wxString& p_host, char* p_buf, int p_size)
     m_outbuf(p_buf),
     m_outsize(p_size)
 {
-    m_clientSocket = new wxSocketClient(wxSOCKET_BLOCK|wxSOCKET_WAITALL);
+    m_clientSocket = NEW_DEBUG wxSocketClient(wxSOCKET_BLOCK|wxSOCKET_WAITALL);
     m_insize = m_outsize - 2;
-    m_inbuf = new char[m_insize];
+    m_inbuf = NEW_DEBUG char[m_insize];
 }
 
 wxThread::ExitCode ThreadWorker::Entry()

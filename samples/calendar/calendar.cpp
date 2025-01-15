@@ -65,7 +65,7 @@
 // private classes
 // ----------------------------------------------------------------------------
 
-// Define a new application type, each program should derive a class from wxApp
+// Define a NEW_DEBUG application type, each program should derive a class from wxApp
 class MyApp : public wxApp
 {
 public:
@@ -122,7 +122,7 @@ private:
     wxDECLARE_EVENT_TABLE();
 };
 
-// Define a new frame type: this is going to be our main frame
+// Define a NEW_DEBUG frame type: this is going to be our main frame
 class MyFrame : public wxFrame
 {
 public:
@@ -364,7 +364,7 @@ wxBEGIN_EVENT_TABLE(MyPanel, wxPanel)
     EVT_CALENDAR_WEEK_CLICKED(Calendar_CalCtrl,  MyPanel::OnCalendarWeekClick)
 wxEND_EVENT_TABLE()
 
-// Create a new application object: this macro will allow wxWidgets to create
+// Create a NEW_DEBUG application object: this macro will allow wxWidgets to create
 // the application object during program execution (it's better than using a
 // static object for many reasons) and also declares the accessor function
 // wxGetApp() which will return the reference of the right type (i.e. MyApp and
@@ -390,7 +390,7 @@ bool MyApp::OnInit()
     wxUILocale::UseDefault();
 
     // Create the main application window
-    MyFrame *frame = new MyFrame("Calendar wxWidgets sample"
+    MyFrame *frame = NEW_DEBUG MyFrame("Calendar wxWidgets sample"
                                  ,wxPoint(50, 50), wxSize(460, 340)
                                  );
 
@@ -414,9 +414,9 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
     SetIcon(wxICON(sample));
 
     // create a menu bar
-    wxMenuBar *menuBar = new wxMenuBar;
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar;
 
-    wxMenu *menuFile = new wxMenu;
+    wxMenu *menuFile = NEW_DEBUG wxMenu;
     menuFile->Append(Calendar_File_About, "&About\tCtrl-A", "Show about dialog");
     menuFile->AppendSeparator();
     menuFile->Append(Calendar_File_ClearLog, "&Clear log\tCtrl-L");
@@ -424,7 +424,7 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
     menuFile->Append(Calendar_File_Quit, "E&xit\tAlt-X", "Quit this program");
     menuBar->Append(menuFile, "&File");
 
-    wxMenu *menuCal = new wxMenu;
+    wxMenu *menuCal = NEW_DEBUG wxMenu;
 #ifdef wxHAS_NATIVE_CALENDARCTRL
     menuCal->AppendCheckItem(Calendar_Cal_Generic, "Use &generic version\tCtrl-G",
                              "Toggle between native and generic control");
@@ -469,7 +469,7 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
     menuBar->Append(menuCal, "&Calendar");
 
 #if wxUSE_DATEPICKCTRL
-    wxMenu *menuDate = new wxMenu;
+    wxMenu *menuDate = NEW_DEBUG wxMenu;
     menuDate->AppendCheckItem(Calendar_DatePicker_ShowCentury,
                               "Al&ways show century");
     menuDate->AppendCheckItem(Calendar_DatePicker_DropDown,
@@ -488,7 +488,7 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
 #endif // wxUSE_DATEPICKCTRL
 
 #if wxUSE_TIMEPICKCTRL
-    wxMenu *menuTime = new wxMenu;
+    wxMenu *menuTime = NEW_DEBUG wxMenu;
 #if wxUSE_TIMEPICKCTRL_GENERIC
     menuTime->AppendCheckItem(Calendar_TimePicker_Generic,
                               "Use &generic version of the control");
@@ -512,16 +512,16 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
     // ... and attach this menu bar to the frame
     SetMenuBar(menuBar);
 
-    wxSplitterWindow *splitter = new wxSplitterWindow(this, wxID_ANY,
+    wxSplitterWindow *splitter = NEW_DEBUG wxSplitterWindow(this, wxID_ANY,
                                             wxDefaultPosition, wxDefaultSize,
                                             wxSP_NOBORDER);
-    m_panel = new MyPanel(splitter);
-    m_logWindow = new wxTextCtrl(splitter, wxID_ANY, wxEmptyString,
+    m_panel = NEW_DEBUG MyPanel(splitter);
+    m_logWindow = NEW_DEBUG wxTextCtrl(splitter, wxID_ANY, wxEmptyString,
                                  wxDefaultPosition, wxDefaultSize,
                                  wxTE_READONLY | wxTE_MULTILINE);
     splitter->SplitHorizontally(m_panel, m_logWindow);
     splitter->SetMinimumPaneSize(20);
-    wxLog::SetActiveTarget(new wxLogTextCtrl(m_logWindow));
+    wxLog::SetActiveTarget(NEW_DEBUG wxLogTextCtrl(m_logWindow));
 }
 
 void MyFrame::OnQuit(wxCommandEvent& WXUNUSED(event))
@@ -751,13 +751,13 @@ MyPanel::MyPanel(wxWindow *parent)
     wxString date;
     date.Printf("Selected date: %s",
                 wxDateTime::Today().FormatISODate());
-    m_date = new wxStaticText(this, wxID_ANY, date);
+    m_date = NEW_DEBUG wxStaticText(this, wxID_ANY, date);
     m_calendar = DoCreateCalendar(wxDefaultDateTime,
                                   wxCAL_SHOW_HOLIDAYS);
 
     // adjust to vertical/horizontal display
     bool horizontal = ( wxSystemSettings::GetMetric(wxSYS_SCREEN_X) > wxSystemSettings::GetMetric(wxSYS_SCREEN_Y) );
-    m_sizer = new wxBoxSizer( horizontal ? wxHORIZONTAL : wxVERTICAL );
+    m_sizer = NEW_DEBUG wxBoxSizer( horizontal ? wxHORIZONTAL : wxVERTICAL );
 
     m_sizer->Add(m_date, 0, wxALIGN_CENTER | wxALL, 10 );
     m_sizer->Add(m_calendar, 0, wxALIGN_CENTER | wxALIGN_LEFT);
@@ -811,14 +811,14 @@ wxCalendarCtrlBase *MyPanel::DoCreateCalendar(const wxDateTime& dt, long style)
     wxCalendarCtrlBase *calendar;
 #ifdef wxHAS_NATIVE_CALENDARCTRL
     if ( m_usingGeneric )
-        calendar = new wxGenericCalendarCtrl(this, Calendar_CalCtrl,
+        calendar = NEW_DEBUG wxGenericCalendarCtrl(this, Calendar_CalCtrl,
                                              dt,
                                              wxDefaultPosition,
                                              wxDefaultSize,
                                              style);
     else
 #endif // wxHAS_NATIVE_CALENDARCTRL
-        calendar = new wxCalendarCtrl(this, Calendar_CalCtrl,
+        calendar = NEW_DEBUG wxCalendarCtrl(this, Calendar_CalCtrl,
                                       dt,
                                       wxDefaultPosition,
                                       wxDefaultSize,
@@ -869,9 +869,9 @@ void MyPanel::HighlightSpecial(bool on)
     if ( on )
     {
         wxCalendarDateAttr
-            *attrRedCircle = new wxCalendarDateAttr(wxCAL_BORDER_ROUND, *wxRED),
-            *attrGreenSquare = new wxCalendarDateAttr(wxCAL_BORDER_SQUARE, *wxGREEN),
-            *attrHeaderLike = new wxCalendarDateAttr(*wxBLUE, *wxLIGHT_GREY);
+            *attrRedCircle = NEW_DEBUG wxCalendarDateAttr(wxCAL_BORDER_ROUND, *wxRED),
+            *attrGreenSquare = NEW_DEBUG wxCalendarDateAttr(wxCAL_BORDER_SQUARE, *wxGREEN),
+            *attrHeaderLike = NEW_DEBUG wxCalendarDateAttr(*wxBLUE, *wxLIGHT_GREY);
 
         m_calendar->SetAttr(17, attrRedCircle);
         m_calendar->SetAttr(29, attrGreenSquare);
@@ -956,7 +956,7 @@ MyDateDialog::MyDateDialog(wxWindow *parent, const wxDateTime& dt, int dtpStyle)
     wxFrame *frame = (wxFrame *)wxGetTopLevelParent(parent);
     if ( frame && frame->GetMenuBar()->IsChecked(Calendar_DatePicker_Generic) )
     {
-        m_datePickerGeneric = new wxDatePickerCtrlGeneric(this, wxID_ANY, dt,
+        m_datePickerGeneric = NEW_DEBUG wxDatePickerCtrlGeneric(this, wxID_ANY, dt,
                                                           wxDefaultPosition,
                                                           wxDefaultSize,
                                                           dtpStyle);
@@ -968,7 +968,7 @@ MyDateDialog::MyDateDialog(wxWindow *parent, const wxDateTime& dt, int dtpStyle)
     else
 #endif // wxUSE_DATEPICKCTRL_GENERIC
     {
-        m_datePicker = new wxDatePickerCtrl(this, wxID_ANY, dt,
+        m_datePicker = NEW_DEBUG wxDatePickerCtrl(this, wxID_ANY, dt,
                                             wxDefaultPosition, wxDefaultSize,
                                             dtpStyle);
         m_datePicker->SetRange(wxDateTime(1, wxDateTime::Jan, 1900),
@@ -977,20 +977,20 @@ MyDateDialog::MyDateDialog(wxWindow *parent, const wxDateTime& dt, int dtpStyle)
         datePickerWindow = m_datePicker;
     }
 
-    m_dateText = new wxStaticText(this, wxID_ANY,
+    m_dateText = NEW_DEBUG wxStaticText(this, wxID_ANY,
                                   dt.IsValid() ? dt.FormatISODate()
                                                : wxString());
 
     const wxSizerFlags flags = wxSizerFlags().Centre().Border();
-    wxFlexGridSizer* const sizerMain = new wxFlexGridSizer(2);
-    sizerMain->Add(new wxStaticText(this, wxID_ANY, "Enter &date:"), flags);
+    wxFlexGridSizer* const sizerMain = NEW_DEBUG wxFlexGridSizer(2);
+    sizerMain->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "Enter &date:"), flags);
     sizerMain->Add(datePickerWindow, flags);
 
-    sizerMain->Add(new wxStaticText(this, wxID_ANY, "Date in ISO format:"),
+    sizerMain->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "Date in ISO format:"),
                    flags);
     sizerMain->Add(m_dateText, flags);
 
-    wxSizer *sizerTop = new wxBoxSizer(wxVERTICAL);
+    wxSizer *sizerTop = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     sizerTop->Add(sizerMain, flags);
     sizerTop->Add(CreateStdDialogButtonSizer(wxOK | wxCANCEL), flags);
 
@@ -1030,28 +1030,28 @@ MyTimeDialog::MyTimeDialog(wxWindow *parent)
     wxFrame *frame = (wxFrame *)wxGetTopLevelParent(parent);
     if ( frame && frame->GetMenuBar()->IsChecked(Calendar_TimePicker_Generic) )
     {
-        m_timePickerGeneric = new wxTimePickerCtrlGeneric(this, wxID_ANY);
+        m_timePickerGeneric = NEW_DEBUG wxTimePickerCtrlGeneric(this, wxID_ANY);
         timePickerWindow = m_timePickerGeneric;
     }
     else
 #endif // wxUSE_TIMEPICKCTRL_GENERIC
-    m_timePicker = new wxTimePickerCtrl(this, wxID_ANY);
+    m_timePicker = NEW_DEBUG wxTimePickerCtrl(this, wxID_ANY);
 
     if ( !timePickerWindow )
         timePickerWindow = m_timePicker;
 
-    m_timeText = new wxStaticText(this, wxID_ANY, GetTime().FormatISOTime());
+    m_timeText = NEW_DEBUG wxStaticText(this, wxID_ANY, GetTime().FormatISOTime());
 
     const wxSizerFlags flags = wxSizerFlags().Centre().Border();
-    wxFlexGridSizer* const sizerMain = new wxFlexGridSizer(2);
-    sizerMain->Add(new wxStaticText(this, wxID_ANY, "Enter &time:"), flags);
+    wxFlexGridSizer* const sizerMain = NEW_DEBUG wxFlexGridSizer(2);
+    sizerMain->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "Enter &time:"), flags);
     sizerMain->Add(timePickerWindow, flags);
 
-    sizerMain->Add(new wxStaticText(this, wxID_ANY, "Time in ISO format:"),
+    sizerMain->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "Time in ISO format:"),
                    flags);
     sizerMain->Add(m_timeText, flags);
 
-    wxSizer* sizerTop = new wxBoxSizer(wxVERTICAL);
+    wxSizer* sizerTop = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     sizerTop->Add(sizerMain, flags);
     sizerTop->Add(CreateStdDialogButtonSizer(wxOK | wxCANCEL), flags);
 

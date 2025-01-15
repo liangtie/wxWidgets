@@ -191,7 +191,7 @@ bool MyApp::OnInit()
     if(!wxApp::OnInit())
         return false;
 
-    wxFrame* frame = new MyFrame;
+    wxFrame* frame = NEW_DEBUG MyFrame;
     frame->Show();
 
     return true;
@@ -286,7 +286,7 @@ wxEND_EVENT_TABLE()
 MyFrame::MyFrame()
     : wxFrame(NULL, wxID_ANY, "wxRibbon Sample Application", wxDefaultPosition, wxSize(800, 600), wxDEFAULT_FRAME_STYLE)
 {
-    m_ribbon = new wxRibbonBar(this,-1,wxDefaultPosition, wxDefaultSize, wxRIBBON_BAR_FLOW_HORIZONTAL
+    m_ribbon = NEW_DEBUG wxRibbonBar(this,-1,wxDefaultPosition, wxDefaultSize, wxRIBBON_BAR_FLOW_HORIZONTAL
                                 | wxRIBBON_BAR_SHOW_PAGE_LABELS
                                 | wxRIBBON_BAR_SHOW_PANEL_EXT_BUTTONS
                                 | wxRIBBON_BAR_SHOW_TOGGLE_BUTTON
@@ -294,12 +294,12 @@ MyFrame::MyFrame()
                                 );
 
     {
-        wxRibbonPage* home = new wxRibbonPage(m_ribbon, wxID_ANY, "Examples", ribbon_xpm);
-        wxRibbonPanel *toolbar_panel = new wxRibbonPanel(home, wxID_ANY, "Toolbar",
+        wxRibbonPage* home = NEW_DEBUG wxRibbonPage(m_ribbon, wxID_ANY, "Examples", ribbon_xpm);
+        wxRibbonPanel *toolbar_panel = NEW_DEBUG wxRibbonPanel(home, wxID_ANY, "Toolbar",
                                             wxNullBitmap, wxDefaultPosition, wxDefaultSize,
                                             wxRIBBON_PANEL_NO_AUTO_MINIMISE |
                                             wxRIBBON_PANEL_EXT_BUTTON);
-        wxRibbonToolBar *toolbar = new wxRibbonToolBar(toolbar_panel, ID_MAIN_TOOLBAR);
+        wxRibbonToolBar *toolbar = NEW_DEBUG wxRibbonToolBar(toolbar_panel, ID_MAIN_TOOLBAR);
         toolbar->AddToggleTool(wxID_JUSTIFY_LEFT, align_left_xpm);
         toolbar->AddToggleTool(wxID_JUSTIFY_CENTER , align_center_xpm);
         toolbar->AddToggleTool(wxID_JUSTIFY_RIGHT, align_right_xpm);
@@ -338,15 +338,15 @@ MyFrame::MyFrame()
             wxLogError("wxRibbonToolBar::GetToolByPos(size_t) is broken");
         }
 
-        wxRibbonPanel *selection_panel = new wxRibbonPanel(home, wxID_ANY, "Selection", wxBitmap(selection_panel_xpm));
-        wxRibbonButtonBar *selection = new wxRibbonButtonBar(selection_panel);
+        wxRibbonPanel *selection_panel = NEW_DEBUG wxRibbonPanel(home, wxID_ANY, "Selection", wxBitmap(selection_panel_xpm));
+        wxRibbonButtonBar *selection = NEW_DEBUG wxRibbonButtonBar(selection_panel);
         selection->AddButton(ID_SELECTION_EXPAND_V, "Expand Vertically", wxBitmap(expand_selection_v_xpm),
                                 "This is a tooltip for Expand Vertically\ndemonstrating a tooltip");
         selection->AddButton(ID_SELECTION_EXPAND_H, "Expand Horizontally", wxBitmap(expand_selection_h_xpm), wxEmptyString);
         selection->AddButton(ID_SELECTION_CONTRACT, "Contract", wxBitmap(auto_crop_selection_xpm), wxBitmap(auto_crop_selection_small_xpm));
 
-        wxRibbonPanel *shapes_panel = new wxRibbonPanel(home, wxID_ANY, "Shapes", wxBitmap(circle_small_xpm));
-        wxRibbonButtonBar *shapes = new wxRibbonButtonBar(shapes_panel);
+        wxRibbonPanel *shapes_panel = NEW_DEBUG wxRibbonPanel(home, wxID_ANY, "Shapes", wxBitmap(circle_small_xpm));
+        wxRibbonButtonBar *shapes = NEW_DEBUG wxRibbonButtonBar(shapes_panel);
         shapes->AddButton(ID_CIRCLE, "Circle", wxBitmap(circle_xpm), wxBitmap(circle_small_xpm),
                             wxNullBitmap, wxNullBitmap, wxRIBBON_BUTTON_NORMAL,
                             "This is a tooltip for the circle button\ndemonstrating another tooltip");
@@ -355,19 +355,19 @@ MyFrame::MyFrame()
         shapes->AddButton(ID_SQUARE, "Square", wxBitmap(square_xpm), wxEmptyString);
         shapes->AddDropdownButton(ID_POLYGON, "Other Polygon", wxBitmap(hexagon_xpm), wxEmptyString);
 
-        wxRibbonPanel *sizer_panel = new wxRibbonPanel(home, wxID_ANY, "Panel with Sizer",
+        wxRibbonPanel *sizer_panel = NEW_DEBUG wxRibbonPanel(home, wxID_ANY, "Panel with Sizer",
                                                     wxNullBitmap, wxDefaultPosition, wxDefaultSize,
                                                     wxRIBBON_PANEL_DEFAULT_STYLE);
 
         wxArrayString as;
         as.Add("Item 1 using a box sizer now");
         as.Add("Item 2 using a box sizer now");
-        wxComboBox* sizer_panelcombo = new wxComboBox(sizer_panel, wxID_ANY,
+        wxComboBox* sizer_panelcombo = NEW_DEBUG wxComboBox(sizer_panel, wxID_ANY,
                                                     wxEmptyString,
                                                     wxDefaultPosition, wxDefaultSize,
                                                     as, wxCB_READONLY);
 
-        wxComboBox* sizer_panelcombo2 = new wxComboBox(sizer_panel, wxID_ANY,
+        wxComboBox* sizer_panelcombo2 = NEW_DEBUG wxComboBox(sizer_panel, wxID_ANY,
                                                     wxEmptyString,
                                                     wxDefaultPosition, wxDefaultSize,
                                                     as, wxCB_READONLY);
@@ -377,15 +377,15 @@ MyFrame::MyFrame()
         sizer_panelcombo->SetMinSize(wxSize(150, -1));
         sizer_panelcombo2->SetMinSize(wxSize(150, -1));
 
-        wxRibbonButtonBar* bar = new wxRibbonButtonBar(sizer_panel, wxID_ANY);
+        wxRibbonButtonBar* bar = NEW_DEBUG wxRibbonButtonBar(sizer_panel, wxID_ANY);
         bar->AddButton(ID_BUTTON_XX, "xx", ribbon_xpm);
         bar->AddButton(ID_BUTTON_XY, "xy", ribbon_xpm);
         // This prevents ribbon buttons in panels with sizer from collapsing.
         bar->SetButtonMinSizeClass(ID_BUTTON_XX, wxRIBBON_BUTTONBAR_BUTTON_LARGE);
         bar->SetButtonMinSizeClass(ID_BUTTON_XY, wxRIBBON_BUTTONBAR_BUTTON_LARGE);
 
-        wxSizer* sizer_panelsizer_h = new wxBoxSizer(wxHORIZONTAL);
-        wxSizer* sizer_panelsizer_v = new wxBoxSizer(wxVERTICAL);
+        wxSizer* sizer_panelsizer_h = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
+        wxSizer* sizer_panelsizer_v = NEW_DEBUG wxBoxSizer(wxVERTICAL);
         sizer_panelsizer_v->AddStretchSpacer(1);
         sizer_panelsizer_v->Add(sizer_panelcombo, 0, wxALL|wxEXPAND, 2);
         sizer_panelsizer_v->Add(sizer_panelcombo2, 0, wxALL|wxEXPAND, 2);
@@ -397,29 +397,29 @@ MyFrame::MyFrame()
         wxFont label_font(wxFontInfo(8).Light());
         m_bitmap_creation_dc.SetFont(label_font);
 
-        wxRibbonPage* scheme = new wxRibbonPage(m_ribbon, wxID_ANY, "Appearance", eye_xpm);
+        wxRibbonPage* scheme = NEW_DEBUG wxRibbonPage(m_ribbon, wxID_ANY, "Appearance", eye_xpm);
         m_ribbon->GetArtProvider()->GetColourScheme(&m_default_primary,
             &m_default_secondary, &m_default_tertiary);
-        wxRibbonPanel *provider_panel = new wxRibbonPanel(scheme, wxID_ANY,
+        wxRibbonPanel *provider_panel = NEW_DEBUG wxRibbonPanel(scheme, wxID_ANY,
             "Art", wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxRIBBON_PANEL_NO_AUTO_MINIMISE);
-        wxRibbonButtonBar *provider_bar = new wxRibbonButtonBar(provider_panel, wxID_ANY);
+        wxRibbonButtonBar *provider_bar = NEW_DEBUG wxRibbonButtonBar(provider_panel, wxID_ANY);
         provider_bar->AddButton(ID_DEFAULT_PROVIDER, "Default Provider",
             wxArtProvider::GetBitmap(wxART_QUESTION, wxART_OTHER, wxSize(32, 32)));
         provider_bar->AddButton(ID_AUI_PROVIDER, "AUI Provider", aui_style_xpm);
         provider_bar->AddButton(ID_MSW_PROVIDER, "MSW Provider", msw_style_xpm);
-        wxRibbonPanel *primary_panel = new wxRibbonPanel(scheme, wxID_ANY,
+        wxRibbonPanel *primary_panel = NEW_DEBUG wxRibbonPanel(scheme, wxID_ANY,
             "Primary Colour", colours_xpm);
         m_primary_gallery = PopulateColoursPanel(primary_panel,
             m_default_primary, ID_PRIMARY_COLOUR);
-        wxRibbonPanel *secondary_panel = new wxRibbonPanel(scheme, wxID_ANY,
+        wxRibbonPanel *secondary_panel = NEW_DEBUG wxRibbonPanel(scheme, wxID_ANY,
             "Secondary Colour", colours_xpm);
         m_secondary_gallery = PopulateColoursPanel(secondary_panel,
             m_default_secondary, ID_SECONDARY_COLOUR);
     }
     {
-        wxRibbonPage* page = new wxRibbonPage(m_ribbon, wxID_ANY, "UI Updated", ribbon_xpm);
-        wxRibbonPanel *panel = new wxRibbonPanel(page, wxID_ANY, "Enable/Disable", ribbon_xpm);
-        wxRibbonButtonBar *bar = new wxRibbonButtonBar(panel, wxID_ANY);
+        wxRibbonPage* page = NEW_DEBUG wxRibbonPage(m_ribbon, wxID_ANY, "UI Updated", ribbon_xpm);
+        wxRibbonPanel *panel = NEW_DEBUG wxRibbonPanel(page, wxID_ANY, "Enable/Disable", ribbon_xpm);
+        wxRibbonButtonBar *bar = NEW_DEBUG wxRibbonButtonBar(panel, wxID_ANY);
         bar->AddButton(ID_DISABLED, "Disabled", ribbon_xpm);
         bar->AddButton(ID_ENABLE,   "Enable", ribbon_xpm);
         bar->AddButton(ID_DISABLE,  "Disable", ribbon_xpm);
@@ -427,14 +427,14 @@ MyFrame::MyFrame()
         bar->EnableButton(ID_DISABLED, false);
         m_bEnabled = true;
 
-        panel = new wxRibbonPanel(page, wxID_ANY, "Toggle", ribbon_xpm);
-        bar = new wxRibbonButtonBar(panel, wxID_ANY);
+        panel = NEW_DEBUG wxRibbonPanel(page, wxID_ANY, "Toggle", ribbon_xpm);
+        bar = NEW_DEBUG wxRibbonButtonBar(panel, wxID_ANY);
         bar->AddButton(ID_CHECK, "Toggle", ribbon_xpm);
         bar->AddToggleButton(ID_UI_CHECK_UPDATED, "Toggled UI updated", ribbon_xpm);
         m_bChecked = true;
 
-        panel = new wxRibbonPanel(page, wxID_ANY, "Change text", ribbon_xpm);
-        bar = new wxRibbonButtonBar(panel, wxID_ANY);
+        panel = NEW_DEBUG wxRibbonPanel(page, wxID_ANY, "Change text", ribbon_xpm);
+        bar = NEW_DEBUG wxRibbonButtonBar(panel, wxID_ANY);
         bar->AddButton(ID_CHANGE_TEXT1, "One", ribbon_xpm);
         bar->AddButton(ID_CHANGE_TEXT2, "Two", ribbon_xpm);
         bar->AddButton(ID_UI_CHANGE_TEXT_UPDATED, "Zero", ribbon_xpm);
@@ -444,17 +444,17 @@ MyFrame::MyFrame()
         wxColour tColour = artProvider->GetColor(wxRIBBON_ART_BUTTON_BAR_LABEL_COLOUR);
         artProvider->SetColor(wxRIBBON_ART_BUTTON_BAR_LABEL_DISABLED_COLOUR, tColour.MakeDisabled());
     }
-    new wxRibbonPage(m_ribbon, wxID_ANY, "Empty Page", empty_xpm);
+    NEW_DEBUG wxRibbonPage(m_ribbon, wxID_ANY, "Empty Page", empty_xpm);
     {
-        wxRibbonPage* page = new wxRibbonPage(m_ribbon, wxID_ANY, "Another Page", empty_xpm);
-        wxRibbonPanel *panel = new wxRibbonPanel(page, wxID_ANY, "Page manipulation", ribbon_xpm);
-        wxRibbonButtonBar *bar = new wxRibbonButtonBar(panel, wxID_ANY);
+        wxRibbonPage* page = NEW_DEBUG wxRibbonPage(m_ribbon, wxID_ANY, "Another Page", empty_xpm);
+        wxRibbonPanel *panel = NEW_DEBUG wxRibbonPanel(page, wxID_ANY, "Page manipulation", ribbon_xpm);
+        wxRibbonButtonBar *bar = NEW_DEBUG wxRibbonButtonBar(panel, wxID_ANY);
         bar->AddButton(ID_REMOVE_PAGE, "Remove", wxArtProvider::GetBitmap(wxART_DELETE, wxART_OTHER, wxSize(24, 24)));
         bar->AddButton(ID_HIDE_PAGES, "Hide Pages", ribbon_xpm);
         bar->AddButton(ID_SHOW_PAGES, "Show Pages", ribbon_xpm);
 
-        panel = new wxRibbonPanel(page, wxID_ANY, "Button bar manipulation", ribbon_xpm);
-        wxRibbonButtonBar* button_bar = new wxRibbonButtonBar(panel, wxID_ANY);
+        panel = NEW_DEBUG wxRibbonPanel(page, wxID_ANY, "Button bar manipulation", ribbon_xpm);
+        wxRibbonButtonBar* button_bar = NEW_DEBUG wxRibbonButtonBar(panel, wxID_ANY);
         button_bar->AddButton(ID_PLUS_MINUS, "+/-",
             wxArtProvider::GetBitmap(wxART_PLUS, wxART_OTHER, wxSize(24, 24)));
         m_plus_minus_state = false;
@@ -462,8 +462,8 @@ MyFrame::MyFrame()
         button_bar->SetButtonTextMinWidth(ID_CHANGE_LABEL, "some long text");
         m_change_label_state = false;
 
-        panel = new wxRibbonPanel(page, wxID_ANY, "Always medium buttons", ribbon_xpm);
-        bar = new wxRibbonButtonBar(panel, wxID_ANY);
+        panel = NEW_DEBUG wxRibbonPanel(page, wxID_ANY, "Always medium buttons", ribbon_xpm);
+        bar = NEW_DEBUG wxRibbonButtonBar(panel, wxID_ANY);
         bar->AddButton(ID_SMALL_BUTTON_1, "Button 1", ribbon_xpm);
         bar->SetButtonMaxSizeClass(ID_SMALL_BUTTON_1, wxRIBBON_BUTTONBAR_BUTTON_MEDIUM);
         bar->AddButton(ID_SMALL_BUTTON_2, "Button 2", ribbon_xpm);
@@ -475,13 +475,13 @@ MyFrame::MyFrame()
         bar->AddButton(ID_SMALL_BUTTON_6, "Button 6", ribbon_xpm);
         bar->SetButtonMaxSizeClass(ID_SMALL_BUTTON_6, wxRIBBON_BUTTONBAR_BUTTON_MEDIUM);
     }
-    new wxRibbonPage(m_ribbon, wxID_ANY, "Highlight Page", empty_xpm);
+    NEW_DEBUG wxRibbonPage(m_ribbon, wxID_ANY, "Highlight Page", empty_xpm);
     m_ribbon->AddPageHighlight(m_ribbon->GetPageCount()-1);
 
     {
-        wxRibbonPage* page = new wxRibbonPage(m_ribbon, wxID_ANY, "Advanced", empty_xpm);
-        wxRibbonPanel* panel = new wxRibbonPanel(page, wxID_ANY, "Button bar manipulation", ribbon_xpm);
-        wxRibbonButtonBar* button_bar = new wxRibbonButtonBar(panel, wxID_ANY);
+        wxRibbonPage* page = NEW_DEBUG wxRibbonPage(m_ribbon, wxID_ANY, "Advanced", empty_xpm);
+        wxRibbonPanel* panel = NEW_DEBUG wxRibbonPanel(page, wxID_ANY, "Button bar manipulation", ribbon_xpm);
+        wxRibbonButtonBar* button_bar = NEW_DEBUG wxRibbonButtonBar(panel, wxID_ANY);
         button_bar->AddButton(ID_PLUS_MINUS, "+/-",
             wxArtProvider::GetBitmap(wxART_PLUS, wxART_OTHER, wxSize(24, 24)));
         m_plus_minus_state = false;
@@ -489,8 +489,8 @@ MyFrame::MyFrame()
         button_bar->SetButtonTextMinWidth(ID_CHANGE_LABEL, "some long text");
         m_change_label_state = false;
 
-        panel = new wxRibbonPanel(page, wxID_ANY, "Always medium buttons", ribbon_xpm);
-        wxRibbonButtonBar* bar = new wxRibbonButtonBar(panel, wxID_ANY);
+        panel = NEW_DEBUG wxRibbonPanel(page, wxID_ANY, "Always medium buttons", ribbon_xpm);
+        wxRibbonButtonBar* bar = NEW_DEBUG wxRibbonButtonBar(panel, wxID_ANY);
         bar->AddButton(ID_SMALL_BUTTON_1, "Button 1", ribbon_xpm);
         bar->SetButtonMaxSizeClass(ID_SMALL_BUTTON_1, wxRIBBON_BUTTONBAR_BUTTON_MEDIUM);
         bar->AddButton(ID_SMALL_BUTTON_2, "Button 2", ribbon_xpm);
@@ -505,14 +505,14 @@ MyFrame::MyFrame()
 
     m_ribbon->Realize();
 
-    m_logwindow = new wxTextCtrl(this, wxID_ANY, wxEmptyString,
+    m_logwindow = NEW_DEBUG wxTextCtrl(this, wxID_ANY, wxEmptyString,
         wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE | wxTE_READONLY |
         wxTE_LEFT | wxTE_BESTWRAP | wxBORDER_NONE);
 
-    m_togglePanels = new wxToggleButton(this, ID_TOGGLE_PANELS, "&Toggle panels");
+    m_togglePanels = NEW_DEBUG wxToggleButton(this, ID_TOGGLE_PANELS, "&Toggle panels");
     m_togglePanels->SetValue(true);
 
-    wxSizer *s = new wxBoxSizer(wxVERTICAL);
+    wxSizer *s = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
     s->Add(m_ribbon, 0, wxEXPAND);
     s->Add(m_logwindow, 1, wxEXPAND);
@@ -571,7 +571,7 @@ wxRibbonGallery* MyFrame::PopulateColoursPanel(wxWindow* panel,
     if(gallery)
         gallery->Clear();
     else
-        gallery = new wxRibbonGallery(panel, gallery_id);
+        gallery = NEW_DEBUG wxRibbonGallery(panel, gallery_id);
     wxMemoryDC& dc = m_bitmap_creation_dc;
     wxRibbonGalleryItem *def_item =
         AddColourToGallery(gallery, "Default", dc, &def);
@@ -1005,7 +1005,7 @@ wxRibbonGalleryItem* MyFrame::AddColourToGallery(wxRibbonGallery *gallery,
         dc.SelectObjectAsSource(wxNullBitmap);
 
         item = gallery->Append(bitmap, wxID_ANY);
-        gallery->SetItemClientObject(item, new ColourClientData(colour, c));
+        gallery->SetItemClientObject(item, NEW_DEBUG ColourClientData(colour, c));
     }
     return item;
 }
@@ -1061,19 +1061,19 @@ void MyFrame::OnColourGalleryButton(wxCommandEvent& evt)
 void MyFrame::OnDefaultProvider(wxRibbonButtonBarEvent& WXUNUSED(evt))
 {
     m_ribbon->DismissExpandedPanel();
-    SetArtProvider(new wxRibbonDefaultArtProvider);
+    SetArtProvider(NEW_DEBUG wxRibbonDefaultArtProvider);
 }
 
 void MyFrame::OnAUIProvider(wxRibbonButtonBarEvent& WXUNUSED(evt))
 {
     m_ribbon->DismissExpandedPanel();
-    SetArtProvider(new wxRibbonAUIArtProvider);
+    SetArtProvider(NEW_DEBUG wxRibbonAUIArtProvider);
 }
 
 void MyFrame::OnMSWProvider(wxRibbonButtonBarEvent& WXUNUSED(evt))
 {
     m_ribbon->DismissExpandedPanel();
-    SetArtProvider(new wxRibbonMSWArtProvider);
+    SetArtProvider(NEW_DEBUG wxRibbonMSWArtProvider);
 }
 
 void MyFrame::SetArtProvider(wxRibbonArtProvider *prov)

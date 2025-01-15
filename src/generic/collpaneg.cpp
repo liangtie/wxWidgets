@@ -74,11 +74,11 @@ bool wxGenericCollapsiblePane::Create(wxWindow *parent,
         return false;
 
     // sizer containing the expand button and possibly a static line
-    m_sz = new wxBoxSizer(wxVERTICAL);
+    m_sz = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
     // create children and lay them out using a wxBoxSizer
     // (so that we automatically get RTL features)
-    m_pButton = new wxCollapsibleHeaderCtrl(this, wxID_ANY, label, wxPoint(0, 0),
+    m_pButton = NEW_DEBUG wxCollapsibleHeaderCtrl(this, wxID_ANY, label, wxPoint(0, 0),
                              wxDefaultSize);
 
     m_sz->Add(m_pButton, wxSizerFlags().Border(wxALL, GetBorder()));
@@ -90,7 +90,7 @@ bool wxGenericCollapsiblePane::Create(wxWindow *parent,
 #endif
 
     // do not set sz as our sizers since we handle the pane window without using sizers
-    m_pPane = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxDefaultSize,
+    m_pPane = NEW_DEBUG wxPanel(this, wxID_ANY, wxDefaultPosition, wxDefaultSize,
                           wxTAB_TRAVERSAL|wxNO_BORDER, wxT("wxCollapsiblePanePane") );
 
     // start as collapsed:

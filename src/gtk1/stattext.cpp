@@ -96,7 +96,7 @@ void wxStaticText::SetLabel( const wxString &label )
 
     GTKSetLabelForLabel(GTK_LABEL(m_widget), label);
 
-    // adjust the label size to the new label unless disabled
+    // adjust the label size to the NEW_DEBUG label unless disabled
     if (!HasFlag(wxST_NO_AUTORESIZE))
         SetSize( GetBestSize() );
 }
@@ -105,7 +105,7 @@ bool wxStaticText::SetFont( const wxFont &font )
 {
     bool ret = wxControl::SetFont(font);
 
-    // adjust the label size to the new label unless disabled
+    // adjust the label size to the NEW_DEBUG label unless disabled
     if (!HasFlag(wxST_NO_AUTORESIZE))
     {
         InvalidateBestSize();

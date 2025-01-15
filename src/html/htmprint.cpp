@@ -255,7 +255,7 @@ wxHtmlPrintout::CheckFit(const wxSize& pageArea, const wxSize& docArea) const
         wxSizer * const sizer = parent->GetSizer();
         wxCHECK_MSG( sizer, false, "Preview frame should be using sizers" );
 
-        wxInfoBar * const bar = new wxInfoBar(parent);
+        wxInfoBar * const bar = NEW_DEBUG wxInfoBar(parent);
         sizer->Add(bar, wxSizerFlags().Expand());
 
         // Note that the message here is similar to the one below but not
@@ -625,7 +625,7 @@ wxHtmlEasyPrinting::wxHtmlEasyPrinting(const wxString& name, wxWindow *parentWin
     m_ParentWindow = parentWindow;
     m_Name = name;
     m_PrintData = NULL;
-    m_PageSetupData = new wxPageSetupDialogData;
+    m_PageSetupData = NEW_DEBUG wxPageSetupDialogData;
 
     m_PageSetupData->EnableMargins(true);
     m_PageSetupData->SetMarginTopLeft(wxPoint(25, 25));
@@ -648,7 +648,7 @@ wxHtmlEasyPrinting::~wxHtmlEasyPrinting()
 wxPrintData *wxHtmlEasyPrinting::GetPrintData()
 {
     if (m_PrintData == NULL)
-        m_PrintData = new wxPrintData();
+        m_PrintData = NEW_DEBUG wxPrintData();
     return m_PrintData;
 }
 
@@ -701,14 +701,14 @@ bool wxHtmlEasyPrinting::DoPreview(wxHtmlPrintout *printout1, wxHtmlPrintout *pr
 {
     // Pass two printout objects: for preview, and possible printing.
     wxPrintDialogData printDialogData(*GetPrintData());
-    wxPrintPreview *preview = new wxPrintPreview(printout1, printout2, &printDialogData);
+    wxPrintPreview *preview = NEW_DEBUG wxPrintPreview(printout1, printout2, &printDialogData);
     if (!preview->IsOk())
     {
         delete preview;
         return false;
     }
 
-    wxPreviewFrame *frame = new wxPreviewFrame(preview, m_ParentWindow,
+    wxPreviewFrame *frame = NEW_DEBUG wxPreviewFrame(preview, m_ParentWindow,
                                                m_Name + _(" Preview"),
                                                wxPoint(100, 100), wxSize(650, 500));
     frame->Centre(wxBOTH);
@@ -810,7 +810,7 @@ void wxHtmlEasyPrinting::SetStandardFonts(int size,
 
 wxHtmlPrintout *wxHtmlEasyPrinting::CreatePrintout()
 {
-    wxHtmlPrintout *p = new wxHtmlPrintout(m_Name);
+    wxHtmlPrintout *p = NEW_DEBUG wxHtmlPrintout(m_Name);
 
     if (m_fontMode == FontMode_Explicit)
     {

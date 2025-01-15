@@ -329,7 +329,7 @@ wxBitmapBundle wxBitmapBundle::FromResources(const wxString& name)
     // of wxBitmapBundleImplRC::GetBitmap().
     std::sort(resourceInfos.begin(), resourceInfos.end(), ScaleComparator());
 
-    return wxBitmapBundle(new wxBitmapBundleImplRC(resourceInfos, bitmap));
+    return wxBitmapBundle(NEW_DEBUG wxBitmapBundleImplRC(resourceInfos, bitmap));
 }
 
 #ifdef wxHAS_SVG

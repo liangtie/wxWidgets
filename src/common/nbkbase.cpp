@@ -44,7 +44,7 @@ wxDEFINE_EVENT( wxEVT_NOTEBOOK_PAGE_CHANGING, wxBookCtrlEvent );
 #include "wx/listimpl.cpp"
 wxDEFINE_FLAGS( wxNotebookStyle )
 wxBEGIN_FLAGS( wxNotebookStyle )
-// new style border flags, we put them first to
+// NEW_DEBUG style border flags, we put them first to
 // use them for streaming out
 wxFLAGS_MEMBER(wxBORDER_SIMPLE)
 wxFLAGS_MEMBER(wxBORDER_SUNKEN)
@@ -123,7 +123,7 @@ const wxNotebookPageInfoList& wxNotebookBase::GetPageInfos() const
     wxClearList(*list);
     for( size_t i = 0; i < GetPageCount(); ++i )
     {
-        wxNotebookPageInfo *info = new wxNotebookPageInfo();
+        wxNotebookPageInfo *info = NEW_DEBUG wxNotebookPageInfo();
         info->Create( const_cast<wxNotebookBase*>(this)->GetPage(i), GetPageText(i),
                      GetSelection() == int(i), GetPageImage(i) );
         list->Append( info );

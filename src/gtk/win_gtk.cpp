@@ -81,7 +81,7 @@ static void pizza_size_allocate(GtkWidget* widget, GtkAllocation* alloc)
 
             if (border.left + border.right + border.top + border.bottom)
             {
-                // old and new border areas need to be invalidated,
+                // old and NEW_DEBUG border areas need to be invalidated,
                 // otherwise they will not be erased/redrawn properly
                 GtkAllocation old_alloc;
                 gtk_widget_get_allocation(widget, &old_alloc);
@@ -440,7 +440,7 @@ void wxPizza::put(GtkWidget* widget, int x, int y, int width, int height)
     if (!gtk_widget_is_toplevel(GTK_WIDGET(widget)))
         gtk_fixed_put(GTK_FIXED(this), widget, 0, 0);
 
-    wxPizzaChild* child = new wxPizzaChild;
+    wxPizzaChild* child = NEW_DEBUG wxPizzaChild;
     child->widget = widget;
     child->x = x;
     child->y = y;

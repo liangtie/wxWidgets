@@ -426,7 +426,7 @@ wxFontMapperBase *wxFontMapperBase::Get()
         {
             // last resort: we must create something because the existing code
             // relies on always having a valid font mapper object
-            sm_instance = (wxFontMapper *)new wxFontMapperBase;
+            sm_instance = (wxFontMapper *)NEW_DEBUG wxFontMapperBase;
         }
     }
 
@@ -491,7 +491,7 @@ wxConfigBase *wxFontMapperBase::GetConfig()
     if ( !config )
     {
         if ( !m_configDummy )
-            m_configDummy = new wxMemoryConfig;
+            m_configDummy = NEW_DEBUG wxMemoryConfig;
         config = m_configDummy;
 
         // FIXME: ideally, we should add keys from dummy config to a real one later,

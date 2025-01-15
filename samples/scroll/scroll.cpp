@@ -72,7 +72,7 @@ public:
     MySimpleFrame(wxWindow *parent)
         : wxFrame(parent, wxID_ANY, "MySimpleCanvas")
     {
-        new MySimpleCanvas(this);
+        NEW_DEBUG MySimpleCanvas(this);
 
         // ensure that we have scrollbars initially
         SetClientSize(MySimpleCanvas::WIDTH/2, MySimpleCanvas::HEIGHT/2);
@@ -112,13 +112,13 @@ public:
     MyCanvasFrame(wxWindow *parent)
         : wxFrame(parent, wxID_ANY, "MyCanvas")
     {
-        m_canvas = new MyCanvas(this);
+        m_canvas = NEW_DEBUG MyCanvas(this);
 
-        wxMenu *menuFile = new wxMenu();
+        wxMenu *menuFile = NEW_DEBUG wxMenu();
         menuFile->Append(wxID_DELETE, "&Delete all");
-        menuFile->Append(wxID_NEW, "Insert &new");
+        menuFile->Append(wxID_NEW, "Insert &NEW_DEBUG");
 
-        wxMenuBar *mbar = new wxMenuBar();
+        wxMenuBar *mbar = NEW_DEBUG wxMenuBar();
         mbar->Append(menuFile, "&File");
         SetMenuBar( mbar );
 
@@ -136,7 +136,7 @@ private:
 
     void OnInsertNew(wxCommandEvent& WXUNUSED(event))
     {
-        (void)new wxButton(m_canvas, wxID_ANY, "Hello", wxPoint(100,100));
+        (void)NEW_DEBUG wxButton(m_canvas, wxID_ANY, "Hello", wxPoint(100,100));
     }
 
     MyCanvas *m_canvas;
@@ -168,7 +168,7 @@ public:
     MySizerFrame(wxWindow *parent)
         : wxFrame(parent, wxID_ANY, "MySizerScrolledWindow")
     {
-        new MySizerScrolledWindow(this);
+        NEW_DEBUG MySizerScrolledWindow(this);
 
         // ensure that the scrollbars appear when the button becomes large
         SetClientSize(LARGE_BUTTON/2);
@@ -267,19 +267,19 @@ public:
         m_colLabels = cols;
         m_rowLabels = rows;
 
-        (void)new wxButton(this, wxID_ANY, "Hallo I",
+        (void)NEW_DEBUG wxButton(this, wxID_ANY, "Hallo I",
                            wxPoint(0,50), wxSize(100,25) );
-        (void)new wxButton(this, wxID_ANY, "Hallo II",
+        (void)NEW_DEBUG wxButton(this, wxID_ANY, "Hallo II",
                            wxPoint(200,50), wxSize(100,25) );
 
-        (void)new wxTextCtrl(this, wxID_ANY, "Text I",
+        (void)NEW_DEBUG wxTextCtrl(this, wxID_ANY, "Text I",
                              wxPoint(0,100), wxSize(100,25) );
-        (void)new wxTextCtrl(this, wxID_ANY, "Text II",
+        (void)NEW_DEBUG wxTextCtrl(this, wxID_ANY, "Text II",
                              wxPoint(200,100), wxSize(100,25) );
 
-        (void)new wxComboBox(this, wxID_ANY, "ComboBox I",
+        (void)NEW_DEBUG wxComboBox(this, wxID_ANY, "ComboBox I",
                              wxPoint(0,150), wxSize(100,25));
-        (void)new wxComboBox(this, wxID_ANY, "ComboBox II",
+        (void)NEW_DEBUG wxComboBox(this, wxID_ANY, "ComboBox II",
                              wxPoint(200,150), wxSize(100,25));
 
         SetBackgroundColour("WHEAT");
@@ -370,13 +370,13 @@ public:
         : wxScrolled<wxWindow>(parent, wxID_ANY)
     {
         // create the children
-        MySubColLabels *cols = new MySubColLabels(this);
-        MySubRowLabels *rows = new MySubRowLabels(this);
+        MySubColLabels *cols = NEW_DEBUG MySubColLabels(this);
+        MySubRowLabels *rows = NEW_DEBUG MySubRowLabels(this);
 
-        m_canvas = new MySubCanvas(this, cols, rows);
+        m_canvas = NEW_DEBUG MySubCanvas(this, cols, rows);
 
         // lay them out
-        wxFlexGridSizer *sizer = new wxFlexGridSizer(2, 2, 10, 10);
+        wxFlexGridSizer *sizer = NEW_DEBUG wxFlexGridSizer(2, 2, 10, 10);
         sizer->Add(CORNER_WIDTH, CORNER_HEIGHT); // just a spacer
         sizer->Add(cols, wxSizerFlags().Expand());
         sizer->Add(rows, wxSizerFlags().Expand());
@@ -431,7 +431,7 @@ public:
     MySubFrame(wxWindow *parent)
         : wxFrame(parent, wxID_ANY, "MySubScrolledWindow")
     {
-        new MySubScrolledWindow(this);
+        NEW_DEBUG MySubScrolledWindow(this);
 
         Show();
     }
@@ -592,7 +592,7 @@ public:
     MyAutoFrame(wxWindow *parent)
         : wxFrame(parent, wxID_ANY, "MyAutoScrollingWindow")
     {
-        new MyAutoScrollingWindow(this);
+        NEW_DEBUG MyAutoScrollingWindow(this);
 
         Show();
     }
@@ -612,11 +612,11 @@ private:
     void OnAbout(wxCommandEvent& event);
     void OnQuit(wxCommandEvent& event);
 
-    void OnTestSimple(wxCommandEvent& WXUNUSED(event)) { new MySimpleFrame(this); }
-    void OnTestCanvas(wxCommandEvent& WXUNUSED(event)) { new MyCanvasFrame(this); }
-    void OnTestSizer(wxCommandEvent& WXUNUSED(event)) { new MySizerFrame(this); }
-    void OnTestSub(wxCommandEvent& WXUNUSED(event)) { new MySubFrame(this); }
-    void OnTestAuto(wxCommandEvent& WXUNUSED(event)) { new MyAutoFrame(this); }
+    void OnTestSimple(wxCommandEvent& WXUNUSED(event)) { NEW_DEBUG MySimpleFrame(this); }
+    void OnTestCanvas(wxCommandEvent& WXUNUSED(event)) { NEW_DEBUG MyCanvasFrame(this); }
+    void OnTestSizer(wxCommandEvent& WXUNUSED(event)) { NEW_DEBUG MySizerFrame(this); }
+    void OnTestSub(wxCommandEvent& WXUNUSED(event)) { NEW_DEBUG MySubFrame(this); }
+    void OnTestAuto(wxCommandEvent& WXUNUSED(event)) { NEW_DEBUG MyAutoFrame(this); }
 
     void OnToggleSync(wxCommandEvent& event);
     void OnScrollbarVisibility(wxCommandEvent& event);
@@ -677,12 +677,12 @@ MyCanvas::MyCanvas(wxWindow *parent)
     SetScrollRate( 10, 10 );
     SetVirtualSize( 500, 1000 );
 
-    (void) new wxButton( this, ID_ADDBUTTON,  "add button", wxPoint(10,10) );
-    (void) new wxButton( this, ID_DELBUTTON,  "del button", wxPoint(10,40) );
-    (void) new wxButton( this, ID_MOVEBUTTON, "move button", wxPoint(150,10) );
-    (void) new wxButton( this, ID_SCROLLWIN,  "scroll win", wxPoint(250,10) );
+    (void) NEW_DEBUG wxButton( this, ID_ADDBUTTON,  "add button", wxPoint(10,10) );
+    (void) NEW_DEBUG wxButton( this, ID_DELBUTTON,  "del button", wxPoint(10,40) );
+    (void) NEW_DEBUG wxButton( this, ID_MOVEBUTTON, "move button", wxPoint(150,10) );
+    (void) NEW_DEBUG wxButton( this, ID_SCROLLWIN,  "scroll win", wxPoint(250,10) );
 
-    wxPanel *test = new wxPanel( this, wxID_ANY,
+    wxPanel *test = NEW_DEBUG wxPanel( this, wxID_ANY,
                                  wxPoint(10, 110), wxSize(130,50),
                                  wxSIMPLE_BORDER | wxTAB_TRAVERSAL );
     test->SetBackgroundColour( "WHEAT" );
@@ -737,7 +737,7 @@ void MyCanvas::OnQueryPosition( wxCommandEvent &WXUNUSED(event) )
 void MyCanvas::OnAddButton( wxCommandEvent &WXUNUSED(event) )
 {
     wxLogMessage( "Inserting button at position 10,70..." );
-    wxButton *button = new wxButton( this, ID_NEWBUTTON, "new button",
+    wxButton *button = NEW_DEBUG wxButton( this, ID_NEWBUTTON, "NEW_DEBUG button",
                                      wxPoint(10,70), wxSize(80,25) );
     wxPoint pt( button->GetPosition() );
     wxLogMessage( "-> Position after inserting %d %d", pt.x, pt.y );
@@ -787,17 +787,17 @@ MySizerScrolledWindow::MySizerScrolledWindow(wxWindow *parent)
     // Populate a sizer with a 'resizing' button and some other static
     // decoration
 
-    wxFlexGridSizer *sizer = new wxFlexGridSizer(2);
+    wxFlexGridSizer *sizer = NEW_DEBUG wxFlexGridSizer(2);
 
-    m_button = new wxButton( this, wxID_RESIZE_FRAME, "Press me",
+    m_button = NEW_DEBUG wxButton( this, wxID_RESIZE_FRAME, "Press me",
                              wxDefaultPosition, SMALL_BUTTON );
 
     sizer->Add(m_button, wxSizerFlags().Centre().Border(wxALL, 20));
-    sizer->Add(new wxStaticText(this, wxID_ANY, "This is just"),
+    sizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "This is just"),
                wxSizerFlags().Centre());
-    sizer->Add(new wxStaticText(this, wxID_ANY, "some decoration"),
+    sizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "some decoration"),
                wxSizerFlags().Centre());
-    sizer->Add(new wxStaticText(this, wxID_ANY, "for you to scroll..."),
+    sizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "for you to scroll..."),
                wxSizerFlags().Centre());
 
     // Then use the sizer to set the scrolled region size.
@@ -855,12 +855,12 @@ MyFrame::MyFrame()
 {
     SetIcon(wxICON(sample));
 
-    wxMenu *menuFile = new wxMenu;
+    wxMenu *menuFile = NEW_DEBUG wxMenu;
     menuFile->Append(wxID_ABOUT, "&About..");
     menuFile->AppendSeparator();
     menuFile->Append(wxID_EXIT, "E&xit\tAlt-X");
 
-    wxMenu *menuTest = new wxMenu;
+    wxMenu *menuTest = NEW_DEBUG wxMenu;
     menuTest->Append(Scroll_Test_Simple, "&Simple scroll window\tF1",
                      "Simplest possible scrolled window test.");
     menuTest->Append(Scroll_Test_Canvas, "Scrolled window with &children\tF2",
@@ -873,19 +873,19 @@ MyFrame::MyFrame()
                      "Window which scrolls when the mouse is held pressed "
                      "outside of it.");
 
-    wxMenuBar *mbar = new wxMenuBar;
+    wxMenuBar *mbar = NEW_DEBUG wxMenuBar;
     mbar->Append(menuFile, "&File");
     mbar->Append(menuTest, "&Test");
 
     SetMenuBar( mbar );
 
 
-    wxPanel *panel = new wxPanel(this);
+    wxPanel *panel = NEW_DEBUG wxPanel(this);
 
     const wxSizerFlags flagsExpand(wxSizerFlags(1).Expand());
 
-    wxSizer *topsizer = new wxBoxSizer(wxVERTICAL);
-    topsizer->Add(new wxStaticText(panel, wxID_ANY,
+    wxSizer *topsizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
+    topsizer->Add(NEW_DEBUG wxStaticText(panel, wxID_ANY,
         "The windows below should behave in the same way, even though\n"
         "they're implemented quite differently, see the code for details.\n"
         "\n"
@@ -894,10 +894,10 @@ MyFrame::MyFrame()
         "don't be surprised by this."),
         wxSizerFlags().Centre().Border());
 
-    m_win1 = new MyScrolledWindowDumb(panel);
-    m_win2 = new MyScrolledWindowSmart(panel);
+    m_win1 = NEW_DEBUG MyScrolledWindowDumb(panel);
+    m_win2 = NEW_DEBUG MyScrolledWindowSmart(panel);
 
-    wxSizer *sizerScrollWin = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer *sizerScrollWin = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     sizerScrollWin->Add(m_win1, flagsExpand);
     sizerScrollWin->Add(m_win2, flagsExpand);
     topsizer->Add(sizerScrollWin, flagsExpand);
@@ -905,19 +905,19 @@ MyFrame::MyFrame()
     const wxSizerFlags
         flagsHBorder(wxSizerFlags().Centre().Border(wxLEFT | wxRIGHT));
 
-    wxSizer *sizerBtns = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer *sizerBtns = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
 
     // the radio buttons are in the same order as wxSHOW_SB_XXX values but
     // offset by 1
     const wxString visibilities[] = { "&never", "&default", "&always" };
-    wxRadioBox *radio = new wxRadioBox(panel, Scroll_Radio_ShowScrollbar,
+    wxRadioBox *radio = NEW_DEBUG wxRadioBox(panel, Scroll_Radio_ShowScrollbar,
                                        "Left &scrollbar visibility: ",
                                        wxDefaultPosition, wxDefaultSize,
                                        WXSIZEOF(visibilities), visibilities);
     radio->SetSelection(wxSHOW_SB_DEFAULT + 1);
     sizerBtns->Add(radio, flagsHBorder);
 
-    sizerBtns->Add(new wxToggleButton(panel, Scroll_TglBtn_Sync, "S&ynchronize"),
+    sizerBtns->Add(NEW_DEBUG wxToggleButton(panel, Scroll_TglBtn_Sync, "S&ynchronize"),
                    flagsHBorder);
 
     topsizer->Add(sizerBtns, wxSizerFlags().Centre().Border());
@@ -981,7 +981,7 @@ bool MyApp::OnInit()
     if ( !wxApp::OnInit() )
         return false;
 
-    new MyFrame();
+    NEW_DEBUG MyFrame();
 
     return true;
 }
@@ -1304,7 +1304,7 @@ void MyAutoScrollingWindow::OnMouseMove(wxMouseEvent& event)
 {
     // if user is dragging
     if (event.Dragging() && event.LeftIsDown()) {
-        // set the new cursor position
+        // set the NEW_DEBUG cursor position
         m_cursor = DeviceCoordsToGraphicalChars(event.GetPosition());
         // draw/erase selection
         MyRefresh();

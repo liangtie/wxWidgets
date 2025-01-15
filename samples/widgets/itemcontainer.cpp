@@ -88,7 +88,7 @@ ItemContainerWidgetsPage::~ItemContainerWidgetsPage()
 
 wxClientData* ItemContainerWidgetsPage::CreateClientData(int value)
 {
-    return new TrackedClientData(this, value);
+    return NEW_DEBUG TrackedClientData(this, value);
 }
 
 void ItemContainerWidgetsPage::StartTrackingData()
@@ -268,7 +268,7 @@ void ItemContainerWidgetsPage::OnButtonTestItemContainer(wxCommandEvent&)
     EndTest(expected_result);
 
     StartTest("Append some items with data objects");
-    wxClientData **objects = new wxClientData *[m_items.GetCount()];
+    wxClientData **objects = NEW_DEBUG wxClientData *[m_items.GetCount()];
     for ( unsigned i = 0; i < m_items.GetCount(); ++i )
         objects[i] = CreateClientData(i);
     m_container->Append(m_items, objects);
@@ -276,7 +276,7 @@ void ItemContainerWidgetsPage::OnButtonTestItemContainer(wxCommandEvent&)
     delete[] objects;
 
     StartTest("Append some items with data");
-    void **data = new void *[m_items.GetCount()];
+    void **data = NEW_DEBUG void *[m_items.GetCount()];
     for ( unsigned i = 0; i < m_items.GetCount(); ++i )
         data[i] = wxUIntToPtr(i);
     m_container->Append(m_items, data);

@@ -8,6 +8,10 @@
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
+#include <crtdbg.h>
+#define NEW_DEBUG new(_NORMAL_BLOCK, __FILE__, __LINE__)
+#define NEW_DEBUG2(...) new(__VA_ARGS__)
+
 #ifndef _MSC_VER
     #error "This file should only be included when using Microsoft Visual C++"
 #endif

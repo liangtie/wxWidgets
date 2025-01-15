@@ -234,7 +234,7 @@ TAG_HANDLER_BEGIN(OLULLI, "OL,UL,LI")
         // List Item:
         if (m_List && tag.GetName() == wxT("LI"))
         {
-            c = m_WParser->SetContainer(new wxHtmlContainerCell(m_List));
+            c = m_WParser->SetContainer(NEW_DEBUG wxHtmlContainerCell(m_List));
             c->SetAlignVer(wxHTML_ALIGN_TOP);
 
             wxHtmlContainerCell *mark = c;
@@ -243,14 +243,14 @@ TAG_HANDLER_BEGIN(OLULLI, "OL,UL,LI")
             {
                 // Centering gives more space after the bullet
                 c->SetAlignHor(wxHTML_ALIGN_CENTER);
-                c->InsertCell(new wxHtmlListmarkCell(m_WParser->GetDC(), m_WParser->GetActualColor()));
+                c->InsertCell(NEW_DEBUG wxHtmlListmarkCell(m_WParser->GetDC(), m_WParser->GetActualColor()));
             }
             else
             {
                 c->SetAlignHor(wxHTML_ALIGN_RIGHT);
                 wxString markStr;
                 markStr.Printf(wxT("%i. "), m_Numbering);
-                c->InsertCell(new wxHtmlWordCell(markStr, *(m_WParser->GetDC())));
+                c->InsertCell(NEW_DEBUG wxHtmlWordCell(markStr, *(m_WParser->GetDC())));
             }
             m_WParser->CloseContainer();
 
@@ -258,7 +258,7 @@ TAG_HANDLER_BEGIN(OLULLI, "OL,UL,LI")
 
             m_List->AddRow(mark, c);
             c = m_WParser->OpenContainer();
-            m_WParser->SetContainer(new wxHtmlListcontentCell(c));
+            m_WParser->SetContainer(NEW_DEBUG wxHtmlListcontentCell(c));
 
             if (m_Numbering != 0) m_Numbering++;
         }
@@ -275,7 +275,7 @@ TAG_HANDLER_BEGIN(OLULLI, "OL,UL,LI")
             oldcont = c = m_WParser->OpenContainer();
 
             wxHtmlListCell *oldList = m_List;
-            m_List = new wxHtmlListCell(c);
+            m_List = NEW_DEBUG wxHtmlListCell(c);
             m_List->SetIndent(2 * m_WParser->GetCharWidth(), wxHTML_INDENT_LEFT);
 
             ParseInner(tag);

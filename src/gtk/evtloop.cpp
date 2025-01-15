@@ -183,7 +183,7 @@ public:
                    fd, sourceId);
 
 
-        return new wxGTKEventLoopSource(sourceId, handler, flags);
+        return NEW_DEBUG wxGTKEventLoopSource(sourceId, handler, flags);
     }
 };
 
@@ -267,7 +267,7 @@ static void wxgtk_main_do_event(GdkEvent* event, void* data)
     //       only at compile-time; when running the program (compiled with a recent GDK)
     //       on a system with an older GDK lib we can be sure there won't be problems
     //       because event->type will never assume those values corresponding to
-    //       new event types (since new event types are always added in GDK with non
+    //       NEW_DEBUG event types (since NEW_DEBUG event types are always added in GDK with non
     //       conflicting values for ABI compatibility).
 
     // Some events (currently only a single one) may be used for more than one

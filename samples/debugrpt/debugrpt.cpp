@@ -255,12 +255,12 @@ MyFrame::MyFrame()
 
     SetIcon(wxICON(sample));
 
-    wxMenu *menuFile = new wxMenu;
+    wxMenu *menuFile = NEW_DEBUG wxMenu;
     menuFile->Append(DebugRpt_ListLoadedDLLs, "&List loaded DLLs...\tCtrl-L");
     menuFile->AppendSeparator();
     menuFile->Append(DebugRpt_Quit, "E&xit\tAlt-X");
 
-    wxMenu *menuReport = new wxMenu;
+    wxMenu *menuReport = NEW_DEBUG wxMenu;
     menuReport->Append(DebugRpt_Crash, "Report for &crash\tCtrl-C",
                        "Provoke a crash inside the program and create report for it");
     menuReport->Append(DebugRpt_Current, "Report for c&urrent context\tCtrl-U",
@@ -273,10 +273,10 @@ MyFrame::MyFrame()
     menuReport->AppendCheckItem(DebugRpt_Upload, "Up&load debug report",
                        "You need to configure a web server accepting debug report uploads to use this function");
 
-    wxMenu *menuHelp = new wxMenu;
+    wxMenu *menuHelp = NEW_DEBUG wxMenu;
     menuHelp->Append(DebugRpt_About, "&About\tF1");
 
-    wxMenuBar *mbar = new wxMenuBar();
+    wxMenuBar *mbar = NEW_DEBUG wxMenuBar();
     mbar->Append(menuFile, "&File");
     mbar->Append(menuReport, "&Report");
     mbar->Append(menuHelp, "&Help");
@@ -404,7 +404,7 @@ bool MyApp::OnInit()
     if ( !wxApp::OnInit() )
         return false;
 
-    new MyFrame;
+    NEW_DEBUG MyFrame;
 
     return true;
 }
@@ -416,8 +416,8 @@ void MyApp::OnFatalException()
 
 void MyApp::GenerateReport(wxDebugReport::Context ctx)
 {
-    wxDebugReportCompress *report = m_uploadReport ? new MyDebugReport
-                                                   : new wxDebugReportCompress;
+    wxDebugReportCompress *report = m_uploadReport ? NEW_DEBUG MyDebugReport
+                                                   : NEW_DEBUG wxDebugReportCompress;
 
     // add all standard files: currently this means just a minidump and an
     // XML file with system info and stack trace

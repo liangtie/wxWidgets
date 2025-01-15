@@ -89,61 +89,61 @@ void ClassListDialog::Init()
 
 void ClassListDialog::CreateControls()
 {
-    wxBoxSizer* itemBoxSizer2 = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer* itemBoxSizer2 = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     this->SetSizer(itemBoxSizer2);
 
-    wxStaticText* itemStaticText3 = new wxStaticText( this, wxID_STATIC, _("This is the list of wxWidgets classes registered in the XTI system.\nNote that not all wxWidgets classes are registered nor all registered classes are completely _described_ using XTI metadata."), wxDefaultPosition, wxDefaultSize, 0 );
+    wxStaticText* itemStaticText3 = NEW_DEBUG wxStaticText( this, wxID_STATIC, _("This is the list of wxWidgets classes registered in the XTI system.\nNote that not all wxWidgets classes are registered nor all registered classes are completely _described_ using XTI metadata."), wxDefaultPosition, wxDefaultSize, 0 );
     itemBoxSizer2->Add(itemStaticText3, 0, wxALIGN_LEFT|wxALL, 5);
 
     // filters
-    wxBoxSizer* filters = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer* filters = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     itemBoxSizer2->Add(filters, 0, wxGROW|wxLEFT|wxRIGHT|wxBOTTOM, 5);
-    filters->Add(new wxCheckBox(this, ID_SHOW_ONLY_XTI,
+    filters->Add(NEW_DEBUG wxCheckBox(this, ID_SHOW_ONLY_XTI,
                                 "Show only classes with eXtended infos"));
     filters->AddSpacer(10);
-    filters->Add(new wxCheckBox(this, ID_SHOW_PROPERTIES_RECURSIVELY,
+    filters->Add(NEW_DEBUG wxCheckBox(this, ID_SHOW_PROPERTIES_RECURSIVELY,
                                 "Show properties of parent classes"));
 
     // show how many have we filtered out
-    m_pClassCountText = new wxStaticText( this, wxID_STATIC,
+    m_pClassCountText = NEW_DEBUG wxStaticText( this, wxID_STATIC,
                 "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
                 wxDefaultPosition, wxDefaultSize, 0 );
     m_pClassCountText->SetFont(wxFontInfo(8).Family(wxFONTFAMILY_SWISS).Bold());
     itemBoxSizer2->Add(m_pClassCountText, 0, wxALIGN_LEFT|wxLEFT|wxRIGHT|wxBOTTOM, 5);
 
-    wxBoxSizer* itemBoxSizer5 = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer* itemBoxSizer5 = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     itemBoxSizer2->Add(itemBoxSizer5, 1, wxGROW, 5);
 
-    m_pChoiceBook = new wxChoicebook( this, ID_LISTMODE, wxDefaultPosition, wxDefaultSize, wxCHB_DEFAULT );
+    m_pChoiceBook = NEW_DEBUG wxChoicebook( this, ID_LISTMODE, wxDefaultPosition, wxDefaultSize, wxCHB_DEFAULT );
 
     // raw-list page
-    wxPanel* itemPanel7 = new wxPanel( m_pChoiceBook, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
-    wxBoxSizer* itemBoxSizer8 = new wxBoxSizer(wxHORIZONTAL);
+    wxPanel* itemPanel7 = NEW_DEBUG wxPanel( m_pChoiceBook, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+    wxBoxSizer* itemBoxSizer8 = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     itemPanel7->SetSizer(itemBoxSizer8);
 
     wxArrayString m_pRawListBoxStrings;
-    m_pRawListBox = new wxListBox( itemPanel7, ID_LISTBOX, wxDefaultPosition, wxDefaultSize, m_pRawListBoxStrings, wxLB_SINGLE );
+    m_pRawListBox = NEW_DEBUG wxListBox( itemPanel7, ID_LISTBOX, wxDefaultPosition, wxDefaultSize, m_pRawListBoxStrings, wxLB_SINGLE );
     itemBoxSizer8->Add(m_pRawListBox, 1, wxGROW, 5);
 
     m_pChoiceBook->AddPage(itemPanel7, _("Raw list"));
 
     // by-size page
-    wxPanel* itemPanel13 = new wxPanel( m_pChoiceBook, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxSUNKEN_BORDER|wxTAB_TRAVERSAL );
-    wxBoxSizer* itemBoxSizer14 = new wxBoxSizer(wxHORIZONTAL);
+    wxPanel* itemPanel13 = NEW_DEBUG wxPanel( m_pChoiceBook, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxSUNKEN_BORDER|wxTAB_TRAVERSAL );
+    wxBoxSizer* itemBoxSizer14 = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     itemPanel13->SetSizer(itemBoxSizer14);
 
     wxArrayString m_pSizeListBoxStrings;
-    m_pSizeListBox = new wxListBox( itemPanel13, ID_LISTBOX, wxDefaultPosition, wxDefaultSize, m_pSizeListBoxStrings, wxLB_SINGLE );
+    m_pSizeListBox = NEW_DEBUG wxListBox( itemPanel13, ID_LISTBOX, wxDefaultPosition, wxDefaultSize, m_pSizeListBoxStrings, wxLB_SINGLE );
     itemBoxSizer14->Add(m_pSizeListBox, 1, wxGROW, 5);
 
     m_pChoiceBook->AddPage(itemPanel13, _("Classes by size"));
 
     // tree page
-    wxPanel* itemPanel10 = new wxPanel( m_pChoiceBook, ID_PANEL, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
-    wxBoxSizer* itemBoxSizer11 = new wxBoxSizer(wxVERTICAL);
+    wxPanel* itemPanel10 = NEW_DEBUG wxPanel( m_pChoiceBook, ID_PANEL, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+    wxBoxSizer* itemBoxSizer11 = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     itemPanel10->SetSizer(itemBoxSizer11);
 
-    m_pParentTreeCtrl = new wxTreeCtrl( itemPanel10, ID_TREECTRL, wxDefaultPosition, wxSize(100, 100), wxTR_HAS_BUTTONS |wxTR_SINGLE );
+    m_pParentTreeCtrl = NEW_DEBUG wxTreeCtrl( itemPanel10, ID_TREECTRL, wxDefaultPosition, wxSize(100, 100), wxTR_HAS_BUTTONS |wxTR_SINGLE );
     itemBoxSizer11->Add(m_pParentTreeCtrl, 1, wxGROW, 5);
 
     m_pChoiceBook->AddPage(itemPanel10, _("Classes by parent"));
@@ -151,16 +151,16 @@ void ClassListDialog::CreateControls()
 
     itemBoxSizer5->Add(m_pChoiceBook, 0, wxGROW|wxALL, 5);
 
-    m_pTextCtrl = new wxTextCtrl( this, ID_TEXTCTRL, "", wxDefaultPosition, wxSize(500, -1), wxTE_MULTILINE|wxTE_READONLY );
+    m_pTextCtrl = NEW_DEBUG wxTextCtrl( this, ID_TEXTCTRL, "", wxDefaultPosition, wxSize(500, -1), wxTE_MULTILINE|wxTE_READONLY );
     itemBoxSizer5->Add(m_pTextCtrl, 3, wxGROW|wxALL, 5);
 
-    wxStdDialogButtonSizer* itemStdDialogButtonSizer17 = new wxStdDialogButtonSizer;
+    wxStdDialogButtonSizer* itemStdDialogButtonSizer17 = NEW_DEBUG wxStdDialogButtonSizer;
 
     itemBoxSizer2->Add(itemStdDialogButtonSizer17, 0, wxGROW|wxALL, 5);
-    wxButton* itemButton18 = new wxButton( this, wxID_OK, _("&OK"), wxDefaultPosition, wxDefaultSize, 0 );
+    wxButton* itemButton18 = NEW_DEBUG wxButton( this, wxID_OK, _("&OK"), wxDefaultPosition, wxDefaultSize, 0 );
     itemStdDialogButtonSizer17->AddButton(itemButton18);
 
-    wxButton* itemButton19 = new wxButton( this, wxID_CANCEL, _("&Cancel"), wxDefaultPosition, wxDefaultSize, 0 );
+    wxButton* itemButton19 = NEW_DEBUG wxButton( this, wxID_CANCEL, _("&Cancel"), wxDefaultPosition, wxDefaultSize, 0 );
     itemStdDialogButtonSizer17->AddButton(itemButton19);
 
     itemStdDialogButtonSizer17->Realize();

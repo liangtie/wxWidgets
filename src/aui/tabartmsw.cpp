@@ -36,7 +36,7 @@ wxAuiMSWTabArt::~wxAuiMSWTabArt()
 
 wxAuiTabArt* wxAuiMSWTabArt::Clone()
 {
-    return new wxAuiMSWTabArt(*this);
+    return NEW_DEBUG wxAuiMSWTabArt(*this);
 }
 
 void wxAuiMSWTabArt::DrawBorder(wxDC& dc, wxWindow* wnd, const wxRect& rect)

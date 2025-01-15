@@ -106,7 +106,7 @@ void IncIdRefCount(wxWindowID winid)
         {
             // we need to allocate a cell, and maybe the hash map itself
             if (!gs_autoIdsLargeRefCount)
-                gs_autoIdsLargeRefCount = new wxLongToLongHashMap;
+                gs_autoIdsLargeRefCount = NEW_DEBUG wxLongToLongHashMap;
             (*gs_autoIdsLargeRefCount)[winid] = ID_COUNTTOOLARGE-1;
 
             gs_autoIdsRefCount[winid] = ID_COUNTTOOLARGE;

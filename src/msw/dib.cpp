@@ -623,7 +623,7 @@ wxPalette *wxDIB::CreatePalette() const
         return NULL;
     }
 
-    wxPalette *palette = new wxPalette;
+    wxPalette *palette = NEW_DEBUG wxPalette;
     palette->SetHPALETTE((WXHPALETTE)hPalette);
 
     return palette;

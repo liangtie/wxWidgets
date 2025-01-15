@@ -94,7 +94,7 @@ bool wxApp::Initialize(int& argc_, wxChar **argv_)
     if ( !wxAppBase::Initialize(argc_, argv_) )
         return false;
 
-    wxWidgetHashTable = new wxHashTable(wxKEY_INTEGER);
+    wxWidgetHashTable = NEW_DEBUG wxHashTable(wxKEY_INTEGER);
 
 #ifdef __HPUX__
     // under HP-UX creating XmFontSet fails when the system locale is C and
@@ -173,7 +173,7 @@ bool wxApp::Initialize(int& argc_, wxChar **argv_)
 #if wxUSE_UNICODE
     // XtOpenDisplay() wants char*, not wchar_t*, so convert
     int i;
-    char **argvX11 = new char *[argc + 1];
+    char **argvX11 = NEW_DEBUG char *[argc + 1];
     for ( i = 0; i < argc; i++ )
     {
         argvX11[i] = strdup(wxConvLibc.cWX2MB(argv_[i]));
@@ -237,7 +237,7 @@ bool wxApp::Initialize(int& argc_, wxChar **argv_)
 
     if (!dpy) {
          // if you don't log to stderr, nothing will be shown...
-        delete wxLog::SetActiveTarget(new wxLogStderr);
+        delete wxLog::SetActiveTarget(NEW_DEBUG wxLogStderr);
         wxString className(wxTheApp->GetClassName());
         wxLogError(_("wxWidgets could not open display for '%s': exiting."),
                    className.c_str());
@@ -296,11 +296,11 @@ void wxApp::Exit()
 
 wxApp::wxApp()
 {
-    m_mainLoop = new wxEventLoop;
+    m_mainLoop = NEW_DEBUG wxEventLoop;
     m_mainColormap = (WXColormap) NULL;
     m_appContext = (WXAppContext) NULL;
     m_initialDisplay = (WXDisplay*) 0;
-    m_perDisplayData = new wxPerDisplayDataMap;
+    m_perDisplayData = NEW_DEBUG wxPerDisplayDataMap;
 }
 
 wxApp::~wxApp()
@@ -357,7 +357,7 @@ static inline wxPerDisplayData& GetOrCreatePerDisplayData
     if( it != m.end() && it->second != NULL )
         return *(it->second);
 
-    wxPerDisplayData* nData = new wxPerDisplayData();
+    wxPerDisplayData* nData = NEW_DEBUG wxPerDisplayData();
     m[display] = nData;
 
     return *nData;
@@ -370,7 +370,7 @@ wxXVisualInfo* wxApp::GetVisualInfo( WXDisplay* display )
     if( data.m_visualInfo )
         return data.m_visualInfo;
 
-    wxXVisualInfo* vi = new wxXVisualInfo;
+    wxXVisualInfo* vi = NEW_DEBUG wxXVisualInfo;
     wxFillXVisualInfo( vi, (Display*)display );
 
     data.m_visualInfo = vi;

@@ -271,12 +271,12 @@ void ListboxWidgetsPage::CreateContent()
        miscellaneous listbox operations and the pane containing the listbox
        itself to the right
     */
-    wxSizer *sizerTop = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer *sizerTop = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
 
     // left pane
-    wxStaticBox *box = new wxStaticBox(this, wxID_ANY,
+    wxStaticBox *box = NEW_DEBUG wxStaticBox(this, wxID_ANY,
         "&Set listbox parameters");
-    wxSizer *sizerLeft = new wxStaticBoxSizer(box, wxVERTICAL);
+    wxSizer *sizerLeft = NEW_DEBUG wxStaticBoxSizer(box, wxVERTICAL);
 
     static const wxString modes[] =
     {
@@ -285,7 +285,7 @@ void ListboxWidgetsPage::CreateContent()
         "multiple",
     };
 
-    m_radioSelMode = new wxRadioBox(this, wxID_ANY, "Selection &mode:",
+    m_radioSelMode = NEW_DEBUG wxRadioBox(this, wxID_ANY, "Selection &mode:",
                                     wxDefaultPosition, wxDefaultSize,
                                     WXSIZEOF(modes), modes,
                                     1, wxRA_SPECIFY_COLS);
@@ -300,7 +300,7 @@ void ListboxWidgetsPage::CreateContent()
       , "rearrange list"
 #endif // wxUSE_REARRANGECTRL
     };
-    m_radioListType = new wxRadioBox(this, wxID_ANY, "&List type:",
+    m_radioListType = NEW_DEBUG wxRadioBox(this, wxID_ANY, "&List type:",
                                     wxDefaultPosition, wxDefaultSize,
                                     WXSIZEOF(listTypes), listTypes,
                                     1, wxRA_SPECIFY_COLS);
@@ -324,72 +324,72 @@ void ListboxWidgetsPage::CreateContent()
     sizerLeft->Add(5, 5, 0, wxGROW | wxALL, 5); // spacer
     sizerLeft->Add(m_radioListType, 0, wxGROW | wxALL, 5);
 
-    wxButton *btn = new wxButton(this, ListboxPage_Reset, "&Reset");
+    wxButton *btn = NEW_DEBUG wxButton(this, ListboxPage_Reset, "&Reset");
     sizerLeft->Add(btn, 0, wxALIGN_CENTRE_HORIZONTAL | wxALL, 15);
 
     // middle pane
-    wxStaticBox *box2 = new wxStaticBox(this, wxID_ANY,
+    wxStaticBox *box2 = NEW_DEBUG wxStaticBox(this, wxID_ANY,
         "&Change listbox contents");
-    wxSizer *sizerMiddle = new wxStaticBoxSizer(box2, wxVERTICAL);
+    wxSizer *sizerMiddle = NEW_DEBUG wxStaticBoxSizer(box2, wxVERTICAL);
 
-    wxSizer *sizerRow = new wxBoxSizer(wxHORIZONTAL);
-    btn = new wxButton(this, ListboxPage_Add, "&Add this string");
-    m_textAdd = new wxTextCtrl(this, ListboxPage_AddText, "test item \t0");
+    wxSizer *sizerRow = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
+    btn = NEW_DEBUG wxButton(this, ListboxPage_Add, "&Add this string");
+    m_textAdd = NEW_DEBUG wxTextCtrl(this, ListboxPage_AddText, "test item \t0");
     sizerRow->Add(btn, 0, wxRIGHT, 5);
     sizerRow->Add(m_textAdd, 1, wxLEFT, 5);
     sizerMiddle->Add(sizerRow, 0, wxALL | wxGROW, 5);
 
-    btn = new wxButton(this, ListboxPage_AddSeveral, "&Insert a few strings");
+    btn = NEW_DEBUG wxButton(this, ListboxPage_AddSeveral, "&Insert a few strings");
     sizerMiddle->Add(btn, 0, wxALL | wxGROW, 5);
 
-    btn = new wxButton(this, ListboxPage_AddMany, "Add &many strings");
+    btn = NEW_DEBUG wxButton(this, ListboxPage_AddMany, "Add &many strings");
     sizerMiddle->Add(btn, 0, wxALL | wxGROW, 5);
 
-    sizerRow = new wxBoxSizer(wxHORIZONTAL);
-    btn = new wxButton(this, ListboxPage_Change, "C&hange current");
-    m_textChange = new wxTextCtrl(this, ListboxPage_ChangeText, wxEmptyString);
+    sizerRow = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
+    btn = NEW_DEBUG wxButton(this, ListboxPage_Change, "C&hange current");
+    m_textChange = NEW_DEBUG wxTextCtrl(this, ListboxPage_ChangeText, wxEmptyString);
     sizerRow->Add(btn, 0, wxRIGHT, 5);
     sizerRow->Add(m_textChange, 1, wxLEFT, 5);
     sizerMiddle->Add(sizerRow, 0, wxALL | wxGROW, 5);
 
-    sizerRow = new wxBoxSizer(wxHORIZONTAL);
-    btn = new wxButton(this, ListboxPage_EnsureVisible, "Make item &visible");
-    m_textEnsureVisible = new wxTextCtrl(this, ListboxPage_EnsureVisibleText, wxEmptyString);
+    sizerRow = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
+    btn = NEW_DEBUG wxButton(this, ListboxPage_EnsureVisible, "Make item &visible");
+    m_textEnsureVisible = NEW_DEBUG wxTextCtrl(this, ListboxPage_EnsureVisibleText, wxEmptyString);
     sizerRow->Add(btn, 0, wxRIGHT, 5);
     sizerRow->Add(m_textEnsureVisible, 1, wxLEFT, 5);
     sizerMiddle->Add(sizerRow, 0, wxALL | wxGROW, 5);
 
-    sizerRow = new wxBoxSizer(wxHORIZONTAL);
-    btn = new wxButton(this, ListboxPage_Delete, "&Delete this item");
-    m_textDelete = new wxTextCtrl(this, ListboxPage_DeleteText, wxEmptyString);
+    sizerRow = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
+    btn = NEW_DEBUG wxButton(this, ListboxPage_Delete, "&Delete this item");
+    m_textDelete = NEW_DEBUG wxTextCtrl(this, ListboxPage_DeleteText, wxEmptyString);
     sizerRow->Add(btn, 0, wxRIGHT, 5);
     sizerRow->Add(m_textDelete, 1, wxLEFT, 5);
     sizerMiddle->Add(sizerRow, 0, wxALL | wxGROW, 5);
 
-    btn = new wxButton(this, ListboxPage_DeleteSel, "Delete &selection");
+    btn = NEW_DEBUG wxButton(this, ListboxPage_DeleteSel, "Delete &selection");
     sizerMiddle->Add(btn, 0, wxALL | wxGROW, 5);
 
-    btn = new wxButton(this, ListboxPage_Clear, "&Clear");
+    btn = NEW_DEBUG wxButton(this, ListboxPage_Clear, "&Clear");
     sizerMiddle->Add(btn, 0, wxALL | wxGROW, 5);
 
-    btn = new wxButton(this, ListboxPage_MoveUp, "Move item &up");
+    btn = NEW_DEBUG wxButton(this, ListboxPage_MoveUp, "Move item &up");
     sizerMiddle->Add(btn, 0, wxALL | wxGROW, 5);
 
-    btn = new wxButton(this, ListboxPage_MoveDown, "Move item &down");
+    btn = NEW_DEBUG wxButton(this, ListboxPage_MoveDown, "Move item &down");
     sizerMiddle->Add(btn, 0, wxALL | wxGROW, 5);
 
-    btn = new wxButton(this, ListboxPage_GetTopItem, "Get top item");
+    btn = NEW_DEBUG wxButton(this, ListboxPage_GetTopItem, "Get top item");
     sizerMiddle->Add(btn, 0, wxALL | wxGROW, 5);
 
-    btn = new wxButton(this, ListboxPage_GetCountPerPage, "Get count per page");
+    btn = NEW_DEBUG wxButton(this, ListboxPage_GetCountPerPage, "Get count per page");
     sizerMiddle->Add(btn, 0, wxALL | wxGROW, 5);
 
-    btn = new wxButton(this, ListboxPage_ContainerTests, "Run &tests");
+    btn = NEW_DEBUG wxButton(this, ListboxPage_ContainerTests, "Run &tests");
     sizerMiddle->Add(btn, 0, wxALL | wxGROW, 5);
 
     // right pane
-    wxSizer *sizerRight = new wxBoxSizer(wxVERTICAL);
-    m_lbox = new wxListBox(this, ListboxPage_Listbox,
+    wxSizer *sizerRight = NEW_DEBUG wxBoxSizer(wxVERTICAL);
+    m_lbox = NEW_DEBUG wxListBox(this, ListboxPage_Listbox,
                            wxDefaultPosition, wxDefaultSize,
                            0, NULL,
                            wxLB_HSCROLL);
@@ -478,7 +478,7 @@ void ListboxWidgetsPage::CreateLbox()
     {
 #if wxUSE_CHECKLISTBOX
         case LboxType_CheckListBox:
-            m_lbox = new wxCheckListBox(this, ListboxPage_Listbox,
+            m_lbox = NEW_DEBUG wxCheckListBox(this, ListboxPage_Listbox,
                                     wxDefaultPosition, wxDefaultSize,
                                     items,
                                     flags);
@@ -491,7 +491,7 @@ void ListboxWidgetsPage::CreateLbox()
 #endif // wxUSE_CHECKLISTBOX
 #if wxUSE_REARRANGECTRL
         case LboxType_RearrangeList:
-            m_lbox = new wxRearrangeList(this, ListboxPage_Listbox,
+            m_lbox = NEW_DEBUG wxRearrangeList(this, ListboxPage_Listbox,
                                     wxDefaultPosition, wxDefaultSize,
                                     order, items,
                                     flags);
@@ -500,7 +500,7 @@ void ListboxWidgetsPage::CreateLbox()
         case LboxType_ListBox:
             wxFALLTHROUGH;
         default:
-            m_lbox = new wxListBox(this, ListboxPage_Listbox,
+            m_lbox = NEW_DEBUG wxListBox(this, ListboxPage_Listbox,
                                wxDefaultPosition, wxDefaultSize,
                                items,
                                flags);

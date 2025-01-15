@@ -76,12 +76,12 @@ MainFrame::MainFrame()
     : wxFrame(NULL, wxID_ANY, "Main wx app",
               wxDefaultPosition, wxSize(400, 300))
 {
-    wxPanel *p = new wxPanel(this, wxID_ANY);
-    wxSizer *sizer = new wxBoxSizer(wxVERTICAL);
+    wxPanel *p = NEW_DEBUG wxPanel(this, wxID_ANY);
+    wxSizer *sizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
     sizer->Add
            (
-               new wxStaticText
+               NEW_DEBUG wxStaticText
                    (
                        p, wxID_ANY,
                        wxString::Format
@@ -98,13 +98,13 @@ MainFrame::MainFrame()
 
     sizer->Add
            (
-               new wxButton(p, ID_RUN_DLL, "Run GUI from DLL"),
+               NEW_DEBUG wxButton(p, ID_RUN_DLL, "Run GUI from DLL"),
                wxSizerFlags(0).Right().Border(wxALL, 10)
            );
 
     p->SetSizerAndFit(sizer);
 
-    wxSizer *fsizer = new wxBoxSizer(wxVERTICAL);
+    wxSizer *fsizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     fsizer->Add(p, wxSizerFlags(1).Expand());
     SetSizerAndFit(fsizer);
 }
@@ -124,7 +124,7 @@ bool MainApp::OnInit()
     if ( !wxApp::OnInit() )
         return false;
 
-    wxFrame *f = new MainFrame();
+    wxFrame *f = NEW_DEBUG MainFrame();
     f->Show(true);
 
     return true;

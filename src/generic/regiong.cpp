@@ -254,17 +254,17 @@ wxRegionGeneric::~wxRegionGeneric()
 
 wxRegionGeneric::wxRegionGeneric(wxCoord x, wxCoord y, wxCoord w, wxCoord h)
 {
-    m_refData = new wxRegionRefData(wxRect(x,y,w,h));
+    m_refData = NEW_DEBUG wxRegionRefData(wxRect(x,y,w,h));
 }
 
 wxRegionGeneric::wxRegionGeneric(const wxRect& rect)
 {
-    m_refData = new wxRegionRefData(rect);
+    m_refData = NEW_DEBUG wxRegionRefData(rect);
 }
 
 wxRegionGeneric::wxRegionGeneric(const wxPoint& topLeft, const wxPoint& bottomRight)
 {
-    m_refData = new wxRegionRefData(topLeft, bottomRight);
+    m_refData = NEW_DEBUG wxRegionRefData(topLeft, bottomRight);
 }
 
 wxRegionGeneric::wxRegionGeneric(const wxBitmap& bmp)
@@ -286,17 +286,17 @@ void wxRegionGeneric::Clear()
 {
     UnRef();
     if (!m_refData)
-        m_refData = new wxRegionRefData(wxRect(0,0,0,0));
+        m_refData = NEW_DEBUG wxRegionRefData(wxRect(0,0,0,0));
 }
 
 wxGDIRefData *wxRegionGeneric::CreateGDIRefData() const
 {
-    return new wxRegionRefData;
+    return NEW_DEBUG wxRegionRefData;
 }
 
 wxGDIRefData *wxRegionGeneric::CloneGDIRefData(const wxGDIRefData *data) const
 {
-    return new wxRegionRefData(*(wxRegionRefData *)data);
+    return NEW_DEBUG wxRegionRefData(*(wxRegionRefData *)data);
 }
 
 bool wxRegionGeneric::DoIsEqual(const wxRegion& region) const
@@ -601,10 +601,10 @@ SOFTWARE.
  * the y-x-banding that's so nice to have...
  */
 
-/* Create a new empty region */
+/* Create a NEW_DEBUG empty region */
 Region REGION::XCreateRegion(void)
 {
-    Region temp = new REGION;
+    Region temp = NEW_DEBUG REGION;
 
     if (!temp)
         return (Region) NULL;
@@ -776,7 +776,7 @@ miIntersectO (
 
         /*
          * If there's any overlap between the two rectangles, add that
-         * overlap to the new region.
+         * overlap to the NEW_DEBUG region.
          * There's no need to check for subsumption because the only way
          * such a need could arise is if some region has two rectangles
          * right next to each other. Since that should never happen...
@@ -889,7 +889,7 @@ miRegionCopy(
  *    previous one. Used only by miRegionOp.
  *
  * Results:
- *    The new index for the previous band.
+ *    The NEW_DEBUG index for the previous band.
  *
  * Side Effects:
  *    If coalescing takes place:
@@ -1035,7 +1035,7 @@ miCoalesce(
  *        None.
  *
  * Side Effects:
- *        The new region is overwritten.
+ *        The NEW_DEBUG region is overwritten.
  *
  * Notes:
  *        The idea behind this function is to view the two regions as sets.
@@ -1046,7 +1046,7 @@ miCoalesce(
  *        second, the overlapFunc is called to process the entire band. It
  *        is responsible for clipping the rectangles in the band, though
  *        this function provides the boundaries.
- *        At the end of each band, the new region is coalesced, if possible,
+ *        At the end of each band, the NEW_DEBUG region is coalesced, if possible,
  *        to reduce the number of rectangles in the region.
  *
  *-----------------------------------------------------------------------
@@ -1105,7 +1105,7 @@ miRegionOp(
      * Initialization:
      *        set r1, r2, r1End and r2End appropriately, preserve the important
      * parts of the destination region until the end in case it's one of
-     * the two source regions, then mark the "new" region empty, allocating
+     * the two source regions, then mark the "NEW_DEBUG" region empty, allocating
      * another array of rectangles for it to use.
      */
     r1 = reg1->rects;
@@ -1118,7 +1118,7 @@ miRegionOp(
     EMPTY_REGION(newReg);
 
     /*
-     * Allocate a reasonable number of rectangles for the new region. The idea
+     * Allocate a reasonable number of rectangles for the NEW_DEBUG region. The idea
      * is to allocate enough so the individual functions don't need to
      * reallocate and copy the array, which is time consuming, yet we don't
      * have to worry about using too much memory. I hope to be able to
@@ -1158,7 +1158,7 @@ miRegionOp(
      * In the beginning, there is no previous band, so prevBand == curBand
      * (curBand is set later on, of course, but the first band will always
      * start at index 0). prevBand and curBand must be indices because of
-     * the possible expansion, and resultant moving, of the new region's
+     * the possible expansion, and resultant moving, of the NEW_DEBUG region's
      * array of rectangles.
      */
     prevBand = 0;
@@ -1308,7 +1308,7 @@ miRegionOp(
 
     /*
      * A bit of cleanup. To keep regions from growing without bound,
-     * we shrink the array of rectangles to match the new number of
+     * we shrink the array of rectangles to match the NEW_DEBUG number of
      * rectangles in the region. This never goes to 0, however...
      *
      * Only do this stuff if the number of rectangles allocated is more than
@@ -1646,7 +1646,7 @@ miSubtractO (
             {
                 /*
                  * Minuend completely covered: advance to next minuend and
-                 * reset left fence to edge of new minuend.
+                 * reset left fence to edge of NEW_DEBUG minuend.
                  */
                 r1++;
                 if (r1 != r1End)
@@ -1682,7 +1682,7 @@ miSubtractO (
             if (x1 >= r1->x2)
             {
                 /*
-                 * Minuend used up: advance to new...
+                 * Minuend used up: advance to NEW_DEBUG...
                  */
                 r1++;
                 if (r1 != r1End)

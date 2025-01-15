@@ -244,7 +244,7 @@ void wxHtmlTableCell::AddRow(const wxHtmlTag& tag)
     m_ActualCol = -1;
     // VS: real allocation of row entry is done in AddCell in order
     //     to correctly handle empty rows (i.e. "<tr></tr>")
-    //     m_ActualCol == -1 indicates that AddCell has to allocate new row.
+    //     m_ActualCol == -1 indicates that AddCell has to allocate NEW_DEBUG row.
 
     // scan params:
     m_rBkg = m_tBkg;
@@ -257,7 +257,7 @@ void wxHtmlTableCell::AddRow(const wxHtmlTag& tag)
 
 void wxHtmlTableCell::AddCell(wxHtmlContainerCell *cell, const wxHtmlTag& tag)
 {
-    // Is this cell in new row?
+    // Is this cell in NEW_DEBUG row?
     // VS: we can't do it in AddRow, see my comment there
     if (m_ActualCol == -1)
     {
@@ -598,7 +598,7 @@ void wxHtmlTableCell::Layout(int w)
 
     /* 3.  sub-layout all cells: */
     {
-        int *ypos = new int[m_NumRows + 1];
+        int *ypos = NEW_DEBUG int[m_NumRows + 1];
 
         int actcol, actrow;
         int fullwid;
@@ -688,7 +688,7 @@ TAG_HANDLER_BEGIN(TABLE, "TABLE,TR,TD,TH")
                 m_WParser->SetActualBackgroundColor(colBg);
                 m_WParser->SetActualBackgroundMode(wxBRUSHSTYLE_SOLID);
                 m_WParser->GetContainer()->InsertCell(
-                        new wxHtmlColourCell(colBg, wxHTML_CLR_BACKGROUND)
+                        NEW_DEBUG wxHtmlColourCell(colBg, wxHTML_CLR_BACKGROUND)
                     );
             }
 
@@ -700,7 +700,7 @@ TAG_HANDLER_BEGIN(TABLE, "TABLE,TR,TD,TH")
                m_WParser->SetActualBackgroundMode(oldbackmode);
                m_WParser->SetActualBackgroundColor(oldbackclr);
                m_WParser->GetContainer()->InsertCell(
-                      new wxHtmlColourCell(oldbackclr,
+                      NEW_DEBUG wxHtmlColourCell(oldbackclr,
                                         oldbackmode == wxBRUSHSTYLE_TRANSPARENT
                                             ? wxHTML_CLR_TRANSPARENT_BACKGROUND
                                             : wxHTML_CLR_BACKGROUND)
@@ -721,7 +721,7 @@ TAG_HANDLER_BEGIN(TABLE, "TABLE,TR,TD,TH")
     {
         wxHtmlContainerCell *c;
 
-        // new table started, backup upper-level table (if any) and create new:
+        // NEW_DEBUG table started, backup upper-level table (if any) and create NEW_DEBUG:
         if (tag.GetName() == wxT("TABLE"))
         {
             wxHtmlTableCell *oldt = m_Table;
@@ -729,7 +729,7 @@ TAG_HANDLER_BEGIN(TABLE, "TABLE,TR,TD,TH")
             wxHtmlContainerCell *oldEnclosing = m_enclosingContainer;
             m_enclosingContainer = c = m_WParser->OpenContainer();
 
-            m_Table = new wxHtmlTableCell(c, tag, m_WParser->GetPixelScale());
+            m_Table = NEW_DEBUG wxHtmlTableCell(c, tag, m_WParser->GetPixelScale());
 
             // width:
             {
@@ -768,7 +768,7 @@ TAG_HANDLER_BEGIN(TABLE, "TABLE,TR,TD,TH")
 
         else if (m_Table)
         {
-            // new row in table
+            // NEW_DEBUG row in table
             if (tag.GetName() == wxT("TR"))
             {
                 m_Table->AddRow(tag);
@@ -776,10 +776,10 @@ TAG_HANDLER_BEGIN(TABLE, "TABLE,TR,TD,TH")
                     m_rAlign = m_tAlign;
             }
 
-            // new cell
+            // NEW_DEBUG cell
             else
             {
-                c = m_WParser->SetContainer(new wxHtmlContainerCell(m_Table));
+                c = m_WParser->SetContainer(NEW_DEBUG wxHtmlContainerCell(m_Table));
                 m_Table->AddCell(c, tag);
 
                 m_WParser->OpenContainer();
@@ -810,7 +810,7 @@ TAG_HANDLER_BEGIN(TABLE, "TABLE,TR,TD,TH")
                     boldOld = m_WParser->GetFontBold();
                     m_WParser->SetFontBold(true);
                     m_WParser->GetContainer()->InsertCell(
-                        new wxHtmlFontCell(m_WParser->CreateCurrentFont()));
+                        NEW_DEBUG wxHtmlFontCell(m_WParser->CreateCurrentFont()));
                 }
 
                 wxColour bgCol;
@@ -823,7 +823,7 @@ TAG_HANDLER_BEGIN(TABLE, "TABLE,TR,TD,TH")
                 {
                     m_WParser->SetFontBold(boldOld);
                     m_WParser->GetContainer()->InsertCell(
-                        new wxHtmlFontCell(m_WParser->CreateCurrentFont()));
+                        NEW_DEBUG wxHtmlFontCell(m_WParser->CreateCurrentFont()));
                 }
 
                 // set the current container back to the enclosing one so that

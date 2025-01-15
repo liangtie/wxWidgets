@@ -300,7 +300,7 @@ void wxString::PosLenToImpl(size_t pos, size_t len,
 // FIXME-UTF8: we do the conversion every time As[W]Char() is called, but if we
 //             invalidated the cache on every change, we could keep the previous
 //             conversion
-// FIXME-UTF8: add tracing of usage of these two methods - new code is supposed
+// FIXME-UTF8: add tracing of usage of these two methods - NEW_DEBUG code is supposed
 //             to use mb_str() or wc_str() instead of (const [w]char*)c_str()
 
 template<typename T>
@@ -1453,7 +1453,7 @@ size_t wxString::Replace(const wxString& strOld,
         if ( !uiCount )
             return 0;
 
-        // allocate enough memory for the whole new string
+        // allocate enough memory for the whole NEW_DEBUG string
         wxString tmp;
         tmp.m_impl.reserve(m_impl.length() + uiCount*(uiNewLen - uiOldLen));
 

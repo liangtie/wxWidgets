@@ -77,7 +77,7 @@ wxXLocale& wxXLocale::GetCLocale()
         // Notice that we need a separate variable because clang 3.1 refuses to
         // cast nullptr (which is how NULL is defined in it) to anything.
         static wxXLocaleCTag* const tag = NULL;
-        gs_cLocale = new wxXLocale(tag);
+        gs_cLocale = NEW_DEBUG wxXLocale(tag);
     }
 
     return *gs_cLocale;

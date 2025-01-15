@@ -398,7 +398,7 @@ bool wxMiniFrame::Create( wxWindow *parent, wxWindowID id, const wxString &title
     if (m_miniTitle && (style & wxCLOSE_BOX))
     {
         m_closeButton = wxBitmap((const char*)close_bits, 16, 16);
-        m_closeButton.SetMask(new wxMask(m_closeButton));
+        m_closeButton.SetMask(NEW_DEBUG wxMask(m_closeButton));
     }
 
     /* these are called when the borders are drawn */

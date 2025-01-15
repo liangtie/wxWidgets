@@ -148,7 +148,7 @@ wxMutex *wxMainMutex; // controls access to all GUI functions
 
 wxThread::wxThread()
 {
-    p_internal = new wxThreadInternal();
+    p_internal = NEW_DEBUG wxThreadInternal();
 }
 
 wxThread::~wxThread()
@@ -168,7 +168,7 @@ wxIMPLEMENT_DYNAMIC_CLASS(wxThreadModule, wxModule);
 
 bool wxThreadModule::OnInit()
 {
-    wxMainMutex = new wxMutex();
+    wxMainMutex = NEW_DEBUG wxMutex();
     wxMainMutex->Lock();
     return true;
 }

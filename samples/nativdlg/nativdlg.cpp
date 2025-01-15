@@ -39,7 +39,7 @@ bool MyApp::OnInit(void)
         return false;
 
     // Create the main frame window
-    MyFrame* frame = new MyFrame(NULL, wxID_ANY, "wxWidgets Native Dialog Sample", wxDefaultPosition, wxDefaultSize);
+    MyFrame* frame = NEW_DEBUG MyFrame(NULL, wxID_ANY, "wxWidgets Native Dialog Sample", wxDefaultPosition, wxDefaultSize);
 
 #if wxUSE_STATUSBAR
     // Give it a status line
@@ -47,12 +47,12 @@ bool MyApp::OnInit(void)
 #endif // wxUSE_STATUSBAR
 
     // Make a menubar
-    wxMenu* file_menu = new wxMenu;
+    wxMenu* file_menu = NEW_DEBUG wxMenu;
 
     file_menu->Append(RESOURCE_TEST1, "&Dialog box test", "Test dialog box resource");
     file_menu->Append(RESOURCE_QUIT, "E&xit", "Quit program");
 
-    wxMenuBar* menu_bar = new wxMenuBar;
+    wxMenuBar* menu_bar = NEW_DEBUG wxMenuBar;
 
     menu_bar->Append(file_menu, "&File");
 
@@ -60,7 +60,7 @@ bool MyApp::OnInit(void)
     frame->SetMenuBar(menu_bar);
 
     // Make a panel
-    frame->panel = new wxWindow(frame, wxID_ANY);
+    frame->panel = NEW_DEBUG wxWindow(frame, wxID_ANY);
     frame->Show(true);
 
     return true;

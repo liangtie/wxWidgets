@@ -47,7 +47,7 @@ extern WXDLLEXPORT_DATA(const char) wxStaticTextNameStr[] = "staticText";
 
 wxDEFINE_FLAGS( wxStaticTextStyle )
 wxBEGIN_FLAGS( wxStaticTextStyle )
-// new style border flags, we put them first to
+// NEW_DEBUG style border flags, we put them first to
 // use them for streaming out
 wxFLAGS_MEMBER(wxBORDER_SIMPLE)
 wxFLAGS_MEMBER(wxBORDER_SUNKEN)

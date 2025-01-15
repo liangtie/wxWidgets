@@ -101,8 +101,8 @@ void wxCursor::InitFromImage(const wxImage & image)
     bool bHasMask = image.HasMask();
     int imagebitcount = (w*h)/8;
 
-    unsigned char * bits = new unsigned char [imagebitcount];
-    unsigned char * maskBits = new unsigned char [imagebitcount];
+    unsigned char * bits = NEW_DEBUG unsigned char [imagebitcount];
+    unsigned char * maskBits = NEW_DEBUG unsigned char [imagebitcount];
 
     int i, j, i8;
     unsigned char c, cMask;
@@ -190,7 +190,7 @@ void wxCursor::Create(const char bits[], int width, int height,
                       int hotSpotX, int hotSpotY, const char maskBits[])
 {
     if( !m_refData )
-        m_refData = new wxCursorRefData;
+        m_refData = NEW_DEBUG wxCursorRefData;
 
     Display *dpy = (Display*) wxGetDisplay();
     int screen_num =  DefaultScreen (dpy);
@@ -222,7 +222,7 @@ void wxCursor::Create(WXPixmap pixmap, WXPixmap mask_pixmap,
                       int hotSpotX, int hotSpotY)
 {
     if( !m_refData )
-        m_refData = new wxCursorRefData;
+        m_refData = NEW_DEBUG wxCursorRefData;
 
     Display *dpy = (Display*) wxGetDisplay();
     int screen_num =  DefaultScreen (dpy);
@@ -245,7 +245,7 @@ void wxCursor::Create(WXPixmap pixmap, WXPixmap mask_pixmap,
 
     if (cursor)
     {
-        wxXCursor *c = new wxXCursor;
+        wxXCursor *c = NEW_DEBUG wxXCursor;
 
         c->m_cursor = (WXCursor) cursor;
         c->m_display = (WXDisplay*) dpy;
@@ -269,7 +269,7 @@ wxCursor::wxCursor(const wxString& name, wxBitmapType type,
         return;
     }
 
-    m_refData = new wxCursorRefData;
+    m_refData = NEW_DEBUG wxCursorRefData;
 
     int hotX = -1, hotY = -1;
     unsigned int w, h;
@@ -305,7 +305,7 @@ wxCursor::wxCursor(const wxString& name, wxBitmapType type,
 // Cursors by stock number
 void wxCursor::InitFromStock(wxStockCursor id)
 {
-    m_refData = new wxCursorRefData;
+    m_refData = NEW_DEBUG wxCursorRefData;
     M_CURSORDATA->m_cursorId = id;
 }
 
@@ -315,7 +315,7 @@ wxCursor::~wxCursor()
 
 wxGDIRefData *wxCursor::CreateGDIRefData() const
 {
-    return new wxCursorRefData;
+    return NEW_DEBUG wxCursorRefData;
 }
 
 wxGDIRefData *
@@ -323,7 +323,7 @@ wxCursor::CloneGDIRefData(const wxGDIRefData * WXUNUSED(data)) const
 {
     wxFAIL_MSG( wxS("Cloning cursors is not implemented in wxMotif.") );
 
-    return new wxCursorRefData;
+    return NEW_DEBUG wxCursorRefData;
 }
 
 // Motif-specific: create/get a cursor for the current display
@@ -347,7 +347,7 @@ WXCursor wxCursor::GetXCursor(WXDisplay* display) const
         WXCursor cursor = MakeCursor(display, M_CURSORDATA->m_cursorId);
         if (cursor)
         {
-            wxXCursor* c = new wxXCursor;
+            wxXCursor* c = NEW_DEBUG wxXCursor;
             c->m_cursor = cursor;
             c->m_display = display;
             M_CURSORDATA->m_cursors.Append(c);

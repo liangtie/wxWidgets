@@ -61,17 +61,17 @@ wxAcceleratorTable::~wxAcceleratorTable()
 // Load from .rc resource
 wxAcceleratorTable::wxAcceleratorTable(const wxString& WXUNUSED(resource))
 {
-    m_refData = new wxAcceleratorRefData;
+    m_refData = NEW_DEBUG wxAcceleratorRefData;
 }
 
 // Create from an array
 wxAcceleratorTable::wxAcceleratorTable(int n, const wxAcceleratorEntry entries[])
 {
-    wxAcceleratorRefData* data = new wxAcceleratorRefData;
+    wxAcceleratorRefData* data = NEW_DEBUG wxAcceleratorRefData;
     m_refData = data;
 
     data->m_count = n;
-    data->m_entries = new wxAcceleratorEntry[n];
+    data->m_entries = NEW_DEBUG wxAcceleratorEntry[n];
     int i;
     for (i = 0; i < n; i++)
         data->m_entries[i] = entries[i];

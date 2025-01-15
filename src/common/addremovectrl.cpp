@@ -69,7 +69,7 @@ void wxAddRemoveCtrl::SetAdaptor(wxAddRemoveAdaptor* adaptor)
     wxWindow* const ctrlItems = adaptor->GetItemsCtrl();
     wxCHECK_RET( ctrlItems, wxS("should have a valid items control") );
 
-    m_impl = new wxAddRemoveImpl(adaptor, this, ctrlItems);
+    m_impl = NEW_DEBUG wxAddRemoveImpl(adaptor, this, ctrlItems);
 }
 
 void

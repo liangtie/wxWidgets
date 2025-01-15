@@ -289,7 +289,7 @@ public:
     {
         if ( !m_attr )
         {
-            m_attr = new wxItemAttr;
+            m_attr = NEW_DEBUG wxItemAttr;
             m_ownsAttr = true;
         }
         return *m_attr;
@@ -1671,7 +1671,7 @@ wxTreeItemId wxGenericTreeCtrl::DoInsertItem(const wxTreeItemId& parentId,
     m_dirty = true;     // do this first so stuff below doesn't cause flicker
 
     wxGenericTreeItem *item =
-        new wxGenericTreeItem( parent, text, image, selImage, data );
+        NEW_DEBUG wxGenericTreeItem( parent, text, image, selImage, data );
 
     if ( data != nullptr )
     {
@@ -1694,7 +1694,7 @@ wxTreeItemId wxGenericTreeCtrl::AddRoot(const wxString& text,
 
     m_dirty = true;     // do this first so stuff below doesn't cause flicker
 
-    m_anchor = new wxGenericTreeItem(nullptr, text,
+    m_anchor = NEW_DEBUG wxGenericTreeItem(nullptr, text,
                                    image, selImage, data);
     if ( data != nullptr )
     {
@@ -3392,10 +3392,10 @@ void wxGenericTreeCtrl::OnChar( wxKeyEvent &event )
 
                 // also start the timer to reset the current prefix if the user
                 // doesn't press any more alnum keys soon -- we wouldn't want
-                // to use this prefix for a new item search
+                // to use this prefix for a NEW_DEBUG item search
                 if ( !m_findTimer )
                 {
-                    m_findTimer = new wxTreeFindTimer(this);
+                    m_findTimer = NEW_DEBUG wxTreeFindTimer(this);
                 }
 
                 // Notice that we should start the timer even if we didn't find
@@ -3538,7 +3538,7 @@ wxTextCtrl *wxGenericTreeCtrl::EditLabel(const wxTreeItemId& item,
         DoDirtyProcessing();
 
     // TODO: use textCtrlClass here to create the control of correct class
-    m_textCtrl = new wxTreeTextCtrl(this, itemEdit);
+    m_textCtrl = NEW_DEBUG wxTreeTextCtrl(this, itemEdit);
 
     m_textCtrl->SetFocus();
 
@@ -3883,7 +3883,7 @@ void wxGenericTreeCtrl::OnMouse( wxMouseEvent &event )
                     }
                     else
                     {
-                        m_renameTimer = new wxTreeRenameTimer( this );
+                        m_renameTimer = NEW_DEBUG wxTreeRenameTimer( this );
                     }
 
                     if ( canStartRenameTimer )

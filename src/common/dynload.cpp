@@ -50,7 +50,7 @@ public:
     // TODO: create ms_classes on demand, why always preallocate it?
     virtual bool OnInit() wxOVERRIDE
     {
-        wxPluginLibrary::ms_classes = new wxDLImports;
+        wxPluginLibrary::ms_classes = NEW_DEBUG wxDLImports;
         wxPluginManager::CreateManifest();
         return true;
     }
@@ -77,7 +77,7 @@ wxPluginLibrary::wxPluginLibrary(const wxString &libname, int flags)
 
     // It is simple to know what is the first object in the linked list of
     // wxClassInfo that we registered (it's also the last one chronologically),
-    // it's just the new head of the wxClassInfo list:
+    // it's just the NEW_DEBUG head of the wxClassInfo list:
     m_ourFirst = wxClassInfo::GetFirst();
 
     // But to find the first wxClassInfo created by this library we need to
@@ -302,7 +302,7 @@ wxPluginManager::LoadLibrary(const wxString &libname, int flags)
     }
     else
     {
-        entry = new wxPluginLibrary( libname, flags );
+        entry = NEW_DEBUG wxPluginLibrary( libname, flags );
 
         if ( entry->IsLoaded() )
         {

@@ -376,7 +376,7 @@ wxCairo::~wxCairo()
 {
     if ( !ms_lib )
     {
-        ms_lib = new wxCairo();
+        ms_lib = NEW_DEBUG wxCairo();
         if ( !ms_lib->m_ok )
         {
             delete ms_lib;

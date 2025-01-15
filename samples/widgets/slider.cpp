@@ -275,11 +275,11 @@ SliderWidgetsPage::SliderWidgetsPage(WidgetsBookCtrl *book,
 
 void SliderWidgetsPage::CreateContent()
 {
-    wxSizer *sizerTop = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer *sizerTop = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
 
     // left pane
-    wxStaticBox *box = new wxStaticBox(this, wxID_ANY, "&Set style");
-    wxSizer *sizerLeft = new wxStaticBoxSizer(box, wxVERTICAL);
+    wxStaticBox *box = NEW_DEBUG wxStaticBox(this, wxID_ANY, "&Set style");
+    wxSizer *sizerLeft = NEW_DEBUG wxStaticBoxSizer(box, wxVERTICAL);
 
     m_chkInverse = CreateCheckBoxAndAddToSizer(sizerLeft, "&Inverse");
     m_chkTicks = CreateCheckBoxAndAddToSizer(sizerLeft, "Show &ticks");
@@ -293,7 +293,7 @@ void SliderWidgetsPage::CreateContent()
         "left",
         "right",
     };
-    m_radioSides = new wxRadioBox(this, SliderPage_RadioSides, "&Label position",
+    m_radioSides = NEW_DEBUG wxRadioBox(this, SliderPage_RadioSides, "&Label position",
                                  wxDefaultPosition, wxDefaultSize,
                                  WXSIZEOF(sides), sides,
                                  1, wxRA_SPECIFY_COLS);
@@ -309,12 +309,12 @@ void SliderWidgetsPage::CreateContent()
 
     sizerLeft->AddSpacer(5);
 
-    wxButton *btn = new wxButton(this, SliderPage_Reset, "&Reset");
+    wxButton *btn = NEW_DEBUG wxButton(this, SliderPage_Reset, "&Reset");
     sizerLeft->Add(btn, wxSizerFlags().CentreHorizontal().Border(wxALL, 15));
 
     // middle pane
-    wxStaticBox *box2 = new wxStaticBox(this, wxID_ANY, "&Change slider value");
-    wxSizer *sizerMiddle = new wxStaticBoxSizer(box2, wxVERTICAL);
+    wxStaticBox *box2 = NEW_DEBUG wxStaticBox(this, wxID_ANY, "&Change slider value");
+    wxSizer *sizerMiddle = NEW_DEBUG wxStaticBoxSizer(box2, wxVERTICAL);
 
     wxTextCtrl *text;
     wxSizer *sizerRow = CreateSizerWithTextAndLabel("Current value",
@@ -335,7 +335,7 @@ void SliderWidgetsPage::CreateContent()
                                             SliderPage_MinText,
                                             &m_textMin);
 
-    m_textMax = new wxTextCtrl(this, SliderPage_MaxText, wxEmptyString);
+    m_textMax = NEW_DEBUG wxTextCtrl(this, SliderPage_MaxText, wxEmptyString);
     sizerRow->Add(m_textMax, wxSizerFlags(1).CentreVertical().Border(wxLEFT));
 
     m_textMin->SetValue( wxString::Format("%d", m_min) );
@@ -348,7 +348,7 @@ void SliderWidgetsPage::CreateContent()
                                             SliderPage_RangeMinText,
                                             &m_textRangeMin);
 
-    m_textRangeMax = new wxTextCtrl(this, SliderPage_RangeMaxText, wxEmptyString);
+    m_textRangeMax = NEW_DEBUG wxTextCtrl(this, SliderPage_RangeMaxText, wxEmptyString);
     sizerRow->Add(m_textRangeMax, wxSizerFlags(1).CentreVertical().Border(wxLEFT));
 
     m_textRangeMin->SetValue( wxString::Format("%d", m_rangeMin) );
@@ -387,7 +387,7 @@ void SliderWidgetsPage::CreateContent()
     sizerMiddle->Add(sizerRow, wxSizerFlags().Expand().Border());
 
     // right pane
-    wxSizer *sizerRight = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer *sizerRight = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     m_sizerSlider = sizerRight; // save it to modify it later
 
     Reset();
@@ -504,7 +504,7 @@ void SliderWidgetsPage::CreateSlider()
         delete m_slider;
     }
 
-    m_slider = new wxSlider(this, SliderPage_Slider,
+    m_slider = NEW_DEBUG wxSlider(this, SliderPage_Slider,
                             val, m_min, m_max,
                             wxDefaultPosition, wxDefaultSize,
                             flags);

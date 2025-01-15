@@ -78,36 +78,36 @@ static wxCompositionMode TranslateRasterOp(wxRasterOperationMode function)
 wxIMPLEMENT_DYNAMIC_CLASS(wxGCDC, wxDC);
 
 wxGCDC::wxGCDC(const wxWindowDC& dc) :
-  wxDC( new wxGCDCImpl( this, dc ) )
+  wxDC( NEW_DEBUG wxGCDCImpl( this, dc ) )
 {
 }
 
 wxGCDC::wxGCDC( const wxMemoryDC& dc) :
-  wxDC( new wxGCDCImpl( this, dc ) )
+  wxDC( NEW_DEBUG wxGCDCImpl( this, dc ) )
 {
 }
 
 #if wxUSE_PRINTING_ARCHITECTURE
 wxGCDC::wxGCDC( const wxPrinterDC& dc) :
-  wxDC( new wxGCDCImpl( this, dc ) )
+  wxDC( NEW_DEBUG wxGCDCImpl( this, dc ) )
 {
 }
 #endif
 
 #if defined(__WXMSW__) && wxUSE_ENH_METAFILE
 wxGCDC::wxGCDC(const wxEnhMetaFileDC& dc)
-   : wxDC(new wxGCDCImpl(this, dc))
+   : wxDC(NEW_DEBUG wxGCDCImpl(this, dc))
 {
 }
 #endif
 
 wxGCDC::wxGCDC(wxGraphicsContext* context) :
-    wxDC(new wxGCDCImpl(this, context))
+    wxDC(NEW_DEBUG wxGCDCImpl(this, context))
 {
 }
 
 wxGCDC::wxGCDC() :
-  wxDC( new wxGCDCImpl( this ) )
+  wxDC( NEW_DEBUG wxGCDCImpl( this ) )
 {
 }
 
@@ -509,7 +509,7 @@ void wxGCDCImpl::ComputeScaleAndOrigin()
     {
         m_matrixCurrent = m_graphicContext->CreateMatrix();
 
-        // the logical origin sets the origin to have new coordinates
+        // the logical origin sets the origin to have NEW_DEBUG coordinates
         m_matrixCurrent.Translate( m_deviceOriginX - m_logicalOriginX * m_signX * m_scaleX,
                                    m_deviceOriginY - m_logicalOriginY * m_signY * m_scaleY);
 

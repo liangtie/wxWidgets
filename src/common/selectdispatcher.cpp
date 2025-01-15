@@ -174,7 +174,7 @@ bool wxSelectDispatcher::UnregisterFD(int fd)
     {
         if ( fd == m_maxFD )
         {
-            // need to find new max fd
+            // need to find NEW_DEBUG max fd
             m_maxFD = -1;
             for ( wxFDIOHandlerMap::const_iterator it = m_handlers.begin();
                   it != m_handlers.end();

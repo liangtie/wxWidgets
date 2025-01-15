@@ -162,7 +162,7 @@ void wxGUIEventLoop::InitBuffer()
     // create DirectFB events buffer:
     ms_buffer = wxIDirectFB::Get()->CreateEventBuffer();
 
-    // and setup a file descriptor that we can watch for new events:
+    // and setup a file descriptor that we can watch for NEW_DEBUG events:
 
     ms_buffer->CreateFileDescriptor(&ms_bufferFd);
     int flags = fcntl(ms_bufferFd, F_GETFL, 0);

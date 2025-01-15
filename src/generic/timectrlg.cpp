@@ -63,14 +63,14 @@ class wxTimePickerGenericImpl : public wxEvtHandler
 public:
     wxTimePickerGenericImpl(wxTimePickerCtrlGeneric* ctrl)
     {
-        m_text = new wxTextCtrl(ctrl, wxID_ANY, wxString());
+        m_text = NEW_DEBUG wxTextCtrl(ctrl, wxID_ANY, wxString());
 
         // As this text can't be edited, don't use the standard cursor for it
         // to avoid misleading the user. Ideally we'd also hide the caret but
         // this is not currently supported by wxTextCtrl.
         m_text->SetCursor(wxCURSOR_ARROW);
 
-        m_btn = new wxSpinButton(ctrl, wxID_ANY,
+        m_btn = NEW_DEBUG wxSpinButton(ctrl, wxID_ANY,
                                  wxDefaultPosition, wxDefaultSize,
                                  wxSP_VERTICAL | wxSP_WRAP);
         m_btn->SetCanFocus(false);
@@ -99,7 +99,7 @@ public:
         m_btn->Bind(wxEVT_SPIN_DOWN, &wxTimePickerGenericImpl::OnArrowDown, this);
     }
 
-    // Set the new value.
+    // Set the NEW_DEBUG value.
     void SetValue(const wxDateTime& time)
     {
         m_time = time.IsValid() ? time : wxDateTime::Now();
@@ -479,7 +479,7 @@ private:
                     return;
             }
 
-            // Check if the new value is acceptable. If not, we just handle
+            // Check if the NEW_DEBUG value is acceptable. If not, we just handle
             // this digit as if it were the first one.
             int newValue = currentValue*10 + n;
             if ( newValue <= maxValue )
@@ -600,7 +600,7 @@ wxTimePickerCtrlGeneric::Create(wxWindow *parent,
     if ( !Base::Create(parent, id, pos, size, style, validator, name) )
         return false;
 
-    m_impl = new wxTimePickerGenericImpl(this);
+    m_impl = NEW_DEBUG wxTimePickerGenericImpl(this);
     m_impl->SetValue(date);
 
     InvalidateBestSize();

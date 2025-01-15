@@ -170,17 +170,17 @@ void MyCanvas::OnMouseEvent(wxMouseEvent& event)
             {
                 case SHAPE_DRAG_BITMAP:
                 {
-                    m_dragImage = new MyDragImage(this, m_draggedShape->GetBitmap(), wxCursor(wxCURSOR_HAND));
+                    m_dragImage = NEW_DEBUG MyDragImage(this, m_draggedShape->GetBitmap(), wxCursor(wxCURSOR_HAND));
                     break;
                 }
                 case SHAPE_DRAG_TEXT:
                 {
-                    m_dragImage = new MyDragImage(this, wxString("Dragging some test text"), wxCursor(wxCURSOR_HAND));
+                    m_dragImage = NEW_DEBUG MyDragImage(this, wxString("Dragging some test text"), wxCursor(wxCURSOR_HAND));
                     break;
                 }
                 case SHAPE_DRAG_ICON:
                 {
-                    m_dragImage = new MyDragImage(this, wxICON(dragicon), wxCursor(wxCURSOR_HAND));
+                    m_dragImage = NEW_DEBUG MyDragImage(this, wxICON(dragicon), wxCursor(wxCURSOR_HAND));
                     break;
                 }
             }
@@ -313,12 +313,12 @@ MyFrame::MyFrame()
 : wxFrame( (wxFrame *)NULL, wxID_ANY, "wxDragImage sample",
           wxPoint(20,20), wxSize(470,360) )
 {
-    wxMenu *file_menu = new wxMenu();
+    wxMenu *file_menu = NEW_DEBUG wxMenu();
     file_menu->Append( wxID_ABOUT, "&About");
     file_menu->AppendCheckItem( TEST_USE_SCREEN, "&Use whole screen for dragging", "Use whole screen");
     file_menu->Append( wxID_EXIT, "E&xit");
 
-    wxMenuBar *menu_bar = new wxMenuBar();
+    wxMenuBar *menu_bar = NEW_DEBUG wxMenuBar();
     menu_bar->Append(file_menu, "&File");
 
     SetIcon(wxICON(sample));
@@ -330,7 +330,7 @@ MyFrame::MyFrame()
     SetStatusWidths( 2, widths );
 #endif // wxUSE_STATUSBAR
 
-    m_canvas = new MyCanvas( this, wxID_ANY, wxPoint(0,0), wxSize(10,10) );
+    m_canvas = NEW_DEBUG MyCanvas( this, wxID_ANY, wxPoint(0,0), wxSize(10,10) );
 }
 
 void MyFrame::OnQuit( wxCommandEvent &WXUNUSED(event) )
@@ -366,7 +366,7 @@ bool MyApp::OnInit()
         return false;
 
 #if wxUSE_LIBPNG
-    wxImage::AddHandler( new wxPNGHandler );
+    wxImage::AddHandler( NEW_DEBUG wxPNGHandler );
 #endif
 
     wxImage image;
@@ -375,7 +375,7 @@ bool MyApp::OnInit()
         m_background = wxBitmap(image);
     }
 
-    MyFrame *frame = new MyFrame();
+    MyFrame *frame = NEW_DEBUG MyFrame();
 
     wxString rootName("shape0");
 
@@ -386,7 +386,7 @@ bool MyApp::OnInit()
        the first file over the second file. */
         if (image.LoadFile(wxString::Format("%s%d.png", rootName, i), wxBITMAP_TYPE_PNG))
         {
-            DragShape* newShape = new DragShape(wxBitmap(image));
+            DragShape* newShape = NEW_DEBUG DragShape(wxBitmap(image));
             newShape->SetPosition(wxPoint(i*50, i*50));
 
             if (i == 2)

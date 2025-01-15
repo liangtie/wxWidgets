@@ -69,7 +69,7 @@ static void DoCrash()
 // private classes
 // ----------------------------------------------------------------------------
 
-// Define a new application type, each program should derive a class from wxApp
+// Define a NEW_DEBUG application type, each program should derive a class from wxApp
 class MyApp : public wxApp
 {
 public:
@@ -120,7 +120,7 @@ private:
     int m_numStoredExceptions;
 };
 
-// Define a new frame type: this is going to be our main frame
+// Define a NEW_DEBUG frame type: this is going to be our main frame
 class MyFrame : public wxFrame
 {
 public:
@@ -261,7 +261,7 @@ wxBEGIN_EVENT_TABLE(MyDialog, wxDialog)
     EVT_BUTTON(Except_Crash, MyDialog::OnCrash)
 wxEND_EVENT_TABLE()
 
-// Create a new application object: this macro will allow wxWidgets to create
+// Create a NEW_DEBUG application object: this macro will allow wxWidgets to create
 // the application object during program execution (it's better than using a
 // static object for many reasons) and also implements the accessor function
 // wxGetApp() which will return the reference of the right type (i.e. MyApp and
@@ -279,7 +279,7 @@ bool MyApp::OnInit()
         return false;
 
     // create the main application window
-    MyFrame *frame = new MyFrame();
+    MyFrame *frame = NEW_DEBUG MyFrame();
 
     // and show it (the frames, unlike simple controls, are not shown when
     // created initially)
@@ -408,7 +408,7 @@ MyFrame::MyFrame()
 
 #if wxUSE_MENUS
     // create a menu bar
-    wxMenu *menuFile = new wxMenu;
+    wxMenu *menuFile = NEW_DEBUG wxMenu;
     menuFile->Append(Except_Dialog, "Show &dialog\tCtrl-D");
     menuFile->AppendSeparator();
     menuFile->Append(Except_ThrowInt, "Throw an &int\tCtrl-I");
@@ -434,11 +434,11 @@ MyFrame::MyFrame()
     menuFile->AppendSeparator();
     menuFile->Append(Except_Quit, "E&xit\tCtrl-Q", "Quit this program");
 
-    wxMenu *helpMenu = new wxMenu;
+    wxMenu *helpMenu = NEW_DEBUG wxMenu;
     helpMenu->Append(Except_About, "&About\tF1", "Show about dialog");
 
     // now append the freshly created menu to the menu bar...
-    wxMenuBar *menuBar = new wxMenuBar();
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar();
     menuBar->Append(menuFile, "&File");
     menuBar->Append(helpMenu, "&Help");
 
@@ -612,17 +612,17 @@ void MyFrame::OnAbout(wxCommandEvent& WXUNUSED(event))
 MyDialog::MyDialog(wxFrame *parent)
         : wxDialog(parent, wxID_ANY, wxString("Throw exception dialog"))
 {
-    wxSizer *sizerTop = new wxBoxSizer(wxVERTICAL);
+    wxSizer *sizerTop = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
-    sizerTop->Add(new wxButton(this, Except_ThrowInt, "Throw &int"),
+    sizerTop->Add(NEW_DEBUG wxButton(this, Except_ThrowInt, "Throw &int"),
                   0, wxEXPAND | wxALL, 5);
-    sizerTop->Add(new wxButton(this, Except_ThrowObject, "Throw &object"),
+    sizerTop->Add(NEW_DEBUG wxButton(this, Except_ThrowObject, "Throw &object"),
                   0, wxEXPAND | wxALL, 5);
-    sizerTop->Add(new wxButton(this, Except_ThrowUnhandled, "Throw &unhandled"),
+    sizerTop->Add(NEW_DEBUG wxButton(this, Except_ThrowUnhandled, "Throw &unhandled"),
                   0, wxEXPAND | wxALL, 5);
-    sizerTop->Add(new wxButton(this, Except_Crash, "&Crash"),
+    sizerTop->Add(NEW_DEBUG wxButton(this, Except_Crash, "&Crash"),
                   0, wxEXPAND | wxALL, 5);
-    sizerTop->Add(new wxButton(this, wxID_CANCEL, "&Cancel"),
+    sizerTop->Add(NEW_DEBUG wxButton(this, wxID_CANCEL, "&Cancel"),
                   0, wxEXPAND | wxALL, 5);
 
     SetSizerAndFit(sizerTop);

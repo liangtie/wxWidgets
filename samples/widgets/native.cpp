@@ -49,7 +49,7 @@
 // for the same object.
 void BuildTestMenu(wxMenu *menu)
 {
-    menu->Append(wxID_NEW, "Do it with a new file");
+    menu->Append(wxID_NEW, "Do it with a NEW_DEBUG file");
     menu->Append(wxID_OPEN, "Do it with an existing file");
     menu->AppendSeparator();
     menu->Append(wxID_ABOUT);
@@ -235,7 +235,7 @@ public:
 
 #else // some other platform
 
-// The sample should be updated if wxNativeCtrl is implemented for some new
+// The sample should be updated if wxNativeCtrl is implemented for some NEW_DEBUG
 // platform in wx/nativectrl.h.
 #error "Native control creation not implemented for this platform"
 
@@ -281,15 +281,15 @@ NativeWidgetsPage::NativeWidgetsPage(WidgetsBookCtrl *book, wxImageList *imaglis
 
 void NativeWidgetsPage::CreateContent()
 {
-    wxSizer* const sizerTop = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer* const sizerTop = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
 
-    wxSizer* const sizerLeft = new wxBoxSizer(wxVERTICAL);
-    m_chkExpand = new wxCheckBox(this, wxID_ANY, "&Expand to all available size");
+    wxSizer* const sizerLeft = NEW_DEBUG wxBoxSizer(wxVERTICAL);
+    m_chkExpand = NEW_DEBUG wxCheckBox(this, wxID_ANY, "&Expand to all available size");
     m_chkExpand->Bind(wxEVT_CHECKBOX, &NativeWidgetsPage::OnCheckExpand, this);
     sizerLeft->Add(m_chkExpand, wxSizerFlags().Border());
     sizerTop->Add(sizerLeft);
 
-    m_sizerCtrl = new wxBoxSizer(wxHORIZONTAL);
+    m_sizerCtrl = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
 
     RecreateWidget();
 
@@ -304,7 +304,7 @@ void NativeWidgetsPage::CreateContent()
 void NativeWidgetsPage::RecreateWidget()
 {
     delete m_nativeWindow;
-    m_nativeWindow = new NativeWindow(this);
+    m_nativeWindow = NEW_DEBUG NativeWindow(this);
 
     m_sizerCtrl->Clear();
     if ( m_chkExpand->IsChecked() )

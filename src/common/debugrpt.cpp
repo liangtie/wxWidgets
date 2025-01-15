@@ -99,9 +99,9 @@ NumProperty(wxXmlNode *node, const wxChar *name, unsigned long value)
 static inline void
 TextElement(wxXmlNode *node, const wxChar *name, const wxString& value)
 {
-    wxXmlNode *nodeChild = new wxXmlNode(wxXML_ELEMENT_NODE, name);
+    wxXmlNode *nodeChild = NEW_DEBUG wxXmlNode(wxXML_ELEMENT_NODE, name);
     node->AddChild(nodeChild);
-    nodeChild->AddChild(new wxXmlNode(wxXML_TEXT_NODE, wxEmptyString, value));
+    nodeChild->AddChild(NEW_DEBUG wxXmlNode(wxXML_TEXT_NODE, wxEmptyString, value));
 }
 
 #if wxUSE_CRASHREPORT && defined(__INTEL__)
@@ -122,7 +122,7 @@ void XmlStackWalker::OnStackFrame(const wxStackFrame& frame)
 {
     m_isOk = true;
 
-    wxXmlNode *nodeFrame = new wxXmlNode(wxXML_ELEMENT_NODE, wxT("frame"));
+    wxXmlNode *nodeFrame = NEW_DEBUG wxXmlNode(wxXML_ELEMENT_NODE, wxT("frame"));
     m_nodeStack->AddChild(nodeFrame);
 
     NumProperty(nodeFrame, wxT("level"), frame.GetLevel());
@@ -146,13 +146,13 @@ void XmlStackWalker::OnStackFrame(const wxStackFrame& frame)
     const size_t nParams = frame.GetParamCount();
     if ( nParams )
     {
-        wxXmlNode *nodeParams = new wxXmlNode(wxXML_ELEMENT_NODE, wxT("parameters"));
+        wxXmlNode *nodeParams = NEW_DEBUG wxXmlNode(wxXML_ELEMENT_NODE, wxT("parameters"));
         nodeFrame->AddChild(nodeParams);
 
         for ( size_t n = 0; n < nParams; n++ )
         {
             wxXmlNode *
-                nodeParam = new wxXmlNode(wxXML_ELEMENT_NODE, wxT("parameter"));
+                nodeParam = NEW_DEBUG wxXmlNode(wxXML_ELEMENT_NODE, wxT("parameter"));
             nodeParams->AddChild(nodeParam);
 
             NumProperty(nodeParam, wxT("number"), n);
@@ -371,7 +371,7 @@ bool wxDebugReport::DoAddLoadedModules(wxXmlNode *nodeModules)
     {
         const wxDynamicLibraryDetails& info = modules[n];
 
-        wxXmlNode *nodeModule = new wxXmlNode(wxXML_ELEMENT_NODE, wxT("module"));
+        wxXmlNode *nodeModule = NEW_DEBUG wxXmlNode(wxXML_ELEMENT_NODE, wxT("module"));
         nodeModules->AddChild(nodeModule);
 
         wxString path = info.GetPath();
@@ -405,7 +405,7 @@ bool wxDebugReport::DoAddExceptionInfo(wxXmlNode *nodeContext)
     if ( !c.code )
         return false;
 
-    wxXmlNode *nodeExc = new wxXmlNode(wxXML_ELEMENT_NODE, wxT("exception"));
+    wxXmlNode *nodeExc = NEW_DEBUG wxXmlNode(wxXML_ELEMENT_NODE, wxT("exception"));
     nodeContext->AddChild(nodeExc);
 
     HexProperty(nodeExc, wxT("code"), c.code);
@@ -413,7 +413,7 @@ bool wxDebugReport::DoAddExceptionInfo(wxXmlNode *nodeContext)
     HexProperty(nodeExc, wxT("address"), wxPtrToUInt(c.addr));
 
 #ifdef __INTEL__
-    wxXmlNode *nodeRegs = new wxXmlNode(wxXML_ELEMENT_NODE, wxT("registers"));
+    wxXmlNode *nodeRegs = NEW_DEBUG wxXmlNode(wxXML_ELEMENT_NODE, wxT("registers"));
     nodeContext->AddChild(nodeRegs);
     HexElement(nodeRegs, wxT("eax"), c.regs.eax);
     HexElement(nodeRegs, wxT("ebx"), c.regs.ebx);
@@ -450,21 +450,21 @@ bool wxDebugReport::AddContext(wxDebugReport::Context ctx)
 
     // create XML dump of current context
     wxXmlDocument xmldoc;
-    wxXmlNode *nodeRoot = new wxXmlNode(wxXML_ELEMENT_NODE, wxT("report"));
+    wxXmlNode *nodeRoot = NEW_DEBUG wxXmlNode(wxXML_ELEMENT_NODE, wxT("report"));
     xmldoc.SetRoot(nodeRoot);
     nodeRoot->AddAttribute(wxT("version"), wxT("1.0"));
     nodeRoot->AddAttribute(wxT("kind"), ctx == Context_Current ? wxT("user")
                                                              : wxT("exception"));
 
     // add system information
-    wxXmlNode *nodeSystemInfo = new wxXmlNode(wxXML_ELEMENT_NODE, wxT("system"));
+    wxXmlNode *nodeSystemInfo = NEW_DEBUG wxXmlNode(wxXML_ELEMENT_NODE, wxT("system"));
     if ( DoAddSystemInfo(nodeSystemInfo) )
         nodeRoot->AddChild(nodeSystemInfo);
     else
         delete nodeSystemInfo;
 
     // add information about the loaded modules
-    wxXmlNode *nodeModules = new wxXmlNode(wxXML_ELEMENT_NODE, wxT("modules"));
+    wxXmlNode *nodeModules = NEW_DEBUG wxXmlNode(wxXML_ELEMENT_NODE, wxT("modules"));
     if ( DoAddLoadedModules(nodeModules) )
         nodeRoot->AddChild(nodeModules);
     else
@@ -474,7 +474,7 @@ bool wxDebugReport::AddContext(wxDebugReport::Context ctx)
     // current context is not very interesting otherwise
     if ( ctx == Context_Exception )
     {
-        wxXmlNode *nodeContext = new wxXmlNode(wxXML_ELEMENT_NODE, wxT("context"));
+        wxXmlNode *nodeContext = NEW_DEBUG wxXmlNode(wxXML_ELEMENT_NODE, wxT("context"));
         if ( DoAddExceptionInfo(nodeContext) )
             nodeRoot->AddChild(nodeContext);
         else
@@ -483,7 +483,7 @@ bool wxDebugReport::AddContext(wxDebugReport::Context ctx)
 
     // add stack traceback
 #if wxUSE_STACKWALKER
-    wxXmlNode *nodeStack = new wxXmlNode(wxXML_ELEMENT_NODE, wxT("stack"));
+    wxXmlNode *nodeStack = NEW_DEBUG wxXmlNode(wxXML_ELEMENT_NODE, wxT("stack"));
     XmlStackWalker sw(nodeStack);
 #if wxUSE_ON_FATAL_EXCEPTION
     if ( ctx == Context_Exception )
@@ -664,7 +664,7 @@ bool wxDebugReportCompress::DoProcess()
     {
         GetFile(n, &name, &desc);
 
-        wxZipEntry *ze = new wxZipEntry(name);
+        wxZipEntry *ze = NEW_DEBUG wxZipEntry(name);
         ze->SetComment(desc);
 
         if ( !zos.PutNextEntry(ze) )

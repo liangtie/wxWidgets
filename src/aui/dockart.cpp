@@ -190,7 +190,7 @@ wxString wxAuiChopText(wxDC& dc, const wxString& text, int max_size)
 // wxAuiDefaultDockArt is an art provider class which does all of the drawing for
 // wxAuiManager.  This allows the library caller to customize the dock art
 // (probably by deriving from this class), or to completely replace all drawing
-// with custom dock art (probably by writing a new stand-alone class derived
+// with custom dock art (probably by writing a NEW_DEBUG stand-alone class derived
 // from the wxAuiDockArt base class). The active dock art class can be set via
 // wxAuiManager::SetDockArt()
 wxAuiDefaultDockArt::wxAuiDefaultDockArt()
@@ -224,7 +224,7 @@ wxAuiDefaultDockArt::wxAuiDefaultDockArt()
 
 wxAuiDockArt* wxAuiDefaultDockArt::Clone()
 {
-    return new wxAuiDefaultDockArt(*this);
+    return NEW_DEBUG wxAuiDefaultDockArt(*this);
 }
 
 void

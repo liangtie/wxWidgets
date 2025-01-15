@@ -30,7 +30,7 @@
 // private classes
 // ----------------------------------------------------------------------------
 
-// Define a new application type, each program should derive a class from wxApp
+// Define a NEW_DEBUG application type, each program should derive a class from wxApp
 class MyApp : public wxApp
 {
 public:
@@ -44,7 +44,7 @@ public:
     virtual bool OnInit() wxOVERRIDE;
 };
 
-// Define a new frame type: this is going to be our main frame
+// Define a NEW_DEBUG frame type: this is going to be our main frame
 class MyFrame : public wxFrame
 {
 public:
@@ -114,7 +114,7 @@ wxBEGIN_EVENT_TABLE(MyFrame, wxFrame)
     EVT_MENU(Minimal_PrintHuge, MyFrame::OnPrintHuge)
 wxEND_EVENT_TABLE()
 
-// Create a new application object: this macro will allow wxWidgets to create
+// Create a NEW_DEBUG application object: this macro will allow wxWidgets to create
 // the application object during program execution (it's better than using a
 // static object for many reasons) and also declares the accessor function
 // wxGetApp() which will return the reference of the right type (i.e. MyApp and
@@ -136,16 +136,16 @@ bool MyApp::OnInit()
         return false;
 
 #if wxUSE_LIBPNG
-    wxImage::AddHandler(new wxPNGHandler);
+    wxImage::AddHandler(NEW_DEBUG wxPNGHandler);
 #endif
 #if wxUSE_LIBJPEG
-    wxImage::AddHandler(new wxJPEGHandler);
+    wxImage::AddHandler(NEW_DEBUG wxJPEGHandler);
 #endif
 #if wxUSE_GIF
-    wxImage::AddHandler(new wxGIFHandler);
+    wxImage::AddHandler(NEW_DEBUG wxGIFHandler);
 #endif
 
-    MyFrame *frame = new MyFrame(_("Printing test"),
+    MyFrame *frame = NEW_DEBUG MyFrame(_("Printing test"),
         wxDefaultPosition, wxSize(640, 480));
 
     // Show it
@@ -169,7 +169,7 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
     SetIcon(wxICON(sample));
 
     // create a menu bar
-    wxMenu *menuFile = new wxMenu;
+    wxMenu *menuFile = NEW_DEBUG wxMenu;
     menuFile->Append(Minimal_Open, _("Open...\tCtrl-O"));
     menuFile->AppendSeparator();
     menuFile->Append(Minimal_PageSetup, _("Page &Setup"));
@@ -180,13 +180,13 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
     menuFile->AppendSeparator();
     menuFile->Append(Minimal_Quit, _("&Exit"));
 
-    wxMenu *menuFonts = new wxMenu;
+    wxMenu *menuFonts = NEW_DEBUG wxMenu;
     menuFonts->AppendRadioItem(Minimal_PrintSmall, _("&Small Printer Fonts"));
     menuFonts->AppendRadioItem(Minimal_PrintNormal, _("&Normal Printer Fonts"));
     menuFonts->AppendRadioItem(Minimal_PrintHuge, _("&Huge Printer Fonts"));
 
     // now append the freshly created menu to the menu bar...
-    wxMenuBar *menuBar = new wxMenuBar;
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar;
     menuBar->Append(menuFile, _("&File"));
     menuBar->Append(menuFonts, _("F&onts"));
 
@@ -197,7 +197,7 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
     CreateStatusBar(1);
 #endif // wxUSE_STATUSBAR
 
-    m_Html = new wxHtmlWindow(this);
+    m_Html = NEW_DEBUG wxHtmlWindow(this);
     m_Html -> SetRelatedFrame(this, _("HTML : %s"));
 #if wxUSE_STATUSBAR
     m_Html -> SetRelatedStatusBar(0);
@@ -205,7 +205,7 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
     m_Name = "test.htm";
     m_Html -> LoadPage(m_Name);
 
-    m_Prn = new wxHtmlEasyPrinting(_("Easy Printing Demo"), this);
+    m_Prn = NEW_DEBUG wxHtmlEasyPrinting(_("Easy Printing Demo"), this);
     m_Prn -> SetHeader(m_Name + "(@PAGENUM@/@PAGESCNT@)<hr>", wxPAGE_ALL);
 
     // To specify where the AFM files are kept on Unix,

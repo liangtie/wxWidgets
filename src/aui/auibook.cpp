@@ -78,7 +78,7 @@ wxAuiTabContainer::wxAuiTabContainer()
 {
     m_tabOffset = 0;
     m_flags = 0;
-    m_art = new wxAuiDefaultTabArt;
+    m_art = NEW_DEBUG wxAuiDefaultTabArt;
 
     AddButton(wxAUI_BUTTON_LEFT, wxLEFT);
     AddButton(wxAUI_BUTTON_RIGHT, wxRIGHT);
@@ -111,7 +111,7 @@ void wxAuiTabContainer::SetFlags(unsigned int flags)
 {
     m_flags = flags;
 
-    // check for new close button settings
+    // check for NEW_DEBUG close button settings
     RemoveButton(wxAUI_BUTTON_LEFT);
     RemoveButton(wxAUI_BUTTON_RIGHT);
     RemoveButton(wxAUI_BUTTON_WINDOWLIST);
@@ -956,7 +956,7 @@ void wxAuiTabContainer::DoShowHide()
     wxAuiNotebookPageArray& pages = GetPages();
     size_t i, page_count = pages.GetCount();
 
-    // show new active page first
+    // show NEW_DEBUG active page first
     for (i = 0; i < page_count; ++i)
     {
         wxAuiNotebookPage& page = pages.Item(i);
@@ -1750,9 +1750,9 @@ void wxAuiNotebook::InitNotebook(long style)
     m_selectedFont = *wxNORMAL_FONT;
     m_selectedFont.SetWeight(wxFONTWEIGHT_BOLD);
 
-    SetArtProvider(new wxAuiDefaultTabArt);
+    SetArtProvider(NEW_DEBUG wxAuiDefaultTabArt);
 
-    m_dummyWnd = new wxWindow(this, wxID_ANY, wxPoint(0,0), wxSize(0,0));
+    m_dummyWnd = NEW_DEBUG wxWindow(this, wxID_ANY, wxPoint(0,0), wxSize(0,0));
     m_dummyWnd->SetSize(FromDIP(wxSize(200, 200)));
     m_dummyWnd->Show(false);
 
@@ -1782,7 +1782,7 @@ void wxAuiNotebook::SetArtProvider(wxAuiTabArt* art)
     m_tabs.SetArtProvider(art);
 
     // Update the height and do nothing else if it did something but otherwise
-    // (i.e. if the new art provider uses the same height as the old one) we
+    // (i.e. if the NEW_DEBUG art provider uses the same height as the old one) we
     // need to manually set the art provider for all tabs ourselves.
     if ( !UpdateTabCtrlHeight() )
     {
@@ -1845,7 +1845,7 @@ bool wxAuiNotebook::UpdateTabCtrlHeight()
     int height = CalculateTabCtrlHeight();
 
     // if the tab control height needs to change, update
-    // all of our tab controls with the new height
+    // all of our tab controls with the NEW_DEBUG height
     if (m_tabCtrlHeight == height)
         return false;
 
@@ -1885,7 +1885,7 @@ void wxAuiNotebook::UpdateHintWindowSize()
 }
 
 
-// calculates the size of the new split
+// calculates the size of the NEW_DEBUG split
 wxSize wxAuiNotebook::CalculateNewSplitSize()
 {
     // count number of tab controls
@@ -1928,7 +1928,7 @@ int wxAuiNotebook::CalculateTabCtrlHeight()
     if (m_requestedTabCtrlHeight != -1)
         return m_requestedTabCtrlHeight;
 
-    // find out new best tab height
+    // find out NEW_DEBUG best tab height
     wxAuiTabArt* art = m_tabs.GetArtProvider();
 
     return art->GetBestTabCtrlSize(this,
@@ -1951,7 +1951,7 @@ void wxAuiNotebook::SetWindowStyleFlag(long style)
     // if the control is already initialized
     if (m_mgr.GetManagedWindow() == (wxWindow*)this)
     {
-        // let all of the tab children know about the new style
+        // let all of the tab children know about the NEW_DEBUG style
 
         wxAuiPaneInfoArray& all_panes = m_mgr.GetAllPanes();
         size_t i, pane_count = all_panes.GetCount();
@@ -2080,7 +2080,7 @@ bool wxAuiNotebook::RemovePage(size_t page_idx)
     // Lock the window for changes to avoid flicker when
     // removing the active page (there is a noticeable
     // flicker from the active tab is closed and until a
-    // new one is selected) - this is noticeable on MSW
+    // NEW_DEBUG one is selected) - this is noticeable on MSW
     wxWindowUpdateLocker locker(this);
 
     // save active window pointer
@@ -2124,12 +2124,12 @@ bool wxAuiNotebook::RemovePage(size_t page_idx)
 
         if (ctrl_idx >= 0 && ctrl_idx < (int)ctrl->GetPageCount())
         {
-            // set new page as active in the tab split
+            // set NEW_DEBUG page as active in the tab split
             ctrl->SetActivePage(ctrl_idx);
 
             // if the page deleted was the current page for the
             // entire tab control, then record the window
-            // pointer of the new active page for activation
+            // pointer of the NEW_DEBUG active page for activation
             if (is_curpage)
             {
                 new_active = ctrl->GetWindowFromIdx(ctrl_idx);
@@ -2145,7 +2145,7 @@ bool wxAuiNotebook::RemovePage(size_t page_idx)
 
     if (!new_active)
     {
-        // we haven't yet found a new page to active,
+        // we haven't yet found a NEW_DEBUG page to active,
         // so select the next page from the main tab
         // catalogue
 
@@ -2165,7 +2165,7 @@ bool wxAuiNotebook::RemovePage(size_t page_idx)
 
     m_curPage = wxNOT_FOUND;
 
-    // set new active pane unless we're being destroyed anyhow
+    // set NEW_DEBUG active pane unless we're being destroyed anyhow
     if (new_active && !m_isBeingDeleted)
         SetSelectionToWindow(new_active);
 
@@ -2348,7 +2348,7 @@ void wxAuiNotebook::DoSizing()
 }
 
 // GetActiveTabCtrl() returns the active tab control.  It is
-// called to determine which control gets new windows being added
+// called to determine which control gets NEW_DEBUG windows being added
 wxAuiTabCtrl* wxAuiNotebook::GetActiveTabCtrl()
 {
     if (m_curPage >= 0 && m_curPage < (int)m_tabs.GetPageCount())
@@ -2377,9 +2377,9 @@ wxAuiTabCtrl* wxAuiNotebook::GetActiveTabCtrl()
     }
 
     // If there is no tabframe at all, create one
-    wxTabFrame* tabframe = new wxTabFrame;
+    wxTabFrame* tabframe = NEW_DEBUG wxTabFrame;
     tabframe->SetTabCtrlHeight(m_tabCtrlHeight);
-    tabframe->m_tabs = new wxAuiTabCtrl(this,
+    tabframe->m_tabs = NEW_DEBUG wxAuiTabCtrl(this,
                                         m_tabIdCounter++,
                                         wxDefaultPosition,
                                         wxDefaultSize,
@@ -2458,11 +2458,11 @@ void wxAuiNotebook::Split(size_t page, int direction)
     }
 
 
-    // create a new tab frame
-    wxTabFrame* new_tabs = new wxTabFrame;
+    // create a NEW_DEBUG tab frame
+    wxTabFrame* new_tabs = NEW_DEBUG wxTabFrame;
     new_tabs->m_rect = wxRect(wxPoint(0,0), split_size);
     new_tabs->SetTabCtrlHeight(m_tabCtrlHeight);
-    new_tabs->m_tabs = new wxAuiTabCtrl(this,
+    new_tabs->m_tabs = NEW_DEBUG wxAuiTabCtrl(this,
                                         m_tabIdCounter++,
                                         wxDefaultPosition,
                                         wxDefaultSize,
@@ -2806,7 +2806,7 @@ void wxAuiNotebook::OnTabEndDrag(wxAuiNotebookEvent& evt)
                 }
 
 
-                // add the page to the new notebook
+                // add the page to the NEW_DEBUG notebook
                 if (insert_idx == -1)
                     insert_idx = dest_tabs->GetPageCount();
                 dest_tabs->InsertPage(page_info.window, page_info, insert_idx);
@@ -2875,10 +2875,10 @@ void wxAuiNotebook::OnTabEndDrag(wxAuiNotebookEvent& evt)
             }
 
             // If there is no tabframe at all, create one
-            wxTabFrame* new_tabs = new wxTabFrame;
+            wxTabFrame* new_tabs = NEW_DEBUG wxTabFrame;
             new_tabs->m_rect = wxRect(wxPoint(0,0), CalculateNewSplitSize());
             new_tabs->SetTabCtrlHeight(m_tabCtrlHeight);
-            new_tabs->m_tabs = new wxAuiTabCtrl(this,
+            new_tabs->m_tabs = NEW_DEBUG wxAuiTabCtrl(this,
                                                 m_tabIdCounter++,
                                                 wxDefaultPosition,
                                                 wxDefaultSize,

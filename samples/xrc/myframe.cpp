@@ -74,7 +74,7 @@
 // The reason why the menuitems and tools are given the same name in the
 // XRC file, is that both a tool (a toolbar item) and a menuitem are designed
 // to fire the same kind of event (an EVT_MENU) and thus I give them the same
-// ID name to help new users emphasize this point which is often overlooked
+// ID name to help NEW_DEBUG users emphasize this point which is often overlooked
 // when starting out with wxWidgets.
 wxBEGIN_EVENT_TABLE(MyFrame, wxFrame)
     EVT_MENU(XRCID("unload_resource_menuitem"), MyFrame::OnUnloadResourceMenuCommand)
@@ -323,7 +323,7 @@ void MyFrame::OnObjRefToolOrMenuCommand(wxCommandEvent& WXUNUSED(event))
     wxLog* oldlogtarget = wxLog::SetActiveTarget(NULL);
 
     // Make an instance of the dialog
-    ObjrefDialog* objrefDialog = new ObjrefDialog(this);
+    ObjrefDialog* objrefDialog = NEW_DEBUG ObjrefDialog(this);
     // Show the instance of the dialog, modally.
     objrefDialog->ShowModal();
     objrefDialog->Destroy();
@@ -338,8 +338,8 @@ void MyFrame::OnCustomClassToolOrMenuCommand(wxCommandEvent& WXUNUSED(event))
     wxDialog dlg;
     wxXmlResource::Get()->LoadDialog(&dlg, this, "custom_class_dialog");
 
-    // Make an instance of our new custom class.
-    MyResizableListCtrl* a_myResizableListCtrl = new MyResizableListCtrl(&dlg,
+    // Make an instance of our NEW_DEBUG custom class.
+    MyResizableListCtrl* a_myResizableListCtrl = NEW_DEBUG MyResizableListCtrl(&dlg,
                                                 wxID_ANY,
                                                 wxDefaultPosition,
                                                 wxDefaultSize,
@@ -395,10 +395,10 @@ void MyFrame::OnRecursiveLoad(wxCommandEvent& WXUNUSED(event))
     wxDialog dlg(NULL, wxID_ANY, "Recursive Load Example",
                  wxDefaultPosition, wxDefaultSize,
                  wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER);
-    wxSizer * const sizer = new wxBoxSizer(wxVERTICAL);
+    wxSizer * const sizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     sizer->Add
     (
-        new wxStaticText
+        NEW_DEBUG wxStaticText
         (
             &dlg,
             wxID_ANY,

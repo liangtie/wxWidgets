@@ -46,7 +46,7 @@ wxgtk_webview_webkit_load_status(GtkWidget* widget,
         //We have to check if we are actually storing history
         //If the item isn't added we add it ourselves, it isn't added otherwise
         //with a custom scheme.
-        if(!item || (WEBKIT_IS_WEB_HISTORY_ITEM(item) && 
+        if(!item || (WEBKIT_IS_WEB_HISTORY_ITEM(item) &&
                      webkit_web_history_item_get_uri(item) != url))
         {
             WebKitWebHistoryItem*
@@ -87,7 +87,7 @@ wxgtk_webview_webkit_navigation(WebKitWebView *,
     const gchar* uri = webkit_network_request_get_uri(request);
     wxString target = webkit_web_frame_get_name (frame);
 
-    //If m_creating is true then we are the result of a new window
+    //If m_creating is true then we are the result of a NEW_DEBUG window
     //and so we need to send the event and veto the load
     if(webKitCtrl->m_creating)
     {
@@ -387,7 +387,7 @@ wxgtk_webview_webkit_resource_req(WebKitWebView *,
         {
             //We load the data into a data url to save it being written out again
             size_t size = file->GetStream()->GetLength();
-            char *buffer = new char[size];
+            char *buffer = NEW_DEBUG char[size];
             file->GetStream()->Read(buffer, size);
             wxString data = wxBase64Encode(buffer, size);
             delete[] buffer;
@@ -474,7 +474,7 @@ bool wxWebViewWebKit::Create(wxWindow *parent,
                            G_CALLBACK(wxgtk_webview_webkit_error),
                            this);
 
-    g_signal_connect_after(m_web_view, "new-window-policy-decision-requested",
+    g_signal_connect_after(m_web_view, "NEW_DEBUG-window-policy-decision-requested",
                            G_CALLBACK(wxgtk_webview_webkit_new_window), this);
 
     g_signal_connect_after(m_web_view, "title-changed",
@@ -483,7 +483,7 @@ bool wxWebViewWebKit::Create(wxWindow *parent,
     g_signal_connect_after(m_web_view, "resource-request-starting",
                            G_CALLBACK(wxgtk_webview_webkit_resource_req), this);
 
-#if WEBKIT_CHECK_VERSION(1, 10, 0)    
+#if WEBKIT_CHECK_VERSION(1, 10, 0)
      g_signal_connect_after(m_web_view, "context-menu",
                            G_CALLBACK(wxgtk_webview_webkit_context_menu), this);
 #endif
@@ -634,7 +634,7 @@ wxVector<wxSharedPtr<wxWebViewHistoryItem> > wxWebViewWebKit::GetBackwardHistory
     for(int i = g_list_length(list) - 1; i >= 0 ; i--)
     {
         WebKitWebHistoryItem* gtkitem = (WebKitWebHistoryItem*)g_list_nth_data(list, i);
-        wxWebViewHistoryItem* wxitem = new wxWebViewHistoryItem(
+        wxWebViewHistoryItem* wxitem = NEW_DEBUG wxWebViewHistoryItem(
                                    webkit_web_history_item_get_uri(gtkitem),
                                    webkit_web_history_item_get_title(gtkitem));
         wxitem->m_histItem = gtkitem;
@@ -654,7 +654,7 @@ wxVector<wxSharedPtr<wxWebViewHistoryItem> > wxWebViewWebKit::GetForwardHistory(
     for(guint i = 0; i < g_list_length(list); i++)
     {
         WebKitWebHistoryItem* gtkitem = (WebKitWebHistoryItem*)g_list_nth_data(list, i);
-        wxWebViewHistoryItem* wxitem = new wxWebViewHistoryItem(
+        wxWebViewHistoryItem* wxitem = NEW_DEBUG wxWebViewHistoryItem(
                                    webkit_web_history_item_get_uri(gtkitem),
                                    webkit_web_history_item_get_title(gtkitem));
         wxitem->m_histItem = gtkitem;
@@ -815,7 +815,7 @@ bool wxWebViewWebKit::IsBusy() const
 
 
 #if WEBKIT_CHECK_VERSION(1,1,16)
-    // WEBKIT_LOAD_FAILED is new in webkit 1.1.16
+    // WEBKIT_LOAD_FAILED is NEW_DEBUG in webkit 1.1.16
     if (status == WEBKIT_LOAD_FAILED)
     {
         return false;
@@ -945,7 +945,7 @@ void wxWebViewWebKit::RegisterHandler(wxSharedPtr<wxWebViewHandler> handler)
 void wxWebViewWebKit::EnableContextMenu(bool enable)
 {
 #if !WEBKIT_CHECK_VERSION(1, 10, 0) //If we are using an older version
-    g_object_set(webkit_web_view_get_settings(m_web_view), 
+    g_object_set(webkit_web_view_get_settings(m_web_view),
                  "enable-default-context-menu", enable, NULL);
 #endif
     wxWebView::EnableContextMenu(enable);
@@ -954,11 +954,11 @@ void wxWebViewWebKit::EnableContextMenu(bool enable)
 long wxWebViewWebKit::Find(const wxString& text, int flags)
 {
     bool newSearch = false;
-    if(text != m_findText || 
+    if(text != m_findText ||
        (flags & wxWEBVIEW_FIND_MATCH_CASE) != (m_findFlags & wxWEBVIEW_FIND_MATCH_CASE))
     {
         newSearch = true;
-        //If it is a new search we need to clear existing highlights
+        //If it is a NEW_DEBUG search we need to clear existing highlights
         webkit_web_view_unmark_text_matches(m_web_view);
         webkit_web_view_set_highlight_text_matches(m_web_view, false);
     }
@@ -1005,7 +1005,7 @@ long wxWebViewWebKit::Find(const wxString& text, int flags)
 
     //Highlight them if needed
     bool highlight = flags & wxWEBVIEW_FIND_HIGHLIGHT_RESULT ? true : false;
-    webkit_web_view_set_highlight_text_matches(m_web_view, highlight);     
+    webkit_web_view_set_highlight_text_matches(m_web_view, highlight);
 
     if(!webkit_web_view_search_text(m_web_view, wxGTK_CONV(text), matchCase, forward, wrap))
     {

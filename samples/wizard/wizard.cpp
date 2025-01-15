@@ -61,7 +61,7 @@ enum
 // private classes
 // ----------------------------------------------------------------------------
 
-// Define a new application type, each program should derive a class from wxApp
+// Define a NEW_DEBUG application type, each program should derive a class from wxApp
 class MyApp : public wxApp
 {
 public:
@@ -121,11 +121,11 @@ public:
     {
         m_bitmap = wxBitmapBundle::FromSVGFile("wiztest2.svg", wxSize(116, 260));
 
-        m_checkbox = new wxCheckBox(this, wxID_ANY, "&Check me");
+        m_checkbox = NEW_DEBUG wxCheckBox(this, wxID_ANY, "&Check me");
 
-        wxBoxSizer *mainSizer = new wxBoxSizer(wxVERTICAL);
+        wxBoxSizer *mainSizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
         mainSizer->Add(
-            new wxStaticText(this, wxID_ANY,
+            NEW_DEBUG wxStaticText(this, wxID_ANY,
                              "You need to check the checkbox\n"
                              "below before going to the next page\n"),
             0,
@@ -182,13 +182,13 @@ public:
         choices[2] = "both";
         choices[3] = "neither";
 
-        m_radio = new wxRadioBox(this, wxID_ANY, "Allow to proceed:",
+        m_radio = NEW_DEBUG wxRadioBox(this, wxID_ANY, "Allow to proceed:",
                                  wxDefaultPosition, wxDefaultSize,
                                  WXSIZEOF(choices), choices,
                                  1, wxRA_SPECIFY_COLS);
         m_radio->SetSelection(Both);
 
-        wxBoxSizer *mainSizer = new wxBoxSizer(wxVERTICAL);
+        wxBoxSizer *mainSizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
         mainSizer->Add(
             m_radio,
             0, // No stretching
@@ -247,17 +247,17 @@ public:
         m_prev = prev;
         m_next = next;
 
-        wxBoxSizer *mainSizer = new wxBoxSizer(wxVERTICAL);
+        wxBoxSizer *mainSizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
         mainSizer->Add(
-            new wxStaticText(this, wxID_ANY, "Try checking the box below and\n"
+            NEW_DEBUG wxStaticText(this, wxID_ANY, "Try checking the box below and\n"
                                        "then going back and clearing it"),
             0, // No vertical stretching
             wxALL,
             5 // Border width
         );
 
-        m_checkbox = new wxCheckBox(this, wxID_ANY, "&Skip the next page");
+        m_checkbox = NEW_DEBUG wxCheckBox(this, wxID_ANY, "&Skip the next page");
         mainSizer->Add(
             m_checkbox,
             0, // No vertical stretching
@@ -280,7 +280,7 @@ public:
             "Nineth"
         };
 
-        m_checklistbox = new wxCheckListBox
+        m_checklistbox = NEW_DEBUG wxCheckListBox
                              (
                                 this,
                                 wxID_ANY,
@@ -302,7 +302,7 @@ public:
             textSize = wxSize(150, wxGetClientDisplayRect().GetHeight() - 200);
 
 
-        wxTextCtrl* textCtrl = new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, textSize, wxTE_MULTILINE);
+        wxTextCtrl* textCtrl = NEW_DEBUG wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, textSize, wxTE_MULTILINE);
         mainSizer->Add(textCtrl, 0, wxALL|wxEXPAND, 5);
 
         SetSizerAndFit(mainSizer);
@@ -361,7 +361,7 @@ bool MyApp::OnInit()
     if ( !wxApp::OnInit() )
         return false;
 
-    MyFrame *frame = new MyFrame("wxWizard Sample");
+    MyFrame *frame = NEW_DEBUG MyFrame("wxWizard Sample");
 
     // and show it (the frames, unlike simple controls, are not shown when
     // created initially)
@@ -394,9 +394,9 @@ MyWizard::MyWizard(wxFrame *frame, bool useSizer)
         SetLayoutAdaptationMode(wxDIALOG_ADAPTATION_MODE_ENABLED);
 
     // a wizard page may be either an object of predefined class
-    m_page1 = new wxWizardPageSimple(this);
+    m_page1 = NEW_DEBUG wxWizardPageSimple(this);
 
-    /* wxStaticText *text = */ new wxStaticText(m_page1, wxID_ANY,
+    /* wxStaticText *text = */ NEW_DEBUG wxStaticText(m_page1, wxID_ANY,
              "This wizard doesn't help you\nto do anything at all.\n"
              "\n"
              "The next pages will present you\nwith more useless controls.",
@@ -404,8 +404,8 @@ MyWizard::MyWizard(wxFrame *frame, bool useSizer)
         );
 
     // ... or a derived class
-    wxRadioboxPage *page3 = new wxRadioboxPage(this);
-    wxValidationPage *page4 = new wxValidationPage(this);
+    wxRadioboxPage *page3 = NEW_DEBUG wxRadioboxPage(this);
+    wxValidationPage *page4 = NEW_DEBUG wxValidationPage(this);
 
     // set the page order using a convenience function - could also use
     // SetNext/Prev directly as below, but Chain() is shorter, avoids the risk
@@ -415,7 +415,7 @@ MyWizard::MyWizard(wxFrame *frame, bool useSizer)
 
     // this page is not a wxWizardPageSimple, so we use SetNext/Prev to insert
     // it into the chain of pages
-    wxCheckboxPage *page2 = new wxCheckboxPage(this, m_page1, page3);
+    wxCheckboxPage *page2 = NEW_DEBUG wxCheckboxPage(this, m_page1, page3);
     m_page1->SetNext(page2);
     page3->SetPrev(page2);
 
@@ -434,22 +434,22 @@ MyFrame::MyFrame(const wxString& title)
         :wxFrame((wxFrame *)NULL, wxID_ANY, title,
                   wxDefaultPosition, wxSize(250, 150))  // small frame
 {
-    wxMenu *menuFile = new wxMenu;
+    wxMenu *menuFile = NEW_DEBUG wxMenu;
     menuFile->Append(Wizard_RunModal, "&Run wizard modal...\tCtrl-R");
     menuFile->Append(Wizard_RunNoSizer, "Run wizard &without sizer...");
     menuFile->Append(Wizard_RunModeless, "Run wizard &modeless...");
     menuFile->AppendSeparator();
     menuFile->Append(Wizard_Quit, "E&xit\tAlt-X", "Quit this program");
 
-    wxMenu *menuOptions = new wxMenu;
+    wxMenu *menuOptions = NEW_DEBUG wxMenu;
     menuOptions->AppendCheckItem(Wizard_LargeWizard, "&Scroll Wizard Pages");
     menuOptions->AppendCheckItem(Wizard_ExpandBitmap, "Si&ze Bitmap To Page");
 
-    wxMenu *helpMenu = new wxMenu;
+    wxMenu *helpMenu = NEW_DEBUG wxMenu;
     helpMenu->Append(Wizard_About, "&About\tF1", "Show about dialog");
 
     // now append the freshly created menu to the menu bar...
-    wxMenuBar *menuBar = new wxMenuBar();
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar();
     menuBar->Append(menuFile, "&File");
     menuBar->Append(menuOptions, "&Options");
     menuBar->Append(helpMenu, "&Help");
@@ -492,7 +492,7 @@ void MyFrame::OnRunWizardNoSizer(wxCommandEvent& WXUNUSED(event))
 
 void MyFrame::OnRunWizardModeless(wxCommandEvent& WXUNUSED(event))
 {
-    MyWizard *wizard = new MyWizard(this);
+    MyWizard *wizard = NEW_DEBUG MyWizard(this);
     wizard->ShowPage(wizard->GetFirstPage());
     wizard->Show(true);
 }

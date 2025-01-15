@@ -374,14 +374,14 @@ wxToolBarToolBase *wxToolBar::CreateTool(int id,
                                          const wxString& shortHelpString,
                                          const wxString& longHelpString)
 {
-    return new wxToolBarTool(this, id, text, bitmap1, bitmap2, kind,
+    return NEW_DEBUG wxToolBarTool(this, id, text, bitmap1, bitmap2, kind,
                              clientData, shortHelpString, longHelpString);
 }
 
 wxToolBarToolBase *
 wxToolBar::CreateTool(wxControl *control, const wxString& label)
 {
-    return new wxToolBarTool(this, control, label);
+    return NEW_DEBUG wxToolBarTool(this, control, label);
 }
 
 //-----------------------------------------------------------------------------
@@ -575,7 +575,7 @@ bool wxToolBar::DoInsertTool(size_t pos, wxToolBarToolBase *toolBase)
             }
             if (!HasFlag(wxTB_NOICONS))
             {
-                GtkWidget* image = wxGtkImage::New(new BitmapProvider(tool));
+                GtkWidget* image = wxGtkImage::New(NEW_DEBUG BitmapProvider(tool));
                 gtk_tool_button_set_icon_widget(
                     GTK_TOOL_BUTTON(tool->m_item), image);
                 tool->SetImage();

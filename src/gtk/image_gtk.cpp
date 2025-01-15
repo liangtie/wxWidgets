@@ -92,7 +92,7 @@ GtkWidget* wxGtkImage::New(BitmapProvider* provider)
 
 GtkWidget* wxGtkImage::New(wxWindow* win)
 {
-    return New(new BitmapProviderDefault(win));
+    return New(NEW_DEBUG BitmapProviderDefault(win));
 }
 
 void wxGtkImage::Set(const wxBitmapBundle& bitmapBundle)

@@ -28,7 +28,7 @@
 
 
 // ----------------------------------------------------------------------------
-// wxGdkRegion: creates a new region in ctor and destroys in dtor
+// wxGdkRegion: creates a NEW_DEBUG region in ctor and destroys in dtor
 // ----------------------------------------------------------------------------
 
 class wxGdkRegion
@@ -95,27 +95,27 @@ void wxRegion::InitRect(wxCoord x, wxCoord y, wxCoord w, wxCoord h)
     rect.width = w;
     rect.height = h;
 
-    m_refData = new wxRegionRefData();
+    m_refData = NEW_DEBUG wxRegionRefData();
 
     M_REGIONDATA->m_region = gdk_region_union_with_rect( wxGdkRegion(), &rect );
 }
 
 wxRegion::wxRegion( GdkRegion *region )
 {
-    m_refData = new wxRegionRefData();
+    m_refData = NEW_DEBUG wxRegionRefData();
     M_REGIONDATA->m_region = gdk_regions_union(wxGdkRegion(), region);
 }
 
 wxRegion::wxRegion( size_t n, const wxPoint *points, wxPolygonFillMode fillStyle )
 {
-    GdkPoint *gdkpoints = new GdkPoint[n];
+    GdkPoint *gdkpoints = NEW_DEBUG GdkPoint[n];
     for ( size_t i = 0 ; i < n ; i++ )
     {
         gdkpoints[i].x = points[i].x;
         gdkpoints[i].y = points[i].y;
     }
 
-    m_refData = new wxRegionRefData();
+    m_refData = NEW_DEBUG wxRegionRefData();
 
     GdkRegion* reg = gdk_region_polygon
                      (
@@ -137,12 +137,12 @@ wxRegion::~wxRegion()
 
 wxGDIRefData *wxRegion::CreateGDIRefData() const
 {
-    return new wxRegionRefData;
+    return NEW_DEBUG wxRegionRefData;
 }
 
 wxGDIRefData *wxRegion::CloneGDIRefData(const wxGDIRefData *data) const
 {
-    return new wxRegionRefData(*(wxRegionRefData *)data);
+    return NEW_DEBUG wxRegionRefData(*(wxRegionRefData *)data);
 }
 
 // ----------------------------------------------------------------------------
@@ -201,7 +201,7 @@ bool wxRegion::DoUnionWithRegion( const wxRegion& region )
 
     if (!m_refData)
     {
-        m_refData = new wxRegionRefData();
+        m_refData = NEW_DEBUG wxRegionRefData();
         M_REGIONDATA->m_region = gdk_region_new();
     }
     else
@@ -416,7 +416,7 @@ void wxRIRefData::CreateRects( const wxRegion& region )
         m_numRects = r->numRects;
         if (m_numRects)
         {
-            m_rects = new wxRect[m_numRects];
+            m_rects = NEW_DEBUG wxRect[m_numRects];
             for (size_t i=0; i < m_numRects; ++i)
             {
                 _XBox &xr = r->rects[i];
@@ -432,13 +432,13 @@ void wxRIRefData::CreateRects( const wxRegion& region )
 
 wxRegionIterator::wxRegionIterator()
 {
-    m_refData = new wxRIRefData();
+    m_refData = NEW_DEBUG wxRIRefData();
     Reset();
 }
 
 wxRegionIterator::wxRegionIterator( const wxRegion& region )
 {
-    m_refData = new wxRIRefData();
+    m_refData = NEW_DEBUG wxRIRefData();
     Reset(region);
 }
 

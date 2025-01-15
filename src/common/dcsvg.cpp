@@ -403,7 +403,7 @@ wxSVGBitmapEmbedHandler::ProcessBitmap(const wxBitmap& bmp,
     static int sub_images = 0;
 
     if ( wxImage::FindHandler(wxBITMAP_TYPE_PNG) == NULL )
-        wxImage::AddHandler(new wxPNGHandler);
+        wxImage::AddHandler(NEW_DEBUG wxPNGHandler);
 
     // write the bitmap as a PNG to a memory stream and Base64 encode
     wxMemoryOutputStream mem;
@@ -462,7 +462,7 @@ wxSVGBitmapFileHandler::ProcessBitmap(const wxBitmap& bmp,
     static int sub_images = 0;
 
     if ( wxImage::FindHandler(wxBITMAP_TYPE_PNG) == NULL )
-        wxImage::AddHandler(new wxPNGHandler);
+        wxImage::AddHandler(NEW_DEBUG wxPNGHandler);
 
     // find a suitable file name
     wxFileName sPNG = m_path;
@@ -558,7 +558,7 @@ void wxSVGFileDCImpl::Init(const wxString& filename, int width, int height,
     if ( m_filename.empty() )
         m_outfile.reset();
     else
-        m_outfile.reset(new wxFileOutputStream(m_filename));
+        m_outfile.reset(NEW_DEBUG wxFileOutputStream(m_filename));
 
     const wxSize dpiSize = FromDIP(wxSize(m_width, m_height));
 
@@ -793,7 +793,7 @@ void wxSVGFileDCImpl::DoDrawRotatedText(const wxString& sText, wxCoord x, wxCoor
     style += wxS("\"");
 
     // this is deprecated in favour of "white-space: pre", keep it for now to
-    // support SVG viewers that do not support the new tag
+    // support SVG viewers that do not support the NEW_DEBUG tag
     style += wxS(" xml:space=\"preserve\"");
 
     // Draw all text line by line
@@ -1428,7 +1428,7 @@ void wxSVGFileDCImpl::DoDrawBitmap(const wxBitmap& bmp, wxCoord x, wxCoord y,
 
     // If we don't have any bitmap handler yet, use the default one.
     if ( !m_bmp_handler )
-        m_bmp_handler.reset(new wxSVGBitmapFileHandler(m_filename));
+        m_bmp_handler.reset(NEW_DEBUG wxSVGBitmapFileHandler(m_filename));
 
     m_OK = m_outfile && m_outfile->IsOk();
     if (!m_OK)

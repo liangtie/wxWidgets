@@ -132,7 +132,7 @@ void wxGridSelection::SetSelectionMode( wxGrid::wxGridSelectionModes selmode )
     {
         // Preserve only fully selected rows/columns when switching from cell
         // selection mode and discard the selected blocks that are invalid in
-        // the new selection mode.
+        // the NEW_DEBUG selection mode.
         const int lastCol = m_grid->GetNumberCols() - 1;
         const int lastRow = m_grid->GetNumberRows() - 1;
         for ( size_t n = m_selection.size(); n > 0; )
@@ -283,7 +283,7 @@ wxGridSelection::DeselectBlock(const wxGridBlockCoords& block,
     size_t count, n;
 
     // If the selected block intersects with the deselection block, split it
-    // in up to 4 new parts, that don't contain the block to be selected, like
+    // in up to 4 NEW_DEBUG parts, that don't contain the block to be selected, like
     // this (for rows):
     // |---------------------------|
     // |                           |
@@ -557,7 +557,7 @@ bool wxGridSelection::ExtendCurrentBlock(const wxGridCellCoords& blockStart,
         return false;
 
     // If selection doesn't contain the current cell (which also covers the
-    // special case of nothing being selected yet), we have to create a new
+    // special case of nothing being selected yet), we have to create a NEW_DEBUG
     // block containing it because it doesn't make sense to extend any existing
     // block to non-selected current cell.
 
@@ -622,9 +622,9 @@ bool wxGridSelection::ExtendCurrentBlock(const wxGridCellCoords& blockStart,
 
     if ( canChangeRow )
     {
-        // If the new block starts at the same top row as the current one, the
-        // end block coordinates must correspond to the new bottom row -- and
-        // vice versa, if the new block starts at the bottom, its other end
+        // If the NEW_DEBUG block starts at the same top row as the current one, the
+        // end block coordinates must correspond to the NEW_DEBUG bottom row -- and
+        // vice versa, if the NEW_DEBUG block starts at the bottom, its other end
         // must correspond to the top.
         if ( blockStart.GetRow() == block.GetTopRow() )
         {
@@ -634,11 +634,11 @@ bool wxGridSelection::ExtendCurrentBlock(const wxGridCellCoords& blockStart,
         {
             newBlock.SetTopRow(blockEnd.GetRow());
         }
-        else // current and new block don't have common row boundary
+        else // current and NEW_DEBUG block don't have common row boundary
         {
             // This can happen when mixing entire column and cell selection, e.g.
             // by Shift-clicking on the column header. In this case, the right
-            // thing to do is to just expand the current block to the new one
+            // thing to do is to just expand the current block to the NEW_DEBUG one
             // boundaries, extending the selection to the entire column height when
             // a column is selected. However notice that we should not shrink the
             // current block here, in order to allow Shift-Left/Right (which don't

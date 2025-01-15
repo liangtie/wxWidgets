@@ -73,7 +73,7 @@ wxHtmlParser::wxHtmlParser()
       m_FS(NULL)
 {
     m_Source = NULL;
-    m_entitiesParser = new wxHtmlEntitiesParser;
+    m_entitiesParser = NEW_DEBUG wxHtmlEntitiesParser;
     m_Tags = NULL;
     m_CurTag = NULL;
     m_TextPieces = NULL;
@@ -123,7 +123,7 @@ void wxHtmlParser::SetSource(const wxString& src)
     //     store/restore pointer to it, for which we need it to be allocated
     //     on the heap.
     delete m_Source;
-    m_Source = new wxString(src);
+    m_Source = NEW_DEBUG wxString(src);
     CreateDOMTree();
     m_CurTag = NULL;
     m_CurTextPiece = 0;
@@ -132,7 +132,7 @@ void wxHtmlParser::SetSource(const wxString& src)
 void wxHtmlParser::CreateDOMTree()
 {
     wxHtmlTagsCache cache(*m_Source);
-    m_TextPieces = new wxHtmlTextPieces;
+    m_TextPieces = NEW_DEBUG wxHtmlTextPieces;
     CreateDOMSubTree(NULL, m_Source->begin(), m_Source->end(), &cache);
     m_CurTextPiece = 0;
 }
@@ -181,11 +181,11 @@ void wxHtmlParser::CreateDOMSubTree(wxHtmlTag *cur,
             {
                 wxHtmlTag *chd;
                 if (cur)
-                    chd = new wxHtmlTag(cur, m_Source,
+                    chd = NEW_DEBUG wxHtmlTag(cur, m_Source,
                                         i, end_pos, cache, m_entitiesParser);
                 else
                 {
-                    chd = new wxHtmlTag(NULL, m_Source,
+                    chd = NEW_DEBUG wxHtmlTag(NULL, m_Source,
                                         i, end_pos, cache, m_entitiesParser);
                     if (!m_Tags)
                     {
@@ -341,7 +341,7 @@ void wxHtmlParser::PushTagHandler(wxHtmlTagHandler *handler, const wxString& tag
     wxStringTokenizer tokenizer(tags, wxT(", "));
     wxString key;
 
-    m_HandlersStack.push_back(new wxHtmlTagHandlersHash(m_HandlersHash));
+    m_HandlersStack.push_back(NEW_DEBUG wxHtmlTagHandlersHash(m_HandlersHash));
 
     while (tokenizer.HasMoreTokens())
     {
@@ -363,7 +363,7 @@ void wxHtmlParser::PopTagHandler()
 
 void wxHtmlParser::SetSourceAndSaveState(const wxString& src)
 {
-    wxHtmlParserState *s = new wxHtmlParserState;
+    wxHtmlParserState *s = NEW_DEBUG wxHtmlParserState;
 
     s->m_curTag = m_CurTag;
     s->m_tags = m_Tags;
@@ -456,7 +456,7 @@ void wxHtmlEntitiesParser::SetEncoding(wxFontEncoding encoding)
     if (m_encoding == wxFONTENCODING_SYSTEM)
         m_conv = NULL;
     else
-        m_conv = new wxCSConv(wxFontMapper::GetEncodingName(m_encoding));
+        m_conv = NEW_DEBUG wxCSConv(wxFontMapper::GetEncodingName(m_encoding));
 }
 #endif // !wxUSE_UNICODE
 
@@ -927,10 +927,10 @@ bool wxMetaTagHandler::HandleTag(const wxHtmlTag& tag)
 wxString wxHtmlParser::ExtractCharsetInformation(const wxString& markup)
 {
     wxString charset;
-    wxMetaTagParser *parser = new wxMetaTagParser();
+    wxMetaTagParser *parser = NEW_DEBUG wxMetaTagParser();
     if(parser)
     {
-        parser->AddTagHandler(new wxMetaTagHandler(&charset));
+        parser->AddTagHandler(NEW_DEBUG wxMetaTagHandler(&charset));
         parser->Parse(markup);
         delete parser;
     }

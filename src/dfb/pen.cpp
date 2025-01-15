@@ -61,24 +61,24 @@ wxPen::wxPen(const wxColour &colour, int width, wxPenStyle style)
 {
     wxASSERT_MSG( width <= 1, "only width=0,1 are supported" );
 
-    m_refData = new wxPenRefData(colour, style);
+    m_refData = NEW_DEBUG wxPenRefData(colour, style);
 }
 
 wxPen::wxPen(const wxColour& col, int width, int style)
 {
-    m_refData = new wxPenRefData(col, (wxPenStyle)style);
+    m_refData = NEW_DEBUG wxPenRefData(col, (wxPenStyle)style);
 }
 
 wxPen::wxPen(const wxBitmap& WXUNUSED(stipple), int WXUNUSED(width))
 {
     wxFAIL_MSG( "stipple pens not supported" );
 
-    m_refData = new wxPenRefData();
+    m_refData = NEW_DEBUG wxPenRefData();
 }
 
 wxPen::wxPen(const wxPenInfo& info)
 {
-    m_refData = new wxPenRefData(info.GetColour(), info.GetStyle());
+    m_refData = NEW_DEBUG wxPenRefData(info.GetColour(), info.GetStyle());
 }
 
 bool wxPen::operator==(const wxPen& pen) const
@@ -199,10 +199,10 @@ wxBitmap *wxPen::GetStipple() const
 
 wxGDIRefData *wxPen::CreateGDIRefData() const
 {
-    return new wxPenRefData;
+    return NEW_DEBUG wxPenRefData;
 }
 
 wxGDIRefData *wxPen::CloneGDIRefData(const wxGDIRefData *data) const
 {
-    return new wxPenRefData(*(wxPenRefData *)data);
+    return NEW_DEBUG wxPenRefData(*(wxPenRefData *)data);
 }

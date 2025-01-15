@@ -49,18 +49,18 @@
 #endif
 
 
-#ifdef new
-#undef new
+#ifdef NEW_DEBUG
+#undef NEW_DEBUG
 #endif
 
 // wxDebugContext wxTheDebugContext;
 /*
-  Redefine new and delete so that we can pick up situations where:
+  Redefine NEW_DEBUG and delete so that we can pick up situations where:
         - we overwrite or underwrite areas of malloc'd memory.
         - we use uninitialise variables
   Only do this in debug mode.
 
-  We change new to get enough memory to allocate a struct, followed
+  We change NEW_DEBUG to get enough memory to allocate a struct, followed
   by the caller's requested memory, followed by a tag. The struct
   is used to create a doubly linked list of these areas and also
   contains another tag. The tags are used to determine when the area
@@ -130,7 +130,7 @@ int wxMemStruct::AssertList ()
   which have valid ids.
   This is definitely not perfect since we could fall over just trying to access
   any of the slots which we use here, but I think it's about the best that I
-  can do without doing something like taking all new wxMemStruct pointers and
+  can do without doing something like taking all NEW_DEBUG wxMemStruct pointers and
   comparing them against all known pointer within the list and then only
   doing this sort of check _after_ you've found the pointer in the list. That
   would be safer, but also much more time consuming.
@@ -886,12 +886,12 @@ static MemoryCriticalSection memLocker;
 
 #if !(defined(__WINDOWS__) && (defined(WXUSINGDLL) || defined(WXMAKINGDLL_BASE)))
 #if wxUSE_GLOBAL_MEMORY_OPERATORS
-void * operator new (size_t size, wxChar * fileName, int lineNum)
+void * operator NEW_DEBUG (size_t size, wxChar * fileName, int lineNum)
 {
     return wxDebugAlloc(size, fileName, lineNum, false, false);
 }
 
-void * operator new (size_t size)
+void * operator NEW_DEBUG (size_t size)
 {
     return wxDebugAlloc(size, NULL, 0, false);
 }
@@ -902,12 +902,12 @@ void operator delete (void * buf)
 }
 
 #if wxUSE_ARRAY_MEMORY_OPERATORS
-void * operator new[] (size_t size)
+void * operator NEW_DEBUG[] (size_t size)
 {
     return wxDebugAlloc(size, NULL, 0, false, true);
 }
 
-void * operator new[] (size_t size, wxChar * fileName, int lineNum)
+void * operator NEW_DEBUG[] (size_t size, wxChar * fileName, int lineNum)
 {
     return wxDebugAlloc(size, fileName, lineNum, false, true);
 }
@@ -953,7 +953,7 @@ void * wxDebugAlloc(size_t size, wxChar * fileName, int lineNum, bool isObject, 
 
     // Errors from Append() shouldn't really happen - but just in case!
     if (st->Append () == 0) {
-        st->ErrorMsg ("Trying to append new node");
+        st->ErrorMsg ("Trying to append NEW_DEBUG node");
     }
 
     if (wxDebugContext::GetCheckPrevious ()) {

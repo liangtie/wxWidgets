@@ -35,7 +35,7 @@
 // private classes
 // ----------------------------------------------------------------------------
 
-// Define a new application type, each program should derive a class from wxApp
+// Define a NEW_DEBUG application type, each program should derive a class from wxApp
 class MyApp : public wxApp
 {
 public:
@@ -107,7 +107,7 @@ private:
 };
 
 
-// Define a new frame type: this is going to be our main frame
+// Define a NEW_DEBUG frame type: this is going to be our main frame
 class MyFrame : public wxFrame
 {
 public:
@@ -161,7 +161,7 @@ wxBEGIN_EVENT_TABLE(MyFrame, wxFrame)
     EVT_MENU(Caret_Move, MyFrame::OnCaretMove)
 wxEND_EVENT_TABLE()
 
-// Create a new application object: this macro will allow wxWidgets to create
+// Create a NEW_DEBUG application object: this macro will allow wxWidgets to create
 // the application object during program execution (it's better than using a
 // static object for many reasons) and also declares the accessor function
 // wxGetApp() which will return the reference of the right type (i.e. MyApp and
@@ -183,7 +183,7 @@ bool MyApp::OnInit()
         return false;
 
     // create and show the main application window
-    MyFrame *frame = new MyFrame("Caret wxWidgets sample",
+    MyFrame *frame = NEW_DEBUG MyFrame("Caret wxWidgets sample",
                                  wxPoint(50, 50), wxSize(450, 340));
 
     frame->Show(true);
@@ -206,7 +206,7 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
     SetIcon(wxICON(sample));
 
     // create a menu bar
-    wxMenu *menuFile = new wxMenu;
+    wxMenu *menuFile = NEW_DEBUG wxMenu;
 
     menuFile->Append(Caret_SetBlinkTime, "&Blink time...\tCtrl-B");
     menuFile->Append(Caret_SetFontSize, "&Font size...\tCtrl-S");
@@ -217,13 +217,13 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
     menuFile->Append(Caret_Quit, "E&xit\tAlt-X", "Quit this program");
 
     // now append the freshly created menu to the menu bar...
-    wxMenuBar *menuBar = new wxMenuBar;
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar;
     menuBar->Append(menuFile, "&File");
 
     // ... and attach this menu bar to the frame
     SetMenuBar(menuBar);
 
-    m_canvas = new MyCanvas(this);
+    m_canvas = NEW_DEBUG MyCanvas(this);
 
 #if wxUSE_STATUSBAR
     // create a status bar just for fun (by default with 1 pane only)
@@ -325,7 +325,7 @@ MyCanvas::~MyCanvas()
 
 void MyCanvas::CreateCaret()
 {
-    wxCaret *caret = new wxCaret(this, m_widthChar, m_heightChar);
+    wxCaret *caret = NEW_DEBUG wxCaret(this, m_widthChar, m_heightChar);
     SetCaret(caret);
 
     caret->Move(m_xMargin, m_yMargin);

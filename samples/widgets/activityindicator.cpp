@@ -110,25 +110,25 @@ IMPLEMENT_WIDGETS_PAGE(ActivityIndicatorWidgetsPage,
 
 void ActivityIndicatorWidgetsPage::CreateContent()
 {
-    wxSizer* const sizerOper = new wxStaticBoxSizer(wxVERTICAL, this,
+    wxSizer* const sizerOper = NEW_DEBUG wxStaticBoxSizer(wxVERTICAL, this,
                                                     "&Operations");
 
-    sizerOper->Add(new wxButton(this, ActivityIndicator_Start, "&Start"),
+    sizerOper->Add(NEW_DEBUG wxButton(this, ActivityIndicator_Start, "&Start"),
                    wxSizerFlags().Expand().Border());
-    sizerOper->Add(new wxButton(this, ActivityIndicator_Stop, "&Stop"),
+    sizerOper->Add(NEW_DEBUG wxButton(this, ActivityIndicator_Stop, "&Stop"),
                    wxSizerFlags().Expand().Border());
 
-    sizerOper->Add(new wxStaticText(this, ActivityIndicator_IsRunning,
+    sizerOper->Add(NEW_DEBUG wxStaticText(this, ActivityIndicator_IsRunning,
                                     "Indicator is initializing..."),
                    wxSizerFlags().Expand().Border());
 
 
-    m_sizerIndicator = new wxStaticBoxSizer(wxHORIZONTAL, this,
+    m_sizerIndicator = NEW_DEBUG wxStaticBoxSizer(wxHORIZONTAL, this,
                                             "Activity Indicator");
     RecreateWidget();
 
 
-    wxSizer* const sizerTop = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer* const sizerTop = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     sizerTop->Add(sizerOper, wxSizerFlags().Expand().DoubleBorder());
     sizerTop->Add(m_sizerIndicator, wxSizerFlags(1).Expand().DoubleBorder());
 
@@ -139,7 +139,7 @@ void ActivityIndicatorWidgetsPage::RecreateWidget()
 {
     m_sizerIndicator->Clear(true /* delete windows */);
 
-    m_indicator = new wxActivityIndicator(this, wxID_ANY,
+    m_indicator = NEW_DEBUG wxActivityIndicator(this, wxID_ANY,
                                           wxDefaultPosition, wxDefaultSize,
                                           GetAttrs().m_defaultFlags);
 

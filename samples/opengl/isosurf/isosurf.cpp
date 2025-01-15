@@ -53,7 +53,7 @@ bool MyApp::OnInit()
         return false;
 
     // Create the main frame window
-    new MyFrame(NULL, "wxWidgets OpenGL Isosurf Sample");
+    NEW_DEBUG MyFrame(NULL, "wxWidgets OpenGL Isosurf Sample");
 
     return true;
 }
@@ -97,10 +97,10 @@ MyFrame::MyFrame(wxFrame *frame, const wxString& title, const wxPoint& pos,
 
 
     // Make a menubar
-    wxMenu *fileMenu = new wxMenu;
+    wxMenu *fileMenu = NEW_DEBUG wxMenu;
 
     fileMenu->Append(wxID_EXIT, "E&xit");
-    wxMenuBar *menuBar = new wxMenuBar;
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar;
     menuBar->Append(fileMenu, "&File");
     SetMenuBar(menuBar);
 
@@ -128,7 +128,7 @@ MyFrame::MyFrame(wxFrame *frame, const wxString& title, const wxPoint& pos,
         g_doubleBuffer = GL_FALSE;
     }
 
-    m_canvas = new TestGLCanvas(this, wxID_ANY, gl_attrib);
+    m_canvas = NEW_DEBUG TestGLCanvas(this, wxID_ANY, gl_attrib);
 
     // Show the frame
     Show(true);
@@ -170,8 +170,8 @@ TestGLCanvas::TestGLCanvas(wxWindow *parent,
     m_yrot = 0;
     m_numverts = 0;
 
-    // Explicitly create a new rendering context instance for this canvas.
-    m_glRC = new wxGLContext(this);
+    // Explicitly create a NEW_DEBUG rendering context instance for this canvas.
+    m_glRC = NEW_DEBUG wxGLContext(this);
 }
 
 TestGLCanvas::~TestGLCanvas()
@@ -188,7 +188,7 @@ void TestGLCanvas::LoadSurface(const wxString& filename)
     wxLocale l(wxLANGUAGE_ENGLISH);
 
     wxZlibInputStream* stream =
-        new wxZlibInputStream(new wxFFileInputStream(filename));
+        NEW_DEBUG wxZlibInputStream(NEW_DEBUG wxFFileInputStream(filename));
     if (!stream || !stream->IsOk())
     {
         wxLogError("Cannot load '%s' type of files!", filename);
@@ -397,7 +397,7 @@ void TestGLCanvas::InitMaterials()
 
 void TestGLCanvas::InitGL()
 {
-    // Make the new context current (activate it for use) with this canvas.
+    // Make the NEW_DEBUG context current (activate it for use) with this canvas.
     SetCurrent(*m_glRC);
 
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);

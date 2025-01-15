@@ -374,7 +374,7 @@ async_targets_selection_received( GtkWidget *WXUNUSED(widget),
     if (!clipboard->m_sink)
         return;
 
-    wxClipboardEvent *event = new wxClipboardEvent(wxEVT_CLIPBOARD_CHANGED);
+    wxClipboardEvent *event = NEW_DEBUG wxClipboardEvent(wxEVT_CLIPBOARD_CHANGED);
     event->SetEventObject( clipboard );
 
     int selection_data_length = 0;

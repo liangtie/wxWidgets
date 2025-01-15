@@ -125,7 +125,7 @@ wxChmTools::wxChmTools(const wxFileName &archive)
         m_archive = chmh;
 
         // Create Filenamearray
-        m_fileNames = new wxArrayString;
+        m_fileNames = NEW_DEBUG wxArrayString;
 
         // Store Filenames in array
         for (file = chmh->files; file; file = file->next)
@@ -417,7 +417,7 @@ wxChmInputStream::wxChmInputStream(const wxString& archive,
     m_content = NULL;
     m_contentStream = NULL;
     m_lasterror = wxSTREAM_NO_ERROR;
-    m_chm = new wxChmTools (wxFileName(archive));
+    m_chm = NEW_DEBUG wxChmTools (wxFileName(archive));
     m_file = NULL;
     m_fileName = wxString(filename).MakeLower();
     m_simulateHHP = simulate;
@@ -579,7 +579,7 @@ wxChmInputStream::CreateHHPStream()
     {
         // New stream for writing a memory area to simulate the
         // .hhp-file
-        out = new wxMemoryOutputStream();
+        out = NEW_DEBUG wxMemoryOutputStream();
 
         tmp = "[OPTIONS]\r\n";
         out->Write((const void *) tmp, strlen(tmp));
@@ -690,7 +690,7 @@ wxChmInputStream::CreateHHPStream()
         out->CopyTo(m_content, m_size);
         m_content[m_size]='\0';
         m_size++;
-        m_contentStream = new wxMemoryInputStream(m_content, m_size);
+        m_contentStream = NEW_DEBUG wxMemoryInputStream(m_content, m_size);
 
         delete out;
     }
@@ -724,7 +724,7 @@ bool wxChmInputStream::CreateFileStream(const wxString& pattern)
     else
     {
         // Open a filestream to extracted file
-        fin = new wxFileInputStream(tmpfile);
+        fin = NEW_DEBUG wxFileInputStream(tmpfile);
         if (!fin->IsOk())
             return false;
 
@@ -737,7 +737,7 @@ bool wxChmInputStream::CreateFileStream(const wxString& pattern)
 
         delete fin;
 
-        m_contentStream = new wxMemoryInputStream (m_content, m_size);
+        m_contentStream = NEW_DEBUG wxMemoryInputStream (m_content, m_size);
 
         return m_contentStream->IsOk();
     }
@@ -832,11 +832,11 @@ wxFSFile* wxChmFSHandler::OpenFile(wxFileSystem& WXUNUSED(fs),
         return NULL;
 
     // Open a stream to read the content of the chm-file
-    s = new wxChmInputStream(leftFilename.GetFullPath(), right, true);
+    s = NEW_DEBUG wxChmInputStream(leftFilename.GetFullPath(), right, true);
 
     if ( s )
     {
-        return new wxFSFile(s,
+        return NEW_DEBUG wxFSFile(s,
                             left + wxT("#chm:") + right,
                             wxEmptyString,
                             GetAnchor(location),
@@ -864,7 +864,7 @@ wxString wxChmFSHandler::FindFirst(const wxString& spec, int WXUNUSED(flags))
         return wxEmptyString;
     }
 
-    m_chm = new wxChmTools(wxFileName(nativename));
+    m_chm = NEW_DEBUG wxChmTools(wxFileName(nativename));
     m_pattern = right.AfterLast(wxT('/'));
 
     wxString m_found = m_chm->Find(m_pattern);
@@ -903,7 +903,7 @@ class wxChmSupportModule : public wxModule
 public:
     virtual bool OnInit() wxOVERRIDE
     {
-        wxFileSystem::AddHandler(new wxChmFSHandler);
+        wxFileSystem::AddHandler(NEW_DEBUG wxChmFSHandler);
         return true;
     }
     virtual void OnExit() wxOVERRIDE {}

@@ -10,7 +10,9 @@
 
 // compiler detection; includes setup.h
 #include "wx/defs.h"
-
+#include <crtdbg.h>
+#define NEW_DEBUG new(_NORMAL_BLOCK, __FILE__, __LINE__)
+#define NEW_DEBUG2(...) new(__VA_ARGS__)
 // check if to use precompiled headers: do it for most Windows compilers unless
 // explicitly disabled by defining NOPCH
 #if defined(__VISUALC__)

@@ -192,11 +192,11 @@ bool wxGenericCalendarCtrl::Create(wxWindow *parent,
     if ( !HasFlag(wxCAL_SEQUENTIAL_MONTH_SELECTION) )
     {
         CreateYearSpinCtrl();
-        m_staticYear = new wxStaticText(GetParent(), wxID_ANY, m_date.Format(wxT("%Y")),
+        m_staticYear = NEW_DEBUG wxStaticText(GetParent(), wxID_ANY, m_date.Format(wxT("%Y")),
                                         wxDefaultPosition, wxDefaultSize,
                                         wxALIGN_CENTRE);
         CreateMonthComboBox();
-        m_staticMonth = new wxStaticText(GetParent(), wxID_ANY, m_date.Format(wxT("%B")),
+        m_staticMonth = NEW_DEBUG wxStaticText(GetParent(), wxID_ANY, m_date.Format(wxT("%B")),
                                          wxDefaultPosition, wxDefaultSize,
                                          wxALIGN_CENTRE);
     }
@@ -255,7 +255,7 @@ void wxGenericCalendarCtrl::SetWindowStyleFlag(long style)
 
 void wxGenericCalendarCtrl::CreateMonthComboBox()
 {
-    m_choiceMonth = new wxChoice(GetParent(), wxID_ANY,
+    m_choiceMonth = NEW_DEBUG wxChoice(GetParent(), wxID_ANY,
                                   wxDefaultPosition,
                                   wxDefaultSize,
                                   0, NULL);
@@ -278,7 +278,7 @@ void wxGenericCalendarCtrl::CreateMonthComboBox()
 
 void wxGenericCalendarCtrl::CreateYearSpinCtrl()
 {
-    m_spinYear = new wxSpinCtrl(GetParent(), wxID_ANY,
+    m_spinYear = NEW_DEBUG wxSpinCtrl(GetParent(), wxID_ANY,
                                 GetDate().Format(wxT("%Y")),
                                 wxDefaultPosition,
                                 wxDefaultSize,
@@ -486,7 +486,7 @@ void wxGenericCalendarCtrl::ChangeDay(const wxDateTime& date)
     if ( m_date != date )
     {
         // we need to refresh the row containing the old date and the one
-        // containing the new one
+        // containing the NEW_DEBUG one
         wxDateTime dateOld = m_date;
         m_date = date;
 
@@ -1710,7 +1710,7 @@ void wxGenericCalendarCtrl::SetHoliday(size_t day)
     wxCalendarDateAttr *attr = GetAttr(day);
     if ( !attr )
     {
-        attr = new wxCalendarDateAttr;
+        attr = NEW_DEBUG wxCalendarDateAttr;
     }
 
     attr->SetHoliday(true);
@@ -1739,7 +1739,7 @@ void wxGenericCalendarCtrl::Mark(size_t day, bool mark)
         if ( m_attrs[day - 1] )
             AddAttr(m_attrs[day - 1], m);
         else
-            SetAttr(day, new wxCalendarDateAttr(m));
+            SetAttr(day, NEW_DEBUG wxCalendarDateAttr(m));
     }
     else {
         if ( m_attrs[day - 1] )

@@ -907,7 +907,7 @@ void wxWindow::ScrollWindow(int dx, int dy, const wxRect *rect)
 
     if (dx > 0)
     {
-        wxRect *rect = new wxRect;
+        wxRect *rect = NEW_DEBUG wxRect;
         rect->x = x;
         rect->y = y;
         rect->width = dx;
@@ -924,7 +924,7 @@ void wxWindow::ScrollWindow(int dx, int dy, const wxRect *rect)
     }
     else if (dx < 0)
     {
-        wxRect *rect = new wxRect;
+        wxRect *rect = NEW_DEBUG wxRect;
 
         rect->x = x + w + dx;
         rect->y = y;
@@ -942,7 +942,7 @@ void wxWindow::ScrollWindow(int dx, int dy, const wxRect *rect)
     }
     if (dy > 0)
     {
-        wxRect *rect = new wxRect;
+        wxRect *rect = NEW_DEBUG wxRect;
 
         rect->x = x;
         rect->y = y;
@@ -960,7 +960,7 @@ void wxWindow::ScrollWindow(int dx, int dy, const wxRect *rect)
     }
     else if (dy < 0)
     {
-        wxRect *rect = new wxRect;
+        wxRect *rect = NEW_DEBUG wxRect;
 
         rect->x = x;
         rect->y = y + h + dy;
@@ -1740,7 +1740,7 @@ bool wxAddWindowToTable(Widget w, wxWindow *win)
     const long key = (long)w;
     if ( wxWidgetHashTable->Get(key))
     {
-        wxLogDebug("Widget table clash: new widget is %ld, %s",
+        wxLogDebug("Widget table clash: NEW_DEBUG widget is %ld, %s",
                    key, win->GetClassInfo()->GetClassName());
         return false;
     }

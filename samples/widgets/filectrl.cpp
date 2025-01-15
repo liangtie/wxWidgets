@@ -153,13 +153,13 @@ FileCtrlWidgetsPage::FileCtrlWidgetsPage( WidgetsBookCtrl *book,
 
 void FileCtrlWidgetsPage::CreateContent()
 {
-    wxSizer *sizerTop = new wxBoxSizer( wxHORIZONTAL );
+    wxSizer *sizerTop = NEW_DEBUG wxBoxSizer( wxHORIZONTAL );
 
     // left pane
-    wxSizer *sizerLeft = new wxBoxSizer( wxVERTICAL );
+    wxSizer *sizerLeft = NEW_DEBUG wxBoxSizer( wxVERTICAL );
 
     static const wxString mode[] = { "open", "save" };
-    m_radioFileCtrlMode = new wxRadioBox( this, wxID_ANY, "wxFileCtrl mode",
+    m_radioFileCtrlMode = NEW_DEBUG wxRadioBox( this, wxID_ANY, "wxFileCtrl mode",
                                           wxDefaultPosition, wxDefaultSize,
                                           WXSIZEOF( mode ), mode );
 
@@ -174,25 +174,25 @@ void FileCtrlWidgetsPage::CreateContent()
                     0, wxALL | wxEXPAND , 5 );
 
     wxSizer *sizerUseFlags =
-        new wxStaticBoxSizer( wxVERTICAL, this, "&Flags");
+        NEW_DEBUG wxStaticBoxSizer( wxVERTICAL, this, "&Flags");
 
     m_chkMultiple   = CreateCheckBoxAndAddToSizer( sizerUseFlags, "wxFC_MULTIPLE");
     m_chkNoShowHidden   = CreateCheckBoxAndAddToSizer( sizerUseFlags, "wxFC_NOSHOWHIDDEN");
     sizerLeft->Add( sizerUseFlags, wxSizerFlags().Expand().Border() );
 
     wxSizer *sizerFilters =
-        new wxStaticBoxSizer( wxVERTICAL, this, "&Filters");
+        NEW_DEBUG wxStaticBoxSizer( wxVERTICAL, this, "&Filters");
     m_fltr[0] = CreateCheckBoxAndAddToSizer( sizerFilters, wxString::Format("all files (%s)|%s",
                 wxFileSelectorDefaultWildcardStr, wxFileSelectorDefaultWildcardStr ) );
     m_fltr[1] = CreateCheckBoxAndAddToSizer( sizerFilters, "C++ files (*.cpp; *.h)|*.cpp;*.h" );
     m_fltr[2] = CreateCheckBoxAndAddToSizer( sizerFilters, "PNG images (*.png)|*.png");
     sizerLeft->Add( sizerFilters, wxSizerFlags().Expand().Border() );
 
-    wxButton *btn = new wxButton( this, FileCtrlPage_Reset, "&Reset" );
+    wxButton *btn = NEW_DEBUG wxButton( this, FileCtrlPage_Reset, "&Reset" );
     sizerLeft->Add( btn, 0, wxALIGN_CENTRE_HORIZONTAL | wxALL, 15 );
 
     // right pane
-    m_fileCtrl = new wxFileCtrl(
+    m_fileCtrl = NEW_DEBUG wxFileCtrl(
                      this,
                      FileCtrlPage_Ctrl,
                      wxEmptyString,
@@ -244,7 +244,7 @@ void FileCtrlWidgetsPage::CreateFileCtrl()
     if ( m_chkNoShowHidden->IsChecked() )
         style |= wxFC_NOSHOWHIDDEN;
 
-    wxFileCtrl *fileCtrl = new wxFileCtrl(
+    wxFileCtrl *fileCtrl = NEW_DEBUG wxFileCtrl(
                                this,
                                FileCtrlPage_Ctrl,
                                wxEmptyString,
@@ -318,7 +318,7 @@ void FileCtrlWidgetsPage::OnFileCtrl( wxFileCtrlEvent& event )
 {
     if ( event.GetEventType() == wxEVT_FILECTRL_FOLDERCHANGED )
     {
-        wxLogMessage("Folder changed event, new folder: %s", event.GetDirectory());
+        wxLogMessage("Folder changed event, NEW_DEBUG folder: %s", event.GetDirectory());
     }
     else if ( event.GetEventType() == wxEVT_FILECTRL_FILEACTIVATED )
     {

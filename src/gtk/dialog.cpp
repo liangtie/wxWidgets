@@ -172,7 +172,7 @@ int wxDialog::ShowModal()
 
     // Run modal dialog event loop.
     {
-        wxGUIEventLoopTiedPtr modal(&m_modalLoop, new wxGUIEventLoop());
+        wxGUIEventLoopTiedPtr modal(&m_modalLoop, NEW_DEBUG wxGUIEventLoop());
         m_modalLoop->Run();
     }
 

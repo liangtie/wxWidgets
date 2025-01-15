@@ -125,7 +125,7 @@ bool wxGenericStaticText::DoSetLabelMarkup(const wxString& markup)
         return false;
 
     if ( !m_markupText )
-        m_markupText = new wxMarkupText(markup);
+        m_markupText = NEW_DEBUG wxMarkupText(markup);
     else
         m_markupText->SetMarkup(markup);
 

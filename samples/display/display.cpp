@@ -42,7 +42,7 @@
 // private classes
 // ----------------------------------------------------------------------------
 
-// Define a new application type, each program should derive a class from wxApp
+// Define a NEW_DEBUG application type, each program should derive a class from wxApp
 class MyApp : public wxApp
 {
 public:
@@ -55,7 +55,7 @@ public:
     virtual bool OnInit() wxOVERRIDE;
 };
 
-// Define a new frame type: this is going to be our main frame
+// Define a NEW_DEBUG frame type: this is going to be our main frame
 class MyFrame : public wxFrame
 {
 public:
@@ -161,7 +161,7 @@ wxBEGIN_EVENT_TABLE(MyFrame, wxFrame)
     EVT_LEFT_UP(MyFrame::OnLeftClick)
 wxEND_EVENT_TABLE()
 
-// Create a new application object: this macro will allow wxWidgets to create
+// Create a NEW_DEBUG application object: this macro will allow wxWidgets to create
 // the application object during program execution (it's better than using a
 // static object for many reasons) and also declares the accessor function
 // wxGetApp() which will return the reference of the right type (i.e. MyApp and
@@ -183,7 +183,7 @@ bool MyApp::OnInit()
         return false;
 
     // create the main application window
-    MyFrame *frame = new MyFrame(_("Display wxWidgets Sample"),
+    MyFrame *frame = NEW_DEBUG MyFrame(_("Display wxWidgets Sample"),
                                  wxDefaultPosition, wxDefaultSize);
 
     // and show it (the frames, unlike simple controls, are not shown when
@@ -209,18 +209,18 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size, 
 
 #if wxUSE_MENUS
     // create a menu bar
-    wxMenu *menuDisplay = new wxMenu;
+    wxMenu *menuDisplay = NEW_DEBUG wxMenu;
     menuDisplay->Append(Display_FromPoint, _("Find from &point..."));
     menuDisplay->AppendSeparator();
     wxMenuItem* const
-        itemFullScreen = new wxMenuItem(menuDisplay,
+        itemFullScreen = NEW_DEBUG wxMenuItem(menuDisplay,
                                         Display_FullScreen,
                                         _("Full &screen\tF12"));
     itemFullScreen->SetBitmap(
             wxArtProvider::GetBitmap(wxART_FULL_SCREEN, wxART_MENU)
         );
 
-    wxMenu* contentProtectionMenu = new wxMenu();
+    wxMenu* contentProtectionMenu = NEW_DEBUG wxMenu();
     contentProtectionMenu->Append(Display_ContentProtection_None, _("&None"), "", wxITEM_RADIO);
     contentProtectionMenu->Check(Display_ContentProtection_None, true);
     contentProtectionMenu->Append(Display_ContentProtection_Enable, _("&Enabled"), "", wxITEM_RADIO);
@@ -231,11 +231,11 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size, 
     menuDisplay->Append(Display_Quit, _("E&xit\tAlt-X"), _("Quit this program"));
 
     // the "About" item should be in the help menu
-    wxMenu *helpMenu = new wxMenu;
+    wxMenu *helpMenu = NEW_DEBUG wxMenu;
     helpMenu->Append(Display_About, _("&About\tF1"), _("Show about dialog"));
 
     // now append the freshly created menu to the menu bar...
-    wxMenuBar *menuBar = new wxMenuBar();
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar();
     menuBar->Append(menuDisplay, _("&Display"));
     menuBar->Append(helpMenu, _("&Help"));
 
@@ -251,7 +251,7 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size, 
 #endif // wxUSE_STATUSBAR
 
     // create child controls
-    m_book = new wxBookCtrl(this, wxID_ANY);
+    m_book = NEW_DEBUG wxBookCtrl(this, wxID_ANY);
     PopuplateWithDisplayInfo();
 }
 
@@ -262,15 +262,15 @@ void MyFrame::PopuplateWithDisplayInfo()
     {
         wxDisplay display(nDpy);
 
-        wxWindow *page = new wxPanel(m_book, wxID_ANY);
+        wxWindow *page = NEW_DEBUG wxPanel(m_book, wxID_ANY);
 
         // create 2 column flex grid sizer with growable 2nd column
-        wxFlexGridSizer *sizer = new wxFlexGridSizer(2, 10, 20);
+        wxFlexGridSizer *sizer = NEW_DEBUG wxFlexGridSizer(2, 10, 20);
         sizer->AddGrowableCol(1);
 
         const wxRect r(display.GetGeometry());
-        sizer->Add(new wxStaticText(page, wxID_ANY, "Origin: "));
-        sizer->Add(new wxStaticText
+        sizer->Add(NEW_DEBUG wxStaticText(page, wxID_ANY, "Origin: "));
+        sizer->Add(NEW_DEBUG wxStaticText
                        (
                         page,
                         wxID_ANY,
@@ -278,8 +278,8 @@ void MyFrame::PopuplateWithDisplayInfo()
                                          r.x, r.y)
                        ));
 
-        sizer->Add(new wxStaticText(page, wxID_ANY, "Size: "));
-        sizer->Add(new wxStaticText
+        sizer->Add(NEW_DEBUG wxStaticText(page, wxID_ANY, "Size: "));
+        sizer->Add(NEW_DEBUG wxStaticText
                        (
                         page,
                         wxID_ANY,
@@ -288,8 +288,8 @@ void MyFrame::PopuplateWithDisplayInfo()
                        ));
 
         const wxRect rc(display.GetClientArea());
-        sizer->Add(new wxStaticText(page, wxID_ANY, "Client area: "));
-        sizer->Add(new wxStaticText
+        sizer->Add(NEW_DEBUG wxStaticText(page, wxID_ANY, "Client area: "));
+        sizer->Add(NEW_DEBUG wxStaticText
                        (
                         page,
                         wxID_ANY,
@@ -297,33 +297,33 @@ void MyFrame::PopuplateWithDisplayInfo()
                                          rc.x, rc.y, rc.width, rc.height)
                        ));
 
-        sizer->Add(new wxStaticText(page, wxID_ANY, "Resolution: "));
+        sizer->Add(NEW_DEBUG wxStaticText(page, wxID_ANY, "Resolution: "));
         const wxSize ppi = display.GetPPI();
-        sizer->Add(new wxStaticText(page, wxID_ANY,
+        sizer->Add(NEW_DEBUG wxStaticText(page, wxID_ANY,
                                     wxString::Format("%d*%d", ppi.x, ppi.y)));
 
-        sizer->Add(new wxStaticText(page, wxID_ANY, "Depth: "));
-        sizer->Add(new wxStaticText(page, wxID_ANY,
+        sizer->Add(NEW_DEBUG wxStaticText(page, wxID_ANY, "Depth: "));
+        sizer->Add(NEW_DEBUG wxStaticText(page, wxID_ANY,
                                     wxString::Format("%d", display.GetDepth())));
 
-        sizer->Add(new wxStaticText(page, wxID_ANY, "Scaling: "));
-        sizer->Add(new wxStaticText(page, wxID_ANY,
+        sizer->Add(NEW_DEBUG wxStaticText(page, wxID_ANY, "Scaling: "));
+        sizer->Add(NEW_DEBUG wxStaticText(page, wxID_ANY,
                                     wxString::Format("%.2f",
                                                      display.GetScaleFactor())));
 
-        sizer->Add(new wxStaticText(page, wxID_ANY, "Name: "));
-        sizer->Add(new wxStaticText(page, wxID_ANY, display.GetName()));
+        sizer->Add(NEW_DEBUG wxStaticText(page, wxID_ANY, "Name: "));
+        sizer->Add(NEW_DEBUG wxStaticText(page, wxID_ANY, display.GetName()));
 
-        sizer->Add(new wxStaticText(page, wxID_ANY, "Primary: "));
-        sizer->Add(new wxStaticText(page, wxID_ANY,
+        sizer->Add(NEW_DEBUG wxStaticText(page, wxID_ANY, "Primary: "));
+        sizer->Add(NEW_DEBUG wxStaticText(page, wxID_ANY,
                                     display.IsPrimary() ? "yes" : "no"));
 
         // add it to another sizer to have borders around it and button below
-        wxSizer *sizerTop = new wxBoxSizer(wxVERTICAL);
+        wxSizer *sizerTop = NEW_DEBUG wxBoxSizer(wxVERTICAL);
         sizerTop->Add(sizer, wxSizerFlags(1).Expand().DoubleBorder());
 
 #if wxUSE_DISPLAY
-        wxChoice *choiceModes = new wxChoice(page, Display_ChangeMode);
+        wxChoice *choiceModes = NEW_DEBUG wxChoice(page, Display_ChangeMode);
 
         {
             // Speed up the Append() loop below by foregoing the repeated resizing
@@ -342,21 +342,21 @@ void MyFrame::PopuplateWithDisplayInfo()
                 const wxVideoMode& mode = modes[nMode];
 
                 choiceModes->Append(VideoModeToText(mode),
-                    new MyVideoModeClientData(mode));
+                    NEW_DEBUG MyVideoModeClientData(mode));
             }
         } // Destroy wxWindowUpdateLocker to finally resize the window now.
 
         const wxString currentMode = VideoModeToText(display.GetCurrentMode());
         choiceModes->SetStringSelection(currentMode);
 
-        sizer->Add(new wxStaticText(page, wxID_ANY, "&Modes: "),
+        sizer->Add(NEW_DEBUG wxStaticText(page, wxID_ANY, "&Modes: "),
                    wxSizerFlags().CentreVertical());
         sizer->Add(choiceModes, wxSizerFlags().Expand());
 
-        sizer->Add(new wxStaticText(page, wxID_ANY, "Current: "));
-        sizer->Add(new wxStaticText(page, Display_CurrentMode, currentMode));
+        sizer->Add(NEW_DEBUG wxStaticText(page, wxID_ANY, "Current: "));
+        sizer->Add(NEW_DEBUG wxStaticText(page, Display_CurrentMode, currentMode));
 
-        sizerTop->Add(new wxButton(page, Display_ResetMode, "&Reset mode"),
+        sizerTop->Add(NEW_DEBUG wxButton(page, Display_ResetMode, "&Reset mode"),
                       wxSizerFlags().Centre().Border());
 #endif // wxUSE_DISPLAY
 

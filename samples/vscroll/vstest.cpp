@@ -50,7 +50,7 @@
 // private classes
 // ----------------------------------------------------------------------------
 
-// Define a new application type, each program should derive a class from wxApp
+// Define a NEW_DEBUG application type, each program should derive a class from wxApp
 class VarScrollApp : public wxApp
 {
 public:
@@ -58,7 +58,7 @@ public:
     virtual bool OnInit() wxOVERRIDE;
 };
 
-// Define a new frame type: this is going to be our main frame
+// Define a NEW_DEBUG frame type: this is going to be our main frame
 class VarScrollFrame : public wxFrame
 {
 public:
@@ -452,7 +452,7 @@ wxBEGIN_EVENT_TABLE(VarScrollFrame, wxFrame)
     EVT_SIZE(VarScrollFrame::OnSize)
 wxEND_EVENT_TABLE()
 
-// Create a new application object: this macro will allow wxWidgets to create
+// Create a NEW_DEBUG application object: this macro will allow wxWidgets to create
 // the application object during program execution (it's better than using a
 // static object for many reasons) and also declares the accessor function
 // wxGetApp() which will return the reference of the right type (i.e. VarScrollApp and
@@ -474,7 +474,7 @@ bool VarScrollApp::OnInit()
         return false;
 
     // create the main application window
-    VarScrollFrame *frame = new VarScrollFrame;
+    VarScrollFrame *frame = NEW_DEBUG VarScrollFrame;
 
     // and show it (the frames, unlike simple controls, are not shown when
     // created initially)
@@ -502,12 +502,12 @@ VarScrollFrame::VarScrollFrame()
 
 #if wxUSE_MENUS
     // create a menu bar
-    wxMenu *menuFile = new wxMenu;
+    wxMenu *menuFile = NEW_DEBUG wxMenu;
 
-    wxMenu *menuMode = new wxMenu;
+    wxMenu *menuMode = NEW_DEBUG wxMenu;
 
     // the "About" item should be in the help menu
-    wxMenu *menuHelp = new wxMenu;
+    wxMenu *menuHelp = NEW_DEBUG wxMenu;
     menuHelp->Append(VScroll_About, "&About\tF1", "Show about dialog");
 
 #ifdef wxHAS_RADIO_MENU_ITEMS
@@ -531,7 +531,7 @@ VarScrollFrame::VarScrollFrame()
     menuFile->Append(VScroll_Quit, "E&xit\tAlt-X", "Quit this program");
 
     // now append the freshly created menu to the menu bar...
-    wxMenuBar *menuBar = new wxMenuBar;
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar;
     menuBar->Append(menuFile, "&File");
     menuBar->Append(menuMode, "&Mode");
     menuBar->Append(menuHelp, "&Help");
@@ -552,11 +552,11 @@ VarScrollFrame::VarScrollFrame()
 
     // create our one and only child -- it will take our entire client area
     if ( menuMode->IsChecked(VScroll_VScrollMode) )
-        m_scrollWindow = new VScrollWindow(this);
+        m_scrollWindow = NEW_DEBUG VScrollWindow(this);
     else if ( menuMode->IsChecked(VScroll_HScrollMode) )
-        m_scrollWindow = new HScrollWindow(this);
+        m_scrollWindow = NEW_DEBUG HScrollWindow(this);
     else
-        m_scrollWindow = new HVScrollWindow(this);
+        m_scrollWindow = NEW_DEBUG HVScrollWindow(this);
 }
 
 // ----------------------------------------------------------------------------
@@ -574,7 +574,7 @@ void VarScrollFrame::OnModeVScroll(wxCommandEvent& WXUNUSED(event))
     if ( m_scrollWindow )
         m_scrollWindow->Destroy();
 
-    m_scrollWindow = new VScrollWindow(this);
+    m_scrollWindow = NEW_DEBUG VScrollWindow(this);
     SendSizeEvent();
 }
 
@@ -583,7 +583,7 @@ void VarScrollFrame::OnModeHScroll(wxCommandEvent& WXUNUSED(event))
     if ( m_scrollWindow )
         m_scrollWindow->Destroy();
 
-    m_scrollWindow = new HScrollWindow(this);
+    m_scrollWindow = NEW_DEBUG HScrollWindow(this);
     SendSizeEvent();
 }
 
@@ -592,7 +592,7 @@ void VarScrollFrame::OnModeHVScroll(wxCommandEvent& WXUNUSED(event))
     if ( m_scrollWindow )
         m_scrollWindow->Destroy();
 
-    m_scrollWindow = new HVScrollWindow(this);
+    m_scrollWindow = NEW_DEBUG HVScrollWindow(this);
     SendSizeEvent();
 }
 

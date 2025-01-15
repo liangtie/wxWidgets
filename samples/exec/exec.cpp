@@ -71,7 +71,7 @@
 // the usual application and main frame classes
 // ----------------------------------------------------------------------------
 
-// Define a new application type, each program should derive a class from wxApp
+// Define a NEW_DEBUG application type, each program should derive a class from wxApp
 class MyApp : public wxApp
 {
 public:
@@ -91,7 +91,7 @@ WX_DEFINE_ARRAY_PTR(MyPipedProcess *, MyPipedProcessesArray);
 class MyProcess;
 WX_DEFINE_ARRAY_PTR(MyProcess *, MyProcessesArray);
 
-// Define a new frame type: this is going to be our main frame
+// Define a NEW_DEBUG frame type: this is going to be our main frame
 class MyFrame : public wxFrame
 {
 public:
@@ -398,7 +398,7 @@ wxBEGIN_EVENT_TABLE(MyPipeFrame, wxFrame)
     EVT_END_PROCESS(wxID_ANY, MyPipeFrame::OnProcessTerm)
 wxEND_EVENT_TABLE()
 
-// Create a new application object: this macro will allow wxWidgets to create
+// Create a NEW_DEBUG application object: this macro will allow wxWidgets to create
 // the application object during program execution (it's better than using a
 // static object for many reasons) and also declares the accessor function
 // wxGetApp() which will return the reference of the right type (i.e. MyApp and
@@ -420,7 +420,7 @@ bool MyApp::OnInit()
         return false;
 
     // Create the main application window
-    MyFrame *frame = new MyFrame("Exec wxWidgets sample",
+    MyFrame *frame = NEW_DEBUG MyFrame("Exec wxWidgets sample",
                                  wxDefaultPosition, wxSize(500, 140));
 
     // Show it
@@ -457,7 +457,7 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
 #endif
 
     // create a menu bar
-    wxMenu *menuFile = new wxMenu(wxEmptyString, wxMENU_TEAROFF);
+    wxMenu *menuFile = NEW_DEBUG wxMenu(wxEmptyString, wxMENU_TEAROFF);
     menuFile->Append(Exec_Kill, "&Kill process...\tCtrl-K",
                      "Kill a process by PID");
     menuFile->AppendSeparator();
@@ -479,13 +479,13 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
     menuFile->AppendSeparator();
     menuFile->Append(Exec_Quit, "E&xit\tAlt-X", "Quit this program");
 
-    wxMenu *flagsMenu = new wxMenu;
+    wxMenu *flagsMenu = NEW_DEBUG wxMenu;
     flagsMenu->AppendCheckItem(Exec_Flags_HideConsole, "Always &hide console");
     flagsMenu->AppendCheckItem(Exec_Flags_ShowConsole, "Always &show console");
     flagsMenu->AppendCheckItem(Exec_Flags_NoEvents, "Disable &events",
                                "This flag is valid for sync execution only");
 
-    wxMenu *execMenu = new wxMenu;
+    wxMenu *execMenu = NEW_DEBUG wxMenu;
     execMenu->AppendSubMenu(flagsMenu, "Execution flags");
     execMenu->AppendSeparator();
     execMenu->Append(Exec_SyncExec, "Sync &execution...\tCtrl-E",
@@ -508,11 +508,11 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
     execMenu->Append(Exec_DDERequest, "Send DDE &request...\tCtrl-R");
 #endif
 
-    wxMenu *helpMenu = new wxMenu(wxEmptyString, wxMENU_TEAROFF);
+    wxMenu *helpMenu = NEW_DEBUG wxMenu(wxEmptyString, wxMENU_TEAROFF);
     helpMenu->Append(Exec_About, "&About\tF1", "Show about dialog");
 
     // now append the freshly created menu to the menu bar...
-    wxMenuBar *menuBar = new wxMenuBar();
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar();
     menuBar->Append(menuFile, "&File");
     menuBar->Append(execMenu, "&Exec");
     menuBar->Append(helpMenu, "&Help");
@@ -521,7 +521,7 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
     SetMenuBar(menuBar);
 
     // create the listbox in which we will show misc messages as they come
-    m_lbox = new wxListBox(this, wxID_ANY);
+    m_lbox = NEW_DEBUG wxListBox(this, wxID_ANY);
     wxFont font(wxFontInfo(12).Family(wxFONTFAMILY_TELETYPE));
     if ( font.IsOk() )
         m_lbox->SetFont(font);
@@ -742,24 +742,24 @@ ExecQueryDialog::ExecQueryDialog(const wxString& cmd)
                wxDefaultPosition, wxDefaultSize,
                wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER)
 {
-    wxSizer* globalSizer = new wxBoxSizer(wxVERTICAL);
+    wxSizer* globalSizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
-    m_executable = new wxTextCtrl(this, TEXT_EXECUTABLE, wxString());
-    m_cwdtext = new wxTextCtrl(this, TEXT_CWD, wxString());
-    m_envtext = new wxTextCtrl(this, TEXT_ENVIRONMENT, wxString(),
+    m_executable = NEW_DEBUG wxTextCtrl(this, TEXT_EXECUTABLE, wxString());
+    m_cwdtext = NEW_DEBUG wxTextCtrl(this, TEXT_CWD, wxString());
+    m_envtext = NEW_DEBUG wxTextCtrl(this, TEXT_ENVIRONMENT, wxString(),
                                wxDefaultPosition, wxSize(300, 200),
                                wxTE_MULTILINE|wxHSCROLL);
 
     const wxSizerFlags flagsExpand = wxSizerFlags().Expand().Border();
-    globalSizer->Add(new wxStaticText(this, wxID_ANY, "Enter the command: "),
+    globalSizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, "Enter the command: "),
                      flagsExpand);
     globalSizer->Add(m_executable, flagsExpand);
 
-    m_useCWD = new wxCheckBox(this, wxID_ANY, "Working directory: ");
+    m_useCWD = NEW_DEBUG wxCheckBox(this, wxID_ANY, "Working directory: ");
     globalSizer->Add(m_useCWD, flagsExpand);
     globalSizer->Add(m_cwdtext, flagsExpand);
 
-    m_useEnv = new wxCheckBox(this, wxID_ANY, "Environment: ");
+    m_useEnv = NEW_DEBUG wxCheckBox(this, wxID_ANY, "Environment: ");
     globalSizer->Add(m_useEnv, flagsExpand);
     globalSizer->Add(m_envtext, wxSizerFlags(flagsExpand).Proportion(1));
 
@@ -847,7 +847,7 @@ int MyFrame::GetExecFlags() const
 
 void MyFrame::DoAsyncExec(const wxString& cmd)
 {
-    MyProcess * const process = new MyProcess(this, cmd);
+    MyProcess * const process = NEW_DEBUG MyProcess(this, cmd);
     m_pidLast = wxExecute(cmd, wxEXEC_ASYNC | GetExecFlags(), process);
     if ( !m_pidLast )
     {
@@ -963,7 +963,7 @@ void MyFrame::OnExecWithRedirect(wxCommandEvent& WXUNUSED(event))
     }
     else // async exec
     {
-        MyPipedProcess *process = new MyPipedProcess(this, cmd);
+        MyPipedProcess *process = NEW_DEBUG MyPipedProcess(this, cmd);
         if ( !wxExecute(cmd, wxEXEC_ASYNC, process) )
         {
             wxLogError("Execution of '%s' failed.", cmd);
@@ -997,7 +997,7 @@ void MyFrame::OnExecWithPipe(wxCommandEvent& WXUNUSED(event))
         return;
 
     // always execute the filter asynchronously
-    MyPipedProcess2 *process = new MyPipedProcess2(this, cmd, input);
+    MyPipedProcess2 *process = NEW_DEBUG MyPipedProcess2(this, cmd, input);
     long pid = wxExecute(cmd, wxEXEC_ASYNC, process);
     if ( pid )
     {
@@ -1030,7 +1030,7 @@ void MyFrame::OnPOpen(wxCommandEvent& WXUNUSED(event))
         return;
     }
 
-    wxLogVerbose("PID of the new process: %ld", process->GetPid());
+    wxLogVerbose("PID of the NEW_DEBUG process: %ld", process->GetPid());
 
     wxOutputStream *out = process->GetOutputStream();
     if ( !out )
@@ -1046,7 +1046,7 @@ void MyFrame::OnPOpen(wxCommandEvent& WXUNUSED(event))
         return;
     }
 
-    new MyPipeFrame(this, cmd, process);
+    NEW_DEBUG MyPipeFrame(this, cmd, process);
 }
 
 static wxString gs_lastFile;
@@ -1441,32 +1441,32 @@ MyPipeFrame::MyPipeFrame(wxFrame *parent,
 {
     m_process->SetNextHandler(this);
 
-    wxPanel *panel = new wxPanel(this, wxID_ANY);
+    wxPanel *panel = NEW_DEBUG wxPanel(this, wxID_ANY);
 
-    m_textOut = new wxTextCtrl(panel, wxID_ANY, wxEmptyString,
+    m_textOut = NEW_DEBUG wxTextCtrl(panel, wxID_ANY, wxEmptyString,
                               wxDefaultPosition, wxDefaultSize,
                               wxTE_PROCESS_ENTER);
-    m_textIn = new wxTextCtrl(panel, wxID_ANY, wxEmptyString,
+    m_textIn = NEW_DEBUG wxTextCtrl(panel, wxID_ANY, wxEmptyString,
                                wxDefaultPosition, wxDefaultSize,
                                wxTE_MULTILINE | wxTE_RICH);
     m_textIn->SetEditable(false);
-    m_textErr = new wxTextCtrl(panel, wxID_ANY, wxEmptyString,
+    m_textErr = NEW_DEBUG wxTextCtrl(panel, wxID_ANY, wxEmptyString,
                                wxDefaultPosition, wxDefaultSize,
                                wxTE_MULTILINE | wxTE_RICH);
     m_textErr->SetEditable(false);
 
-    wxSizer *sizerTop = new wxBoxSizer(wxVERTICAL);
+    wxSizer *sizerTop = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     sizerTop->Add(m_textOut, 0, wxGROW | wxALL, 5);
 
-    wxSizer *sizerBtns = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer *sizerBtns = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     sizerBtns->
-        Add(new wxButton(panel, Exec_Btn_Send, "&Send"), 0, wxALL, 5);
+        Add(NEW_DEBUG wxButton(panel, Exec_Btn_Send, "&Send"), 0, wxALL, 5);
     sizerBtns->
-        Add(new wxButton(panel, Exec_Btn_SendFile, "&File..."), 0, wxALL, 5);
+        Add(NEW_DEBUG wxButton(panel, Exec_Btn_SendFile, "&File..."), 0, wxALL, 5);
     sizerBtns->
-        Add(new wxButton(panel, Exec_Btn_Get, "&Get"), 0, wxALL, 5);
+        Add(NEW_DEBUG wxButton(panel, Exec_Btn_Get, "&Get"), 0, wxALL, 5);
     sizerBtns->
-        Add(new wxButton(panel, Exec_Btn_Close, "&Close"), 0, wxALL, 5);
+        Add(NEW_DEBUG wxButton(panel, Exec_Btn_Close, "&Close"), 0, wxALL, 5);
 
     sizerTop->Add(sizerBtns, 0, wxCENTRE | wxALL, 5);
     sizerTop->Add(m_textIn, 1, wxGROW | wxALL, 5);

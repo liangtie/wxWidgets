@@ -121,10 +121,10 @@ protected:
     // create or destroy the image list
     void CreateImageList();
 
-    // create a new page
+    // create a NEW_DEBUG page
     wxWindow *CreateNewPage();
 
-    // get the image index for the new page
+    // get the image index for the NEW_DEBUG page
     int GetIconIndex() const;
 
     // get the numeric value of text ctrl
@@ -198,10 +198,10 @@ BookWidgetsPage::BookWidgetsPage(WidgetsBookCtrl *book, wxImageList *imaglist, c
 
 void BookWidgetsPage::CreateContent()
 {
-    wxSizer *sizerTop = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer *sizerTop = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
 
     // left pane
-    wxStaticBox *box = new wxStaticBox(this, wxID_ANY, "&Set style");
+    wxStaticBox *box = NEW_DEBUG wxStaticBox(this, wxID_ANY, "&Set style");
 
     // must be in sync with Orient enum
     wxArrayString orientations;
@@ -213,23 +213,23 @@ void BookWidgetsPage::CreateContent()
     wxASSERT_MSG( orientations.GetCount() == Orient_Max,
                   "forgot to update something" );
 
-    m_chkImages = new wxCheckBox(this, wxID_ANY, "Show &images");
-    m_radioOrient = new wxRadioBox(this, wxID_ANY, "&Tab orientation",
+    m_chkImages = NEW_DEBUG wxCheckBox(this, wxID_ANY, "Show &images");
+    m_radioOrient = NEW_DEBUG wxRadioBox(this, wxID_ANY, "&Tab orientation",
                                    wxDefaultPosition, wxDefaultSize,
                                    orientations, 1, wxRA_SPECIFY_COLS);
 
-    wxSizer *sizerLeft = new wxStaticBoxSizer(box, wxVERTICAL);
+    wxSizer *sizerLeft = NEW_DEBUG wxStaticBoxSizer(box, wxVERTICAL);
 
     sizerLeft->Add(m_chkImages, 0, wxALL, 5);
     sizerLeft->Add(5, 5, 0, wxGROW | wxALL, 5); // spacer
     sizerLeft->Add(m_radioOrient, 0, wxALL, 5);
 
-    wxButton *btn = new wxButton(this, BookPage_Reset, "&Reset");
+    wxButton *btn = NEW_DEBUG wxButton(this, BookPage_Reset, "&Reset");
     sizerLeft->Add(btn, 0, wxALIGN_CENTRE_HORIZONTAL | wxALL, 15);
 
     // middle pane
-    wxStaticBox *box2 = new wxStaticBox(this, wxID_ANY, "&Contents");
-    wxSizer *sizerMiddle = new wxStaticBoxSizer(box2, wxVERTICAL);
+    wxStaticBox *box2 = NEW_DEBUG wxStaticBox(this, wxID_ANY, "&Contents");
+    wxSizer *sizerMiddle = NEW_DEBUG wxStaticBoxSizer(box2, wxVERTICAL);
 
     wxTextCtrl *text;
     wxSizer *sizerRow = CreateSizerWithTextAndLabel("Number of pages: ",
@@ -250,7 +250,7 @@ void BookWidgetsPage::CreateContent()
                                             &m_textSelect);
     sizerMiddle->Add(sizerRow, 0, wxALL | wxGROW, 5);
 
-    btn = new wxButton(this, BookPage_AddPage, "&Add page");
+    btn = NEW_DEBUG wxButton(this, BookPage_AddPage, "&Add page");
     sizerMiddle->Add(btn, 0, wxALL | wxGROW, 5);
 
     sizerRow = CreateSizerWithTextAndButton(BookPage_InsertPage,
@@ -265,11 +265,11 @@ void BookWidgetsPage::CreateContent()
                                             &m_textRemove);
     sizerMiddle->Add(sizerRow, 0, wxALL | wxGROW, 5);
 
-    btn = new wxButton(this, BookPage_DeleteAll, "&Delete All");
+    btn = NEW_DEBUG wxButton(this, BookPage_DeleteAll, "&Delete All");
     sizerMiddle->Add(btn, 0, wxALL | wxGROW, 5);
 
     // right pane
-    m_sizerBook = new wxBoxSizer(wxHORIZONTAL);
+    m_sizerBook = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
 
     // the 3 panes compose the window
     sizerTop->Add(sizerLeft, 0, wxGROW | (wxALL & ~wxLEFT), 10);
@@ -307,7 +307,7 @@ void BookWidgetsPage::CreateImageList()
         if ( !m_imageList )
         {
             // create a dummy image list with a few icons
-            m_imageList = new wxImageList(32, 32);
+            m_imageList = NEW_DEBUG wxImageList(32, 32);
             wxSize size(32, 32);
             m_imageList->Add(wxArtProvider::GetIcon(wxART_INFORMATION, wxART_OTHER, size));
             m_imageList->Add(wxArtProvider::GetIcon(wxART_QUESTION, wxART_OTHER, size));
@@ -426,7 +426,7 @@ int BookWidgetsPage::GetIconIndex() const
 
 wxWindow *BookWidgetsPage::CreateNewPage()
 {
-    return new wxTextCtrl(m_book, wxID_ANY, "I'm a book page");
+    return NEW_DEBUG wxTextCtrl(m_book, wxID_ANY, "I'm a book page");
 }
 
 // ----------------------------------------------------------------------------
@@ -543,7 +543,7 @@ protected:
     // (re)create book
     virtual wxBookCtrlBase *CreateBook(long flags) wxOVERRIDE
     {
-        return new wxNotebook(this, BookPage_Book,
+        return NEW_DEBUG wxNotebook(this, BookPage_Book,
                               wxDefaultPosition, wxDefaultSize,
                               flags);
     }
@@ -624,7 +624,7 @@ protected:
     // (re)create book
     virtual wxBookCtrlBase *CreateBook(long flags) wxOVERRIDE
     {
-        return new wxListbook(this, BookPage_Book,
+        return NEW_DEBUG wxListbook(this, BookPage_Book,
                               wxDefaultPosition, wxDefaultSize,
                               flags);
     }
@@ -697,7 +697,7 @@ protected:
     // (re)create book
     virtual wxBookCtrlBase *CreateBook(long flags) wxOVERRIDE
     {
-        return new wxChoicebook(this, BookPage_Book,
+        return NEW_DEBUG wxChoicebook(this, BookPage_Book,
                                 wxDefaultPosition, wxDefaultSize,
                                 flags);
     }

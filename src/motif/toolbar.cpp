@@ -149,7 +149,7 @@ wxToolBarToolBase *wxToolBar::CreateTool(int id,
                                          const wxString& shortHelp,
                                          const wxString& longHelp)
 {
-    return new wxToolBarTool(this, id, label, bmpNormal, bmpToggled, kind,
+    return NEW_DEBUG wxToolBarTool(this, id, label, bmpNormal, bmpToggled, kind,
                              clientData, shortHelp, longHelp);
 }
 
@@ -157,7 +157,7 @@ wxToolBarToolBase *wxToolBar::CreateTool(int id,
 wxToolBarToolBase *
 wxToolBar::CreateTool(wxControl *control, const wxString& label)
 {
-    return new wxToolBarTool(this, control, label);
+    return NEW_DEBUG wxToolBarTool(this, control, label);
 }
 
 void wxToolBarTool::Init()
@@ -365,7 +365,7 @@ bool wxToolBar::Realize()
                 }
 
                 // For each button, if there is a mask, we must create
-                // a new wxBitmap that has the correct background colour
+                // a NEW_DEBUG wxBitmap that has the correct background colour
                 // for the button. Otherwise the background will just be
                 // e.g. black if a transparent XPM has been loaded.
                 bmp = tool->GetNormalBitmap();
@@ -692,7 +692,7 @@ static void wxToolButtonPopupCallback(Widget w,
         return;
 
     if (!wxTheToolBarTimer)
-        wxTheToolBarTimer = new wxToolBarTimer;
+        wxTheToolBarTimer = NEW_DEBUG wxToolBarTimer;
 
     wxToolBarTimer::buttonWidget = w;
     wxToolBarTimer::helpString = tooltip;

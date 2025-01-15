@@ -48,7 +48,7 @@ bool MyApp::OnInit()
       return false;
 
   // Create the main frame window
-  MyFrame *frame = new MyFrame;
+  MyFrame *frame = NEW_DEBUG MyFrame;
 
   frame->Show(true);
 
@@ -79,7 +79,7 @@ MyFrame::MyFrame()
     SetIcon(wxICON(sample));
 
     // Make a menubar
-    wxMenu *file_menu = new wxMenu;
+    wxMenu *file_menu = NEW_DEBUG wxMenu;
 
     file_menu->Append(LAYOUT_TEST_PROPORTIONS, "&Proportions demo...\tF1");
     file_menu->Append(LAYOUT_TEST_SIZER, "Test wx&FlexSizer...\tF2");
@@ -92,10 +92,10 @@ MyFrame::MyFrame()
     file_menu->AppendSeparator();
     file_menu->Append(LAYOUT_QUIT, "E&xit", "Quit program");
 
-    wxMenu *help_menu = new wxMenu;
+    wxMenu *help_menu = NEW_DEBUG wxMenu;
     help_menu->Append(LAYOUT_ABOUT, "&About", "About layout demo...");
 
-    wxMenuBar *menu_bar = new wxMenuBar;
+    wxMenuBar *menu_bar = NEW_DEBUG wxMenuBar;
 
     menu_bar->Append(file_menu, "&File");
     menu_bar->Append(help_menu, "&Help");
@@ -108,53 +108,53 @@ MyFrame::MyFrame()
     SetStatusText("wxWidgets layout demo");
 #endif // wxUSE_STATUSBAR
 
-    wxPanel* p = new wxPanel(this, wxID_ANY);
+    wxPanel* p = NEW_DEBUG wxPanel(this, wxID_ANY);
 
     // we want to get a dialog that is stretchable because it
     // has a text ctrl in the middle. at the bottom, we have
     // two buttons which.
 
-    wxBoxSizer *topsizer = new wxBoxSizer( wxVERTICAL );
+    wxBoxSizer *topsizer = NEW_DEBUG wxBoxSizer( wxVERTICAL );
 
     // 1) top: create wxStaticText with minimum size equal to its default size
     topsizer->Add(
-        new wxStaticText( p, wxID_ANY, "An explanation (wxALIGN_RIGHT)." ),
+        NEW_DEBUG wxStaticText( p, wxID_ANY, "An explanation (wxALIGN_RIGHT)." ),
         wxSizerFlags().Align(wxALIGN_RIGHT).Border(wxALL & ~wxBOTTOM, 5));
     topsizer->Add(
-        new wxStaticText( p, wxID_ANY, "An explanation (wxALIGN_LEFT)." ),
+        NEW_DEBUG wxStaticText( p, wxID_ANY, "An explanation (wxALIGN_LEFT)." ),
         wxSizerFlags().Align(wxALIGN_LEFT).Border(wxALL & ~wxBOTTOM, 5));
     topsizer->Add(
-        new wxStaticText( p, wxID_ANY, "An explanation (wxALIGN_CENTRE_HORIZONTAL)." ),
+        NEW_DEBUG wxStaticText( p, wxID_ANY, "An explanation (wxALIGN_CENTRE_HORIZONTAL)." ),
         wxSizerFlags().Align(wxALIGN_CENTRE_HORIZONTAL).Border(wxALL & ~wxBOTTOM, 5));
 
     // 2) top: create wxTextCtrl with minimum size (100x60)
     topsizer->Add(
-        new wxTextCtrl( p, wxID_ANY, "My text (wxEXPAND).", wxDefaultPosition, wxSize(100,60), wxTE_MULTILINE),
+        NEW_DEBUG wxTextCtrl( p, wxID_ANY, "My text (wxEXPAND).", wxDefaultPosition, wxSize(100,60), wxTE_MULTILINE),
         wxSizerFlags(1).Expand().Border(wxALL, 5));
 
     // 2.5) Gratuitous test of wxStaticBoxSizers
-    wxBoxSizer *statsizer = new wxStaticBoxSizer(
-        new wxStaticBox(p, wxID_ANY, "A wxStaticBoxSizer"), wxVERTICAL );
+    wxBoxSizer *statsizer = NEW_DEBUG wxStaticBoxSizer(
+        NEW_DEBUG wxStaticBox(p, wxID_ANY, "A wxStaticBoxSizer"), wxVERTICAL );
     statsizer->Add(
-        new wxStaticText(p, wxID_ANY, "And some TEXT inside it"),
+        NEW_DEBUG wxStaticText(p, wxID_ANY, "And some TEXT inside it"),
         wxSizerFlags().Border(wxALL, 30));
     topsizer->Add(
         statsizer,
         wxSizerFlags(1).Expand().Border(wxALL, 10));
 
     // 2.7) And a test of wxGridSizer
-    wxGridSizer *gridsizer = new wxGridSizer(2, 5, 5);
-    gridsizer->Add(new wxStaticText(p, wxID_ANY, "Label"),
+    wxGridSizer *gridsizer = NEW_DEBUG wxGridSizer(2, 5, 5);
+    gridsizer->Add(NEW_DEBUG wxStaticText(p, wxID_ANY, "Label"),
                 wxSizerFlags().Align(wxALIGN_RIGHT | wxALIGN_CENTER_VERTICAL));
-    gridsizer->Add(new wxTextCtrl(p, wxID_ANY, "Grid sizer demo"),
+    gridsizer->Add(NEW_DEBUG wxTextCtrl(p, wxID_ANY, "Grid sizer demo"),
                 wxSizerFlags(1).Align(wxGROW | wxALIGN_CENTER_VERTICAL));
-    gridsizer->Add(new wxStaticText(p, wxID_ANY, "Another label"),
+    gridsizer->Add(NEW_DEBUG wxStaticText(p, wxID_ANY, "Another label"),
                 wxSizerFlags().Align(wxALIGN_RIGHT | wxALIGN_CENTER_VERTICAL));
-    gridsizer->Add(new wxTextCtrl(p, wxID_ANY, "More text"),
+    gridsizer->Add(NEW_DEBUG wxTextCtrl(p, wxID_ANY, "More text"),
                 wxSizerFlags(1).Align(wxGROW | wxALIGN_CENTER_VERTICAL));
-    gridsizer->Add(new wxStaticText(p, wxID_ANY, "Final label"),
+    gridsizer->Add(NEW_DEBUG wxStaticText(p, wxID_ANY, "Final label"),
                 wxSizerFlags().Align(wxALIGN_RIGHT | wxALIGN_CENTER_VERTICAL));
-    gridsizer->Add(new wxTextCtrl(p, wxID_ANY, "And yet more text"),
+    gridsizer->Add(NEW_DEBUG wxTextCtrl(p, wxID_ANY, "And yet more text"),
                 wxSizerFlags().Align(wxGROW | wxALIGN_CENTER_VERTICAL));
     topsizer->Add(
         gridsizer,
@@ -164,18 +164,18 @@ MyFrame::MyFrame()
 #if wxUSE_STATLINE
     // 3) middle: create wxStaticLine with minimum size (3x3)
     topsizer->Add(
-        new wxStaticLine( p, wxID_ANY, wxDefaultPosition, wxSize(3,3), wxHORIZONTAL),
+        NEW_DEBUG wxStaticLine( p, wxID_ANY, wxDefaultPosition, wxSize(3,3), wxHORIZONTAL),
         wxSizerFlags().Expand());
 #endif // wxUSE_STATLINE
 
 
     // 4) bottom: create two centred wxButtons
-    wxBoxSizer *button_box = new wxBoxSizer( wxHORIZONTAL );
+    wxBoxSizer *button_box = NEW_DEBUG wxBoxSizer( wxHORIZONTAL );
     button_box->Add(
-        new wxButton( p, wxID_ANY, "Two buttons in a box" ),
+        NEW_DEBUG wxButton( p, wxID_ANY, "Two buttons in a box" ),
         wxSizerFlags().Border(wxALL, 7));
     button_box->Add(
-        new wxButton( p, wxID_ANY, "(wxCENTER)" ),
+        NEW_DEBUG wxButton( p, wxID_ANY, "(wxCENTER)" ),
         wxSizerFlags().Border(wxALL, 7));
 
     topsizer->Add(button_box, wxSizerFlags().Center());
@@ -194,12 +194,12 @@ void MyFrame::OnQuit(wxCommandEvent& WXUNUSED(event))
 
 void MyFrame::TestProportions(wxCommandEvent& WXUNUSED(event))
 {
-    (new MyProportionsFrame(this))->Show();
+    (NEW_DEBUG MyProportionsFrame(this))->Show();
 }
 
 void MyFrame::TestFlexSizers(wxCommandEvent& WXUNUSED(event) )
 {
-    (new MyFlexSizerFrame(this))->Show();
+    (NEW_DEBUG MyFlexSizerFrame(this))->Show();
 }
 
 void MyFrame::TestNotebookSizers(wxCommandEvent& WXUNUSED(event) )
@@ -211,17 +211,17 @@ void MyFrame::TestNotebookSizers(wxCommandEvent& WXUNUSED(event) )
 
 void MyFrame::TestSetMinimal(wxCommandEvent& WXUNUSED(event) )
 {
-    (new MySimpleSizerFrame(this))->Show();
+    (NEW_DEBUG MySimpleSizerFrame(this))->Show();
 }
 
 void MyFrame::TestNested(wxCommandEvent& WXUNUSED(event) )
 {
-    (new MyNestedSizerFrame(this))->Show();
+    (NEW_DEBUG MyNestedSizerFrame(this))->Show();
 }
 
 void MyFrame::TestWrap(wxCommandEvent& WXUNUSED(event) )
 {
-    (new MyWrapSizerFrame(this))->Show();
+    (NEW_DEBUG MyWrapSizerFrame(this))->Show();
 }
 
 
@@ -233,7 +233,7 @@ void MyFrame::OnAbout(wxCommandEvent& WXUNUSED(event) )
 
 void MyFrame::TestGridBagSizer(wxCommandEvent& WXUNUSED(event) )
 {
-    (new MyGridBagSizerFrame(this))->Show();
+    (NEW_DEBUG MyGridBagSizerFrame(this))->Show();
 }
 
 // ----------------------------------------------------------------------------
@@ -246,22 +246,22 @@ MyProportionsFrame::MyProportionsFrame(wxFrame *parent)
     size_t n;
 
     // create the controls
-    wxPanel *panel = new wxPanel(this, wxID_ANY);
+    wxPanel *panel = NEW_DEBUG wxPanel(this, wxID_ANY);
     for ( n = 0; n < WXSIZEOF(m_spins); n++ )
     {
-        m_spins[n] = new wxSpinCtrl(panel);
+        m_spins[n] = NEW_DEBUG wxSpinCtrl(panel);
         m_spins[n]->SetValue(n);
     }
 
     // lay them out
-    m_sizer = new wxStaticBoxSizer(wxHORIZONTAL, panel,
+    m_sizer = NEW_DEBUG wxStaticBoxSizer(wxHORIZONTAL, panel,
                 "Try changing elements proportions and resizing the window");
     for ( n = 0; n < WXSIZEOF(m_spins); n++ )
         m_sizer->Add(m_spins[n], wxSizerFlags().Border());
 
     // put everything together
     panel->SetSizer(m_sizer);
-    wxSizer *sizerTop = new wxBoxSizer(wxVERTICAL);
+    wxSizer *sizerTop = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     sizerTop->Add(panel, wxSizerFlags(1).Expand().Border());
     UpdateProportions();
     SetSizerAndFit(sizerTop);
@@ -301,7 +301,7 @@ void MyFlexSizerFrame::InitFlexSizer(wxFlexGridSizer *sizer, wxWindow* parent)
     {
         for ( int j = 0; j < 3; j++ )
         {
-            wxWindow * const cell = new wxGenericStaticText
+            wxWindow * const cell = NEW_DEBUG wxGenericStaticText
                                         (
                                             parent,
                                             wxID_ANY,
@@ -319,29 +319,29 @@ MyFlexSizerFrame::MyFlexSizerFrame(wxFrame* parent)
             : wxFrame(parent, wxID_ANY, "Flex Sizer Test Frame")
 {
     wxFlexGridSizer *sizerFlex;
-    wxPanel* p = new wxPanel(this, wxID_ANY);
+    wxPanel* p = NEW_DEBUG wxPanel(this, wxID_ANY);
 
     // construct the first column
-    wxSizer *sizerCol1 = new wxBoxSizer(wxVERTICAL);
-    sizerCol1->Add(new wxStaticText(p, wxID_ANY, "Ungrowable:"), 0, wxCENTER | wxTOP, 20);
-    sizerFlex = new wxFlexGridSizer(3, 3, wxSize(5, 5));
+    wxSizer *sizerCol1 = NEW_DEBUG wxBoxSizer(wxVERTICAL);
+    sizerCol1->Add(NEW_DEBUG wxStaticText(p, wxID_ANY, "Ungrowable:"), 0, wxCENTER | wxTOP, 20);
+    sizerFlex = NEW_DEBUG wxFlexGridSizer(3, 3, wxSize(5, 5));
     InitFlexSizer(sizerFlex, p);
     sizerCol1->Add(sizerFlex, 1, wxALL | wxEXPAND, 10);
 
-    sizerCol1->Add(new wxStaticText(p, wxID_ANY, "Growable middle column:"), 0, wxCENTER | wxTOP, 20);
-    sizerFlex = new wxFlexGridSizer(3, 3, wxSize(5, 5));
+    sizerCol1->Add(NEW_DEBUG wxStaticText(p, wxID_ANY, "Growable middle column:"), 0, wxCENTER | wxTOP, 20);
+    sizerFlex = NEW_DEBUG wxFlexGridSizer(3, 3, wxSize(5, 5));
     InitFlexSizer(sizerFlex, p);
     sizerFlex->AddGrowableCol(1);
     sizerCol1->Add(sizerFlex, 1, wxALL | wxEXPAND, 10);
 
-    sizerCol1->Add(new wxStaticText(p, wxID_ANY, "Growable middle row:"), 0, wxCENTER | wxTOP, 20);
-    sizerFlex = new wxFlexGridSizer(3, 3, wxSize(5, 5));
+    sizerCol1->Add(NEW_DEBUG wxStaticText(p, wxID_ANY, "Growable middle row:"), 0, wxCENTER | wxTOP, 20);
+    sizerFlex = NEW_DEBUG wxFlexGridSizer(3, 3, wxSize(5, 5));
     InitFlexSizer(sizerFlex, p);
     sizerFlex->AddGrowableRow(1);
     sizerCol1->Add(sizerFlex, 1, wxALL | wxEXPAND, 10);
 
-    sizerCol1->Add(new wxStaticText(p, wxID_ANY, "All growable columns:"), 0, wxCENTER | wxTOP, 20);
-    sizerFlex = new wxFlexGridSizer(3, 3, wxSize(5, 5));
+    sizerCol1->Add(NEW_DEBUG wxStaticText(p, wxID_ANY, "All growable columns:"), 0, wxCENTER | wxTOP, 20);
+    sizerFlex = NEW_DEBUG wxFlexGridSizer(3, 3, wxSize(5, 5));
     InitFlexSizer(sizerFlex, p);
     sizerFlex->AddGrowableCol(0, 1);
     sizerFlex->AddGrowableCol(1, 2);
@@ -349,24 +349,24 @@ MyFlexSizerFrame::MyFlexSizerFrame(wxFrame* parent)
     sizerCol1->Add(sizerFlex, 1, wxALL | wxEXPAND, 10);
 
     // the second one
-    wxSizer *sizerCol2 = new wxBoxSizer(wxVERTICAL);
-    sizerCol2->Add(new wxStaticText(p, wxID_ANY, "Growable middle row and column:"), 0, wxCENTER | wxTOP, 20);
-    sizerFlex = new wxFlexGridSizer(3, 3, wxSize(5, 5));
+    wxSizer *sizerCol2 = NEW_DEBUG wxBoxSizer(wxVERTICAL);
+    sizerCol2->Add(NEW_DEBUG wxStaticText(p, wxID_ANY, "Growable middle row and column:"), 0, wxCENTER | wxTOP, 20);
+    sizerFlex = NEW_DEBUG wxFlexGridSizer(3, 3, wxSize(5, 5));
     InitFlexSizer(sizerFlex, p);
     sizerFlex->AddGrowableCol(1);
     sizerFlex->AddGrowableRow(1);
     sizerCol2->Add(sizerFlex, 1, wxALL | wxEXPAND, 10);
 
-    sizerCol2->Add(new wxStaticText(p, wxID_ANY, "Same with horz flex direction"), 0, wxCENTER | wxTOP, 20);
-    sizerFlex = new wxFlexGridSizer(3, 3, wxSize(5, 5));
+    sizerCol2->Add(NEW_DEBUG wxStaticText(p, wxID_ANY, "Same with horz flex direction"), 0, wxCENTER | wxTOP, 20);
+    sizerFlex = NEW_DEBUG wxFlexGridSizer(3, 3, wxSize(5, 5));
     InitFlexSizer(sizerFlex, p);
     sizerFlex->AddGrowableCol(1);
     sizerFlex->AddGrowableRow(1);
     sizerFlex->SetFlexibleDirection(wxHORIZONTAL);
     sizerCol2->Add(sizerFlex, 1, wxALL | wxEXPAND, 10);
 
-    sizerCol2->Add(new wxStaticText(p, wxID_ANY, "Same with grow mode == \"none\""), 0, wxCENTER | wxTOP, 20);
-    sizerFlex = new wxFlexGridSizer(3, 3, wxSize(5, 5));
+    sizerCol2->Add(NEW_DEBUG wxStaticText(p, wxID_ANY, "Same with grow mode == \"none\""), 0, wxCENTER | wxTOP, 20);
+    sizerFlex = NEW_DEBUG wxFlexGridSizer(3, 3, wxSize(5, 5));
     InitFlexSizer(sizerFlex, p);
     sizerFlex->AddGrowableCol(1);
     sizerFlex->AddGrowableRow(1);
@@ -374,8 +374,8 @@ MyFlexSizerFrame::MyFlexSizerFrame(wxFrame* parent)
     sizerFlex->SetNonFlexibleGrowMode(wxFLEX_GROWMODE_NONE);
     sizerCol2->Add(sizerFlex, 1, wxALL | wxEXPAND, 10);
 
-    sizerCol2->Add(new wxStaticText(p, wxID_ANY, "Same with grow mode == \"all\""), 0, wxCENTER | wxTOP, 20);
-    sizerFlex = new wxFlexGridSizer(3, 3, wxSize(5, 5));
+    sizerCol2->Add(NEW_DEBUG wxStaticText(p, wxID_ANY, "Same with grow mode == \"all\""), 0, wxCENTER | wxTOP, 20);
+    sizerFlex = NEW_DEBUG wxFlexGridSizer(3, 3, wxSize(5, 5));
     InitFlexSizer(sizerFlex, p);
     sizerFlex->AddGrowableCol(1);
     sizerFlex->AddGrowableRow(1);
@@ -384,7 +384,7 @@ MyFlexSizerFrame::MyFlexSizerFrame(wxFrame* parent)
     sizerCol2->Add(sizerFlex, 1, wxALL | wxEXPAND, 10);
 
     // add both columns to grid sizer
-    wxGridSizer *sizerTop = new wxGridSizer(2, 0, 20);
+    wxGridSizer *sizerTop = NEW_DEBUG wxGridSizer(2, 0, 20);
     sizerTop->Add(sizerCol1, 1, wxEXPAND);
     sizerTop->Add(sizerCol2, 1, wxEXPAND);
 
@@ -404,29 +404,29 @@ MyNotebookWithSizerDialog::MyNotebookWithSizerDialog(wxWindow *parent, const wxS
     // Begin with first hierarchy: a notebook at the top
     // and OK button at the bottom.
 
-    wxBoxSizer *topsizer = new wxBoxSizer( wxVERTICAL );
+    wxBoxSizer *topsizer = NEW_DEBUG wxBoxSizer( wxVERTICAL );
 
-    wxNotebook *notebook = new wxNotebook( this, wxID_ANY );
+    wxNotebook *notebook = NEW_DEBUG wxNotebook( this, wxID_ANY );
     topsizer->Add( notebook, 1, wxGROW );
 
-    wxButton *button = new wxButton( this, wxID_OK, "OK" );
+    wxButton *button = NEW_DEBUG wxButton( this, wxID_OK, "OK" );
     topsizer->Add( button, 0, wxALIGN_RIGHT | wxALL, 10 );
 
     // First page: one big text ctrl
-    wxTextCtrl *multi = new wxTextCtrl( notebook, wxID_ANY, "TextCtrl.", wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE );
+    wxTextCtrl *multi = NEW_DEBUG wxTextCtrl( notebook, wxID_ANY, "TextCtrl.", wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE );
     notebook->AddPage( multi, "Page One" );
 
     // Second page: a text ctrl and a button
-    wxPanel *panel = new wxPanel( notebook, wxID_ANY );
+    wxPanel *panel = NEW_DEBUG wxPanel( notebook, wxID_ANY );
     notebook->AddPage( panel, "Page Two" );
 
-    wxSizer *panelsizer = new wxBoxSizer( wxVERTICAL );
+    wxSizer *panelsizer = NEW_DEBUG wxBoxSizer( wxVERTICAL );
 
-    wxTextCtrl *text = new wxTextCtrl( panel, wxID_ANY, "TextLine 1.", wxDefaultPosition, wxSize(250,wxDefaultCoord) );
+    wxTextCtrl *text = NEW_DEBUG wxTextCtrl( panel, wxID_ANY, "TextLine 1.", wxDefaultPosition, wxSize(250,wxDefaultCoord) );
     panelsizer->Add( text, 0, wxGROW|wxALL, 30 );
-    text = new wxTextCtrl( panel, wxID_ANY, "TextLine 2.", wxDefaultPosition, wxSize(250,wxDefaultCoord) );
+    text = NEW_DEBUG wxTextCtrl( panel, wxID_ANY, "TextLine 2.", wxDefaultPosition, wxSize(250,wxDefaultCoord) );
     panelsizer->Add( text, 0, wxGROW|wxALL, 30 );
-    wxButton *button2 = new wxButton( panel, wxID_ANY, "Hallo" );
+    wxButton *button2 = NEW_DEBUG wxButton( panel, wxID_ANY, "Hallo" );
     panelsizer->Add( button2, 0, wxALIGN_RIGHT | wxLEFT|wxRIGHT|wxBOTTOM, 30 );
 
     panel->SetSizer( panelsizer );
@@ -440,8 +440,8 @@ MyNotebookWithSizerDialog::MyNotebookWithSizerDialog(wxWindow *parent, const wxS
 // ----------------------------------------------------------------------------
 
 // some simple macros to help make the sample code below more clear
-#define TEXTCTRL(text)   new wxTextCtrl(p, wxID_ANY, text)
-#define MLTEXTCTRL(text) new wxTextCtrl(p, wxID_ANY, text, wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE)
+#define TEXTCTRL(text)   NEW_DEBUG wxTextCtrl(p, wxID_ANY, text)
+#define MLTEXTCTRL(text) NEW_DEBUG wxTextCtrl(p, wxID_ANY, text, wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE)
 #define POS(r, c)        wxGBPosition(r,c)
 #define SPAN(r, c)       wxGBSpan(r,c)
 
@@ -476,12 +476,12 @@ wxEND_EVENT_TABLE()
 MyGridBagSizerFrame::MyGridBagSizerFrame(wxFrame* parent)
     : wxFrame(parent, wxID_ANY, "wxGridBagSizer Test Frame")
 {
-    wxPanel* p = new wxPanel(this, wxID_ANY);
+    wxPanel* p = NEW_DEBUG wxPanel(this, wxID_ANY);
     m_panel = p;
-    m_gbs = new wxGridBagSizer();
+    m_gbs = NEW_DEBUG wxGridBagSizer();
 
 
-    m_gbs->Add( new wxStaticText(p, wxID_ANY, GetGbsDescription()),
+    m_gbs->Add( NEW_DEBUG wxStaticText(p, wxID_ANY, GetGbsDescription()),
                 POS(0,0), SPAN(1, 7),
                 wxALIGN_CENTER | wxALL, 5);
 
@@ -501,19 +501,19 @@ MyGridBagSizerFrame::MyGridBagSizerFrame(wxFrame* parent)
     //m_gbs->Add( TEXTCTRL("bad position"), POS(5,3) );  // Test for assert
 
 
-    m_moveBtn1 = new wxButton(p, GBS_MOVE_BTN1, "Move this to (3,6)");
-    m_moveBtn2 = new wxButton(p, GBS_MOVE_BTN2, "Move this to (3,6)");
+    m_moveBtn1 = NEW_DEBUG wxButton(p, GBS_MOVE_BTN1, "Move this to (3,6)");
+    m_moveBtn2 = NEW_DEBUG wxButton(p, GBS_MOVE_BTN2, "Move this to (3,6)");
     m_gbs->Add( m_moveBtn1, POS(10,2) );
     m_gbs->Add( m_moveBtn2, POS(10,3) );
 
-    m_hideBtn = new wxButton(p, GBS_HIDE_BTN, "Hide this item -->");
+    m_hideBtn = NEW_DEBUG wxButton(p, GBS_HIDE_BTN, "Hide this item -->");
     m_gbs->Add(m_hideBtn, POS(12, 3));
 
-    m_hideTxt = new wxTextCtrl(p, wxID_ANY, "pos(12,4), size(150, wxDefaultCoord)",
+    m_hideTxt = NEW_DEBUG wxTextCtrl(p, wxID_ANY, "pos(12,4), size(150, wxDefaultCoord)",
                                 wxDefaultPosition, wxSize(150,wxDefaultCoord));
     m_gbs->Add( m_hideTxt, POS(12,4) );
 
-    m_showBtn = new wxButton(p, GBS_SHOW_BTN, "<-- Show it again");
+    m_showBtn = NEW_DEBUG wxButton(p, GBS_SHOW_BTN, "<-- Show it again");
     m_gbs->Add(m_showBtn, POS(12, 5));
     m_showBtn->Disable();
 
@@ -590,22 +590,22 @@ wxEND_EVENT_TABLE()
 MySimpleSizerFrame::MySimpleSizerFrame(wxFrame* parent)
     : wxFrame(parent, wxID_ANY, "Simple Sizer Test Frame")
 {
-    wxMenu *menu = new wxMenu;
+    wxMenu *menu = NEW_DEBUG wxMenu;
 
     menu->Append(ID_SET_SMALL, "Make text control small\tF4");
     menu->Append(ID_SET_BIG, "Make text control big\tF5");
 
-    wxMenuBar *menu_bar = new wxMenuBar;
+    wxMenuBar *menu_bar = NEW_DEBUG wxMenuBar;
     menu_bar->Append(menu, "&File");
 
     SetMenuBar( menu_bar );
 
-    wxBoxSizer *main_sizer = new wxBoxSizer( wxHORIZONTAL );
+    wxBoxSizer *main_sizer = NEW_DEBUG wxBoxSizer( wxHORIZONTAL );
 
-    m_target = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 80, wxDefaultCoord ) );
+    m_target = NEW_DEBUG wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 80, wxDefaultCoord ) );
     main_sizer->Add( m_target, 1, wxALL, 5 );
 
-    main_sizer->Add( new wxStaticText( this, wxID_ANY, "Set alternating sizes using F4 and F5" ), 0, wxALL, 5 );
+    main_sizer->Add( NEW_DEBUG wxStaticText( this, wxID_ANY, "Set alternating sizes using F4 and F5" ), 0, wxALL, 5 );
 
     SetSizer( main_sizer);
 
@@ -636,34 +636,34 @@ void MySimpleSizerFrame::OnSetBigSize( wxCommandEvent& WXUNUSED(event))
 MyNestedSizerFrame::MyNestedSizerFrame(wxFrame* parent)
     : wxFrame(parent, wxID_ANY, "Nested Sizer Test Frame")
 {
-    wxMenu *menu = new wxMenu;
+    wxMenu *menu = NEW_DEBUG wxMenu;
 
     menu->Append(wxID_ABOUT, "Do nothing");
 
-    wxMenuBar *menu_bar = new wxMenuBar;
+    wxMenuBar *menu_bar = NEW_DEBUG wxMenuBar;
     menu_bar->Append(menu, "&File");
 
     SetMenuBar( menu_bar );
 
-    wxBoxSizer *main_sizer = new wxBoxSizer( wxVERTICAL );
+    wxBoxSizer *main_sizer = NEW_DEBUG wxBoxSizer( wxVERTICAL );
 
-    main_sizer->Add( new wxStaticText( this, -1, "Hello outside" ), 0, wxALIGN_CENTER );
-    main_sizer->Add( new wxStaticText( this, -1, "Hello outside" ), 0, wxALIGN_CENTER );
-    main_sizer->Add( new wxStaticText( this, -1, "Hello outside" ), 0, wxALIGN_CENTER );
-    main_sizer->Add( new wxStaticText( this, -1, "Hello outside" ), 0, wxALIGN_CENTER );
+    main_sizer->Add( NEW_DEBUG wxStaticText( this, -1, "Hello outside" ), 0, wxALIGN_CENTER );
+    main_sizer->Add( NEW_DEBUG wxStaticText( this, -1, "Hello outside" ), 0, wxALIGN_CENTER );
+    main_sizer->Add( NEW_DEBUG wxStaticText( this, -1, "Hello outside" ), 0, wxALIGN_CENTER );
+    main_sizer->Add( NEW_DEBUG wxStaticText( this, -1, "Hello outside" ), 0, wxALIGN_CENTER );
 
-    wxPanel *panel = new wxPanel( this, -1, wxDefaultPosition, wxDefaultSize,
+    wxPanel *panel = NEW_DEBUG wxPanel( this, -1, wxDefaultPosition, wxDefaultSize,
                                   wxTAB_TRAVERSAL | wxSUNKEN_BORDER );
     main_sizer->Add( panel, 0, wxALIGN_CENTER );
-    wxBoxSizer *panel_sizer = new wxBoxSizer( wxVERTICAL );
+    wxBoxSizer *panel_sizer = NEW_DEBUG wxBoxSizer( wxVERTICAL );
     panel->SetSizer( panel_sizer );
-    panel_sizer->Add( new wxStaticText( panel, -1, "Hello inside" ) );
-    panel_sizer->Add( new wxStaticText( panel, -1, "Hello inside" ) );
-    panel_sizer->Add( new wxStaticText( panel, -1, "Hello inside" ) );
+    panel_sizer->Add( NEW_DEBUG wxStaticText( panel, -1, "Hello inside" ) );
+    panel_sizer->Add( NEW_DEBUG wxStaticText( panel, -1, "Hello inside" ) );
+    panel_sizer->Add( NEW_DEBUG wxStaticText( panel, -1, "Hello inside" ) );
 
-    main_sizer->Add( new wxStaticText( this, -1, "Hello outside" ), 0, wxALIGN_CENTER );
+    main_sizer->Add( NEW_DEBUG wxStaticText( this, -1, "Hello outside" ), 0, wxALIGN_CENTER );
 
-    m_target = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 80, wxDefaultCoord ) );
+    m_target = NEW_DEBUG wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 80, wxDefaultCoord ) );
     main_sizer->Add( m_target, 1, wxALL|wxGROW, 5 );
 
     SetSizerAndFit( main_sizer);
@@ -683,21 +683,21 @@ MyWrapSizerFrame::MyWrapSizerFrame(wxFrame* parent)
     : wxFrame(parent, wxID_ANY, "Wrap Sizer Test Frame",
               wxDefaultPosition, wxSize(200,-1))
 {
-    wxMenu *menu = new wxMenu;
+    wxMenu *menu = NEW_DEBUG wxMenu;
 
     menu->Append(wxID_ADD, "&Add a checkbox\tCtrl-+");
     menu->Append(wxID_REMOVE, "&Remove a checkbox\tCtrl--");
 
-    wxMenuBar *menu_bar = new wxMenuBar;
+    wxMenuBar *menu_bar = NEW_DEBUG wxMenuBar;
     menu_bar->Append(menu, "&Wrap sizer");
 
     SetMenuBar( menu_bar );
 
-    wxBoxSizer *root = new wxBoxSizer( wxVERTICAL );
+    wxBoxSizer *root = NEW_DEBUG wxBoxSizer( wxVERTICAL );
 
-    wxStaticBoxSizer *topSizer = new wxStaticBoxSizer( wxVERTICAL, this, "Wrapping check-boxes" );
+    wxStaticBoxSizer *topSizer = NEW_DEBUG wxStaticBoxSizer( wxVERTICAL, this, "Wrapping check-boxes" );
     m_checkboxParent = topSizer->GetStaticBox();
-    m_wrapSizer = new wxWrapSizer(wxHORIZONTAL);
+    m_wrapSizer = NEW_DEBUG wxWrapSizer(wxHORIZONTAL);
 
     // A number of checkboxes inside a wrap sizer
     for( int i = 0; i < 6; i++ )
@@ -707,12 +707,12 @@ MyWrapSizerFrame::MyWrapSizerFrame(wxFrame* parent)
     root->Add( topSizer, wxSizerFlags().Expand().Border());
 
     // A shaped item inside a box sizer
-    wxSizer *bottomSizer = new wxStaticBoxSizer( wxVERTICAL, this, "With wxSHAPED item" );
-    wxSizer *horzBoxSizer = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer *bottomSizer = NEW_DEBUG wxStaticBoxSizer( wxVERTICAL, this, "With wxSHAPED item" );
+    wxSizer *horzBoxSizer = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     bottomSizer->Add( horzBoxSizer, 100, wxEXPAND );
-    horzBoxSizer->Add( new wxListBox(this,wxID_ANY,wxPoint(0,0),wxSize(70,70)), 0, wxEXPAND|wxSHAPED );
+    horzBoxSizer->Add( NEW_DEBUG wxListBox(this,wxID_ANY,wxPoint(0,0),wxSize(70,70)), 0, wxEXPAND|wxSHAPED );
     horzBoxSizer->Add( 10,10 );
-    horzBoxSizer->Add( new wxCheckBox(this,wxID_ANY,"A much longer option..."), 100, 0, 5 );
+    horzBoxSizer->Add( NEW_DEBUG wxCheckBox(this,wxID_ANY,"A much longer option..."), 100, 0, 5 );
 
     root->Add( bottomSizer, 1, wxEXPAND | wxALL, 5 );
 
@@ -722,7 +722,7 @@ MyWrapSizerFrame::MyWrapSizerFrame(wxFrame* parent)
 
 void MyWrapSizerFrame::DoAddCheckbox()
 {
-    m_wrapSizer->Add(new wxCheckBox
+    m_wrapSizer->Add(NEW_DEBUG wxCheckBox
                          (
                             m_checkboxParent,
                             wxID_ANY,

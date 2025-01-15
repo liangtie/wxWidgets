@@ -184,7 +184,7 @@ bool wxDataObject::IsSupportedFormat(const wxDataFormat& format, Direction dir) 
     }
     else
     {
-        wxDataFormat *formats = new wxDataFormat[nFormatCount];
+        wxDataFormat *formats = NEW_DEBUG wxDataFormat[nFormatCount];
         GetAllFormats(formats,dir);
 
         size_t n;
@@ -340,7 +340,7 @@ bool wxBitmapDataObject::SetData(size_t size, const void *buf)
     Clear();
 
     wxCHECK_MSG( wxImage::FindHandler(wxBITMAP_TYPE_PNG) != NULL,
-                 false, wxT("You must call wxImage::AddHandler(new wxPNGHandler); to be able to use clipboard with bitmaps!") );
+                 false, wxT("You must call wxImage::AddHandler(NEW_DEBUG wxPNGHandler); to be able to use clipboard with bitmaps!") );
 
     m_pngSize = size;
     m_pngData = malloc(m_pngSize);
@@ -365,7 +365,7 @@ void wxBitmapDataObject::DoConvertToPng()
         return;
 
     wxCHECK_RET( wxImage::FindHandler(wxBITMAP_TYPE_PNG) != NULL,
-                 wxT("You must call wxImage::AddHandler(new wxPNGHandler); to be able to use clipboard with bitmaps!") );
+                 wxT("You must call wxImage::AddHandler(NEW_DEBUG wxPNGHandler); to be able to use clipboard with bitmaps!") );
 
     wxImage image = m_bitmap.ConvertToImage();
 

@@ -2,7 +2,7 @@
 // Name:        src/common/stream.cpp
 // Purpose:     wxStream base classes
 // Author:      Guilhem Lavaux
-// Modified by: VZ (23.11.00) to fix realloc()ing new[]ed memory,
+// Modified by: VZ (23.11.00) to fix realloc()ing NEW_DEBUG[]ed memory,
 //                            general code review
 // Created:     11/07/98
 // Copyright:   (c) Guilhem Lavaux
@@ -161,7 +161,7 @@ void wxStreamBuffer::SetBufferIO(size_t bufsize)
 {
     if ( bufsize )
     {
-        // this will free the old buffer and allocate the new one
+        // this will free the old buffer and allocate the NEW_DEBUG one
         SetBufferIO(malloc(bufsize), bufsize, true /* take ownership */);
     }
     else // no buffer size => no buffer
@@ -392,7 +392,7 @@ size_t wxStreamBuffer::Read(void *buffer, size_t size)
     /* Clear buffer first */
     memset(buffer, 0x00, size);
 
-    // lasterror is reset before all new IO calls
+    // lasterror is reset before all NEW_DEBUG IO calls
     if ( m_stream )
         m_stream->Reset();
 
@@ -472,7 +472,7 @@ size_t wxStreamBuffer::Write(const void *buffer, size_t size)
 
     if (m_stream)
     {
-        // lasterror is reset before all new IO calls
+        // lasterror is reset before all NEW_DEBUG IO calls
         m_stream->Reset();
     }
 
@@ -745,7 +745,7 @@ char *wxInputStream::AllocSpaceWBack(size_t needed_size)
     // get number of bytes left from previous wback buffer
     size_t toget = m_wbacksize - m_wbackcur;
 
-    // allocate a buffer large enough to hold prev + new data
+    // allocate a buffer large enough to hold prev + NEW_DEBUG data
     char *temp_b = (char *)malloc(needed_size + toget);
 
     if (!temp_b)
@@ -975,7 +975,7 @@ wxFileOffset wxInputStream::SeekI(wxFileOffset pos, wxSeekMode mode)
         char buf[BUF_TEMP_SIZE];
         size_t bytes_read;
 
-        // read chunks of BUF_TEMP_SIZE bytes until we reach the new position
+        // read chunks of BUF_TEMP_SIZE bytes until we reach the NEW_DEBUG position
         for ( ; pos >= BUF_TEMP_SIZE; pos -= bytes_read)
         {
             bytes_read = Read(buf, WXSIZEOF(buf)).LastRead();
@@ -1320,7 +1320,7 @@ template <typename T>
 wxStreamBuffer *
 CreateBufferIfNeeded(T& stream, wxStreamBuffer *buffer, size_t bufsize = 1024)
 {
-    return buffer ? buffer : new wxStreamBuffer(bufsize, stream);
+    return buffer ? buffer : NEW_DEBUG wxStreamBuffer(bufsize, stream);
 }
 
 } // anonymous namespace
@@ -1371,7 +1371,7 @@ wxInputStream& wxBufferedInputStream::Read(void *buf, size_t size)
         // existing stream and wasn't created by us), so save it
         size_t countOld = m_lastcount;
 
-        // the new count of the bytes read is the count of bytes read this time
+        // the NEW_DEBUG count of the bytes read is the count of bytes read this time
         m_lastcount = m_i_streambuf->Read(buf, size);
 
         // plus those we had read before

@@ -62,14 +62,14 @@
 // private classes
 // ----------------------------------------------------------------------------
 
-// Define a new application type, each program should derive a class from wxApp
+// Define a NEW_DEBUG application type, each program should derive a class from wxApp
 class MyApp : public wxApp
 {
 public:
     virtual bool OnInit();
 };
 
-// Define a new frame type: this is going to be our main frame
+// Define a NEW_DEBUG frame type: this is going to be our main frame
 class MyFrame : public wxFrame
 {
 public:
@@ -137,7 +137,7 @@ bool MyApp::OnInit()
     RegisterFrameRTTI();
 
     // create the main application window
-    MyFrame *frame = new MyFrame("Extended RTTI sample");
+    MyFrame *frame = NEW_DEBUG MyFrame("Extended RTTI sample");
 
     // and show it (the frames, unlike simple controls, are not shown when
     // created initially)
@@ -161,10 +161,10 @@ MyFrame::MyFrame(const wxString& title)
 
 #if wxUSE_MENUS
     // create a menu bar
-    wxMenu *fileMenu = new wxMenu;
+    wxMenu *fileMenu = NEW_DEBUG wxMenu;
 
     // the "About" item should be in the help menu
-    wxMenu *helpMenu = new wxMenu;
+    wxMenu *helpMenu = NEW_DEBUG wxMenu;
     helpMenu->Append(Minimal_About, "&About\tF1", "Show about dialog");
 
     fileMenu->Append(Minimal_Persist, "Persist a wxFrame to XML...",
@@ -180,7 +180,7 @@ MyFrame::MyFrame(const wxString& title)
     fileMenu->Append(Minimal_Quit, "E&xit\tAlt-X", "Quit this program");
 
     // now append the freshly created menu to the menu bar...
-    wxMenuBar *menuBar = new wxMenuBar();
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar();
     menuBar->Append(fileMenu, "&File");
     menuBar->Append(helpMenu, "&Help");
 
@@ -315,7 +315,7 @@ void RegisterFrameRTTI()
         wx_dynamic_cast( wxDynamicClassInfo *, wxClassInfo::FindClass("MyXTIFrame"));
     if ( dyninfo == NULL )
     {
-        dyninfo = new wxDynamicClassInfo(wxT("myxtiframe.h"),
+        dyninfo = NEW_DEBUG wxDynamicClassInfo(wxT("myxtiframe.h"),
                             wxT("MyXTIFrame"),
                             CLASSINFO(wxFrame) );
 
@@ -529,7 +529,7 @@ bool SaveFrameRTTI(const wxString &testFileName, wxDynamicObject *frame)
 {
     // setup the XML document
     wxXmlDocument xml;
-    wxXmlNode *root = new wxXmlNode(wxXML_ELEMENT_NODE,
+    wxXmlNode *root = NEW_DEBUG wxXmlNode(wxXML_ELEMENT_NODE,
                                     "TestXTI", "This is the content");
     xml.SetRoot(root);
 
@@ -704,13 +704,13 @@ void MyFrame::OnGenerateCode(wxCommandEvent& WXUNUSED(event))
         wxDialog dlg3(this, wxID_ANY, "Generated code",
                      wxDefaultPosition, wxDefaultSize,
                      wxRESIZE_BORDER|wxDEFAULT_DIALOG_STYLE);
-        wxPanel *panel = new wxPanel(&dlg3);
-        wxSizer *sz = new wxBoxSizer(wxVERTICAL);
-        sz->Add(new wxTextCtrl(panel, wxID_ANY, str.GetString(),
+        wxPanel *panel = NEW_DEBUG wxPanel(&dlg3);
+        wxSizer *sz = NEW_DEBUG wxBoxSizer(wxVERTICAL);
+        sz->Add(NEW_DEBUG wxTextCtrl(panel, wxID_ANY, str.GetString(),
                                wxDefaultPosition, wxDefaultSize,
                                wxTE_MULTILINE|wxTE_READONLY|wxTE_DONTWRAP),
                 1, wxGROW|wxALL, 5);
-        sz->Add(new wxButton(panel, wxID_OK), 0, wxALIGN_RIGHT|wxALL, 5);
+        sz->Add(NEW_DEBUG wxButton(panel, wxID_OK), 0, wxALIGN_RIGHT|wxALL, 5);
         panel->SetSizerAndFit(sz);
         dlg3.ShowModal();
     }

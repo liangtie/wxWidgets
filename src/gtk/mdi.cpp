@@ -38,7 +38,7 @@ switch_page(GtkNotebook* widget, GtkNotebookPage*, guint page_num, wxMDIParentFr
         child->HandleWindowEvent( event1 );
     }
 
-    // send activate event to new child
+    // send activate event to NEW_DEBUG child
 
     wxMDIClientWindowBase *client_window = parent->GetClientWindow();
     if ( !client_window )
@@ -105,7 +105,7 @@ void wxMDIParentFrame::OnInternalIdle()
 {
     /* if a MDI child window has just been inserted
        it has to be brought to the top in idle time. we
-       simply set the last notebook page active as new
+       simply set the last notebook page active as NEW_DEBUG
        pages can only be appended at the end */
 
     if (m_justInserted)

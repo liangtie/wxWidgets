@@ -338,7 +338,7 @@ bool wxMenuBar::GtkAppend(wxMenu *menu, const wxString& title, int pos)
     // The "m_owner" is the "menu item"
     menu->m_owner = gtk_menu_item_new_with_label( wxGTK_CONV( str ) );
     GtkLabel *label = GTK_LABEL( GTK_BIN(menu->m_owner)->child );
-    // set new text
+    // set NEW_DEBUG text
     gtk_label_set_text( label, wxGTK_CONV( str ) );
     // reparse key accel
     guint accel_key = gtk_label_parse_uline (GTK_LABEL(label), wxGTK_CONV( str ) );
@@ -371,7 +371,7 @@ bool wxMenuBar::GtkAppend(wxMenu *menu, const wxString& title, int pos)
 
             // OPTIMISE ME:  we should probably cache this, or pass it
             //               directly, but for now this is a minimal
-            //               change to validate the new dynamic sizing.
+            //               change to validate the NEW_DEBUG dynamic sizing.
             //               see (and refactor :) similar code in Remove
             //               below.
 
@@ -396,7 +396,7 @@ bool wxMenuBar::Insert(size_t pos, wxMenu *menu, const wxString& title)
 
 wxMenu *wxMenuBar::Replace(size_t pos, wxMenu *menu, const wxString& title)
 {
-    // remove the old item and insert a new one
+    // remove the old item and insert a NEW_DEBUG one
     wxMenu *menuOld = Remove(pos);
     if ( menuOld && !Insert(pos, menu, title) )
     {
@@ -542,7 +542,7 @@ void wxMenuBar::SetMenuLabel( size_t pos, const wxString& label )
     {
         GtkLabel *glabel = GTK_LABEL( GTK_BIN(menu->m_owner)->child );
 
-        /* set new text */
+        /* set NEW_DEBUG text */
         gtk_label_set( glabel, wxGTK_CONV( str ) );
 
         /* reparse key accel */
@@ -697,7 +697,7 @@ wxMenuItem *wxMenuItemBase::New(wxMenu *parentMenu,
                                 wxItemKind kind,
                                 wxMenu *subMenu)
 {
-    return new wxMenuItem(parentMenu, id, name, help, kind, subMenu);
+    return NEW_DEBUG wxMenuItem(parentMenu, id, name, help, kind, subMenu);
 }
 
 wxMenuItem::wxMenuItem(wxMenu *parentMenu,
@@ -776,7 +776,7 @@ void wxMenuItem::SetItemLabel( const wxString& string )
         else
             label = GTK_LABEL( GTK_BIN(m_menuItem)->child );
 
-        // set new text
+        // set NEW_DEBUG text
         gtk_label_set( label, wxGTK_CONV( m_text ) );
 
         // reparse key accel
@@ -998,7 +998,7 @@ bool wxMenu::GtkAppend(wxMenuItem *mitem, int pos)
             {
                 menuItem = gtk_check_menu_item_new_with_label( wxGTK_CONV( text ) );
                 label = GTK_LABEL( GTK_BIN(menuItem)->child );
-                // set new text
+                // set NEW_DEBUG text
                 gtk_label_set_text( label, wxGTK_CONV( text ) );
                 m_prevRadio = NULL;
                 break;
@@ -1009,10 +1009,10 @@ bool wxMenu::GtkAppend(wxMenuItem *mitem, int pos)
                 GSList *group = NULL;
                 if ( m_prevRadio == NULL )
                 {
-                    // start of a new radio group
+                    // start of a NEW_DEBUG radio group
                     m_prevRadio = menuItem = gtk_radio_menu_item_new_with_label( group, wxGTK_CONV( text ) );
                     label = GTK_LABEL( GTK_BIN(menuItem)->child );
-                    // set new text
+                    // set NEW_DEBUG text
                     gtk_label_set_text( label, wxGTK_CONV( text ) );
                 }
                 else // continue the radio group

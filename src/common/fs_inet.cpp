@@ -120,7 +120,7 @@ wxFSFile* wxInternetFSHandler::OpenFile(wxFileSystem& WXUNUSED(fs),
             wxString mimetype = content.BeforeFirst(';');
             mimetype.Trim();
 
-            return new wxFSFile(new wxTemporaryFileInputStream(tmpfile),
+            return NEW_DEBUG wxFSFile(NEW_DEBUG wxTemporaryFileInputStream(tmpfile),
                                 right,
                                 mimetype,
                                 GetAnchor(location)
@@ -149,7 +149,7 @@ class wxFileSystemInternetModule : public wxModule
 
         virtual bool OnInit() wxOVERRIDE
         {
-            m_handler = new wxInternetFSHandler;
+            m_handler = NEW_DEBUG wxInternetFSHandler;
             wxFileSystem::AddHandler(m_handler);
             return true;
         }

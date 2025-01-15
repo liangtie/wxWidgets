@@ -44,7 +44,7 @@ bool wxApp::Initialize(int& argc, wxChar **argv)
 #if wxUSE_UNICODE
     // DirectFBInit() wants UTF-8, not wchar_t, so convert
     int i;
-    char **argvDFB = new char *[argc + 1];
+    char **argvDFB = NEW_DEBUG char *[argc + 1];
     for ( i = 0; i < argc; i++ )
     {
         argvDFB[i] = strdup(wxConvUTF8.cWX2MB(argv[i]));

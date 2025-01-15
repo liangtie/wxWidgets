@@ -58,7 +58,7 @@ enum
 // private classes
 // ----------------------------------------------------------------------------
 
-// Define a new application type, each program should derive a class from wxApp
+// Define a NEW_DEBUG application type, each program should derive a class from wxApp
 class MyApp : public wxApp
 {
 public:
@@ -67,7 +67,7 @@ public:
 
 #if wxUSE_UIACTIONSIMULATOR
 
-// Define a new frame type: this is going to be our main frame
+// Define a NEW_DEBUG frame type: this is going to be our main frame
 class MyFrame : public wxFrame
 {
 public:
@@ -115,7 +115,7 @@ bool MyApp::OnInit()
         return false;
 
 #if wxUSE_UIACTIONSIMULATOR
-    MyFrame *frame = new MyFrame("wxUIActionSimulator sample application");
+    MyFrame *frame = NEW_DEBUG MyFrame("wxUIActionSimulator sample application");
     frame->Show(true);
 
     return true;
@@ -139,9 +139,9 @@ MyFrame::MyFrame(const wxString& title)
 
 #if wxUSE_MENUS
     // create a menu bar
-    wxMenu *fileMenu = new wxMenu;
+    wxMenu *fileMenu = NEW_DEBUG wxMenu;
 
-    fileMenu->Append(wxID_NEW, "&New File...", "Open a new file");
+    fileMenu->Append(wxID_NEW, "&New File...", "Open a NEW_DEBUG file");
     fileMenu->Append(RunSimulation, "&Run Simulation\tCtrl-R",
                      "Run predefined UI action simulation");
     fileMenu->Append(SimulateText, "Simulate &text input...\tCtrl-T",
@@ -150,25 +150,25 @@ MyFrame::MyFrame(const wxString& title)
 
     fileMenu->Append(wxID_EXIT, "E&xit\tAlt-X", "Quit this program");
 
-    wxMenu* const helpMenu = new wxMenu;
+    wxMenu* const helpMenu = NEW_DEBUG wxMenu;
     helpMenu->Append(wxID_ABOUT);
 
-    wxMenuBar *menuBar = new wxMenuBar();
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar();
     menuBar->Append(fileMenu, "&File");
     menuBar->Append(helpMenu, "&Help");
 
     SetMenuBar(menuBar);
 #endif // wxUSE_MENUS
 
-    wxPanel *panel = new wxPanel(this);
+    wxPanel *panel = NEW_DEBUG wxPanel(this);
 
-    wxBoxSizer* sizer = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer* sizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     panel->SetSizer(sizer);
 
-    m_button = new wxButton(panel, wxID_ANY, "&Button");
+    m_button = NEW_DEBUG wxButton(panel, wxID_ANY, "&Button");
     sizer->Add(m_button, wxSizerFlags().Centre().Border());
 
-    m_text = new wxTextCtrl(panel, wxID_ANY, "",
+    m_text = NEW_DEBUG wxTextCtrl(panel, wxID_ANY, "",
                             wxDefaultPosition, wxDefaultSize,
                             wxTE_MULTILINE);
     sizer->Add(m_text, wxSizerFlags(1).Expand().Border());

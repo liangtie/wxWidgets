@@ -324,7 +324,7 @@ bool wxVListBoxComboPopup::HandleKey( int keycode, bool saturate, wxChar keychar
     {
         // Try partial completion
 
-        // find the new partial completion string
+        // find the NEW_DEBUG partial completion string
 #if wxUSE_TIMER
         if (m_partialCompletionTimer.IsRunning())
             m_partialCompletionString+=wxString(keychar);
@@ -979,7 +979,7 @@ void wxOwnerDrawnComboBox::DoSetPopupControl(wxComboPopup* popup)
 {
     if ( !popup )
     {
-        popup = new wxVListBoxComboPopup();
+        popup = NEW_DEBUG wxVListBoxComboPopup();
     }
 
     wxComboCtrl::DoSetPopupControl(popup);

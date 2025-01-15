@@ -38,7 +38,7 @@ extern WXDLLEXPORT_DATA(const char) wxBitmapRadioButtonNameStr[] = "radioButton"
 
 wxDEFINE_FLAGS( wxRadioButtonStyle )
 wxBEGIN_FLAGS( wxRadioButtonStyle )
-    // new style border flags, we put them first to
+    // NEW_DEBUG style border flags, we put them first to
     // use them for streaming out
     wxFLAGS_MEMBER(wxBORDER_SIMPLE)
     wxFLAGS_MEMBER(wxBORDER_SUNKEN)

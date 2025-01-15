@@ -239,7 +239,7 @@ bool wxGtkPrintModule::OnInit()
 {
     if (wx_is_at_least_gtk2(10))
     {
-        wxPrintFactory::SetPrintFactory( new wxGtkPrintFactory );
+        wxPrintFactory::SetPrintFactory( NEW_DEBUG wxGtkPrintFactory );
     }
     return true;
 }
@@ -252,39 +252,39 @@ wxIMPLEMENT_DYNAMIC_CLASS(wxGtkPrintModule, wxModule);
 
 wxPrinterBase* wxGtkPrintFactory::CreatePrinter( wxPrintDialogData *data )
 {
-    return new wxGtkPrinter( data );
+    return NEW_DEBUG wxGtkPrinter( data );
 }
 
 wxPrintPreviewBase *wxGtkPrintFactory::CreatePrintPreview( wxPrintout *preview,
                                                     wxPrintout *printout,
                                                     wxPrintDialogData *data )
 {
-    return new wxGtkPrintPreview( preview, printout, data );
+    return NEW_DEBUG wxGtkPrintPreview( preview, printout, data );
 }
 
 wxPrintPreviewBase *wxGtkPrintFactory::CreatePrintPreview( wxPrintout *preview,
                                                     wxPrintout *printout,
                                                     wxPrintData *data )
 {
-    return new wxGtkPrintPreview( preview, printout, data );
+    return NEW_DEBUG wxGtkPrintPreview( preview, printout, data );
 }
 
 wxPrintDialogBase *wxGtkPrintFactory::CreatePrintDialog( wxWindow *parent,
                                                   wxPrintDialogData *data )
 {
-    return new wxGtkPrintDialog( parent, data );
+    return NEW_DEBUG wxGtkPrintDialog( parent, data );
 }
 
 wxPrintDialogBase *wxGtkPrintFactory::CreatePrintDialog( wxWindow *parent,
                                                   wxPrintData *data )
 {
-    return new wxGtkPrintDialog( parent, data );
+    return NEW_DEBUG wxGtkPrintDialog( parent, data );
 }
 
 wxPageSetupDialogBase *wxGtkPrintFactory::CreatePageSetupDialog( wxWindow *parent,
                                                           wxPageSetupDialogData * data )
 {
-    return new wxGtkPageSetupDialog( parent, data );
+    return NEW_DEBUG wxGtkPageSetupDialog( parent, data );
 }
 
 bool wxGtkPrintFactory::HasPrintSetupDialog()
@@ -301,7 +301,7 @@ wxGtkPrintFactory::CreatePrintSetupDialog(wxWindow * WXUNUSED(parent),
 
 wxDCImpl* wxGtkPrintFactory::CreatePrinterDCImpl( wxPrinterDC *owner, const wxPrintData& data )
 {
-    return new wxGtkPrinterDCImpl( owner, data );
+    return NEW_DEBUG wxGtkPrinterDCImpl( owner, data );
 }
 
 bool wxGtkPrintFactory::HasOwnPrintToFile()
@@ -334,7 +334,7 @@ wxString wxGtkPrintFactory::CreateStatusLine()
 
 wxPrintNativeDataBase *wxGtkPrintFactory::CreatePrintNativeData()
 {
-    return new wxGtkPrintNativeData;
+    return NEW_DEBUG wxGtkPrintNativeData;
 }
 
 //----------------------------------------------------------------------------
@@ -795,7 +795,7 @@ int wxGtkPrintDialog::ShowModal()
 
 wxDC* wxGtkPrintDialog::GetPrintDC()
 {
-    return new wxPrinterDC(m_printDialogData.GetPrintData());
+    return NEW_DEBUG wxPrinterDC(m_printDialogData.GetPrintData());
 }
 
 //----------------------------------------------------------------------------
@@ -1027,8 +1027,8 @@ void wxGtkPrinter::BeginPrint(wxPrintout *printout, GtkPrintOperation *operation
     wxPrintData printdata = GetPrintDialogData().GetPrintData();
     wxGtkPrintNativeData *native = (wxGtkPrintNativeData*) printdata.GetNativeData();
 
-    // We need to update printdata with the new data from the dialog and we
-    // have to do this here because this method needs this new data and we
+    // We need to update printdata with the NEW_DEBUG data from the dialog and we
+    // have to do this here because this method needs this NEW_DEBUG data and we
     // cannot update it earlier
     native->SetPrintConfig(gtk_print_operation_get_print_settings(operation));
     printdata.ConvertFromNative();
@@ -1036,7 +1036,7 @@ void wxGtkPrinter::BeginPrint(wxPrintout *printout, GtkPrintOperation *operation
     SetPrintContext(context);
     native->SetPrintContext( context );
 
-    wxPrinterDC *printDC = new wxPrinterDC( printdata );
+    wxPrinterDC *printDC = NEW_DEBUG wxPrinterDC( printdata );
     m_dc = printDC;
 
     if (!m_dc->IsOk())

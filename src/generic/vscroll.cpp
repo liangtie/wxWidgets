@@ -446,7 +446,7 @@ void wxVarScrollHelperBase::DoSetTargetWindow(wxWindow *target)
         // if we already have a handler, delete it first
         DeleteEvtHandler();
 
-        m_handler = new wxVarScrollHelperEvtHandler(this);
+        m_handler = NEW_DEBUG wxVarScrollHelperEvtHandler(this);
         m_targetWindow->PushEventHandler(m_handler);
     }
 }
@@ -474,7 +474,7 @@ void wxVarScrollHelperBase::SetUnitCount(size_t count)
     m_sizeTotal = EstimateTotalSize();
 
     // ScrollToUnit() will update the scrollbar itself if it changes the unit
-    // we pass to it because it's out of [new] range
+    // we pass to it because it's out of [NEW_DEBUG] range
     size_t oldScrollPos = m_unitFirst;
     DoScrollToUnit(m_unitFirst);
     if ( oldScrollPos == m_unitFirst )

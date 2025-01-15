@@ -30,7 +30,7 @@ class wxMemoryFSFile
 public:
     wxMemoryFSFile(const void *data, size_t len, const wxString& mime)
     {
-        m_Data = new char[len];
+        m_Data = NEW_DEBUG char[len];
         memcpy(m_Data, data, len);
         m_Len = len;
         m_MimeType = mime;
@@ -40,7 +40,7 @@ public:
     wxMemoryFSFile(const wxMemoryOutputStream& stream, const wxString& mime)
     {
         m_Len = stream.GetSize();
-        m_Data = new char[m_Len];
+        m_Data = NEW_DEBUG char[m_Len];
         stream.CopyTo(m_Data, m_Len);
         m_MimeType = mime;
         InitTime();
@@ -106,9 +106,9 @@ wxFSFile * wxMemoryFSHandlerBase::OpenFile(wxFileSystem& WXUNUSED(fs),
 
     const wxMemoryFSFile * const obj = i->second;
 
-    return new wxFSFile
+    return NEW_DEBUG wxFSFile
                (
-                    new wxMemoryInputStream(obj->m_Data, obj->m_Len),
+                    NEW_DEBUG wxMemoryInputStream(obj->m_Data, obj->m_Len),
                     location,
                     obj->m_MimeType,
                     GetAnchor(location)
@@ -199,7 +199,7 @@ void wxMemoryFSHandlerBase::AddFileWithMimeType(const wxString& filename,
     if ( !CheckDoesntExist(filename) )
         return;
 
-    m_Hash[filename] = new wxMemoryFSFile(binarydata, size, mimetype);
+    m_Hash[filename] = NEW_DEBUG wxMemoryFSFile(binarydata, size, mimetype);
 }
 
 /*static*/
@@ -250,7 +250,7 @@ wxMemoryFSHandler::AddFile(const wxString& filename,
     wxMemoryOutputStream mems;
     if ( image.IsOk() && image.SaveFile(mems, type) )
     {
-        m_Hash[filename] = new wxMemoryFSFile
+        m_Hash[filename] = NEW_DEBUG wxMemoryFSFile
                                (
                                     mems,
                                     wxImage::FindHandler(type)->GetMimeType()

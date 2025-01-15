@@ -135,7 +135,7 @@ bool MyApp::OnInit()
 
     // Create the main frame window
 
-    MyFrame *frame = new MyFrame;
+    MyFrame *frame = NEW_DEBUG MyFrame;
 
     frame->Show(true);
 
@@ -193,13 +193,13 @@ MyFrame::MyFrame()
 #endif // wxUSE_STATUSBAR
 
 
-    m_textWindow = new wxTextCtrl(this, wxID_ANY, "A log window\n",
+    m_textWindow = NEW_DEBUG wxTextCtrl(this, wxID_ANY, "A log window\n",
                                   wxDefaultPosition, wxDefaultSize,
                                   wxTE_MULTILINE | wxTE_READONLY);
 
     // don't clutter the text window with time stamps
     wxLog::DisableTimestamp();
-    delete wxLog::SetActiveTarget(new wxLogTextCtrl(m_textWindow));
+    delete wxLog::SetActiveTarget(NEW_DEBUG wxLogTextCtrl(m_textWindow));
 
 #if wxUSE_TOOLBAR
     CreateToolBar(wxNO_BORDER | wxTB_FLAT | wxTB_HORIZONTAL);
@@ -234,16 +234,16 @@ MyFrame::~MyFrame()
 /* static */
 wxMenuBar *MyFrame::CreateMainMenubar()
 {
-    wxMenu *menuFile = new wxMenu;
+    wxMenu *menuFile = NEW_DEBUG wxMenu;
 
-    menuFile->Append(wxID_NEW, "&New window\tCtrl-N", "Create a new child window");
+    menuFile->Append(wxID_NEW, "&New window\tCtrl-N", "Create a NEW_DEBUG child window");
     menuFile->AppendCheckItem(MDI_FULLSCREEN, "Show &full screen\tCtrl-F");
     menuFile->Append(wxID_EXIT, "&Exit\tAlt-X", "Quit the program");
 
-    wxMenu *menuHelp = new wxMenu;
+    wxMenu *menuHelp = NEW_DEBUG wxMenu;
     menuHelp->Append(wxID_ABOUT, "&About\tF1");
 
-    wxMenuBar *mbar = new wxMenuBar;
+    wxMenuBar *mbar = NEW_DEBUG wxMenuBar;
     mbar->Append(menuFile, "&File");
     mbar->Append(menuHelp, "&Help");
 
@@ -285,7 +285,7 @@ void MyFrame::OnAbout(wxCommandEvent& WXUNUSED(event) )
 void MyFrame::OnNewWindow(wxCommandEvent& WXUNUSED(event) )
 {
     // create and show another child frame
-    MyChild *subframe = new MyChild(this);
+    MyChild *subframe = NEW_DEBUG MyChild(this);
     subframe->Show(true);
 }
 
@@ -455,7 +455,7 @@ MyChild::MyChild(wxMDIParentFrame *parent)
          ),
          MenuEventLogger("child", this)
 {
-    m_canvas = new MyCanvas(this, wxPoint(0, 0), GetClientSize());
+    m_canvas = NEW_DEBUG MyCanvas(this, wxPoint(0, 0), GetClientSize());
 
     SetIcon(wxICON(chart));
 
@@ -468,7 +468,7 @@ MyChild::MyChild(wxMDIParentFrame *parent)
     mbar->GetMenu(0)->Insert(1, wxID_CLOSE, "&Close child\tCtrl-W",
                              "Close this window");
 
-    wxMenu *menuChild = new wxMenu;
+    wxMenu *menuChild = NEW_DEBUG wxMenu;
 
     menuChild->Append(MDI_REFRESH, "&Refresh picture");
     menuChild->Append(MDI_CHANGE_TITLE, "Change &title...\tCtrl-T");
@@ -499,7 +499,7 @@ MyChild::MyChild(wxMDIParentFrame *parent)
 
     // test that event handlers pushed on top of MDI children do work (this
     // used to be broken, see #11225)
-    PushEventHandler(new EventHandler(ms_numChildren));
+    PushEventHandler(NEW_DEBUG EventHandler(ms_numChildren));
 }
 
 MyChild::~MyChild()
@@ -535,7 +535,7 @@ void MyChild::OnChangeTitle(wxCommandEvent& WXUNUSED(event))
 #if wxUSE_TEXTDLG
     static wxString s_title = "Canvas Frame";
 
-    wxString title = wxGetTextFromUser("Enter the new title for MDI child",
+    wxString title = wxGetTextFromUser("Enter the NEW_DEBUG title for MDI child",
                                        "MDI sample question",
                                        s_title,
                                        GetParent()->GetParent());

@@ -246,7 +246,7 @@ bool wxApp::MSWEnableDarkMode(int flags, wxDarkModeSettings* settings)
 
     // Set up the settings to use, allocating a default one if none specified.
     if ( !settings )
-        settings = new wxDarkModeSettings();
+        settings = NEW_DEBUG wxDarkModeSettings();
 
     wxDarkModeModule::SetSettings(settings);
 

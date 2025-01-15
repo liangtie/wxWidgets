@@ -223,7 +223,7 @@ wxPortId wxGUIAppTraits::GetToolkitVersion(int *verMaj,
 
 wxTimerImpl *wxGUIAppTraits::CreateTimerImpl(wxTimer *timer)
 {
-    return new wxGTKTimerImpl(timer);
+    return NEW_DEBUG wxGTKTimerImpl(timer);
 }
 
 #endif // wxUSE_TIMER
@@ -271,7 +271,7 @@ static wxString GetSM()
 
 wxEventLoopBase *wxGUIAppTraits::CreateEventLoop()
 {
-    return new wxEventLoop();
+    return NEW_DEBUG wxEventLoop();
 }
 
 

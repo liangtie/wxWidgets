@@ -226,14 +226,14 @@ wxString wxPathList::FindAbsoluteValidPath (const wxString& file) const
 #if WXWIN_COMPATIBILITY_2_8
 static inline wxChar* MYcopystring(const wxString& s)
 {
-    wxChar* copy = new wxChar[s.length() + 1];
+    wxChar* copy = NEW_DEBUG wxChar[s.length() + 1];
     return wxStrcpy(copy, s.c_str());
 }
 
 template<typename CharType>
 static inline CharType* MYcopystring(const CharType* s)
 {
-    CharType* copy = new CharType[wxStrlen(s) + 1];
+    CharType* copy = NEW_DEBUG CharType[wxStrlen(s) + 1];
     return wxStrcpy(copy, s);
 }
 #endif
@@ -1143,7 +1143,7 @@ wxString wxFindFirstFile(const wxString& spec, int flags)
     if ( !wxEndsWithPathSeparator(gs_dirPath ) )
         gs_dirPath << wxFILE_SEP_PATH;
 
-    gs_dir.reset(new wxDir(gs_dirPath));
+    gs_dir.reset(NEW_DEBUG wxDir(gs_dirPath));
 
     if ( !gs_dir->IsOpened() )
     {
@@ -1180,7 +1180,7 @@ wxString wxFindNextFile()
 
 
 // Get current working directory.
-// If buf is NULL, allocates space using new, else copies into buf.
+// If buf is NULL, allocates space using NEW_DEBUG, else copies into buf.
 // wxGetWorkingDirectory() is obsolete, use wxGetCwd()
 // wxDoGetCwd() is their common core to be moved
 // to wxGetCwd() once wxGetWorkingDirectory() will be removed.
@@ -1190,7 +1190,7 @@ wxChar *wxDoGetCwd(wxChar *buf, int sz)
 {
     if ( !buf )
     {
-        buf = new wxChar[sz + 1];
+        buf = NEW_DEBUG wxChar[sz + 1];
     }
 
     bool ok = false;
@@ -1437,7 +1437,7 @@ int WXDLLIMPEXP_BASE wxParseCommonDialogsFilter(const wxString& filterStr,
             filters.Insert(filters[i].Mid(pos+1),i+1);
             filters[i]=filters[i].Left(pos);
 
-            // autoreplace new filter in description with pattern:
+            // autoreplace NEW_DEBUG filter in description with pattern:
             //     C/C++ Files(*.cpp;*.c;*.h)|*.cpp;*.c;*.h
             // cause split into:
             //     C/C++ Files(*.cpp)|*.cpp

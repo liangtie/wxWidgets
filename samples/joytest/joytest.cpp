@@ -66,17 +66,17 @@ bool MyApp::OnInit()
 
     // Create the main frame window
 
-    frame = new MyFrame(NULL, "Joystick Demo", wxDefaultPosition,
+    frame = NEW_DEBUG MyFrame(NULL, "Joystick Demo", wxDefaultPosition,
         wxSize(500, 400), wxDEFAULT_FRAME_STYLE | wxHSCROLL | wxVSCROLL);
 
     frame->SetIcon(wxICON(sample));
 
     // Make a menubar
-    wxMenu *file_menu = new wxMenu;
+    wxMenu *file_menu = NEW_DEBUG wxMenu;
 
     file_menu->Append(JOYTEST_QUIT, "&Exit");
 
-    wxMenuBar *menu_bar = new wxMenuBar;
+    wxMenuBar *menu_bar = NEW_DEBUG wxMenuBar;
 
     menu_bar->Append(file_menu, "&File");
 
@@ -102,7 +102,7 @@ wxEND_EVENT_TABLE()
 MyCanvas::MyCanvas(wxWindow *parent, const wxPoint& pos, const wxSize& size):
     wxScrolledWindow(parent, wxID_ANY, pos, size, wxSUNKEN_BORDER)
 {
-    m_stick = new wxJoystick(wxJOYSTICK1);
+    m_stick = NEW_DEBUG wxJoystick(wxJOYSTICK1);
     nButtons = m_stick->GetNumberButtons();
     m_stick->SetCapture(this, 10);
 }
@@ -187,7 +187,7 @@ MyFrame::MyFrame(wxFrame *parent, const wxString& title, const wxPoint& pos,
     const wxSize& size, const long style)
     : wxFrame(parent, wxID_ANY, title, pos, size, style)
 {
-    canvas = new MyCanvas(this);
+    canvas = NEW_DEBUG MyCanvas(this);
 }
 
 void MyFrame::OnQuit(wxCommandEvent& WXUNUSED(event))

@@ -204,7 +204,7 @@ bool wxSetClipboardData(wxDataFormat dataFormat,
                 BitBlt(hdcMem, 0, 0, bitmap->GetWidth(), bitmap->GetHeight(),
                        hdcSrc, 0, 0, SRCCOPY);
 
-                // Select new bitmap out of memory DC
+                // Select NEW_DEBUG bitmap out of memory DC
                 SelectObject(hdcMem, old1);
 
                 // Set the data
@@ -367,7 +367,7 @@ bool wxSetClipboardData(wxDataFormat dataFormat,
                 char* html = (char *)data;
 
                 // Create temporary buffer for HTML header...
-                char *buf = new char [400 + strlen(html)];
+                char *buf = NEW_DEBUG char [400 + strlen(html)];
                 if(!buf) return false;
 
                 // Create a template string for the HTML header...
@@ -726,7 +726,7 @@ bool wxClipboard::GetData( wxDataObject& data )
     else
     {
         // bad luck, need to alloc mem
-        formats = new wxDataFormat[nFormats];
+        formats = NEW_DEBUG wxDataFormat[nFormats];
     }
 
     data.GetAllFormats(formats, wxDataObject::Set);

@@ -58,7 +58,7 @@ void wxHtmlHelpDialog::Init(wxHtmlHelpData* data)
 bool wxHtmlHelpDialog::Create(wxWindow* parent, wxWindowID id,
                              const wxString& WXUNUSED(title), int style)
 {
-    m_HtmlHelpWin = new wxHtmlHelpWindow(m_Data);
+    m_HtmlHelpWin = NEW_DEBUG wxHtmlHelpWindow(m_Data);
 
     wxDialog::Create(parent, id, _("Help"),
                     wxPoint(m_HtmlHelpWin->GetCfgData().x, m_HtmlHelpWin->GetCfgData().y),
@@ -72,18 +72,18 @@ bool wxHtmlHelpDialog::Create(wxWindow* parent, wxWindowID id,
     SetIcon(wxArtProvider::GetIcon(wxART_HELP, wxART_HELP_BROWSER));
 
     wxWindow* item1 = this;
-    wxBoxSizer* item2 = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer* item2 = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     item1->SetSizer(item2);
 
     wxWindow* item3 = m_HtmlHelpWin;
     item2->Add(item3, 1, wxGROW|wxALL, 5);
 
-    wxBoxSizer* item4 = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer* item4 = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     item2->Add(item4, 0, wxGROW, 5);
 
     item4->Add(5, 5, 1, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    wxButton* item6 = new wxButton(item1, wxID_OK, _("Close"), wxDefaultPosition, wxDefaultSize, 0);
+    wxButton* item6 = NEW_DEBUG wxButton(item1, wxID_OK, _("Close"), wxDefaultPosition, wxDefaultSize, 0);
     item4->Add(item6, 0, wxALIGN_CENTER_VERTICAL|wxALL, 10);
 #ifdef __WXMAC__
     // Add some space for the resize handle

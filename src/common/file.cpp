@@ -152,8 +152,8 @@ bool wxFile::CheckForError(wxFileOffset rc) const
 // create the file, fail if it already exists and bOverwrite
 bool wxFile::Create(const wxString& fileName, bool bOverwrite, int accessMode)
 {
-    // if bOverwrite we create a new file or truncate the existing one,
-    // otherwise we only create the new file and fail if it already exists
+    // if bOverwrite we create a NEW_DEBUG file or truncate the existing one,
+    // otherwise we only create the NEW_DEBUG file and fail if it already exists
     int fildes = wxOpen( fileName,
                      O_BINARY | O_WRONLY | O_CREAT |
                      (bOverwrite ? O_TRUNC : O_EXCL),
@@ -563,7 +563,7 @@ bool wxTempFile::Open(const wxString& strName)
     else
     {
         // file probably didn't exist, just give it the default mode _using_
-        // user's umask (new files creation should respect umask)
+        // user's umask (NEW_DEBUG files creation should respect umask)
         mode_t mask = umask(0777);
         mode = 0666 & ~mask;
         umask(mask);

@@ -195,7 +195,7 @@ wxActivityIndicatorGeneric::Create(wxWindow* parent,
     if ( !wxWindow::Create(parent, winid, pos, size, style, name) )
         return false;
 
-    m_impl = new wxActivityIndicatorImpl(this);
+    m_impl = NEW_DEBUG wxActivityIndicatorImpl(this);
 
     return true;
 }

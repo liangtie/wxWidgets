@@ -48,7 +48,7 @@ bool wxBitmapButton::Create(wxWindow *parent,
     if ( !size.IsFullySpecified() )
     {
         // As our bitmap has just changed, our best size has changed as well so
-        // reset the initial size using the new value.
+        // reset the initial size using the NEW_DEBUG value.
         SetInitialSize(size);
     }
 

@@ -45,10 +45,10 @@ bool wxStatusBarPane::SetText(const wxString& text)
 
         1. SetStatusText("foo")
         2. PushStatusText("bar")
-        3. SetStatusText("new foo")
+        3. SetStatusText("NEW_DEBUG foo")
         4. PopStatusText()
 
-        doesn't overwrite the "new foo" which should be shown at the end with
+        doesn't overwrite the "NEW_DEBUG foo" which should be shown at the end with
         the old value "foo". This would be unexpected and hard to avoid,
         especially when PushStatusText() is used internally by wxWidgets
         without knowledge of the user program, as it is for showing the menu
@@ -74,7 +74,7 @@ bool wxStatusBarPane::PushText(const wxString& text)
     // save the currently shown text
     m_arrStack.push_back(m_text);
 
-    // and update the new one if necessary
+    // and update the NEW_DEBUG one if necessary
     if ( text == m_text )
         return false;
 

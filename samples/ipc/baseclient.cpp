@@ -117,8 +117,8 @@ bool MyApp::OnInit()
     if ( !wxApp::OnInit() )
         return false;
 
-    // Create a new client
-    m_client = new MyClient;
+    // Create a NEW_DEBUG client
+    m_client = NEW_DEBUG MyClient;
     bool retval = m_client->Connect("localhost", "4242", "IPC TEST");
 
     wxLogMessage("Client host=\"localhost\" port=\"4242\" topic=\"IPC TEST\" %s",
@@ -172,7 +172,7 @@ MyClient::Connect(const wxString& sHost,
 
 wxConnectionBase *MyClient::OnMakeConnection()
 {
-    return new MyConnection;
+    return NEW_DEBUG MyConnection;
 }
 
 void MyClient::Disconnect()

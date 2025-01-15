@@ -39,7 +39,7 @@ public:
 wxOverlay::Impl* wxOverlay::Create()
 {
     if (wxGTKImpl::IsWayland(NULL))
-        return new wxOverlayImpl;
+        return NEW_DEBUG wxOverlayImpl;
 
     // Use generic
     return NULL;

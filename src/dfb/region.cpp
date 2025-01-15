@@ -43,12 +43,12 @@ public:
 
 wxGDIRefData *wxRegion::CreateGDIRefData() const
 {
-    return new wxRegionRefData;
+    return NEW_DEBUG wxRegionRefData;
 }
 
 wxGDIRefData *wxRegion::CloneGDIRefData(const wxGDIRefData *data) const
 {
-    return new wxRegionRefData(*(wxRegionRefData *)data);
+    return NEW_DEBUG wxRegionRefData(*(wxRegionRefData *)data);
 }
 
 wxRegion::wxRegion()
@@ -58,17 +58,17 @@ wxRegion::wxRegion()
 
 wxRegion::wxRegion(wxCoord x, wxCoord y, wxCoord w, wxCoord h)
 {
-    m_refData = new wxRegionRefData(wxRect(x, y, w, h));
+    m_refData = NEW_DEBUG wxRegionRefData(wxRect(x, y, w, h));
 }
 
 wxRegion::wxRegion(const wxPoint& topLeft, const wxPoint& bottomRight)
 {
-    m_refData = new wxRegionRefData(wxRect(topLeft, bottomRight));
+    m_refData = NEW_DEBUG wxRegionRefData(wxRect(topLeft, bottomRight));
 }
 
 wxRegion::wxRegion(const wxRect& r)
 {
-    m_refData = new wxRegionRefData(r);
+    m_refData = NEW_DEBUG wxRegionRefData(r);
 }
 
 wxRegion::wxRegion(size_t n, const wxPoint *points, wxPolygonFillMode fillStyle)

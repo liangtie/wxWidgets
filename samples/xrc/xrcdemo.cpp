@@ -51,7 +51,7 @@
 // wxWidgets macro: Declare the application.
 //-----------------------------------------------------------------------------
 
-// Create a new application object: this macro will allow wxWidgets to create
+// Create a NEW_DEBUG application object: this macro will allow wxWidgets to create
 // the application object during program execution (it's better than using a
 // static object for many reasons) and also declares the accessor function
 // wxGetApp() which will return the reference of the right type (i.e. the_app and
@@ -73,10 +73,10 @@ bool MyApp::OnInit()
     // if you want PNGs, then add a PNG handler, etc. See wxImage::AddHandler()
     // documentation for the types of image handlers available.
 #if wxUSE_XPM
-    wxImage::AddHandler(new wxXPMHandler);
+    wxImage::AddHandler(NEW_DEBUG wxXPMHandler);
 #endif
 #if wxUSE_GIF
-    wxImage::AddHandler(new wxGIFHandler);
+    wxImage::AddHandler(NEW_DEBUG wxGIFHandler);
 #endif
 
     // Initialize all the XRC handlers. Always required (unless you feel like
@@ -92,12 +92,12 @@ bool MyApp::OnInit()
     wxXmlResource::Get()->SetFlags(wxXRC_USE_LOCALE | wxXRC_USE_ENVVARS);
 
 #if wxUSE_RIBBON
-    wxXmlResource::Get()->AddHandler(new wxRibbonXmlHandler);
+    wxXmlResource::Get()->AddHandler(NEW_DEBUG wxRibbonXmlHandler);
 #endif
 
 #if wxUSE_AUI
-    wxXmlResource::Get()->AddHandler(new wxAuiXmlHandler);
-    wxXmlResource::Get()->AddHandler(new wxAuiToolBarXmlHandler);
+    wxXmlResource::Get()->AddHandler(NEW_DEBUG wxAuiXmlHandler);
+    wxXmlResource::Get()->AddHandler(NEW_DEBUG wxAuiToolBarXmlHandler);
 #endif
 
     // Load all of the XRC files that will be used. You can put everything
@@ -108,13 +108,13 @@ bool MyApp::OnInit()
 
 #if wxUSE_HELP
     // Use the simple help provider to show the context-sensitive help
-    wxHelpProvider::Set( new wxSimpleHelpProvider );
+    wxHelpProvider::Set( NEW_DEBUG wxSimpleHelpProvider );
 #endif // wxUSE_HELP
 
     // Make an instance of your derived frame. Passing NULL (the default value
     // of MyFrame's constructor is NULL) as the frame doesn't have a parent
     // since it is the main application window.
-    MyFrame *frame = new MyFrame();
+    MyFrame *frame = NEW_DEBUG MyFrame();
 
     // Show the frame as it's created initially hidden.
     frame->Show(true);

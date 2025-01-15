@@ -520,8 +520,8 @@ median_cut (j_decompress_ptr cinfo, boxptr boxlist, int numboxes,
     }
     if (b1 == NULL)     /* no splittable boxes left! */
       break;
-    b2 = &boxlist[numboxes];    /* where new box will go */
-    /* Copy the color bounds to the new box. */
+    b2 = &boxlist[numboxes];    /* where NEW_DEBUG box will go */
+    /* Copy the color bounds to the NEW_DEBUG box. */
     b2->c0max = b1->c0max; b2->c1max = b1->c1max; b2->c2max = b1->c2max;
     b2->c0min = b1->c0min; b2->c1min = b1->c1min; b2->c2min = b1->c2min;
     /* Choose which axis to split the box on.
@@ -1306,7 +1306,7 @@ start_pass_2_quant (j_decompress_ptr cinfo, bool is_pre_scan)
 
 
 /*
- * Switch to a new external colormap between output passes.
+ * Switch to a NEW_DEBUG external colormap between output passes.
  */
 
 void
@@ -1492,7 +1492,7 @@ bool wxQuantize::Quantize(const wxImage& src, wxImage& dest,
     // create rows info:
     int h = src.GetHeight();
     int w = src.GetWidth();
-    unsigned char **rows = new unsigned char *[h];
+    unsigned char **rows = NEW_DEBUG unsigned char *[h];
     unsigned char *imgdt = src.GetData();
     for (i = 0; i < h; i++)
         rows[i] = imgdt + 3/*RGB*/ * w * i;
@@ -1500,8 +1500,8 @@ bool wxQuantize::Quantize(const wxImage& src, wxImage& dest,
     unsigned char palette[3*256];
 
     // This is the image as represented by palette indexes.
-    unsigned char *data8bit = new unsigned char[w * h];
-    unsigned char **outrows = new unsigned char *[h];
+    unsigned char *data8bit = NEW_DEBUG unsigned char[w * h];
+    unsigned char **outrows = NEW_DEBUG unsigned char *[h];
     for (i = 0; i < h; i++)
         outrows[i] = data8bit + w * i;
 
@@ -1548,16 +1548,16 @@ bool wxQuantize::Quantize(const wxImage& src, wxImage& dest,
     // Make a wxWidgets palette
     if (pPalette)
     {
-        unsigned char* r = new unsigned char[256];
-        unsigned char* g = new unsigned char[256];
-        unsigned char* b = new unsigned char[256];
+        unsigned char* r = NEW_DEBUG unsigned char[256];
+        unsigned char* g = NEW_DEBUG unsigned char[256];
+        unsigned char* b = NEW_DEBUG unsigned char[256];
 
 #ifdef __WXMSW__
         // Fill the first 20 entries with Windows system colours
         if (flags & wxQUANTIZE_INCLUDE_WINDOWS_COLOURS)
         {
             HDC hDC = ::GetDC(NULL);
-            PALETTEENTRY* entries = new PALETTEENTRY[windowsSystemColourCount];
+            PALETTEENTRY* entries = NEW_DEBUG PALETTEENTRY[windowsSystemColourCount];
             ::GetSystemPaletteEntries(hDC, 0, windowsSystemColourCount, entries);
             ::ReleaseDC(NULL, hDC);
 
@@ -1585,7 +1585,7 @@ bool wxQuantize::Quantize(const wxImage& src, wxImage& dest,
             g[i] = 0;
             b[i] = 0;
         }
-        *pPalette = new wxPalette(256, r, g, b);
+        *pPalette = NEW_DEBUG wxPalette(256, r, g, b);
         delete[] r;
         delete[] g;
         delete[] b;

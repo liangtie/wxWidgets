@@ -78,8 +78,8 @@ wxPrintPaperDatabase* wxThePrintPaperDatabase = NULL;
 
 wxPrintPaperDatabase::wxPrintPaperDatabase()
 {
-    m_map = new wxStringToPrintPaperTypeHashMap;
-    m_list = new wxPrintPaperTypeList;
+    m_map = NEW_DEBUG wxStringToPrintPaperTypeHashMap;
+    m_list = NEW_DEBUG wxPrintPaperTypeList;
 }
 
 wxPrintPaperDatabase::~wxPrintPaperDatabase()
@@ -224,14 +224,14 @@ void wxPrintPaperDatabase::ClearDatabase()
 
 void wxPrintPaperDatabase::AddPaperType(wxPaperSize paperId, const wxString& name, int w, int h)
 {
-    wxPrintPaperType* tmp = new wxPrintPaperType(paperId, 0, name, w, h);
+    wxPrintPaperType* tmp = NEW_DEBUG wxPrintPaperType(paperId, 0, name, w, h);
     (*m_map)[name] = tmp;
     m_list->push_back(tmp);
 }
 
 void wxPrintPaperDatabase::AddPaperType(wxPaperSize paperId, int platformId, const wxString& name, int w, int h)
 {
-    wxPrintPaperType* tmp = new wxPrintPaperType(paperId, platformId, name, w, h);
+    wxPrintPaperType* tmp = NEW_DEBUG wxPrintPaperType(paperId, platformId, name, w, h);
     (*m_map)[name] = tmp;
     m_list->push_back(tmp);
 }
@@ -361,7 +361,7 @@ wxIMPLEMENT_DYNAMIC_CLASS(wxPrintPaperModule, wxModule);
 
 bool wxPrintPaperModule::OnInit()
 {
-    wxThePrintPaperDatabase = new wxPrintPaperDatabase;
+    wxThePrintPaperDatabase = NEW_DEBUG wxPrintPaperDatabase;
     wxThePrintPaperDatabase->CreateDatabase();
 
     return true;

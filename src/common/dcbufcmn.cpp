@@ -80,7 +80,7 @@ private:
     static wxBitmap* DoCreateBuffer(wxDC* dc, int w, int h)
     {
         const double scale = dc ? dc->GetContentScaleFactor() : 1.0;
-        wxBitmap* const buffer = new wxBitmap;
+        wxBitmap* const buffer = NEW_DEBUG wxBitmap;
 
         // we must always return a valid bitmap but creating a bitmap of
         // size 0 would fail, so create a 1*1 bitmap in this case

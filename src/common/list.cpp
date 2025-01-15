@@ -82,7 +82,7 @@ wxNodeBase::wxNodeBase(wxListBase *list,
 
         case wxKEY_STRING:
             // to be free()d later
-            m_key.string = new wxString(key.GetString());
+            m_key.string = NEW_DEBUG wxString(key.GetString());
             break;
 
         default:
@@ -477,9 +477,9 @@ void *wxListBase::LastThat(wxListIterateFunction F)
 //   {
 //     wxListBase list;
 //
-//     list.Append(new wxString("DEF"));
-//     list.Append(new wxString("GHI"));
-//     list.Append(new wxString("ABC"));
+//     list.Append(NEW_DEBUG wxString("DEF"));
+//     list.Append(NEW_DEBUG wxString("GHI"));
+//     list.Append(NEW_DEBUG wxString("ABC"));
 //     list.Sort(listcompare);
 //   }
 
@@ -487,7 +487,7 @@ void wxListBase::Sort(const wxSortCompareFunction compfunc)
 {
     // allocate an array for the wxObject pointers of the list
     const size_t num = GetCount();
-    void **objArray = new void *[num];
+    void **objArray = NEW_DEBUG void *[num];
     void **objPtr = objArray;
 
     // go through the list and put the pointers into the array
@@ -570,7 +570,7 @@ void wxObjectListNode::DeleteData()
 
 static inline wxChar* MYcopystring(const wxChar* s)
 {
-    wxChar* copy = new wxChar[wxStrlen(s) + 1];
+    wxChar* copy = NEW_DEBUG wxChar[wxStrlen(s) + 1];
     return wxStrcpy(copy, s);
 }
 
@@ -615,7 +615,7 @@ wxStringList::wxStringList()
 }
 
 // Variable argument list, terminated by a zero
-// Makes new storage for the strings
+// Makes NEW_DEBUG storage for the strings
 wxStringList::wxStringList (const wxChar *first, ...)
 {
   DeleteContents(true);
@@ -649,10 +649,10 @@ wxStringList::wxStringList (const wxChar *first, ...)
   va_end(ap);
 }
 
-// Only makes new strings if arg is true
+// Only makes NEW_DEBUG strings if arg is true
 wxChar **wxStringList::ListToArray(bool new_copies) const
 {
-    wxChar **string_array = new wxChar *[GetCount()];
+    wxChar **string_array = NEW_DEBUG wxChar *[GetCount()];
     wxStringListNode *node = GetFirst();
     for (size_t i = 0; i < GetCount(); i++)
     {
@@ -694,11 +694,11 @@ wx_comparestrings(const void *arg1, const void *arg2)
 
 }   // end of extern "C" (required because of GCC Bug c++/33078
 
-// Sort a list of strings - deallocates old nodes, allocates new
+// Sort a list of strings - deallocates old nodes, allocates NEW_DEBUG
 void wxStringList::Sort()
 {
     size_t N = GetCount();
-    wxChar **array = new wxChar *[N];
+    wxChar **array = NEW_DEBUG wxChar *[N];
     wxStringListNode *node;
 
     size_t i = 0;

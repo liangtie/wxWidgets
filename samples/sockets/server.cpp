@@ -48,14 +48,14 @@
 // classes
 // --------------------------------------------------------------------------
 
-// Define a new application type
+// Define a NEW_DEBUG application type
 class MyApp : public wxApp
 {
 public:
   virtual bool OnInit() wxOVERRIDE;
 };
 
-// Define a new frame type: this is going to be our main frame
+// Define a NEW_DEBUG frame type: this is going to be our main frame
 class MyFrame : public wxFrame
 {
 public:
@@ -155,7 +155,7 @@ bool MyApp::OnInit()
       return false;
 
   // Create the main application window
-  MyFrame *frame = new MyFrame();
+  MyFrame *frame = NEW_DEBUG MyFrame();
 
   // Show it
   frame->Show(true);
@@ -178,7 +178,7 @@ MyFrame::MyFrame() : wxFrame((wxFrame *)NULL, wxID_ANY,
   SetIcon(wxICON(sample));
 
   // Make menus
-  m_menuFile = new wxMenu();
+  m_menuFile = NEW_DEBUG wxMenu();
   m_menuFile->Append(SERVER_WAITFORACCEPT, "&Wait for connection\tCtrl-W");
   m_menuFile->Append(SERVER_UDPTEST, "&UDP test\tCtrl-U");
   m_menuFile->AppendSeparator();
@@ -187,7 +187,7 @@ MyFrame::MyFrame() : wxFrame((wxFrame *)NULL, wxID_ANY,
   m_menuFile->Append(SERVER_QUIT, _("E&xit\tAlt-X"), _("Quit server"));
 
   // Append menus to the menubar
-  m_menuBar = new wxMenuBar();
+  m_menuBar = NEW_DEBUG wxMenuBar();
   m_menuBar->Append(m_menuFile, _("&File"));
   SetMenuBar(m_menuBar);
 
@@ -197,11 +197,11 @@ MyFrame::MyFrame() : wxFrame((wxFrame *)NULL, wxID_ANY,
 #endif // wxUSE_STATUSBAR
 
   // Make a textctrl for logging
-  m_text  = new wxTextCtrl(this, wxID_ANY,
+  m_text  = NEW_DEBUG wxTextCtrl(this, wxID_ANY,
                            _("Welcome to wxSocket demo: Server\n"),
                            wxDefaultPosition, wxDefaultSize,
                            wxTE_MULTILINE | wxTE_READONLY);
-  delete wxLog::SetActiveTarget(new wxLogTextCtrl(m_text));
+  delete wxLog::SetActiveTarget(NEW_DEBUG wxLogTextCtrl(m_text));
 
   // Create the address - defaults to localhost:0 initially
   IPaddress addr;
@@ -210,7 +210,7 @@ MyFrame::MyFrame() : wxFrame((wxFrame *)NULL, wxID_ANY,
   wxLogMessage("Creating server at %s:%u", addr.IPAddress(), addr.Service());
 
   // Create the socket
-  m_server = new wxSocketServer(addr);
+  m_server = NEW_DEBUG wxSocketServer(addr);
 
   // We use IsOk() here to see if the server is really listening
   if (! m_server->IsOk())
@@ -392,7 +392,7 @@ void MyFrame::OnServerEvent(wxSocketEvent& event)
 
   m_text->AppendText(s);
 
-  // Accept new connection if there is one in the pending
+  // Accept NEW_DEBUG connection if there is one in the pending
   // connections queue, else exit. We use Accept(false) for
   // non-blocking accept (although if we got here, there
   // should ALWAYS be a pending connection).
@@ -414,7 +414,7 @@ void MyFrame::OnServerEvent(wxSocketEvent& event)
   }
   else
   {
-    wxLogMessage("Error: couldn't accept a new connection");
+    wxLogMessage("Error: couldn't accept a NEW_DEBUG connection");
     return;
   }
 

@@ -122,7 +122,7 @@ bool wxApp::DoIdle()
     guint id_save;
     {
         // Allow another idle source to be added while this one is busy.
-        // Needed if an idle event handler runs a new event loop,
+        // Needed if an idle event handler runs a NEW_DEBUG event loop,
         // for example by showing a dialog.
 #if wxUSE_THREADS
         wxMutexLocker lock(m_idleMutex);
@@ -156,7 +156,7 @@ bool wxApp::DoIdle()
 #endif
 
     bool keepSource = false;
-    // if a new idle source has not been added, either as a result of idle
+    // if a NEW_DEBUG idle source has not been added, either as a result of idle
     // processing above or by another thread calling WakeUpIdle()
     if (m_idleSourceId == 0)
     {
@@ -170,7 +170,7 @@ bool wxApp::DoIdle()
         else // add hooks and remove this source
             wx_add_idle_hooks();
     }
-    // else remove this source, leave new one installed
+    // else remove this source, leave NEW_DEBUG one installed
     // we must keep an idle source, otherwise a wakeup could be lost
 
     return keepSource;
@@ -481,7 +481,7 @@ bool wxApp::Initialize(int& argc_, wxChar **argv_)
     int i;
 
     // gtk_init() wants UTF-8, not wchar_t, so convert
-    char **argvGTK = new char *[argc_ + 1];
+    char **argvGTK = NEW_DEBUG char *[argc_ + 1];
     for ( i = 0; i < argc_; i++ )
     {
         argvGTK[i] = wxStrdupA(wxConvUTF8.cWX2MB(argv_[i]));
@@ -557,7 +557,7 @@ bool wxApp::Initialize(int& argc_, wxChar **argv_)
     }
 
 #if wxUSE_MIMETYPE
-    wxMimeTypesManagerFactory::Set(new wxGTKMimeTypesManagerFactory());
+    wxMimeTypesManagerFactory::Set(NEW_DEBUG wxGTKMimeTypesManagerFactory());
 #endif
 
     // we cannot enter threads before gtk_init is done

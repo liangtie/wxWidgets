@@ -40,7 +40,7 @@ bool MyApp::OnInit()
         return false;
 
     // Create the main frame window
-    MyFrame *frame = new MyFrame(NULL, "wxWidgets Penguin Sample",
+    MyFrame *frame = NEW_DEBUG MyFrame(NULL, "wxWidgets Penguin Sample",
         wxDefaultPosition, wxDefaultSize);
 
 #if wxUSE_ZLIB
@@ -77,22 +77,22 @@ MyFrame::MyFrame(wxFrame *frame, const wxString& title, const wxPoint& pos,
     SetIcon(wxICON(sample));
 
     // Make the "File" menu
-    wxMenu *fileMenu = new wxMenu;
+    wxMenu *fileMenu = NEW_DEBUG wxMenu;
     fileMenu->Append(wxID_OPEN, "&Open...");
     fileMenu->AppendSeparator();
     fileMenu->Append(wxID_EXIT, "E&xit\tALT-X");
     // Make the "Help" menu
-    wxMenu *helpMenu = new wxMenu;
+    wxMenu *helpMenu = NEW_DEBUG wxMenu;
     helpMenu->Append(wxID_HELP, "&About");
 
-    wxMenuBar *menuBar = new wxMenuBar;
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar;
     menuBar->Append(fileMenu, "&File");
     menuBar->Append(helpMenu, "&Help");
     SetMenuBar(menuBar);
 
     Show(true);
 
-    m_canvas = new TestGLCanvas(this, wxID_ANY, wxDefaultPosition,
+    m_canvas = NEW_DEBUG TestGLCanvas(this, wxID_ANY, wxDefaultPosition,
         GetClientSize(), wxSUNKEN_BORDER);
 }
 
@@ -146,8 +146,8 @@ TestGLCanvas::TestGLCanvas(wxWindow *parent,
     : wxGLCanvas(parent, id, NULL, pos, size,
                  style | wxFULL_REPAINT_ON_RESIZE, name)
 {
-    // Explicitly create a new rendering context instance for this canvas.
-    m_glRC = new wxGLContext(this);
+    // Explicitly create a NEW_DEBUG rendering context instance for this canvas.
+    m_glRC = NEW_DEBUG wxGLContext(this);
 
     m_gldata.initialized = false;
 

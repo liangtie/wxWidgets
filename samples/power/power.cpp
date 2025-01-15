@@ -48,18 +48,18 @@ public:
     {
         m_powerResourceBlocker = NULL;
 
-        wxMenu *fileMenu = new wxMenu;
+        wxMenu *fileMenu = NEW_DEBUG wxMenu;
         fileMenu->Append(wxID_NEW, "Start long running task\tCtrl-S");
         fileMenu->Append(wxID_ABORT, "Stop long running task");
 
-        wxMenuBar* menuBar = new wxMenuBar();
+        wxMenuBar* menuBar = NEW_DEBUG wxMenuBar();
         menuBar->Append(fileMenu, "&Task");
         SetMenuBar(menuBar);
 
-        wxTextCtrl *text = new wxTextCtrl(this, wxID_ANY, "",
+        wxTextCtrl *text = NEW_DEBUG wxTextCtrl(this, wxID_ANY, "",
                                           wxDefaultPosition, wxDefaultSize,
                                           wxTE_MULTILINE | wxTE_READONLY);
-        m_logOld = wxLog::SetActiveTarget(new wxLogTextCtrl(text));
+        m_logOld = wxLog::SetActiveTarget(NEW_DEBUG wxLogTextCtrl(text));
 
         CreateStatusBar();
 
@@ -216,7 +216,7 @@ private:
         GetMenuBar()->Enable(wxID_ABORT, true);
 
         m_powerResourceBlocker
-            = new wxPowerResourceBlocker(wxPOWER_RESOURCE_SYSTEM);
+            = NEW_DEBUG wxPowerResourceBlocker(wxPOWER_RESOURCE_SYSTEM);
 
         if ( !m_powerResourceBlocker->IsInEffect() )
         {
@@ -265,7 +265,7 @@ class MyApp : public wxApp
 public:
     virtual bool OnInit() wxOVERRIDE
     {
-        new MyFrame;
+        NEW_DEBUG MyFrame;
 
         return true;
     }

@@ -98,7 +98,7 @@ public:
 
     // Accessors for the fields that are not directly exposed.
 
-    // Client data is owned by us so delete the old value when setting the new
+    // Client data is owned by us so delete the old value when setting the NEW_DEBUG
     // one.
     wxClientData* GetClientData() const { return m_data; }
     void SetClientData(wxClientData* data) { delete m_data; m_data = data; }
@@ -124,7 +124,7 @@ public:
     void SetColumnText(const wxString& text, unsigned col, unsigned numColumns)
     {
         if ( !m_columnsTexts )
-            m_columnsTexts = new wxString[numColumns - 1];
+            m_columnsTexts = NEW_DEBUG wxString[numColumns - 1];
 
         m_columnsTexts[col - 1] = text;
     }
@@ -138,15 +138,15 @@ public:
             return;
 
         wxScopedArray<wxString> oldTexts(m_columnsTexts);
-        m_columnsTexts = new wxString[numColumns - 1];
+        m_columnsTexts = NEW_DEBUG wxString[numColumns - 1];
 
-        // In the loop below n is the index in the new column texts array and m
+        // In the loop below n is the index in the NEW_DEBUG column texts array and m
         // is the index in the old one.
         for ( unsigned n = 1, m = 1; n < numColumns - 1; n++, m++ )
         {
             if ( n == col )
             {
-                // Leave the new array text initially empty and just adjust the
+                // Leave the NEW_DEBUG array text initially empty and just adjust the
                 // index (to compensate for "m++" done by the loop anyhow).
                 m--;
             }
@@ -166,15 +166,15 @@ public:
             return;
 
         wxScopedArray<wxString> oldTexts(m_columnsTexts);
-        m_columnsTexts = new wxString[numColumns - 2];
+        m_columnsTexts = NEW_DEBUG wxString[numColumns - 2];
 
-        // As above, n is the index in the new column texts array and m is the
+        // As above, n is the index in the NEW_DEBUG column texts array and m is the
         // index in the old one.
         for ( unsigned n = 1, m = 1; n < numColumns - 1; n++, m++ )
         {
             if ( m == col )
             {
-                // Skip copying the deleted column and keep the new index the
+                // Skip copying the deleted column and keep the NEW_DEBUG index the
                 // same (so compensate for "n++" done in the loop).
                 n--;
             }
@@ -204,7 +204,7 @@ public:
     {
         wxASSERT( child->m_parent == this );
 
-        // Our previous first child becomes the next sibling of the new child.
+        // Our previous first child becomes the next sibling of the NEW_DEBUG child.
         child->m_next = m_child;
         m_child = child;
     }
@@ -407,7 +407,7 @@ private:
 
 wxTreeListModel::wxTreeListModel(wxTreeListCtrl* treelist)
     : m_treelist(treelist),
-      m_root(new Node(NULL))
+      m_root(NEW_DEBUG Node(NULL))
 {
     m_numColumns = 0;
     m_isFlat = true;
@@ -487,7 +487,7 @@ wxTreeListModel::InsertItem(Node* parent,
     }
 
     wxScopedPtr<Node>
-        newItem(new Node(parent, text, imageClosed, imageOpened, data));
+        newItem(NEW_DEBUG Node(parent, text, imageClosed, imageOpened, data));
 
     // If we have no children at all, then inserting as last child is the same
     // as inserting as the first one so check for it here too.
@@ -828,7 +828,7 @@ bool wxTreeListCtrl::Create(wxWindow* parent,
         return false;
     }
 
-    m_view = new wxDataViewCtrl;
+    m_view = NEW_DEBUG wxDataViewCtrl;
     long styleDataView = HasFlag(wxTL_MULTIPLE) ? wxDV_MULTIPLE
                                                 : wxDV_SINGLE;
     if ( HasFlag(wxTL_NO_HEADER) )
@@ -846,7 +846,7 @@ bool wxTreeListCtrl::Create(wxWindow* parent,
 
 
     // Set up the model for wxDataViewCtrl.
-    m_model = new wxTreeListModel(this);
+    m_model = NEW_DEBUG wxTreeListModel(this);
     m_view->AssociateModel(m_model);
 
     return true;
@@ -897,7 +897,7 @@ wxTreeListCtrl::DoInsertColumn(const wxString& title,
         {
             // Use our custom renderer to show the checkbox.
             wxDataViewCheckIconTextRenderer* const
-                rendererCheckIconText = new wxDataViewCheckIconTextRenderer;
+                rendererCheckIconText = NEW_DEBUG wxDataViewCheckIconTextRenderer;
             if ( HasFlag(wxTL_USER_3STATE) )
                 rendererCheckIconText->Allow3rdStateForUser();
 
@@ -905,17 +905,17 @@ wxTreeListCtrl::DoInsertColumn(const wxString& title,
         }
         else // We still need a special renderer to show the icons.
         {
-            renderer = new wxDataViewIconTextRenderer;
+            renderer = NEW_DEBUG wxDataViewIconTextRenderer;
         }
     }
     else // Not the first column.
     {
         // All the other ones use a simple text renderer.
-        renderer = new wxDataViewTextRenderer;
+        renderer = NEW_DEBUG wxDataViewTextRenderer;
     }
 
     wxDataViewColumn*
-        column = new wxDataViewColumn(title, renderer, pos, width, align, flags);
+        column = NEW_DEBUG wxDataViewColumn(title, renderer, pos, width, align, flags);
 
     m_model->InsertColumn(pos);
 

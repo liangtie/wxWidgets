@@ -26,19 +26,19 @@
 #error This program must be compiled in debug mode.
 #endif
 
-// Normally, new is automatically defined to be the
+// Normally, NEW_DEBUG is automatically defined to be the
 // debugging version. If not, this does it.
-#if !defined(new) && defined(WXDEBUG_NEW) && wxUSE_MEMORY_TRACING && wxUSE_GLOBAL_MEMORY_OPERATORS
-#define new WXDEBUG_NEW
+#if !defined(NEW_DEBUG) && defined(WXDEBUG_NEW) && wxUSE_MEMORY_TRACING && wxUSE_GLOBAL_MEMORY_OPERATORS
+#define NEW_DEBUG WXDEBUG_NEW
 #endif
 
-// Define a new application type
+// Define a NEW_DEBUG application type
 class MyApp: public wxApp
 { public:
     bool OnInit(void) wxOVERRIDE;
 };
 
-// Define a new frame type
+// Define a NEW_DEBUG frame type
 class MyFrame: public wxFrame
 { public:
     MyFrame(wxFrame *parent);
@@ -56,23 +56,23 @@ bool MyApp::OnInit(void)
       return false;
 
   // Create the main frame window
-  MyFrame *frame = new MyFrame((wxFrame *) NULL);
+  MyFrame *frame = NEW_DEBUG MyFrame((wxFrame *) NULL);
 
   // Give it an icon
   frame->SetIcon(wxICON(sample));
 
   // Make a menubar
-  wxMenu *file_menu = new wxMenu;
+  wxMenu *file_menu = NEW_DEBUG wxMenu;
 
   file_menu->Append(wxID_EXIT, "E&xit");
-  wxMenuBar *menu_bar = new wxMenuBar;
+  wxMenuBar *menu_bar = NEW_DEBUG wxMenuBar;
   menu_bar->Append(file_menu, "File");
   frame->SetMenuBar(menu_bar);
 
   // Make a panel with a message
-  wxPanel *panel = new wxPanel(frame);
+  wxPanel *panel = NEW_DEBUG wxPanel(frame);
 
-  (void)new wxStaticText(panel, wxID_ANY, "Hello, this is a minimal debugging wxWidgets program!", wxPoint(10, 10));
+  (void)NEW_DEBUG wxStaticText(panel, wxID_ANY, "Hello, this is a minimal debugging wxWidgets program!", wxPoint(10, 10));
 
   // Show the frame
   frame->Show(true);
@@ -82,16 +82,16 @@ bool MyApp::OnInit(void)
 #endif
 
   // object allocation
-  wxBrush* brush = new wxBrush(*wxRED_BRUSH);
-  wxBitmap* bitmap = new wxBitmap(100, 100);
+  wxBrush* brush = NEW_DEBUG wxBrush(*wxRED_BRUSH);
+  wxBitmap* bitmap = NEW_DEBUG wxBitmap(100, 100);
 
   // non-object allocation
-  char *ordinaryNonObject = new char[1000];
+  char *ordinaryNonObject = NEW_DEBUG char[1000];
 
-  wxString *thing = new wxString;
+  wxString *thing = NEW_DEBUG wxString;
 
 #if wxUSE_DATETIME
-  wxDateTime* date = new wxDateTime;
+  wxDateTime* date = NEW_DEBUG wxDateTime;
 #endif // wxUSE_DATETIME
 
   const char *data = (const char*) thing ;
@@ -99,7 +99,7 @@ bool MyApp::OnInit(void)
 #if wxUSE_MEMORY_TRACING
   // On MSW, Dump() crashes if using wxLogGui,
   // so use wxLogStderr instead.
-  wxLog* oldLog = wxLog::SetActiveTarget(new wxLogStderr);
+  wxLog* oldLog = wxLog::SetActiveTarget(NEW_DEBUG wxLogStderr);
 
   wxDebugContext::PrintClasses();
   wxDebugContext::Dump();

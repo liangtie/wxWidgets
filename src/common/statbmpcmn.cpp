@@ -32,7 +32,7 @@ extern WXDLLEXPORT_DATA(const char) wxStaticBitmapNameStr[] = "staticBitmap";
 
 wxDEFINE_FLAGS( wxStaticBitmapStyle )
 wxBEGIN_FLAGS( wxStaticBitmapStyle )
-    // new style border flags, we put them first to
+    // NEW_DEBUG style border flags, we put them first to
     // use them for streaming out
     wxFLAGS_MEMBER(wxBORDER_SIMPLE)
     wxFLAGS_MEMBER(wxBORDER_SUNKEN)

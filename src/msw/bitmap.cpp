@@ -69,7 +69,7 @@ public:
     virtual void Free() override;
 
 #if wxUSE_WXDIB
-    // Creates a new bitmap (DDB or DIB) from the contents of the given DIB.
+    // Creates a NEW_DEBUG bitmap (DDB or DIB) from the contents of the given DIB.
     void CopyFromDIB(const wxDIB& dib, int depth = -1);
 
     // Takes ownership of the given DIB.
@@ -92,7 +92,7 @@ public:
     // set the HBITMAP to use as the mask
     void SetMask(HBITMAP hbmpMask)
     {
-        SetMask(new wxMask((WXHBITMAP)hbmpMask));
+        SetMask(NEW_DEBUG wxMask((WXHBITMAP)hbmpMask));
     }
 
     // return the mask
@@ -278,7 +278,7 @@ wxBitmapRefData::wxBitmapRefData(const wxBitmapRefData& data)
     // Ensure this is done after the block above otherwise if the color depth didn't match we'll lose the mask
     // (deep) copy the mask if present
     if (data.m_bitmapMask)
-        m_bitmapMask = new wxMask(*data.m_bitmapMask);
+        m_bitmapMask = NEW_DEBUG wxMask(*data.m_bitmapMask);
 }
 
 void wxBitmapRefData::Free()
@@ -397,12 +397,12 @@ void wxBitmapRefData::Set32bppHDIB(HBITMAP hdib)
 
 wxGDIImageRefData *wxBitmap::CreateData() const
 {
-    return new wxBitmapRefData;
+    return NEW_DEBUG wxBitmapRefData;
 }
 
 wxGDIRefData *wxBitmap::CloneGDIRefData(const wxGDIRefData *data) const
 {
-    return new wxBitmapRefData(*static_cast<const wxBitmapRefData *>(data));
+    return NEW_DEBUG wxBitmapRefData(*static_cast<const wxBitmapRefData *>(data));
 }
 
 #if wxUSE_WXDIB
@@ -513,7 +513,7 @@ bool wxBitmap::CopyFromIconOrCursor(const wxGDIImage& icon,
     if ( !iconInfo.GetFrom(hicon) )
         return false;
 
-    wxBitmapRefData *refData = new wxBitmapRefData;
+    wxBitmapRefData *refData = NEW_DEBUG wxBitmapRefData;
     m_refData = refData;
 
     int w = icon.GetWidth(),
@@ -637,7 +637,7 @@ bool wxBitmap::CopyFromIcon(const wxIcon& icon, wxBitmapTransparency transp)
 
 bool wxBitmap::CopyFromDIB(const wxDIB& dib)
 {
-    std::unique_ptr<wxBitmapRefData> newData(new wxBitmapRefData);
+    std::unique_ptr<wxBitmapRefData> newData(NEW_DEBUG wxBitmapRefData);
     newData->CopyFromDIB(dib);
     if ( !newData->IsOk() )
         return false;
@@ -662,7 +662,7 @@ bool wxBitmap::ConvertToDIB()
         return false;
 
     // It is important to reuse the current GetBitmapData() instead of creating
-    // a new one, as our object identity shouldn't change just because our
+    // a NEW_DEBUG one, as our object identity shouldn't change just because our
     // internal representation did, but IsSameAs() compares data pointers.
     return GetBitmapData()->AssignDIB(dib);
 }
@@ -671,7 +671,7 @@ bool wxBitmap::ConvertToDIB()
 
 wxBitmap::wxBitmap(const char bits[], int width, int height, int depth)
 {
-    wxBitmapRefData *refData = new wxBitmapRefData;
+    wxBitmapRefData *refData = NEW_DEBUG wxBitmapRefData;
     m_refData = refData;
 
     refData->m_width = width;
@@ -790,7 +790,7 @@ bool wxBitmap::DoCreate(int w, int h, int d, WXHDC hdc)
 
     wxCHECK_MSG( w > 0 && h > 0, false, wxT("invalid bitmap size") );
 
-    m_refData = new wxBitmapRefData;
+    m_refData = NEW_DEBUG wxBitmapRefData;
 
     GetBitmapData()->m_width = w;
     GetBitmapData()->m_height = h;
@@ -895,7 +895,7 @@ bool wxBitmap::CreateFromImage(const wxImage& image, int depth, WXHDC hdc)
       depth = dib.GetDepth();
 
     // store the bitmap parameters
-    wxBitmapRefData * const refData = new wxBitmapRefData;
+    wxBitmapRefData * const refData = NEW_DEBUG wxBitmapRefData;
     refData->m_width = w;
     refData->m_height = h;
     refData->m_hasAlpha = hasAlpha;
@@ -942,7 +942,7 @@ bool wxBitmap::CreateFromImage(const wxImage& image, int depth, WXHDC hdc)
     // finally also set the mask if we have one
     if ( image.HasMask() )
     {
-        wxMask* mask = new wxMask;
+        wxMask* mask = NEW_DEBUG wxMask;
         if ( mask->MSWCreateFromImageMask(image) )
             SetMask(mask);
         else
@@ -1064,7 +1064,7 @@ bool wxBitmap::LoadFile(const wxString& filename, wxBitmapType type)
 
     if ( handler )
     {
-        m_refData = new wxBitmapRefData;
+        m_refData = NEW_DEBUG wxBitmapRefData;
 
         if ( !handler->LoadFile(this, filename, type, -1, -1) )
             return false;
@@ -1109,7 +1109,7 @@ bool wxBitmap::Create(const void* data, wxBitmapType type, int width, int height
         return false;
     }
 
-    m_refData = new wxBitmapRefData;
+    m_refData = NEW_DEBUG wxBitmapRefData;
 
     return handler->Create(this, data, type, width, height, depth);
 }
@@ -1202,7 +1202,7 @@ wxBitmap wxBitmap::GetSubBitmapOfHDC( const wxRect& rect, WXHDC hdc ) const
             wxLogLastError(wxT("BitBlt"));
         }
 
-        wxMask *mask = new wxMask((WXHBITMAP) hbmpMask);
+        wxMask *mask = NEW_DEBUG wxMask((WXHBITMAP) hbmpMask);
         ret.SetMask(mask);
     }
 
@@ -1399,7 +1399,7 @@ void *wxBitmap::GetRawData(wxPixelDataBase& data, int bpp)
         wxCHECK_MSG( !GetBitmapData()->m_dib, nullptr,
                         wxT("GetRawData() may be called only once") );
 
-        wxDIB *dib = new wxDIB(*this, bpp);
+        wxDIB *dib = NEW_DEBUG wxDIB(*this, bpp);
         if ( !dib->IsOk() )
         {
             delete dib;
@@ -1731,7 +1731,7 @@ wxBitmap wxMask::GetBitmap() const
     // We have to do a deep copy of the mask bitmap
     // and assign it to the resulting wxBitmap.
 
-    // Create new bitmap with the same parameters as a mask bitmap.
+    // Create NEW_DEBUG bitmap with the same parameters as a mask bitmap.
     BITMAP bm;
     ::GetObject(m_maskBitmap, sizeof(bm), (LPVOID)&bm);
 
@@ -1757,7 +1757,7 @@ wxBitmap wxMask::GetBitmap() const
     ::DeleteDC(hdcSrc);
     ::DeleteDC(hdcMem);
 
-    // Create and return a new wxBitmap.
+    // Create and return a NEW_DEBUG wxBitmap.
     wxBitmap bmp;
     bmp.InitFromHBITMAP((WXHBITMAP)hNewBitmap, bm.bmWidth, bm.bmHeight, bm.bmBitsPixel);
 
@@ -1898,7 +1898,7 @@ HICON wxBitmapToIconOrCursor(const wxBitmap& bmp,
     {
         // we must have a mask for an icon, so even if it's probably incorrect,
         // do create it (grey is the "standard" transparent colour)
-        mask = new wxMask(bmp, *wxLIGHT_GREY);
+        mask = NEW_DEBUG wxMask(bmp, *wxLIGHT_GREY);
     }
 
     ICONINFO iconInfo;

@@ -36,7 +36,7 @@ wxHashTableBase_Node::wxHashTableBase_Node( const wxString& key, void* value,
                                             wxHashTableBase* table )
     : m_value( value ), m_hashPtr( table )
 {
-    m_key.string = new wxString(key);
+    m_key.string = NEW_DEBUG wxString(key);
 }
 
 wxHashTableBase_Node::~wxHashTableBase_Node()
@@ -56,7 +56,7 @@ void wxHashTableBase::Create( wxKeyType keyType, size_t size )
 {
     m_keyType = keyType;
     m_size = size;
-    m_table = new wxHashTableBase_Node*[ m_size ];
+    m_table = NEW_DEBUG wxHashTableBase_Node*[ m_size ];
 
     for( size_t i = 0; i < m_size; ++i )
         m_table[i] = NULL;
@@ -159,7 +159,7 @@ void wxHashTableBase::DoPut( long key, long hash, void* data )
     wxASSERT( m_keyType == wxKEY_INTEGER );
 
     size_t bucket = size_t(hash) % m_size;
-    Node* node = new wxHashTableBase_Node( key, data, this );
+    Node* node = NEW_DEBUG wxHashTableBase_Node( key, data, this );
 
     DoInsertNode( bucket, node );
 }
@@ -169,7 +169,7 @@ void wxHashTableBase::DoPut( const wxString& key, long hash, void* data )
     wxASSERT( m_keyType == wxKEY_STRING );
 
     size_t bucket = size_t(hash) % m_size;
-    Node* node = new wxHashTableBase_Node( key, data, this );
+    Node* node = NEW_DEBUG wxHashTableBase_Node( key, data, this );
 
     DoInsertNode( bucket, node );
 }

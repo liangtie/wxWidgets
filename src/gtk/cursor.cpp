@@ -108,7 +108,7 @@ wxCursor::wxCursor(const char bits[], int width, int height,
                    int hotSpotX, int hotSpotY,
                    const char maskBits[], const wxColour *fg, const wxColour *bg)
 {
-    m_refData = new wxCursorRefData;
+    m_refData = NEW_DEBUG wxCursorRefData;
     if (hotSpotX < 0 || hotSpotX >= width)
         hotSpotX = 0;
     if (hotSpotY < 0 || hotSpotY >= height)
@@ -116,7 +116,7 @@ wxCursor::wxCursor(const char bits[], int width, int height,
 #ifdef __WXGTK3__
     wxBitmap bitmap(bits, width, height);
     if (maskBits)
-        bitmap.SetMask(new wxMask(wxBitmap(maskBits, width, height), *wxWHITE));
+        bitmap.SetMask(NEW_DEBUG wxMask(wxBitmap(maskBits, width, height), *wxWHITE));
     GdkPixbuf* pixbuf = bitmap.GetPixbuf();
     if ((fg && *fg != *wxBLACK) || (bg && *bg != *wxWHITE))
     {
@@ -208,7 +208,7 @@ wxPoint wxCursor::GetHotSpot() const
 
 void wxCursor::InitFromStock( wxStockCursor cursorId )
 {
-    m_refData = new wxCursorRefData();
+    m_refData = NEW_DEBUG wxCursorRefData();
 
     GdkCursorType gdk_cur = GDK_LEFT_PTR;
     switch (cursorId)
@@ -319,7 +319,7 @@ void wxCursor::InitFromImage( const wxImage & image )
                         d[4 * i + 3] = *alpha;
         }
     }
-    m_refData = new wxCursorRefData;
+    m_refData = NEW_DEBUG wxCursorRefData;
     M_CURSORDATA->m_cursor = gdk_cursor_new_from_pixbuf(
         gdk_window_get_display(wxGetTopLevelGDK()), pixbuf, hotSpotX, hotSpotY);
     g_object_unref(pixbuf);
@@ -337,7 +337,7 @@ GdkCursor *wxCursor::GetCursor() const
 
 wxGDIRefData *wxCursor::CreateGDIRefData() const
 {
-    return new wxCursorRefData;
+    return NEW_DEBUG wxCursorRefData;
 }
 
 wxGDIRefData *
@@ -350,7 +350,7 @@ wxCursor::CloneGDIRefData(const wxGDIRefData * WXUNUSED(data)) const
     //       gdk_cursor_get_image().
     wxFAIL_MSG( wxS("Cloning cursors is not implemented in wxGTK.") );
 
-    return new wxCursorRefData;
+    return NEW_DEBUG wxCursorRefData;
 }
 
 //-----------------------------------------------------------------------------
@@ -375,7 +375,7 @@ const wxCursor wxBusyCursor::GetBusyCursor()
 static void UpdateCursors(wxWindow* win, bool isBusyOrGlobalCursor)
 {
     win->GTKUpdateCursor(isBusyOrGlobalCursor);
-    const wxWindowList& children = win->GetChildren(); 
+    const wxWindowList& children = win->GetChildren();
     wxWindowList::const_iterator i = children.begin();
     for (size_t n = children.size(); n--; ++i)
         UpdateCursors(*i, isBusyOrGlobalCursor);

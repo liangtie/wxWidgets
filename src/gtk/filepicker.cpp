@@ -45,7 +45,7 @@ bool wxFileButton::Create( wxWindow *parent, wxWindowID id,
                         const wxString &name )
 {
     // we can't use the native button for wxFLP_SAVE pickers as it can only
-    // open existing files and there is no way to create a new file using it
+    // open existing files and there is no way to create a NEW_DEBUG file using it
     if (!(style & wxFLP_SAVE) && !(style & wxFLP_USE_TEXTCTRL))
     {
         // VERY IMPORTANT: this code is identical to relative code in wxDirButton;

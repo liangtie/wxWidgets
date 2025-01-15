@@ -280,7 +280,7 @@ bool wxAppBase::OnCmdLineParsed(wxCmdLineParser& parser)
             return false;
         }
 
-        // Delete the defaultly created theme and set the new theme.
+        // Delete the defaultly created theme and set the NEW_DEBUG theme.
         delete wxTheme::Get();
         wxTheme::Set(theme);
     }
@@ -345,7 +345,7 @@ int wxAppBase::OnExit()
 
 wxAppTraits *wxAppBase::CreateTraits()
 {
-    return new wxGUIAppTraits;
+    return NEW_DEBUG wxGUIAppTraits;
 }
 
 // ----------------------------------------------------------------------------
@@ -422,13 +422,13 @@ wxLog *wxGUIAppTraitsBase::CreateLogTarget()
 {
 #if wxUSE_LOGGUI
 #ifndef __WXOSX_IPHONE__
-    return new wxLogGui;
+    return NEW_DEBUG wxLogGui;
 #else
-    return new wxLogStderr;
+    return NEW_DEBUG wxLogStderr;
 #endif
 #else
     // we must have something!
-    return new wxLogStderr;
+    return NEW_DEBUG wxLogStderr;
 #endif
 }
 
@@ -443,15 +443,15 @@ wxMessageOutput *wxGUIAppTraitsBase::CreateMessageOutput()
     //                 stderr if available and message box otherwise on others
     //                 (currently stderr only Windows if app running from console)
 #ifdef __UNIX__
-    return new wxMessageOutputStderr;
+    return NEW_DEBUG wxMessageOutputStderr;
 #else // !__UNIX__
     // wxMessageOutputMessageBox doesn't work under Motif
     #ifdef __WXMOTIF__
-        return new wxMessageOutputLog;
+        return NEW_DEBUG wxMessageOutputLog;
     #elif wxUSE_MSGDLG
-        return new wxMessageOutputBest(wxMSGOUT_PREFER_STDERR);
+        return NEW_DEBUG wxMessageOutputBest(wxMSGOUT_PREFER_STDERR);
     #else
-        return new wxMessageOutputStderr;
+        return NEW_DEBUG wxMessageOutputStderr;
     #endif
 #endif // __UNIX__/!__UNIX__
 }
@@ -460,7 +460,7 @@ wxMessageOutput *wxGUIAppTraitsBase::CreateMessageOutput()
 
 wxFontMapper *wxGUIAppTraitsBase::CreateFontMapper()
 {
-    return new wxFontMapper;
+    return NEW_DEBUG wxFontMapper;
 }
 
 #endif // wxUSE_FONTMAP

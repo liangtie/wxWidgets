@@ -62,19 +62,19 @@ wxIMPLEMENT_DYNAMIC_CLASS(wxBrush, wxGDIObject);
 
 wxBrush::wxBrush(const wxColour &colour, wxBrushStyle style)
 {
-    m_refData = new wxBrushRefData(colour, style);
+    m_refData = NEW_DEBUG wxBrushRefData(colour, style);
 }
 
 wxBrush::wxBrush(const wxColour& col, int style)
 {
-    m_refData = new wxBrushRefData(col, (wxBrushStyle)style);
+    m_refData = NEW_DEBUG wxBrushRefData(col, (wxBrushStyle)style);
 }
 
 wxBrush::wxBrush(const wxBitmap &stippleBitmap)
 {
     wxFAIL_MSG( wxT("brushes with stipple bitmaps not implemented") );
 
-    m_refData = new wxBrushRefData(*wxBLACK);
+    m_refData = NEW_DEBUG wxBrushRefData(*wxBLACK);
 }
 
 bool wxBrush::operator==(const wxBrush& brush) const
@@ -128,10 +128,10 @@ void wxBrush::SetStipple(const wxBitmap& WXUNUSED(stipple))
 
 wxGDIRefData *wxBrush::CreateGDIRefData() const
 {
-    return new wxBrushRefData;
+    return NEW_DEBUG wxBrushRefData;
 }
 
 wxGDIRefData *wxBrush::CloneGDIRefData(const wxGDIRefData *data) const
 {
-    return new wxBrushRefData(*(wxBrushRefData *)data);
+    return NEW_DEBUG wxBrushRefData(*(wxBrushRefData *)data);
 }

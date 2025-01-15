@@ -320,7 +320,7 @@ void wxGLCanvas::GTKInitImplicitContext()
         if ( !share && m_sharedContextOf )
             share = m_sharedContextOf->m_glContext;
 
-        m_glContext = new wxGLContext(this, share);
+        m_glContext = NEW_DEBUG wxGLContext(this, share);
     }
 }
 

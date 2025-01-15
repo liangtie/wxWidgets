@@ -312,7 +312,7 @@ wxWizard::~wxWizard()
 
 void wxWizard::AddBitmapRow(wxBoxSizer *mainColumn)
 {
-    m_sizerBmpAndPage = new wxBoxSizer(wxHORIZONTAL);
+    m_sizerBmpAndPage = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     mainColumn->Add(
         m_sizerBmpAndPage,
         1, // Vertically stretchable
@@ -330,7 +330,7 @@ void wxWizard::AddBitmapRow(wxBoxSizer *mainColumn)
         if (GetBitmapPlacement())
             bitmapSize.x = GetMinimumBitmapWidth();
 
-        m_statbmp = new wxStaticBitmap(this, wxID_ANY, m_bitmap, wxDefaultPosition, bitmapSize);
+        m_statbmp = NEW_DEBUG wxStaticBitmap(this, wxID_ANY, m_bitmap, wxDefaultPosition, bitmapSize);
         m_sizerBmpAndPage->Add(
             m_statbmp,
             0, // No horizontal stretching
@@ -346,14 +346,14 @@ void wxWizard::AddBitmapRow(wxBoxSizer *mainColumn)
 #endif
 
     // Added to m_sizerBmpAndPage later
-    m_sizerPage = new wxWizardSizer(this);
+    m_sizerPage = NEW_DEBUG wxWizardSizer(this);
 }
 
 void wxWizard::AddStaticLine(wxBoxSizer *mainColumn)
 {
 #if wxUSE_STATLINE
     mainColumn->Add(
-        new wxStaticLine(this, wxID_ANY),
+        NEW_DEBUG wxStaticLine(this, wxID_ANY),
         0, // Vertically unstretchable
         wxEXPAND | wxALL, // Border all around, horizontally stretchable
         5 // Border width
@@ -373,7 +373,7 @@ void wxWizard::AddBackNextPair(wxBoxSizer *buttonRow)
                   wxT("You must create the buttons before calling ")
                   wxT("wxWizard::AddBackNextPair") );
 
-    wxBoxSizer *backNextPair = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer *backNextPair = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     buttonRow->Add(
         backNextPair,
         0, // No horizontal stretching
@@ -404,7 +404,7 @@ void wxWizard::AddButtonRow(wxBoxSizer *mainColumn)
     bool isPda = (wxSystemSettings::GetScreenType() <= wxSYS_SCREEN_PDA);
     int buttonStyle = isPda ? wxBU_EXACTFIT : 0;
 
-    wxBoxSizer *buttonRow = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer *buttonRow = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
 #ifdef __WXMAC__
     if (GetExtraStyle() & wxWIZARD_EX_HELPBUTTON)
         mainColumn->Add(
@@ -425,19 +425,19 @@ void wxWizard::AddButtonRow(wxBoxSizer *mainColumn)
     wxButton *btnHelp=0;
 #ifdef __WXMAC__
     if (GetExtraStyle() & wxWIZARD_EX_HELPBUTTON)
-        btnHelp=new wxButton(this, wxID_HELP, wxEmptyString, wxDefaultPosition, wxDefaultSize, buttonStyle);
+        btnHelp=NEW_DEBUG wxButton(this, wxID_HELP, wxEmptyString, wxDefaultPosition, wxDefaultSize, buttonStyle);
 #endif
 
     m_nextLabel = _("&Next >");
     m_finishLabel = _("&Finish");
 
-    m_btnNext = new wxButton(this, wxID_FORWARD, m_nextLabel);
-    wxButton *btnCancel=new wxButton(this, wxID_CANCEL, _("&Cancel"), wxDefaultPosition, wxDefaultSize, buttonStyle);
+    m_btnNext = NEW_DEBUG wxButton(this, wxID_FORWARD, m_nextLabel);
+    wxButton *btnCancel=NEW_DEBUG wxButton(this, wxID_CANCEL, _("&Cancel"), wxDefaultPosition, wxDefaultSize, buttonStyle);
 #ifndef __WXMAC__
     if (GetExtraStyle() & wxWIZARD_EX_HELPBUTTON)
-        btnHelp=new wxButton(this, wxID_HELP, _("&Help"), wxDefaultPosition, wxDefaultSize, buttonStyle);
+        btnHelp=NEW_DEBUG wxButton(this, wxID_HELP, _("&Help"), wxDefaultPosition, wxDefaultSize, buttonStyle);
 #endif
-    m_btnPrev = new wxButton(this, wxID_BACKWARD, _("< &Back"), wxDefaultPosition, wxDefaultSize, buttonStyle);
+    m_btnPrev = NEW_DEBUG wxButton(this, wxID_BACKWARD, _("< &Back"), wxDefaultPosition, wxDefaultSize, buttonStyle);
 
     // compute the maximum width of the buttons and use it for all of them
     // (except for the "Help" button under Mac which is special there)
@@ -506,9 +506,9 @@ void wxWizard::DoCreateControls()
     int mainColumnSizerFlags = isPda ? wxEXPAND : wxALL|wxEXPAND ;
 
     // wxWindow::SetSizer will be called at end
-    wxBoxSizer *windowSizer = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer *windowSizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
-    wxBoxSizer *mainColumn = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer *mainColumn = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     windowSizer->Add(
         mainColumn,
         1, // Vertical stretching
@@ -566,7 +566,7 @@ bool wxWizard::ShowPage(wxWizardPage *page, bool goingForward)
     }
 
 
-    // remember the old bitmap (if any) to compare with the new one later
+    // remember the old bitmap (if any) to compare with the NEW_DEBUG one later
     wxBitmap bmpPrev;
 
     // check for previous page
@@ -618,7 +618,7 @@ bool wxWizard::ShowPage(wxWizardPage *page, bool goingForward)
     // event above could still use the correct (i.e. old) value of m_page
     m_page = page;
 
-    // position and show the new page
+    // position and show the NEW_DEBUG page
     (void)m_page->TransferDataToWindow();
 
     if ( m_usingSizer )
@@ -664,7 +664,7 @@ bool wxWizard::ShowPage(wxWizardPage *page, bool goingForward)
     m_btnNext->SetDefault();
 
 
-    // send the change event to the new page now
+    // send the change event to the NEW_DEBUG page now
     wxWizardEvent event(wxEVT_WIZARD_PAGE_CHANGED, GetId(), goingForward, m_page);
     (void)m_page->GetEventHandler()->ProcessEvent(event);
 
@@ -847,7 +847,7 @@ void wxWizard::OnBackOrNext(wxCommandEvent& event)
         wxASSERT_MSG( page, wxT("\"<Back\" button should have been disabled") );
     }
 
-    // just pass to the new page (or maybe not - but we don't care here)
+    // just pass to the NEW_DEBUG page (or maybe not - but we don't care here)
     (void)ShowPage(page, forward);
 }
 
@@ -952,10 +952,10 @@ bool wxWizard::DoLayoutAdaptation()
                     if (!pages.Find(page) && page->GetSizer())
                     {
                         // Create a scrolled window and reparent
-                        wxScrolledWindow* scrolledWindow = new wxScrolledWindow(page, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL|wxVSCROLL|wxHSCROLL|wxBORDER_NONE);
+                        wxScrolledWindow* scrolledWindow = NEW_DEBUG wxScrolledWindow(page, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL|wxVSCROLL|wxHSCROLL|wxBORDER_NONE);
                         wxSizer* oldSizer = page->GetSizer();
 
-                        wxSizer* newSizer = new wxBoxSizer(wxVERTICAL);
+                        wxSizer* newSizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
                         newSizer->Add(scrolledWindow,1, wxEXPAND, 0);
 
                         page->SetSizer(newSizer, false /* don't delete the old sizer */);

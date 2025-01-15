@@ -65,7 +65,7 @@ wxFSFile* wxFilterFSHandler::OpenFile(
     if (factory->CanHandle(mime, wxSTREAM_MIMETYPE))
         mime = GetMimeTypeFromExt(factory->PopExtension(left));
 
-    return new wxFSFile(stream.release(),
+    return NEW_DEBUG wxFSFile(stream.release(),
                         left + wxT("#") + protocol + wxT(":") + right,
                         mime,
                         GetAnchor(location)

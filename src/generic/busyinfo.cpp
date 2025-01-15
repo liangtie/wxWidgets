@@ -35,26 +35,26 @@
 
 void wxBusyInfo::Init(const wxBusyInfoFlags& flags)
 {
-    m_InfoFrame = new wxFrame(flags.m_parent, wxID_ANY, wxString(),
+    m_InfoFrame = NEW_DEBUG wxFrame(flags.m_parent, wxID_ANY, wxString(),
                               wxDefaultPosition, wxDefaultSize,
                               wxSIMPLE_BORDER |
                               wxFRAME_TOOL_WINDOW |
                               wxSTAY_ON_TOP);
 
-    wxPanel* const panel = new wxPanel(m_InfoFrame);
+    wxPanel* const panel = NEW_DEBUG wxPanel(m_InfoFrame);
 
-    wxBoxSizer* const sizer = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer* const sizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
     if ( flags.m_icon.IsOk() )
     {
-        sizer->Add(new wxStaticBitmap(panel, wxID_ANY, flags.m_icon),
+        sizer->Add(NEW_DEBUG wxStaticBitmap(panel, wxID_ANY, flags.m_icon),
                    wxSizerFlags().DoubleBorder().Centre());
     }
 
     wxControl* title;
     if ( !flags.m_title.empty() )
     {
-        title = new wxStaticTextWithMarkupSupport(panel, wxID_ANY, wxString(),
+        title = NEW_DEBUG wxStaticTextWithMarkupSupport(panel, wxID_ANY, wxString(),
                                                   wxDefaultPosition,
                                                   wxDefaultSize,
                                                   wxALIGN_CENTRE);
@@ -91,7 +91,7 @@ void wxBusyInfo::Init(const wxBusyInfoFlags& flags)
     sizer->AddStretchSpacer();
 
 #if wxUSE_MARKUP
-    m_text = new wxStaticTextWithMarkupSupport(panel, wxID_ANY, wxString(),
+    m_text = NEW_DEBUG wxStaticTextWithMarkupSupport(panel, wxID_ANY, wxString(),
                                                wxDefaultPosition,
                                                wxDefaultSize,
                                                wxALIGN_CENTRE);
@@ -100,7 +100,7 @@ void wxBusyInfo::Init(const wxBusyInfoFlags& flags)
     else
         m_text->SetLabelText(flags.m_label);
 #else
-    m_text = new wxStaticText(panel, wxID_ANY, wxString());
+    m_text = NEW_DEBUG wxStaticText(panel, wxID_ANY, wxString());
     m_text->SetLabelText(flags.m_label);
 #endif // wxUSE_MARKUP
 

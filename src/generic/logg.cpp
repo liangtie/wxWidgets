@@ -257,7 +257,7 @@ wxLogGui::DoShowMultipleLogMessages(const wxArrayString& messages,
                     title, style);
 
     // clear the message list before showing the dialog because while it's
-    // shown some new messages may appear
+    // shown some NEW_DEBUG messages may appear
     Clear();
 
     (void)dlg.ShowModal();
@@ -281,7 +281,7 @@ void wxLogGui::Flush()
     if ( !m_bHasMessages )
         return;
 
-    // do it right now to block any new calls to Flush() while we're here
+    // do it right now to block any NEW_DEBUG calls to Flush() while we're here
     m_bHasMessages = false;
 
     // note that this must be done before examining m_aMessages as it may log
@@ -493,7 +493,7 @@ wxLogFrame::wxLogFrame(wxWindow *pParent, wxLogWindow *log, const wxString& szTi
 
     m_log = log;
 
-    m_pTextCtrl = new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition,
+    m_pTextCtrl = NEW_DEBUG wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition,
             wxDefaultSize,
             wxTE_MULTILINE  |
             wxHSCROLL       |
@@ -506,8 +506,8 @@ wxLogFrame::wxLogFrame(wxWindow *pParent, wxLogWindow *log, const wxString& szTi
 
 #if wxUSE_MENUS
     // create menu
-    wxMenuBar *pMenuBar = new wxMenuBar;
-    wxMenu *pMenu = new wxMenu;
+    wxMenuBar *pMenuBar = NEW_DEBUG wxMenuBar;
+    wxMenu *pMenu = NEW_DEBUG wxMenu;
 #if CAN_SAVE_FILES
     pMenu->Append(Menu_Save,  _("Save &As..."), _("Save log contents to file"));
 #endif // CAN_SAVE_FILES
@@ -603,7 +603,7 @@ wxLogWindow::wxLogWindow(wxWindow *pParent,
 
     PassMessages(bDoPass);
 
-    m_pLogFrame = new wxLogFrame(pParent, this, szTitle);
+    m_pLogFrame = NEW_DEBUG wxLogFrame(pParent, this, szTitle);
 
     if ( bShow )
         m_pLogFrame->Show();
@@ -707,12 +707,12 @@ wxLogDialog::wxLogDialog(wxWindow *parent,
     // create the controls which are always shown and layout them: we use
     // sizers even though our window is not resizable to calculate the size of
     // the dialog properly
-    wxBoxSizer *sizerTop = new wxBoxSizer(wxVERTICAL);
-    wxBoxSizer *sizerAll = new wxBoxSizer(isPda ? wxVERTICAL : wxHORIZONTAL);
+    wxBoxSizer *sizerTop = NEW_DEBUG wxBoxSizer(wxVERTICAL);
+    wxBoxSizer *sizerAll = NEW_DEBUG wxBoxSizer(isPda ? wxVERTICAL : wxHORIZONTAL);
 
     if (!isPda)
     {
-        wxStaticBitmap *icon = new wxStaticBitmap
+        wxStaticBitmap *icon = NEW_DEBUG wxStaticBitmap
                                    (
                                     this,
                                     wxID_ANY,
@@ -728,7 +728,7 @@ wxLogDialog::wxLogDialog(wxWindow *parent,
 
     sizerAll->Add(szText, wxSizerFlags(1).Centre().Border(wxLEFT | wxRIGHT));
 
-    wxButton *btnOk = new wxButton(this, wxID_OK);
+    wxButton *btnOk = NEW_DEBUG wxButton(this, wxID_OK);
     sizerAll->Add(btnOk, wxSizerFlags().Centre());
 
     sizerTop->Add(sizerAll, wxSizerFlags().Expand().Border());
@@ -737,32 +737,32 @@ wxLogDialog::wxLogDialog(wxWindow *parent,
     // add the details pane
 #if wxUSE_COLLPANE
     wxCollapsiblePane * const
-        collpane = new wxCollapsiblePane(this, wxID_ANY, ms_details);
+        collpane = NEW_DEBUG wxCollapsiblePane(this, wxID_ANY, ms_details);
     sizerTop->Add(collpane, wxSizerFlags(1).Expand().Border());
 
     wxWindow *win = collpane->GetPane();
 #else
-    wxPanel* win = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxDefaultSize,
+    wxPanel* win = NEW_DEBUG wxPanel(this, wxID_ANY, wxDefaultPosition, wxDefaultSize,
                                wxBORDER_NONE);
 #endif
-    wxSizer * const paneSz = new wxBoxSizer(wxVERTICAL);
+    wxSizer * const paneSz = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
     CreateDetailsControls(win);
 
     paneSz->Add(m_listctrl, wxSizerFlags(1).Expand().Border(wxTOP));
 
 #if wxUSE_CLIPBOARD || CAN_SAVE_FILES
-    wxBoxSizer * const btnSizer = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer * const btnSizer = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
 
     wxSizerFlags flagsBtn;
     flagsBtn.Border(wxLEFT);
 
 #if wxUSE_CLIPBOARD
-    btnSizer->Add(new wxButton(win, wxID_COPY), flagsBtn);
+    btnSizer->Add(NEW_DEBUG wxButton(win, wxID_COPY), flagsBtn);
 #endif // wxUSE_CLIPBOARD
 
 #if CAN_SAVE_FILES
-    btnSizer->Add(new wxButton(win, wxID_SAVE), flagsBtn);
+    btnSizer->Add(NEW_DEBUG wxButton(win, wxID_SAVE), flagsBtn);
 #endif // CAN_SAVE_FILES
 
     paneSz->Add(btnSizer, wxSizerFlags().Right().Border(wxTOP|wxBOTTOM));
@@ -789,7 +789,7 @@ void wxLogDialog::CreateDetailsControls(wxWindow *parent)
     bool hasTimeStamp = !fmt.IsEmpty();
 
     // create the list ctrl now
-    m_listctrl = new wxListCtrl(parent, wxID_ANY,
+    m_listctrl = NEW_DEBUG wxListCtrl(parent, wxID_ANY,
                                 wxDefaultPosition, wxDefaultSize,
                                 wxBORDER_SIMPLE |
                                 wxLC_REPORT |
@@ -805,7 +805,7 @@ void wxLogDialog::CreateDetailsControls(wxWindow *parent)
 
     // prepare the imagelist
     static const int ICON_SIZE = 16;
-    wxImageList *imageList = new wxImageList(ICON_SIZE, ICON_SIZE);
+    wxImageList *imageList = NEW_DEBUG wxImageList(ICON_SIZE, ICON_SIZE);
 
     // order should be the same as in the switch below!
     static wxString const icons[] =
@@ -951,7 +951,7 @@ void wxLogDialog::OnCopy(wxCommandEvent& WXUNUSED(event))
 {
     wxClipboardLocker clip;
     if ( !clip ||
-            !wxTheClipboard->AddData(new wxTextDataObject(GetLogMessages())) )
+            !wxTheClipboard->AddData(NEW_DEBUG wxTextDataObject(GetLogMessages())) )
     {
         wxLogError(_("Failed to copy dialog contents to the clipboard."));
     }

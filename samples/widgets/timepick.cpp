@@ -128,17 +128,17 @@ TimePickerWidgetsPage::TimePickerWidgetsPage(WidgetsBookCtrl *book,
 
 void TimePickerWidgetsPage::CreateContent()
 {
-    wxSizer *sizerTop = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer *sizerTop = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
 
     // left pane
-    wxSizer* const sizerLeft = new wxBoxSizer(wxVERTICAL);
+    wxSizer* const sizerLeft = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
-    sizerLeft->Add(new wxButton(this, TimePickerPage_Reset, "&Reset"),
+    sizerLeft->Add(NEW_DEBUG wxButton(this, TimePickerPage_Reset, "&Reset"),
                    wxSizerFlags().Centre().Border());
 
 
     // middle pane: operations
-    wxSizer* const sizerMiddle = new wxBoxSizer(wxVERTICAL);
+    wxSizer* const sizerMiddle = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     sizerMiddle->Add(CreateSizerWithTextAndButton
                      (
                         TimePickerPage_Set,
@@ -152,9 +152,9 @@ void TimePickerWidgetsPage::CreateContent()
 
 
     // right pane: control itself
-    wxSizer *sizerRight = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer *sizerRight = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
 
-    m_timePicker = new wxTimePickerCtrl(this, TimePickerPage_Picker);
+    m_timePicker = NEW_DEBUG wxTimePickerCtrl(this, TimePickerPage_Picker);
 
     sizerRight->Add(0, 0, 1, wxCENTRE);
     sizerRight->Add(m_timePicker, 1, wxCENTRE);
@@ -194,7 +194,7 @@ void TimePickerWidgetsPage::CreateTimePicker()
 
     long style = GetAttrs().m_defaultFlags;
 
-    m_timePicker = new wxTimePickerCtrl(this, TimePickerPage_Picker, value,
+    m_timePicker = NEW_DEBUG wxTimePickerCtrl(this, TimePickerPage_Picker, value,
                                         wxDefaultPosition, wxDefaultSize,
                                         style);
 

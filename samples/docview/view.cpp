@@ -45,10 +45,10 @@ bool DrawingView::OnCreate(wxDocument *doc, long flags)
     MyApp& app = wxGetApp();
     if ( app.GetMode() != MyApp::Mode_Single )
     {
-        // create a new window and canvas inside it
+        // create a NEW_DEBUG window and canvas inside it
         wxFrame* frame = app.CreateChildFrame(this, true);
         wxASSERT(frame == GetFrame());
-        m_canvas = new MyCanvas(this);
+        m_canvas = NEW_DEBUG MyCanvas(this);
         frame->Show();
     }
     else // single document mode
@@ -134,7 +134,7 @@ void DrawingView::OnCut(wxCommandEvent& WXUNUSED(event) )
 {
     DrawingDocument * const doc = GetDocument();
 
-    doc->GetCommandProcessor()->Submit(new DrawingRemoveSegmentCommand(doc));
+    doc->GetCommandProcessor()->Submit(NEW_DEBUG DrawingRemoveSegmentCommand(doc));
 }
 
 // ----------------------------------------------------------------------------
@@ -156,7 +156,7 @@ bool TextEditView::OnCreate(wxDocument *doc, long flags)
 
     wxFrame* frame = wxGetApp().CreateChildFrame(this, false);
     wxASSERT(frame == GetFrame());
-    m_text = new wxTextCtrl(frame, wxID_ANY, "",
+    m_text = NEW_DEBUG wxTextCtrl(frame, wxID_ANY, "",
                             wxDefaultPosition, wxDefaultSize,
                             wxTE_MULTILINE);
     frame->Show();
@@ -252,7 +252,7 @@ void MyCanvas::OnMouseEvent(wxMouseEvent& event)
                 doc = wxStaticCast(m_view->GetDocument(), DrawingDocument);
 
             doc->GetCommandProcessor()->Submit(
-                new DrawingAddSegmentCommand(doc, *m_currentSegment));
+                NEW_DEBUG DrawingAddSegmentCommand(doc, *m_currentSegment));
 
             doc->Modify(true);
         }
@@ -260,11 +260,11 @@ void MyCanvas::OnMouseEvent(wxMouseEvent& event)
         wxDELETE(m_currentSegment);
     }
 
-    // is this the start of a new segment?
+    // is this the start of a NEW_DEBUG segment?
     if ( m_lastMousePos != wxDefaultPosition && event.Dragging() )
     {
         if ( !m_currentSegment )
-            m_currentSegment = new DoodleSegment;
+            m_currentSegment = NEW_DEBUG DoodleSegment;
 
         m_currentSegment->AddLine(m_lastMousePos, pt);
 
@@ -311,7 +311,7 @@ bool ImageView::OnCreate(wxDocument* doc, long flags)
 
     wxFrame* frame = wxGetApp().CreateChildFrame(this, false);
     wxASSERT(frame == GetFrame());
-    m_canvas = new ImageCanvas(this);
+    m_canvas = NEW_DEBUG ImageCanvas(this);
     frame->Show();
 
     return true;
@@ -370,15 +370,15 @@ ImageDetailsView::ImageDetailsView(ImageDetailsDocument *doc)
     m_frame = wxGetApp().CreateChildFrame(this, false);
     m_frame->SetTitle("Image Details");
 
-    wxPanel * const panel = new wxPanel(m_frame);
-    wxFlexGridSizer * const sizer = new wxFlexGridSizer(2, wxSize(5, 5));
+    wxPanel * const panel = NEW_DEBUG wxPanel(m_frame);
+    wxFlexGridSizer * const sizer = NEW_DEBUG wxFlexGridSizer(2, wxSize(5, 5));
     const wxSizerFlags
         flags = wxSizerFlags().Align(wxALIGN_CENTRE_VERTICAL).Border();
 
-    sizer->Add(new wxStaticText(panel, wxID_ANY, "Image &file:"), flags);
-    sizer->Add(new wxStaticText(panel, wxID_ANY, doc->GetFilename()), flags);
+    sizer->Add(NEW_DEBUG wxStaticText(panel, wxID_ANY, "Image &file:"), flags);
+    sizer->Add(NEW_DEBUG wxStaticText(panel, wxID_ANY, doc->GetFilename()), flags);
 
-    sizer->Add(new wxStaticText(panel, wxID_ANY, "Image &type:"), flags);
+    sizer->Add(NEW_DEBUG wxStaticText(panel, wxID_ANY, "Image &type:"), flags);
     wxString typeStr;
     switch ( doc->GetType() )
     {
@@ -393,22 +393,22 @@ ImageDetailsView::ImageDetailsView(ImageDetailsDocument *doc)
         default:
             typeStr = "Unknown";
     }
-    sizer->Add(new wxStaticText(panel, wxID_ANY, typeStr), flags);
+    sizer->Add(NEW_DEBUG wxStaticText(panel, wxID_ANY, typeStr), flags);
 
-    sizer->Add(new wxStaticText(panel, wxID_ANY, "Image &size:"), flags);
+    sizer->Add(NEW_DEBUG wxStaticText(panel, wxID_ANY, "Image &size:"), flags);
     wxSize size = doc->GetSize();
-    sizer->Add(new wxStaticText(panel, wxID_ANY,
+    sizer->Add(NEW_DEBUG wxStaticText(panel, wxID_ANY,
                                 wxString::Format("%d*%d", size.x, size.y)),
                flags);
 
-    sizer->Add(new wxStaticText(panel, wxID_ANY, "Number of unique &colours:"),
+    sizer->Add(NEW_DEBUG wxStaticText(panel, wxID_ANY, "Number of unique &colours:"),
                flags);
-    sizer->Add(new wxStaticText(panel, wxID_ANY,
+    sizer->Add(NEW_DEBUG wxStaticText(panel, wxID_ANY,
                                 wxString::Format("%lu", doc->GetNumColours())),
                flags);
 
-    sizer->Add(new wxStaticText(panel, wxID_ANY, "Uses &alpha:"), flags);
-    sizer->Add(new wxStaticText(panel, wxID_ANY,
+    sizer->Add(NEW_DEBUG wxStaticText(panel, wxID_ANY, "Uses &alpha:"), flags);
+    sizer->Add(NEW_DEBUG wxStaticText(panel, wxID_ANY,
                                 doc->HasAlpha() ? "Yes" : "No"), flags);
 
     panel->SetSizer(sizer);

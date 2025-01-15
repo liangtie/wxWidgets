@@ -60,7 +60,7 @@ bool wxDataObjectBase::IsSupported(const wxDataFormat& format,
     }
     else
     {
-        wxDataFormat *formats = new wxDataFormat[nFormatCount];
+        wxDataFormat *formats = NEW_DEBUG wxDataFormat[nFormatCount];
         GetAllFormats( formats, dir );
 
         size_t n;
@@ -586,7 +586,7 @@ void wxCustomDataObject::TakeData(size_t size, void *data)
 
 void *wxCustomDataObject::Alloc(size_t size)
 {
-    return (void *)new char[size];
+    return (void *)NEW_DEBUG char[size];
 }
 
 void wxCustomDataObject::Free()
@@ -694,13 +694,13 @@ wxImage wxImageDataObject::GetImage() const
 // wxTextDropTarget
 // ----------------------------------------------------------------------------
 
-// NB: we can't use "new" in ctor initializer lists because this provokes an
+// NB: we can't use "NEW_DEBUG" in ctor initializer lists because this provokes an
 //     internal compiler error with VC++ 5.0 (hey, even gcc compiles this!),
 //     so use SetDataObject() instead
 
 wxTextDropTarget::wxTextDropTarget()
 {
-    SetDataObject(new wxTextDataObject);
+    SetDataObject(NEW_DEBUG wxTextDataObject);
 }
 
 wxDragResult wxTextDropTarget::OnData(wxCoord x, wxCoord y, wxDragResult def)
@@ -718,7 +718,7 @@ wxDragResult wxTextDropTarget::OnData(wxCoord x, wxCoord y, wxDragResult def)
 
 wxFileDropTarget::wxFileDropTarget()
 {
-    SetDataObject(new wxFileDataObject);
+    SetDataObject(NEW_DEBUG wxFileDataObject);
 }
 
 wxDragResult wxFileDropTarget::OnData(wxCoord x, wxCoord y, wxDragResult def)

@@ -335,7 +335,7 @@ void wxAppConsoleBase::Exit()
 
 wxAppTraits *wxAppConsoleBase::CreateTraits()
 {
-    return new wxConsoleAppTraits;
+    return NEW_DEBUG wxConsoleAppTraits;
 }
 
 wxAppTraits *wxAppConsoleBase::GetTraits()
@@ -436,7 +436,7 @@ bool wxAppConsoleBase::ProcessIdle()
 
 #if wxUSE_LOG
     // flush the logged messages if any (do this after processing the events
-    // which could have logged new messages)
+    // which could have logged NEW_DEBUG messages)
     wxLog::FlushActive();
 #endif
 
@@ -562,7 +562,7 @@ void wxAppConsoleBase::ProcessPendingEvents()
             //       more pending events.
             wxEvtHandler* const handler = m_handlersWithPendingEvents[0];
 
-            // In ProcessPendingEvents(), new handlers might be added
+            // In ProcessPendingEvents(), NEW_DEBUG handlers might be added
             // and we can safely leave the critical section here as we're not
             // accessing m_handlersWithPendingEvents while we don't hold it.
             wxLEAVE_CRIT_SECT(m_handlersWithPendingEventsLocker);
@@ -915,21 +915,21 @@ void* wxAppConsoleBase::WXReservedApp2(void*) { return NULL; }
 
 wxLog *wxConsoleAppTraitsBase::CreateLogTarget()
 {
-    return new wxLogStderr;
+    return NEW_DEBUG wxLogStderr;
 }
 
 #endif // wxUSE_LOG
 
 wxMessageOutput *wxConsoleAppTraitsBase::CreateMessageOutput()
 {
-    return new wxMessageOutputStderr;
+    return NEW_DEBUG wxMessageOutputStderr;
 }
 
 #if wxUSE_FONTMAP
 
 wxFontMapper *wxConsoleAppTraitsBase::CreateFontMapper()
 {
-    return (wxFontMapper *)new wxFontMapperBase;
+    return (wxFontMapper *)NEW_DEBUG wxFontMapperBase;
 }
 
 #endif // wxUSE_FONTMAP

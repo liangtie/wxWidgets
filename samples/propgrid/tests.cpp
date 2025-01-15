@@ -103,7 +103,7 @@ public:
 
 void FormMain::AddTestProperties( wxPropertyGridPage* pg )
 {
-    pg->Append( new MyColourProperty("CustomColourProperty", wxPG_LABEL, *wxGREEN) );
+    pg->Append( NEW_DEBUG MyColourProperty("CustomColourProperty", wxPG_LABEL, *wxGREEN) );
     pg->GetProperty("CustomColourProperty")->SetAutoUnspecified(true);
     pg->SetPropertyEditor( "CustomColourProperty", wxPGEditor_ComboBox );
 
@@ -119,7 +119,7 @@ void FormMain::OnDumpList( wxCommandEvent& WXUNUSED(event) )
     wxVariant values = m_pPropGridManager->GetPropertyValues("list", wxNullProperty, wxPG_INC_ATTRIBUTES);
     wxString text = "This only tests that wxVariant related routines do not crash.\n";
 
-    wxDialog* dlg = new wxDialog(this,wxID_ANY,"wxVariant Test",
+    wxDialog* dlg = NEW_DEBUG wxDialog(this,wxID_ANY,"wxVariant Test",
         wxDefaultPosition,wxDefaultSize,wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER);
 
     for ( size_t i = 0; i < values.GetCount(); i++ )
@@ -152,15 +152,15 @@ void FormMain::OnDumpList( wxCommandEvent& WXUNUSED(event) )
 
     // multi-line text editor dialog
     const int spacing = 8;
-    wxBoxSizer* topsizer = new wxBoxSizer( wxVERTICAL );
-    wxBoxSizer* rowsizer = new wxBoxSizer( wxHORIZONTAL );
-    wxTextCtrl* ed = new wxTextCtrl(dlg, wxID_ANY, text,
+    wxBoxSizer* topsizer = NEW_DEBUG wxBoxSizer( wxVERTICAL );
+    wxBoxSizer* rowsizer = NEW_DEBUG wxBoxSizer( wxHORIZONTAL );
+    wxTextCtrl* ed = NEW_DEBUG wxTextCtrl(dlg, wxID_ANY, text,
                                     wxDefaultPosition, wxDefaultSize,
                                     wxTE_MULTILINE|wxTE_READONLY);
     rowsizer->Add( ed, wxSizerFlags(1).Expand().Border(wxALL, spacing));
     topsizer->Add( rowsizer, wxSizerFlags(1).Expand());
-    rowsizer = new wxBoxSizer( wxHORIZONTAL );
-    rowsizer->Add( new wxButton(dlg,wxID_OK,"Ok"),
+    rowsizer = NEW_DEBUG wxBoxSizer( wxHORIZONTAL );
+    rowsizer->Add( NEW_DEBUG wxButton(dlg,wxID_OK,"Ok"),
         wxSizerFlags(0).CentreHorizontal().CentreVertical().Border(wxBOTTOM|wxLEFT|wxRIGHT, spacing));
     topsizer->Add( rowsizer, wxSizerFlags().Right() );
 
@@ -333,20 +333,20 @@ bool FormMain::RunTests( bool fullTest, bool interactive )
     wxVector<wxString> errorMessages;
     wxDialog* dlg = NULL;
 
-    dlg = new wxDialog(this,wxID_ANY,"wxPropertyGrid Regression Tests",
+    dlg = NEW_DEBUG wxDialog(this,wxID_ANY,"wxPropertyGrid Regression Tests",
         wxDefaultPosition,wxDefaultSize,wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER);
 
     // multi-line text editor dialog
     const int spacing = 8;
-    wxBoxSizer* topsizer = new wxBoxSizer( wxVERTICAL );
-    wxBoxSizer* rowsizer = new wxBoxSizer( wxHORIZONTAL );
-    wxTextCtrl* ed = new wxTextCtrl(dlg, wxID_ANY, wxEmptyString,
+    wxBoxSizer* topsizer = NEW_DEBUG wxBoxSizer( wxVERTICAL );
+    wxBoxSizer* rowsizer = NEW_DEBUG wxBoxSizer( wxHORIZONTAL );
+    wxTextCtrl* ed = NEW_DEBUG wxTextCtrl(dlg, wxID_ANY, wxEmptyString,
                                     wxDefaultPosition, wxDefaultSize,
                                     wxTE_MULTILINE|wxTE_READONLY);
     rowsizer->Add( ed, wxSizerFlags(1).Expand().Border(wxALL, spacing));
     topsizer->Add( rowsizer, wxSizerFlags(1).Expand());
-    rowsizer = new wxBoxSizer( wxHORIZONTAL );
-    rowsizer->Add( new wxButton(dlg,wxID_OK,"Ok"),
+    rowsizer = NEW_DEBUG wxBoxSizer( wxHORIZONTAL );
+    rowsizer->Add( NEW_DEBUG wxButton(dlg,wxID_OK,"Ok"),
         wxSizerFlags(0).CentreHorizontal().CentreVertical().Border(wxBOTTOM|wxLEFT|wxRIGHT, spacing));
     topsizer->Add( rowsizer, wxSizerFlags().Right() );
 

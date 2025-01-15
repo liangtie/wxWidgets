@@ -72,9 +72,9 @@ bool wxInfoBarGeneric::Create(wxWindow *parent, wxWindowID winid)
     // message.
 
     // the icon is not shown unless it's assigned a valid bitmap
-    m_icon = new wxStaticBitmap(this, wxID_ANY, wxNullBitmap);
+    m_icon = NEW_DEBUG wxStaticBitmap(this, wxID_ANY, wxNullBitmap);
 
-    m_text = new wxStaticText(this, wxID_ANY, wxString());
+    m_text = NEW_DEBUG wxStaticText(this, wxID_ANY, wxString());
     m_text->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_INFOTEXT));
 
     m_button = wxBitmapButton::NewCloseButton(this, wxID_ANY);
@@ -85,7 +85,7 @@ bool wxInfoBarGeneric::Create(wxWindow *parent, wxWindowID winid)
     //
     // NB: AddButton() relies on the button being the last control in the sizer
     //     and being preceded by a spacer
-    wxSizer * const sizer = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer * const sizer = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     sizer->Add(m_icon, wxSizerFlags().Centre().Border());
     sizer->Add(m_text, wxSizerFlags().Centre());
     sizer->AddStretchSpacer();
@@ -242,7 +242,7 @@ void wxInfoBarGeneric::ShowMessage(const wxString& msg, int flags)
     }
     else // we're already shown
     {
-        // just update the layout to correspond to the new message
+        // just update the layout to correspond to the NEW_DEBUG message
         Layout();
     }
 }
@@ -264,7 +264,7 @@ void wxInfoBarGeneric::AddButton(wxWindowID btnid, const wxString& label)
         m_button->Hide();
     }
 
-    wxButton * const button = new wxButton(this, btnid, label);
+    wxButton * const button = NEW_DEBUG wxButton(this, btnid, label);
 
 #ifdef __WXMAC__
     // smaller buttons look better in the (narrow) info bar under OS X

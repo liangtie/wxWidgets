@@ -161,7 +161,7 @@ void wxFindReplaceDialogImpl::InitString(const wxString& str,
         len = 80;
     }
 
-    *ppStr = new wxChar[len];
+    *ppStr = NEW_DEBUG wxChar[len];
     wxStrcpy(*ppStr, str);
     *pLen = (WORD)len;
 }
@@ -385,7 +385,7 @@ bool wxFindReplaceDialog::Show(bool show)
 
     wxASSERT_MSG( !m_impl, wxT("why don't we have the window then?") );
 
-    m_impl = new wxFindReplaceDialogImpl(this, m_FindReplaceData->GetFlags());
+    m_impl = NEW_DEBUG wxFindReplaceDialogImpl(this, m_FindReplaceData->GetFlags());
 
     m_impl->InitFindWhat(m_FindReplaceData->GetFindString());
 

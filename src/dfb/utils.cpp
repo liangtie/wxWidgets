@@ -42,12 +42,12 @@ wxPortId wxGUIAppTraits::GetToolkitVersion(int *verMaj,
 
 wxEventLoopBase* wxGUIAppTraits::CreateEventLoop()
 {
-    return new wxEventLoop;
+    return NEW_DEBUG wxEventLoop;
 }
 
 wxTimerImpl *wxGUIAppTraits::CreateTimerImpl(wxTimer *timer)
 {
-    return new wxUnixTimerImpl(timer);
+    return NEW_DEBUG wxUnixTimerImpl(timer);
 }
 
 // ----------------------------------------------------------------------------
@@ -84,13 +84,13 @@ class wxDisplayFactorySingleDFB : public wxDisplayFactorySingle
 protected:
     virtual wxDisplayImpl *CreateSingleDisplay()
     {
-        return new wxDisplayImplSingleDFB;
+        return NEW_DEBUG wxDisplayImplSingleDFB;
     }
 };
 
 wxDisplayFactory* wxDisplay::CreateFactory()
 {
-    return new wxDisplayFactorySingleDFB;
+    return NEW_DEBUG wxDisplayFactorySingleDFB;
 }
 
 //-----------------------------------------------------------------------------

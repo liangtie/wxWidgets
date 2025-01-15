@@ -178,7 +178,7 @@ wxSize wxDateTimePickerCtrl::DoGetBestSize() const
         // not just ignored, but we get completely wrong results when this flag
         // is on, e.g. the returned width is less than the width without it or
         // much greater than the real value after a DPI change (and growing
-        // with every new change, even when repeatedly switching between the
+        // with every NEW_DEBUG change, even when repeatedly switching between the
         // same DPI values, e.g. dragging a window between 2 monitors with
         // different scaling). Moreover, note that even without DTS_SHOWNONE,
         // DTM_GETIDEALSIZE still returns wrong results for the height after a
@@ -186,7 +186,7 @@ wxSize wxDateTimePickerCtrl::DoGetBestSize() const
         // returned by it.
         //
         // Unfortunately, resetting this style doesn't work either, so we have
-        // to create a whole new window just for this, which is pretty wasteful
+        // to create a whole NEW_DEBUG window just for this, which is pretty wasteful
         // but seems unavoidable.
         HWND hwnd;
         if ( MSWAllowsNone() )
@@ -276,7 +276,7 @@ wxDateTimePickerCtrl::MSWOnNotify(int idCtrl, WXLPARAM lParam, WXLPARAM *result)
         case DTN_DATETIMECHANGE:
             const NMDATETIMECHANGE& dtch = *(NMDATETIMECHANGE*)(hdr);
 
-            // Update the format before showing the new date if necessary.
+            // Update the format before showing the NEW_DEBUG date if necessary.
             MSWUpdateFormatIfNeeded(dtch.dwFlags == GDT_VALID);
 
             if ( MSWOnDateTimeChange(dtch) )

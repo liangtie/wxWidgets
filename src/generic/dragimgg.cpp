@@ -233,11 +233,11 @@ bool wxGenericDragImage::BeginDrag(const wxPoint& hotspot,
 
     if (!m_fullScreen)
     {
-        m_windowDC = new wxClientDC(window);
+        m_windowDC = NEW_DEBUG wxClientDC(window);
     }
     else
     {
-        m_windowDC = new wxScreenDC;
+        m_windowDC = NEW_DEBUG wxScreenDC;
 
 #if 0
         // Use m_boundingRect to limit the area considered.

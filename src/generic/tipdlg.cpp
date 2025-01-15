@@ -205,7 +205,7 @@ wxTipDialog::wxTipDialog(wxWindow *parent,
 
     // 1) create all controls in tab order
 
-    wxStaticText *text = new wxStaticText(this, wxID_ANY, _("Did you know..."));
+    wxStaticText *text = NEW_DEBUG wxStaticText(this, wxID_ANY, _("Did you know..."));
 
     if (!isPda)
     {
@@ -215,7 +215,7 @@ wxTipDialog::wxTipDialog(wxWindow *parent,
         text->SetFont(font);
     }
 
-    m_text = new wxTextCtrl(this, wxID_ANY, wxEmptyString,
+    m_text = NEW_DEBUG wxTextCtrl(this, wxID_ANY, wxEmptyString,
                             wxDefaultPosition, wxSize(200, 160),
                             wxTE_MULTILINE |
                             wxTE_READONLY |
@@ -228,30 +228,30 @@ wxTipDialog::wxTipDialog(wxWindow *parent,
 #endif
 
     wxIcon icon = wxArtProvider::GetIcon(wxART_TIP, wxART_CMN_DIALOG);
-    wxStaticBitmap *bmp = new wxStaticBitmap(this, wxID_ANY, icon);
+    wxStaticBitmap *bmp = NEW_DEBUG wxStaticBitmap(this, wxID_ANY, icon);
 
-    m_checkbox = new wxCheckBox(this, wxID_ANY, _("&Show tips at startup"));
+    m_checkbox = NEW_DEBUG wxCheckBox(this, wxID_ANY, _("&Show tips at startup"));
     m_checkbox->SetValue(showAtStartup);
     m_checkbox->SetFocus();
 
-    wxButton *btnNext = new wxButton(this, wxID_NEXT_TIP, _("&Next Tip"));
+    wxButton *btnNext = NEW_DEBUG wxButton(this, wxID_NEXT_TIP, _("&Next Tip"));
 
-    wxButton *btnClose = new wxButton(this, wxID_CLOSE);
+    wxButton *btnClose = NEW_DEBUG wxButton(this, wxID_CLOSE);
     SetAffirmativeId(wxID_CLOSE);
 
 
     // 2) put them in boxes
 
-    wxBoxSizer *topsizer = new wxBoxSizer( wxVERTICAL );
+    wxBoxSizer *topsizer = NEW_DEBUG wxBoxSizer( wxVERTICAL );
 
-    wxBoxSizer *icon_text = new wxBoxSizer( wxHORIZONTAL );
+    wxBoxSizer *icon_text = NEW_DEBUG wxBoxSizer( wxHORIZONTAL );
     icon_text->Add( bmp, 0, wxCENTER );
     icon_text->Add( text, 1, wxCENTER | wxLEFT, 20 );
     topsizer->Add( icon_text, 0, wxEXPAND | wxALL, 10 );
 
     topsizer->Add( m_text, 1, wxEXPAND | wxLEFT|wxRIGHT, 10 );
 
-    wxBoxSizer *bottom = new wxBoxSizer( wxHORIZONTAL );
+    wxBoxSizer *bottom = NEW_DEBUG wxBoxSizer( wxHORIZONTAL );
     if (isPda)
         topsizer->Add( m_checkbox, 0, wxCENTER|wxTOP );
     else
@@ -284,7 +284,7 @@ wxTipDialog::wxTipDialog(wxWindow *parent,
 wxTipProvider *wxCreateFileTipProvider(const wxString& filename,
                                        size_t currentTip)
 {
-    return new wxFileTipProvider(filename, currentTip);
+    return NEW_DEBUG wxFileTipProvider(filename, currentTip);
 }
 #endif // wxUSE_TEXTFILE
 

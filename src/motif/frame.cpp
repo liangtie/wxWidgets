@@ -336,9 +336,9 @@ void wxFrame::DoGetClientSize(int *x, int *y) const
 // to wxWidgets)
 void wxFrame::DoSetClientSize(int width, int height)
 {
-    // Calculate how large the new main window should be
+    // Calculate how large the NEW_DEBUG main window should be
     // by finding the difference between the client area and the
-    // main window area, and adding on to the new client area
+    // main window area, and adding on to the NEW_DEBUG client area
     if (width > -1)
         XtVaSetValues((Widget) m_workArea, XmNwidth, width, NULL);
 

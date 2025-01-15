@@ -61,7 +61,7 @@ wxString wxGTKMimeTypesManagerImpl::GetIconFromMimeType(const wxString& mime)
 
 wxMimeTypesManagerImpl *wxGTKMimeTypesManagerFactory::CreateMimeTypesManagerImpl()
 {
-    return new wxGTKMimeTypesManagerImpl();
+    return NEW_DEBUG wxGTKMimeTypesManagerImpl();
 }
 
 #endif // wxUSE_MIMETYPE

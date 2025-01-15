@@ -371,7 +371,7 @@ bool wxGenericDirCtrl::Create(wxWindow *parent,
                                 wxPoint(0,0), GetClientSize(), treeStyle);
 
     if (!filter.empty() && (style & wxDIRCTRL_SHOW_FILTERS))
-        m_filterListCtrl = new wxDirFilterListCtrl(this, wxID_FILTERLISTCTRL);
+        m_filterListCtrl = NEW_DEBUG wxDirFilterListCtrl(this, wxID_FILTERLISTCTRL);
 
     m_defaultPath = dir;
     m_filter = filter;
@@ -400,7 +400,7 @@ bool wxGenericDirCtrl::Create(wxWindow *parent,
     m_treeCtrl->SetImageList(wxTheFileIconsTable->GetSmallImageList());
 
     m_showHidden = false;
-    wxDirItemData* rootData = new wxDirItemData(wxEmptyString, wxEmptyString, true);
+    wxDirItemData* rootData = NEW_DEBUG wxDirItemData(wxEmptyString, wxEmptyString, true);
 
     wxString rootName;
 
@@ -436,7 +436,7 @@ void wxGenericDirCtrl::Init()
 
 wxTreeCtrl* wxGenericDirCtrl::CreateTreeCtrl(wxWindow *parent, wxWindowID treeid, const wxPoint& pos, const wxSize& size, long treeStyle)
 {
-    return new wxTreeCtrl(parent, treeid, pos, size, treeStyle);
+    return NEW_DEBUG wxTreeCtrl(parent, treeid, pos, size, treeStyle);
 }
 
 void wxGenericDirCtrl::ShowHidden( bool show )
@@ -467,7 +467,7 @@ void wxGenericDirCtrl::ShowHidden( bool show )
 const wxTreeItemId
 wxGenericDirCtrl::AddSection(const wxString& path, const wxString& name, int imageId)
 {
-    wxDirItemData *dir_item = new wxDirItemData(path,name,true);
+    wxDirItemData *dir_item = NEW_DEBUG wxDirItemData(path,name,true);
 
     wxTreeItemId treeid = AppendItem( m_rootId, name, imageId, -1, dir_item);
 
@@ -759,7 +759,7 @@ void wxGenericDirCtrl::PopulateNode(wxTreeItemId parentId)
             path += wxString(wxFILE_SEP_PATH);
         path += eachFilename;
 
-        wxDirItemData *dir_item = new wxDirItemData(path,eachFilename,true);
+        wxDirItemData *dir_item = NEW_DEBUG wxDirItemData(path,eachFilename,true);
         wxTreeItemId treeid = AppendItem( parentId, eachFilename,
                                       wxFileIconsTable::folder, -1, dir_item);
         m_treeCtrl->SetItemImage( treeid, wxFileIconsTable::folder_open,
@@ -784,7 +784,7 @@ void wxGenericDirCtrl::PopulateNode(wxTreeItemId parentId)
                 path += wxString(wxFILE_SEP_PATH);
             path += eachFilename;
             //path = dirName + wxString(wxT("/")) + eachFilename;
-            wxDirItemData *dir_item = new wxDirItemData(path,eachFilename,false);
+            wxDirItemData *dir_item = NEW_DEBUG wxDirItemData(path,eachFilename,false);
             int image_id = wxFileIconsTable::file;
             if (eachFilename.Find(wxT('.')) != wxNOT_FOUND)
                 image_id = wxTheFileIconsTable->GetIconID(eachFilename.AfterLast(wxT('.')));
@@ -1144,7 +1144,7 @@ void wxGenericDirCtrl::SetFilter(const wxString& filter)
     m_filter = filter;
 
     if (!filter.empty() && !m_filterListCtrl && HasFlag(wxDIRCTRL_SHOW_FILTERS))
-        m_filterListCtrl = new wxDirFilterListCtrl(this, wxID_FILTERLISTCTRL);
+        m_filterListCtrl = NEW_DEBUG wxDirFilterListCtrl(this, wxID_FILTERLISTCTRL);
     else if (filter.empty() && m_filterListCtrl)
     {
         m_filterListCtrl->Destroy();
@@ -1392,7 +1392,7 @@ class wxFileIconsTableModule: public wxModule
     wxDECLARE_DYNAMIC_CLASS(wxFileIconsTableModule);
 public:
     wxFileIconsTableModule() {}
-    bool OnInit() wxOVERRIDE { wxTheFileIconsTable = new wxFileIconsTable; return true; }
+    bool OnInit() wxOVERRIDE { wxTheFileIconsTable = NEW_DEBUG wxFileIconsTable; return true; }
     void OnExit() wxOVERRIDE
     {
         wxDELETE(wxTheFileIconsTable);
@@ -1430,8 +1430,8 @@ wxFileIconsTable::~wxFileIconsTable()
 void wxFileIconsTable::Create(const wxSize& sz)
 {
     wxCHECK_RET(!m_smallImageList && !m_HashTable, wxT("creating icons twice"));
-    m_HashTable = new wxHashTable(wxKEY_STRING);
-    m_smallImageList = new wxImageList(sz.x, sz.y);
+    m_HashTable = NEW_DEBUG wxHashTable(wxKEY_STRING);
+    m_smallImageList = NEW_DEBUG wxImageList(sz.x, sz.y);
 
     // folder:
     m_smallImageList->Add(wxArtProvider::GetBitmap(wxART_FOLDER,
@@ -1482,7 +1482,7 @@ void wxFileIconsTable::Create(const wxSize& sz)
                                                        sz));
         delete m_HashTable->Get(wxT("exe"));
         m_HashTable->Delete(wxT("exe"));
-        m_HashTable->Put(wxT("exe"), new wxFileIconEntry(executable));
+        m_HashTable->Put(wxT("exe"), NEW_DEBUG wxFileIconEntry(executable));
     }
     /* else put into list by GetIconID
        (KDE defines application/x-executable for *.exe and has nice icon)
@@ -1529,7 +1529,7 @@ int wxFileIconsTable::GetIconID(const wxString& extension, const wxString& mime)
     if ( !ic.IsOk() )
     {
         int newid = file;
-        m_HashTable->Put(extension, new wxFileIconEntry(newid));
+        m_HashTable->Put(extension, NEW_DEBUG wxFileIconEntry(newid));
         return newid;
     }
 
@@ -1539,7 +1539,7 @@ int wxFileIconsTable::GetIconID(const wxString& extension, const wxString& mime)
     if ( !bmp.IsOk() )
     {
         int newid = file;
-        m_HashTable->Put(extension, new wxFileIconEntry(newid));
+        m_HashTable->Put(extension, NEW_DEBUG wxFileIconEntry(newid));
         return newid;
     }
 
@@ -1593,7 +1593,7 @@ int wxFileIconsTable::GetIconID(const wxString& extension, const wxString& mime)
     }
 #endif // wxUSE_IMAGE
 
-    m_HashTable->Put(extension, new wxFileIconEntry(treeid));
+    m_HashTable->Put(extension, NEW_DEBUG wxFileIconEntry(treeid));
     return treeid;
 
 #else // !wxUSE_MIMETYPE

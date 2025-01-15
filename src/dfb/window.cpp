@@ -438,7 +438,7 @@ void wxWindowDFB::DoMoveWindow(int x, int y, int width, int height)
 
     if ( IsShown() )
     {
-        // queue both former and new position of the window for repainting:
+        // queue both former and NEW_DEBUG position of the window for repainting:
         wxWindow *parent = GetParent();
 
         // only refresh the visible parts:
@@ -774,7 +774,7 @@ void wxWindowDFB::PaintOverlays(const wxRect& rect)
 void wxWindowDFB::AddOverlay(wxOverlayImpl *overlay)
 {
     if ( !m_overlays )
-        m_overlays = new wxDfbOverlaysList;
+        m_overlays = NEW_DEBUG wxDfbOverlaysList;
 
     m_overlays->Add(overlay);
 }

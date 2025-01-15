@@ -55,7 +55,7 @@ wxDEFINE_EVENT(wxEVT_MY_CUSTOM_COMMAND, wxCommandEvent);
 // private classes
 // ----------------------------------------------------------------------------
 
-// Define a new application type, each program should derive a class from wxApp
+// Define a NEW_DEBUG application type, each program should derive a class from wxApp
 class MyApp : public wxApp
 {
 public:
@@ -115,7 +115,7 @@ private:
 
 long MyEvtTestButton::BUTTON_ID = wxNewId();
 
-// Define a new frame type: this is going to be our main frame
+// Define a NEW_DEBUG frame type: this is going to be our main frame
 class MyFrame : public wxFrame
 {
 public:
@@ -145,7 +145,7 @@ public:
     // Gesture
     void OnGesture(wxCommandEvent& event);
 
-    // Demonstrates using a new event class
+    // Demonstrates using a NEW_DEBUG event class
     void OnNewEventClass(wxCommandEvent& event);
 
 private:
@@ -279,7 +279,7 @@ wxBEGIN_EVENT_TABLE(MyEvtHandler, wxEvtHandler)
     EVT_MENU(Event_Test, MyEvtHandler::OnTest)
 wxEND_EVENT_TABLE()
 
-// Create a new application object: this macro will allow wxWidgets to create
+// Create a NEW_DEBUG application object: this macro will allow wxWidgets to create
 // the application object during program execution (it's better than using a
 // static object for many reasons) and also declares the accessor function
 // wxGetApp() which will return the reference of the right type (i.e. MyApp and
@@ -301,7 +301,7 @@ bool MyApp::OnInit()
         return false;
 
     // create the main application window
-    MyFrame *frame = new MyFrame("Event wxWidgets Sample",
+    MyFrame *frame = NEW_DEBUG MyFrame("Event wxWidgets Sample",
                                  wxPoint(50, 50), wxSize(600, 340));
 
     // and show it (the frames, unlike simple controls, are not shown when
@@ -368,13 +368,13 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
     m_btnDynamic = NULL;
 
     // create a menu bar
-    wxMenu *menuFile = new wxMenu;
+    wxMenu *menuFile = NEW_DEBUG wxMenu;
 
     menuFile->Append(Event_About, "&About\tCtrl-A", "Show about dialog");
     menuFile->AppendSeparator();
     menuFile->Append(Event_Quit, "E&xit\tAlt-X", "Quit this program");
 
-    wxMenu *menuEvent = new wxMenu;
+    wxMenu *menuEvent = NEW_DEBUG wxMenu;
     menuEvent->AppendCheckItem(Event_Bind, "&Bind\tCtrl-B",
                                "Bind or unbind a dynamic event handler");
     menuEvent->AppendCheckItem(Event_Connect, "&Connect\tCtrl-C",
@@ -394,10 +394,10 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
     menuEvent->Append(Event_Gesture, "&Gesture events\tCtrl-G",
                     "Gesture event");
     menuEvent->Append(Event_NewEventClass, "&New wxEvent class demo\tCtrl-N",
-                    "Demonstrates a new wxEvent-derived class");
+                    "Demonstrates a NEW_DEBUG wxEvent-derived class");
 
     // now append the freshly created menu to the menu bar...
-    wxMenuBar *menuBar = new wxMenuBar();
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar();
     menuBar->Append(menuFile, "&File");
     menuBar->Append(menuEvent, "&Event");
 
@@ -411,21 +411,21 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
     SetStatusText("Push count: 0", Status_Push);
 #endif // wxUSE_STATUSBAR
 
-    wxPanel * const panel = new wxPanel(this);
-    wxSizer * const mainSizer = new wxBoxSizer(wxVERTICAL);
-    wxSizer * const sizer = new wxBoxSizer(wxHORIZONTAL);
+    wxPanel * const panel = NEW_DEBUG wxPanel(this);
+    wxSizer * const mainSizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
+    wxSizer * const sizer = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     const wxSizerFlags centreY(wxSizerFlags().Centre().Border());
-    sizer->Add(new wxStaticText(panel, wxID_ANY,
+    sizer->Add(NEW_DEBUG wxStaticText(panel, wxID_ANY,
         "This button will only work if its handler is dynamically connected"),
         centreY);
-    m_btnDynamic = new wxButton(panel, Event_Dynamic, "&Dynamic button");
+    m_btnDynamic = NEW_DEBUG wxButton(panel, Event_Dynamic, "&Dynamic button");
     sizer->Add(m_btnDynamic, centreY);
 
     mainSizer->Add(sizer, 1, wxEXPAND);
-    mainSizer->Add(new wxStaticLine(panel), 0, wxEXPAND);
-    mainSizer->Add(new wxStaticLine(panel), 0, wxEXPAND);
+    mainSizer->Add(NEW_DEBUG wxStaticLine(panel), 0, wxEXPAND);
+    mainSizer->Add(NEW_DEBUG wxStaticLine(panel), 0, wxEXPAND);
 
-    m_testBtn = new MyEvtTestButton(panel, "Test Event Handlers Execution Order");
+    m_testBtn = NEW_DEBUG MyEvtTestButton(panel, "Test Event Handlers Execution Order");
 
     // After being created, an instance of MyEvtTestButton already has its own
     // event handlers (see class definition);
@@ -564,7 +564,7 @@ void MyFrame::OnConnect(wxCommandEvent& event)
 
 void MyFrame::OnPushEventHandler(wxCommandEvent& WXUNUSED(event))
 {
-    PushEventHandler(new MyEvtHandler(++m_nPush));
+    PushEventHandler(NEW_DEBUG MyEvtHandler(++m_nPush));
 
 #if wxUSE_STATUSBAR
     SetStatusText(wxString::Format("Push count: %u", m_nPush), Status_Push);
@@ -591,7 +591,7 @@ void MyFrame::OnGesture(wxCommandEvent& WXUNUSED(event))
     }
     else
     {
-        m_gestureFrame = new MyGestureFrame();
+        m_gestureFrame = NEW_DEBUG MyGestureFrame();
         m_gestureFrame->Show(true);
     }
 }

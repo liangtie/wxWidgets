@@ -37,7 +37,7 @@ wxDEFINE_EVENT(wxEVT_SPINCTRLDOUBLE, wxSpinDoubleEvent);
 
 wxDEFINE_FLAGS( wxSpinCtrlStyle )
 wxBEGIN_FLAGS( wxSpinCtrlStyle )
-// new style border flags, we put them first to
+// NEW_DEBUG style border flags, we put them first to
 // use them for streaming out
 wxFLAGS_MEMBER(wxBORDER_SIMPLE)
 wxFLAGS_MEMBER(wxBORDER_SUNKEN)

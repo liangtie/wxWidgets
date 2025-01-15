@@ -409,7 +409,7 @@ static void gtk_listitem_select_cb( GtkWidget *widget,
 
     event.SetInt(n);
 
-//    No longer required with new code in wxLB_SINGLE
+//    No longer required with NEW_DEBUG code in wxLB_SINGLE
 //    listbox->GetEventHandler()->AddPendingEvent( event );
     listbox->HandleWindowEvent( event );
 }
@@ -541,7 +541,7 @@ bool wxListBox::Create( wxWindow *parent, wxWindowID id,
     if ( style & wxLB_SORT )
     {
         // this will change Append() behaviour
-        m_strings = new wxSortedArrayString(wxDictionaryStringSortAscending);
+        m_strings = NEW_DEBUG wxSortedArrayString(wxDictionaryStringSortAscending);
     }
     else
     {
@@ -678,7 +678,7 @@ void wxListBox::GtkAddItem( const wxString &item, int pos )
 #endif
     }
 
-    // Apply current widget style to the new list_item
+    // Apply current widget style to the NEW_DEBUG list_item
     GtkRcStyle *style = CreateWidgetStyle();
     if (style)
     {
@@ -951,7 +951,7 @@ void wxListBox::DoSetFirstItem( int n )
 
     if (item->allocation.y == -1)
     {
-        wxlistbox_idle_struct* data = new wxlistbox_idle_struct;
+        wxlistbox_idle_struct* data = NEW_DEBUG wxlistbox_idle_struct;
         data->m_listbox = this;
         data->m_item = n;
         data->m_tag = gtk_idle_add_priority( 800, wxlistbox_idle_callback, (gpointer) data );

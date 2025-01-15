@@ -170,7 +170,7 @@ bool wxImage::Create( int width, int height, bool clear )
     if (p == NULL)
         return false;
 
-    m_refData = new wxImageRefData;
+    m_refData = NEW_DEBUG wxImageRefData;
     M_IMGDATA->m_data = p;
     M_IMGDATA->m_width = width;
     M_IMGDATA->m_height = height;
@@ -190,7 +190,7 @@ bool wxImage::Create( int width, int height, unsigned char* data, bool static_da
 
     wxCHECK_MSG( data, false, wxT("NULL data in wxImage::Create") );
 
-    m_refData = new wxImageRefData();
+    m_refData = NEW_DEBUG wxImageRefData();
 
     M_IMGDATA->m_data = data;
     M_IMGDATA->m_width = width;
@@ -207,7 +207,7 @@ bool wxImage::Create( int width, int height, unsigned char* data, unsigned char*
 
     wxCHECK_MSG( data, false, wxT("NULL data in wxImage::Create") );
 
-    m_refData = new wxImageRefData();
+    m_refData = NEW_DEBUG wxImageRefData();
 
     M_IMGDATA->m_data = data;
     M_IMGDATA->m_alpha = alpha;
@@ -236,7 +236,7 @@ void wxImage::Clear(unsigned char value)
 
 wxObjectRefData* wxImage::CreateRefData() const
 {
-    return new wxImageRefData;
+    return NEW_DEBUG wxImageRefData;
 }
 
 wxObjectRefData* wxImage::CloneRefData(const wxObjectRefData* that) const
@@ -244,7 +244,7 @@ wxObjectRefData* wxImage::CloneRefData(const wxObjectRefData* that) const
     const wxImageRefData* refData = static_cast<const wxImageRefData*>(that);
     wxCHECK_MSG(refData->m_ok, NULL, wxT("invalid image") );
 
-    wxImageRefData* refData_new = new wxImageRefData;
+    wxImageRefData* refData_new = NEW_DEBUG wxImageRefData;
     refData_new->m_width = refData->m_width;
     refData_new->m_height = refData->m_height;
     refData_new->m_maskRed = refData->m_maskRed;
@@ -269,7 +269,7 @@ wxObjectRefData* wxImage::CloneRefData(const wxObjectRefData* that) const
     return refData_new;
 }
 
-// returns a new image with the same dimensions, alpha, and mask as *this
+// returns a NEW_DEBUG image with the same dimensions, alpha, and mask as *this
 // if on_its_side is true, width and height are swapped
 wxImage wxImage::MakeEmptyClone(int flags) const
 {
@@ -328,7 +328,7 @@ wxImage wxImage::ShrinkBy( int xFactor , int yFactor ) const
 
     // can't scale to/from 0 size
     wxCHECK_MSG( (xFactor > 0) && (yFactor > 0), image,
-                 wxT("invalid new image size") );
+                 wxT("invalid NEW_DEBUG image size") );
 
     long old_height = M_IMGDATA->m_height,
          old_width  = M_IMGDATA->m_width;
@@ -447,14 +447,14 @@ wxImage::Scale( int width, int height, wxImageResizeQuality quality ) const
 
     // can't scale to/from 0 size
     wxCHECK_MSG( (width > 0) && (height > 0), image,
-                 wxT("invalid new image size") );
+                 wxT("invalid NEW_DEBUG image size") );
 
     long old_height = M_IMGDATA->m_height,
          old_width  = M_IMGDATA->m_width;
     wxCHECK_MSG( (old_height > 0) && (old_width > 0), image,
                  wxT("invalid old image size") );
 
-    // If the image's new width and height are the same as the original, no
+    // If the image's NEW_DEBUG width and height are the same as the original, no
     // need to waste time or CPU cycles
     if ( old_width == width && old_height == height )
         return *this;
@@ -491,7 +491,7 @@ wxImage::Scale( int width, int height, wxImageResizeQuality quality ) const
             break;
     }
 
-    // If the original image has a mask, apply the mask to the new image
+    // If the original image has a mask, apply the mask to the NEW_DEBUG image
     if (M_IMGDATA->m_hasMask)
     {
         image.SetMaskColour( M_IMGDATA->m_maskRed,
@@ -599,7 +599,7 @@ void ResampleBoxPrecalc(wxVector<BoxPrecalc>& boxes, int oldDim)
     // Transformation function is therefore:
     //   pOld = sc * (pNew + 0.5) - 0.5, where sc = oldDim/newDim
     //
-    // A new pixel pNew in the interval [pNew-0.5 .. pNew+0.5]
+    // A NEW_DEBUG pixel pNew in the interval [pNew-0.5 .. pNew+0.5]
     // is mapped to the old pixel in the interval [pOldLoBound..pOldUpBound],
     // where:
     //   pOldLoBound = sc * ((pNew-0.5) + 0.5) - 0.5 = sc * pNew - 0.5
@@ -1290,7 +1290,7 @@ wxImage wxImage::BlurVertical(int blurRadius) const
     return ret_image;
 }
 
-// The new blur function
+// The NEW_DEBUG blur function
 wxImage wxImage::Blur(int blurRadius) const
 {
     wxImage ret_image;
@@ -1605,8 +1605,8 @@ wxImage wxImage::Size( const wxSize& size, const wxPoint& pos,
     // source:     starting at 0,0 of source image
     // destination starting at 0,0 of destination image
     // Documentation says:
-    // "The image is pasted into a new image [...] at the position pos relative
-    // to the upper left of the new image." this means the transition rule is:
+    // "The image is pasted into a NEW_DEBUG image [...] at the position pos relative
+    // to the upper left of the NEW_DEBUG image." this means the transition rule is:
     // "dest coord" = "source coord" + pos;
 
     // calculate the intersection using source coordinates:
@@ -2089,7 +2089,7 @@ void wxImage::SetData( unsigned char *data, bool static_data  )
 {
     wxCHECK_RET( IsOk(), wxT("invalid image") );
 
-    wxImageRefData *newRefData = new wxImageRefData();
+    wxImageRefData *newRefData = NEW_DEBUG wxImageRefData();
 
     newRefData->m_width = M_IMGDATA->m_width;
     newRefData->m_height = M_IMGDATA->m_height;
@@ -2108,7 +2108,7 @@ void wxImage::SetData( unsigned char *data, bool static_data  )
 
 void wxImage::SetData( unsigned char *data, int new_width, int new_height, bool static_data )
 {
-    wxImageRefData *newRefData = new wxImageRefData();
+    wxImageRefData *newRefData = NEW_DEBUG wxImageRefData();
 
     if (m_refData)
     {
@@ -2982,7 +2982,7 @@ bool wxImage::LoadFile( wxInputStream& stream, const wxString& mimetype, int ind
 {
     UnRef();
 
-    m_refData = new wxImageRefData;
+    m_refData = NEW_DEBUG wxImageRefData;
 
     wxImageHandler *handler = FindHandlerMime(mimetype);
 
@@ -3162,7 +3162,7 @@ wxImageHandler *wxImage::FindHandlerMime( const wxString& mimetype )
 void wxImage::InitStandardHandlers()
 {
 #if wxUSE_STREAMS
-    AddHandler(new wxBMPHandler);
+    AddHandler(NEW_DEBUG wxBMPHandler);
 #endif // wxUSE_STREAMS
 }
 
@@ -3646,7 +3646,7 @@ wxImage wxImage::Rotate(double angle,
     int i;
 
     // Create pointer-based array to accelerate access to wxImage's data
-    unsigned char ** data = new unsigned char * [h];
+    unsigned char ** data = NEW_DEBUG unsigned char * [h];
     data[0] = GetData();
     for (i = 1; i < h; i++)
         data[i] = data[i - 1] + (3 * w);
@@ -3655,7 +3655,7 @@ wxImage wxImage::Rotate(double angle,
     unsigned char ** alpha = NULL;
     if (has_alpha)
     {
-        alpha = new unsigned char * [h];
+        alpha = NEW_DEBUG unsigned char * [h];
         alpha[0] = GetAlpha();
         for (i = 1; i < h; i++)
             alpha[i] = alpha[i - 1] + w;
@@ -3665,7 +3665,7 @@ wxImage wxImage::Rotate(double angle,
     const double cos_angle = cos(angle);
     const double sin_angle = sin(angle);
 
-    // Create new Image to store the result
+    // Create NEW_DEBUG Image to store the result
     // First, find rectangle that covers the rotated image;  to do that,
     // rotate the four corners
 

@@ -34,7 +34,7 @@
 
 wxOverlay::Impl* wxOverlay::Create()
 {
-    return new wxOverlayImpl;
+    return NEW_DEBUG wxOverlayImpl;
 }
 
 // ----------------------------------------------------------------------------

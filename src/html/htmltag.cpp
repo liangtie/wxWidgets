@@ -73,7 +73,7 @@ bool wxIsCDATAElement(const wxString& tag)
 
 wxHtmlTagsCache::wxHtmlTagsCache(const wxString& source)
 {
-    m_Cache = new wxHtmlTagsCacheData;
+    m_Cache = NEW_DEBUG wxHtmlTagsCacheData;
     m_CachePos = 0;
 
     wxChar tagBuffer[256];
@@ -121,7 +121,7 @@ wxHtmlTagsCache::wxHtmlTagsCache(const wxString& source)
         size_t tg = Cache().size();
         Cache().push_back(wxHtmlCacheItem());
         Cache()[tg].Key = stpos;
-        Cache()[tg].Name = new wxChar[i+1];
+        Cache()[tg].Name = NEW_DEBUG wxChar[i+1];
         memcpy(Cache()[tg].Name, tagBuffer, (i+1)*sizeof(wxChar));
 
         if ((stpos+1) < end && *(stpos+1) == wxT('/')) // ending tag:

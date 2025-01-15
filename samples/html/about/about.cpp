@@ -33,7 +33,7 @@
 // ----------------------------------------------------------------------------
 
 
-// Define a new application type, each program should derive a class from wxApp
+// Define a NEW_DEBUG application type, each program should derive a class from wxApp
 class MyApp : public wxApp
 {
 public:
@@ -46,7 +46,7 @@ public:
     virtual bool OnInit() wxOVERRIDE;
 };
 
-// Define a new frame type: this is going to be our main frame
+// Define a NEW_DEBUG frame type: this is going to be our main frame
 class MyFrame : public wxFrame
 {
 public:
@@ -74,7 +74,7 @@ wxBEGIN_EVENT_TABLE(MyFrame, wxFrame)
    EVT_MENU(wxID_EXIT,  MyFrame::OnQuit)
 wxEND_EVENT_TABLE()
 
-// Create a new application object: this macro will allow wxWidgets to create
+// Create a NEW_DEBUG application object: this macro will allow wxWidgets to create
 // the application object during program execution (it's better than using a
 // static object for many reasons) and also declares the accessor function
 // wxGetApp() which will return the reference of the right type (i.e. MyApp and
@@ -96,10 +96,10 @@ bool MyApp::OnInit()
         return false;
 
     // we use a PNG image in our HTML page
-    wxImage::AddHandler(new wxPNGHandler);
+    wxImage::AddHandler(NEW_DEBUG wxPNGHandler);
 
     // create and show the main application window
-    MyFrame *frame = new MyFrame(_("wxHtmlWindow testing application"));
+    MyFrame *frame = NEW_DEBUG MyFrame(_("wxHtmlWindow testing application"));
     frame->Show();
 
     // success: wxApp::OnRun() will be called which will enter the main message
@@ -119,13 +119,13 @@ MyFrame::MyFrame(const wxString& title)
     SetIcon(wxICON(sample));
 
     // create a menu bar
-    wxMenu *menuFile = new wxMenu;
+    wxMenu *menuFile = NEW_DEBUG wxMenu;
 
     menuFile->Append(wxID_ABOUT);
     menuFile->Append(wxID_EXIT);
 
     // now append the freshly created menu to the menu bar...
-    wxMenuBar *menuBar = new wxMenuBar;
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar;
     menuBar->Append(menuFile, _("&File"));
 
     // ... and attach this menu bar to the frame
@@ -147,9 +147,9 @@ void MyFrame::OnAbout(wxCommandEvent& WXUNUSED(event))
     wxHtmlWindow *html;
     wxDialog dlg(this, wxID_ANY, wxString(_("About")));
 
-    topsizer = new wxBoxSizer(wxVERTICAL);
+    topsizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
-    html = new wxHtmlWindow(&dlg, wxID_ANY, wxDefaultPosition, wxSize(380, 160), wxHW_SCROLLBAR_NEVER);
+    html = NEW_DEBUG wxHtmlWindow(&dlg, wxID_ANY, wxDefaultPosition, wxSize(380, 160), wxHW_SCROLLBAR_NEVER);
     html -> SetBorders(0);
     html -> LoadPage("data/about.htm");
     html -> SetHTMLBackgroundImage(wxBitmapBundle::FromSVGFile("data/bg.svg", wxSize(65, 45)));
@@ -159,10 +159,10 @@ void MyFrame::OnAbout(wxCommandEvent& WXUNUSED(event))
     topsizer -> Add(html, 1, wxALL, 10);
 
 #if wxUSE_STATLINE
-    topsizer -> Add(new wxStaticLine(&dlg, wxID_ANY), 0, wxEXPAND | wxLEFT | wxRIGHT, 10);
+    topsizer -> Add(NEW_DEBUG wxStaticLine(&dlg, wxID_ANY), 0, wxEXPAND | wxLEFT | wxRIGHT, 10);
 #endif // wxUSE_STATLINE
 
-    wxButton *bu1 = new wxButton(&dlg, wxID_OK, _("OK"));
+    wxButton *bu1 = NEW_DEBUG wxButton(&dlg, wxID_OK, _("OK"));
     bu1 -> SetDefault();
 
     topsizer -> Add(bu1, 0, wxALL | wxALIGN_RIGHT, 15);

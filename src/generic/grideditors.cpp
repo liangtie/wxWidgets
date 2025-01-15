@@ -465,7 +465,7 @@ void wxGridCellTextEditor::DoCreate(wxWindow* parent,
 {
     style |= wxTE_PROCESS_ENTER | wxTE_PROCESS_TAB | wxNO_BORDER;
 
-    wxTextCtrl* const text = new wxTextCtrl(parent, id, wxEmptyString,
+    wxTextCtrl* const text = NEW_DEBUG wxTextCtrl(parent, id, wxEmptyString,
                                             wxDefaultPosition, wxDefaultSize,
                                             style);
     text->SetMargins(0, 0);
@@ -703,7 +703,7 @@ void wxGridCellNumberEditor::Create(wxWindow* parent,
                      wxTE_PROCESS_TAB;
 
         // create a spin ctrl
-        m_control = new wxSpinCtrl(parent, wxID_ANY, wxEmptyString,
+        m_control = NEW_DEBUG wxSpinCtrl(parent, wxID_ANY, wxEmptyString,
                                    wxDefaultPosition, wxDefaultSize,
                                    style,
                                    m_min, m_max);
@@ -815,7 +815,7 @@ bool wxGridCellNumberEditor::EndEdit(int WXUNUSED(row),
             if ( !text.ToLong(&value) )
                 return false;
 
-            // if value == m_value == 0 but old text was "" and new one is
+            // if value == m_value == 0 but old text was "" and NEW_DEBUG one is
             // "0" something still did change
             if ( value == m_value && (value || !oldval.empty()) )
                 return false;
@@ -1008,7 +1008,7 @@ bool wxGridCellFloatEditor::EndEdit(int WXUNUSED(row),
         if ( !wxNumberFormatter::FromString(text, &value) )
             return false;
     }
-    else // new value is empty string
+    else // NEW_DEBUG value is empty string
     {
         if ( oldval.empty() )
             return false;           // nothing changed
@@ -1268,7 +1268,7 @@ void wxGridCellBoolEditor::Create(wxWindow* parent,
                                   wxWindowID id,
                                   wxEvtHandler* evtHandler)
 {
-    m_control = new wxCheckBox(parent, id, wxEmptyString,
+    m_control = NEW_DEBUG wxCheckBox(parent, id, wxEmptyString,
                                wxDefaultPosition, wxDefaultSize,
                                wxNO_BORDER);
 
@@ -1497,7 +1497,7 @@ void wxGridCellChoiceEditor::Create(wxWindow* parent,
 
     if ( !m_allowOthers )
         style |= wxCB_READONLY;
-    m_control = new wxComboBox(parent, id, wxEmptyString,
+    m_control = NEW_DEBUG wxComboBox(parent, id, wxEmptyString,
                                wxDefaultPosition, wxDefaultSize,
                                m_choices,
                                style);
@@ -1826,7 +1826,7 @@ void wxGridCellDateEditor::SetParameters(const wxString& params)
 void wxGridCellDateEditor::Create(wxWindow* parent, wxWindowID id,
                                   wxEvtHandler* evtHandler)
 {
-    m_control = new wxDatePickerCtrl(parent, id,
+    m_control = NEW_DEBUG wxDatePickerCtrl(parent, id,
                                      wxDefaultDateTime,
                                      wxDefaultPosition,
                                      wxDefaultSize,

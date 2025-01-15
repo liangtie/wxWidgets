@@ -406,7 +406,7 @@ bool DXFRenderer::ParseTables(wxInputStream& stream)
             // flush layer
             if (!layer.name.IsEmpty() && layer.colour != -1)
             {
-                DXFLayer *p = new DXFLayer;
+                DXFLayer *p = NEW_DEBUG DXFLayer;
                 p->name = layer.name;
                 p->colour = layer.colour;
                 m_layers.Append(p);
@@ -466,7 +466,7 @@ bool DXFRenderer::ParseEntities(wxInputStream& stream)
             // flush entity
             if (state == 1) // 3DFACE
             {
-                DXFFace *p = new DXFFace;
+                DXFFace *p = NEW_DEBUG DXFFace;
                 p->v0 = v[0];
                 p->v1 = v[1];
                 p->v2 = v[2];
@@ -483,7 +483,7 @@ bool DXFRenderer::ParseEntities(wxInputStream& stream)
             }
             else if (state == 2) // LINE
             {
-                DXFLine *p = new DXFLine;
+                DXFLine *p = NEW_DEBUG DXFLine;
                 p->v0 = v[0];
                 p->v1 = v[1];
                 if (colour != -1)

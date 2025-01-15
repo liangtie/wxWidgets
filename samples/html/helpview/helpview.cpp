@@ -32,7 +32,7 @@
 // private classes
 // ----------------------------------------------------------------------------
 
-// Define a new application type, each program should derive a class from wxApp
+// Define a NEW_DEBUG application type, each program should derive a class from wxApp
 class MyApp : public wxApp
 {
 public:
@@ -57,17 +57,17 @@ wxIMPLEMENT_APP(MyApp);
 bool MyApp::OnInit()
 {
 #ifdef __WXMOTIF__
-    delete wxLog::SetActiveTarget(new wxLogStderr); // So dialog boxes aren't used
+    delete wxLog::SetActiveTarget(NEW_DEBUG wxLogStderr); // So dialog boxes aren't used
 #endif
 
     wxInitAllImageHandlers();
-    wxFileSystem::AddHandler(new wxZipFSHandler);
+    wxFileSystem::AddHandler(NEW_DEBUG wxZipFSHandler);
 
     SetVendorName("wxWidgets");
     SetAppName("wxHTMLHelp");
     wxConfig::Get(); // create an instance
 
-    help = new wxHtmlHelpController;
+    help = NEW_DEBUG wxHtmlHelpController;
 
     if (argc < 2) {
         wxLogError("Usage : helpview <helpfile> [<more helpfiles>]");
@@ -79,7 +79,7 @@ bool MyApp::OnInit()
         help->AddBook(wxFileName(argv[i]));
 
 #ifdef __WXMOTIF__
-    delete wxLog::SetActiveTarget(new wxLogGui);
+    delete wxLog::SetActiveTarget(NEW_DEBUG wxLogGui);
 #endif
 
     help->SetShouldPreventAppExit(true);

@@ -188,7 +188,7 @@ size_t wxStringOutputStream::OnSysWrite(const void *buffer, size_t size)
     size_t srcLen;
     if ( m_unconv.GetDataLen() )
     {
-        // append the new data to the data remaining since the last time
+        // append the NEW_DEBUG data to the data remaining since the last time
         m_unconv.AppendData(p, size);
         src = m_unconv;
         srcLen = m_unconv.GetDataLen();

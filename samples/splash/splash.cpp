@@ -48,7 +48,7 @@
 // private classes
 // ----------------------------------------------------------------------------
 
-// Define a new application type, each program should derive a class from wxApp
+// Define a NEW_DEBUG application type, each program should derive a class from wxApp
 class MyApp : public wxApp
 {
 public:
@@ -63,7 +63,7 @@ public:
     void DecorateSplashScreen(wxBitmap& bmp);
 };
 
-// Define a new frame type: this is going to be our main frame
+// Define a NEW_DEBUG frame type: this is going to be our main frame
 class MyFrame : public wxFrame
 {
 public:
@@ -103,7 +103,7 @@ wxBEGIN_EVENT_TABLE(MyFrame, wxFrame)
     EVT_MENU(wxID_ABOUT, MyFrame::OnAbout)
 wxEND_EVENT_TABLE()
 
-// Create a new application object: this macro will allow wxWidgets to create
+// Create a NEW_DEBUG application object: this macro will allow wxWidgets to create
 // the application object during program execution (it's better than using a
 // static object for many reasons) and also implements the accessor function
 // wxGetApp() which will return the reference of the right type (i.e. MyApp and
@@ -124,10 +124,10 @@ bool MyApp::OnInit()
     if ( !wxApp::OnInit() )
         return false;
 
-    wxImage::AddHandler(new wxPNGHandler);
+    wxImage::AddHandler(NEW_DEBUG wxPNGHandler);
 
     // create the main application window
-    MyFrame *frame = new MyFrame("wxSplashScreen sample application");
+    MyFrame *frame = NEW_DEBUG MyFrame("wxSplashScreen sample application");
 
     wxBitmap bitmap;
 
@@ -144,7 +144,7 @@ bool MyApp::OnInit()
         DecorateSplashScreen(bitmap);
 
         // show the splashscreen
-        new wxSplashScreen(bitmap,
+        NEW_DEBUG wxSplashScreen(bitmap,
             wxSPLASH_CENTRE_ON_SCREEN|wxSPLASH_TIMEOUT,
             6000, frame, wxID_ANY, wxDefaultPosition, wxDefaultSize,
             wxSIMPLE_BORDER|wxSTAY_ON_TOP);
@@ -215,16 +215,16 @@ MyFrame::MyFrame(const wxString& title)
 
 #if wxUSE_MENUS
     // create a menu bar
-    wxMenu *menuFile = new wxMenu;
+    wxMenu *menuFile = NEW_DEBUG wxMenu;
 
     // the "About" item should be in the help menu
-    wxMenu *helpMenu = new wxMenu;
+    wxMenu *helpMenu = NEW_DEBUG wxMenu;
     helpMenu->Append(wxID_ABOUT, "&About\tF1", "Show about frame");
 
     menuFile->Append(wxID_EXIT, "E&xit\tAlt-X", "Quit this program");
 
     // now append the freshly created menu to the menu bar...
-    wxMenuBar *menuBar = new wxMenuBar();
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar();
     menuBar->Append(menuFile, "&File");
     menuBar->Append(helpMenu, "&Help");
 
@@ -267,17 +267,17 @@ void MyFrame::OnAbout(wxCommandEvent& WXUNUSED(event))
             image.Rescale( bitmap.GetWidth()/2, bitmap.GetHeight()/2 );
 
         bitmap = wxBitmap(image);
-        wxSplashScreen *splash = new wxSplashScreen(bitmap,
+        wxSplashScreen *splash = NEW_DEBUG wxSplashScreen(bitmap,
             wxSPLASH_CENTRE_ON_PARENT | wxSPLASH_NO_TIMEOUT,
             0, this, wxID_ANY, wxDefaultPosition, wxDefaultSize,
             wxSIMPLE_BORDER|wxSTAY_ON_TOP);
 
         wxWindow *win = splash->GetSplashWindow();
 #if wxUSE_MEDIACTRL
-        wxMediaCtrl *media = new wxMediaCtrl( win, wxID_EXIT, "press.mpg", wxPoint(2,2));
+        wxMediaCtrl *media = NEW_DEBUG wxMediaCtrl( win, wxID_EXIT, "press.mpg", wxPoint(2,2));
         media->Play();
 #else
-        wxStaticText *text = new wxStaticText( win,
+        wxStaticText *text = NEW_DEBUG wxStaticText( win,
                                                wxID_EXIT,
                                                "click somewhere\non this image",
                                                wxPoint(m_isPda ? 0 : 13,

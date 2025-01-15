@@ -158,7 +158,7 @@
    III)
 
    Singularily the most broken code in GTK is the code that is supposed to
-   inform subwindows (child windows) about new positions. Very often, duplicate
+   inform subwindows (child windows) about NEW_DEBUG positions. Very often, duplicate
    events are sent without changes in size or position, equally often no
    events are sent at all (All this is due to a bug in the GtkContainer code
    which got fixed in GTK 1.2.6). For that reason, wxGTK completely ignores
@@ -183,7 +183,7 @@
    V)
 
    Cursors, too, have been a constant source of pleasure. The main difficulty
-   is that a GdkWindow inherits a cursor if the programmer sets a new cursor
+   is that a GdkWindow inherits a cursor if the programmer sets a NEW_DEBUG cursor
    for the parent. To prevent this from doing too much harm, I use idle time
    to set the cursor over and over again, starting from the toplevel windows
    and ending with the youngest generation (speaking of parent and child windows).
@@ -3697,7 +3697,7 @@ bool wxWindowGTK::SetBackgroundColour( const wxColour &colour )
         m_backgroundColour.CalcPixel(gtk_widget_get_colormap(m_widget));
     }
 
-    // apply style change (forceStyle=true so that new style is applied
+    // apply style change (forceStyle=true so that NEW_DEBUG style is applied
     // even if the bg colour changed from valid to wxNullColour)
     if (GetBackgroundStyle() != wxBG_STYLE_PAINT)
         ApplyWidgetStyle(true);
@@ -3720,7 +3720,7 @@ bool wxWindowGTK::SetForegroundColour( const wxColour &colour )
         m_foregroundColour.CalcPixel(gtk_widget_get_colormap(m_widget));
     }
 
-    // apply style change (forceStyle=true so that new style is applied
+    // apply style change (forceStyle=true so that NEW_DEBUG style is applied
     // even if the bg colour changed from valid to wxNullColour):
     ApplyWidgetStyle(true);
 
@@ -3839,7 +3839,7 @@ bool wxWindowGTK::SetBackgroundStyle(wxBackgroundStyle style)
     }
     else
     {
-        // apply style change (forceStyle=true so that new style is applied
+        // apply style change (forceStyle=true so that NEW_DEBUG style is applied
         // even if the bg colour changed from valid to wxNullColour):
         ApplyWidgetStyle(true);
     }
@@ -3887,7 +3887,7 @@ bool wxWindowGTK::SetFont( const wxFont &font )
     if (!wxWindowBase::SetFont(font))
         return false;
 
-    // apply style change (forceStyle=true so that new style is applied
+    // apply style change (forceStyle=true so that NEW_DEBUG style is applied
     // even if the font changed from valid to wxNullFont):
     ApplyWidgetStyle(true);
 

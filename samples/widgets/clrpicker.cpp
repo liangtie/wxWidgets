@@ -139,15 +139,15 @@ ColourPickerWidgetsPage::ColourPickerWidgetsPage(WidgetsBookCtrl *book,
 void ColourPickerWidgetsPage::CreateContent()
 {
     // left pane
-    wxSizer *boxleft = new wxBoxSizer(wxVERTICAL);
+    wxSizer *boxleft = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
-    wxStaticBoxSizer *clrbox = new wxStaticBoxSizer(wxVERTICAL, this, "&ColourPicker style");
+    wxStaticBoxSizer *clrbox = NEW_DEBUG wxStaticBoxSizer(wxVERTICAL, this, "&ColourPicker style");
     m_chkColourTextCtrl = CreateCheckBoxAndAddToSizer(clrbox, "With textctrl");
     m_chkColourShowLabel = CreateCheckBoxAndAddToSizer(clrbox, "With label");
     m_chkColourShowAlpha = CreateCheckBoxAndAddToSizer(clrbox, "With opacity");
     boxleft->Add(clrbox, 0, wxALL|wxGROW, 5);
 
-    boxleft->Add(new wxButton(this, PickerPage_Reset, "&Reset"),
+    boxleft->Add(NEW_DEBUG wxButton(this, PickerPage_Reset, "&Reset"),
                  0, wxALIGN_CENTRE_HORIZONTAL | wxALL, 15);
 
     Reset();    // set checkboxes state
@@ -157,13 +157,13 @@ void ColourPickerWidgetsPage::CreateContent()
     CreatePicker();
 
     // right pane
-    m_sizer = new wxBoxSizer(wxVERTICAL);
+    m_sizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     m_sizer->Add(1, 1, 1, wxGROW | wxALL, 5); // spacer
     m_sizer->Add(m_clrPicker, 0, wxALIGN_CENTER|wxALL, 5);
     m_sizer->Add(1, 1, 1, wxGROW | wxALL, 5); // spacer
 
     // global pane
-    wxSizer *sz = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer *sz = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     sz->Add(boxleft, 0, wxGROW|wxALL, 5);
     sz->Add(m_sizer, 1, wxGROW|wxALL, 5);
 
@@ -185,7 +185,7 @@ void ColourPickerWidgetsPage::CreatePicker()
     if ( m_chkColourShowAlpha->GetValue() )
         style |= wxCLRP_SHOW_ALPHA;
 
-    m_clrPicker = new wxColourPickerCtrl(this, PickerPage_Colour, *wxRED,
+    m_clrPicker = NEW_DEBUG wxColourPickerCtrl(this, PickerPage_Colour, *wxRED,
                                          wxDefaultPosition, wxDefaultSize,
                                          style);
 }

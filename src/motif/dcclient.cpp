@@ -853,7 +853,7 @@ bool wxWindowDCImpl::DoBlit( wxCoord xdest, wxCoord ydest,
             int scaledH = (int) (bitmap.GetHeight() * scaleY);
 
             image = image.Scale(scaledW, scaledH);
-            scaledBitmap = new wxBitmap(image);
+            scaledBitmap = NEW_DEBUG wxBitmap(image);
             sourcePixmap = (Pixmap) scaledBitmap->GetDrawable();
         }
     }
@@ -1573,7 +1573,7 @@ void wxWindowDCImpl::SetPen( const wxPen &pen )
 
         if (req_dash && req_nb_dash)
         {
-            wxX11Dash *real_req_dash = new wxX11Dash[req_nb_dash];
+            wxX11Dash *real_req_dash = NEW_DEBUG wxX11Dash[req_nb_dash];
             if (real_req_dash)
             {
                 int factor = scaled_width == 0 ? 1 : scaled_width;

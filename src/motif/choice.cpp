@@ -174,7 +174,7 @@ wxChoice::~wxChoice()
 
 static inline wxChar* MYcopystring(const wxChar* s)
 {
-    wxChar* copy = new wxChar[wxStrlen(s) + 1];
+    wxChar* copy = NEW_DEBUG wxChar[wxStrlen(s) + 1];
     return wxStrcpy(copy, s);
 }
 

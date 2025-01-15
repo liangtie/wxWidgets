@@ -282,7 +282,7 @@ wxFileType::wxFileType(const wxFileTypeInfo& info)
 wxFileType::wxFileType()
 {
     m_info = NULL;
-    m_impl = new wxFileTypeImpl;
+    m_impl = NEW_DEBUG wxFileTypeImpl;
 }
 
 wxFileType::~wxFileType()
@@ -535,14 +535,14 @@ void wxMimeTypesManagerFactory::Set(wxMimeTypesManagerFactory *factory)
 wxMimeTypesManagerFactory *wxMimeTypesManagerFactory::Get()
 {
     if ( !m_factory )
-        m_factory = new wxMimeTypesManagerFactory;
+        m_factory = NEW_DEBUG wxMimeTypesManagerFactory;
 
     return m_factory;
 }
 
 wxMimeTypesManagerImpl *wxMimeTypesManagerFactory::CreateMimeTypesManagerImpl()
 {
-    return new wxMimeTypesManagerImpl;
+    return NEW_DEBUG wxMimeTypesManagerImpl;
 }
 
 // ----------------------------------------------------------------------------
@@ -639,7 +639,7 @@ wxMimeTypesManager::GetFileTypeFromExtension(const wxString& ext)
         size_t count = m_fallbacks.GetCount();
         for ( size_t n = 0; n < count; n++ ) {
             if ( m_fallbacks[n].GetExtensions().Index(ext) != wxNOT_FOUND ) {
-                ft = new wxFileType(m_fallbacks[n]);
+                ft = NEW_DEBUG wxFileType(m_fallbacks[n]);
 
                 break;
             }
@@ -664,7 +664,7 @@ wxMimeTypesManager::GetFileTypeFromMimeType(const wxString& mimeType)
         for ( size_t n = 0; n < count; n++ ) {
             if ( wxMimeTypesManager::IsOfType(mimeType,
                                               m_fallbacks[n].GetMimeType()) ) {
-                ft = new wxFileType(m_fallbacks[n]);
+                ft = NEW_DEBUG wxFileType(m_fallbacks[n]);
 
                 break;
             }

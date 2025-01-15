@@ -127,24 +127,24 @@ void EditableListboxWidgetsPage::CreateContent()
        What we create here is a frame having 2 panes: style pane is the
        leftmost one and the pane containing the listbox itself to the right
     */
-    wxSizer *sizerTop = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer *sizerTop = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
 
     // left pane
-    wxStaticBox *box = new wxStaticBox(this, wxID_ANY,
+    wxStaticBox *box = NEW_DEBUG wxStaticBox(this, wxID_ANY,
                                        "&Set listbox parameters");
-    wxSizer *sizerLeft = new wxStaticBoxSizer(box, wxVERTICAL);
+    wxSizer *sizerLeft = NEW_DEBUG wxStaticBoxSizer(box, wxVERTICAL);
 
-    m_chkAllowNew = CreateCheckBoxAndAddToSizer(sizerLeft, "Allow new items");
+    m_chkAllowNew = CreateCheckBoxAndAddToSizer(sizerLeft, "Allow NEW_DEBUG items");
     m_chkAllowEdit = CreateCheckBoxAndAddToSizer(sizerLeft, "Allow editing items");
     m_chkAllowDelete = CreateCheckBoxAndAddToSizer(sizerLeft, "Allow deleting items");
     m_chkAllowNoReorder = CreateCheckBoxAndAddToSizer(sizerLeft, "Block user reordering");
 
-    wxButton *btn = new wxButton(this, EditableListboxPage_Reset, "&Reset");
+    wxButton *btn = NEW_DEBUG wxButton(this, EditableListboxPage_Reset, "&Reset");
     sizerLeft->Add(btn, 0, wxALIGN_CENTRE_HORIZONTAL | wxALL, 15);
 
     // right pane
-    wxSizer *sizerRight = new wxBoxSizer(wxVERTICAL);
-    m_lbox = new wxEditableListBox(this, EditableListboxPage_Listbox,
+    wxSizer *sizerRight = NEW_DEBUG wxBoxSizer(wxVERTICAL);
+    m_lbox = NEW_DEBUG wxEditableListBox(this, EditableListboxPage_Listbox,
                                     _("Match these wildcards:"),
                                     wxDefaultPosition, wxDefaultSize, 0);
     sizerRight->Add(m_lbox, 1, wxGROW | wxALL, 5);
@@ -194,7 +194,7 @@ void EditableListboxWidgetsPage::CreateLbox()
         delete m_lbox;
     }
 
-    m_lbox = new wxEditableListBox(this, EditableListboxPage_Listbox,
+    m_lbox = NEW_DEBUG wxEditableListBox(this, EditableListboxPage_Listbox,
                                    _("Match these wildcards:"),
                                    wxDefaultPosition, wxDefaultSize,
                                    flags);

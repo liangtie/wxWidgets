@@ -283,12 +283,12 @@ wxStatusBar *wxFrame::OnCreateStatusBar(int number,
 #if wxUSE_NATIVE_STATUSBAR
     if ( !UsesNativeStatusBar() )
     {
-        statusBar = (wxStatusBar *)new wxStatusBarGeneric(this, id, style);
+        statusBar = (wxStatusBar *)NEW_DEBUG wxStatusBarGeneric(this, id, style);
     }
     else
 #endif
     {
-        statusBar = new wxStatusBar(this, id, style, name);
+        statusBar = NEW_DEBUG wxStatusBar(this, id, style, name);
     }
 
     statusBar->SetFieldsCount(number);
@@ -366,7 +366,7 @@ void wxFrame::AttachMenuBar(wxMenuBar *menubar)
         m_hMenu = (WXHMENU)0;
         InternalSetMenuBar();
     }
-    else // set new non null menu bar
+    else // set NEW_DEBUG non null menu bar
     {
         // Can set a menubar several times.
         if ( menubar->GetHMenu() )

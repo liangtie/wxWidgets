@@ -54,7 +54,7 @@
 // private classes
 // ----------------------------------------------------------------------------
 
-// to use wxHtmlListBox you must derive a new class from it as you must
+// to use wxHtmlListBox you must derive a NEW_DEBUG class from it as you must
 // implement pure virtual OnGetItem()
 class MyHtmlListBox : public wxHtmlListBox
 {
@@ -149,7 +149,7 @@ private:
 class MyApp : public wxApp
 {
 public:
-    virtual bool OnInit() wxOVERRIDE { (new MyFrame())->Show(); return true; }
+    virtual bool OnInit() wxOVERRIDE { (NEW_DEBUG MyFrame())->Show(); return true; }
 };
 
 // ----------------------------------------------------------------------------
@@ -241,7 +241,7 @@ MyFrame::MyFrame()
 
 #if wxUSE_MENUS
     // create a menu bar
-    wxMenu *menuFile = new wxMenu;
+    wxMenu *menuFile = NEW_DEBUG wxMenu;
     menuFile->AppendRadioItem(HtmlLbox_CustomBox, "Use custom box",
                               "Use a wxHtmlListBox virtual class control");
     menuFile->AppendRadioItem(HtmlLbox_SimpleBox, "Use simple box",
@@ -250,7 +250,7 @@ MyFrame::MyFrame()
     menuFile->Append(HtmlLbox_Quit, "E&xit\tAlt-X", "Quit this program");
 
     // create our specific menu
-    wxMenu *menuHLbox = new wxMenu;
+    wxMenu *menuHLbox = NEW_DEBUG wxMenu;
     menuHLbox->Append(HtmlLbox_SetMargins,
                       "Set &margins...\tCtrl-G",
                       "Change the margins around the items");
@@ -276,11 +276,11 @@ MyFrame::MyFrame()
     menuHLbox->Append(HtmlLbox_Clear, "&Clear\tCtrl-L");
 
     // the "About" item should be in the help menu
-    wxMenu *helpMenu = new wxMenu;
+    wxMenu *helpMenu = NEW_DEBUG wxMenu;
     helpMenu->Append(HtmlLbox_About, "&About\tF1", "Show about dialog");
 
     // now append the freshly created menu to the menu bar...
-    wxMenuBar *menuBar = new wxMenuBar();
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar();
     menuBar->Append(menuFile, "&File");
     menuBar->Append(menuHLbox, "&Listbox");
     menuBar->Append(helpMenu, "&Help");
@@ -299,13 +299,13 @@ MyFrame::MyFrame()
 
     // create the child controls
     CreateBox();
-    wxTextCtrl *text = new wxTextCtrl(this, wxID_ANY, "",
+    wxTextCtrl *text = NEW_DEBUG wxTextCtrl(this, wxID_ANY, "",
                                       wxDefaultPosition, wxDefaultSize,
                                       wxTE_MULTILINE);
-    delete wxLog::SetActiveTarget(new wxLogTextCtrl(text));
+    delete wxLog::SetActiveTarget(NEW_DEBUG wxLogTextCtrl(text));
 
     // and lay them out
-    wxSizer *sizer = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer *sizer = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     sizer->Add(m_hlbox, 2, wxGROW);
     sizer->Add(text, 3, wxGROW);
 
@@ -323,11 +323,11 @@ void MyFrame::CreateBox()
 
     if ( GetMenuBar()->IsChecked(HtmlLbox_CustomBox) )
     {
-        m_hlbox = new MyHtmlListBox(this, multi);
+        m_hlbox = NEW_DEBUG MyHtmlListBox(this, multi);
     }
     else // simple listbox
     {
-        m_hlbox = new wxSimpleHtmlListBox(this, wxID_ANY, wxDefaultPosition, wxDefaultSize,
+        m_hlbox = NEW_DEBUG wxSimpleHtmlListBox(this, wxID_ANY, wxDefaultPosition, wxDefaultSize,
                                           0, NULL, multi ? wxLB_MULTIPLE : 0);
 
         // unlike wxHtmlListBox which is abstract, wxSimpleHtmlListBox is a
