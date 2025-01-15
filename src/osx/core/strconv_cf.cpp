@@ -35,7 +35,7 @@
 #if wxUSE_FONTMAP
 WXDLLIMPEXP_BASE wxMBConv* new_wxMBConv_cf( const char* name)
 {
-    wxMBConv_cf *result = new wxMBConv_cf(name);
+    wxMBConv_cf *result = NEW_DEBUG wxMBConv_cf(name);
     if(!result->IsOk())
     {
         delete result;
@@ -48,7 +48,7 @@ WXDLLIMPEXP_BASE wxMBConv* new_wxMBConv_cf( const char* name)
 
 WXDLLIMPEXP_BASE wxMBConv* new_wxMBConv_cf(wxFontEncoding encoding)
 {
-    wxMBConv_cf *result = new wxMBConv_cf(encoding);
+    wxMBConv_cf *result = NEW_DEBUG wxMBConv_cf(encoding);
     if(!result->IsOk())
     {
         delete result;

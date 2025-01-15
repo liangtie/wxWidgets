@@ -64,11 +64,11 @@ WX_DEFINE_TYPEINFO(UserType2)
 void TypeInfoTestCase::Test()
 {
     UserNameSpace::UserType1 uns_ut1;
-    UserNameSpace::UserType1* uns_ut1_p = new UserNameSpace::UserType1();
+    UserNameSpace::UserType1* uns_ut1_p = NEW_DEBUG UserNameSpace::UserType1();
     UserType1 ut1;
-    UserType1* ut1_p = new UserType1();
+    UserType1* ut1_p = NEW_DEBUG UserType1();
     UserType2 ut2;
-    UserType2* ut2_p = new UserType2();
+    UserType2* ut2_p = NEW_DEBUG UserType2();
 
     // These type comparison should match
     CPPUNIT_ASSERT(wxTypeId(uns_ut1) == wxTypeId(*uns_ut1_p));

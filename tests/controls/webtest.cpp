@@ -33,7 +33,7 @@ class WebViewTestCase
 public:
     WebViewTestCase()
         : m_browser(wxWebView::New()),
-          m_loaded(new EventCounter(m_browser, wxEVT_WEBVIEW_LOADED))
+          m_loaded(NEW_DEBUG EventCounter(m_browser, wxEVT_WEBVIEW_LOADED))
     {
 #ifdef __WXMSW__
         if (wxWebView::IsBackendAvailable(wxWebViewBackendEdge))
@@ -337,15 +337,15 @@ TEST_CASE_METHOD(WebViewTestCase, "WebView", "[wxWebView]")
             bool m_reset;
         } resetEmulationLevel;
 
-        CHECK(m_browser->RunScript("function f(){var person = new Object();person.name = 'Bar'; \
+        CHECK(m_browser->RunScript("function f(){var person = NEW_DEBUG Object();person.name = 'Bar'; \
             person.lastName = 'Foo';return person;}f();", &result));
         CHECK(result == "{\"name\":\"Bar\",\"lastName\":\"Foo\"}");
 
         CHECK(m_browser->RunScript("function f(){ return [\"foo\", \"bar\"]; }f();", &result));
         CHECK(result == "[\"foo\",\"bar\"]");
 
-        CHECK(m_browser->RunScript("function f(){var d = new Date('10/08/2017 21:30:40'); \
-            var tzoffset = d.getTimezoneOffset() * 60000; return new Date(d.getTime() - tzoffset);}f();",
+        CHECK(m_browser->RunScript("function f(){var d = NEW_DEBUG Date('10/08/2017 21:30:40'); \
+            var tzoffset = d.getTimezoneOffset() * 60000; return NEW_DEBUG Date(d.getTime() - tzoffset);}f();",
             &result));
         CHECK(result == "\"2017-10-08T21:30:40.000Z\"");
 
@@ -373,14 +373,14 @@ TEST_CASE_METHOD(WebViewTestCase, "WebView", "[wxWebView]")
         CHECK(m_browser->RunScript("function f(a){return a;}f(false);", &result));
         CHECK(result == "false");
 
-        CHECK(m_browser->RunScript("function f(){var person = new Object();person.lastName = 'Bar'; \
+        CHECK(m_browser->RunScript("function f(){var person = NEW_DEBUG Object();person.lastName = 'Bar'; \
             person.name = 'Foo';return person;}f();", &result));
         CHECK(result == "{\"lastName\":\"Bar\",\"name\":\"Foo\"}");
 
         CHECK(m_browser->RunScript("function f(){ return [\"foo\", \"bar\"]; }f();", &result));
         CHECK(result == "[\"foo\",\"bar\"]");
 
-        CHECK(m_browser->RunScript("function f(){var person = new Object();}f();", &result));
+        CHECK(m_browser->RunScript("function f(){var person = NEW_DEBUG Object();}f();", &result));
         CHECK(result == "undefined");
 
         CHECK(m_browser->RunScript("function f(){return null;}f();", &result));
@@ -400,8 +400,8 @@ TEST_CASE_METHOD(WebViewTestCase, "WebView", "[wxWebView]")
             &result));
         CHECK(result == "This is a backslash: \\");
 
-        CHECK(m_browser->RunScript("function f(){var d = new Date('10/08/2016 21:30:40'); \
-            var tzoffset = d.getTimezoneOffset() * 60000; return new Date(d.getTime() - tzoffset);}f();",
+        CHECK(m_browser->RunScript("function f(){var d = NEW_DEBUG Date('10/08/2016 21:30:40'); \
+            var tzoffset = d.getTimezoneOffset() * 60000; return NEW_DEBUG Date(d.getTime() - tzoffset);}f();",
             &result));
         CHECK(result == "\"2016-10-08T21:30:40.000Z\"");
 

@@ -52,7 +52,7 @@ CPPUNIT_TEST_SUITE_NAMED_REGISTRATION( ListViewTestCase, "ListViewTestCase" );
 
 void ListViewTestCase::setUp()
 {
-    m_list = new wxListView(wxTheApp->GetTopWindow());
+    m_list = NEW_DEBUG wxListView(wxTheApp->GetTopWindow());
     m_list->SetWindowStyle(wxLC_REPORT);
     m_list->SetSize(400, 200);
 }

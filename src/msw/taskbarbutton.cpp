@@ -453,7 +453,7 @@ wxTaskBarJumpListItem* GetItemFromIShellLink(IShellLink* link)
         return NULL;
 
     wxTaskBarJumpListItem* item =
-        new wxTaskBarJumpListItem(NULL, wxTASKBAR_JUMP_LIST_DESTINATION);
+        NEW_DEBUG wxTaskBarJumpListItem(NULL, wxTASKBAR_JUMP_LIST_DESTINATION);
 
     wxCOMPtr<IPropertyStore> linkProps;
     HRESULT hr = link->QueryInterface
@@ -494,7 +494,7 @@ wxTaskBarJumpListItem* GetItemFromIShellItem(IShellItem *shellItem)
         return NULL;
 
     wxTaskBarJumpListItem *item =
-        new wxTaskBarJumpListItem(NULL, wxTASKBAR_JUMP_LIST_DESTINATION);
+        NEW_DEBUG wxTaskBarJumpListItem(NULL, wxTASKBAR_JUMP_LIST_DESTINATION);
 
     wxCoTaskMemPtr<wchar_t> name;
     shellItem->GetDisplayName(SIGDN_FILESYSPATH, &name);
@@ -725,7 +725,7 @@ wxTaskBarButton* wxTaskBarButton::New(wxWindow* parent)
         return NULL;
     }
 
-    return new wxTaskBarButtonImpl(taskbarList, parent);
+    return NEW_DEBUG wxTaskBarButtonImpl(taskbarList, parent);
 }
 
 wxTaskBarButtonImpl::wxTaskBarButtonImpl(wxITaskbarList3* taskbarList,
@@ -853,7 +853,7 @@ bool wxTaskBarButtonImpl::AppendSeparatorInThumbBar()
 
     // Append a disable ThumbBarButton without background can simulate the
     // behavior of appending a separator.
-    wxThumbBarButton *separator = new wxThumbBarButton(wxID_ANY,
+    wxThumbBarButton *separator = NEW_DEBUG wxThumbBarButton(wxID_ANY,
                                                        wxNullIcon,
                                                        wxEmptyString,
                                                        false,
@@ -1189,7 +1189,7 @@ void wxTaskBarJumpListCategory::Update()
 // wxTaskBarJumpList Implementation.
 // ----------------------------------------------------------------------------
 wxTaskBarJumpList::wxTaskBarJumpList(const wxString& appID)
-    : m_jumpListImpl(new wxTaskBarJumpListImpl(this, appID))
+    : m_jumpListImpl(NEW_DEBUG wxTaskBarJumpListImpl(this, appID))
 {
 }
 
@@ -1311,7 +1311,7 @@ void wxTaskBarJumpListImpl::Update()
 wxTaskBarJumpListCategory& wxTaskBarJumpListImpl::GetTasks()
 {
     if ( m_tasks.get() == NULL )
-        m_tasks.reset(new wxTaskBarJumpListCategory(m_jumpList, wxT("Tasks")));
+        m_tasks.reset(NEW_DEBUG wxTaskBarJumpListCategory(m_jumpList, wxT("Tasks")));
 
     return *(m_tasks.get());
 }
@@ -1340,7 +1340,7 @@ const wxTaskBarJumpListCategory& wxTaskBarJumpListImpl::GetFrequentCategory()
 {
     wxString title = wxT("Frequent");
     if ( m_frequent.get() == NULL )
-        m_frequent.reset(new wxTaskBarJumpListCategory(m_jumpList, title));
+        m_frequent.reset(NEW_DEBUG wxTaskBarJumpListCategory(m_jumpList, title));
     LoadKnownCategory(title);
 
     return *m_frequent.get();
@@ -1350,7 +1350,7 @@ const wxTaskBarJumpListCategory& wxTaskBarJumpListImpl::GetRecentCategory()
 {
     wxString title = wxT("Recent");
     if ( m_recent.get() == NULL )
-        m_recent.reset(new wxTaskBarJumpListCategory(m_jumpList, title));
+        m_recent.reset(NEW_DEBUG wxTaskBarJumpListCategory(m_jumpList, title));
     LoadKnownCategory(title);
 
     return *m_recent.get();

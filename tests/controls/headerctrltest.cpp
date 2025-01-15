@@ -59,7 +59,7 @@ CPPUNIT_TEST_SUITE_NAMED_REGISTRATION( HeaderCtrlTestCase, "HeaderCtrlTestCase" 
 
 void HeaderCtrlTestCase::setUp()
 {
-    m_header = new wxHeaderCtrlSimple(wxTheApp->GetTopWindow());
+    m_header = NEW_DEBUG wxHeaderCtrlSimple(wxTheApp->GetTopWindow());
 }
 
 void HeaderCtrlTestCase::tearDown()

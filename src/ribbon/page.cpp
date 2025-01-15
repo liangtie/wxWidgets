@@ -554,7 +554,7 @@ void wxRibbonPage::OnSize(wxSizeEvent& evt)
     }
     else
     {
-        // Simplify other calculations by pretending new size is zero in both
+        // Simplify other calculations by pretending NEW_DEBUG size is zero in both
         // X and Y
         new_size.Set(0, 0);
         // When size == 0, no point in doing any layout
@@ -629,7 +629,7 @@ void wxRibbonPage::PopulateSizeCalcArray(wxSize (wxWindow::*get_size)(void) cons
     {
         delete[] m_size_calc_array;
         m_size_calc_array_size = GetChildren().GetCount();
-        m_size_calc_array = new wxSize[m_size_calc_array_size];
+        m_size_calc_array = NEW_DEBUG wxSize[m_size_calc_array_size];
     }
 
     wxSize* node_size = m_size_calc_array;
@@ -826,7 +826,7 @@ bool wxRibbonPage::ShowScrollButtons()
         }
         else
         {
-              m_scroll_left_btn = new wxRibbonPageScrollButton(this, wxID_ANY, GetPosition(), size, direction);
+              m_scroll_left_btn = NEW_DEBUG wxRibbonPageScrollButton(this, wxID_ANY, GetPosition(), size, direction);
               reposition = true;
         }
         if(!IsShown())
@@ -868,7 +868,7 @@ bool wxRibbonPage::ShowScrollButtons()
         }
         else
         {
-              m_scroll_right_btn = new wxRibbonPageScrollButton(this, wxID_ANY, initial_pos, size, direction);
+              m_scroll_right_btn = NEW_DEBUG wxRibbonPageScrollButton(this, wxID_ANY, initial_pos, size, direction);
               reposition = true;
         }
         if(!IsShown())

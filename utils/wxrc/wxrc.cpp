@@ -643,7 +643,7 @@ static wxString FileToCppArray(wxString filename, int num)
     // we cannot use string literals because MSVC is dumb wannabe compiler
     // with arbitrary limitation to 2048 strings :(
 
-    unsigned char *buffer = new unsigned char[lng];
+    unsigned char *buffer = NEW_DEBUG unsigned char[lng];
     file.Read(buffer, lng);
 
     for (size_t i = 0, linelng = 0; i < lng; i++)
@@ -711,7 +711,7 @@ void XmlResApp::MakePackageCPP(const wxArrayString& flist)
 "        wxFSFile *f = fsys.OpenFile(wxT(\"memory:XRC_resource/dummy_file\"));\n"
 "        wxMemoryFSHandler::RemoveFile(wxT(\"XRC_resource/dummy_file\"));\n"
 "        if (f) delete f;\n"
-"        else wxFileSystem::AddHandler(new wxMemoryFSHandler);\n"
+"        else wxFileSystem::AddHandler(NEW_DEBUG wxMemoryFSHandler);\n"
 "    }\n"
 "\n");
 
@@ -791,7 +791,7 @@ static wxString FileToPythonArray(wxString filename, int num)
     snum.Printf(wxT("%i"), num);
     output = "    xml_res_file_" + snum + " = '''\\\n";
 
-    unsigned char *buffer = new unsigned char[lng];
+    unsigned char *buffer = NEW_DEBUG unsigned char[lng];
     file.Read(buffer, lng);
 
     for (size_t i = 0, linelng = 0; i < lng; i++)

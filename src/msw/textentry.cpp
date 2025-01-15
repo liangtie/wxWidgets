@@ -257,7 +257,7 @@ public:
 
         CSLock lock(m_csCompleter);
 
-        wxIEnumString * const e = new wxIEnumString;
+        wxIEnumString * const e = NEW_DEBUG wxIEnumString;
         e->AddRef();
 
         e->ChangeCompleter(m_completer);
@@ -396,7 +396,7 @@ public:
         }
 
         // Create a string enumerator and initialize the completer with it.
-        m_enumStrings = new wxIEnumString;
+        m_enumStrings = NEW_DEBUG wxIEnumString;
         m_enumStrings->AddRef();
         hr = m_autoComplete->Init(m_entry->GetEditHWND(), m_enumStrings,
                                   NULL, NULL);
@@ -468,7 +468,7 @@ public:
     void ChangeStrings(const wxArrayString& strings)
     {
         if ( !m_fixedCompleter )
-            m_fixedCompleter = new wxTextCompleterFixed;
+            m_fixedCompleter = NEW_DEBUG wxTextCompleterFixed;
 
         m_fixedCompleter->SetCompletions(strings);
 
@@ -540,7 +540,7 @@ private:
         // list is currently visible" but actually we absolutely must call it
         // to force the auto-completer (and not just its drop-down!) to refresh
         // the list of completions which could have changed now. Without this
-        // call the new choices returned by GetCompletions() that hadn't been
+        // call the NEW_DEBUG choices returned by GetCompletions() that hadn't been
         // returned by it before are simply silently ignored.
         m_autoCompleteDropDown->ResetEnumerator();
     }
@@ -872,7 +872,7 @@ bool wxTextEntry::MSWEnsureHasAutoCompleteData()
 {
     if ( !MSWHasAutoCompleteData() )
     {
-        wxTextAutoCompleteData * const ac = new wxTextAutoCompleteData(this);
+        wxTextAutoCompleteData * const ac = NEW_DEBUG wxTextAutoCompleteData(this);
         if ( !ac->IsOk() )
         {
             delete ac;

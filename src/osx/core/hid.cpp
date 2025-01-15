@@ -325,7 +325,7 @@ void wxHIDDevice::AddCookieInQueue(CFTypeRef Data, int i)
 // ----------------------------------------------------------------------------
 void wxHIDDevice::InitCookies(size_t dwSize, bool bQueue)
 {
-    m_pCookies = new IOHIDElementCookie[dwSize];
+    m_pCookies = NEW_DEBUG IOHIDElementCookie[dwSize];
     if (bQueue)
     {
         wxASSERT( m_ppQueue == NULL);

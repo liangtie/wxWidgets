@@ -250,7 +250,7 @@ bool wxComboBox::Create(wxWindow *parent,
         return false;
     }
 
-    wxComboListBox *combolbox = new wxComboListBox();
+    wxComboListBox *combolbox = NEW_DEBUG wxComboListBox();
     SetPopupControl(combolbox);
 
     m_lbox = combolbox;

@@ -115,7 +115,7 @@ TEST_CASE("Atomic::WithThreads", "[atomic]")
             break;
         }
 
-        MyThread *thread = new MyThread(int1, actualThreadType);
+        MyThread *thread = NEW_DEBUG MyThread(int1, actualThreadType);
 
         if ( thread->Create() != wxTHREAD_NO_ERROR )
         {

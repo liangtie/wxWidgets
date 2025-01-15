@@ -104,7 +104,7 @@ bool wxSingleInstanceChecker::Create(const wxString& name,
     // creating unnamed mutex doesn't have the same semantics!
     wxASSERT_MSG( !name.empty(), wxT("mutex name can't be empty") );
 
-    m_impl = new wxSingleInstanceCheckerImpl;
+    m_impl = NEW_DEBUG wxSingleInstanceCheckerImpl;
 
     return m_impl->Create(name);
 }

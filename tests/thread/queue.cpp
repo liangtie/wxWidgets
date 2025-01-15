@@ -103,7 +103,7 @@ void QueueTestCase::TestReceive()
     {
         MyThread *previousThread = i == 0 ? NULL : threads[i-1];
         MyThread *thread =
-            new MyThread(WaitInfinitlyLong, previousThread, msgCount);
+            NEW_DEBUG MyThread(WaitInfinitlyLong, previousThread, msgCount);
 
         CPPUNIT_ASSERT_EQUAL ( thread->Create(), wxTHREAD_NO_ERROR );
         threads.Add(thread);
@@ -139,8 +139,8 @@ void QueueTestCase::TestReceive()
 // should return wxMSGQUEUUE_TIMEOUT.
 void QueueTestCase::TestReceiveTimeout()
 {
-    MyThread* thread1 = new MyThread(WaitWithTimeout, NULL, 2);
-    MyThread* thread2 = new MyThread(WaitWithTimeout, NULL, 2);
+    MyThread* thread1 = NEW_DEBUG MyThread(WaitWithTimeout, NULL, 2);
+    MyThread* thread2 = NEW_DEBUG MyThread(WaitWithTimeout, NULL, 2);
 
     CPPUNIT_ASSERT_EQUAL ( thread1->Create(), wxTHREAD_NO_ERROR );
     CPPUNIT_ASSERT_EQUAL ( thread2->Create(), wxTHREAD_NO_ERROR );

@@ -452,7 +452,7 @@ bool wxFileTypeImpl::GetDescription(wxString *desc) const
 wxFileType *
 wxMimeTypesManagerImpl::CreateFileType(const wxString& filetype, const wxString& ext)
 {
-    wxFileType *fileType = new wxFileType;
+    wxFileType *fileType = NEW_DEBUG wxFileType;
     fileType->m_impl->Init(filetype, ext);
     return fileType;
 }
@@ -478,7 +478,7 @@ wxMimeTypesManagerImpl::GetFileTypeFromExtension(const wxString& ext)
     if ( key.Open(wxRegKey::Read) ) {
         // it's the default value of the key
         if ( key.QueryValue(wxEmptyString, strFileType) ) {
-            // create the new wxFileType object
+            // create the NEW_DEBUG wxFileType object
             return CreateFileType(strFileType, ext);
         }
         else {
@@ -539,7 +539,7 @@ size_t wxMimeTypesManagerImpl::EnumAllFileTypes(wxArrayString& mimetypes)
 }
 
 // ----------------------------------------------------------------------------
-// create a new association
+// create a NEW_DEBUG association
 // ----------------------------------------------------------------------------
 
 wxFileType *wxMimeTypesManagerImpl::Associate(const wxFileTypeInfo& ftInfo)

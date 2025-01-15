@@ -181,7 +181,7 @@ public:
     // supported.
     static wxUILocaleImplStdC* Create()
     {
-        return new wxUILocaleImplStdC();
+        return NEW_DEBUG wxUILocaleImplStdC();
     }
 
 
@@ -576,7 +576,7 @@ public:
     // Create object corresponding to the default user locale.
     static wxUILocaleImplName* CreateDefault()
     {
-        return new wxUILocaleImplName(LOCALE_NAME_USER_DEFAULT);
+        return NEW_DEBUG wxUILocaleImplName(LOCALE_NAME_USER_DEFAULT);
     }
 
     // Create object corresponding to the given locale, return NULL if not
@@ -619,7 +619,7 @@ public:
                 return NULL;
         }
 
-        return new wxUILocaleImplName(name);
+        return NEW_DEBUG wxUILocaleImplName(name);
     }
 
 
@@ -938,7 +938,7 @@ wxUILocaleImpl* wxUILocaleImpl::CreateStdC()
 wxUILocaleImpl* wxUILocaleImpl::CreateUserDefault()
 {
     if ( !wxUILocaleImplName::CanUse() )
-        return new wxUILocaleImplLCID(LOCALE_USER_DEFAULT);
+        return NEW_DEBUG wxUILocaleImplLCID(LOCALE_USER_DEFAULT);
 
     return wxUILocaleImplName::CreateDefault();
 }
@@ -953,7 +953,7 @@ wxUILocaleImpl* wxUILocaleImpl::CreateForLanguage(const wxLanguageInfo& info)
             wxLogWarning(wxS("Locale '%s' not supported by OS."), info.Description);
             return NULL;
         }
-        return new wxUILocaleImplLCID(info.GetLCID());
+        return NEW_DEBUG wxUILocaleImplLCID(info.GetLCID());
     }
     else
     {

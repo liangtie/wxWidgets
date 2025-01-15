@@ -193,7 +193,7 @@ void wxStatusBarUniv::OnSize(wxSizeEvent& event)
     if ( field < m_panes.GetCount() )
     {
         // call this before invalidating the old widths as we want to use them,
-        // not the new ones
+        // not the NEW_DEBUG ones
         wxRect rect = DoGetFieldRect(field);
 
         // invalidate the widths, we'll have to recalc them

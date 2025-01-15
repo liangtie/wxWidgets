@@ -2,7 +2,7 @@
 // Name:        src/richtext/richtextmarginspage.cpp
 // Purpose:     Implements the rich text formatting dialog margins page.
 // Author:      Julian Smart
-// Modified by: 
+// Modified by:
 // Created:     20/10/2010 10:27:34
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
@@ -155,42 +155,42 @@ void wxRichTextMarginsPage::Init()
  */
 
 void wxRichTextMarginsPage::CreateControls()
-{    
+{
 ////@begin wxRichTextMarginsPage content construction
     wxRichTextMarginsPage* itemRichTextDialogPage1 = this;
 
-    wxBoxSizer* itemBoxSizer2 = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer* itemBoxSizer2 = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     itemRichTextDialogPage1->SetSizer(itemBoxSizer2);
 
-    wxBoxSizer* itemBoxSizer3 = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer* itemBoxSizer3 = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     itemBoxSizer2->Add(itemBoxSizer3, 1, wxGROW|wxALL, 5);
 
-    wxBoxSizer* itemBoxSizer4 = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer* itemBoxSizer4 = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     itemBoxSizer3->Add(itemBoxSizer4, 0, wxGROW, 5);
 
-    wxStaticText* itemStaticText5 = new wxStaticText( itemRichTextDialogPage1, wxID_STATIC, _("Margins"), wxDefaultPosition, wxDefaultSize, 0 );
+    wxStaticText* itemStaticText5 = NEW_DEBUG wxStaticText( itemRichTextDialogPage1, wxID_STATIC, _("Margins"), wxDefaultPosition, wxDefaultSize, 0 );
     itemStaticText5->SetFont(wxFont(wxSystemSettings::GetFont(wxSYS_DEFAULT_GUI_FONT).GetPointSize(), wxSystemSettings::GetFont(wxSYS_DEFAULT_GUI_FONT).GetFamily(), wxSystemSettings::GetFont(wxSYS_DEFAULT_GUI_FONT).GetStyle(), wxFONTWEIGHT_BOLD));
     itemBoxSizer4->Add(itemStaticText5, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    wxStaticLine* itemStaticLine6 = new wxStaticLine( itemRichTextDialogPage1, wxID_STATIC, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL );
+    wxStaticLine* itemStaticLine6 = NEW_DEBUG wxStaticLine( itemRichTextDialogPage1, wxID_STATIC, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL );
     itemBoxSizer4->Add(itemStaticLine6, 1, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    wxBoxSizer* itemBoxSizer7 = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer* itemBoxSizer7 = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     itemBoxSizer3->Add(itemBoxSizer7, 0, wxGROW, 5);
 
     itemBoxSizer7->Add(5, 5, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    wxFlexGridSizer* itemFlexGridSizer9 = new wxFlexGridSizer(0, 4, 0, 0);
+    wxFlexGridSizer* itemFlexGridSizer9 = NEW_DEBUG wxFlexGridSizer(0, 4, 0, 0);
     itemBoxSizer7->Add(itemFlexGridSizer9, 0, wxALIGN_CENTER_VERTICAL, 5);
 
-    m_leftMarginCheckbox = new wxCheckBox( itemRichTextDialogPage1, ID_RICHTEXT_LEFT_MARGIN_CHECKBOX, _("&Left:"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_leftMarginCheckbox = NEW_DEBUG wxCheckBox( itemRichTextDialogPage1, ID_RICHTEXT_LEFT_MARGIN_CHECKBOX, _("&Left:"), wxDefaultPosition, wxDefaultSize, 0 );
     m_leftMarginCheckbox->SetValue(false);
     itemFlexGridSizer9->Add(m_leftMarginCheckbox, 0, wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL|wxLEFT|wxTOP|wxBOTTOM, 5);
 
-    wxBoxSizer* itemBoxSizer11 = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer* itemBoxSizer11 = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     itemFlexGridSizer9->Add(itemBoxSizer11, 0, wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
 
-    m_marginLeft = new wxTextCtrl( itemRichTextDialogPage1, ID_RICHTEXT_LEFT_MARGIN, wxEmptyString, wxDefaultPosition, wxSize(65, -1), 0 );
+    m_marginLeft = NEW_DEBUG wxTextCtrl( itemRichTextDialogPage1, ID_RICHTEXT_LEFT_MARGIN, wxEmptyString, wxDefaultPosition, wxSize(65, -1), 0 );
     m_marginLeft->SetHelpText(_("The left margin size."));
     if (wxRichTextMarginsPage::ShowToolTips())
         m_marginLeft->SetToolTip(_("The left margin size."));
@@ -199,7 +199,7 @@ void wxRichTextMarginsPage::CreateControls()
     wxArrayString m_unitsMarginLeftStrings;
     m_unitsMarginLeftStrings.Add(_("px"));
     m_unitsMarginLeftStrings.Add(_("cm"));
-    m_unitsMarginLeft = new wxComboBox( itemRichTextDialogPage1, ID_RICHTEXT_LEFT_MARGIN_UNITS, _("px"), wxDefaultPosition, wxSize(60, -1), m_unitsMarginLeftStrings, wxCB_READONLY );
+    m_unitsMarginLeft = NEW_DEBUG wxComboBox( itemRichTextDialogPage1, ID_RICHTEXT_LEFT_MARGIN_UNITS, _("px"), wxDefaultPosition, wxSize(60, -1), m_unitsMarginLeftStrings, wxCB_READONLY );
     m_unitsMarginLeft->SetStringSelection(_("px"));
     m_unitsMarginLeft->SetHelpText(_("Units for the left margin."));
     if (wxRichTextMarginsPage::ShowToolTips())
@@ -208,14 +208,14 @@ void wxRichTextMarginsPage::CreateControls()
 
     itemBoxSizer11->Add(5, 5, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    m_rightMarginCheckbox = new wxCheckBox( itemRichTextDialogPage1, ID_RICHTEXT_RIGHT_MARGIN_CHECKBOX, _("&Right:"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_rightMarginCheckbox = NEW_DEBUG wxCheckBox( itemRichTextDialogPage1, ID_RICHTEXT_RIGHT_MARGIN_CHECKBOX, _("&Right:"), wxDefaultPosition, wxDefaultSize, 0 );
     m_rightMarginCheckbox->SetValue(false);
     itemFlexGridSizer9->Add(m_rightMarginCheckbox, 0, wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL|wxLEFT|wxTOP|wxBOTTOM, 5);
 
-    wxBoxSizer* itemBoxSizer16 = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer* itemBoxSizer16 = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     itemFlexGridSizer9->Add(itemBoxSizer16, 0, wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
 
-    m_marginRight = new wxTextCtrl( itemRichTextDialogPage1, ID_RICHTEXT_RIGHT_MARGIN, wxEmptyString, wxDefaultPosition, wxSize(65, -1), 0 );
+    m_marginRight = NEW_DEBUG wxTextCtrl( itemRichTextDialogPage1, ID_RICHTEXT_RIGHT_MARGIN, wxEmptyString, wxDefaultPosition, wxSize(65, -1), 0 );
     m_marginRight->SetHelpText(_("The right margin size."));
     if (wxRichTextMarginsPage::ShowToolTips())
         m_marginRight->SetToolTip(_("The right margin size."));
@@ -224,21 +224,21 @@ void wxRichTextMarginsPage::CreateControls()
     wxArrayString m_unitsMarginRightStrings;
     m_unitsMarginRightStrings.Add(_("px"));
     m_unitsMarginRightStrings.Add(_("cm"));
-    m_unitsMarginRight = new wxComboBox( itemRichTextDialogPage1, ID_RICHTEXT_RIGHT_MARGIN_UNITS, _("px"), wxDefaultPosition, wxSize(60, -1), m_unitsMarginRightStrings, wxCB_READONLY );
+    m_unitsMarginRight = NEW_DEBUG wxComboBox( itemRichTextDialogPage1, ID_RICHTEXT_RIGHT_MARGIN_UNITS, _("px"), wxDefaultPosition, wxSize(60, -1), m_unitsMarginRightStrings, wxCB_READONLY );
     m_unitsMarginRight->SetStringSelection(_("px"));
     m_unitsMarginRight->SetHelpText(_("Units for the right margin."));
     if (wxRichTextMarginsPage::ShowToolTips())
         m_unitsMarginRight->SetToolTip(_("Units for the right margin."));
     itemBoxSizer16->Add(m_unitsMarginRight, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    m_topMarginCheckbox = new wxCheckBox( itemRichTextDialogPage1, ID_RICHTEXT_TOP_MARGIN_CHECKBOX, _("&Top:"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_topMarginCheckbox = NEW_DEBUG wxCheckBox( itemRichTextDialogPage1, ID_RICHTEXT_TOP_MARGIN_CHECKBOX, _("&Top:"), wxDefaultPosition, wxDefaultSize, 0 );
     m_topMarginCheckbox->SetValue(false);
     itemFlexGridSizer9->Add(m_topMarginCheckbox, 0, wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL|wxLEFT|wxTOP|wxBOTTOM, 5);
 
-    wxBoxSizer* itemBoxSizer20 = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer* itemBoxSizer20 = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     itemFlexGridSizer9->Add(itemBoxSizer20, 0, wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
 
-    m_marginTop = new wxTextCtrl( itemRichTextDialogPage1, ID_RICHTEXT_TOP_MARGIN, wxEmptyString, wxDefaultPosition, wxSize(65, -1), 0 );
+    m_marginTop = NEW_DEBUG wxTextCtrl( itemRichTextDialogPage1, ID_RICHTEXT_TOP_MARGIN, wxEmptyString, wxDefaultPosition, wxSize(65, -1), 0 );
     m_marginTop->SetHelpText(_("The top margin size."));
     if (wxRichTextMarginsPage::ShowToolTips())
         m_marginTop->SetToolTip(_("The top margin size."));
@@ -247,7 +247,7 @@ void wxRichTextMarginsPage::CreateControls()
     wxArrayString m_unitsMarginTopStrings;
     m_unitsMarginTopStrings.Add(_("px"));
     m_unitsMarginTopStrings.Add(_("cm"));
-    m_unitsMarginTop = new wxComboBox( itemRichTextDialogPage1, ID_RICHTEXT_TOP_MARGIN_UNITS, _("px"), wxDefaultPosition, wxSize(60, -1), m_unitsMarginTopStrings, wxCB_READONLY );
+    m_unitsMarginTop = NEW_DEBUG wxComboBox( itemRichTextDialogPage1, ID_RICHTEXT_TOP_MARGIN_UNITS, _("px"), wxDefaultPosition, wxSize(60, -1), m_unitsMarginTopStrings, wxCB_READONLY );
     m_unitsMarginTop->SetStringSelection(_("px"));
     m_unitsMarginTop->SetHelpText(_("Units for the top margin."));
     if (wxRichTextMarginsPage::ShowToolTips())
@@ -256,14 +256,14 @@ void wxRichTextMarginsPage::CreateControls()
 
     itemBoxSizer20->Add(5, 5, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    m_bottomMarginCheckbox = new wxCheckBox( itemRichTextDialogPage1, ID_RICHTEXT_BOTTOM_MARGIN_CHECKBOX, _("&Bottom:"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_bottomMarginCheckbox = NEW_DEBUG wxCheckBox( itemRichTextDialogPage1, ID_RICHTEXT_BOTTOM_MARGIN_CHECKBOX, _("&Bottom:"), wxDefaultPosition, wxDefaultSize, 0 );
     m_bottomMarginCheckbox->SetValue(false);
     itemFlexGridSizer9->Add(m_bottomMarginCheckbox, 0, wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL|wxLEFT|wxTOP|wxBOTTOM, 5);
 
-    wxBoxSizer* itemBoxSizer25 = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer* itemBoxSizer25 = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     itemFlexGridSizer9->Add(itemBoxSizer25, 0, wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
 
-    m_marginBottom = new wxTextCtrl( itemRichTextDialogPage1, ID_RICHTEXT_BOTTOM_MARGIN, wxEmptyString, wxDefaultPosition, wxSize(65, -1), 0 );
+    m_marginBottom = NEW_DEBUG wxTextCtrl( itemRichTextDialogPage1, ID_RICHTEXT_BOTTOM_MARGIN, wxEmptyString, wxDefaultPosition, wxSize(65, -1), 0 );
     m_marginBottom->SetHelpText(_("The bottom margin size."));
     if (wxRichTextMarginsPage::ShowToolTips())
         m_marginBottom->SetToolTip(_("The bottom margin size."));
@@ -272,39 +272,39 @@ void wxRichTextMarginsPage::CreateControls()
     wxArrayString m_unitsMarginBottomStrings;
     m_unitsMarginBottomStrings.Add(_("px"));
     m_unitsMarginBottomStrings.Add(_("cm"));
-    m_unitsMarginBottom = new wxComboBox( itemRichTextDialogPage1, ID_RICHTEXT_BOTTOM_MARGIN_UNITS, _("px"), wxDefaultPosition, wxSize(60, -1), m_unitsMarginBottomStrings, wxCB_READONLY );
+    m_unitsMarginBottom = NEW_DEBUG wxComboBox( itemRichTextDialogPage1, ID_RICHTEXT_BOTTOM_MARGIN_UNITS, _("px"), wxDefaultPosition, wxSize(60, -1), m_unitsMarginBottomStrings, wxCB_READONLY );
     m_unitsMarginBottom->SetStringSelection(_("px"));
     m_unitsMarginBottom->SetHelpText(_("Units for the bottom margin."));
     if (wxRichTextMarginsPage::ShowToolTips())
         m_unitsMarginBottom->SetToolTip(_("Units for the bottom margin."));
     itemBoxSizer25->Add(m_unitsMarginBottom, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    wxBoxSizer* itemBoxSizer28 = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer* itemBoxSizer28 = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     itemBoxSizer3->Add(itemBoxSizer28, 0, wxGROW, 5);
 
-    wxStaticText* itemStaticText29 = new wxStaticText( itemRichTextDialogPage1, wxID_STATIC, _("Padding"), wxDefaultPosition, wxDefaultSize, 0 );
+    wxStaticText* itemStaticText29 = NEW_DEBUG wxStaticText( itemRichTextDialogPage1, wxID_STATIC, _("Padding"), wxDefaultPosition, wxDefaultSize, 0 );
     itemStaticText29->SetFont(wxFont(wxSystemSettings::GetFont(wxSYS_DEFAULT_GUI_FONT).GetPointSize(), wxSystemSettings::GetFont(wxSYS_DEFAULT_GUI_FONT).GetFamily(), wxSystemSettings::GetFont(wxSYS_DEFAULT_GUI_FONT).GetStyle(), wxFONTWEIGHT_BOLD));
     itemBoxSizer28->Add(itemStaticText29, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    wxStaticLine* itemStaticLine30 = new wxStaticLine( itemRichTextDialogPage1, wxID_STATIC, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL );
+    wxStaticLine* itemStaticLine30 = NEW_DEBUG wxStaticLine( itemRichTextDialogPage1, wxID_STATIC, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL );
     itemBoxSizer28->Add(itemStaticLine30, 1, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    wxBoxSizer* itemBoxSizer31 = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer* itemBoxSizer31 = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     itemBoxSizer3->Add(itemBoxSizer31, 0, wxGROW, 5);
 
     itemBoxSizer31->Add(5, 5, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    wxFlexGridSizer* itemFlexGridSizer33 = new wxFlexGridSizer(0, 4, 0, 0);
+    wxFlexGridSizer* itemFlexGridSizer33 = NEW_DEBUG wxFlexGridSizer(0, 4, 0, 0);
     itemBoxSizer31->Add(itemFlexGridSizer33, 0, wxALIGN_CENTER_VERTICAL, 5);
 
-    m_leftPaddingCheckbox = new wxCheckBox( itemRichTextDialogPage1, ID_RICHTEXT_LEFT_PADDING_CHECKBOX, _("&Left:"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_leftPaddingCheckbox = NEW_DEBUG wxCheckBox( itemRichTextDialogPage1, ID_RICHTEXT_LEFT_PADDING_CHECKBOX, _("&Left:"), wxDefaultPosition, wxDefaultSize, 0 );
     m_leftPaddingCheckbox->SetValue(false);
     itemFlexGridSizer33->Add(m_leftPaddingCheckbox, 0, wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL|wxLEFT|wxTOP|wxBOTTOM, 5);
 
-    wxBoxSizer* itemBoxSizer35 = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer* itemBoxSizer35 = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     itemFlexGridSizer33->Add(itemBoxSizer35, 0, wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
 
-    m_paddingLeft = new wxTextCtrl( itemRichTextDialogPage1, ID_RICHTEXT_LEFT_PADDING, wxEmptyString, wxDefaultPosition, wxSize(65, -1), 0 );
+    m_paddingLeft = NEW_DEBUG wxTextCtrl( itemRichTextDialogPage1, ID_RICHTEXT_LEFT_PADDING, wxEmptyString, wxDefaultPosition, wxSize(65, -1), 0 );
     m_paddingLeft->SetHelpText(_("The left padding size."));
     if (wxRichTextMarginsPage::ShowToolTips())
         m_paddingLeft->SetToolTip(_("The left padding size."));
@@ -313,7 +313,7 @@ void wxRichTextMarginsPage::CreateControls()
     wxArrayString m_unitsPaddingLeftStrings;
     m_unitsPaddingLeftStrings.Add(_("px"));
     m_unitsPaddingLeftStrings.Add(_("cm"));
-    m_unitsPaddingLeft = new wxComboBox( itemRichTextDialogPage1, ID_RICHTEXT_LEFT_PADDING_UNITS, _("px"), wxDefaultPosition, wxSize(60, -1), m_unitsPaddingLeftStrings, wxCB_READONLY );
+    m_unitsPaddingLeft = NEW_DEBUG wxComboBox( itemRichTextDialogPage1, ID_RICHTEXT_LEFT_PADDING_UNITS, _("px"), wxDefaultPosition, wxSize(60, -1), m_unitsPaddingLeftStrings, wxCB_READONLY );
     m_unitsPaddingLeft->SetStringSelection(_("px"));
     m_unitsPaddingLeft->SetHelpText(_("Units for the left padding."));
     if (wxRichTextMarginsPage::ShowToolTips())
@@ -322,14 +322,14 @@ void wxRichTextMarginsPage::CreateControls()
 
     itemBoxSizer35->Add(5, 5, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    m_rightPaddingCheckbox = new wxCheckBox( itemRichTextDialogPage1, ID_RICHTEXT_RIGHT_PADDING_CHECKBOX, _("&Right:"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_rightPaddingCheckbox = NEW_DEBUG wxCheckBox( itemRichTextDialogPage1, ID_RICHTEXT_RIGHT_PADDING_CHECKBOX, _("&Right:"), wxDefaultPosition, wxDefaultSize, 0 );
     m_rightPaddingCheckbox->SetValue(false);
     itemFlexGridSizer33->Add(m_rightPaddingCheckbox, 0, wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL|wxLEFT|wxTOP|wxBOTTOM, 5);
 
-    wxBoxSizer* itemBoxSizer40 = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer* itemBoxSizer40 = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     itemFlexGridSizer33->Add(itemBoxSizer40, 0, wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
 
-    m_paddingRight = new wxTextCtrl( itemRichTextDialogPage1, ID_RICHTEXT_RIGHT_PADDING, wxEmptyString, wxDefaultPosition, wxSize(65, -1), 0 );
+    m_paddingRight = NEW_DEBUG wxTextCtrl( itemRichTextDialogPage1, ID_RICHTEXT_RIGHT_PADDING, wxEmptyString, wxDefaultPosition, wxSize(65, -1), 0 );
     m_paddingRight->SetHelpText(_("The right padding size."));
     if (wxRichTextMarginsPage::ShowToolTips())
         m_paddingRight->SetToolTip(_("The right padding size."));
@@ -338,21 +338,21 @@ void wxRichTextMarginsPage::CreateControls()
     wxArrayString m_unitsPaddingRightStrings;
     m_unitsPaddingRightStrings.Add(_("px"));
     m_unitsPaddingRightStrings.Add(_("cm"));
-    m_unitsPaddingRight = new wxComboBox( itemRichTextDialogPage1, ID_RICHTEXT_RIGHT_PADDING_UNITS, _("px"), wxDefaultPosition, wxSize(60, -1), m_unitsPaddingRightStrings, wxCB_READONLY );
+    m_unitsPaddingRight = NEW_DEBUG wxComboBox( itemRichTextDialogPage1, ID_RICHTEXT_RIGHT_PADDING_UNITS, _("px"), wxDefaultPosition, wxSize(60, -1), m_unitsPaddingRightStrings, wxCB_READONLY );
     m_unitsPaddingRight->SetStringSelection(_("px"));
     m_unitsPaddingRight->SetHelpText(_("Units for the right padding."));
     if (wxRichTextMarginsPage::ShowToolTips())
         m_unitsPaddingRight->SetToolTip(_("Units for the right padding."));
     itemBoxSizer40->Add(m_unitsPaddingRight, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    m_topPaddingCheckbox = new wxCheckBox( itemRichTextDialogPage1, ID_RICHTEXT_TOP_PADDING_CHECKBOX, _("&Top:"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_topPaddingCheckbox = NEW_DEBUG wxCheckBox( itemRichTextDialogPage1, ID_RICHTEXT_TOP_PADDING_CHECKBOX, _("&Top:"), wxDefaultPosition, wxDefaultSize, 0 );
     m_topPaddingCheckbox->SetValue(false);
     itemFlexGridSizer33->Add(m_topPaddingCheckbox, 0, wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL|wxLEFT|wxTOP|wxBOTTOM, 5);
 
-    wxBoxSizer* itemBoxSizer44 = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer* itemBoxSizer44 = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     itemFlexGridSizer33->Add(itemBoxSizer44, 0, wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
 
-    m_paddingTop = new wxTextCtrl( itemRichTextDialogPage1, ID_RICHTEXT_TOP_PADDING, wxEmptyString, wxDefaultPosition, wxSize(65, -1), 0 );
+    m_paddingTop = NEW_DEBUG wxTextCtrl( itemRichTextDialogPage1, ID_RICHTEXT_TOP_PADDING, wxEmptyString, wxDefaultPosition, wxSize(65, -1), 0 );
     m_paddingTop->SetHelpText(_("The top padding size."));
     if (wxRichTextMarginsPage::ShowToolTips())
         m_paddingTop->SetToolTip(_("The top padding size."));
@@ -361,7 +361,7 @@ void wxRichTextMarginsPage::CreateControls()
     wxArrayString m_unitsPaddingTopStrings;
     m_unitsPaddingTopStrings.Add(_("px"));
     m_unitsPaddingTopStrings.Add(_("cm"));
-    m_unitsPaddingTop = new wxComboBox( itemRichTextDialogPage1, ID_RICHTEXT_TOP_PADDING_UNITS, _("px"), wxDefaultPosition, wxSize(60, -1), m_unitsPaddingTopStrings, wxCB_READONLY );
+    m_unitsPaddingTop = NEW_DEBUG wxComboBox( itemRichTextDialogPage1, ID_RICHTEXT_TOP_PADDING_UNITS, _("px"), wxDefaultPosition, wxSize(60, -1), m_unitsPaddingTopStrings, wxCB_READONLY );
     m_unitsPaddingTop->SetStringSelection(_("px"));
     m_unitsPaddingTop->SetHelpText(_("Units for the top padding."));
     if (wxRichTextMarginsPage::ShowToolTips())
@@ -370,14 +370,14 @@ void wxRichTextMarginsPage::CreateControls()
 
     itemBoxSizer44->Add(5, 5, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    m_bottomPaddingCheckbox = new wxCheckBox( itemRichTextDialogPage1, ID_RICHTEXT_BOTTOM_PADDING_CHECKBOX, _("&Bottom:"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_bottomPaddingCheckbox = NEW_DEBUG wxCheckBox( itemRichTextDialogPage1, ID_RICHTEXT_BOTTOM_PADDING_CHECKBOX, _("&Bottom:"), wxDefaultPosition, wxDefaultSize, 0 );
     m_bottomPaddingCheckbox->SetValue(false);
     itemFlexGridSizer33->Add(m_bottomPaddingCheckbox, 0, wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL|wxLEFT|wxTOP|wxBOTTOM, 5);
 
-    wxBoxSizer* itemBoxSizer49 = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer* itemBoxSizer49 = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     itemFlexGridSizer33->Add(itemBoxSizer49, 0, wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
 
-    m_paddingBottom = new wxTextCtrl( itemRichTextDialogPage1, ID_RICHTEXT_BOTTOM_PADDING, wxEmptyString, wxDefaultPosition, wxSize(65, -1), 0 );
+    m_paddingBottom = NEW_DEBUG wxTextCtrl( itemRichTextDialogPage1, ID_RICHTEXT_BOTTOM_PADDING, wxEmptyString, wxDefaultPosition, wxSize(65, -1), 0 );
     m_paddingBottom->SetHelpText(_("The bottom padding size."));
     if (wxRichTextMarginsPage::ShowToolTips())
         m_paddingBottom->SetToolTip(_("The bottom padding size."));
@@ -386,7 +386,7 @@ void wxRichTextMarginsPage::CreateControls()
     wxArrayString m_unitsPaddingBottomStrings;
     m_unitsPaddingBottomStrings.Add(_("px"));
     m_unitsPaddingBottomStrings.Add(_("cm"));
-    m_unitsPaddingBottom = new wxComboBox( itemRichTextDialogPage1, ID_RICHTEXT_BOTTOM_PADDING_UNITS, _("px"), wxDefaultPosition, wxSize(60, -1), m_unitsPaddingBottomStrings, wxCB_READONLY );
+    m_unitsPaddingBottom = NEW_DEBUG wxComboBox( itemRichTextDialogPage1, ID_RICHTEXT_BOTTOM_PADDING_UNITS, _("px"), wxDefaultPosition, wxSize(60, -1), m_unitsPaddingBottomStrings, wxCB_READONLY );
     m_unitsPaddingBottom->SetStringSelection(_("px"));
     m_unitsPaddingBottom->SetHelpText(_("Units for the bottom padding."));
     if (wxRichTextMarginsPage::ShowToolTips())

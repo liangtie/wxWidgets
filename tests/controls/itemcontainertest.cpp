@@ -153,9 +153,9 @@ void ItemContainerTestCase::ClientData()
 {
     wxItemContainer * const container = GetContainer();
 
-    wxStringClientData* item0data = new wxStringClientData("item0data");
-    wxStringClientData* item1data = new wxStringClientData("item1data");
-    wxStringClientData* item2data = new wxStringClientData("item2data");
+    wxStringClientData* item0data = NEW_DEBUG wxStringClientData("item0data");
+    wxStringClientData* item1data = NEW_DEBUG wxStringClientData("item1data");
+    wxStringClientData* item2data = NEW_DEBUG wxStringClientData("item2data");
 
     container->Append("item 0", item0data);
 
@@ -228,15 +228,15 @@ void ItemContainerTestCase::Set()
     container->Append(testitems);
 
     wxArrayString newtestitems;
-    newtestitems.Add("new item 0");
-    newtestitems.Add("new item 1");
-    newtestitems.Add("new item 2");
-    newtestitems.Add("new item 3");
+    newtestitems.Add("NEW_DEBUG item 0");
+    newtestitems.Add("NEW_DEBUG item 1");
+    newtestitems.Add("NEW_DEBUG item 2");
+    newtestitems.Add("NEW_DEBUG item 3");
 
     container->Set(newtestitems);
 
     CPPUNIT_ASSERT_EQUAL(4, container->GetCount());
-    CPPUNIT_ASSERT_EQUAL("new item 1", container->GetString(1));
+    CPPUNIT_ASSERT_EQUAL("NEW_DEBUG item 1", container->GetString(1));
 
     wxString arrnewitems[] = { "even newer 0", "event newer 1" };
 
@@ -259,8 +259,8 @@ void ItemContainerTestCase::SetString()
     container->Append(testitems);
 
     container->SetSelection(0);
-    container->SetString(0, "new item 0");
-    CPPUNIT_ASSERT_EQUAL("new item 0", container->GetString(0));
+    container->SetString(0, "NEW_DEBUG item 0");
+    CPPUNIT_ASSERT_EQUAL("NEW_DEBUG item 0", container->GetString(0));
 
     // Modifying the item shouldn't deselect it.
     CPPUNIT_ASSERT_EQUAL(0, container->GetSelection());

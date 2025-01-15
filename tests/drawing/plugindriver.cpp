@@ -38,7 +38,7 @@ void GraphicsContextDrawingTestCase::RunPluginsDrawingCase (
         for (size_t idx=0; idx<pluginsNameArray.size(); ++idx)
         {
             PluginInfo &pluginBeingLoaded = m_drawingPlugins[idx];
-            pluginBeingLoaded.library = new wxDynamicLibrary;
+            pluginBeingLoaded.library = NEW_DEBUG wxDynamicLibrary;
             if (!pluginBeingLoaded.library->Load (pluginsNameArray[idx]))
             {
                 wxLogFatalError("could not load drawing plugin %s",

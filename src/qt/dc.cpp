@@ -49,8 +49,8 @@ wxQtDCImpl::wxQtDCImpl( wxDC *owner )
     m_qtPixmap = NULL;
     m_qtPainter = NULL;
     m_rasterColourOp = wxQtNONE;
-    m_qtPenColor = new QColor;
-    m_qtBrushColor = new QColor;
+    m_qtPenColor = NEW_DEBUG QColor;
+    m_qtBrushColor = NEW_DEBUG QColor;
     m_ok = true;
 }
 
@@ -318,7 +318,7 @@ void wxQtDCImpl::SetLogicalFunction(wxRasterOperationMode function)
         // Source colour mode changed
         m_rasterColourOp = rasterColourOp;
 
-        // Restore original colours and apply new mode
+        // Restore original colours and apply NEW_DEBUG mode
         SetPenColour( m_qtPainter, *m_qtPenColor );
         SetBrushColour( m_qtPainter, *m_qtPenColor );
 

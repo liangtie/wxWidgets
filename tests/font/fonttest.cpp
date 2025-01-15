@@ -438,7 +438,7 @@ TEST_CASE("wxFont::NativeFontInfoUserDesc", "[font][fontinfo]")
         CHECK( test.GetStyle() == temp2.GetStyle() );
 
         // if the original face name was empty, it means that any face name (in
-        // this family) can be used for the new font so we shouldn't be
+        // this family) can be used for the NEW_DEBUG font so we shouldn't be
         // surprised to find that they differ in this case
         const wxString facename = test.GetFaceName();
         if ( !facename.empty() )

@@ -68,7 +68,7 @@ void RadioBoxTestCase::setUp()
     choices.push_back("item 1");
     choices.push_back("item 2");
 
-    m_radio = new wxRadioBox(wxTheApp->GetTopWindow(), wxID_ANY, "RadioBox",
+    m_radio = NEW_DEBUG wxRadioBox(wxTheApp->GetTopWindow(), wxID_ANY, "RadioBox",
                              wxDefaultPosition, wxDefaultSize, choices);
 }
 
@@ -93,13 +93,13 @@ void RadioBoxTestCase::RowColCount()
     choices.push_back("item 1");
     choices.push_back("item 2");
 
-    m_radio = new wxRadioBox(wxTheApp->GetTopWindow(), wxID_ANY, "RadioBox",
+    m_radio = NEW_DEBUG wxRadioBox(wxTheApp->GetTopWindow(), wxID_ANY, "RadioBox",
                              wxDefaultPosition, wxDefaultSize, choices, 2);
 
     CPPUNIT_ASSERT_EQUAL(2, m_radio->GetColumnCount());
     CPPUNIT_ASSERT_EQUAL(2, m_radio->GetRowCount());
 
-    m_radio = new wxRadioBox(wxTheApp->GetTopWindow(), wxID_ANY, "RadioBox",
+    m_radio = NEW_DEBUG wxRadioBox(wxTheApp->GetTopWindow(), wxID_ANY, "RadioBox",
                              wxDefaultPosition, wxDefaultSize, choices, 1,
                              wxRA_SPECIFY_ROWS);
 
@@ -217,17 +217,17 @@ void RadioBoxTestCase::Count()
 
 void RadioBoxTestCase::SetString()
 {
-    m_radio->SetString(0, "new item 0");
+    m_radio->SetString(0, "NEW_DEBUG item 0");
     m_radio->SetString(2, "");
 
-    CPPUNIT_ASSERT_EQUAL("new item 0", m_radio->GetString(0));
+    CPPUNIT_ASSERT_EQUAL("NEW_DEBUG item 0", m_radio->GetString(0));
     CPPUNIT_ASSERT_EQUAL("", m_radio->GetString(2));
 }
 
 TEST_CASE("RadioBox::NoItems", "[radiobox]")
 {
     wxScopedPtr<wxRadioBox>
-        radio(new wxRadioBox(wxTheApp->GetTopWindow(), wxID_ANY, "Empty",
+        radio(NEW_DEBUG wxRadioBox(wxTheApp->GetTopWindow(), wxID_ANY, "Empty",
                              wxDefaultPosition, wxDefaultSize,
                              0, NULL,
                              1, wxRA_SPECIFY_COLS));

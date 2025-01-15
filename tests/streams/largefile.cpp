@@ -214,7 +214,7 @@ protected:
 
 wxInputStream *LargeFileTest_wxFile::MakeInStream(const wxString& name) const
 {
-    wxScopedPtr<wxFileInputStream> in(new wxFileInputStream(name));
+    wxScopedPtr<wxFileInputStream> in(NEW_DEBUG wxFileInputStream(name));
     CPPUNIT_ASSERT(in->IsOk());
     return in.release();
 }
@@ -226,7 +226,7 @@ wxOutputStream *LargeFileTest_wxFile::MakeOutStream(const wxString& name) const
     int fd = file.fd();
     file.Detach();
     MakeSparse(name, fd);
-    return new wxFileOutputStream(fd);
+    return NEW_DEBUG wxFileOutputStream(fd);
 }
 
 
@@ -246,7 +246,7 @@ protected:
 
 wxInputStream *LargeFileTest_wxFFile::MakeInStream(const wxString& name) const
 {
-    wxScopedPtr<wxFFileInputStream> in(new wxFFileInputStream(name));
+    wxScopedPtr<wxFFileInputStream> in(NEW_DEBUG wxFFileInputStream(name));
     CPPUNIT_ASSERT(in->IsOk());
     return in.release();
 }
@@ -258,7 +258,7 @@ wxOutputStream *LargeFileTest_wxFFile::MakeOutStream(const wxString& name) const
     FILE *fp = file.fp();
     file.Detach();
     MakeSparse(name, fileno(fp));
-    return new wxFFileOutputStream(fp);
+    return NEW_DEBUG wxFFileOutputStream(fp);
 }
 
 bool LargeFileTest_wxFFile::HasLFS() const
@@ -284,10 +284,10 @@ public:
 
 CppUnit::Test *largeFile::suite()
 {
-    largeFile *suite = new largeFile;
+    largeFile *suite = NEW_DEBUG largeFile;
 
-    suite->addTest(new LargeFileTest_wxFile);
-    suite->addTest(new LargeFileTest_wxFFile);
+    suite->addTest(NEW_DEBUG LargeFileTest_wxFile);
+    suite->addTest(NEW_DEBUG LargeFileTest_wxFFile);
 
     return suite;
 }

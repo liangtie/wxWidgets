@@ -85,7 +85,7 @@ struct EditInfo
         : pos(pos), count(count), direction(direction) { }
 };
 
-// Derive a new class inheriting from wxGrid, also to get access to its
+// Derive a NEW_DEBUG class inheriting from wxGrid, also to get access to its
 // protected GetCellAttr(). This is not pretty, but we don't have any other way
 // of testing this function.
 class TestableGrid : public wxGrid
@@ -293,7 +293,7 @@ protected:
 
     void SetCellAttr(int row, int col)
     {
-        m_grid->SetAttr(row, col, new wxGridCellAttr);
+        m_grid->SetAttr(row, col, NEW_DEBUG wxGridCellAttr);
     }
 
     // Fills temp. grid with a multicell and returns a matcher with it.
@@ -325,7 +325,7 @@ protected:
     {
         if ( !m_tempGrid )
         {
-            m_tempGrid = new TestableGrid(wxTheApp->GetTopWindow());
+            m_tempGrid = NEW_DEBUG TestableGrid(wxTheApp->GetTopWindow());
             m_tempGrid->Hide();
         }
 
@@ -343,7 +343,7 @@ protected:
 
 GridTestCase::GridTestCase() : m_tempGrid(NULL)
 {
-    m_grid = new TestableGrid(wxTheApp->GetTopWindow());
+    m_grid = NEW_DEBUG TestableGrid(wxTheApp->GetTopWindow());
     m_grid->CreateGrid(10, 2);
     m_grid->SetSize(400, 200);
 
@@ -1308,7 +1308,7 @@ TEST_CASE_METHOD(GridTestCase, "Grid::GetNonDefaultAlignment", "[grid]")
     CHECK( vAlign == wxALIGN_TOP );
 
     // Now change the defaults and check that the unspecified alignment
-    // component is filled with the new default.
+    // component is filled with the NEW_DEBUG default.
     m_grid->SetDefaultCellAlignment(wxALIGN_CENTRE_HORIZONTAL,
                                     wxALIGN_CENTRE_VERTICAL);
 
@@ -1410,7 +1410,7 @@ TEST_CASE_METHOD(GridTestCase, "Grid::WindowAsEditorControl", "[grid]")
                     wxWindowID id,
                     wxEvtHandler* evtHandler) wxOVERRIDE
         {
-            SetWindow(new wxWindow(parent, id));
+            SetWindow(NEW_DEBUG wxWindow(parent, id));
             wxGridCellEditor::Create(parent, id, evtHandler);
         }
 
@@ -1430,14 +1430,14 @@ TEST_CASE_METHOD(GridTestCase, "Grid::WindowAsEditorControl", "[grid]")
 
         void Reset() wxOVERRIDE {}
 
-        wxGridCellEditor* Clone() const wxOVERRIDE { return new TestEditor(); }
+        wxGridCellEditor* Clone() const wxOVERRIDE { return NEW_DEBUG TestEditor(); }
 
         wxString GetValue() const wxOVERRIDE { return "value"; }
     };
 
-    wxGridCellAttr* attr = new wxGridCellAttr();
-    attr->SetRenderer(new wxGridCellStringRenderer());
-    attr->SetEditor(new TestEditor());
+    wxGridCellAttr* attr = NEW_DEBUG wxGridCellAttr();
+    attr->SetRenderer(NEW_DEBUG wxGridCellStringRenderer());
+    attr->SetEditor(NEW_DEBUG TestEditor());
     m_grid->SetAttr(1, 1, attr);
 
     EventCounter created(m_grid, wxEVT_GRID_EDITOR_CREATED);
@@ -1665,7 +1665,7 @@ TEST_CASE_METHOD(GridTestCase, "Grid::AutoSizeColumn", "[grid]")
         // https://github.com/wxWidgets/wxWidgets/issues/15943 .
 
         m_grid->SetCellValue(0, 0, multilineStr);
-        m_grid->SetCellRenderer(0 , 0, new wxGridCellAutoWrapStringRenderer);
+        m_grid->SetCellRenderer(0 , 0, NEW_DEBUG wxGridCellAutoWrapStringRenderer);
         m_grid->AutoSizeColumn(0);
 
         wxYield();
@@ -1734,7 +1734,7 @@ TEST_CASE_METHOD(GridTestCase, "Grid::CellAttribute", "[attr][cell][grid]")
         CHECK_ATTR_COUNT( 0 );
 
         m_grid->GetOrCreateCellAttrPtr(0, 0)
-            ->SetClientObject(new wxStringClientData("test"));
+            ->SetClientObject(NEW_DEBUG wxStringClientData("test"));
         CHECK_ATTR_COUNT( 1 );
 
         m_grid->SetAttr(0, 1, m_grid->GetOrCreateCellAttrPtr(0, 0)->Clone());

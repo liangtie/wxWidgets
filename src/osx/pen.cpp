@@ -109,40 +109,40 @@ wxPen::~wxPen()
 // Should implement Create
 wxPen::wxPen(const wxColour& col, int Width, wxPenStyle Style)
 {
-    m_refData = new wxPenRefData(wxPenInfo(col, Width).Style(Style));
+    m_refData = NEW_DEBUG wxPenRefData(wxPenInfo(col, Width).Style(Style));
 
     RealizeResource();
 }
 
 wxPen::wxPen(const wxColour& col, int Width, int Style)
 {
-    m_refData = new wxPenRefData(wxPenInfo(col, Width).Style((wxPenStyle)Style));
+    m_refData = NEW_DEBUG wxPenRefData(wxPenInfo(col, Width).Style((wxPenStyle)Style));
 
     RealizeResource();
 }
 
 wxPen::wxPen(const wxBitmap& stipple, int width)
 {
-    m_refData = new wxPenRefData(wxPenInfo().Stipple(stipple).Width(width));
+    m_refData = NEW_DEBUG wxPenRefData(wxPenInfo().Stipple(stipple).Width(width));
 
     RealizeResource();
 }
 
 wxPen::wxPen(const wxPenInfo& info)
 {
-    m_refData = new wxPenRefData(info);
+    m_refData = NEW_DEBUG wxPenRefData(info);
 
     RealizeResource();
 }
 
 wxGDIRefData *wxPen::CreateGDIRefData() const
 {
-    return new wxPenRefData;
+    return NEW_DEBUG wxPenRefData;
 }
 
 wxGDIRefData *wxPen::CloneGDIRefData(const wxGDIRefData *data) const
 {
-    return new wxPenRefData(*static_cast<const wxPenRefData *>(data));
+    return NEW_DEBUG wxPenRefData(*static_cast<const wxPenRefData *>(data));
 }
 
 bool wxPen::operator==(const wxPen& pen) const
@@ -213,11 +213,11 @@ void wxPen::Unshare()
     // Don't change shared data
     if (!m_refData)
     {
-        m_refData = new wxPenRefData();
+        m_refData = NEW_DEBUG wxPenRefData();
     }
     else
     {
-        wxPenRefData* ref = new wxPenRefData(*(wxPenRefData*)m_refData);
+        wxPenRefData* ref = NEW_DEBUG wxPenRefData(*(wxPenRefData*)m_refData);
         UnRef();
         m_refData = ref;
     }

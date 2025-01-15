@@ -42,7 +42,7 @@ private:
         if ( mode != m_clipboard->Mode() || !m_clipboard->m_sink )
             return;
 
-        wxClipboardEvent *event = new wxClipboardEvent(wxEVT_CLIPBOARD_CHANGED);
+        wxClipboardEvent *event = NEW_DEBUG wxClipboardEvent(wxEVT_CLIPBOARD_CHANGED);
         event->SetEventObject( m_clipboard );
         m_clipboard->m_sink->QueueEvent( event );
         m_clipboard->m_sink.Release();
@@ -53,7 +53,7 @@ private:
 
 wxClipboard::wxClipboard()
 {
-    m_SignalHandler = new QtClipBoardSignalHandler(this);
+    m_SignalHandler = NEW_DEBUG QtClipBoardSignalHandler(this);
     m_open = false;
 }
 
@@ -85,7 +85,7 @@ bool wxClipboard::IsOpened() const
 
 bool wxClipboard::AddData( wxDataObject *data )
 {
-    QMimeData *MimeData = new QMimeData;
+    QMimeData *MimeData = NEW_DEBUG QMimeData;
     data->QtAddDataTo(*MimeData);
     delete data;
 

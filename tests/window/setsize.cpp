@@ -52,7 +52,7 @@ protected:
 
 TEST_CASE("wxWindow::SetSize", "[window][size]")
 {
-    wxScopedPtr<wxWindow> w(new MyWindow(wxTheApp->GetTopWindow()));
+    wxScopedPtr<wxWindow> w(NEW_DEBUG MyWindow(wxTheApp->GetTopWindow()));
 
     SECTION("Simple")
     {
@@ -73,7 +73,7 @@ TEST_CASE("wxWindow::SetSize", "[window][size]")
 
 TEST_CASE("wxWindow::GetBestSize", "[window][size][best-size]")
 {
-    wxScopedPtr<wxWindow> w(new MyWindow(wxTheApp->GetTopWindow()));
+    wxScopedPtr<wxWindow> w(NEW_DEBUG MyWindow(wxTheApp->GetTopWindow()));
 
     CHECK( wxSize(50, 250) == w->GetBestSize() );
 
@@ -87,7 +87,7 @@ TEST_CASE("wxWindow::GetBestSize", "[window][size][best-size]")
 TEST_CASE("wxWindow::MovePreservesSize", "[window][size][move]")
 {
     wxScopedPtr<wxWindow>
-        w(new wxFrame(wxTheApp->GetTopWindow(), wxID_ANY, "Test child frame"));
+        w(NEW_DEBUG wxFrame(wxTheApp->GetTopWindow(), wxID_ANY, "Test child frame"));
 
     // Unfortunately showing the window is asynchronous, at least when using
     // X11, so we have to wait for some time before retrieving its true

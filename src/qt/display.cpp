@@ -86,7 +86,7 @@ public:
 
 wxDisplayImpl *wxDisplayFactoryQt::CreateDisplay(unsigned n)
 {
-    return new wxDisplayImplQt( n );
+    return NEW_DEBUG wxDisplayImplQt( n );
 }
 
 unsigned wxDisplayFactoryQt::GetCount()
@@ -103,7 +103,7 @@ int wxDisplayFactoryQt::GetFromPoint(const wxPoint& pt)
 
 /* static */ wxDisplayFactory *wxDisplay::CreateFactory()
 {
-    return new wxDisplayFactoryQt;
+    return NEW_DEBUG wxDisplayFactoryQt;
 }
 
 #else // wxUSE_DISPLAY
@@ -113,13 +113,13 @@ class wxDisplayFactorySingleQt : public wxDisplayFactorySingleQt
 protected:
     virtual wxDisplayImpl *CreateSingleDisplay() wxOVERRIDE
     {
-        return new wxDisplayImplQt(0);
+        return NEW_DEBUG wxDisplayImplQt(0);
     }
 };
 
 /* static */ wxDisplayFactory *wxDisplay::CreateFactory()
 {
-    return new wxDisplayFactorySingleQt;
+    return NEW_DEBUG wxDisplayFactorySingleQt;
 }
 
 #endif // wxUSE_DISPLAY/!wxUSE_DISPLAY

@@ -81,7 +81,7 @@ wxREGISTER_UNIT_TEST_WITH_TAGS(OwnerDrawnComboBoxTestCase,
 
 void OwnerDrawnComboBoxTestCase::setUp()
 {
-    m_combo = new wxOwnerDrawnComboBox(wxTheApp->GetTopWindow(), wxID_ANY);
+    m_combo = NEW_DEBUG wxOwnerDrawnComboBox(wxTheApp->GetTopWindow(), wxID_ANY);
 }
 
 void OwnerDrawnComboBoxTestCase::tearDown()
@@ -134,7 +134,7 @@ void OwnerDrawnComboBoxTestCase::PopDismiss()
 void OwnerDrawnComboBoxTestCase::Sort()
 {
     delete m_combo;
-    m_combo = new wxOwnerDrawnComboBox(wxTheApp->GetTopWindow(),
+    m_combo = NEW_DEBUG wxOwnerDrawnComboBox(wxTheApp->GetTopWindow(),
                                        wxID_ANY, "",
                                        wxDefaultPosition, wxDefaultSize,
                                        0, NULL,
@@ -166,7 +166,7 @@ void OwnerDrawnComboBoxTestCase::ReadOnly()
     testitems.Add("item 2");
 
     delete m_combo;
-    m_combo = new wxOwnerDrawnComboBox(wxTheApp->GetTopWindow(), wxID_ANY, "",
+    m_combo = NEW_DEBUG wxOwnerDrawnComboBox(wxTheApp->GetTopWindow(), wxID_ANY, "",
                                        wxDefaultPosition, wxDefaultSize,
                                        testitems,
                                        wxCB_READONLY);

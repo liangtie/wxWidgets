@@ -227,14 +227,14 @@ wxREGISTER_UNIT_TEST(KeyboardEvent);
 
 void KeyboardEventTestCase::setUp()
 {
-    m_win = new KeyboardTestWindow(wxTheApp->GetTopWindow());
+    m_win = NEW_DEBUG KeyboardTestWindow(wxTheApp->GetTopWindow());
     wxYield();
     m_win->SetFocus();
 
 #ifdef __WXGTK__
     for ( wxStopWatch sw; sw.Time() < 10; )
 #endif
-        wxYield(); // needed to show the new window
+        wxYield(); // needed to show the NEW_DEBUG window
 
     // The window might get some key up events when it's being shown if the key
     // was pressed when the program was started and released after the window

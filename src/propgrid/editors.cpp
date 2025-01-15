@@ -616,7 +616,7 @@ public:
         wxBoolProperty* boolProp = wxDynamicCast(m_selProp, wxBoolProperty);
         if ( boolProp )
         {
-            m_dclickProcessor = new wxPGDoubleClickProcessor(this, boolProp);
+            m_dclickProcessor = NEW_DEBUG wxPGDoubleClickProcessor(this, boolProp);
             PushEventHandler(m_dclickProcessor);
         }
 
@@ -1001,7 +1001,7 @@ wxWindow* wxPGChoiceEditor::CreateControlsBase( wxPropertyGrid* propGrid,
             labels.Add(propGrid->GetCommonValueLabel(i));
     }
 
-    wxPGComboBox* cb = new wxPGComboBox();
+    wxPGComboBox* cb = NEW_DEBUG wxPGComboBox();
 #ifdef __WXMSW__
     cb->Hide();
 #endif
@@ -1622,7 +1622,7 @@ wxPGWindowList wxPGCheckBoxEditor::CreateControls( wxPropertyGrid* propGrid,
     wxSize sz = size;
     sz.x = propGrid->GetFontHeight() + (wxPG_XBEFOREWIDGET*2) + 4;
 
-    wxSimpleCheckBox* cb = new wxSimpleCheckBox(propGrid->GetPanel(),
+    wxSimpleCheckBox* cb = NEW_DEBUG wxSimpleCheckBox(propGrid->GetPanel(),
                                                 wxID_ANY, pt, sz);
 
     cb->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOW));
@@ -1635,7 +1635,7 @@ wxPGWindowList wxPGCheckBoxEditor::CreateControls( wxPropertyGrid* propGrid,
         {
             // Send the event to toggle the value (if mouse cursor is on the item)
             wxPoint point = cb->ScreenToClient(::wxGetMousePosition());
-            wxCommandEvent *evt = new wxCommandEvent(wxEVT_CB_LEFT_CLICK_ACTIVATE, cb->GetId());
+            wxCommandEvent *evt = NEW_DEBUG wxCommandEvent(wxEVT_CB_LEFT_CLICK_ACTIVATE, cb->GetId());
             // Store mouse pointer position
             evt->SetInt(point.x);
             evt->SetExtraLong(point.y);
@@ -1916,7 +1916,7 @@ wxWindow* wxPropertyGrid::GenerateEditorTextCtrl( const wxPoint& pos,
     if ( !hasSpecialSize )
         tcFlags |= wxBORDER_NONE;
 
-    wxTextCtrl* tc = new wxTextCtrl();
+    wxTextCtrl* tc = NEW_DEBUG wxTextCtrl();
 
 #if defined(__WXMSW__)
     tc->Hide();
@@ -1990,7 +1990,7 @@ wxWindow* wxPropertyGrid::GenerateEditorButton( const wxPoint& pos, const wxSize
     wxPoint p(pos.x + sz.x, pos.y - wxPG_BUTTON_BORDER_WIDTH);
     wxSize s(wxDefaultCoord, dim);
 
-    wxButton* but = new wxButton();
+    wxButton* but = NEW_DEBUG wxButton();
   #ifdef __WXMSW__
     but->Hide();
   #endif
@@ -2232,7 +2232,7 @@ void wxPGMultiButton::Add( const wxBitmapBundle& bitmap, int itemid )
         scaledBmp = bmp;
     }
 
-    wxBitmapButton* button = new wxPGEditorBitmapButton(this, itemid, scaledBmp,
+    wxBitmapButton* button = NEW_DEBUG wxPGEditorBitmapButton(this, itemid, scaledBmp,
                            wxPoint(sz.x, 0), wxSize(wxDefaultCoord, sz.y));
     // If button is narrow make it a square
     wxSize szBtn = button->GetSize();
@@ -2247,7 +2247,7 @@ void wxPGMultiButton::Add( const wxString& label, int itemid )
 {
     itemid = GenId(itemid);
     wxSize sz = GetSize();
-    wxButton* button = new wxButton(this, itemid, label,
+    wxButton* button = NEW_DEBUG wxButton(this, itemid, label,
                     wxPoint(sz.x, 0), wxSize(wxDefaultCoord, sz.y), wxBU_EXACTFIT);
     // If button is narrow make it a square
     wxSize szBtn = button->GetSize();

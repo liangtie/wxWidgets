@@ -122,7 +122,7 @@ bool BenchApp::OnInit()
 
 #if wxUSE_GUI
     // create a hidden parent window to be used as parent for the GUI controls
-    new wxFrame(NULL, wxID_ANY, "Hidden wx benchmark frame");
+    NEW_DEBUG wxFrame(NULL, wxID_ANY, "Hidden wx benchmark frame");
 #endif // wxUSE_GUI
 
     return true;

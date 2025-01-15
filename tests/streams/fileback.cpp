@@ -74,7 +74,7 @@ backStream::backStream()
 
 void backStream::ReadLenSeek()
 {
-    wxBackingFile bf(new TestStream(m_testdata, TESTSIZE), BUFSIZE);
+    wxBackingFile bf(NEW_DEBUG TestStream(m_testdata, TESTSIZE), BUFSIZE);
     wxBackedInputStream in(bf);
 
     Read(in, BUFSIZE, BUFSIZE / 2, 2 * BUFSIZE / 3);
@@ -84,7 +84,7 @@ void backStream::ReadLenSeek()
 
 void backStream::LenSeekRead()
 {
-    wxBackingFile bf(new TestStream(m_testdata, TESTSIZE), BUFSIZE);
+    wxBackingFile bf(NEW_DEBUG TestStream(m_testdata, TESTSIZE), BUFSIZE);
     wxBackedInputStream in(bf);
 
     Len(in);
@@ -94,7 +94,7 @@ void backStream::LenSeekRead()
 
 void backStream::SeekReadLen()
 {
-    wxBackingFile bf(new TestStream(m_testdata, TESTSIZE), BUFSIZE);
+    wxBackingFile bf(NEW_DEBUG TestStream(m_testdata, TESTSIZE), BUFSIZE);
     wxBackedInputStream in(bf);
 
     Seek(in);
@@ -104,7 +104,7 @@ void backStream::SeekReadLen()
 
 void backStream::ReadAll()
 {
-    wxBackingFile bf(new TestStream(m_testdata, TESTSIZE), BUFSIZE);
+    wxBackingFile bf(NEW_DEBUG TestStream(m_testdata, TESTSIZE), BUFSIZE);
     wxBackedInputStream in(bf);
 
     Read(in, TESTSIZE, 0, 0);
@@ -112,7 +112,7 @@ void backStream::ReadAll()
 
 void backStream::ReadTooMuch()
 {
-    wxBackingFile bf(new TestStream(m_testdata, TESTSIZE), BUFSIZE);
+    wxBackingFile bf(NEW_DEBUG TestStream(m_testdata, TESTSIZE), BUFSIZE);
     wxBackedInputStream in(bf);
 
     char buf[TESTSIZE * 2];
@@ -124,7 +124,7 @@ void backStream::ReadTooMuch()
 
 void backStream::EmptyStream()
 {
-    wxBackingFile bf(new TestStream(m_testdata, 0), BUFSIZE);
+    wxBackingFile bf(NEW_DEBUG TestStream(m_testdata, 0), BUFSIZE);
     wxBackedInputStream in(bf);
 
     char buf[1];

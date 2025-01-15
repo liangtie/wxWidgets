@@ -126,10 +126,10 @@ public:
         const size_t posNL = title.find('\n');
         if ( posNL != wxString::npos )
         {
-            // There can an extra new line between the first and subsequent
+            // There can an extra NEW_DEBUG line between the first and subsequent
             // lines to separate them as it looks better with the generic
             // version -- but in this one, they're already separated by the use
-            // of different dialog elements, so suppress the extra new line.
+            // of different dialog elements, so suppress the extra NEW_DEBUG line.
             int numNLs = 1;
             if ( posNL < title.length() - 1 && title[posNL + 1] == '\n' )
                 numNLs++;
@@ -327,7 +327,7 @@ void PerformNotificationUpdates(HWND hwnd,
         // it, of course, but it's not a problem).
         //
         // Notice that, contrary to its documentation, even using this message
-        // still increases the dialog size if the new text is longer (at least
+        // still increases the dialog size if the NEW_DEBUG text is longer (at least
         // under Windows 7), but it doesn't shrink back if the text becomes
         // shorter later and stays at the bigger size which is still a big gain
         // as it prevents jumping back and forth between the smaller and larger
@@ -923,7 +923,7 @@ bool wxProgressDialog::Show(bool show)
 
         // We're showing the dialog for the first time, create the thread that
         // will manage it.
-        m_taskDialogRunner = new wxProgressDialogTaskRunner;
+        m_taskDialogRunner = NEW_DEBUG wxProgressDialogTaskRunner;
         m_sharedData = m_taskDialogRunner->GetSharedDataObject();
 
         // Initialize shared data.
@@ -1035,7 +1035,7 @@ void wxProgressDialog::UpdateExpandedInformation(int value)
                             << GetFormattedTime(remainingTime);
     }
 
-    // Update with new timing information.
+    // Update with NEW_DEBUG timing information.
     if ( expandedInformation != m_sharedData->m_expandedInformation )
     {
         m_sharedData->m_expandedInformation = expandedInformation;

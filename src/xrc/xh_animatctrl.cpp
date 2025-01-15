@@ -37,7 +37,7 @@ wxObject *wxAnimationCtrlXmlHandler::DoCreateResource()
     {
         if ( m_class == "wxAnimationCtrl" )
         {
-            ctrl = new wxAnimationCtrl(m_parentAsWindow,
+            ctrl = NEW_DEBUG wxAnimationCtrl(m_parentAsWindow,
                                        GetID(),
                                        wxNullAnimation,
                                        GetPosition(), GetSize(),
@@ -46,7 +46,7 @@ wxObject *wxAnimationCtrlXmlHandler::DoCreateResource()
         }
         else
         {
-            ctrl = new wxGenericAnimationCtrl(m_parentAsWindow,
+            ctrl = NEW_DEBUG wxGenericAnimationCtrl(m_parentAsWindow,
                                               GetID(),
                                               wxNullAnimation,
                                               GetPosition(), GetSize(),
@@ -85,8 +85,8 @@ wxAnimation* wxXmlResourceHandlerImpl::GetAnimation(const wxString& param,
         return NULL;
 
     // load the animation from file
-    wxScopedPtr<wxAnimation> ani(ctrl ? new wxAnimation(ctrl->CreateAnimation())
-                                      : new wxAnimation);
+    wxScopedPtr<wxAnimation> ani(ctrl ? NEW_DEBUG wxAnimation(ctrl->CreateAnimation())
+                                      : NEW_DEBUG wxAnimation);
 #if wxUSE_FILESYSTEM
     wxFSFile * const
         fsfile = GetCurFileSystem().OpenFile(name, wxFS_READ | wxFS_SEEKABLE);

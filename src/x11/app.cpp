@@ -195,8 +195,8 @@ bool wxApp::Initialize(int& argC, wxChar **argV)
     wxFont::SetDefaultEncoding(wxLocale::GetSystemEncoding());
 #endif
 
-    wxWidgetHashTable = new wxWindowHash;
-    wxClientWidgetHashTable = new wxWindowHash;
+    wxWidgetHashTable = NEW_DEBUG wxWindowHash;
+    wxClientWidgetHashTable = NEW_DEBUG wxWindowHash;
 
     return true;
 }
@@ -689,7 +689,7 @@ bool wxApp::OnInitGui()
     // Eventually this line will be removed, but for
     // now we don't want to try popping up a dialog
     // for error messages.
-    delete wxLog::SetActiveTarget(new wxLogStderr);
+    delete wxLog::SetActiveTarget(NEW_DEBUG wxLogStderr);
 #endif
 
     if (!wxAppBase::OnInitGui())
@@ -701,7 +701,7 @@ bool wxApp::OnInitGui()
     m_maxRequestSize = XMaxRequestSize(dpy);
 
 #if !wxUSE_NANOX
-    m_visualInfo = new wxXVisualInfo;
+    m_visualInfo = NEW_DEBUG wxXVisualInfo;
     wxFillXVisualInfo(m_visualInfo, dpy);
 #endif
 

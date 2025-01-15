@@ -181,12 +181,12 @@ void Font::Create(const FontParameters &fp) {
         false,
         stc2wx(fp.faceName),
         encoding);
-    wxFontWithAscent* newFont = new wxFontWithAscent(font);
+    wxFontWithAscent* newFont = NEW_DEBUG wxFontWithAscent(font);
     fid = newFont;
 
 #ifdef HAVE_DIRECTWRITE_TECHNOLOGY
     if ( fp.technology == wxSTC_TECHNOLOGY_DIRECTWRITE ) {
-        newFont->SetSurfaceFontData(new SurfaceFontDataD2D(fp));
+        newFont->SetSurfaceFontData(NEW_DEBUG SurfaceFontDataD2D(fp));
     }
 #endif // HAVE_DIRECTWRITE_TECHNOLOGY
 }
@@ -273,7 +273,7 @@ SurfaceImpl::~SurfaceImpl() {
 void SurfaceImpl::Init(WindowID wid) {
 #if 0
     Release();
-    hdc = new wxMemoryDC();
+    hdc = NEW_DEBUG wxMemoryDC();
     hdcOwned = true;
 #else
     // On Mac and GTK the DC is not really valid until it has a bitmap
@@ -291,13 +291,13 @@ void SurfaceImpl::Init(SurfaceID hdc_, WindowID) {
 void SurfaceImpl::InitPixMap(int width, int height, Surface *surface, WindowID winid) {
     Release();
     wxMemoryDC* mdc = surface
-        ? new wxMemoryDC(static_cast<SurfaceImpl*>(surface)->hdc)
-        : new wxMemoryDC();
+        ? NEW_DEBUG wxMemoryDC(static_cast<SurfaceImpl*>(surface)->hdc)
+        : NEW_DEBUG wxMemoryDC();
     hdc = mdc;
     hdcOwned = true;
     if (width < 1) width = 1;
     if (height < 1) height = 1;
-    bitmap = new wxBitmap(GETWIN(winid)->ToPhys(wxSize(width, height)));
+    bitmap = NEW_DEBUG wxBitmap(GETWIN(winid)->ToPhys(wxSize(width, height)));
     bitmap->SetScaleFactor(GETWIN(winid)->GetDPIScaleFactor());
     mdc->SelectObject(*bitmap);
 }
@@ -358,7 +358,7 @@ void SurfaceImpl::LineTo(int x_, int y_) {
 void SurfaceImpl::Polygon(Point *pts, int npts, ColourDesired fore, ColourDesired back) {
     PenColour(fore);
     BrushColour(back);
-    wxPoint *p = new wxPoint[npts];
+    wxPoint *p = NEW_DEBUG wxPoint[npts];
 
     for (int i=0; i<npts; i++) {
         p[i].x = wxRound(pts[i].x);
@@ -1832,10 +1832,10 @@ Surface *Surface::Allocate(int technology) {
 
 #ifdef HAVE_DIRECTWRITE_TECHNOLOGY
     if ( technology == wxSTC_TECHNOLOGY_DIRECTWRITE ) {
-        return new SurfaceD2D;
+        return NEW_DEBUG SurfaceD2D;
     }
 #endif // HAVE_DIRECTWRITE_TECHNOLOGY
-    return new SurfaceImpl;
+    return NEW_DEBUG SurfaceImpl;
 }
 
 
@@ -3141,7 +3141,7 @@ public:
 
         SurfaceData* data = fwa->GetSurfaceFontData();
         SurfaceFontDataD2D* d2dft = static_cast<SurfaceFontDataD2D*>(data);
-        m_surfaceFontData = new SurfaceFontDataD2D(*d2dft);
+        m_surfaceFontData = NEW_DEBUG SurfaceFontDataD2D(*d2dft);
 
         // Create a SurfaceD2D object to measure text height for the font.
         SurfaceD2D surface;
@@ -3157,8 +3157,8 @@ public:
                         const wxColour& textCol) const wxOVERRIDE
     {
         // Create a font and a surface object.
-        wxFontWithAscent* fontCopy = new wxFontWithAscent(wxFont());
-        SurfaceFontDataD2D* sfd = new SurfaceFontDataD2D(*m_surfaceFontData);
+        wxFontWithAscent* fontCopy = NEW_DEBUG wxFontWithAscent(wxFont());
+        SurfaceFontDataD2D* sfd = NEW_DEBUG SurfaceFontDataD2D(*m_surfaceFontData);
         fontCopy->SetSurfaceFontData(sfd);
         Font tempFont;
         tempFont.SetID(fontCopy);
@@ -3231,13 +3231,13 @@ wxSTCListBoxWin::wxSTCListBoxWin(wxWindow* parent, wxSTCListBox** lb,
     {
 #ifdef HAVE_DIRECTWRITE_TECHNOLOGY
         case wxSTC_TECHNOLOGY_DIRECTWRITE:
-            *lb = new wxSTCListBoxD2D(this, v, h);
+            *lb = NEW_DEBUG wxSTCListBoxD2D(this, v, h);
             break;
 #endif
         case wxSTC_TECHNOLOGY_DEFAULT:
             wxFALLTHROUGH;
         default:
-            *lb = new wxSTCListBox(this, v, h);
+            *lb = NEW_DEBUG wxSTCListBox(this, v, h);
     }
 
     // Use the background of this window to form a frame around the listbox
@@ -3247,7 +3247,7 @@ wxSTCListBoxWin::wxSTCListBoxWin(wxWindow* parent, wxSTCListBox** lb,
 #else
     const int borderThickness = FromDIP(1);
 #endif
-    wxBoxSizer* bSizer = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer* bSizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     bSizer->Add(*lb, 1, wxEXPAND|wxALL, borderThickness);
     SetSizer(bSizer);
     (*lb)->SetContainerBorderSize(borderThickness);
@@ -3272,7 +3272,7 @@ void wxSTCListBoxWin::OnPaint(wxPaintEvent& WXUNUSED(evt))
 //----------------------------------------------------------------------
 
 ListBoxImpl::ListBoxImpl()
-            :m_listBox(NULL), m_visualData(new wxSTCListBoxVisualData(5))
+            :m_listBox(NULL), m_visualData(NEW_DEBUG wxSTCListBoxVisualData(5))
 {
 }
 
@@ -3289,7 +3289,7 @@ void ListBoxImpl::SetFont(Font &font) {
 void ListBoxImpl::Create(Window &parent, int WXUNUSED(ctrlID),
                          Point WXUNUSED(location_), int lineHeight_,
                          bool WXUNUSED(unicodeMode_), int technology_) {
-    wid = new wxSTCListBoxWin(GETWIN(parent.GetID()), &m_listBox, m_visualData,
+    wid = NEW_DEBUG wxSTCListBoxWin(GETWIN(parent.GetID()), &m_listBox, m_visualData,
                               lineHeight_, technology_);
 }
 
@@ -3398,7 +3398,7 @@ ListBox::~ListBox() {
 }
 
 ListBox *ListBox::Allocate() {
-    return new ListBoxImpl();
+    return NEW_DEBUG ListBoxImpl();
 }
 
 //----------------------------------------------------------------------
@@ -3408,7 +3408,7 @@ Menu::Menu() : mid(0) {
 
 void Menu::CreatePopUp() {
     Destroy();
-    mid = new wxMenu();
+    mid = NEW_DEBUG wxMenu();
 }
 
 void Menu::Destroy() {
@@ -3454,7 +3454,7 @@ private:
 };
 
 DynamicLibrary *DynamicLibrary::Load(const char *modulePath) {
-    return static_cast<DynamicLibrary *>( new DynamicLibraryImpl(modulePath) );
+    return static_cast<DynamicLibrary *>( NEW_DEBUG DynamicLibraryImpl(modulePath) );
 }
 
 //----------------------------------------------------------------------

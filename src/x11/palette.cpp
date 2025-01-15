@@ -21,7 +21,7 @@
 I have implemented basic colormap support for the X11 versions of
 wxWidgets, notably wxPalette::Create().  The way I did it is to
 allocate additional read-only color cells in the default colormap.  In
-general you will get arbitrary pixel values assigned to these new
+general you will get arbitrary pixel values assigned to these NEW_DEBUG
 cells and therefore I added a method wxPalette::TransferBitmap()
 which maps the pixel values 0..n to the real ones obtained with
 Create().  This is only implemented for the popular case of 8-bit
@@ -151,7 +151,7 @@ bool wxPalette::Create(int n, const unsigned char *red, const unsigned char *gre
         return false;
     }
 
-    m_refData = new wxPaletteRefData;
+    m_refData = NEW_DEBUG wxPaletteRefData;
 
     XColor xcol;
     Display* display = (Display*) wxGetDisplay();
@@ -161,10 +161,10 @@ bool wxPalette::Create(int n, const unsigned char *red, const unsigned char *gre
     unsigned char *col_green;
     unsigned char *col_blue;
 
-    pix_array = new unsigned long[n];
-    col_red = new unsigned char[n];
-    col_green = new unsigned char[n];
-    col_blue = new unsigned char[n];
+    pix_array = NEW_DEBUG unsigned long[n];
+    col_red = NEW_DEBUG unsigned char[n];
+    col_green = NEW_DEBUG unsigned char[n];
+    col_blue = NEW_DEBUG unsigned char[n];
 
     Colormap cmap;
     int pix_array_n;
@@ -182,14 +182,14 @@ bool wxPalette::Create(int n, const unsigned char *red, const unsigned char *gre
         xcol.blue = (unsigned short)blue[i] << 8;
         pix_array[i] = (XAllocColor(display, cmap, &xcol) == 0) ? 0 : xcol.pixel;
 
-        // store the RGB value(0-255) to palette directly, 
+        // store the RGB value(0-255) to palette directly,
         // no need to calculate the color again in GetRGB()
         col_red[i] = red[i];
         col_green[i] = green[i];
         col_blue[i] = blue[i];
     }
 
-    wxXPalette *c = new wxXPalette;
+    wxXPalette *c = NEW_DEBUG wxXPalette;
 
     c->m_pix_array_n = pix_array_n;
     c->m_pix_array = pix_array;
@@ -206,7 +206,7 @@ bool wxPalette::Create(int n, const unsigned char *red, const unsigned char *gre
 
 wxGDIRefData *wxPalette::CreateGDIRefData() const
 {
-    return new wxPaletteRefData;
+    return NEW_DEBUG wxPaletteRefData;
 }
 
 wxGDIRefData *
@@ -214,7 +214,7 @@ wxPalette::CloneGDIRefData(const wxGDIRefData * WXUNUSED(data)) const
 {
     wxFAIL_MSG( wxS("Cloning palettes is not implemented in wxX11.") );
 
-    return new wxPaletteRefData;
+    return NEW_DEBUG wxPaletteRefData;
 }
 
 int wxPalette::GetPixel(unsigned char WXUNUSED(red),
@@ -275,14 +275,14 @@ WXColormap wxPalette::GetXColormap(WXDisplay* display) const
         node = node->GetNext();
     }
 
-    /* Make a new one: */
-    wxXPalette *c = new wxXPalette;
+    /* Make a NEW_DEBUG one: */
+    wxXPalette *c = NEW_DEBUG wxXPalette;
     wxXPalette *first = (wxXPalette *)M_PALETTEDATA->m_palettes.GetFirst()->GetData();
     XColor xcol;
     int pix_array_n = first->m_pix_array_n;
 
     c->m_pix_array_n = pix_array_n;
-    c->m_pix_array = new unsigned long[pix_array_n];
+    c->m_pix_array = NEW_DEBUG unsigned long[pix_array_n];
     c->m_display = display;
     c->m_cmap = wxTheApp->GetMainColormap(display);
     c->m_destroyable = false;
@@ -409,9 +409,9 @@ void wxPalette::PutXColormap(WXDisplay* display, WXColormap cm, bool dp)
 {
     UnRef();
 
-    m_refData = new wxPaletteRefData;
+    m_refData = NEW_DEBUG wxPaletteRefData;
 
-    wxXPalette *c = new wxXPalette;
+    wxXPalette *c = NEW_DEBUG wxXPalette;
 
     c->m_pix_array_n = 0;
     c->m_pix_array = (unsigned long*) NULL;

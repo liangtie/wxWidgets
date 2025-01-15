@@ -188,18 +188,18 @@ void socketStream::setUp()
         wxMutexLocker lock(gs_mutex);
 
         m_writeThread =
-            new SocketServerThread(TEST_PORT_READ, &socketStream::WriteSocket);
+            NEW_DEBUG SocketServerThread(TEST_PORT_READ, &socketStream::WriteSocket);
         CPPUNIT_ASSERT_EQUAL( wxCOND_NO_ERROR, gs_cond.Wait() );
 
         m_readThread =
-            new SocketServerThread(TEST_PORT_WRITE, &socketStream::ReadSocket);
+            NEW_DEBUG SocketServerThread(TEST_PORT_WRITE, &socketStream::ReadSocket);
         CPPUNIT_ASSERT_EQUAL( wxCOND_NO_ERROR, gs_cond.Wait() );
     }
 
-    m_readSocket = new wxSocketClient(ms_flags);
+    m_readSocket = NEW_DEBUG wxSocketClient(ms_flags);
     CPPUNIT_ASSERT( m_readSocket->Connect(LocalAddress(TEST_PORT_READ)) );
 
-    m_writeSocket = new wxSocketClient(ms_flags);
+    m_writeSocket = NEW_DEBUG wxSocketClient(ms_flags);
     CPPUNIT_ASSERT( m_writeSocket->Connect(LocalAddress(TEST_PORT_WRITE)) );
 }
 
@@ -217,14 +217,14 @@ void socketStream::tearDown()
 
 wxSocketInputStream *socketStream::DoCreateInStream()
 {
-    wxSocketInputStream *pStrInStream = new wxSocketInputStream(*m_readSocket);
+    wxSocketInputStream *pStrInStream = NEW_DEBUG wxSocketInputStream(*m_readSocket);
     CPPUNIT_ASSERT(pStrInStream->IsOk());
     return pStrInStream;
 }
 
 wxSocketOutputStream *socketStream::DoCreateOutStream()
 {
-    wxSocketOutputStream *pStrOutStream = new wxSocketOutputStream(*m_writeSocket);
+    wxSocketOutputStream *pStrOutStream = NEW_DEBUG wxSocketOutputStream(*m_writeSocket);
     CPPUNIT_ASSERT(pStrOutStream->IsOk());
     return pStrOutStream;
 }

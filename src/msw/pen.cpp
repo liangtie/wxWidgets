@@ -394,7 +394,7 @@ bool wxPenRefData::Alloc()
        DWORD *dash;
        if ( m_style == wxPENSTYLE_USER_DASH && m_nbDash && m_dash )
        {
-           dash = new DWORD[m_nbDash];
+           dash = NEW_DEBUG DWORD[m_nbDash];
            int rw = m_width > 1 ? m_width : 1;
            for ( int i = 0; i < m_nbDash; i++ )
                dash[i] = m_dash[i] * rw;
@@ -442,12 +442,12 @@ wxIMPLEMENT_DYNAMIC_CLASS(wxPen, wxGDIObject);
 
 wxPen::wxPen(const wxColour& col, int width, wxPenStyle style)
 {
-    m_refData = new wxPenRefData(wxPenInfo(col, width).Style(style));
+    m_refData = NEW_DEBUG wxPenRefData(wxPenInfo(col, width).Style(style));
 }
 
 wxPen::wxPen(const wxColour& colour, int width, int style)
 {
-    m_refData = new wxPenRefData
+    m_refData = NEW_DEBUG wxPenRefData
                     (
                         wxPenInfo(colour, width).Style((wxPenStyle)style)
                     );
@@ -455,12 +455,12 @@ wxPen::wxPen(const wxColour& colour, int width, int style)
 
 wxPen::wxPen(const wxBitmap& stipple, int width)
 {
-    m_refData = new wxPenRefData(wxPenInfo().Stipple(stipple).Width(width));
+    m_refData = NEW_DEBUG wxPenRefData(wxPenInfo().Stipple(stipple).Width(width));
 }
 
 wxPen::wxPen(const wxPenInfo& info)
 {
-    m_refData = new wxPenRefData(info);
+    m_refData = NEW_DEBUG wxPenRefData(info);
 }
 
 bool wxPen::operator==(const wxPen& pen) const
@@ -494,12 +494,12 @@ bool wxPen::IsFree() const
 
 wxGDIRefData* wxPen::CreateGDIRefData() const
 {
-    return new wxPenRefData;
+    return NEW_DEBUG wxPenRefData;
 }
 
 wxGDIRefData* wxPen::CloneGDIRefData(const wxGDIRefData* data) const
 {
-    return new wxPenRefData(*static_cast<const wxPenRefData*>(data));
+    return NEW_DEBUG wxPenRefData(*static_cast<const wxPenRefData*>(data));
 }
 
 void wxPen::SetColour(const wxColour& col)

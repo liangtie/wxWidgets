@@ -68,7 +68,7 @@ private:
 class wxSecretValueLibSecretImpl : public wxSecretValueImpl
 {
 public:
-    // Create a new secret value for the given content type.
+    // Create a NEW_DEBUG secret value for the given content type.
     wxSecretValueLibSecretImpl(size_t size, const void* data, const char* contentType)
         : m_value(secret_value_new(static_cast<const gchar*>(data), size,
                                    contentType))
@@ -180,8 +180,8 @@ public:
             return NULL;
         }
 
-        // This passes ownership of service to the new object.
-        return new wxSecretStoreLibSecretImpl(service);
+        // This passes ownership of service to the NEW_DEBUG object.
+        return NEW_DEBUG wxSecretStoreLibSecretImpl(service);
     }
 
     virtual bool Save(const wxString& service,
@@ -257,7 +257,7 @@ public:
         if ( field )
             *user = wxString::FromUTF8(static_cast<char*>(field));
 
-        *secret = new wxSecretValueLibSecretImpl(secret_item_get_secret(item));
+        *secret = NEW_DEBUG wxSecretValueLibSecretImpl(secret_item_get_secret(item));
 
         return true;
     }
@@ -362,7 +362,7 @@ wxSecretValue::NewImpl(size_t size,
                        const void *data,
                        const char* contentType)
 {
-    return new wxSecretValueLibSecretImpl(size, data, contentType);
+    return NEW_DEBUG wxSecretValueLibSecretImpl(size, data, contentType);
 }
 
 /* static */
@@ -375,7 +375,7 @@ wxSecretStore wxSecretStore::GetDefault()
     {
         // But if we failed, fall back to a dummy one, so that we could at
         // least return the error to the code using this class.
-        impl = new wxSecretStoreNotAvailableImpl(errmsg);
+        impl = NEW_DEBUG wxSecretStoreNotAvailableImpl(errmsg);
     }
 
     return wxSecretStore(impl);

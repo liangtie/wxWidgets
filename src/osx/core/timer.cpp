@@ -41,7 +41,7 @@ void wxProcessTimer(CFRunLoopTimerRef WXUNUSED(theTimer), void *data)
 wxOSXTimerImpl::wxOSXTimerImpl(wxTimer *timer)
                  : wxTimerImpl(timer)
 {
-    m_info = new wxOSXTimerInfo();
+    m_info = NEW_DEBUG wxOSXTimerInfo();
     m_info->m_timer = this;
     m_info->m_timerRef = kInvalidID;
 }

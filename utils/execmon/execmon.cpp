@@ -109,7 +109,7 @@ bool TestExec(const wxVector<wxFileName>& programs, long timeout)
     wxArrayLong procID;
     for (i=0; i<programs.size(); i++)
     {
-        MonitorData *dt = new MonitorData(programs[i].GetFullPath());
+        MonitorData *dt = NEW_DEBUG MonitorData(programs[i].GetFullPath());
 
         long pid = wxExecute(programs[i].GetFullPath(), wxEXEC_ASYNC, &dt->process);
         if (pid == 0)

@@ -255,14 +255,14 @@ void Base64TestCase::EncodeDecodePatternC()
 void Base64TestCase::EncodeDecodeRandom()
 {
     size_t size = rand() * 3000 / RAND_MAX + 11;
-    unsigned char *buff = new unsigned char[size];
+    unsigned char *buff = NEW_DEBUG unsigned char[size];
     generateRandomData(buff, size);
     wxString str = wxBase64Encode(buff, size);
     wxMemoryBuffer mbuff = wxBase64Decode(str);
     CPPUNIT_ASSERT(memcmp(mbuff.GetData(), buff, mbuff.GetDataLen()) == 0);
 
     generateGibberish(buff, size);
-    char *buff2 = new char[size];
+    char *buff2 = NEW_DEBUG char[size];
     size_t realsize = size;
     CPPUNIT_ASSERT(wxBase64Decode(buff2, realsize, (char *)buff, size));
     CPPUNIT_ASSERT(wxBase64Encode(buff2, size, buff2, realsize));

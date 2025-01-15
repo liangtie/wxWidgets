@@ -74,7 +74,7 @@ typedef struct tagNMTVITEMCHANGE
 // item state changes in the vista tree control.  It is only effective in
 // multi-select mode on vista systems.
 
-// The vista tree control includes some new code that originally broke the
+// The vista tree control includes some NEW_DEBUG code that originally broke the
 // multi-selection tree, causing seemingly spurious item selection state changes
 // during Shift or Ctrl-click item selection. (To witness the original broken
 // behaviour, simply make IsLocked() below always return false). This problem was
@@ -1035,7 +1035,7 @@ void wxTreeCtrl::SetItemText(const wxTreeItemId& item, const wxString& text)
     DoSetItem(&tvItem);
 
     // when setting the text of the item being edited, the text control should
-    // be updated to reflect the new text as well, otherwise calling
+    // be updated to reflect the NEW_DEBUG text as well, otherwise calling
     // SetItemText() in the OnBeginLabelEdit() handler doesn't have any effect
     //
     // don't use GetEditControl() here because m_textCtrl is not set yet
@@ -1218,7 +1218,7 @@ wxItemAttr* wxTreeCtrl::DoGetAttrPtr(const wxTreeItemId& item)
     const auto it = m_attrs.find(item.m_pItem);
     if ( it == m_attrs.end() )
     {
-        attr = new wxItemAttr;
+        attr = NEW_DEBUG wxItemAttr;
         m_attrs[item.m_pItem] = std::unique_ptr<wxItemAttr>(attr);
     }
     else
@@ -1258,7 +1258,7 @@ void wxTreeCtrl::SetItemFont(const wxTreeItemId& item, const wxFont& font)
     DoGetAttrPtr(item)->SetFont(f);
 
     // Reset the item's text to ensure that the bounding rect will be adjusted
-    // for the new font.
+    // for the NEW_DEBUG font.
     SetItemText(item, GetItemText(item));
 
     RefreshItem(item);
@@ -1534,7 +1534,7 @@ wxTreeItemId wxTreeCtrl::DoInsertAfter(const wxTreeItemId& parent,
     }
 
     // create the param which will store the other item parameters
-    wxTreeItemParam *param = new wxTreeItemParam;
+    wxTreeItemParam *param = NEW_DEBUG wxTreeItemParam;
 
     // we return the images on demand as they depend on whether the item is
     // expanded or collapsed too in our case
@@ -1588,10 +1588,10 @@ wxTreeItemId wxTreeCtrl::AddRoot(const wxString& text,
         wxASSERT_MSG( !m_pVirtualRoot, wxT("tree can have only a single root") );
 
         // create a virtual root item, the parent for all the others
-        wxTreeItemParam *param = new wxTreeItemParam;
+        wxTreeItemParam *param = NEW_DEBUG wxTreeItemParam;
         param->SetData(data);
 
-        m_pVirtualRoot = new wxVirtualNode(param);
+        m_pVirtualRoot = NEW_DEBUG wxVirtualNode(param);
 
         return TVI_ROOT;
     }
@@ -3471,7 +3471,7 @@ bool wxTreeCtrl::MSWOnNotify(int idCtrl, WXLPARAM lParam, WXLPARAM *result)
         // multi-selection tree.  When TreeView_SelectItem() is called,
         // the wrong items are deselected.
 
-        // Fortunately, Vista provides a new notification, TVN_ITEMCHANGING
+        // Fortunately, Vista provides a NEW_DEBUG notification, TVN_ITEMCHANGING
         // that can be used to regulate this incorrect behaviour.  The
         // following messages will allow only the unlocked item's selection
         // state to change
@@ -3766,7 +3766,7 @@ bool wxTreeCtrl::MSWOnNotify(int idCtrl, WXLPARAM lParam, WXLPARAM *result)
                 // deleted once the drag operation is over
                 wxASSERT_MSG( !m_dragImage, wxT("starting to drag once again?") );
 
-                m_dragImage = new wxDragImage(*this, event.m_item);
+                m_dragImage = NEW_DEBUG wxDragImage(*this, event.m_item);
                 m_dragImage->BeginDrag(wxPoint(0,0), this);
                 m_dragImage->Show();
 
@@ -3808,7 +3808,7 @@ bool wxTreeCtrl::MSWOnNotify(int idCtrl, WXLPARAM lParam, WXLPARAM *result)
                     if ( m_textCtrl && m_textCtrl->GetHWND() )
                         DeleteTextCtrl();
                     if ( !m_textCtrl )
-                        m_textCtrl = new wxTextCtrl();
+                        m_textCtrl = NEW_DEBUG wxTextCtrl();
                     m_textCtrl->SetParent(this);
                     m_textCtrl->SetHWND((WXHWND)hText);
                     m_textCtrl->SubclassWin((WXHWND)hText);
@@ -3828,7 +3828,7 @@ bool wxTreeCtrl::MSWOnNotify(int idCtrl, WXLPARAM lParam, WXLPARAM *result)
             break;
 
         case TVN_ENDLABELEDIT:
-            // return true to set the label to the new string: note that we
+            // return true to set the label to the NEW_DEBUG string: note that we
             // also must pretend that we did process the message or it is going
             // to be passed to DefWindowProc() which will happily return false
             // cancelling the label change

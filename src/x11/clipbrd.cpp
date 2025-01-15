@@ -144,7 +144,7 @@ typedef wxScopedArray<wxDataFormat> wxDataFormatScopedArray;
 // wxClipboardHandleSelectionRequest()
 // -----------------------------------
 
-// Add a new function void wxClipboardHandleSelectionRequest(XEvent event), it
+// Add a NEW_DEBUG function void wxClipboardHandleSelectionRequest(XEvent event), it
 // called by wxApp::ProcessXEvent(), when other program want to paste data.
 // wxApp will check the wxClipboard whether it has data that conforms with
 // the format. If has, set the data to requestor's window property.

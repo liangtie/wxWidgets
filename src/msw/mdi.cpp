@@ -165,7 +165,7 @@ bool wxMDIParentFrame::Create(wxWindow *parent,
   if ( !(style & wxFRAME_NO_WINDOW_MENU) )
   {
       // normal case: we have the window menu, so construct it
-      m_windowMenu = new wxMenu;
+      m_windowMenu = NEW_DEBUG wxMenu;
 
       m_windowMenu->Append(wxID_MDI_WINDOW_CASCADE, _("&Cascade"));
       m_windowMenu->Append(wxID_MDI_WINDOW_TILE_HORZ, _("Tile &Horizontally"));
@@ -947,7 +947,7 @@ bool wxMDIChildFrame::Show(bool show)
     if (!wxFrame::Show(show))
         return false;
 
-    // KH: Without this call, new MDI children do not become active.
+    // KH: Without this call, NEW_DEBUG MDI children do not become active.
     // This was added here after the same BringWindowToTop call was
     // removed from wxTopLevelWindow::Show (November 2005)
     if ( show )
@@ -982,7 +982,7 @@ void wxMDIChildFrame::DoSetClientSize(int width, int height)
   GetWindowRect(hWnd, &rect2);
 
   // Find the difference between the entire window (title bar and all)
-  // and the client area; add this to the new client size to move the
+  // and the client area; add this to the NEW_DEBUG client size to move the
   // window
   int actual_width = rect2.right - rect2.left - rect.right + width;
   int actual_height = rect2.bottom - rect2.top - rect.bottom + height;

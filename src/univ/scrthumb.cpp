@@ -181,7 +181,7 @@ bool wxScrollThumb::HandleMouse(const wxMouseEvent& event) const
 
         // capture the mouse
         wxConstCast(this, wxScrollThumb)->m_captureData =
-            new wxScrollThumbCaptureData(shaftPart, btn, m_control);
+            NEW_DEBUG wxScrollThumbCaptureData(shaftPart, btn, m_control);
 
         // modify the visual appearance before sending the event which will
         // cause a redraw
@@ -203,7 +203,7 @@ bool wxScrollThumb::HandleMouse(const wxMouseEvent& event) const
             // start timer for auto scrolling when the user presses the mouse
             // in the shaft above or below the thumb
             m_captureData->m_timerScroll =
-                new wxScrollThumbTimer(m_control, shaftPart);
+                NEW_DEBUG wxScrollThumbTimer(m_control, shaftPart);
         }
 #endif // wxUSE_TIMER
     }

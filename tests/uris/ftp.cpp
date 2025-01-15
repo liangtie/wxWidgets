@@ -89,7 +89,7 @@ TEST_CASE("FTP", "[net][.]")
         CPPUNIT_ASSERT( in2 != NULL );
 
         size_t size = in2->GetSize();
-        wxChar *data = new wxChar[size];
+        wxChar *data = NEW_DEBUG wxChar[size];
         CPPUNIT_ASSERT( in2->Read(data, size).GetLastError() == wxSTREAM_NO_ERROR );
 
         delete [] data;

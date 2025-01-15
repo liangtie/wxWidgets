@@ -3,7 +3,7 @@
 // Purpose:     wxGLCanvas, for using OpenGL with wxWidgets
 //              Uses the GLX extension.
 // Author:      Julian Smart and Wolfram Gloger
-// Modified by: Vadim Zeitlin to update to new API
+// Modified by: Vadim Zeitlin to update to NEW_DEBUG API
 // Created:     1995, 1999
 // Copyright:   (c) Julian Smart, Wolfram Gloger
 // Licence:     wxWindows licence

@@ -160,7 +160,7 @@ bool wxListBox::Create(wxWindow *parent,
                        const wxValidator& validator,
                        const wxString &name)
 {
-    // for compatibility accept both the new and old styles - they mean the
+    // for compatibility accept both the NEW_DEBUG and old styles - they mean the
     // same thing for us
     if ( style & wxLB_ALWAYS_SB )
         style |= wxALWAYS_SHOW_SB;
@@ -181,9 +181,9 @@ bool wxListBox::Create(wxWindow *parent,
         return false;
 
     if ( IsSorted() )
-        m_strings.sorted = new wxSortedArrayString(wxDictionaryStringSortAscending);
+        m_strings.sorted = NEW_DEBUG wxSortedArrayString(wxDictionaryStringSortAscending);
     else
-        m_strings.unsorted = new wxArrayString;
+        m_strings.unsorted = NEW_DEBUG wxArrayString;
 
     Set(n, choices);
 
@@ -286,7 +286,7 @@ void wxListBox::SetString(unsigned int n, const wxString& s)
 
         GetTextExtent(s, &width, NULL);
 
-        // it might have increased if the new string is long
+        // it might have increased if the NEW_DEBUG string is long
         if ( width > m_maxWidth )
         {
             m_maxWidth = width;
@@ -1388,7 +1388,7 @@ bool wxStdListboxInputHandler::HandleKey(wxInputConsumer *consumer,
                         consumer->PerformAction(wxACTION_LISTBOX_EXTENDSEL);
                     else
                     {
-                        // select the item and make it the new selection anchor
+                        // select the item and make it the NEW_DEBUG selection anchor
                         consumer->PerformAction(wxACTION_LISTBOX_SELECT);
                         consumer->PerformAction(wxACTION_LISTBOX_ANCHOR);
                     }

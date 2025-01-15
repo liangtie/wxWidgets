@@ -373,7 +373,7 @@ wxPGCell::wxPGCell( const wxString& text,
                     const wxColour& bgCol )
     : wxObject()
 {
-    wxPGCellData* data = new wxPGCellData();
+    wxPGCellData* data = NEW_DEBUG wxPGCellData();
     m_refData = data;
     data->m_text = text;
     data->m_bitmapBundle = bitmap;
@@ -384,7 +384,7 @@ wxPGCell::wxPGCell( const wxString& text,
 
 wxObjectRefData *wxPGCell::CloneRefData( const wxObjectRefData *data ) const
 {
-    wxPGCellData* c = new wxPGCellData();
+    wxPGCellData* c = NEW_DEBUG wxPGCellData();
     const wxPGCellData* o = (const wxPGCellData*) data;
     c->m_text = o->m_text;
     c->m_bitmapBundle = o->m_bitmapBundle;
@@ -1634,7 +1634,7 @@ void wxPGProperty::EnsureCells( unsigned int column )
                                        : pg->GetPropertyDefaultCell();
         }
 
-        // Alloc new default cells.
+        // Alloc NEW_DEBUG default cells.
         m_cells.resize(column+1, defaultCell);
     }
 }
@@ -1992,7 +1992,7 @@ int wxPGProperty::InsertChoice( const wxString& label, int index, int value )
         newSel++;
 
     m_choices.Insert(label, index, value);
-    // Set new selection if it was modified
+    // Set NEW_DEBUG selection if it was modified
     // or if the first element was added.
     if ( sel != newSel || numChoices == 0 )
         SetChoiceSelection(newSel);
@@ -2737,7 +2737,7 @@ bool wxPGProperty::IsTextEditable() const
 }
 
 // Call after fixed sub-properties added/removed after creation.
-// if oldSelInd >= 0 and < new max items, then selection is
+// if oldSelInd >= 0 and < NEW_DEBUG max items, then selection is
 // moved to it. Note: oldSelInd -2 indicates that this property
 // should be selected.
 void wxPGProperty::SubPropsChanged( int oldSelInd )
@@ -3162,7 +3162,7 @@ void wxPGChoices::AllocExclusive()
 
     if ( m_data->GetRefCount() != 1 )
     {
-        wxPGChoicesData* data = new wxPGChoicesData();
+        wxPGChoicesData* data = NEW_DEBUG wxPGChoicesData();
         data->CopyDataFrom(m_data);
         Free();
         m_data = data;

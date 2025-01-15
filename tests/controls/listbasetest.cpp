@@ -413,7 +413,7 @@ void ListBaseTestCase::DeleteItems()
     list->DeleteItem(0);
     list->DeleteAllItems();
 
-    //Add some new items to tests ClearAll with
+    //Add some NEW_DEBUG items to tests ClearAll with
     list->InsertColumn(0, "Column 0");
     list->InsertItem(0, "Item 0");
     list->InsertItem(1, "Item 1");
@@ -556,7 +556,7 @@ void ListBaseTestCase::ImageList()
 
     wxSize size(32, 32);
 
-    wxImageList* imglist = new wxImageList(size.x, size.y);
+    wxImageList* imglist = NEW_DEBUG wxImageList(size.x, size.y);
     imglist->Add(wxArtProvider::GetIcon(wxART_INFORMATION, wxART_OTHER, size));
     imglist->Add(wxArtProvider::GetIcon(wxART_QUESTION, wxART_OTHER, size));
     imglist->Add(wxArtProvider::GetIcon(wxART_WARNING, wxART_OTHER, size));
@@ -574,7 +574,7 @@ void ListBaseTestCase::HitTest()
 
     // set small image list
     wxSize size(16, 16);
-    wxImageList* m_imglistSmall = new wxImageList(size.x, size.y);
+    wxImageList* m_imglistSmall = NEW_DEBUG wxImageList(size.x, size.y);
     m_imglistSmall->Add(wxArtProvider::GetIcon(wxART_INFORMATION, wxART_LIST, size));
     list->AssignImageList(m_imglistSmall, wxIMAGE_LIST_SMALL);
 

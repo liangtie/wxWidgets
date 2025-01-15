@@ -72,7 +72,7 @@ wxCursor::wxCursor()
 
 void wxCursor::InitFromStock( wxStockCursor cursorId )
 {
-    m_refData = new wxCursorRefData();
+    m_refData = NEW_DEBUG wxCursorRefData();
 
 #if wxUSE_NANOX
     // TODO Create some standard cursors from bitmaps.
@@ -153,7 +153,7 @@ wxCursor::~wxCursor()
 
 wxGDIRefData *wxCursor::CreateGDIRefData() const
 {
-    return new wxCursorRefData;
+    return NEW_DEBUG wxCursorRefData;
 }
 
 wxGDIRefData *
@@ -161,7 +161,7 @@ wxCursor::CloneGDIRefData(const wxGDIRefData * WXUNUSED(data)) const
 {
     wxFAIL_MSG( wxS("Cloning cursors is not implemented in wxX11.") );
 
-    return new wxCursorRefData;
+    return NEW_DEBUG wxCursorRefData;
 }
 
 WXCursor wxCursor::GetCursor() const

@@ -135,7 +135,7 @@ wxFDIOHandler* wxAppConsole::RegisterSignalWakeUpPipe(wxFDIODispatcher& dispatch
     //
     // TODO: refactor the code so that only wxEventLoopSourceHandler is used
     wxScopedPtr<wxFDIOHandler>
-        fdioHandler(new wxFDIOEventLoopSourceHandler(m_signalWakeUpPipe));
+        fdioHandler(NEW_DEBUG wxFDIOEventLoopSourceHandler(m_signalWakeUpPipe));
 
     if ( !dispatcher.RegisterFD
                      (
@@ -166,7 +166,7 @@ bool wxAppConsole::SetSignalHandler(int signal, SignalHandler handler)
     {
         // Create the pipe that the signal handler will use to cause the event
         // loop to call wxAppConsole::CheckSignal().
-        m_signalWakeUpPipe = new SignalsWakeUpPipe();
+        m_signalWakeUpPipe = NEW_DEBUG SignalsWakeUpPipe();
     }
 
     struct sigaction sa;

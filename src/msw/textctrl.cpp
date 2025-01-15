@@ -682,7 +682,7 @@ bool wxTextCtrl::MSWCreateText(const wxString& value,
 #if wxUSE_OLE
         if ( m_verRichEdit >= 4 )
         {
-            wxTextCtrlOleCallback *cb = new wxTextCtrlOleCallback(this);
+            wxTextCtrlOleCallback *cb = NEW_DEBUG wxTextCtrlOleCallback(this);
             if ( ::SendMessage(GetHwnd(), EM_SETOLECALLBACK, 0, (LPARAM)cb) )
             {
                 // If we succeeded in setting up the callback, we don't need to
@@ -937,7 +937,7 @@ void wxTextCtrl::SetWindowStyleFlag(long style)
             DissociateHandle();
             ::DestroyWindow(hwnd);
 
-            // create the new one with the updated flags
+            // create the NEW_DEBUG one with the updated flags
             m_windowStyle = style;
             MSWCreateText(value, pos, size);
 
@@ -1217,7 +1217,7 @@ void wxTextCtrl::DoWriteText(const wxString& value, int flags)
 #if wxUSE_RICHEDIT
     if ( IsRich() )
     {
-        // first, ensure that the new text will be in the default style
+        // first, ensure that the NEW_DEBUG text will be in the default style
         if ( !m_defaultStyle.IsDefault() )
         {
             long start, end;
@@ -1573,7 +1573,7 @@ bool wxTextCtrl::PositionToXY(long pos, long *x, long *y) const
     {
         // No next line. Char position refers to the last line so
         // the length of the line obtained with EM_LINELENGTH is
-        // correct because there are no new line characters at the end.
+        // correct because there are no NEW_DEBUG line characters at the end.
         if ( pos > lineLength )
         {
             return false;
@@ -1582,11 +1582,11 @@ bool wxTextCtrl::PositionToXY(long pos, long *x, long *y) const
     else
     {
         // Next line found. Char position doesn't refer to the last line
-        // so we need to take into account new line characters which were
+        // so we need to take into account NEW_DEBUG line characters which were
         // not counted by EM_LINELENGTH.
         long lineLengthFull = charIndexNextLn - charIndex;
         // (lineLengthFull - lineLength) can be 0 (for wrapped line),
-        // 1 (for \r new line mark) or 2 (for \r\n new line mark).
+        // 1 (for \r NEW_DEBUG line mark) or 2 (for \r\n NEW_DEBUG line mark).
         if ( pos > lineLengthFull )
         {
             return false;
@@ -1751,7 +1751,7 @@ wxPoint wxTextCtrl::DoPositionToCoords(long pos) const
 
             if ( prevChar == wxT("\n" ))
             {
-                // 'pos' is at the beginning of a new line so its X coordinate
+                // 'pos' is at the beginning of a NEW_DEBUG line so its X coordinate
                 // should be the same as X coordinate of the first character of
                 // any other line while its Y coordinate will be approximately
                 // (but we can't compute it exactly...) one character height
@@ -2172,12 +2172,12 @@ void wxTextCtrl::MSWDeleteWordBack()
         if ( current == start )
         {
             // When there is nothing but spaces to the left until the start of
-            // line, we need to delete these spaces (if any) as well as the new
+            // line, we need to delete these spaces (if any) as well as the NEW_DEBUG
             // line separating this line from the previous one (if any).
             if ( line > 0 )
             {
                 // This function is only used with plain EDITs which use "\r\n"
-                // and so we need to subtract 2 to account for the new line.
+                // and so we need to subtract 2 to account for the NEW_DEBUG line.
                 current -= 2;
             }
 
@@ -2194,7 +2194,7 @@ void wxTextCtrl::MSWDeleteWordBack()
             {
                 if ( current == start )
                 {
-                    // We don't delete the new line in this case, as we're going to
+                    // We don't delete the NEW_DEBUG line in this case, as we're going to
                     // delete some non-spaces in this line.
                     break;
                 }
@@ -2590,7 +2590,7 @@ void wxTextCtrl::AdjustMaxLengthBeforePaste()
 
     const unsigned long lenCurrent = GetLastPosition();
 
-    // We need enough space for all the current text and all the new
+    // We need enough space for all the current text and all the NEW_DEBUG
     // text, but the selection will be replaced.
     const unsigned long lenNeeded = lenCurrent - lenSel + lenPasted;
     if ( lenNeeded >= limit )
@@ -2807,7 +2807,7 @@ void wxTextCtrl::OnContextMenu(wxContextMenuEvent& event)
 
 wxMenu *wxTextCtrl::MSWCreateContextMenu()
 {
-    wxMenu *m = new wxMenu;
+    wxMenu *m = NEW_DEBUG wxMenu;
     m->Append(wxID_UNDO, _("&Undo"));
     m->Append(wxID_REDO, _("&Redo"));
     m->AppendSeparator();
@@ -2836,7 +2836,7 @@ void wxTextCtrl::MSWSetRichZoom()
     if ( denom > 0 )
         ratio = ratio * (num / (float)denom);
 
-    // apply the new zoom ratio, Windows uses a default denominator of 100, so
+    // apply the NEW_DEBUG zoom ratio, Windows uses a default denominator of 100, so
     // do it here as well
     num = UINT(100 * ratio);
     denom = 100;

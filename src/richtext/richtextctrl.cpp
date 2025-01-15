@@ -286,9 +286,9 @@ bool wxRichTextCtrl::Create( wxWindow* parent, wxWindowID id, const wxString& va
     GetBuffer().SetRichTextCtrl(this);
 
 #if wxRICHTEXT_USE_OWN_CARET
-    SetCaret(new wxRichTextCaret(this, wxRICHTEXT_DEFAULT_CARET_WIDTH, 16));
+    SetCaret(NEW_DEBUG wxRichTextCaret(this, wxRICHTEXT_DEFAULT_CARET_WIDTH, 16));
 #else
-    SetCaret(new wxCaret(this, wxRICHTEXT_DEFAULT_CARET_WIDTH, 16));
+    SetCaret(NEW_DEBUG wxCaret(this, wxRICHTEXT_DEFAULT_CARET_WIDTH, 16));
 #endif
 
     // Tell the sizers to use the given or best size
@@ -324,7 +324,7 @@ bool wxRichTextCtrl::Create( wxWindow* parent, wxWindowID id, const wxString& va
     SetAcceleratorTable(accel);
 #endif // wxUSE_ACCEL
 
-    m_contextMenu = new wxMenu;
+    m_contextMenu = NEW_DEBUG wxMenu;
     m_contextMenu->Append(wxID_UNDO, _("&Undo"));
     m_contextMenu->Append(wxID_REDO, _("&Redo"));
     m_contextMenu->AppendSeparator();
@@ -338,7 +338,7 @@ bool wxRichTextCtrl::Create( wxWindow* parent, wxWindowID id, const wxString& va
     m_contextMenu->Append(wxID_RICHTEXT_PROPERTIES1, _("&Properties"));
 
 #if wxUSE_DRAG_AND_DROP
-    SetDropTarget(new wxRichTextDropTarget(this));
+    SetDropTarget(NEW_DEBUG wxRichTextDropTarget(this));
 #endif
     SetModified( false );
     return true;
@@ -847,16 +847,16 @@ void wxRichTextCtrl::OnMoveMouse(wxMouseEvent& event)
             long oldPos = GetCaretPosition();
             wxRichTextParagraphLayoutBox* oldFocus = GetFocusObject();
 
-            wxDataObjectComposite* compositeObject = new wxDataObjectComposite();
+            wxDataObjectComposite* compositeObject = NEW_DEBUG wxDataObjectComposite();
             wxString text = GetFocusObject()->GetTextForRange(range);
 #ifdef __WXMSW__
             text = wxTextFile::Translate(text, wxTextFileType_Dos);
 #endif
-            compositeObject->Add(new wxTextDataObject(text), false /* not preferred */);
+            compositeObject->Add(NEW_DEBUG wxTextDataObject(text), false /* not preferred */);
 
-            wxRichTextBuffer* richTextBuf = new wxRichTextBuffer;
+            wxRichTextBuffer* richTextBuf = NEW_DEBUG wxRichTextBuffer;
             GetFocusObject()->CopyFragment(range, *richTextBuf);
-            compositeObject->Add(new wxRichTextBufferDataObject(richTextBuf), true /* preferred */);
+            compositeObject->Add(NEW_DEBUG wxRichTextBufferDataObject(richTextBuf), true /* preferred */);
 
             wxRichTextDropSource source(*compositeObject, this);
             // Use wxDrag_DefaultMove, not because it's the likelier choice but because pressing Ctrl for Copy obeys the principle of least surprise
@@ -1554,12 +1554,12 @@ bool wxRichTextCtrl::ProcessBackKey(wxKeyEvent& event, int flags)
         wxRichTextParagraph* newPara = wxDynamicCast(para->Clone(), wxRichTextParagraph);
         newPara->GetAttributes().SetBulletStyle(newPara->GetAttributes().GetBulletStyle() | wxTEXT_ATTR_BULLET_STYLE_CONTINUATION);
 
-        wxRichTextAction* action = new wxRichTextAction(NULL, _("Remove Bullet"), wxRICHTEXT_CHANGE_STYLE, & GetBuffer(), GetFocusObject(), this);
+        wxRichTextAction* action = NEW_DEBUG wxRichTextAction(NULL, _("Remove Bullet"), wxRICHTEXT_CHANGE_STYLE, & GetBuffer(), GetFocusObject(), this);
         action->SetRange(newPara->GetRange());
         action->SetPosition(GetCaretPosition());
         action->GetNewParagraphs().AppendChild(newPara);
         // Also store the old ones for Undo
-        action->GetOldParagraphs().AppendChild(new wxRichTextParagraph(*para));
+        action->GetOldParagraphs().AppendChild(NEW_DEBUG wxRichTextParagraph(*para));
 
         GetBuffer().Invalidate(para->GetRange());
         GetBuffer().SubmitAction(action);
@@ -1650,7 +1650,7 @@ bool wxRichTextCtrl::DeleteSelectedContent(long* newPos)
         wxRichTextRange range = m_selection.GetRange();
 
         // SelectAll causes more to be selected than doing it interactively,
-        // and causes a new paragraph to be inserted. So for multiline buffers,
+        // and causes a NEW_DEBUG paragraph to be inserted. So for multiline buffers,
         // don't delete the final position.
         if (range.GetEnd() == GetLastPosition() && GetNumberOfLines() > 0)
             range.SetEnd(range.GetEnd()-1);
@@ -2157,7 +2157,7 @@ bool wxRichTextCtrl::MoveRight(int noPositions, int flags)
                     }
                 }
 
-                // If the new container is a cell, go to the top or bottom of it.
+                // If the NEW_DEBUG container is a cell, go to the top or bottom of it.
                 if (actualContainer->IsKindOf(CLASSINFO(wxRichTextCell)))
                 {
                     if (beyondBottom)
@@ -2296,7 +2296,7 @@ bool wxRichTextCtrl::MoveDown(int noLines, int flags)
     if (notInThisObject)
     {
         // If we know we're navigating out of the current object,
-        // try to find an object anywhere in the buffer at the new position (up or down a bit)
+        // try to find an object anywhere in the buffer at the NEW_DEBUG position (up or down a bit)
         container = & GetBuffer();
         hitTestFlags &= ~wxRICHTEXT_HITTEST_NO_NESTED_OBJECTS;
 
@@ -3099,7 +3099,7 @@ bool wxRichTextCtrl::DoSaveFile(const wxString& filename, int fileType)
 // wxRichTextCtrl specific functionality
 // ----------------------------------------------------------------------------
 
-/// Add a new paragraph of text to the end of the buffer
+/// Add a NEW_DEBUG paragraph of text to the end of the buffer
 wxRichTextRange wxRichTextCtrl::AddParagraph(const wxString& text)
 {
     wxRichTextRange range = GetFocusObject()->AddParagraph(text);
@@ -3393,7 +3393,7 @@ bool wxRichTextCtrl::WriteImage(const wxBitmap& bitmap, wxBitmapType bitmapType,
 // Write a text box at the current insertion point.
 wxRichTextBox* wxRichTextCtrl::WriteTextBox(const wxRichTextAttr& textAttr)
 {
-    wxRichTextBox* textBox = new wxRichTextBox;
+    wxRichTextBox* textBox = NEW_DEBUG wxRichTextBox;
     textBox->SetAttributes(textAttr);
     textBox->SetParent(& GetBuffer()); // set parent temporarily for AddParagraph to use correct style
     textBox->AddParagraph(wxEmptyString);
@@ -3427,7 +3427,7 @@ wxRichTextTable* wxRichTextCtrl::WriteTable(int rows, int cols, const wxRichText
     if (rows <= 0 || cols <= 0)
         return NULL;
 
-    wxRichTextTable* table = new wxRichTextTable;
+    wxRichTextTable* table = NEW_DEBUG wxRichTextTable;
     table->SetAttributes(tableAttr);
     table->SetParent(& GetBuffer()); // set parent temporarily for AddParagraph to use correct style
     table->SetBasicStyle(GetBasicStyle());

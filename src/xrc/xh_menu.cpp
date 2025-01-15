@@ -35,7 +35,7 @@ wxObject *wxMenuXmlHandler::DoCreateResource()
     if (m_class == wxT("wxMenu"))
     {
         wxMenu *menu = m_instance ? wxStaticCast(m_instance, wxMenu)
-                                  : new wxMenu(GetStyle());
+                                  : NEW_DEBUG wxMenu(GetStyle());
 
         wxString title = GetText(wxT("label"));
         wxString help = GetText(wxT("help"));
@@ -111,7 +111,7 @@ wxObject *wxMenuXmlHandler::DoCreateResource()
                 kind = wxITEM_CHECK;
             }
 
-            wxMenuItem *mitem = new wxMenuItem(p_menu, id, label,
+            wxMenuItem *mitem = NEW_DEBUG wxMenuItem(p_menu, id, label,
                                                GetText(wxT("help")), kind);
 #if wxUSE_ACCEL
             if (!extraAccels.empty())
@@ -200,7 +200,7 @@ wxObject *wxMenuBarXmlHandler::DoCreateResource()
     if ( m_instance )
         menubar = wxDynamicCast(m_instance, wxMenuBar);
     if ( !menubar )
-        menubar = new wxMenuBar(style);
+        menubar = NEW_DEBUG wxMenuBar(style);
 
     CreateChildren(menubar);
 

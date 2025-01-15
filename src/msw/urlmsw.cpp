@@ -190,7 +190,7 @@ wxWinINetInputStream::wxWinINetInputStream(HINTERNET hFile)
 void wxWinINetInputStream::Attach(HINTERNET newHFile)
 {
     wxCHECK_RET(m_hFile==NULL,
-        wxT("cannot attach new stream when stream already exists"));
+        wxT("cannot attach NEW_DEBUG stream when stream already exists"));
     m_hFile=newHFile;
     SetError(m_hFile!=NULL ? wxSTREAM_NO_ERROR : wxSTREAM_READ_ERROR);
 }
@@ -206,7 +206,7 @@ wxWinINetInputStream::~wxWinINetInputStream()
 
 wxURLNativeImp *wxURL::CreateNativeImpObject()
 {
-    return new wxWinINetURL;
+    return NEW_DEBUG wxWinINetURL;
 }
 
 wxInputStream *wxWinINetURL::GetInputStream(wxURL *owner)
@@ -226,7 +226,7 @@ wxInputStream *wxWinINetURL::GetInputStream(wxURL *owner)
         return 0;
     }
 
-    wxWinINetInputStream *newStream = new wxWinINetInputStream;
+    wxWinINetInputStream *newStream = NEW_DEBUG wxWinINetInputStream;
     HINTERNET newStreamHandle = InternetOpenUrl
                                 (
                                     GetSessionHandle(),

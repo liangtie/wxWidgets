@@ -107,45 +107,45 @@ CPPUNIT_TEST_SUITE_NAMED_REGISTRATION( XmlTestCase, "XmlTestCase" );
 
 void XmlTestCase::InsertChild()
 {
-    wxScopedPtr<wxXmlNode> root(new wxXmlNode(wxXML_ELEMENT_NODE, "root"));
-    root->AddChild(new wxXmlNode(wxXML_ELEMENT_NODE, "1"));
-    wxXmlNode *two = new wxXmlNode(wxXML_ELEMENT_NODE, "2");
+    wxScopedPtr<wxXmlNode> root(NEW_DEBUG wxXmlNode(wxXML_ELEMENT_NODE, "root"));
+    root->AddChild(NEW_DEBUG wxXmlNode(wxXML_ELEMENT_NODE, "1"));
+    wxXmlNode *two = NEW_DEBUG wxXmlNode(wxXML_ELEMENT_NODE, "2");
     root->AddChild(two);
-    root->AddChild(new wxXmlNode(wxXML_ELEMENT_NODE, "3"));
+    root->AddChild(NEW_DEBUG wxXmlNode(wxXML_ELEMENT_NODE, "3"));
     CheckXml(root.get(), "1", "2", "3", NULL);
 
     // check inserting in front:
-    root->InsertChild(new wxXmlNode(wxXML_ELEMENT_NODE, "A"), NULL);
+    root->InsertChild(NEW_DEBUG wxXmlNode(wxXML_ELEMENT_NODE, "A"), NULL);
     CheckXml(root.get(), "A", "1", "2", "3", NULL);
-    root->InsertChild(new wxXmlNode(wxXML_ELEMENT_NODE, "B"), root->GetChildren());
+    root->InsertChild(NEW_DEBUG wxXmlNode(wxXML_ELEMENT_NODE, "B"), root->GetChildren());
     CheckXml(root.get(), "B", "A", "1", "2", "3", NULL);
 
     // and in the middle:
-    root->InsertChild(new wxXmlNode(wxXML_ELEMENT_NODE, "C"), two);
+    root->InsertChild(NEW_DEBUG wxXmlNode(wxXML_ELEMENT_NODE, "C"), two);
     CheckXml(root.get(), "B", "A", "1", "C", "2", "3", NULL);
 }
 
 void XmlTestCase::InsertChildAfter()
 {
-    wxScopedPtr<wxXmlNode> root(new wxXmlNode(wxXML_ELEMENT_NODE, "root"));
+    wxScopedPtr<wxXmlNode> root(NEW_DEBUG wxXmlNode(wxXML_ELEMENT_NODE, "root"));
 
-    root->InsertChildAfter(new wxXmlNode(wxXML_ELEMENT_NODE, "1"), NULL);
+    root->InsertChildAfter(NEW_DEBUG wxXmlNode(wxXML_ELEMENT_NODE, "1"), NULL);
     CheckXml(root.get(), "1", NULL);
 
-    wxXmlNode *two = new wxXmlNode(wxXML_ELEMENT_NODE, "2");
+    wxXmlNode *two = NEW_DEBUG wxXmlNode(wxXML_ELEMENT_NODE, "2");
     root->AddChild(two);
-    wxXmlNode *three = new wxXmlNode(wxXML_ELEMENT_NODE, "3");
+    wxXmlNode *three = NEW_DEBUG wxXmlNode(wxXML_ELEMENT_NODE, "3");
     root->AddChild(three);
     CheckXml(root.get(), "1", "2", "3", NULL);
 
     // check inserting in the middle:
-    root->InsertChildAfter(new wxXmlNode(wxXML_ELEMENT_NODE, "A"), root->GetChildren());
+    root->InsertChildAfter(NEW_DEBUG wxXmlNode(wxXML_ELEMENT_NODE, "A"), root->GetChildren());
     CheckXml(root.get(), "1", "A", "2", "3", NULL);
-    root->InsertChildAfter(new wxXmlNode(wxXML_ELEMENT_NODE, "B"), two);
+    root->InsertChildAfter(NEW_DEBUG wxXmlNode(wxXML_ELEMENT_NODE, "B"), two);
     CheckXml(root.get(), "1", "A", "2", "B", "3", NULL);
 
     // and at the end:
-    root->InsertChildAfter(new wxXmlNode(wxXML_ELEMENT_NODE, "C"), three);
+    root->InsertChildAfter(NEW_DEBUG wxXmlNode(wxXML_ELEMENT_NODE, "C"), three);
     CheckXml(root.get(), "1", "A", "2", "B", "3", "C", NULL);
 }
 
@@ -286,7 +286,7 @@ void XmlTestCase::Escaping()
 
     const char *xmlText =
 "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-"<root text=\"hello&#xD;&#xA;this is a new line\">\n"
+"<root text=\"hello&#xD;&#xA;this is a NEW_DEBUG line\">\n"
 "  <x/>\n"
 "</root>\n"
     ;
@@ -402,11 +402,11 @@ void XmlTestCase::AppendToProlog()
     CPPUNIT_ASSERT( rootdoc.Load(sis) );
     wxXmlNode *root = rootdoc.DetachRoot();
 
-    wxXmlNode *comment1 = new wxXmlNode(wxXML_COMMENT_NODE, "comment",
+    wxXmlNode *comment1 = NEW_DEBUG wxXmlNode(wxXML_COMMENT_NODE, "comment",
         " 1st prolog entry ");
-    wxXmlNode *pi = new wxXmlNode(wxXML_PI_NODE, "xml-stylesheet",
+    wxXmlNode *pi = NEW_DEBUG wxXmlNode(wxXML_PI_NODE, "xml-stylesheet",
         "href=\"style.css\" type=\"text/css\"");
-    wxXmlNode *comment2 = new wxXmlNode(wxXML_COMMENT_NODE, "comment",
+    wxXmlNode *comment2 = NEW_DEBUG wxXmlNode(wxXML_COMMENT_NODE, "comment",
         " 3rd prolog entry ");
 
     wxXmlDocument doc;
@@ -434,7 +434,7 @@ void XmlTestCase::SetRoot()
 {
     wxXmlDocument doc;
     CPPUNIT_ASSERT( !doc.IsOk() );
-    wxXmlNode *root = new wxXmlNode(wxXML_ELEMENT_NODE, "root");
+    wxXmlNode *root = NEW_DEBUG wxXmlNode(wxXML_ELEMENT_NODE, "root");
 
     // Test for the problem of https://github.com/wxWidgets/wxWidgets/issues/13135
     doc.SetRoot( root );
@@ -448,8 +448,8 @@ void XmlTestCase::SetRoot()
     doc.SetRoot(NULL); // Removes from doc but dosn't free mem, doc node left.
     CPPUNIT_ASSERT( !doc.IsOk() );
 
-    wxXmlNode *comment = new wxXmlNode(wxXML_COMMENT_NODE, "comment", "Prolog Comment");
-    wxXmlNode *pi = new wxXmlNode(wxXML_PI_NODE, "target", "PI instructions");
+    wxXmlNode *comment = NEW_DEBUG wxXmlNode(wxXML_COMMENT_NODE, "comment", "Prolog Comment");
+    wxXmlNode *pi = NEW_DEBUG wxXmlNode(wxXML_PI_NODE, "target", "PI instructions");
     doc.AppendToProlog(comment);
     doc.SetRoot( root );
     doc.AppendToProlog(pi);

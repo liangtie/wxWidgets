@@ -66,7 +66,7 @@ wx28HtmlParser::wx28HtmlParser()
     : wxObject(), m_HandlersHash(wxKEY_STRING),
       m_FS(NULL), m_HandlersStack(NULL)
 {
-    m_entitiesParser = new wx28HtmlEntitiesParser;
+    m_entitiesParser = NEW_DEBUG wx28HtmlEntitiesParser;
     m_Tags = NULL;
     m_CurTag = NULL;
     m_TextPieces = NULL;
@@ -125,7 +125,7 @@ void wx28HtmlParser::SetSource(const wxString& src)
 void wx28HtmlParser::CreateDOMTree()
 {
     wx28HtmlTagsCache cache(m_Source);
-    m_TextPieces = new wx28HtmlTextPieces;
+    m_TextPieces = NEW_DEBUG wx28HtmlTextPieces;
     CreateDOMSubTree(NULL, 0, m_Source.length(), &cache);
     m_CurTextPiece = 0;
 }
@@ -193,11 +193,11 @@ void wx28HtmlParser::CreateDOMSubTree(wx28HtmlTag *cur,
             {
                 wx28HtmlTag *chd;
                 if (cur)
-                    chd = new wx28HtmlTag(cur, m_Source,
+                    chd = NEW_DEBUG wx28HtmlTag(cur, m_Source,
                                         i, end_pos, cache, m_entitiesParser);
                 else
                 {
-                    chd = new wx28HtmlTag(NULL, m_Source,
+                    chd = NEW_DEBUG wx28HtmlTag(NULL, m_Source,
                                         i, end_pos, cache, m_entitiesParser);
                     if (!m_Tags)
                     {
@@ -349,10 +349,10 @@ void wx28HtmlParser::PushTagHandler(wx28HtmlTagHandler *handler, const wxString&
 
     if (m_HandlersStack == NULL)
     {
-        m_HandlersStack = new wxList;
+        m_HandlersStack = NEW_DEBUG wxList;
     }
 
-    m_HandlersStack->Insert((wxObject*)new wxHashTable(m_HandlersHash));
+    m_HandlersStack->Insert((wxObject*)NEW_DEBUG wxHashTable(m_HandlersHash));
 
     while (tokenizer.HasMoreTokens())
     {
@@ -384,7 +384,7 @@ void wx28HtmlParser::PopTagHandler()
 
 void wx28HtmlParser::SetSourceAndSaveState(const wxString& src)
 {
-    wx28HtmlParserState *s = new wx28HtmlParserState;
+    wx28HtmlParserState *s = NEW_DEBUG wx28HtmlParserState;
 
     s->m_curTag = m_CurTag;
     s->m_tags = m_Tags;
@@ -477,7 +477,7 @@ void wx28HtmlEntitiesParser::SetEncoding(wxFontEncoding encoding)
     if (m_encoding == wxFONTENCODING_SYSTEM)
         m_conv = NULL;
     else
-        m_conv = new wxCSConv(wxFontMapper::GetEncodingName(m_encoding));
+        m_conv = NEW_DEBUG wxCSConv(wxFontMapper::GetEncodingName(m_encoding));
 #else
     (void) encoding;
 #endif
@@ -919,10 +919,10 @@ bool wxMetaTagHandler::HandleTag(const wx28HtmlTag& tag)
 wxString wx28HtmlParser::ExtractCharsetInformation(const wxString& markup)
 {
     wxString charset;
-    wxMetaTagParser *parser = new wxMetaTagParser();
+    wxMetaTagParser *parser = NEW_DEBUG wxMetaTagParser();
     if(parser)
     {
-        parser->AddTagHandler(new wxMetaTagHandler(&charset));
+        parser->AddTagHandler(NEW_DEBUG wxMetaTagHandler(&charset));
         parser->Parse(markup);
         delete parser;
     }

@@ -44,7 +44,7 @@ static const char *TEST_XRC_FILE = "test.xrc";
 void LoadXrcFrom(const wxString& xrcText)
 {
     wxStringInputStream sis(xrcText);
-    wxScopedPtr<wxXmlDocument> xmlDoc(new wxXmlDocument(sis, "UTF-8"));
+    wxScopedPtr<wxXmlDocument> xmlDoc(NEW_DEBUG wxXmlDocument(sis, "UTF-8"));
     REQUIRE( xmlDoc->IsOk() );
 
     // Load the xrc we've just created
@@ -213,8 +213,8 @@ TEST_CASE_METHOD(XrcTestCase, "XRC::IDRanges", "[xrc]")
 
 TEST_CASE("XRC::PathWithFragment", "[xrc][uri]")
 {
-    wxXmlResource::Get()->AddHandler(new wxBitmapXmlHandler);
-    wxImage::AddHandler(new wxXPMHandler);
+    wxXmlResource::Get()->AddHandler(NEW_DEBUG wxBitmapXmlHandler);
+    wxImage::AddHandler(NEW_DEBUG wxXPMHandler);
 
     const wxString filename = "image#1.xpm";
     TempFile xpmFile(filename);
@@ -293,7 +293,7 @@ TEST_CASE("XRC::EnvVarInPath", "[xrc]")
 
     REQUIRE( handler.varIsSet );
 
-    wxXmlResourceHandlerImpl *impl = new wxXmlResourceHandlerImpl(&handler);
+    wxXmlResourceHandlerImpl *impl = NEW_DEBUG wxXmlResourceHandlerImpl(&handler);
     handler.SetImpl(impl);
 
     CHECK( impl->GetBitmap().IsOk() );

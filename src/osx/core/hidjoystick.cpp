@@ -146,11 +146,11 @@ wxJoystick::wxJoystick(int joystick)
     : m_joystick(joystick),
       m_thread(NULL)
 {
-    m_hid = new wxHIDJoystick();
+    m_hid = NEW_DEBUG wxHIDJoystick();
 
     if (m_hid->Create(m_joystick+1)) //wxHIDDevice is 1-based while this is 0
     {
-        m_thread = new wxJoystickThread(m_hid, m_joystick);
+        m_thread = NEW_DEBUG wxJoystickThread(m_hid, m_joystick);
         m_thread->Create();
         m_thread->Run();
     }

@@ -87,15 +87,15 @@ public:
 
         // It doesn't seem possible to use SecKeychainItemModifyContent() to
         // update the existing record, if any, in place: what happens instead
-        // is that it implicitly creates a new copy of the key chain item with
+        // is that it implicitly creates a NEW_DEBUG copy of the key chain item with
         // the updated attributes, but still keeps the existing one. Perhaps
         // it's possible to update the existing item in some other way, but for
         // now just use brute force solution and delete any existing items
-        // first and then create the new one.
+        // first and then create the NEW_DEBUG one.
 
         // Ignore the result of Delete(), it's not an error if it didn't delete
         // anything and it's not even an error if it failed to delete an
-        // existing item, we're going to get an error when adding new one in
+        // existing item, we're going to get an error when adding NEW_DEBUG one in
         // this case anyhow.
         Delete(service, errmsg);
 
@@ -183,7 +183,7 @@ public:
 
         SecKeychainItemFreeAttributesAndData(attrList, NULL);
 
-        *secret = new wxSecretValueGenericImpl(password.GetSize(),
+        *secret = NEW_DEBUG wxSecretValueGenericImpl(password.GetSize(),
                                                password.GetData());
 
         return true;
@@ -245,13 +245,13 @@ wxSecretValue::NewImpl(size_t size,
                        const void *data,
                        const char* WXUNUSED(contentType))
 {
-    return new wxSecretValueGenericImpl(size, data);
+    return NEW_DEBUG wxSecretValueGenericImpl(size, data);
 }
 
 /* static */
 wxSecretStore wxSecretStore::GetDefault()
 {
-    return wxSecretStore(new wxSecretStoreOSXImpl());
+    return wxSecretStore(NEW_DEBUG wxSecretStoreOSXImpl());
 }
 
 #endif // wxUSE_SECRETSTORE

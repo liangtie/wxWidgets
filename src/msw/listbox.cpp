@@ -70,7 +70,7 @@ private:
 
 wxOwnerDrawn *wxListBox::CreateLboxItem(size_t WXUNUSED(n))
 {
-    return new wxListBoxItem(this);
+    return NEW_DEBUG wxListBoxItem(this);
 }
 
 #endif  //USE_OWNER_DRAWN
@@ -404,7 +404,7 @@ int wxListBox::GetSelections(wxArrayInt& aSelections) const
         }
         else if ( countSel != 0 )
         {
-            int *selections = new int[countSel];
+            int *selections = NEW_DEBUG int[countSel];
 
             if ( ListBox_GetSelItems(GetHwnd(),
                                      countSel, selections) == LB_ERR )

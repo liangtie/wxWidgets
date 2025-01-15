@@ -79,7 +79,7 @@ bool wxMDIParentFrame::Create(wxWindow *parent,
     }
     else // normal case: we have the window menu, so construct it
     {
-        m_windowMenu = new wxMenu;
+        m_windowMenu = NEW_DEBUG wxMenu;
 
         m_windowMenu->Append(IDM_WINDOWCASCADE, wxT("&Cascade"));
         m_windowMenu->Append(IDM_WINDOWTILEHOR, wxT("Tile &Horizontally"));

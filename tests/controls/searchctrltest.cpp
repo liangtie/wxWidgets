@@ -23,7 +23,7 @@ class SearchCtrlTestCase
 {
 public:
     SearchCtrlTestCase()
-        : m_search(new wxSearchCtrl(wxTheApp->GetTopWindow(), wxID_ANY))
+        : m_search(NEW_DEBUG wxSearchCtrl(wxTheApp->GetTopWindow(), wxID_ANY))
     {
     }
 

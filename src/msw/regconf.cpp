@@ -670,7 +670,7 @@ bool wxRegConfig::RenameEntry(const wxString& oldName, const wxString& newName)
     if ( !HasEntry(oldName) )
         return false;
 
-    // and that the new one doesn't
+    // and that the NEW_DEBUG one doesn't
     if ( HasEntry(newName) )
         return false;
 
@@ -683,7 +683,7 @@ bool wxRegConfig::RenameGroup(const wxString& oldName, const wxString& newName)
     if ( !HasGroup(oldName) )
         return false;
 
-    // and that the new one doesn't
+    // and that the NEW_DEBUG one doesn't
     if ( HasGroup(newName) )
         return false;
 

@@ -66,7 +66,7 @@ wxAcceleratorTable::~wxAcceleratorTable()
 // Create from an array
 wxAcceleratorTable::wxAcceleratorTable(int n, const wxAcceleratorEntry entries[])
 {
-    m_refData = new wxAcceleratorRefData;
+    m_refData = NEW_DEBUG wxAcceleratorRefData;
 
     for (int i = 0; i < n; i++)
     {
@@ -74,7 +74,7 @@ wxAcceleratorTable::wxAcceleratorTable(int n, const wxAcceleratorEntry entries[]
         int keycode = entries[i].GetKeyCode();
         int command = entries[i].GetCommand();
         if ((keycode >= (int)'a') && (keycode <= (int)'z')) keycode = (int)toupper( (char)keycode );
-        M_ACCELDATA->m_accels.Append( new wxAcceleratorEntry( flag, keycode, command ) );
+        M_ACCELDATA->m_accels.Append( NEW_DEBUG wxAcceleratorEntry( flag, keycode, command ) );
     }
 }
 

@@ -52,7 +52,7 @@ CPPUNIT_TEST_SUITE_NAMED_REGISTRATION( HyperlinkCtrlTestCase, "HyperlinkCtrlTest
 
 void HyperlinkCtrlTestCase::setUp()
 {
-    m_hyperlink = new wxHyperlinkCtrl(wxTheApp->GetTopWindow(), wxID_ANY,
+    m_hyperlink = NEW_DEBUG wxHyperlinkCtrl(wxTheApp->GetTopWindow(), wxID_ANY,
                                      "wxWidgets", "http://wxwidgets.org");
 }
 

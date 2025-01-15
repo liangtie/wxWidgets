@@ -179,7 +179,7 @@ public:
                 {
                     // Register the event handlers
                     EventRegistrationToken activatedToken, dismissedToken, failedToken;
-                    m_toastEventHandler = new wxToastEventHandler(this);
+                    m_toastEventHandler = NEW_DEBUG wxToastEventHandler(this);
                     wxCOMPtr<wxToastEventHandler> eventHandler(m_toastEventHandler);
 
                     hr = m_toast->add_Activated(eventHandler, &activatedToken);
@@ -317,7 +317,7 @@ public:
         }
         else
         {
-            // Create new shortcut
+            // Create NEW_DEBUG shortcut
             if ( FAILED(shellLink->SetPath(wxStandardPaths::Get().GetExecutablePath().t_str())) )
                 return false;
             if ( FAILED(shellLink->SetArguments(wxT(""))) )
@@ -508,7 +508,7 @@ bool wxToastNotificationHelper::IsEnabled()
 wxNotificationMessageImpl* wxToastNotificationHelper::CreateInstance(wxNotificationMessageBase* notification)
 {
 #if wxUSE_NOTIFICATION_MESSAGE && wxUSE_WINRT
-    return new wxToastNotifMsgImpl(notification);
+    return NEW_DEBUG wxToastNotifMsgImpl(notification);
 #else
     wxUnusedVar(notification);
     return NULL;

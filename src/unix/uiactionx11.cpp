@@ -414,11 +414,11 @@ wxUIActionSimulatorImpl* wxUIActionSimulatorX11Impl::New()
     int dummy;
     if ( XTestQueryExtension(display, &dummy, &dummy, &dummy, &dummy) )
 #endif // wxUSE_PLAINX_IMPL
-        return new wxUIActionSimulatorXTestImpl(display);
+        return NEW_DEBUG wxUIActionSimulatorXTestImpl(display);
 #endif // wxUSE_XTEST
 
 #if wxUSE_PLAINX_IMPL
-    return new wxUIActionSimulatorPlainX11Impl(display);
+    return NEW_DEBUG wxUIActionSimulatorPlainX11Impl(display);
 #endif // wxUSE_PLAINX_IMPL
 }
 

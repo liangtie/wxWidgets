@@ -58,21 +58,21 @@ wxIMPLEMENT_DYNAMIC_CLASS(wxBrush,wxGDIObject);
 
 wxBrush::wxBrush( const wxColour &colour, wxBrushStyle style )
 {
-    m_refData = new wxBrushRefData();
+    m_refData = NEW_DEBUG wxBrushRefData();
     M_BRUSHDATA->m_style = style;
     M_BRUSHDATA->m_colour = colour;
 }
 
 wxBrush::wxBrush(const wxColour& col, int style)
 {
-    m_refData = new wxBrushRefData;
+    m_refData = NEW_DEBUG wxBrushRefData;
     M_BRUSHDATA->m_style = (wxBrushStyle)style;
     M_BRUSHDATA->m_colour = col;
 }
 
 wxBrush::wxBrush( const wxBitmap &stippleBitmap )
 {
-    m_refData = new wxBrushRefData();
+    m_refData = NEW_DEBUG wxBrushRefData();
     M_BRUSHDATA->m_colour = *wxBLACK;
 
     M_BRUSHDATA->m_stipple = stippleBitmap;
@@ -90,12 +90,12 @@ wxBrush::~wxBrush()
 
 wxGDIRefData *wxBrush::CreateGDIRefData() const
 {
-    return new wxBrushRefData;
+    return NEW_DEBUG wxBrushRefData;
 }
 
 wxGDIRefData *wxBrush::CloneGDIRefData(const wxGDIRefData *data) const
 {
-    return new wxBrushRefData(*(wxBrushRefData *)data);
+    return NEW_DEBUG wxBrushRefData(*(wxBrushRefData *)data);
 }
 
 bool wxBrush::operator == ( const wxBrush& brush ) const

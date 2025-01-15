@@ -77,7 +77,7 @@ void IntlTestCase::setUp()
 
     wxLocale::AddCatalogLookupPathPrefix("./intl");
 
-    m_locale = new wxLocale;
+    m_locale = NEW_DEBUG wxLocale;
     CPPUNIT_ASSERT( m_locale );
 
     // don't load default catalog, it may be unavailable:
@@ -208,7 +208,7 @@ void IntlTestCase::DateTimeFmtFrench()
 
 #ifdef __WXOSX__
     // Things are difficult to test under macOS as the format keeps changing,
-    // e.g. at some time between 10.10 and 10.12 a new " à " string appeared in
+    // e.g. at some time between 10.10 and 10.12 a NEW_DEBUG " à " string appeared in
     // its middle, so test it piece-wise and hope it doesn't change too much.
     CHECK( fmtDT.StartsWith("%A %d %B %Y") );
     CHECK( fmtDT.EndsWith("%H:%M:%S") );

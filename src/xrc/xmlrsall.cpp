@@ -19,200 +19,200 @@
 void wxXmlResource::InitAllHandlers()
 {
     // these are the handlers, which we always have
-    AddHandler(new wxUnknownWidgetXmlHandler);
-    AddHandler(new wxBitmapXmlHandler);
-    AddHandler(new wxIconXmlHandler);
-    AddHandler(new wxDialogXmlHandler);
-    AddHandler(new wxPanelXmlHandler);
-    AddHandler(new wxSizerXmlHandler);
-    AddHandler(new wxFrameXmlHandler);
-    AddHandler(new wxScrolledWindowXmlHandler);
+    AddHandler(NEW_DEBUG wxUnknownWidgetXmlHandler);
+    AddHandler(NEW_DEBUG wxBitmapXmlHandler);
+    AddHandler(NEW_DEBUG wxIconXmlHandler);
+    AddHandler(NEW_DEBUG wxDialogXmlHandler);
+    AddHandler(NEW_DEBUG wxPanelXmlHandler);
+    AddHandler(NEW_DEBUG wxSizerXmlHandler);
+    AddHandler(NEW_DEBUG wxFrameXmlHandler);
+    AddHandler(NEW_DEBUG wxScrolledWindowXmlHandler);
 
     // these are configurable handlers
     //
     // please keep them in alphabetical order of wxUSE_XXX guards
 #if wxUSE_ACTIVITYINDICATOR
-    AddHandler(new wxActivityIndicatorXmlHandler);
+    AddHandler(NEW_DEBUG wxActivityIndicatorXmlHandler);
 #endif
 #if wxUSE_ANIMATIONCTRL
-    AddHandler(new wxAnimationCtrlXmlHandler);
+    AddHandler(NEW_DEBUG wxAnimationCtrlXmlHandler);
 #endif
 #if wxUSE_BANNERWINDOW
-    AddHandler(new wxBannerWindowXmlHandler);
+    AddHandler(NEW_DEBUG wxBannerWindowXmlHandler);
 #endif
 #if wxUSE_BITMAPCOMBOBOX
-    AddHandler(new wxBitmapComboBoxXmlHandler);
+    AddHandler(NEW_DEBUG wxBitmapComboBoxXmlHandler);
 #endif
 #if wxUSE_BMPBUTTON
-    AddHandler(new wxBitmapButtonXmlHandler);
+    AddHandler(NEW_DEBUG wxBitmapButtonXmlHandler);
 #endif
 #if wxUSE_BOOKCTRL
-    AddHandler(new wxPropertySheetDialogXmlHandler);
+    AddHandler(NEW_DEBUG wxPropertySheetDialogXmlHandler);
 #endif
 #if wxUSE_BUTTON
-    AddHandler(new wxStdDialogButtonSizerXmlHandler);
-    AddHandler(new wxButtonXmlHandler);
+    AddHandler(NEW_DEBUG wxStdDialogButtonSizerXmlHandler);
+    AddHandler(NEW_DEBUG wxButtonXmlHandler);
 #endif
 #if wxUSE_CALENDARCTRL
-    AddHandler(new wxCalendarCtrlXmlHandler);
+    AddHandler(NEW_DEBUG wxCalendarCtrlXmlHandler);
 #endif
 #if wxUSE_CHECKBOX
-    AddHandler(new wxCheckBoxXmlHandler);
+    AddHandler(NEW_DEBUG wxCheckBoxXmlHandler);
 #endif
 #if wxUSE_CHECKLISTBOX
-    AddHandler(new wxCheckListBoxXmlHandler);
+    AddHandler(NEW_DEBUG wxCheckListBoxXmlHandler);
 #endif
 #if wxUSE_CHOICE
-    AddHandler(new wxChoiceXmlHandler);
+    AddHandler(NEW_DEBUG wxChoiceXmlHandler);
 #endif
 #if wxUSE_CHOICEBOOK
-    AddHandler(new wxChoicebookXmlHandler);
+    AddHandler(NEW_DEBUG wxChoicebookXmlHandler);
 #endif
 #if wxUSE_COLLPANE
-    AddHandler(new wxCollapsiblePaneXmlHandler);
+    AddHandler(NEW_DEBUG wxCollapsiblePaneXmlHandler);
 #endif
 #if wxUSE_COLOURPICKERCTRL
-    AddHandler(new wxColourPickerCtrlXmlHandler);
+    AddHandler(NEW_DEBUG wxColourPickerCtrlXmlHandler);
 #endif
 #if wxUSE_COMBOBOX
-    AddHandler(new wxComboBoxXmlHandler);
+    AddHandler(NEW_DEBUG wxComboBoxXmlHandler);
 #endif
 #if wxUSE_COMBOCTRL
-    AddHandler(new wxComboCtrlXmlHandler);
+    AddHandler(NEW_DEBUG wxComboCtrlXmlHandler);
 #endif
 #if wxUSE_COMMANDLINKBUTTON
-    AddHandler(new wxCommandLinkButtonXmlHandler);
+    AddHandler(NEW_DEBUG wxCommandLinkButtonXmlHandler);
 #endif
 #if wxUSE_DATAVIEWCTRL
-    AddHandler(new wxDataViewXmlHandler);
+    AddHandler(NEW_DEBUG wxDataViewXmlHandler);
 #endif
 #if wxUSE_DATEPICKCTRL
-    AddHandler(new wxDateCtrlXmlHandler);
+    AddHandler(NEW_DEBUG wxDateCtrlXmlHandler);
 #endif
 #if wxUSE_DIRDLG
-    AddHandler(new wxGenericDirCtrlXmlHandler);
+    AddHandler(NEW_DEBUG wxGenericDirCtrlXmlHandler);
 #endif
 #if wxUSE_DIRPICKERCTRL
-    AddHandler(new wxDirPickerCtrlXmlHandler);
+    AddHandler(NEW_DEBUG wxDirPickerCtrlXmlHandler);
 #endif
 #if wxUSE_EDITABLELISTBOX
-    AddHandler(new wxEditableListBoxXmlHandler);
+    AddHandler(NEW_DEBUG wxEditableListBoxXmlHandler);
 #endif
 #if wxUSE_FILECTRL
-    AddHandler(new wxFileCtrlXmlHandler);
+    AddHandler(NEW_DEBUG wxFileCtrlXmlHandler);
 #endif
 #if wxUSE_FILEPICKERCTRL
-    AddHandler(new wxFilePickerCtrlXmlHandler);
+    AddHandler(NEW_DEBUG wxFilePickerCtrlXmlHandler);
 #endif
 #if wxUSE_FONTPICKERCTRL
-    AddHandler(new wxFontPickerCtrlXmlHandler);
+    AddHandler(NEW_DEBUG wxFontPickerCtrlXmlHandler);
 #endif
 #if wxUSE_GAUGE
-    AddHandler(new wxGaugeXmlHandler);
+    AddHandler(NEW_DEBUG wxGaugeXmlHandler);
 #endif
 #if wxUSE_GRID
-    AddHandler( new wxGridXmlHandler);
+    AddHandler( NEW_DEBUG wxGridXmlHandler);
 #endif
 #if wxUSE_HTML
-    AddHandler(new wxHtmlWindowXmlHandler);
-    AddHandler(new wxSimpleHtmlListBoxXmlHandler);
+    AddHandler(NEW_DEBUG wxHtmlWindowXmlHandler);
+    AddHandler(NEW_DEBUG wxSimpleHtmlListBoxXmlHandler);
 #endif
 #if wxUSE_HYPERLINKCTRL
-    AddHandler( new wxHyperlinkCtrlXmlHandler);
+    AddHandler( NEW_DEBUG wxHyperlinkCtrlXmlHandler);
 #endif
 #if wxUSE_INFOBAR
-    AddHandler(new wxInfoBarXmlHandler);
+    AddHandler(NEW_DEBUG wxInfoBarXmlHandler);
 #endif
 #if wxUSE_LISTBOOK
-    AddHandler(new wxListbookXmlHandler);
+    AddHandler(NEW_DEBUG wxListbookXmlHandler);
 #endif
 #if wxUSE_LISTBOX
-    AddHandler(new wxListBoxXmlHandler);
+    AddHandler(NEW_DEBUG wxListBoxXmlHandler);
 #endif
 #if wxUSE_LISTCTRL
-    AddHandler(new wxListCtrlXmlHandler);
+    AddHandler(NEW_DEBUG wxListCtrlXmlHandler);
 #endif
 #if wxUSE_MDI
-    AddHandler(new wxMdiXmlHandler);
+    AddHandler(NEW_DEBUG wxMdiXmlHandler);
 #endif
 #if wxUSE_MENUS
-    AddHandler(new wxMenuXmlHandler);
+    AddHandler(NEW_DEBUG wxMenuXmlHandler);
 #if wxUSE_MENUBAR
-    AddHandler(new wxMenuBarXmlHandler);
+    AddHandler(NEW_DEBUG wxMenuBarXmlHandler);
 #endif
 #endif
 #if wxUSE_NOTEBOOK
-    AddHandler(new wxNotebookXmlHandler);
+    AddHandler(NEW_DEBUG wxNotebookXmlHandler);
 #endif
 #if wxUSE_ODCOMBOBOX
-    AddHandler(new wxOwnerDrawnComboBoxXmlHandler);
+    AddHandler(NEW_DEBUG wxOwnerDrawnComboBoxXmlHandler);
 #endif
 #if wxUSE_RADIOBOX
-    AddHandler(new wxRadioBoxXmlHandler);
+    AddHandler(NEW_DEBUG wxRadioBoxXmlHandler);
 #endif
 #if wxUSE_RADIOBTN
-    AddHandler(new wxRadioButtonXmlHandler);
+    AddHandler(NEW_DEBUG wxRadioButtonXmlHandler);
 #endif
 #if wxUSE_SCROLLBAR
-    AddHandler(new wxScrollBarXmlHandler);
+    AddHandler(NEW_DEBUG wxScrollBarXmlHandler);
 #endif
 #if wxUSE_SEARCHCTRL
-    AddHandler(new wxSearchCtrlXmlHandler);
+    AddHandler(NEW_DEBUG wxSearchCtrlXmlHandler);
 #endif
 #if wxUSE_BOOKCTRL
-    AddHandler(new wxSimplebookXmlHandler);
+    AddHandler(NEW_DEBUG wxSimplebookXmlHandler);
 #endif
 #if wxUSE_SLIDER
-    AddHandler(new wxSliderXmlHandler);
+    AddHandler(NEW_DEBUG wxSliderXmlHandler);
 #endif
 #if wxUSE_SPINBTN
-    AddHandler(new wxSpinButtonXmlHandler);
+    AddHandler(NEW_DEBUG wxSpinButtonXmlHandler);
 #endif
 #if wxUSE_SPINCTRL
-    AddHandler(new wxSpinCtrlXmlHandler);
-    AddHandler(new wxSpinCtrlDoubleXmlHandler);
+    AddHandler(NEW_DEBUG wxSpinCtrlXmlHandler);
+    AddHandler(NEW_DEBUG wxSpinCtrlDoubleXmlHandler);
 #endif
 #if wxUSE_SPLITTER
-    AddHandler(new wxSplitterWindowXmlHandler);
+    AddHandler(NEW_DEBUG wxSplitterWindowXmlHandler);
 #endif
 #if wxUSE_STATBMP
-    AddHandler(new wxStaticBitmapXmlHandler);
+    AddHandler(NEW_DEBUG wxStaticBitmapXmlHandler);
 #endif
 #if wxUSE_STATBOX
-    AddHandler(new wxStaticBoxXmlHandler);
+    AddHandler(NEW_DEBUG wxStaticBoxXmlHandler);
 #endif
 #if wxUSE_STATLINE
-    AddHandler(new wxStaticLineXmlHandler);
+    AddHandler(NEW_DEBUG wxStaticLineXmlHandler);
 #endif
 #if wxUSE_STATTEXT
-    AddHandler(new wxStaticTextXmlHandler);
+    AddHandler(NEW_DEBUG wxStaticTextXmlHandler);
 #endif
 #if wxUSE_STATUSBAR
-    AddHandler(new wxStatusBarXmlHandler);
+    AddHandler(NEW_DEBUG wxStatusBarXmlHandler);
 #endif
 #if wxUSE_TEXTCTRL
-    AddHandler(new wxTextCtrlXmlHandler);
+    AddHandler(NEW_DEBUG wxTextCtrlXmlHandler);
 #endif
 #if wxUSE_TOGGLEBTN
-    AddHandler(new wxToggleButtonXmlHandler);
+    AddHandler(NEW_DEBUG wxToggleButtonXmlHandler);
 #endif
 #if wxUSE_TIMEPICKCTRL
-    AddHandler(new wxTimeCtrlXmlHandler);
+    AddHandler(NEW_DEBUG wxTimeCtrlXmlHandler);
 #endif
 #if wxUSE_TOOLBAR
-    AddHandler(new wxToolBarXmlHandler);
+    AddHandler(NEW_DEBUG wxToolBarXmlHandler);
 #endif
 #if wxUSE_TOOLBOOK
-    AddHandler(new wxToolbookXmlHandler);
+    AddHandler(NEW_DEBUG wxToolbookXmlHandler);
 #endif
 #if wxUSE_TREEBOOK
-    AddHandler(new wxTreebookXmlHandler);
+    AddHandler(NEW_DEBUG wxTreebookXmlHandler);
 #endif
 #if wxUSE_TREECTRL
-    AddHandler(new wxTreeCtrlXmlHandler);
+    AddHandler(NEW_DEBUG wxTreeCtrlXmlHandler);
 #endif
 #if wxUSE_WIZARDDLG
-    AddHandler(new wxWizardXmlHandler);
+    AddHandler(NEW_DEBUG wxWizardXmlHandler);
 #endif
 }
 

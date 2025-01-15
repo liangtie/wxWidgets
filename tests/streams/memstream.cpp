@@ -93,13 +93,13 @@ const char *memStream::GetDataBuffer()
 
 wxMemoryInputStream *memStream::DoCreateInStream()
 {
-    wxMemoryInputStream *pMemInStream = new wxMemoryInputStream(GetDataBuffer(), DATABUFFER_SIZE);
+    wxMemoryInputStream *pMemInStream = NEW_DEBUG wxMemoryInputStream(GetDataBuffer(), DATABUFFER_SIZE);
     CPPUNIT_ASSERT(pMemInStream->IsOk());
     return pMemInStream;
 }
 wxMemoryOutputStream *memStream::DoCreateOutStream()
 {
-    wxMemoryOutputStream *pMemOutStream = new wxMemoryOutputStream();
+    wxMemoryOutputStream *pMemOutStream = NEW_DEBUG wxMemoryOutputStream();
     CPPUNIT_ASSERT(pMemOutStream->IsOk());
     return pMemOutStream;
 }
@@ -107,11 +107,11 @@ wxMemoryOutputStream *memStream::DoCreateOutStream()
 void memStream::Ctor_InFromIn()
 {
     wxMemoryInputStream *pMemInStream1 = DoCreateInStream();
-    wxMemoryInputStream *pMemInStream2 = new wxMemoryInputStream(*pMemInStream1);
+    wxMemoryInputStream *pMemInStream2 = NEW_DEBUG wxMemoryInputStream(*pMemInStream1);
     CPPUNIT_ASSERT(pMemInStream2->IsOk());
     CPPUNIT_ASSERT_EQUAL(pMemInStream1->GetLength(), pMemInStream2->GetLength());
     wxFileOffset len = pMemInStream2->GetLength();
-    char *dat = new char[len];
+    char *dat = NEW_DEBUG char[len];
     pMemInStream2->Read(dat, len);
     CPPUNIT_ASSERT_EQUAL(len, (wxFileOffset)pMemInStream2->LastRead());
     wxStreamBuffer *buf = pMemInStream1->GetInputStreamBuffer();
@@ -123,7 +123,7 @@ void memStream::Ctor_InFromIn()
     CPPUNIT_ASSERT(len2);
     CPPUNIT_ASSERT(pMemInStream1->SeekI(-len2, wxFromCurrent) != wxInvalidOffset);
     pIn = buf->GetBufferPos();
-    pMemInStream2 = new wxMemoryInputStream(*pMemInStream1, len2);
+    pMemInStream2 = NEW_DEBUG wxMemoryInputStream(*pMemInStream1, len2);
     CPPUNIT_ASSERT(pMemInStream2->IsOk());
     CPPUNIT_ASSERT_EQUAL((wxFileOffset)len2, pMemInStream2->GetLength());
     pMemInStream2->Read(dat, len2);
@@ -139,7 +139,7 @@ void memStream::Ctor_InFromOut()
 {
     wxMemoryOutputStream *pMemOutStream = DoCreateOutStream();
     pMemOutStream->Write(GetDataBuffer(), DATABUFFER_SIZE);
-    wxMemoryInputStream *pMemInStream = new wxMemoryInputStream(*pMemOutStream);
+    wxMemoryInputStream *pMemInStream = NEW_DEBUG wxMemoryInputStream(*pMemOutStream);
     CPPUNIT_ASSERT(pMemInStream->IsOk());
     CPPUNIT_ASSERT_EQUAL(pMemInStream->GetLength(), pMemOutStream->GetLength());
     size_t len = pMemInStream->GetLength();

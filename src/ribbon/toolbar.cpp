@@ -108,7 +108,7 @@ void wxRibbonToolBar::CommonInit(long WXUNUSED(style))
     m_active_tool = NULL;
     m_nrows_min = 1;
     m_nrows_max = 1;
-    m_sizes = new wxSize[1];
+    m_sizes = NEW_DEBUG wxSize[1];
     SetBackgroundStyle(wxBG_STYLE_PAINT);
 }
 
@@ -242,7 +242,7 @@ wxRibbonToolBarToolBase* wxRibbonToolBar::InsertTool(
     wxASSERT(bitmap.IsOk());
 
     // Create the wxRibbonToolBarToolBase with parameters
-    wxScopedPtr<wxRibbonToolBarToolBase> tool(new wxRibbonToolBarToolBase);
+    wxScopedPtr<wxRibbonToolBarToolBase> tool(NEW_DEBUG wxRibbonToolBarToolBase);
     tool->id = tool_id;
     tool->bitmap = bitmap;
     if(bitmap_disabled.IsOk())
@@ -311,7 +311,7 @@ wxRibbonToolBarToolBase* wxRibbonToolBar::InsertSeparator(size_t pos)
 
 wxRibbonToolBarToolGroup* wxRibbonToolBar::InsertGroup(size_t pos)
 {
-    wxRibbonToolBarToolGroup* group = new wxRibbonToolBarToolGroup;
+    wxRibbonToolBarToolGroup* group = NEW_DEBUG wxRibbonToolBarToolGroup;
     m_groups.Insert(group, pos);
     return group;
 }
@@ -564,7 +564,7 @@ wxBitmap wxRibbonToolBar::MakeDisabledBitmap(const wxBitmap& original)
 
 void wxRibbonToolBar::AppendGroup()
 {
-    wxRibbonToolBarToolGroup* group = new wxRibbonToolBarToolGroup;
+    wxRibbonToolBarToolGroup* group = NEW_DEBUG wxRibbonToolBarToolGroup;
     m_groups.Add(group);
 }
 
@@ -760,7 +760,7 @@ void wxRibbonToolBar::SetRows(int nMin, int nMax)
     m_nrows_max = nMax;
 
     delete[] m_sizes;
-    m_sizes = new wxSize[m_nrows_max - m_nrows_min + 1];
+    m_sizes = NEW_DEBUG wxSize[m_nrows_max - m_nrows_min + 1];
 
     Realize();
 }
@@ -817,7 +817,7 @@ bool wxRibbonToolBar::Realize()
     int nrows, r;
     int sep = m_art->GetMetric(wxRIBBON_ART_TOOL_GROUP_SEPARATION_SIZE);
     int smallest_area = INT_MAX;
-    wxSize* row_sizes = new wxSize[m_nrows_max];
+    wxSize* row_sizes = NEW_DEBUG wxSize[m_nrows_max];
     wxOrientation major_axis = m_art->GetFlags() & wxRIBBON_BAR_FLOW_VERTICAL ?
         wxVERTICAL : wxHORIZONTAL;
 
@@ -931,7 +931,7 @@ void wxRibbonToolBar::OnSize(wxSizeEvent& evt)
     }
 
     // Assign groups to rows and calculate row widths
-    wxSize* row_sizes = new wxSize[row_count];
+    wxSize* row_sizes = NEW_DEBUG wxSize[row_count];
     int sep = m_art->GetMetric(wxRIBBON_ART_TOOL_GROUP_SEPARATION_SIZE);
 
     int r;
@@ -957,7 +957,7 @@ void wxRibbonToolBar::OnSize(wxSizeEvent& evt)
     for(r = 0; r < row_count; ++r)
         total_height += row_sizes[r].GetHeight();
     int rowsep = (size.GetHeight() - total_height) / (row_count + 1);
-    int* rowypos = new int[row_count];
+    int* rowypos = NEW_DEBUG int[row_count];
     rowypos[0] = rowsep;
     for(r = 1; r < row_count; ++r)
     {

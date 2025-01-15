@@ -82,7 +82,7 @@ bool wxSpinButton::Create(wxWindow *parent,
             long style,
             const wxString& name)
 {
-    m_qtSpinBox = new wxQtSpinButton( parent, this );
+    m_qtSpinBox = NEW_DEBUG wxQtSpinButton( parent, this );
 
     m_qtSpinBox->setRange(wxSpinButtonBase::GetMin(), wxSpinButtonBase::GetMax());
 

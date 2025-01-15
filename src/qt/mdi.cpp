@@ -61,7 +61,7 @@ bool wxMDIParentFrame::Create(wxWindow *parent,
             long style,
             const wxString& name)
 {
-    m_qtWindow = new wxQtMDIParentFrame( parent, this );
+    m_qtWindow = NEW_DEBUG wxQtMDIParentFrame( parent, this );
 
     if (!wxFrameBase::Create( parent, id, title, pos, size, style, name ))
         return false;
@@ -140,7 +140,7 @@ wxMDIClientWindow::wxMDIClientWindow()
 bool wxMDIClientWindow::CreateClient(wxMDIParentFrame *parent, long WXUNUSED(style))
 {
     // create the MDI client area where the children window are displayed:
-    m_qtWindow = new wxQtMdiArea( parent, this );
+    m_qtWindow = NEW_DEBUG wxQtMdiArea( parent, this );
     return true;
 }
 

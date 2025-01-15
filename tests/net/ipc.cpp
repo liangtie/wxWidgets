@@ -100,7 +100,7 @@ public:
 #endif // wxUSE_SOCKETS_FOR_IPC
 
         // we need event dispatching to work for IPC server to work
-        m_thread = new EventThread;
+        m_thread = NEW_DEBUG EventThread;
 
         Create(IPC_TEST_PORT);
     }
@@ -124,7 +124,7 @@ public:
         if ( topic != IPC_TEST_TOPIC )
             return NULL;
 
-        m_conn = new IPCTestConnection;
+        m_conn = NEW_DEBUG IPCTestConnection;
         return m_conn;
     }
 
@@ -214,8 +214,8 @@ CPPUNIT_TEST_SUITE_NAMED_REGISTRATION( IPCTestCase, "IPCTestCase" );
 
 void IPCTestCase::Connect()
 {
-    gs_server = new IPCTestServer;
-    gs_client = new IPCTestClient;
+    gs_server = NEW_DEBUG IPCTestServer;
+    gs_client = NEW_DEBUG IPCTestClient;
 
     // connecting to the wrong port should fail
     CPPUNIT_ASSERT( !gs_client->Connect("localhost", "2424", IPC_TEST_TOPIC) );

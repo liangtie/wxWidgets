@@ -49,7 +49,7 @@ bool wxScrollBar::Create( wxWindow *parent, wxWindowID id,
        const wxValidator& validator,
        const wxString& name)
 {
-    m_qtScrollBar = new wxQtScrollBar( parent, this );
+    m_qtScrollBar = NEW_DEBUG wxQtScrollBar( parent, this );
     m_qtScrollBar->setOrientation( wxQtConvertOrientation( style, wxSB_HORIZONTAL ));
 
     return QtCreateControl( parent, id, pos, size, style, validator, name );

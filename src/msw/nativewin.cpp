@@ -45,7 +45,7 @@ wxNativeWindow::Create(wxWindow* parent,
 
     const wxRect r = wxRectFromRECT(wxGetWindowRect(hwnd));
 
-    // Skip wxWindow::Create() which would try to create a new HWND, we don't
+    // Skip wxWindow::Create() which would try to create a NEW_DEBUG HWND, we don't
     // want this as we already have one.
     if ( !CreateBase(parent, winid,
                      r.GetPosition(), r.GetSize(),
@@ -58,7 +58,7 @@ wxNativeWindow::Create(wxWindow* parent,
 
     if ( winid == wxID_ANY )
     {
-        // We allocated a new ID to the control, use it at Windows level as
+        // We allocated a NEW_DEBUG ID to the control, use it at Windows level as
         // well because we assume that our and MSW IDs are the same in many
         // places and it seems prudent to avoid breaking this assumption.
         SetId(GetId());

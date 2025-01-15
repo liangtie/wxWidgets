@@ -54,7 +54,7 @@ CPPUNIT_TEST_SUITE_NAMED_REGISTRATION( BitmapToggleButtonTestCase,
 
 void BitmapToggleButtonTestCase::setUp()
 {
-    m_button = new wxBitmapToggleButton(wxTheApp->GetTopWindow(), wxID_ANY,
+    m_button = NEW_DEBUG wxBitmapToggleButton(wxTheApp->GetTopWindow(), wxID_ANY,
                                         wxArtProvider::GetIcon(wxART_INFORMATION,
                                                                wxART_OTHER,
                                                                wxSize(32, 32)));

@@ -121,13 +121,13 @@ TEST_CASE("BitmapTestCase::Mask", "[bitmap][mask]")
         dc.DrawLine(10, 0, 0, 10);
     }
 
-    wxMask *mask = new wxMask(bmp, *wxBLACK);
+    wxMask *mask = NEW_DEBUG wxMask(bmp, *wxBLACK);
     bmp.SetMask(mask);
     REQUIRE(bmp.GetMask() == mask);
 
     // copying masks should work
     wxMask *mask2 = NULL;
-    REQUIRE_NOTHROW(mask2 = new wxMask(*mask));
+    REQUIRE_NOTHROW(mask2 = NEW_DEBUG wxMask(*mask));
     bmp.SetMask(mask2);
     REQUIRE(bmp.GetMask() == mask2);
 }
@@ -196,7 +196,7 @@ TEST_CASE("BitmapTestCase::ToImage", "[bitmap][image][convertto]")
             dc.SetBrush(*wxWHITE_BRUSH);
             dc.DrawRectangle(4, 4, 8, 8);
         }
-        bmp.SetMask(new wxMask(bmask));
+        bmp.SetMask(NEW_DEBUG wxMask(bmask));
         REQUIRE_FALSE(bmp.HasAlpha());
         REQUIRE(bmp.GetMask() != NULL);
         const int numUnmaskedPixels = 8 * 8;
@@ -381,7 +381,7 @@ TEST_CASE("BitmapTestCase::ToImage", "[bitmap][image][convertto]")
             dc.SetBrush(*wxWHITE_BRUSH);
             dc.DrawRectangle(4, 4, 8, 8);
         }
-        bmp.SetMask(new wxMask(bmask));
+        bmp.SetMask(NEW_DEBUG wxMask(bmask));
         REQUIRE(bmp.HasAlpha() == true);
         REQUIRE(bmp.GetMask() != NULL);
         const int numUnmaskedPixels = 8 * 8;
@@ -738,7 +738,7 @@ TEST_CASE("BitmapTestCase::DrawNonAlphaWithMask", "[bitmap][draw][nonalpha][with
     }
     REQUIRE_FALSE(bmp.HasAlpha());
     REQUIRE(bmp.GetMask() == NULL);
-    bmp.SetMask(new wxMask(bmask));
+    bmp.SetMask(NEW_DEBUG wxMask(bmask));
     REQUIRE_FALSE(bmp.HasAlpha());
     REQUIRE(bmp.GetMask() != NULL);
 
@@ -967,7 +967,7 @@ TEST_CASE("BitmapTestCase::DrawAlphaWithMask", "[bitmap][draw][alpha][withmask]"
     }
     REQUIRE(bmp.HasAlpha());
     REQUIRE(bmp.GetMask() == NULL);
-    bmp.SetMask(new wxMask(bmask));
+    bmp.SetMask(NEW_DEBUG wxMask(bmask));
     REQUIRE(bmp.HasAlpha());
     REQUIRE(bmp.GetMask() != NULL);
 
@@ -1227,7 +1227,7 @@ TEST_CASE("BitmapTestCase::SubBitmapNonAlphaWithMask", "[bitmap][subbitmap][nona
     }
     REQUIRE_FALSE(bmp.HasAlpha());
     REQUIRE(bmp.GetMask() == NULL);
-    bmp.SetMask(new wxMask(bmpMask));
+    bmp.SetMask(NEW_DEBUG wxMask(bmpMask));
     REQUIRE_FALSE(bmp.HasAlpha());
     REQUIRE(bmp.GetMask() != NULL);
 
@@ -1429,7 +1429,7 @@ TEST_CASE("BitmapTestCase::SubBitmapAlphaWithMask", "[bitmap][subbitmap][alpha][
     }
     REQUIRE(bmp.HasAlpha());
     REQUIRE(!bmp.GetMask());
-    bmp.SetMask(new wxMask(bmpMask));
+    bmp.SetMask(NEW_DEBUG wxMask(bmpMask));
     REQUIRE(bmp.HasAlpha());
     REQUIRE(bmp.GetMask());
 

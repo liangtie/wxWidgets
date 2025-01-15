@@ -98,7 +98,7 @@ TreeListCtrlTestCase::AddItem(const char *label,
 
 void TreeListCtrlTestCase::Create(long style)
 {
-    m_treelist = new wxTreeListCtrl(wxTheApp->GetTopWindow(),
+    m_treelist = NEW_DEBUG wxTreeListCtrl(wxTheApp->GetTopWindow(),
                                     wxID_ANY,
                                     wxDefaultPosition,
                                     wxSize(400, 200),

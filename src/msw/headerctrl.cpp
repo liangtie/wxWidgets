@@ -86,7 +86,7 @@ public:
     wxArrayInt GetColumnsOrder() const;
 
 protected:
-    // override wxWindow methods which must be implemented by a new control
+    // override wxWindow methods which must be implemented by a NEW_DEBUG control
     virtual wxSize DoGetBestSize() const override;
     virtual void DoSetSize(int x, int y,
                            int width, int height,
@@ -99,7 +99,7 @@ protected:
     void WXHandleDPIChanged(wxDPIChangedEvent& event);
 
 private:
-    // override MSW-specific methods needed for new control
+    // override MSW-specific methods needed for NEW_DEBUG control
     virtual WXDWORD MSWGetStyle(long style, WXDWORD *exstyle) const override;
     virtual bool MSWOnNotify(int idCtrl, WXLPARAM lParam, WXLPARAM *result) override;
 
@@ -211,7 +211,7 @@ bool wxMSWHeaderCtrl::Create(wxWindow *parent,
         // which calls SetFont() from InheritAttributes(), so don't recreate it
         // in this case.
         if ( !m_customDraw )
-            m_customDraw.reset(new wxMSWHeaderCtrlCustomDraw());
+            m_customDraw.reset(NEW_DEBUG wxMSWHeaderCtrlCustomDraw());
         m_customDraw->UseHeaderThemeColors(GetHwnd());
     }
 
@@ -358,7 +358,7 @@ void wxMSWHeaderCtrl::SetCount(unsigned int count)
     // update the column indices order array before changing m_numColumns
     m_header.DoResizeColumnIndices(m_colIndices, count);
 
-    // and add the new ones
+    // and add the NEW_DEBUG ones
     m_numColumns = count;
     m_isHidden.resize(m_numColumns);
     for ( n = 0; n < count; n++ )
@@ -383,7 +383,7 @@ void wxMSWHeaderCtrl::UpdateHeader(unsigned int idx)
     // to use it because it sends HDN_ITEMCHANGING messages and we'd have to
     // arrange not to block setting the width from there and the logic would be
     // more complicated as we'd have to reset the old values as well as setting
-    // the new ones -- so instead just recreate the column
+    // the NEW_DEBUG ones -- so instead just recreate the column
 
     const wxHeaderColumn& col = m_header.GetColumn(idx);
     if ( col.IsHidden() )
@@ -441,7 +441,7 @@ void wxMSWHeaderCtrl::DoInsertItem(const wxHeaderColumn& col, unsigned int idx)
         if ( !m_imageList )
         {
             bmpSize = bb.GetPreferredBitmapSizeFor(this);
-            m_imageList.reset(new wxImageList(bmpSize.x, bmpSize.y));
+            m_imageList.reset(NEW_DEBUG wxImageList(bmpSize.x, bmpSize.y));
             (void) // suppress mingw32 warning about unused computed value
             Header_SetImageList(GetHwnd(), GetHimagelistOf(m_imageList));
         }
@@ -651,7 +651,7 @@ wxMSWHeaderCtrlCustomDraw* wxMSWHeaderCtrl::GetCustomDraw()
     {
         // We do have at least one custom colour, so enable custom drawing.
         if ( !m_customDraw )
-            m_customDraw.reset(new wxMSWHeaderCtrlCustomDraw());
+            m_customDraw.reset(NEW_DEBUG wxMSWHeaderCtrlCustomDraw());
     }
 
     return m_customDraw.get();
@@ -1026,7 +1026,7 @@ bool wxHeaderCtrl::Create(wxWindow *parent,
     if ( !wxWindow::Create(parent, id, pos, size, newStyle, name) )
         return false;
 
-    m_nativeControl = new wxMSWHeaderCtrl(*this);
+    m_nativeControl = NEW_DEBUG wxMSWHeaderCtrl(*this);
     if ( !m_nativeControl->Create(this,
                                   wxID_ANY,
                                   wxDefaultPosition,

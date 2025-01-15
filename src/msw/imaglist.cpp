@@ -187,7 +187,7 @@ wxImageList::GetImageListBitmaps(wxMSWBitmaps& bitmaps,
         {
             // Explicitly specified mask overrides the mask associated with the
             // bitmap, if any.
-            bmp.SetMask(new wxMask(mask));
+            bmp.SetMask(NEW_DEBUG wxMask(mask));
         }
 
         if ( bmp.GetMask() )
@@ -201,7 +201,7 @@ wxImageList::GetImageListBitmaps(wxMSWBitmaps& bitmaps,
             // Create the mask from the default transparent colour if we have
             // nothing else.
             if ( !bmp.HasAlpha() )
-                bmp.SetMask(new wxMask(bmp, GetDefaultMaskColour()));
+                bmp.SetMask(NEW_DEBUG wxMask(bmp, GetDefaultMaskColour()));
         }
         else if ( !bmp.HasAlpha() )
         {
@@ -295,7 +295,7 @@ wxImageList::GetImageListBitmaps(wxMSWBitmaps& bitmaps,
 }
 
 // Adds a bitmap, and optionally a mask bitmap.
-// Note that wxImageList creates new bitmaps, so you may delete
+// Note that wxImageList creates NEW_DEBUG bitmaps, so you may delete
 // 'bitmap' and 'mask'.
 int wxImageList::Add(const wxBitmap& bitmap, const wxBitmap& mask)
 {
@@ -312,7 +312,7 @@ int wxImageList::Add(const wxBitmap& bitmap, const wxBitmap& mask)
 }
 
 // Adds a bitmap, using the specified colour to create the mask bitmap
-// Note that wxImageList creates new bitmaps, so you may delete
+// Note that wxImageList creates NEW_DEBUG bitmaps, so you may delete
 // 'bitmap'.
 int wxImageList::Add(const wxBitmap& bitmap, const wxColour& maskColour)
 {
@@ -342,7 +342,7 @@ int wxImageList::Add(const wxIcon& icon)
 }
 
 // Replaces a bitmap, optionally passing a mask bitmap.
-// Note that wxImageList creates new bitmaps, so you may delete
+// Note that wxImageList creates NEW_DEBUG bitmaps, so you may delete
 // 'bitmap' and 'mask'.
 bool wxImageList::Replace(int index,
                           const wxBitmap& bitmap,

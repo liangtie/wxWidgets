@@ -241,7 +241,7 @@ struct wxMSWCommandLineArguments
         argc = args.size();
 
         // +1 here for the terminating NULL
-        argv = new wxChar *[argc + 1];
+        argv = NEW_DEBUG wxChar *[argc + 1];
         for ( int i = 0; i < argc; i++ )
         {
             argv[i] = wxStrdup(args[i].t_str());

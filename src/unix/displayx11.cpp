@@ -80,7 +80,7 @@ class wxDisplayFactorySingleX11 : public wxDisplayFactorySingle
 protected:
     virtual wxDisplayImpl *CreateSingleDisplay()
     {
-        return new wxDisplayImplSingleX11;
+        return NEW_DEBUG wxDisplayImplSingleX11;
     }
 };
 
@@ -206,7 +206,7 @@ wxDisplayImpl *wxDisplayFactoryX11::CreateDisplay(unsigned n)
 {
     ScreensInfo screens;
 
-    return n < screens.GetCount() ? new wxDisplayImplX11(n, screens[n]) : NULL;
+    return n < screens.GetCount() ? NEW_DEBUG wxDisplayImplX11(n, screens[n]) : NULL;
 }
 
 // ============================================================================
@@ -268,10 +268,10 @@ bool wxDisplayImplX11::ChangeMode(const wxVideoMode& WXUNUSED(mode))
 {
 #if wxUSE_DISPLAY
     if ( XineramaIsActive((Display*)wxGetDisplay()) )
-        return new wxDisplayFactoryX11;
+        return NEW_DEBUG wxDisplayFactoryX11;
 #endif // wxUSE_DISPLAY
 
-    return new wxDisplayFactorySingleX11;
+    return NEW_DEBUG wxDisplayFactorySingleX11;
 }
 
 wxRect wxGetMainScreenWorkArea()

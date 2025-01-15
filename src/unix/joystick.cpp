@@ -201,7 +201,7 @@ wxJoystick::wxJoystick(int joystick)
     dev_name.Printf( wxT("/dev/js%d"), joystick);
     m_device = open(dev_name.fn_str(), O_RDONLY);
 
-    // new /dev structure with "input" subdirectory
+    // NEW_DEBUG /dev structure with "input" subdirectory
     if (m_device == -1)
     {
         dev_name.Printf( wxT("/dev/input/js%d"), joystick);
@@ -210,7 +210,7 @@ wxJoystick::wxJoystick(int joystick)
 
     if (m_device != -1)
     {
-        m_thread = new wxJoystickThread(m_device, m_joystick);
+        m_thread = NEW_DEBUG wxJoystickThread(m_device, m_joystick);
         m_thread->Create();
         m_thread->Run();
     }

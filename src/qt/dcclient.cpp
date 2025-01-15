@@ -55,7 +55,7 @@ wxWindowDCImpl::wxWindowDCImpl( wxDC *owner )
 {
     m_window = NULL;
     m_ok = false;
-    m_qtPainter = new QPainter();
+    m_qtPainter = NEW_DEBUG QPainter();
 }
 
 wxWindowDCImpl::wxWindowDCImpl( wxDC *owner, wxWindow *win )
@@ -94,7 +94,7 @@ wxClientDCImpl::wxClientDCImpl( wxDC *owner, wxWindow *win )
 {
     m_window = win;
 
-    m_pict.reset(new QPicture());
+    m_pict.reset(NEW_DEBUG QPicture());
     m_ok = m_qtPainter->begin( m_pict.get() );
 
     QtPreparePainter();

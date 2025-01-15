@@ -36,7 +36,7 @@ void wxXmlResourceHandler::AddWindowStyles()
 {
     XRC_ADD_STYLE(wxCLIP_CHILDREN);
 
-    // the border styles all have the old and new names, recognize both for now
+    // the border styles all have the old and NEW_DEBUG names, recognize both for now
     XRC_ADD_STYLE(wxSIMPLE_BORDER); XRC_ADD_STYLE(wxBORDER_SIMPLE);
     XRC_ADD_STYLE(wxSUNKEN_BORDER); XRC_ADD_STYLE(wxBORDER_SUNKEN);
     XRC_ADD_STYLE(wxDOUBLE_BORDER); XRC_ADD_STYLE(wxBORDER_DOUBLE); // deprecated

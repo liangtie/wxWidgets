@@ -119,7 +119,7 @@ wxStatusBar *wxFrame::OnCreateStatusBar(int number, long style, wxWindowID id,
 {
     wxStatusBar *statusBar;
 
-    statusBar = new wxStatusBar(this, id, style, name);
+    statusBar = NEW_DEBUG wxStatusBar(this, id, style, name);
     statusBar->SetSize(100, GetMacStatusbarHeight());
     statusBar->SetFieldsCount(number);
 
@@ -298,7 +298,7 @@ void wxFrame::DoSetClientSize(int clientwidth, int clientheight)
     // find the current client size
 
     // Find the difference between the entire window (title bar and all) and
-    // the client area; add this to the new client size to move the window
+    // the client area; add this to the NEW_DEBUG client size to move the window
     DoSetSize( -1 , -1 , currentwidth + clientwidth - currentclientwidth ,
         currentheight + clientheight - currentclientheight , wxSIZE_USE_EXISTING ) ;
 }

@@ -546,7 +546,7 @@ wxRibbonGalleryItem* wxRibbonGallery::Append(const wxBitmap& bitmap, int id)
         wxASSERT(bitmap.GetLogicalSize() == m_bitmap_size);
     }
 
-    wxRibbonGalleryItem *item = new wxRibbonGalleryItem;
+    wxRibbonGalleryItem *item = NEW_DEBUG wxRibbonGalleryItem;
     item->SetId(id);
     item->SetBitmap(bitmap);
     m_items.Add(item);

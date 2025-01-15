@@ -211,13 +211,13 @@ void WeakRefTestCase::AssignWeakRefTest()
 void WeakRefTestCase::MultiAssignTest()
 {
     // Object is tracked by several refs
-    wxEvtHandler *peh = new wxEvtHandler;
+    wxEvtHandler *peh = NEW_DEBUG wxEvtHandler;
 
     // Test declare when T is wxObject
     wxWeakRef<wxEvtHandler> wro1(peh);
     wxWeakRef<wxEvtHandler> wro2(peh);
 
-    wxObjectTrackable *pot = new wxObjectTrackable;
+    wxObjectTrackable *pot = NEW_DEBUG wxObjectTrackable;
     wxWeakRef<wxObjectTrackable> wro3 = pot;
     wxWeakRef<wxObjectTrackable> wro4 = pot;
 
@@ -272,7 +272,7 @@ void WeakRefTestCase::CleanupTest()
 void WeakRefTestCase::DeleteTest()
 {
     // Object is tracked by several refs
-    wxEvtHandler *peh = new wxEvtHandler;
+    wxEvtHandler *peh = NEW_DEBUG wxEvtHandler;
 
     // Declared derived type of object and test deleting it
     wxEvtHandlerRef wre(peh);

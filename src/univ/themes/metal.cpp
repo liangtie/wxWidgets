@@ -150,7 +150,7 @@ protected:
     {
         if ( !m_renderer )
         {
-            m_renderer = new wxMetalRenderer(m_theme->GetRenderer(),
+            m_renderer = NEW_DEBUG wxMetalRenderer(m_theme->GetRenderer(),
                                              GetColourScheme());
         }
 
@@ -326,7 +326,7 @@ wxMetalRenderer::wxMetalRenderer(wxRenderer *renderer, wxColourScheme *scheme)
                           wxXOR);
             dcInverse.SelectObject(wxNullBitmap);
 
-            mask = new wxMask(m_bmpArrows[Arrow_Inverted][n], *wxBLACK);
+            mask = NEW_DEBUG wxMask(m_bmpArrows[Arrow_Inverted][n], *wxBLACK);
             m_bmpArrows[Arrow_Inverted][n].SetMask(mask);
 
             m_bmpArrows[Arrow_InvertedDisabled][n].Create(w, h);
@@ -337,16 +337,16 @@ wxMetalRenderer::wxMetalRenderer(wxRenderer *renderer, wxColourScheme *scheme)
                           wxXOR);
             dcInverse.SelectObject(wxNullBitmap);
 
-            mask = new wxMask(m_bmpArrows[Arrow_InvertedDisabled][n], *wxBLACK);
+            mask = NEW_DEBUG wxMask(m_bmpArrows[Arrow_InvertedDisabled][n], *wxBLACK);
             m_bmpArrows[Arrow_InvertedDisabled][n].SetMask(mask);
         }
 
         dcNormal.SelectObject(wxNullBitmap);
         dcDisabled.SelectObject(wxNullBitmap);
 
-        mask = new wxMask(m_bmpArrows[Arrow_Normal][n], *wxWHITE);
+        mask = NEW_DEBUG wxMask(m_bmpArrows[Arrow_Normal][n], *wxWHITE);
         m_bmpArrows[Arrow_Normal][n].SetMask(mask);
-        mask = new wxMask(m_bmpArrows[Arrow_Disabled][n], *wxWHITE);
+        mask = NEW_DEBUG wxMask(m_bmpArrows[Arrow_Disabled][n], *wxWHITE);
         m_bmpArrows[Arrow_Disabled][n].SetMask(mask);
 
         m_bmpArrows[Arrow_Pressed][n] = m_bmpArrows[Arrow_Normal][n];

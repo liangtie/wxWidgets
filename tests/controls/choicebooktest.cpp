@@ -56,7 +56,7 @@ CPPUNIT_TEST_SUITE_NAMED_REGISTRATION( ChoicebookTestCase, "ChoicebookTestCase" 
 
 void ChoicebookTestCase::setUp()
 {
-    m_choicebook = new wxChoicebook(wxTheApp->GetTopWindow(), wxID_ANY);
+    m_choicebook = NEW_DEBUG wxChoicebook(wxTheApp->GetTopWindow(), wxID_ANY);
     AddPanels();
 }
 

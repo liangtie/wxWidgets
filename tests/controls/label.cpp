@@ -91,14 +91,14 @@ TEST_CASE("wxControl::Label", "[wxControl][label]")
     SECTION("wxStaticText")
     {
         const wxScopedPtr<wxStaticText>
-            st(new wxStaticText(wxTheApp->GetTopWindow(), wxID_ANY, ORIGINAL_LABEL));
+            st(NEW_DEBUG wxStaticText(wxTheApp->GetTopWindow(), wxID_ANY, ORIGINAL_LABEL));
         DoTestLabel(st.get());
     }
 
     SECTION("wxStaticText/ellipsized")
     {
         const wxScopedPtr<wxStaticText>
-            st(new wxStaticText(wxTheApp->GetTopWindow(), wxID_ANY, ORIGINAL_LABEL,
+            st(NEW_DEBUG wxStaticText(wxTheApp->GetTopWindow(), wxID_ANY, ORIGINAL_LABEL,
                                 wxDefaultPosition, wxDefaultSize,
                                 wxST_ELLIPSIZE_START));
         DoTestLabel(st.get());
@@ -107,14 +107,14 @@ TEST_CASE("wxControl::Label", "[wxControl][label]")
     SECTION("wxGenericStaticText")
     {
         const wxScopedPtr<wxGenericStaticText>
-            gst(new wxGenericStaticText(wxTheApp->GetTopWindow(), wxID_ANY, ORIGINAL_LABEL));
+            gst(NEW_DEBUG wxGenericStaticText(wxTheApp->GetTopWindow(), wxID_ANY, ORIGINAL_LABEL));
         DoTestLabel(gst.get());
     }
 
     SECTION("wxCheckBox")
     {
         const wxScopedPtr<wxCheckBox>
-            cb(new wxCheckBox(wxTheApp->GetTopWindow(), wxID_ANY, ORIGINAL_LABEL));
+            cb(NEW_DEBUG wxCheckBox(wxTheApp->GetTopWindow(), wxID_ANY, ORIGINAL_LABEL));
         DoTestLabel(cb.get());
     }
 }

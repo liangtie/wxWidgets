@@ -86,7 +86,7 @@ wxEpollDispatcher *wxEpollDispatcher::Create()
     }
     wxLogTrace(wxEpollDispatcher_Trace,
                    wxT("Epoll fd %d created"), epollDescriptor);
-    return new wxEpollDispatcher(epollDescriptor);
+    return NEW_DEBUG wxEpollDispatcher(epollDescriptor);
 }
 
 wxEpollDispatcher::wxEpollDispatcher(int epollDescriptor)

@@ -63,7 +63,7 @@ wxREGISTER_UNIT_TEST_WITH_TAGS(BitmapComboBoxTestCase,
 
 void BitmapComboBoxTestCase::setUp()
 {
-    m_combo = new wxBitmapComboBox(wxTheApp->GetTopWindow(), wxID_ANY);
+    m_combo = NEW_DEBUG wxBitmapComboBox(wxTheApp->GetTopWindow(), wxID_ANY);
 }
 
 void BitmapComboBoxTestCase::tearDown()

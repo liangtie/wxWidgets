@@ -118,7 +118,7 @@ wxCFEventLoop::DefaultModeObserverCallBack(CFRunLoopObserverRef WXUNUSED(observe
     if ( activity & kCFRunLoopBeforeTimers )
     {
     }
-    
+
     if ( activity & kCFRunLoopBeforeWaiting )
     {
     }
@@ -134,7 +134,7 @@ wxCFEventLoop::wxCFEventLoop()
 #if wxUSE_UIACTIONSIMULATOR
     m_shouldWaitForEvent = false;
 #endif
-    
+
     m_runLoop = CFGetCurrentRunLoop();
 
     CFRunLoopObserverContext ctxt;
@@ -284,7 +284,7 @@ void wxCFEventLoop::OSXDoRun()
         // (Has/ProcessPendingEvents()).
         //
         // We do run the risk of never exiting this loop if pending event
-        // handlers endlessly generate new events but they shouldn't do
+        // handlers endlessly generate NEW_DEBUG events but they shouldn't do
         // this in a well-behaved program and we shouldn't just discard the
         // events we already have, they might be important.
         for ( ;; )
@@ -407,8 +407,8 @@ static size_t gs_nWaitingForGui = 0;
 
 void wxOSXThreadModuleOnInit()
 {
-    gs_critsectWaitingForGui = new wxCriticalSection();
-    gs_critsectGui = new wxCriticalSection();
+    gs_critsectWaitingForGui = NEW_DEBUG wxCriticalSection();
+    gs_critsectGui = NEW_DEBUG wxCriticalSection();
     gs_critsectGui->Enter();
 }
 

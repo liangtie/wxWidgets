@@ -241,12 +241,12 @@ class wxPenRefData: public wxGDIRefData
 
 wxPen::wxPen()
 {
-    m_refData = new wxPenRefData();
+    m_refData = NEW_DEBUG wxPenRefData();
 }
 
 wxPen::wxPen( const wxColour &colour, int width, wxPenStyle style)
 {
-    m_refData = new wxPenRefData();
+    m_refData = NEW_DEBUG wxPenRefData();
     M_PENDATA.setWidth(width);
     M_PENDATA.setStyle(ConvertPenStyle(style));
     M_PENDATA.setColor(colour.GetQColor());
@@ -254,7 +254,7 @@ wxPen::wxPen( const wxColour &colour, int width, wxPenStyle style)
 
 wxPen::wxPen(const wxColour& col, int width, int style)
 {
-    m_refData = new wxPenRefData();
+    m_refData = NEW_DEBUG wxPenRefData();
     M_PENDATA.setWidth(width);
     M_PENDATA.setStyle(ConvertPenStyle((wxPenStyle)style));
     M_PENDATA.setColor(col.GetQColor());
@@ -376,10 +376,10 @@ QPen wxPen::GetHandle() const
 
 wxGDIRefData *wxPen::CreateGDIRefData() const
 {
-    return new wxPenRefData;
+    return NEW_DEBUG wxPenRefData;
 }
 
 wxGDIRefData *wxPen::CloneGDIRefData(const wxGDIRefData *data) const
 {
-    return new wxPenRefData(*(wxPenRefData *)data);
+    return NEW_DEBUG wxPenRefData(*(wxPenRefData *)data);
 }

@@ -355,7 +355,7 @@ bool wxSingleInstanceChecker::Create(const wxString& name,
     // must have the file name to create a lock file
     wxASSERT_MSG( !name.empty(), wxT("lock file name can't be empty") );
 
-    m_impl = new wxSingleInstanceCheckerImpl;
+    m_impl = NEW_DEBUG wxSingleInstanceCheckerImpl;
 
     wxString fullname = path;
     if ( fullname.empty() )

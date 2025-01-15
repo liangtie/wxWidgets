@@ -497,25 +497,25 @@ void wxRichTextStyleSheet::Copy(const wxRichTextStyleSheet& sheet)
     for (node = sheet.m_characterStyleDefinitions.GetFirst(); node; node = node->GetNext())
     {
         wxRichTextCharacterStyleDefinition* def = (wxRichTextCharacterStyleDefinition*) node->GetData();
-        AddCharacterStyle(new wxRichTextCharacterStyleDefinition(*def));
+        AddCharacterStyle(NEW_DEBUG wxRichTextCharacterStyleDefinition(*def));
     }
 
     for (node = sheet.m_paragraphStyleDefinitions.GetFirst(); node; node = node->GetNext())
     {
         wxRichTextParagraphStyleDefinition* def = (wxRichTextParagraphStyleDefinition*) node->GetData();
-        AddParagraphStyle(new wxRichTextParagraphStyleDefinition(*def));
+        AddParagraphStyle(NEW_DEBUG wxRichTextParagraphStyleDefinition(*def));
     }
 
     for (node = sheet.m_listStyleDefinitions.GetFirst(); node; node = node->GetNext())
     {
         wxRichTextListStyleDefinition* def = (wxRichTextListStyleDefinition*) node->GetData();
-        AddListStyle(new wxRichTextListStyleDefinition(*def));
+        AddListStyle(NEW_DEBUG wxRichTextListStyleDefinition(*def));
     }
 
     for (node = sheet.m_boxStyleDefinitions.GetFirst(); node; node = node->GetNext())
     {
         wxRichTextBoxStyleDefinition* def = (wxRichTextBoxStyleDefinition*) node->GetData();
-        AddBoxStyle(new wxRichTextBoxStyleDefinition(*def));
+        AddBoxStyle(NEW_DEBUG wxRichTextBoxStyleDefinition(*def));
     }
 
     SetName(sheet.GetName());
@@ -1048,9 +1048,9 @@ bool wxRichTextStyleListCtrl::Create(wxWindow* parent, wxWindowID id, const wxPo
     else
         listBoxStyle = wxBORDER_NONE;
 
-    m_styleListBox = new wxRichTextStyleListBox(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, listBoxStyle);
+    m_styleListBox = NEW_DEBUG wxRichTextStyleListBox(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, listBoxStyle);
 
-    wxBoxSizer* boxSizer = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer* boxSizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
     if (showSelector)
     {
@@ -1061,7 +1061,7 @@ bool wxRichTextStyleListCtrl::Create(wxWindow* parent, wxWindowID id, const wxPo
         choices.Add(_("List styles"));
         choices.Add(_("Box styles"));
 
-        m_styleChoice = new wxChoice(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, choices);
+        m_styleChoice = NEW_DEBUG wxChoice(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, choices);
 
         boxSizer->Add(m_styleListBox, 1, wxALL|wxEXPAND, 5);
         boxSizer->Add(m_styleChoice, 0, wxLEFT|wxRIGHT|wxBOTTOM|wxEXPAND, 5);
@@ -1311,7 +1311,7 @@ bool wxRichTextStyleComboCtrl::Create(wxWindow* parent, wxWindowID id, const wxP
 
     SetPopupMaxHeight(400);
 
-    m_stylePopup = new wxRichTextStyleComboPopup;
+    m_stylePopup = NEW_DEBUG wxRichTextStyleComboPopup;
 
     SetPopupControl(m_stylePopup);
 

@@ -124,7 +124,7 @@ public:
     }
 
 protected:
-    // Creates a new icon if necessary, see the comment below.
+    // Creates a NEW_DEBUG icon if necessary, see the comment below.
     void SetUpIcon(wxWindow *win);
 
 
@@ -223,12 +223,12 @@ void wxBalloonNotifMsgImpl::SetUpIcon(wxWindow *win)
         if ( ms_refCountIcon != -1 )
             ms_refCountIcon++;
     }
-    else // Create a new icon.
+    else // Create a NEW_DEBUG icon.
     {
         wxASSERT_MSG( ms_refCountIcon == 0,
                       wxS("Shouldn't reference not existent icon") );
 
-        ms_icon = new wxTaskBarIcon;
+        ms_icon = NEW_DEBUG wxTaskBarIcon;
         ms_refCountIcon = 1;
 
         // use the icon of the associated (or main, if none) frame
@@ -255,7 +255,7 @@ void wxBalloonNotifMsgImpl::SetUpIcon(wxWindow *win)
     }
 }
 
-bool 
+bool
 wxBalloonNotifMsgImpl::Show(int timeout)
 {
     // timout active event
@@ -355,7 +355,7 @@ void wxNotificationMessage::Init()
     else
 #endif
     {
-        m_impl = new wxBalloonNotifMsgImpl(this);
+        m_impl = NEW_DEBUG wxBalloonNotifMsgImpl(this);
     }
 }
 

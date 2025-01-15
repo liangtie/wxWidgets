@@ -116,19 +116,19 @@ bool wxPalette::Create(int n,
                        const unsigned char *green,
                        const unsigned char *blue)
 {
-    m_refData = new wxPaletteRefData(n, red, green, blue);
+    m_refData = NEW_DEBUG wxPaletteRefData(n, red, green, blue);
 
     return IsOk();
 }
 
 wxGDIRefData *wxPalette::CreateGDIRefData() const
 {
-    return new wxPaletteRefData;
+    return NEW_DEBUG wxPaletteRefData;
 }
 
 wxGDIRefData *wxPalette::CloneGDIRefData(const wxGDIRefData *data) const
 {
-    return new wxPaletteRefData(*static_cast<const wxPaletteRefData *>(data));
+    return NEW_DEBUG wxPaletteRefData(*static_cast<const wxPaletteRefData *>(data));
 }
 
 int wxPalette::GetColoursCount() const

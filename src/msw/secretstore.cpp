@@ -105,7 +105,7 @@ public:
         CredentialPtr ensureFree(pcred);
 
         *user = pcred->UserName;
-        *secret = new wxSecretValueGenericImpl(pcred->CredentialBlobSize,
+        *secret = NEW_DEBUG wxSecretValueGenericImpl(pcred->CredentialBlobSize,
                                                pcred->CredentialBlob);
 
         return true;
@@ -139,14 +139,14 @@ wxSecretValue::NewImpl(size_t size,
                        const void *data,
                        const char* WXUNUSED(contentType))
 {
-    return new wxSecretValueGenericImpl(size, data);
+    return NEW_DEBUG wxSecretValueGenericImpl(size, data);
 }
 
 /* static */
 wxSecretStore wxSecretStore::GetDefault()
 {
     // There is only a single store under Windows anyhow.
-    return wxSecretStore(new wxSecretStoreMSWImpl());
+    return wxSecretStore(NEW_DEBUG wxSecretStoreMSWImpl());
 }
 
 #endif // wxUSE_SECRETSTORE

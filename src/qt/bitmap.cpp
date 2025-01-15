@@ -169,7 +169,7 @@ wxBitmap::wxBitmap()
 
 wxBitmap::wxBitmap(QPixmap pix)
 {
-    m_refData = new wxBitmapRefData(pix);
+    m_refData = NEW_DEBUG wxBitmapRefData(pix);
 }
 
 wxBitmap::wxBitmap(const char bits[], int width, int height, int depth )
@@ -178,7 +178,7 @@ wxBitmap::wxBitmap(const char bits[], int width, int height, int depth )
 
     if (width > 0 && height > 0 && depth == 1)
     {
-        m_refData = new wxBitmapRefData();
+        m_refData = NEW_DEBUG wxBitmapRefData();
         M_PIXDATA = QBitmap(QBitmap::fromData(QSize(width, height), (const uchar*)bits));
     }
 }
@@ -201,7 +201,7 @@ wxBitmap::wxBitmap(int width, int height, const wxDC& dc)
 // Create a wxBitmap from xpm data
 wxBitmap::wxBitmap(const char* const* bits)
 {
-    m_refData = new wxBitmapRefData();
+    m_refData = NEW_DEBUG wxBitmapRefData();
     M_PIXDATA = QPixmap( bits );
 }
 
@@ -215,7 +215,7 @@ void wxBitmap::InitFromImage(const wxImage& image, int depth, double WXUNUSED(sc
     Qt::ImageConversionFlags flags = 0;
     if (depth == 1)
         flags = Qt::MonoOnly;
-    m_refData = new wxBitmapRefData(QPixmap::fromImage(ConvertImage(image), flags));
+    m_refData = NEW_DEBUG wxBitmapRefData(QPixmap::fromImage(ConvertImage(image), flags));
 }
 
 wxBitmap::wxBitmap(const wxImage& image, int depth, double scale)
@@ -232,13 +232,13 @@ wxBitmap::wxBitmap(const wxCursor& cursor)
 {
     // note that pixmap could be invalid if is not a pixmap cursor
     QPixmap pix = cursor.GetHandle().pixmap();
-    m_refData = new wxBitmapRefData(pix);
+    m_refData = NEW_DEBUG wxBitmapRefData(pix);
 }
 
 bool wxBitmap::Create(int width, int height, int depth )
 {
     UnRef();
-    m_refData = new wxBitmapRefData(width, height, depth);
+    m_refData = NEW_DEBUG wxBitmapRefData(width, height, depth);
 
     return true;
 }
@@ -443,15 +443,15 @@ QPixmap *wxBitmap::GetHandle() const
 
 wxGDIRefData *wxBitmap::CreateGDIRefData() const
 {
-    return new wxBitmapRefData;
+    return NEW_DEBUG wxBitmapRefData;
 }
 
 wxGDIRefData *wxBitmap::CloneGDIRefData(const wxGDIRefData *data) const
 {
     const wxBitmapRefData* oldRef = static_cast<const wxBitmapRefData*>(data);
-    wxBitmapRefData *d = new wxBitmapRefData;
+    wxBitmapRefData *d = NEW_DEBUG wxBitmapRefData;
     d->m_qtPixmap = oldRef->m_qtPixmap; //.copy();// copy not needed
-    d->m_mask = oldRef->m_mask ? new wxMask(*oldRef->m_mask) : NULL;
+    d->m_mask = oldRef->m_mask ? NEW_DEBUG wxMask(*oldRef->m_mask) : NULL;
     return d;
 }
 
@@ -474,7 +474,7 @@ wxMask::wxMask()
 wxMask::wxMask(const wxMask &mask)
 {
     QBitmap *mask_bmp = mask.GetHandle();
-    m_qtBitmap = mask_bmp ? new QBitmap(*mask_bmp) : NULL;
+    m_qtBitmap = mask_bmp ? NEW_DEBUG QBitmap(*mask_bmp) : NULL;
 }
 
 wxMask& wxMask::operator=(const wxMask &mask)
@@ -483,7 +483,7 @@ wxMask& wxMask::operator=(const wxMask &mask)
     {
         delete m_qtBitmap;
         QBitmap *mask_bmp = mask.GetHandle();
-        m_qtBitmap = mask_bmp ? new QBitmap(*mask_bmp) : NULL;
+        m_qtBitmap = mask_bmp ? NEW_DEBUG QBitmap(*mask_bmp) : NULL;
     }
     return *this;
 }
@@ -524,7 +524,7 @@ bool wxMask::InitFromColour(const wxBitmap& bitmap, const wxColour& colour)
         return false;
 
     delete m_qtBitmap;
-    m_qtBitmap = new QBitmap(bitmap.GetHandle()->createMaskFromColor(colour.GetQColor()));
+    m_qtBitmap = NEW_DEBUG QBitmap(bitmap.GetHandle()->createMaskFromColor(colour.GetQColor()));
 
     return true;
 }
@@ -536,7 +536,7 @@ bool wxMask::InitFromMonoBitmap(const wxBitmap& bitmap)
         return false;
 
     delete m_qtBitmap;
-    m_qtBitmap = new QBitmap(*bitmap.GetHandle());
+    m_qtBitmap = NEW_DEBUG QBitmap(*bitmap.GetHandle());
 
     return true;
 }

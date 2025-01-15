@@ -33,7 +33,7 @@ class AuiNotebookTestCase
 {
 public:
     AuiNotebookTestCase()
-        : nb(new wxAuiNotebook(wxTheApp->GetTopWindow()))
+        : nb(NEW_DEBUG wxAuiNotebook(wxTheApp->GetTopWindow()))
     {
     }
 
@@ -52,7 +52,7 @@ protected:
 
 TEST_CASE_METHOD(AuiNotebookTestCase, "wxAuiNotebook::DoGetBestSize", "[aui]")
 {
-    wxPanel *p = new wxPanel(nb);
+    wxPanel *p = NEW_DEBUG wxPanel(nb);
     p->SetMinSize(wxSize(100, 100));
     REQUIRE( nb->AddPage(p, "Center Pane") );
 
@@ -60,11 +60,11 @@ TEST_CASE_METHOD(AuiNotebookTestCase, "wxAuiNotebook::DoGetBestSize", "[aui]")
 
     SECTION( "Single pane with multiple tabs" )
     {
-        p = new wxPanel(nb);
+        p = NEW_DEBUG wxPanel(nb);
         p->SetMinSize(wxSize(300, 100));
         nb->AddPage(p, "Center Tab 2");
 
-        p = new wxPanel(nb);
+        p = NEW_DEBUG wxPanel(nb);
         p->SetMinSize(wxSize(100, 200));
         nb->AddPage(p, "Center Tab 3");
 
@@ -73,21 +73,21 @@ TEST_CASE_METHOD(AuiNotebookTestCase, "wxAuiNotebook::DoGetBestSize", "[aui]")
 
     SECTION( "Horizontal split" )
     {
-        p = new wxPanel(nb);
+        p = NEW_DEBUG wxPanel(nb);
         p->SetMinSize(wxSize(25, 0));
         nb->AddPage(p, "Left Pane");
         nb->Split(nb->GetPageCount()-1, wxLEFT);
 
         CHECK( nb->GetBestSize() == wxSize(125, 100 + tabHeight) );
 
-        p = new wxPanel(nb);
+        p = NEW_DEBUG wxPanel(nb);
         p->SetMinSize(wxSize(50, 0));
         nb->AddPage(p, "Right Pane 1");
         nb->Split(nb->GetPageCount()-1, wxRIGHT);
 
         CHECK( nb->GetBestSize() == wxSize(175, 100 + tabHeight) );
 
-        p = new wxPanel(nb);
+        p = NEW_DEBUG wxPanel(nb);
         p->SetMinSize(wxSize(100, 0));
         nb->AddPage(p, "Right Pane 2");
         nb->Split(nb->GetPageCount()-1, wxRIGHT);
@@ -97,19 +97,19 @@ TEST_CASE_METHOD(AuiNotebookTestCase, "wxAuiNotebook::DoGetBestSize", "[aui]")
 
     SECTION( "Vertical split" )
     {
-        p = new wxPanel(nb);
+        p = NEW_DEBUG wxPanel(nb);
         p->SetMinSize(wxSize(0, 100));
         nb->AddPage(p, "Top Pane 1");
         nb->Split(nb->GetPageCount()-1, wxTOP);
 
-        p = new wxPanel(nb);
+        p = NEW_DEBUG wxPanel(nb);
         p->SetMinSize(wxSize(0, 50));
         nb->AddPage(p, "Top Pane 2");
         nb->Split(nb->GetPageCount()-1, wxTOP);
 
         CHECK( nb->GetBestSize() == wxSize(100, 250 + 3*tabHeight) );
 
-        p = new wxPanel(nb);
+        p = NEW_DEBUG wxPanel(nb);
         p->SetMinSize(wxSize(0, 25));
         nb->AddPage(p, "Bottom Pane");
         nb->Split(nb->GetPageCount()-1, wxBOTTOM);
@@ -119,22 +119,22 @@ TEST_CASE_METHOD(AuiNotebookTestCase, "wxAuiNotebook::DoGetBestSize", "[aui]")
 
     SECTION( "Surrounding panes" )
     {
-        p = new wxPanel(nb);
+        p = NEW_DEBUG wxPanel(nb);
         p->SetMinSize(wxSize(50, 25));
         nb->AddPage(p, "Bottom Pane");
         nb->Split(nb->GetPageCount()-1, wxBOTTOM);
 
-        p = new wxPanel(nb);
+        p = NEW_DEBUG wxPanel(nb);
         p->SetMinSize(wxSize(50, 120));
         nb->AddPage(p, "Right Pane");
         nb->Split(nb->GetPageCount()-1, wxRIGHT);
 
-        p = new wxPanel(nb);
+        p = NEW_DEBUG wxPanel(nb);
         p->SetMinSize(wxSize(225, 50));
         nb->AddPage(p, "Top Pane");
         nb->Split(nb->GetPageCount()-1, wxTOP);
 
-        p = new wxPanel(nb);
+        p = NEW_DEBUG wxPanel(nb);
         p->SetMinSize(wxSize(25, 105));
         nb->AddPage(p, "Left Pane");
         nb->Split(nb->GetPageCount()-1, wxLEFT);
@@ -153,9 +153,9 @@ TEST_CASE_METHOD(AuiNotebookTestCase, "wxAuiNotebook::RTTI", "[aui][rtti]")
 
 TEST_CASE_METHOD(AuiNotebookTestCase, "wxAuiNotebook::FindPage", "[aui]")
 {
-    wxPanel *p1 = new wxPanel(nb);
-    wxPanel *p2 = new wxPanel(nb);
-    wxPanel *p3 = new wxPanel(nb);
+    wxPanel *p1 = NEW_DEBUG wxPanel(nb);
+    wxPanel *p2 = NEW_DEBUG wxPanel(nb);
+    wxPanel *p3 = NEW_DEBUG wxPanel(nb);
     REQUIRE( nb->AddPage(p1, "Page 1") );
     REQUIRE( nb->AddPage(p2, "Page 2") );
 

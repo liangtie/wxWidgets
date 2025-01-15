@@ -274,7 +274,7 @@ bool wxNotebook::Create(wxWindow *parent,
         {
             ::SetWindowTheme(GetHwnd(), L"", L"");
 
-            // correct the background color for the new non-themed control
+            // correct the background color for the NEW_DEBUG non-themed control
             SetBackgroundColour(GetThemeBackgroundColour());
         }
     }
@@ -376,7 +376,7 @@ void wxNotebook::UpdateSelection(int selNew)
             // it, as this is how the native property sheets behave: if you
             // explicitly click on the tab label giving it focus, it will
             // remain after switching to another page. But if the focus was
-            // inside the notebook page, it switches to the new page.
+            // inside the notebook page, it switches to the NEW_DEBUG page.
             if ( !HasFocus() )
                 pPage->SetFocus();
         }
@@ -412,7 +412,7 @@ bool wxNotebook::SetPageText(size_t nPage, const wxString& strText)
     if ( !HasFlag(wxNB_MULTILINE) )
         return TabCtrl_SetItem(GetHwnd(), nPage, &tcItem) != 0;
 
-    // multiline - we need to set new page size if a line is added or removed
+    // multiline - we need to set NEW_DEBUG page size if a line is added or removed
     int rows = GetRowCount();
     bool ret = TabCtrl_SetItem(GetHwnd(), nPage, &tcItem) != 0;
 
@@ -626,7 +626,7 @@ wxNotebookPage *wxNotebook::DoRemovePage(size_t nPage)
         {
             // The selection was deleted.
 
-            // Determine new selection.
+            // Determine NEW_DEBUG selection.
             if (m_selection == int(GetPageCount()))
                 selNew = m_selection - 1;
             else
@@ -671,7 +671,7 @@ bool wxNotebook::InsertPage(size_t nPage,
     wxASSERT_MSG( pPage->GetParent() == this,
                     wxT("notebook pages must have notebook as parent") );
 
-    // add a new tab to the control
+    // add a NEW_DEBUG tab to the control
     // ----------------------------
 
     // init all fields to 0
@@ -725,7 +725,7 @@ bool wxNotebook::InsertPage(size_t nPage,
     // we may need to adjust the size again if the notebook size changed:
     // normally this only happens for the first page we add (the tabs which
     // hadn't been there before are now shown) but for a multiline notebook it
-    // can happen for any page at all as a new row could have been started
+    // can happen for any page at all as a NEW_DEBUG row could have been started
     if ( m_pages.size() == 1 || HasFlag(wxNB_MULTILINE) )
     {
         AdjustPageSize(pPage);
@@ -1391,7 +1391,7 @@ void wxNotebook::OnPaint(wxPaintEvent& event)
     // means that we still do need to erase the DC to account for the other
     // cases.
     //
-    // Moreover, just in case some very old or very new (or even future,
+    // Moreover, just in case some very old or very NEW_DEBUG (or even future,
     // although it seems unlikely that this is ever going to change by now)
     // version of Windows didn't do it like this, do both things in all cases
     // instead of optimizing away the one of them which doesn't do anything for
@@ -1919,7 +1919,7 @@ bool wxNotebook::MSWOnNotify(int idCtrl, WXLPARAM lParam, WXLPARAM* result)
   event.SetInt(idCtrl);
 
   // Change the selection before generating the event as its handler should
-  // already see the new page selected.
+  // already see the NEW_DEBUG page selected.
   if ( hdr->code == TCN_SELCHANGE )
   {
       UpdateSelection(event.GetSelection());

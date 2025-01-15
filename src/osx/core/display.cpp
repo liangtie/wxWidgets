@@ -278,7 +278,7 @@ wxDisplayImpl *wxDisplayFactoryMacOSX::CreateDisplay(unsigned n)
 
     wxCHECK_MSG( n < theCount, NULL, wxS("Invalid display index") );
 
-    return new wxDisplayImplMacOSX(n, theIDs[n]);
+    return NEW_DEBUG wxDisplayImplMacOSX(n, theIDs[n]);
 }
 
 // ============================================================================
@@ -320,7 +320,7 @@ static int wxOSXCGDisplayModeGetBitsPerPixel( CGDisplayModeRef theValue )
         depth = 16;
     else if ( CFStringCompare( pixelEncoding, CFSTR(IO8BitIndexedPixels) , kCFCompareCaseInsensitive) == kCFCompareEqualTo )
         depth = 8;
-    
+
     return depth;
 }
 
@@ -329,17 +329,17 @@ wxArrayVideoModes wxDisplayImplMacOSX::GetModes(const wxVideoMode& mode) const
     wxArrayVideoModes resultModes;
 
     wxCFRef<CFArrayRef> theArray(CGDisplayCopyAllDisplayModes( m_id ,NULL ) );
-    
+
     for (CFIndex i = 0; i < CFArrayGetCount(theArray); ++i)
     {
         CGDisplayModeRef theValue = static_cast<CGDisplayModeRef>(const_cast<void*>(CFArrayGetValueAtIndex(theArray, i)));
-        
+
         wxVideoMode theMode(
                             CGDisplayModeGetWidth(theValue),
                             CGDisplayModeGetHeight(theValue),
                             wxOSXCGDisplayModeGetBitsPerPixel(theValue),
                             int(CGDisplayModeGetRefreshRate(theValue)));
-        
+
         if (theMode.Matches( mode ))
             resultModes.Add( theMode );
     }
@@ -350,7 +350,7 @@ wxArrayVideoModes wxDisplayImplMacOSX::GetModes(const wxVideoMode& mode) const
 wxVideoMode wxDisplayImplMacOSX::GetCurrentMode() const
 {
     wxCFRef<CGDisplayModeRef> theValue( CGDisplayCopyDisplayMode( m_id ) );
-    
+
     return wxVideoMode(
                        CGDisplayModeGetWidth(theValue),
                        CGDisplayModeGetHeight(theValue),
@@ -370,20 +370,20 @@ bool wxDisplayImplMacOSX::ChangeMode( const wxVideoMode& mode )
 
     wxCHECK_MSG( mode.GetWidth() && mode.GetHeight(), false,
                 wxT("at least the width and height must be specified") );
-    
+
     bool bOK = false;
     wxCFRef<CFArrayRef> theArray(CGDisplayCopyAllDisplayModes( m_id ,NULL ) );
-    
+
     for (CFIndex i = 0; i < CFArrayGetCount(theArray); ++i)
     {
         CGDisplayModeRef theValue = static_cast<CGDisplayModeRef>(const_cast<void*>(CFArrayGetValueAtIndex(theArray, i)));
-        
+
         wxVideoMode theMode(
                             CGDisplayModeGetWidth(theValue),
                             CGDisplayModeGetHeight(theValue),
                             wxOSXCGDisplayModeGetBitsPerPixel(theValue),
                             int(CGDisplayModeGetRefreshRate(theValue)));
-        
+
         if ( theMode.GetWidth() == mode.GetWidth() && theMode.GetHeight() == mode.GetHeight() &&
             ( mode.GetDepth() == 0 || theMode.GetDepth() == mode.GetDepth() ) &&
             ( mode.GetRefresh() == 0 || theMode.GetRefresh() == mode.GetRefresh() ) )
@@ -393,7 +393,7 @@ bool wxDisplayImplMacOSX::ChangeMode( const wxVideoMode& mode )
             break;
         }
     }
-    
+
     return bOK;
 }
 
@@ -403,7 +403,7 @@ bool wxDisplayImplMacOSX::ChangeMode( const wxVideoMode& mode )
 
 /* static */ wxDisplayFactory *wxDisplay::CreateFactory()
 {
-    return new wxDisplayFactoryMacOSX;
+    return NEW_DEBUG wxDisplayFactoryMacOSX;
 }
 
 #else // !wxUSE_DISPLAY
@@ -432,13 +432,13 @@ class wxDisplayFactorySingleMacOSX : public wxDisplayFactorySingle
 protected:
     virtual wxDisplayImpl *CreateSingleDisplay() wxOVERRIDE
     {
-        return new wxDisplayImplSingleMacOSX;
+        return NEW_DEBUG wxDisplayImplSingleMacOSX;
     }
 };
 
 /* static */ wxDisplayFactory *wxDisplay::CreateFactory()
 {
-    return new wxDisplayFactorySingleMacOSX;
+    return NEW_DEBUG wxDisplayFactorySingleMacOSX;
 }
 
 #endif // wxUSE_DISPLAY

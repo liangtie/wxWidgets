@@ -218,13 +218,13 @@ class WXDLLIMPEXP_CORE wxQtMatrixData : public wxGraphicsMatrixData
 public:
     explicit wxQtMatrixData(wxGraphicsRenderer* renderer)
         : wxGraphicsMatrixData(renderer),
-          m_transform(new QTransform)
+          m_transform(NEW_DEBUG QTransform)
     {
     }
 
     wxQtMatrixData(wxGraphicsRenderer* renderer, const QTransform& transform)
         : wxGraphicsMatrixData(renderer),
-          m_transform(new QTransform(transform))
+          m_transform(NEW_DEBUG QTransform(transform))
     {
     }
 
@@ -235,7 +235,7 @@ public:
 
     virtual wxGraphicsObjectRefData* Clone() const wxOVERRIDE
     {
-        wxQtMatrixData* newMatrix = new wxQtMatrixData(m_renderer);
+        wxQtMatrixData* newMatrix = NEW_DEBUG wxQtMatrixData(m_renderer);
         *newMatrix->m_transform = *m_transform;
         return newMatrix;
     }
@@ -439,7 +439,7 @@ class WXDLLIMPEXP_CORE wxQtGraphicsPathData : public wxGraphicsPathData
 public:
     wxQtGraphicsPathData(wxGraphicsRenderer* renderer)
         : wxGraphicsPathData(renderer),
-          m_path(new QPainterPath()),
+          m_path(NEW_DEBUG QPainterPath()),
           m_current_subpath_start(-1)
     {
     }
@@ -451,7 +451,7 @@ public:
 
     virtual wxGraphicsObjectRefData *Clone() const wxOVERRIDE
     {
-        return new wxQtGraphicsPathData(*this);
+        return NEW_DEBUG wxQtGraphicsPathData(*this);
     }
 
     //
@@ -459,7 +459,7 @@ public:
     // constructed.
     //
 
-    // begins a new subpath at (x,y)
+    // begins a NEW_DEBUG subpath at (x,y)
     virtual void MoveToPoint(wxDouble x, wxDouble y) wxOVERRIDE
     {
         m_path->moveTo(x, y);
@@ -558,13 +558,13 @@ public:
     // be assembled using the primitives from above
     //
 
-    // appends a circle as a new closed subpath
+    // appends a circle as a NEW_DEBUG closed subpath
     virtual void AddCircle(wxDouble x, wxDouble y, wxDouble r) wxOVERRIDE
     {
         m_path->addEllipse(x - r, y - r, r*2, r*2);
     }
 
-    // appends an ellipse as a new closed subpath fitting the passed rectangle
+    // appends an ellipse as a NEW_DEBUG closed subpath fitting the passed rectangle
     virtual void
     AddEllipse(wxDouble x, wxDouble y, wxDouble w, wxDouble h) wxOVERRIDE
     {
@@ -618,7 +618,7 @@ private:
     // for Clone
     wxQtGraphicsPathData(const wxQtGraphicsPathData& rhs)
         : wxGraphicsPathData(rhs.GetRenderer()),
-          m_path(new QPainterPath(*rhs.m_path)),
+          m_path(NEW_DEBUG QPainterPath(*rhs.m_path)),
           m_current_subpath_start(rhs.m_current_subpath_start)
     {
     }
@@ -666,7 +666,7 @@ public:
     wxQtGraphicsContext(wxGraphicsRenderer* renderer, QPaintDevice* device)
         : wxGraphicsContext(renderer)
     {
-        AttachPainter(new QPainter(device));
+        AttachPainter(NEW_DEBUG QPainter(device));
 
         m_width = device->width();
         m_height = device->height();
@@ -911,7 +911,7 @@ public:
     {
         const QTransform& transform = m_qtPainter->transform();
         wxGraphicsMatrix m;
-        m.SetRefData(new wxQtMatrixData(GetRenderer(), transform));
+        m.SetRefData(NEW_DEBUG wxQtMatrixData(GetRenderer(), transform));
         return m;
     }
 
@@ -1060,7 +1060,7 @@ public:
     wxQtMeasuringContext(wxGraphicsRenderer* renderer)
         : wxQtGraphicsContext(renderer)
     {
-        AttachPainter(new QPainter());
+        AttachPainter(NEW_DEBUG QPainter());
     }
 };
 
@@ -1073,7 +1073,7 @@ public:
     {
         const wxBitmap wxbitmap(image);
         m_pixmap = *wxbitmap.GetHandle();
-        AttachPainter(new QPainter(&m_pixmap));
+        AttachPainter(NEW_DEBUG QPainter(&m_pixmap));
     }
 
     ~wxQtImageContext()
@@ -1187,48 +1187,48 @@ wxIMPLEMENT_DYNAMIC_CLASS(wxQtGraphicsRenderer, wxGraphicsRenderer);
 
 wxGraphicsContext* wxQtGraphicsRenderer::CreateContext(const wxWindowDC& dc)
 {
-    return new wxQtGraphicsContext(this, dc);
+    return NEW_DEBUG wxQtGraphicsContext(this, dc);
 }
 
 wxGraphicsContext* wxQtGraphicsRenderer::CreateContext(const wxMemoryDC& dc)
 {
-    return new wxQtGraphicsContext(this, dc);
+    return NEW_DEBUG wxQtGraphicsContext(this, dc);
 }
 
 #if wxUSE_PRINTING_ARCHITECTURE
 wxGraphicsContext* wxQtGraphicsRenderer::CreateContext(const wxPrinterDC& dc)
 {
-    return new wxQtGraphicsContext(this, dc);
+    return NEW_DEBUG wxQtGraphicsContext(this, dc);
 }
 #endif
 
 wxGraphicsContext*
 wxQtGraphicsRenderer::CreateContextFromNativeContext(void* context)
 {
-    return new wxQtGraphicsContext(this, static_cast<QPaintDevice*>(context));
+    return NEW_DEBUG wxQtGraphicsContext(this, static_cast<QPaintDevice*>(context));
 }
 
 wxGraphicsContext*
 wxQtGraphicsRenderer::CreateContextFromNativeWindow(void* window)
 {
-    return new wxQtGraphicsContext(this, static_cast<QWidget*>(window));
+    return NEW_DEBUG wxQtGraphicsContext(this, static_cast<QWidget*>(window));
 }
 
 #if wxUSE_IMAGE
 wxGraphicsContext* wxQtGraphicsRenderer::CreateContextFromImage(wxImage& image)
 {
-    return new wxQtImageContext(this, image);
+    return NEW_DEBUG wxQtImageContext(this, image);
 }
 #endif // wxUSE_IMAGE
 
 wxGraphicsContext* wxQtGraphicsRenderer::CreateMeasuringContext()
 {
-    return new wxQtMeasuringContext(this);
+    return NEW_DEBUG wxQtMeasuringContext(this);
 }
 
 wxGraphicsContext* wxQtGraphicsRenderer::CreateContext(wxWindow* window)
 {
-    return new wxQtGraphicsContext(this, window);
+    return NEW_DEBUG wxQtGraphicsContext(this, window);
 }
 
 // Path
@@ -1236,7 +1236,7 @@ wxGraphicsContext* wxQtGraphicsRenderer::CreateContext(wxWindow* window)
 wxGraphicsPath wxQtGraphicsRenderer::CreatePath()
 {
     wxGraphicsPath path;
-    path.SetRefData(new wxQtGraphicsPathData(this));
+    path.SetRefData(NEW_DEBUG wxQtGraphicsPathData(this));
     return path;
 }
 
@@ -1248,7 +1248,7 @@ wxGraphicsMatrix wxQtGraphicsRenderer::CreateMatrix(wxDouble a, wxDouble b,
 
 {
     wxGraphicsMatrix m;
-    wxQtMatrixData* data = new wxQtMatrixData(this);
+    wxQtMatrixData* data = NEW_DEBUG wxQtMatrixData(this);
     data->Set(a, b, c, d, tx, ty);
     m.SetRefData(data);
     return m;
@@ -1259,7 +1259,7 @@ wxGraphicsPen wxQtGraphicsRenderer::CreatePen(const wxGraphicsPenInfo& info)
     wxGraphicsPen p;
     if ( info.GetStyle() != wxPENSTYLE_TRANSPARENT )
     {
-        p.SetRefData(new wxQtPenData(this, info));
+        p.SetRefData(NEW_DEBUG wxQtPenData(this, info));
     }
     return p;
 }
@@ -1269,7 +1269,7 @@ wxGraphicsBrush wxQtGraphicsRenderer::CreateBrush(const wxBrush& brush)
     wxGraphicsBrush p;
     if ( brush.IsOk() && brush.GetStyle() != wxBRUSHSTYLE_TRANSPARENT )
     {
-        p.SetRefData(new wxQtBrushData(this, brush));
+        p.SetRefData(NEW_DEBUG wxQtBrushData(this, brush));
     }
     return p;
 }
@@ -1277,11 +1277,11 @@ wxGraphicsBrush wxQtGraphicsRenderer::CreateBrush(const wxBrush& brush)
 wxGraphicsBrush wxQtGraphicsRenderer::CreateLinearGradientBrush(
     wxDouble x1, wxDouble y1,
     wxDouble x2, wxDouble y2,
-    const wxGraphicsGradientStops& stops, 
+    const wxGraphicsGradientStops& stops,
     const wxGraphicsMatrix& WXUNUSED(matrix))
 {
     wxGraphicsBrush p;
-    wxQtBrushData* d = new wxQtBrushData(this);
+    wxQtBrushData* d = NEW_DEBUG wxQtBrushData(this);
     d->CreateLinearGradientBrush(x1, y1, x2, y2, stops);
     p.SetRefData(d);
     return p;
@@ -1290,11 +1290,11 @@ wxGraphicsBrush wxQtGraphicsRenderer::CreateLinearGradientBrush(
 wxGraphicsBrush wxQtGraphicsRenderer::CreateRadialGradientBrush(
     wxDouble startX, wxDouble startY,
     wxDouble endX, wxDouble endY, wxDouble r,
-    const wxGraphicsGradientStops& stops, 
+    const wxGraphicsGradientStops& stops,
     const wxGraphicsMatrix& WXUNUSED(matrix))
 {
     wxGraphicsBrush p;
-    wxQtBrushData* d = new wxQtBrushData(this);
+    wxQtBrushData* d = NEW_DEBUG wxQtBrushData(this);
     d->CreateRadialGradientBrush(startX, startY, endX, endY, r, stops);
     p.SetRefData(d);
     return p;
@@ -1306,7 +1306,7 @@ wxQtGraphicsRenderer::CreateFont(const wxFont& font, const wxColour& col)
     wxGraphicsFont p;
     if ( font.IsOk() )
     {
-        p.SetRefData(new wxQtFontData(this, font, col));
+        p.SetRefData(NEW_DEBUG wxQtFontData(this, font, col));
     }
     return p;
 }
@@ -1318,7 +1318,7 @@ wxGraphicsFont wxQtGraphicsRenderer::CreateFont(
     const wxColour& col)
 {
     wxGraphicsFont font;
-    font.SetRefData(new wxQtFontData(this, sizeInPixels, facename, flags, col));
+    font.SetRefData(NEW_DEBUG wxQtFontData(this, sizeInPixels, facename, flags, col));
     return font;
 }
 
@@ -1335,7 +1335,7 @@ wxGraphicsBitmap wxQtGraphicsRenderer::CreateBitmap(const wxBitmap& bmp)
     wxGraphicsBitmap p;
     if ( bmp.IsOk() )
     {
-        p.SetRefData(new wxQtBitmapData(this, bmp));
+        p.SetRefData(NEW_DEBUG wxQtBitmapData(this, bmp));
     }
     return p;
 }
@@ -1348,7 +1348,7 @@ wxQtGraphicsRenderer::CreateBitmapFromImage(const wxImage& image)
     wxGraphicsBitmap bmp;
     if ( image.IsOk() )
     {
-        bmp.SetRefData(new wxQtBitmapData(this, image));
+        bmp.SetRefData(NEW_DEBUG wxQtBitmapData(this, image));
     }
     return bmp;
 }
@@ -1367,7 +1367,7 @@ wxQtGraphicsRenderer::CreateBitmapFromNativeBitmap(void* bitmap)
     wxGraphicsBitmap p;
     if ( bitmap != NULL )
     {
-        p.SetRefData(new wxQtBitmapData(this, (QPixmap*)bitmap));
+        p.SetRefData(NEW_DEBUG wxQtBitmapData(this, (QPixmap*)bitmap));
     }
     return p;
 }
@@ -1391,10 +1391,10 @@ wxQtGraphicsRenderer::CreateSubBitmap(const wxGraphicsBitmap& bitmap,
             x + dstWidth <= srcWidth && y + dstHeight <= srcHeight,
             wxNullGraphicsBitmap, wxS("Invalid bitmap region"));
 
-    QPixmap* subPixmap = new QPixmap(sourcePixmap->copy(x, y, w, h));
+    QPixmap* subPixmap = NEW_DEBUG QPixmap(sourcePixmap->copy(x, y, w, h));
 
     wxGraphicsBitmap bmpRes;
-    bmpRes.SetRefData(new wxQtBitmapData(this, subPixmap));
+    bmpRes.SetRefData(NEW_DEBUG wxQtBitmapData(this, subPixmap));
     return bmpRes;
 }
 

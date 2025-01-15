@@ -233,7 +233,7 @@ void wxMenu::UpdateAccel(wxMenuItem *item)
             m_accels.RemoveAt(n);
         }
 
-        // find the (new) accel for this item and add it if any
+        // find the (NEW_DEBUG) accel for this item and add it if any
         wxAcceleratorEntry *accel = wxAcceleratorEntry::Create(item->GetItemLabel());
         if ( accel )
         {
@@ -246,7 +246,7 @@ void wxMenu::UpdateAccel(wxMenuItem *item)
         const int extraAccelsSize = extraAccelsVector.size();
         for (int i = 0; i < extraAccelsSize; ++i)
         {
-            wxAcceleratorEntry *extraAccel = new wxAcceleratorEntry(extraAccelsVector[i]);
+            wxAcceleratorEntry *extraAccel = NEW_DEBUG wxAcceleratorEntry(extraAccelsVector[i]);
             extraAccel->m_command = item->GetId();
             m_accels.Add(extraAccel);
         }
@@ -324,7 +324,7 @@ void wxMenu::SetupBitmaps()
     }
 }
 
-// append a new item or submenu to the menu
+// append a NEW_DEBUG item or submenu to the menu
 bool wxMenu::DoInsertOrAppend(wxMenuItem *pItem, size_t pos)
 {
 #if wxUSE_ACCEL
@@ -385,7 +385,7 @@ bool wxMenu::DoInsertOrAppend(wxMenuItem *pItem, size_t pos)
         pos = GetMenuItemCount() - 1;
     }
 
-    // Update radio groups data if we're inserting a new menu item.
+    // Update radio groups data if we're inserting a NEW_DEBUG menu item.
     // Inserting radio and non-radio item has a different impact
     // on radio groups so we have to handle each case separately.
     // (Inserting a radio item in the middle of existing group extends
@@ -395,7 +395,7 @@ bool wxMenu::DoInsertOrAppend(wxMenuItem *pItem, size_t pos)
     if ( pItem->IsRadio() )
     {
         if ( !m_radioData )
-            m_radioData = new wxMenuRadioItemsData;
+            m_radioData = NEW_DEBUG wxMenuRadioItemsData;
 
         if ( m_radioData->UpdateOnInsertRadio(pos) )
             checkInitially = true;
@@ -483,7 +483,7 @@ bool wxMenu::DoInsertOrAppend(wxMenuItem *pItem, size_t pos)
                 {
                     wxLogLastError(wxT("InsertMenuItem()"));
 #if wxUSE_OWNER_DRAWN
-            // In case of failure switch new item to the owner-drawn mode.
+            // In case of failure switch NEW_DEBUG item to the owner-drawn mode.
             makeItemOwnerDrawn = true;
 #endif
                 }
@@ -698,7 +698,7 @@ wxAcceleratorTable *wxMenu::CreateAccelTable() const
     wxScopedArray<wxAcceleratorEntry> accels(count);
     CopyAccels(accels.get());
 
-    return new wxAcceleratorTable(count, accels.get());
+    return NEW_DEBUG wxAcceleratorTable(count, accels.get());
 }
 
 #endif // wxUSE_ACCEL
@@ -810,7 +810,7 @@ bool wxMenu::MSWCommand(WXUINT WXUNUSED(param), WXWORD id_)
                 item->Toggle();
 
                 // Get the status of the menu item: note that it has been just changed
-                // by Toggle() above so here we already get the new state of the item.
+                // by Toggle() above so here we already get the NEW_DEBUG state of the item.
                 //
                 // Also notice that we must pass unsigned id_ and not sign-extended id
                 // to ::GetMenuState() as this is what it expects.
@@ -1096,7 +1096,7 @@ wxMenu *wxMenuBar::Replace(size_t pos, wxMenu *menu, const wxString& title)
 bool wxMenuBar::Insert(size_t pos, wxMenu *menu, const wxString& title)
 {
     // Find out which MSW item before which we'll be inserting before
-    // wxMenuBarBase::Insert is called and GetMenu(pos) is the new menu.
+    // wxMenuBarBase::Insert is called and GetMenu(pos) is the NEW_DEBUG menu.
     // If IsAttached() is false this won't be used anyway
     bool isAttached =
         (GetHmenu() != 0);
@@ -1230,7 +1230,7 @@ void wxMenuBar::RebuildAccelTable()
 
     if ( nAccelCount )
     {
-        wxAcceleratorEntry *accelEntries = new wxAcceleratorEntry[nAccelCount];
+        wxAcceleratorEntry *accelEntries = NEW_DEBUG wxAcceleratorEntry[nAccelCount];
 
         nAccelCount = 0;
         for ( i = 0, it = m_menus.begin(); i < count; i++, ++it )

@@ -34,7 +34,7 @@ bool wxStaticLine::Create( wxWindow *parent,
              long style,
              const wxString &name)
 {
-    m_qtFrame = new QFrame( parent->GetHandle() );
+    m_qtFrame = NEW_DEBUG QFrame( parent->GetHandle() );
     if ( style & wxLI_HORIZONTAL )
         m_qtFrame->setFrameStyle( QFrame::HLine );
     else if ( style & wxLI_VERTICAL )

@@ -79,7 +79,7 @@ wxChoice::wxChoice() :
 
 void wxChoice::QtInitSort( QComboBox *combo )
 {
-    QSortFilterProxyModel *proxyModel = new LexicalSortProxyModel(combo);
+    QSortFilterProxyModel *proxyModel = NEW_DEBUG LexicalSortProxyModel(combo);
     proxyModel->setSourceModel(combo->model());
     combo->model()->setParent(proxyModel);
     combo->setModel(proxyModel);
@@ -131,7 +131,7 @@ bool wxChoice::Create( wxWindow *parent, wxWindowID id,
         const wxValidator& validator,
         const wxString& name )
 {
-    m_qtComboBox = new wxQtChoice( parent, this );
+    m_qtComboBox = NEW_DEBUG wxQtChoice( parent, this );
 
     QtInitSort( m_qtComboBox );
 

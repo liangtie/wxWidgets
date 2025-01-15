@@ -72,16 +72,16 @@ wxLZMAInputStream *LZMAStream::DoCreateInStream()
     REQUIRE( outz.LastWrite() == len );
     REQUIRE( outz.Close() );
 
-    wxMemoryInputStream* const inmem = new wxMemoryInputStream(outmem);
+    wxMemoryInputStream* const inmem = NEW_DEBUG wxMemoryInputStream(outmem);
     REQUIRE( inmem->IsOk() );
 
     // Give ownership of the memory input stream to the LZMA stream.
-    return new wxLZMAInputStream(inmem);
+    return NEW_DEBUG wxLZMAInputStream(inmem);
 }
 
 wxLZMAOutputStream *LZMAStream::DoCreateOutStream()
 {
-    return new wxLZMAOutputStream(new wxMemoryOutputStream());
+    return NEW_DEBUG wxLZMAOutputStream(NEW_DEBUG wxMemoryOutputStream());
 }
 
 #endif // wxUSE_LIBLZMA && wxUSE_STREAMS

@@ -256,7 +256,7 @@ void wxRibbonPanel::OnSize(wxSizeEvent& evt)
 void wxRibbonPanel::DoSetSize(int x, int y, int width, int height, int sizeFlags)
 {
     // At least on MSW, changing the size of a window will cause GetSize() to
-    // report the new size, but a size event may not be handled immediately.
+    // report the NEW_DEBUG size, but a size event may not be handled immediately.
     // If this minimised check was performed in the OnSize handler, then
     // GetSize() could return a size much larger than the minimised size while
     // IsMinimised() returns true. This would then affect layout, as the panel
@@ -820,21 +820,21 @@ bool wxRibbonPanel::ShowExpanded()
         size, m_preferred_expand_direction).GetTopLeft();
 
     // Need a top-level frame to contain the expanded panel
-    wxFrame *container = new wxFrame(NULL, wxID_ANY, GetLabel(),
+    wxFrame *container = NEW_DEBUG wxFrame(NULL, wxID_ANY, GetLabel(),
         pos, size, wxFRAME_NO_TASKBAR | wxBORDER_NONE);
 
-    m_expanded_panel = new wxRibbonPanel(container, wxID_ANY,
+    m_expanded_panel = NEW_DEBUG wxRibbonPanel(container, wxID_ANY,
         GetLabel(), m_minimised_icon, wxPoint(0, 0), size, (m_flags /* & ~wxRIBBON_PANEL_FLEXIBLE */));
 
     m_expanded_panel->SetArtProvider(m_art);
     m_expanded_panel->m_expanded_dummy = this;
 
-    // Move all children to the new panel.
+    // Move all children to the NEW_DEBUG panel.
     // Conceptually it might be simpler to reparent this entire panel to the
-    // container and create a new panel to sit in its place while expanded.
+    // container and create a NEW_DEBUG panel to sit in its place while expanded.
     // This approach has a problem though - when the panel is reinserted into
     // its original parent, it'll be at a different position in the child list
-    // and thus assume a new position.
+    // and thus assume a NEW_DEBUG position.
     // NB: Children iterators not used as behaviour is not well defined
     // when iterating over a container which is being emptied
     while(!GetChildren().IsEmpty())
@@ -844,7 +844,7 @@ bool wxRibbonPanel::ShowExpanded()
         child->Show();
     }
 
-    // Move sizer to new panel
+    // Move sizer to NEW_DEBUG panel
     if(GetSizer())
     {
         wxSizer* sizer = GetSizer();

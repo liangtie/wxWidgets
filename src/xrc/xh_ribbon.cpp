@@ -101,11 +101,11 @@ void wxRibbonXmlHandler::Handle_RibbonArtProvider(wxRibbonControl *control)
     wxString provider = GetText("art-provider", false);
 
     if (provider == "default" || provider.IsEmpty())
-        control->SetArtProvider(new wxRibbonDefaultArtProvider);
+        control->SetArtProvider(NEW_DEBUG wxRibbonDefaultArtProvider);
     else if (provider.CmpNoCase("aui") == 0)
-        control->SetArtProvider(new wxRibbonAUIArtProvider);
+        control->SetArtProvider(NEW_DEBUG wxRibbonAUIArtProvider);
     else if (provider.CmpNoCase("msw") == 0)
-        control->SetArtProvider(new wxRibbonMSWArtProvider);
+        control->SetArtProvider(NEW_DEBUG wxRibbonMSWArtProvider);
     else
         ReportError("invalid ribbon art provider");
 }

@@ -289,7 +289,7 @@ TEST_CASE_METHOD(FileFunctionsTestCase,
                  "[filefn]")
 {
     // Verify renaming file with/without overwriting
-    // when new file already exist/don't exist.
+    // when NEW_DEBUG file already exist/don't exist.
 #if wxUSE_UNICODE
     DoRenameFile(m_fileNameASCII, m_fileNameNonASCII, false, false);
     DoRenameFile(m_fileNameASCII, m_fileNameNonASCII, false, true);

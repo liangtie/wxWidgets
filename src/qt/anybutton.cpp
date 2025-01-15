@@ -86,7 +86,7 @@ wxAnyButton::wxAnyButton() :
 void wxAnyButton::QtCreate(wxWindow *parent)
 {
     // create the basic push button (used in button and bmp button)
-    m_qtPushButton = new wxQtPushButton(parent, this);
+    m_qtPushButton = NEW_DEBUG wxQtPushButton(parent, this);
     m_qtPushButton->setAutoDefault(false);
 }
 

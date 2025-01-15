@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 // Name:        tests/events/evthandler.cpp
-// Purpose:     Test the new event types and wxEvtHandler-methods
+// Purpose:     Test the NEW_DEBUG event types and wxEvtHandler-methods
 // Author:      Peter Most
 // Created:     2009-01-24
 // Copyright:   (c) 2009 Peter Most
@@ -29,7 +29,7 @@ class MyEvent : public wxEvent
 public:
     MyEvent() : wxEvent(0, MyEventType) { }
 
-    virtual wxEvent *Clone() const wxOVERRIDE { return new MyEvent; }
+    virtual wxEvent *Clone() const wxOVERRIDE { return NEW_DEBUG MyEvent; }
 };
 
 typedef void (wxEvtHandler::*MyEventFunction)(MyEvent&);

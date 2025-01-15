@@ -41,7 +41,7 @@ public:
 
     CGColorRef GetCGColor() const wxOVERRIDE { return m_cgColour; }
 
-    virtual wxColourRefData* Clone() const wxOVERRIDE { return new wxCGColorRefData(*this); }
+    virtual wxColourRefData* Clone() const wxOVERRIDE { return NEW_DEBUG wxCGColorRefData(*this); }
 
 private:
     void Init(CGFloat components[4]);
@@ -149,7 +149,7 @@ wxColour::wxColour(const RGBColor& col)
 {
     CGFloat components[4] = { (CGFloat)(col.red / 65535.0), (CGFloat)(col.green / 65535.0),
         (CGFloat)(col.blue / 65535.0), (CGFloat)1.0 };
-    m_refData = new wxCGColorRefData(components);
+    m_refData = NEW_DEBUG wxCGColorRefData(components);
 }
 #endif
 
@@ -157,7 +157,7 @@ wxColour::wxColour(CGColorRef col)
 {
     wxASSERT_MSG(col != NULL, "Invalid CoreGraphics Color");
 
-    m_refData = new wxCGColorRefData(col);
+    m_refData = NEW_DEBUG wxCGColorRefData(col);
 }
 
 wxColour::ChannelType wxColour::Red() const
@@ -232,7 +232,7 @@ WX_NSImage wxColour::OSXGetNSPatternImage() const
 void wxColour::InitRGBA(ChannelType r, ChannelType g, ChannelType b, ChannelType a)
 {
     CGFloat components[4] = { (CGFloat)(r / 255.0), (CGFloat)(g / 255.0), (CGFloat)(b / 255.0), (CGFloat)(a / 255.0) };
-    m_refData = new wxCGColorRefData(components);
+    m_refData = NEW_DEBUG wxCGColorRefData(components);
 }
 
 bool wxColour::operator==(const wxColour& other) const
@@ -249,7 +249,7 @@ bool wxColour::operator==(const wxColour& other) const
 wxGDIRefData* wxColour::CreateGDIRefData() const
 {
     // black
-    return new wxCGColorRefData(0.0, 0.0, 0.0);
+    return NEW_DEBUG wxCGColorRefData(0.0, 0.0, 0.0);
 }
 
 wxGDIRefData* wxColour::CloneGDIRefData(const wxGDIRefData* data) const

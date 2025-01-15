@@ -217,9 +217,9 @@ static void wxFSEventCallback(ConstFSEventStreamRef WXUNUSED(streamRef), void *c
             // This is a naive way of looking for file renames
             // wx presents a renames with a from and to paths
             // but fs events events do not give us this (it only
-            // provides that a file was renamed, not what the new
+            // provides that a file was renamed, not what the NEW_DEBUG
             // name is).
-            // We deduce the old and new paths by looking for consecutive
+            // We deduce the old and NEW_DEBUG paths by looking for consecutive
             // renames. This is very naive and won't catch simulatenous
             // renames inside the latency period, nor renames from/to
             // a directory that is not inside the watched paths.
@@ -284,14 +284,14 @@ struct wxFsEventsFileSystemWatcher::PrivateData
 };
 
 wxFsEventsFileSystemWatcher::wxFsEventsFileSystemWatcher()
-: wxKqueueFileSystemWatcher(), m_pImpl(new PrivateData)
+: wxKqueueFileSystemWatcher(), m_pImpl(NEW_DEBUG PrivateData)
 {
 
 }
 
 wxFsEventsFileSystemWatcher::wxFsEventsFileSystemWatcher(const wxFileName& path,
     int events)
-: wxKqueueFileSystemWatcher(path, events), m_pImpl(new PrivateData)
+: wxKqueueFileSystemWatcher(path, events), m_pImpl(NEW_DEBUG PrivateData)
 {
 
 }
@@ -340,7 +340,7 @@ bool wxFsEventsFileSystemWatcher::AddTree(const wxFileName& path, int events,
     // we make sure to give the context a cleanup
     // callback.
     FSEventStreamContext ctx;
-    wxFSEventWatcherContext* watcherContext = new wxFSEventWatcherContext(
+    wxFSEventWatcherContext* watcherContext = NEW_DEBUG wxFSEventWatcherContext(
         this, events, filespec.Clone()
     );
     ctx.version = 0;
@@ -464,7 +464,7 @@ void wxFsEventsFileSystemWatcher::PostChange(const wxFileName& oldFileName,
     {
         if ( event & allEvents[i] )
         {
-            wxFileSystemWatcherEvent* evt = new wxFileSystemWatcherEvent(
+            wxFileSystemWatcherEvent* evt = NEW_DEBUG wxFileSystemWatcherEvent(
                 allEvents[i], oldFileName, newFileName
             );
             wxQueueEvent(this->GetOwner(), evt);
@@ -475,7 +475,7 @@ void wxFsEventsFileSystemWatcher::PostChange(const wxFileName& oldFileName,
 void wxFsEventsFileSystemWatcher::PostWarning(wxFSWWarningType warning,
     const wxString& msg)
 {
-    wxFileSystemWatcherEvent* evt = new wxFileSystemWatcherEvent(
+    wxFileSystemWatcherEvent* evt = NEW_DEBUG wxFileSystemWatcherEvent(
         wxFSW_EVENT_WARNING, warning, msg
     );
     wxASSERT_MSG(this->GetOwner(), "owner must exist");
@@ -487,7 +487,7 @@ void wxFsEventsFileSystemWatcher::PostWarning(wxFSWWarningType warning,
 
 void wxFsEventsFileSystemWatcher::PostError(const wxString& msg)
 {
-    wxFileSystemWatcherEvent* evt = new wxFileSystemWatcherEvent(
+    wxFileSystemWatcherEvent* evt = NEW_DEBUG wxFileSystemWatcherEvent(
         wxFSW_EVENT_ERROR, wxFSW_WARNING_NONE, msg
     );
     wxASSERT_MSG(this->GetOwner(), "owner must exist");

@@ -119,7 +119,7 @@ wxSockAddress* SocketTestCase::GetServer()
     if ( gs_serverHost.empty() )
         return NULL;
 
-    wxIPV4address *addr = new wxIPV4address;
+    wxIPV4address *addr = NEW_DEBUG wxIPV4address;
     addr->Hostname(gs_serverHost);
     addr->Service("www");
 
@@ -132,7 +132,7 @@ wxSocketClient* SocketTestCase::GetHTTPSocket(int flags)
     if ( !addr )
         return NULL;
 
-    wxSocketClient *sock = new wxSocketClient(flags);
+    wxSocketClient *sock = NEW_DEBUG wxSocketClient(flags);
     sock->SetTimeout(1);
     CPPUNIT_ASSERT( sock->Connect(*addr) );
 

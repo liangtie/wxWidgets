@@ -893,7 +893,7 @@ void wxActiveXContainer::CreateActiveX(REFIID iid, IUnknown* pUnk)
     CHECK_HR(hret);
 
     // FrameSite
-    m_frameSite = new FrameSite(m_realparent, this);
+    m_frameSite = NEW_DEBUG FrameSite(m_realparent, this);
     // oleClientSite
     hret = m_clientSite.QueryInterface(
         IID_IOleClientSite, (IDispatch *) m_frameSite);
@@ -996,7 +996,7 @@ void wxActiveXContainer::CreateActiveX(REFIID iid, IUnknown* pUnk)
                 if ( cp )
                 {
                     wxActiveXEvents * const
-                        events = new wxActiveXEvents(this, ta2->guid);
+                        events = NEW_DEBUG wxActiveXEvents(this, ta2->guid);
                     hret = cp->Advise(events, &adviseCookie);
 
                     // We don't need this object any more and cp will keep a

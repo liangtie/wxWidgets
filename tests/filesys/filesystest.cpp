@@ -185,7 +185,7 @@ TEST_CASE("wxFileSystem::MemoryFSHandler", "[filesys][memoryfshandler][find]")
     {
     public:
         AutoMemoryFSHandler()
-            : m_handler(new wxMemoryFSHandler())
+            : m_handler(NEW_DEBUG wxMemoryFSHandler())
         {
             wxFileSystem::AddHandler(m_handler.get());
         }

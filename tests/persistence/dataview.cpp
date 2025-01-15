@@ -46,8 +46,8 @@ static wxDataViewCtrl* CreatePersistenceTestDVC()
     // We can't just destroy the control itself directly, we need to destroy
     // its parent as only this will ensure that it gets wxWindowDestroyEvent
     // from which its state will be saved.
-    wxWindow* const parent = new wxWindow(wxTheApp->GetTopWindow(), wxID_ANY);
-    wxDataViewListCtrl* const list = new wxDataViewListCtrl(parent, wxID_ANY);
+    wxWindow* const parent = NEW_DEBUG wxWindow(wxTheApp->GetTopWindow(), wxID_ANY);
+    wxDataViewListCtrl* const list = NEW_DEBUG wxDataViewListCtrl(parent, wxID_ANY);
     list->SetName("dvc");
 
     // Ensure the control is big enough to allow making its columns as wide as

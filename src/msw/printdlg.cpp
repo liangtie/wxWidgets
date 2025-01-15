@@ -508,7 +508,7 @@ void wxWindowsPrintNativeData::InitializeDevMode(const wxString& printerName, Wi
             m_devMode = pd.hDevMode;
             pd.hDevMode = NULL;
 
-            // We'll create a new DEVNAMEs structure below.
+            // We'll create a NEW_DEBUG DEVNAMEs structure below.
             if ( pd.hDevNames )
                 GlobalFree(pd.hDevNames);
             pd.hDevNames = NULL;
@@ -737,7 +737,7 @@ bool wxWindowsPrintNativeData::TransferFrom( const wxPrintData &data )
         if( printer )
         {
             // Step 3:
-            // Merge the new settings with the old.
+            // Merge the NEW_DEBUG settings with the old.
             // This gives the driver an opportunity to update any private
             // portions of the DevMode structure.
             DocumentProperties( NULL,
@@ -829,7 +829,7 @@ int wxWindowsPrintDialog::ShowModal()
 
     if ( ret && (pd->hDC) )
     {
-        wxPrinterDC *pdc = new wxPrinterDCFromHDC( (WXHDC) pd->hDC );
+        wxPrinterDC *pdc = NEW_DEBUG wxPrinterDCFromHDC( (WXHDC) pd->hDC );
         m_printerDC = pdc;
         ConvertFromNative( m_printDialogData );
         return wxID_OK;
@@ -863,7 +863,7 @@ bool wxWindowsPrintDialog::ConvertToNative( wxPrintDialogData &data )
     if (pd)
         return false;
 
-    pd = new PRINTDLG;
+    pd = NEW_DEBUG PRINTDLG;
     memset( pd, 0, sizeof(PRINTDLG) );
     m_printDlg = (void*) pd;
 
@@ -1047,7 +1047,7 @@ bool wxWindowsPageSetupDialog::ConvertToNative( wxPageSetupDialogData &data )
     if (pd)
         return false;
 
-    pd = new PAGESETUPDLG;
+    pd = NEW_DEBUG PAGESETUPDLG;
     m_pageDlg = (void *)pd;
 
     // We must not set hDevMode and hDevNames when using PSD_RETURNDEFAULT,

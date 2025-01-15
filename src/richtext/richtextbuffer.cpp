@@ -322,7 +322,7 @@ void wxRichTextFloatCollector::CollectFloat(wxRichTextParagraph* para, wxRichTex
 
     wxPoint pos = floating->GetPosition();
     wxSize size = floating->GetCachedSize();
-    wxRichTextFloatRectMap *map = new wxRichTextFloatRectMap(pos.y, pos.y + size.y, size.x, floating);
+    wxRichTextFloatRectMap *map = NEW_DEBUG wxRichTextFloatRectMap(pos.y, pos.y + size.y, size.x, floating);
     switch (direction)
     {
         case wxTEXT_BOX_ATTR_FLOAT_NONE:
@@ -1332,7 +1332,7 @@ bool wxRichTextObject::AdjustAttributes(wxRichTextAttr& attr, wxRichTextDrawingC
     return true;
 }
 
-// Move the object recursively, by adding the offset from old to new
+// Move the object recursively, by adding the offset from old to NEW_DEBUG
 void wxRichTextObject::Move(const wxPoint& pt)
 {
     SetPosition(pt);
@@ -1695,7 +1695,7 @@ bool wxRichTextCompositeObject::Defragment(wxRichTextDrawingContext& context, co
 
                         bool splitNextChild = nextChild != nextChildAfterSplit;
 
-                        // See if we can merge this new fragment with (perhaps the first part of) the next object.
+                        // See if we can merge this NEW_DEBUG fragment with (perhaps the first part of) the next object.
                         // Note that we use nextChild because if we had split nextChild, the first object always
                         // remains (and further parts are appended). However we must use childAfterSplit since
                         // it's the last part of a possibly split child.
@@ -1900,7 +1900,7 @@ void wxRichTextCompositeObject::Invalidate(const wxRichTextRange& invalidRange)
     }
 }
 
-// Move the object recursively, by adding the offset from old to new
+// Move the object recursively, by adding the offset from old to NEW_DEBUG
 void wxRichTextCompositeObject::Move(const wxPoint& pt)
 {
     wxPoint oldPos = GetPosition();
@@ -1983,7 +1983,7 @@ bool wxRichTextParagraphLayoutBox::UpdateFloatingObjects(const wxRect& available
 {
     if (m_floatCollector != NULL)
         delete m_floatCollector;
-    m_floatCollector = new wxRichTextFloatCollector(availableRect);
+    m_floatCollector = NEW_DEBUG wxRichTextFloatCollector(availableRect);
     wxRichTextObjectList::compatibility_iterator node = m_children.GetFirst();
     // Only gather floats up to the point we'll start formatting paragraphs.
     while (untilObj && node && node->GetData() != untilObj)
@@ -2745,7 +2745,7 @@ wxRichTextRange wxRichTextParagraphLayoutBox::AddParagraph(const wxString& text,
     wxRichTextAttr* pStyle = paraStyle ? paraStyle : (wxRichTextAttr*) & defaultParaStyle;
     wxRichTextAttr* cStyle = & defaultCharStyle;
 
-    wxRichTextParagraph* para = new wxRichTextParagraph(text, this, pStyle, cStyle);
+    wxRichTextParagraph* para = NEW_DEBUG wxRichTextParagraph(text, this, pStyle, cStyle);
     para->GetAttributes().GetTextBoxAttr().Reset();
 
     AppendChild(para);
@@ -2787,7 +2787,7 @@ wxRichTextRange wxRichTextParagraphLayoutBox::AddParagraphs(const wxString& text
     size_t i = 0;
     size_t len = text.length();
     wxString line;
-    wxRichTextParagraph* para = new wxRichTextParagraph(wxEmptyString, this, pStyle, cStyle);
+    wxRichTextParagraph* para = NEW_DEBUG wxRichTextParagraph(wxEmptyString, this, pStyle, cStyle);
     para->GetAttributes().GetTextBoxAttr().Reset();
 
     AppendChild(para);
@@ -2805,7 +2805,7 @@ wxRichTextRange wxRichTextParagraphLayoutBox::AddParagraphs(const wxString& text
                 wxRichTextPlainText* plainText = (wxRichTextPlainText*) para->GetChildren().GetFirst()->GetData();
                 plainText->SetText(line);
 
-                para = new wxRichTextParagraph(wxEmptyString, this, pStyle, cStyle);
+                para = NEW_DEBUG wxRichTextParagraph(wxEmptyString, this, pStyle, cStyle);
                 para->GetAttributes().GetTextBoxAttr().Reset();
 
                 AppendChild(para);
@@ -2855,10 +2855,10 @@ wxRichTextRange wxRichTextParagraphLayoutBox::AddImage(const wxImage& image, wxR
     wxRichTextAttr* pStyle = paraStyle ? paraStyle : (wxRichTextAttr*) & defaultParaStyle;
     wxRichTextAttr* cStyle = & defaultCharStyle;
 
-    wxRichTextParagraph* para = new wxRichTextParagraph(this, pStyle);
+    wxRichTextParagraph* para = NEW_DEBUG wxRichTextParagraph(this, pStyle);
     para->GetAttributes().GetTextBoxAttr().Reset();
     AppendChild(para);
-    para->AppendChild(new wxRichTextImage(image, this, cStyle));
+    para->AppendChild(NEW_DEBUG wxRichTextImage(image, this, cStyle));
 
     UpdateRanges();
 
@@ -2881,7 +2881,7 @@ bool wxRichTextParagraphLayoutBox::InsertFragment(long position, wxRichTextParag
 
         wxRichTextObjectList::compatibility_iterator node = m_children.Find(para);
 
-        // Now split at this position, returning the object to insert the new
+        // Now split at this position, returning the object to insert the NEW_DEBUG
         // ones in front of.
         wxRichTextObject* nextObject = para->SplitAt(position);
 
@@ -2931,7 +2931,7 @@ bool wxRichTextParagraphLayoutBox::InsertFragment(long position, wxRichTextParag
             //    paragraph.
             // 3. Add remaining fragment paragraphs after the current paragraph.
             // 4. Add back the saved content from the first paragraph. If partialParagraph
-            //    is true, add it to the last paragraph added and not a new one.
+            //    is true, add it to the last paragraph added and not a NEW_DEBUG one.
 
             // 1. Remove and save objects after split point.
             wxList savedObjects;
@@ -2953,8 +2953,8 @@ bool wxRichTextParagraphLayoutBox::InsertFragment(long position, wxRichTextParag
             }
 
             // Save empty paragraph attributes for appending later
-            // These are character attributes deliberately set for a new paragraph. Without this,
-            // we couldn't pass default attributes when appending a new paragraph.
+            // These are character attributes deliberately set for a NEW_DEBUG paragraph. Without this,
+            // we couldn't pass default attributes when appending a NEW_DEBUG paragraph.
             wxRichTextAttr emptyParagraphAttributes;
 
             wxRichTextObjectList::compatibility_iterator objectNode = firstPara->GetChildren().GetFirst();
@@ -2983,7 +2983,7 @@ bool wxRichTextParagraphLayoutBox::InsertFragment(long position, wxRichTextParag
 
             bool needExtraPara = (!i || !fragment.GetPartialParagraph());
 
-            // If there was only one paragraph, we need to insert a new one.
+            // If there was only one paragraph, we need to insert a NEW_DEBUG one.
             while (i)
             {
                 wxRichTextParagraph* searchPara = wxDynamicCast(i->GetData(), wxRichTextParagraph);
@@ -3000,10 +3000,10 @@ bool wxRichTextParagraphLayoutBox::InsertFragment(long position, wxRichTextParag
             }
 
             // If there was only one paragraph, or we have full paragraphs in our fragment,
-            // we need to insert a new one.
+            // we need to insert a NEW_DEBUG one.
             if (needExtraPara)
             {
-                finalPara = new wxRichTextParagraph;
+                finalPara = NEW_DEBUG wxRichTextParagraph;
 
                 if (nextParagraph)
                     InsertChild(finalPara, nextParagraph);
@@ -3020,7 +3020,7 @@ bool wxRichTextParagraphLayoutBox::InsertFragment(long position, wxRichTextParag
                 // Ensure there's at least one object
                 if (finalPara->GetChildCount() == 0)
                 {
-                    wxRichTextPlainText* text = new wxRichTextPlainText(wxEmptyString);
+                    wxRichTextPlainText* text = NEW_DEBUG wxRichTextPlainText(wxEmptyString);
                     text->SetAttributes(emptyParagraphAttributes);
 
                     finalPara->AppendChild(text);
@@ -3076,7 +3076,7 @@ bool wxRichTextParagraphLayoutBox::CopyFragment(const wxRichTextRange& range, wx
         i = i->GetNext();
     }
 
-    // Now top and tail the first and last paragraphs in our new fragment (which might be the same).
+    // Now top and tail the first and last paragraphs in our NEW_DEBUG fragment (which might be the same).
     if (!fragment.IsEmpty())
     {
         wxRichTextParagraph* firstPara = wxDynamicCast(fragment.GetChildren().GetFirst()->GetData(), wxRichTextParagraph);
@@ -3131,7 +3131,7 @@ bool wxRichTextParagraphLayoutBox::CopyFragment(const wxRichTextRange& range, wx
         }
         else
         {
-            // We have a partial paragraph (don't save last new paragraph marker)
+            // We have a partial paragraph (don't save last NEW_DEBUG paragraph marker)
             // or complete paragraph
             fragment.SetPartialParagraph(isFragment);
         }
@@ -3324,7 +3324,7 @@ bool wxRichTextParagraphLayoutBox::DeleteRange(const wxRichTextRange& range)
                     // Avoid empty paragraphs
                     if (firstPara && firstPara->GetChildren().GetCount() == 0)
                     {
-                        wxRichTextPlainText* text = new wxRichTextPlainText(wxEmptyString);
+                        wxRichTextPlainText* text = NEW_DEBUG wxRichTextPlainText(wxEmptyString);
                         firstPara->AppendChild(text);
                     }
 
@@ -3516,7 +3516,7 @@ bool wxRichTextParagraphLayoutBox::SetStyle(const wxRichTextRange& range, const 
 
     if (haveControl && withUndo)
     {
-        action = new wxRichTextAction(NULL, _("Change Style"), wxRICHTEXT_CHANGE_STYLE, buffer, this, buffer->GetRichTextCtrl());
+        action = NEW_DEBUG wxRichTextAction(NULL, _("Change Style"), wxRICHTEXT_CHANGE_STYLE, buffer, this, buffer->GetRichTextCtrl());
         action->SetRange(range);
         action->SetPosition(buffer->GetRichTextCtrl()->GetCaretPosition());
     }
@@ -3541,11 +3541,11 @@ bool wxRichTextParagraphLayoutBox::SetStyle(const wxRichTextRange& range, const 
 
                 if (haveControl && withUndo)
                 {
-                    newPara = new wxRichTextParagraph(*para);
+                    newPara = NEW_DEBUG wxRichTextParagraph(*para);
                     action->GetNewParagraphs().AppendChild(newPara);
 
                     // Also store the old ones for Undo
-                    action->GetOldParagraphs().AppendChild(new wxRichTextParagraph(*para));
+                    action->GetOldParagraphs().AppendChild(NEW_DEBUG wxRichTextParagraph(*para));
                 }
                 else
                     newPara = para;
@@ -3612,7 +3612,7 @@ bool wxRichTextParagraphLayoutBox::SetStyle(const wxRichTextRange& range, const 
                         lastObject = newPara->GetChildren().GetLast()->GetData();
                     else
                         // lastObject is set as a side-effect of splitting. It's
-                        // returned as the object before the new object.
+                        // returned as the object before the NEW_DEBUG object.
                         (void) newPara->SplitAt(splitPoint, & lastObject);
 
                     wxASSERT(firstObject != NULL);
@@ -3699,7 +3699,7 @@ void wxRichTextParagraphLayoutBox::SetStyle(wxRichTextObject* obj, const wxRichT
 
     if (haveControl && withUndo)
     {
-        action = new wxRichTextAction(NULL, _("Change Object Style"), wxRICHTEXT_CHANGE_ATTRIBUTES, buffer, obj->GetContainer(), buffer->GetRichTextCtrl());
+        action = NEW_DEBUG wxRichTextAction(NULL, _("Change Object Style"), wxRICHTEXT_CHANGE_ATTRIBUTES, buffer, obj->GetContainer(), buffer->GetRichTextCtrl());
         action->SetRange(obj->GetRange().FromInternal());
         action->SetPosition(buffer->GetRichTextCtrl()->GetCaretPosition());
         action->MakeObject(obj);
@@ -3972,7 +3972,7 @@ bool wxRichTextParagraphLayoutBox::SetProperties(const wxRichTextRange& range, c
 
     if (haveControl && withUndo)
     {
-        action = new wxRichTextAction(NULL, _("Change Properties"), wxRICHTEXT_CHANGE_PROPERTIES, buffer, this, buffer->GetRichTextCtrl());
+        action = NEW_DEBUG wxRichTextAction(NULL, _("Change Properties"), wxRICHTEXT_CHANGE_PROPERTIES, buffer, this, buffer->GetRichTextCtrl());
         action->SetRange(range);
         action->SetPosition(buffer->GetRichTextCtrl()->GetCaretPosition());
     }
@@ -3997,11 +3997,11 @@ bool wxRichTextParagraphLayoutBox::SetProperties(const wxRichTextRange& range, c
 
                 if (haveControl && withUndo)
                 {
-                    newPara = new wxRichTextParagraph(*para);
+                    newPara = NEW_DEBUG wxRichTextParagraph(*para);
                     action->GetNewParagraphs().AppendChild(newPara);
 
                     // Also store the old ones for Undo
-                    action->GetOldParagraphs().AppendChild(new wxRichTextParagraph(*para));
+                    action->GetOldParagraphs().AppendChild(NEW_DEBUG wxRichTextParagraph(*para));
                 }
                 else
                     newPara = para;
@@ -4057,7 +4057,7 @@ bool wxRichTextParagraphLayoutBox::SetProperties(const wxRichTextRange& range, c
                         lastObject = newPara->GetChildren().GetLast()->GetData();
                     else
                         // lastObject is set as a side-effect of splitting. It's
-                        // returned as the object before the new object.
+                        // returned as the object before the NEW_DEBUG object.
                         (void) newPara->SplitAt(splitPoint, & lastObject);
 
                     wxASSERT(firstObject != NULL);
@@ -4248,7 +4248,7 @@ bool wxRichTextParagraphLayoutBox::ApplyStyleSheet(wxRichTextStyleSheet* styleSh
             // exception as above).
             // Problem: when changing from one list style to another, there's a danger that the level info will get lost.
             // So when changing a list style interactively, could retrieve level based on current style, then
-            // set appropriate indent and apply new style.
+            // set appropriate indent and apply NEW_DEBUG style.
 
             int outline = -1;
             int num = -1;
@@ -4344,7 +4344,7 @@ bool wxRichTextParagraphLayoutBox::SetListStyle(const wxRichTextRange& range, wx
 
     if (haveControl && withUndo)
     {
-        action = new wxRichTextAction(NULL, _("Change List Style"), wxRICHTEXT_CHANGE_STYLE, buffer, this, buffer->GetRichTextCtrl());
+        action = NEW_DEBUG wxRichTextAction(NULL, _("Change List Style"), wxRICHTEXT_CHANGE_STYLE, buffer, this, buffer->GetRichTextCtrl());
         action->SetRange(range);
         action->SetPosition(buffer->GetRichTextCtrl()->GetCaretPosition());
     }
@@ -4369,11 +4369,11 @@ bool wxRichTextParagraphLayoutBox::SetListStyle(const wxRichTextRange& range, wx
 
                 if (haveControl && withUndo)
                 {
-                    newPara = new wxRichTextParagraph(*para);
+                    newPara = NEW_DEBUG wxRichTextParagraph(*para);
                     action->GetNewParagraphs().AppendChild(newPara);
 
                     // Also store the old ones for Undo
-                    action->GetOldParagraphs().AppendChild(new wxRichTextParagraph(*para));
+                    action->GetOldParagraphs().AppendChild(NEW_DEBUG wxRichTextParagraph(*para));
                 }
                 else
                     newPara = para;
@@ -4517,7 +4517,7 @@ bool wxRichTextParagraphLayoutBox::DoNumberList(const wxRichTextRange& range, co
 
     if (haveControl && withUndo)
     {
-        action = new wxRichTextAction(NULL, _("Renumber List"), wxRICHTEXT_CHANGE_STYLE, buffer, this, buffer->GetRichTextCtrl());
+        action = NEW_DEBUG wxRichTextAction(NULL, _("Renumber List"), wxRICHTEXT_CHANGE_STYLE, buffer, this, buffer->GetRichTextCtrl());
         action->SetRange(range);
         action->SetPosition(buffer->GetRichTextCtrl()->GetCaretPosition());
     }
@@ -4542,11 +4542,11 @@ bool wxRichTextParagraphLayoutBox::DoNumberList(const wxRichTextRange& range, co
 
                 if (haveControl && withUndo)
                 {
-                    newPara = new wxRichTextParagraph(*para);
+                    newPara = NEW_DEBUG wxRichTextParagraph(*para);
                     action->GetNewParagraphs().AppendChild(newPara);
 
                     // Also store the old ones for Undo
-                    action->GetOldParagraphs().AppendChild(new wxRichTextParagraph(*para));
+                    action->GetOldParagraphs().AppendChild(NEW_DEBUG wxRichTextParagraph(*para));
                 }
                 else
                     newPara = para;
@@ -4669,7 +4669,7 @@ bool wxRichTextParagraphLayoutBox::PromoteList(int promoteBy, const wxRichTextRa
     // TODO
     // One strategy is to first work out the range within which renumbering must occur. Then could pass these two ranges
     // to NumberList with a flag indicating promotion is required within one of the ranges.
-    // Find first and last paragraphs in range. Then for first, calculate new indentation and look back until we find
+    // Find first and last paragraphs in range. Then for first, calculate NEW_DEBUG indentation and look back until we find
     // a paragraph that either has no list style, or has one that is different or whose indentation is less.
     // We start renumbering from the para after that different para we found. We specify that the numbering of that
     // list position will start from 1.
@@ -4793,7 +4793,7 @@ wxRichTextParagraph::wxRichTextParagraph(const wxString& text, wxRichTextObject*
     if (paraStyle)
         SetAttributes(*paraStyle);
 
-    AppendChild(new wxRichTextPlainText(text, this, charStyle));
+    AppendChild(NEW_DEBUG wxRichTextPlainText(text, this, charStyle));
 }
 
 void wxRichTextParagraph::Init()
@@ -5091,7 +5091,7 @@ bool wxRichTextParagraph::Layout(wxDC& dc, wxRichTextDrawingContext& context, co
 
     // Split up lines
 
-    // We may need to go back to a previous child, in which case create the new line,
+    // We may need to go back to a previous child, in which case create the NEW_DEBUG line,
     // find the child corresponding to the start position of the string, and
     // continue.
 
@@ -5191,7 +5191,7 @@ bool wxRichTextParagraph::Layout(wxDC& dc, wxRichTextDrawingContext& context, co
         // And because of floating object positioning, the available width depends on the
         // height of the object and whether it will clash with the floating objects.
         // So, we see whether the available width changes due to the presence of floating images.
-        // If it does, then we'll use the new restricted width to find the object height again.
+        // If it does, then we'll use the NEW_DEBUG restricted width to find the object height again.
         // If this causes another restriction in the available width, we'll try again, until
         // either we lose patience or the available width settles down.
         do
@@ -5351,7 +5351,7 @@ bool wxRichTextParagraph::Layout(wxDC& dc, wxRichTextDrawingContext& context, co
                 dc.GetTextExtent(wxT("X"), & w, &h, & maxDescent);
             }
 
-            // Add a new line
+            // Add a NEW_DEBUG line
             wxRichTextLine* line = AllocateLine(lineCount);
 
             // Set relative range so we won't have to change line ranges when paragraphs are moved
@@ -5678,7 +5678,7 @@ bool wxRichTextParagraph::InsertText(long pos, const wxString& text)
         // Add at end.
         // Don't pass parent initially to suppress auto-setting of parent range.
         // We'll do that at a higher level.
-        wxRichTextPlainText* textObject = new wxRichTextPlainText(text, this);
+        wxRichTextPlainText* textObject = NEW_DEBUG wxRichTextPlainText(text, this);
 
         AppendChild(textObject);
         return true;
@@ -6212,8 +6212,8 @@ wxRichTextObject* wxRichTextParagraph::SplitAt(long pos, wxRichTextObject** prev
 
         if (child->GetRange().Contains(pos))
         {
-            // This should create a new object, transferring part of
-            // the content to the old object and the rest to the new object.
+            // This should create a NEW_DEBUG object, transferring part of
+            // the content to the old object and the rest to the NEW_DEBUG object.
             wxRichTextObject* newObject = child->DoSplit(pos);
 
             // If we couldn't split this object, just insert in front of it.
@@ -6224,7 +6224,7 @@ wxRichTextObject* wxRichTextParagraph::SplitAt(long pos, wxRichTextObject** prev
             }
             else
             {
-                // Insert the new object after 'child'
+                // Insert the NEW_DEBUG object after 'child'
                 if (node->GetNext())
                     m_children.Insert(node->GetNext(), newObject);
                 else
@@ -6541,7 +6541,7 @@ wxRichTextLine* wxRichTextParagraph::AllocateLine(int pos)
     }
     else
     {
-        wxRichTextLine* line = new wxRichTextLine(this);
+        wxRichTextLine* line = NEW_DEBUG wxRichTextLine(this);
         m_cachedLines.push_back(line);
         return line;
     }
@@ -6935,7 +6935,7 @@ bool wxRichTextPlainText::Draw(wxDC& dc, wxRichTextDrawingContext& context, cons
         y = rect.y + (rect.height - charHeight - (descent - m_descent));
     }
 
-    // TODO: new selection code
+    // TODO: NEW_DEBUG selection code
 
     // (a) All selected.
     if (allSelected)
@@ -7428,7 +7428,7 @@ wxRichTextObject* wxRichTextPlainText::DoSplit(long pos)
 
     m_text = firstPart;
 
-    wxRichTextPlainText* newObject = new wxRichTextPlainText(secondPart);
+    wxRichTextPlainText* newObject = NEW_DEBUG wxRichTextPlainText(secondPart);
     newObject->SetAttributes(GetAttributes());
     newObject->SetProperties(GetProperties());
 
@@ -7612,7 +7612,7 @@ wxRichTextObject* wxRichTextPlainText::Split(wxRichTextDrawingContext& context)
                                     }
                                     else
                                     {
-                                        wxRichTextPlainText* obj = new wxRichTextPlainText;
+                                        wxRichTextPlainText* obj = NEW_DEBUG wxRichTextPlainText;
                                         lastPlainText = obj;
                                         obj->SetAttributes(GetAttributes());
                                         obj->SetProperties(GetProperties());
@@ -7654,7 +7654,7 @@ wxRichTextObject* wxRichTextPlainText::Split(wxRichTextDrawingContext& context)
                                 }
                                 else
                                 {
-                                    wxRichTextPlainText* obj = new wxRichTextPlainText;
+                                    wxRichTextPlainText* obj = NEW_DEBUG wxRichTextPlainText;
                                     lastPlainText = obj;
                                     obj->SetAttributes(GetAttributes());
                                     obj->SetProperties(GetProperties());
@@ -7695,7 +7695,7 @@ wxRichTextObject* wxRichTextPlainText::Split(wxRichTextDrawingContext& context)
                         }
                         else
                         {
-                            wxRichTextPlainText* obj = new wxRichTextPlainText;
+                            wxRichTextPlainText* obj = NEW_DEBUG wxRichTextPlainText;
                             lastPlainText = obj;
                             obj->SetAttributes(GetAttributes());
                             obj->SetProperties(GetProperties());
@@ -7717,7 +7717,7 @@ wxRichTextObject* wxRichTextPlainText::Split(wxRichTextDrawingContext& context)
                     {
                         wxASSERT(runStart != 0);
 
-                        wxRichTextPlainText* obj = new wxRichTextPlainText;
+                        wxRichTextPlainText* obj = NEW_DEBUG wxRichTextPlainText;
                         obj->SetAttributes(GetAttributes());
                         obj->SetProperties(GetProperties());
                         obj->SetParent(parent);
@@ -7781,7 +7781,7 @@ bool                        wxRichTextBuffer::sm_floatingLayoutMode = true;
 /// Initialisation
 void wxRichTextBuffer::Init()
 {
-    m_commandProcessor = new wxCommandProcessor;
+    m_commandProcessor = NEW_DEBUG wxCommandProcessor;
     m_styleSheet = NULL;
     m_modified = false;
     m_batchedCommandDepth = 0;
@@ -7865,7 +7865,7 @@ bool wxRichTextBuffer::InsertParagraphsWithUndo(long pos, const wxRichTextParagr
 /// Submit command to insert paragraphs
 bool wxRichTextParagraphLayoutBox::InsertParagraphsWithUndo(wxRichTextBuffer* buffer, long pos, const wxRichTextParagraphLayoutBox& paragraphs, wxRichTextCtrl* ctrl, int WXUNUSED(flags))
 {
-    wxRichTextAction* action = new wxRichTextAction(NULL, _("Insert Text"), wxRICHTEXT_INSERT, buffer, this, ctrl, false);
+    wxRichTextAction* action = NEW_DEBUG wxRichTextAction(NULL, _("Insert Text"), wxRICHTEXT_INSERT, buffer, this, ctrl, false);
 
     action->GetNewParagraphs() = paragraphs;
 
@@ -7895,7 +7895,7 @@ bool wxRichTextBuffer::InsertTextWithUndo(long pos, const wxString& text, wxRich
 /// Submit command to insert the given text
 bool wxRichTextParagraphLayoutBox::InsertTextWithUndo(wxRichTextBuffer* buffer, long pos, const wxString& text, wxRichTextCtrl* ctrl, int flags)
 {
-    wxRichTextAction* action = new wxRichTextAction(NULL, _("Insert Text"), wxRICHTEXT_INSERT, buffer, this, ctrl, false);
+    wxRichTextAction* action = NEW_DEBUG wxRichTextAction(NULL, _("Insert Text"), wxRICHTEXT_INSERT, buffer, this, ctrl, false);
 
     wxRichTextAttr* p = NULL;
     wxRichTextAttr paraAttr;
@@ -7937,7 +7937,7 @@ bool wxRichTextBuffer::InsertNewlineWithUndo(long pos, wxRichTextCtrl* ctrl, int
 /// Submit command to insert the given text
 bool wxRichTextParagraphLayoutBox::InsertNewlineWithUndo(wxRichTextBuffer* buffer, long pos, wxRichTextCtrl* ctrl, int flags)
 {
-    wxRichTextAction* action = new wxRichTextAction(NULL, _("Insert Text"), wxRICHTEXT_INSERT, buffer, this, ctrl, false);
+    wxRichTextAction* action = NEW_DEBUG wxRichTextAction(NULL, _("Insert Text"), wxRICHTEXT_INSERT, buffer, this, ctrl, false);
 
     wxRichTextAttr* p = NULL;
     wxRichTextAttr paraAttr;
@@ -7952,7 +7952,7 @@ bool wxRichTextParagraphLayoutBox::InsertNewlineWithUndo(wxRichTextBuffer* buffe
     // Don't include box attributes such as margins
     attr.GetTextBoxAttr().Reset();
 
-    wxRichTextParagraph* newPara = new wxRichTextParagraph(wxEmptyString, this, & attr);
+    wxRichTextParagraph* newPara = NEW_DEBUG wxRichTextParagraph(wxEmptyString, this, & attr);
     action->GetNewParagraphs().AppendChild(newPara);
     action->GetNewParagraphs().UpdateRanges();
     action->GetNewParagraphs().SetPartialParagraph(false);
@@ -8021,7 +8021,7 @@ bool wxRichTextParagraphLayoutBox::InsertImageWithUndo(wxRichTextBuffer* buffer,
                                                         wxRichTextCtrl* ctrl, int flags,
                                                         const wxRichTextAttr& textAttr)
 {
-    wxRichTextAction* action = new wxRichTextAction(NULL, _("Insert Image"), wxRICHTEXT_INSERT, buffer, this, ctrl, false);
+    wxRichTextAction* action = NEW_DEBUG wxRichTextAction(NULL, _("Insert Image"), wxRICHTEXT_INSERT, buffer, this, ctrl, false);
 
     wxRichTextAttr* p = NULL;
     wxRichTextAttr paraAttr;
@@ -8037,11 +8037,11 @@ bool wxRichTextParagraphLayoutBox::InsertImageWithUndo(wxRichTextBuffer* buffer,
     // Don't include box attributes such as margins
     attr.GetTextBoxAttr().Reset();
 
-    wxRichTextParagraph* newPara = new wxRichTextParagraph(this, & attr);
+    wxRichTextParagraph* newPara = NEW_DEBUG wxRichTextParagraph(this, & attr);
     if (p)
         newPara->SetAttributes(*p);
 
-    wxRichTextImage* imageObject = new wxRichTextImage(imageBlock, newPara);
+    wxRichTextImage* imageObject = NEW_DEBUG wxRichTextImage(imageBlock, newPara);
     newPara->AppendChild(imageObject);
     imageObject->SetAttributes(textAttr);
     action->GetNewParagraphs().AppendChild(newPara);
@@ -8068,7 +8068,7 @@ wxRichTextObject* wxRichTextBuffer::InsertObjectWithUndo(long pos, wxRichTextObj
 // Insert an object with no change of it
 wxRichTextObject* wxRichTextParagraphLayoutBox::InsertObjectWithUndo(wxRichTextBuffer* buffer, long pos, wxRichTextObject *object, wxRichTextCtrl* ctrl, int flags)
 {
-    wxRichTextAction* action = new wxRichTextAction(NULL, _("Insert Object"), wxRICHTEXT_INSERT, buffer, this, ctrl, false);
+    wxRichTextAction* action = NEW_DEBUG wxRichTextAction(NULL, _("Insert Object"), wxRICHTEXT_INSERT, buffer, this, ctrl, false);
 
     wxRichTextAttr* p = NULL;
     wxRichTextAttr paraAttr;
@@ -8084,7 +8084,7 @@ wxRichTextObject* wxRichTextParagraphLayoutBox::InsertObjectWithUndo(wxRichTextB
     // Don't include box attributes such as margins
     attr.GetTextBoxAttr().Reset();
 
-    wxRichTextParagraph* newPara = new wxRichTextParagraph(this, & attr);
+    wxRichTextParagraph* newPara = NEW_DEBUG wxRichTextParagraph(this, & attr);
     if (p)
         newPara->SetAttributes(*p);
 
@@ -8110,7 +8110,7 @@ wxRichTextField* wxRichTextParagraphLayoutBox::InsertFieldWithUndo(wxRichTextBuf
                                                         wxRichTextCtrl* ctrl, int flags,
                                                         const wxRichTextAttr& textAttr)
 {
-    wxRichTextAction* action = new wxRichTextAction(NULL, _("Insert Field"), wxRICHTEXT_INSERT, buffer, this, ctrl, false);
+    wxRichTextAction* action = NEW_DEBUG wxRichTextAction(NULL, _("Insert Field"), wxRICHTEXT_INSERT, buffer, this, ctrl, false);
 
     wxRichTextAttr* p = NULL;
     wxRichTextAttr paraAttr;
@@ -8126,11 +8126,11 @@ wxRichTextField* wxRichTextParagraphLayoutBox::InsertFieldWithUndo(wxRichTextBuf
     // Don't include box attributes such as margins
     attr.GetTextBoxAttr().Reset();
 
-    wxRichTextParagraph* newPara = new wxRichTextParagraph(this, & attr);
+    wxRichTextParagraph* newPara = NEW_DEBUG wxRichTextParagraph(this, & attr);
     if (p)
         newPara->SetAttributes(*p);
 
-    wxRichTextField* fieldObject = new wxRichTextField();
+    wxRichTextField* fieldObject = NEW_DEBUG wxRichTextField();
     fieldObject->wxRichTextObject::SetProperties(properties);
     fieldObject->SetFieldType(fieldType);
     fieldObject->SetAttributes(textAttr);
@@ -8172,7 +8172,7 @@ bool wxRichTextParagraphLayoutBox::SetObjectPropertiesWithUndo(wxRichTextObject&
         objToSet->SetProperties(properties);
 
         // The 'true' parameter in the next line says "Ignore first time"; otherwise the objects are prematurely switched
-        action = new wxRichTextAction(NULL, _("Change Properties"), wxRICHTEXT_CHANGE_OBJECT, buffer, obj.GetParentContainer(), rtc, true);
+        action = NEW_DEBUG wxRichTextAction(NULL, _("Change Properties"), wxRICHTEXT_CHANGE_OBJECT, buffer, obj.GetParentContainer(), rtc, true);
         action->SetOldAndNewObjects(& obj, clone);
         action->SetPosition(obj.GetRange().GetStart());
         action->SetRange(obj.GetRange());
@@ -8182,7 +8182,7 @@ bool wxRichTextParagraphLayoutBox::SetObjectPropertiesWithUndo(wxRichTextObject&
     return true;
 }
 
-/// Get the style that is appropriate for a new paragraph at this position.
+/// Get the style that is appropriate for a NEW_DEBUG paragraph at this position.
 /// If the previous paragraph has a paragraph style name, look up the next-paragraph
 /// style.
 wxRichTextAttr wxRichTextParagraphLayoutBox::GetStyleForNewParagraph(wxRichTextBuffer* buffer, long pos, bool caretPosition, bool lookUpNewParaStyle) const
@@ -8264,7 +8264,7 @@ bool wxRichTextBuffer::DeleteRangeWithUndo(const wxRichTextRange& range, wxRichT
 /// Submit command to delete this range
 bool wxRichTextParagraphLayoutBox::DeleteRangeWithUndo(const wxRichTextRange& range, wxRichTextCtrl* ctrl, wxRichTextBuffer* buffer)
 {
-    wxRichTextAction* action = new wxRichTextAction(NULL, _("Delete"), wxRICHTEXT_DELETE, buffer, this, ctrl);
+    wxRichTextAction* action = NEW_DEBUG wxRichTextAction(NULL, _("Delete"), wxRICHTEXT_DELETE, buffer, this, ctrl);
 
     action->SetPosition(ctrl->GetCaretPosition());
 
@@ -8305,7 +8305,7 @@ bool wxRichTextBuffer::BeginBatchUndo(const wxString& cmdName)
         {
             GetCommandProcessor()->Store(m_batchedCommand);
         }
-        m_batchedCommand = new wxRichTextCommand(cmdName);
+        m_batchedCommand = NEW_DEBUG wxRichTextCommand(cmdName);
     }
 
     m_batchedCommandDepth ++;
@@ -8340,7 +8340,7 @@ bool wxRichTextBuffer::SubmitAction(wxRichTextAction* action)
     {
         if (!action->GetIgnoreFirstTime())
         {
-            wxRichTextCommand* cmd = new wxRichTextCommand(action->GetName());
+            wxRichTextCommand* cmd = NEW_DEBUG wxRichTextCommand(action->GetName());
             cmd->AddAction(action);
             cmd->Do();
             cmd->GetActions().Clear();
@@ -8351,7 +8351,7 @@ bool wxRichTextBuffer::SubmitAction(wxRichTextAction* action)
     }
     else
     {
-        wxRichTextCommand* cmd = new wxRichTextCommand(action->GetName());
+        wxRichTextCommand* cmd = NEW_DEBUG wxRichTextCommand(action->GetName());
         cmd->AddAction(action);
 
         // Only store it if we're not suppressing undo.
@@ -8393,7 +8393,7 @@ bool wxRichTextBuffer::BeginStyle(const wxRichTextAttr& style)
     newStyle.GetTextBoxAttr().Reset();
 
     // Save the old default style
-    m_attributeStack.Append((wxObject*) new wxRichTextAttr(newStyle));
+    m_attributeStack.Append((wxObject*) NEW_DEBUG wxRichTextAttr(newStyle));
 
     wxRichTextApplyStyle(newStyle, style);
     newStyle.SetFlags(style.GetFlags()|newStyle.GetFlags());
@@ -8740,7 +8740,7 @@ wxRichTextFileHandler* wxRichTextBuffer::FindHandler(wxRichTextFileType type)
 void wxRichTextBuffer::InitStandardHandlers()
 {
     if (!FindHandler(wxRICHTEXT_TYPE_TEXT))
-        AddHandler(new wxRichTextPlainTextHandler);
+        AddHandler(NEW_DEBUG wxRichTextPlainTextHandler);
 }
 
 void wxRichTextBuffer::CleanUpHandlers()
@@ -8880,7 +8880,7 @@ bool wxRichTextBuffer::CopyToClipboard(const wxRichTextRange& range)
 
         // Add composite object
 
-        wxDataObjectComposite* compositeObject = new wxDataObjectComposite();
+        wxDataObjectComposite* compositeObject = NEW_DEBUG wxDataObjectComposite();
 
         {
             wxString text = container->GetTextForRange(range);
@@ -8889,17 +8889,17 @@ bool wxRichTextBuffer::CopyToClipboard(const wxRichTextRange& range)
             text = wxTextFile::Translate(text, wxTextFileType_Dos);
 #endif
 
-            compositeObject->Add(new wxTextDataObject(text), false /* not preferred */);
+            compositeObject->Add(NEW_DEBUG wxTextDataObject(text), false /* not preferred */);
         }
 
         // Add rich text buffer data object. This needs the XML handler to be present.
 
         if (FindHandler(wxRICHTEXT_TYPE_XML))
         {
-            wxRichTextBuffer* richTextBuf = new wxRichTextBuffer;
+            wxRichTextBuffer* richTextBuf = NEW_DEBUG wxRichTextBuffer;
             container->CopyFragment(range, *richTextBuf);
 
-            compositeObject->Add(new wxRichTextBufferDataObject(richTextBuf), true /* preferred */);
+            compositeObject->Add(NEW_DEBUG wxRichTextBufferDataObject(richTextBuf), true /* preferred */);
         }
 
         if (wxTheClipboard->SetData(compositeObject))
@@ -8981,7 +8981,7 @@ bool wxRichTextBuffer::PasteFromClipboard(long position)
                 wxBitmap bitmap(data.GetBitmap());
                 wxImage image(bitmap.ConvertToImage());
 
-                wxRichTextAction* action = new wxRichTextAction(NULL, _("Insert Image"), wxRICHTEXT_INSERT, this, container, GetRichTextCtrl(), false);
+                wxRichTextAction* action = NEW_DEBUG wxRichTextAction(NULL, _("Insert Image"), wxRICHTEXT_INSERT, this, container, GetRichTextCtrl(), false);
 
                 action->GetNewParagraphs().AddImage(image);
 
@@ -10935,7 +10935,7 @@ bool wxRichTextTable::Layout(wxDC& dc, wxRichTextDrawingContext& context, const 
             if (cell->IsShown())
             {
                 wxRect availableCellSpace = wxRect(cell->GetPosition(), wxSize(actualWidths[i], maxCellHeight));
-                // Lay out cell with new height
+                // Lay out cell with NEW_DEBUG height
                 cell->Invalidate(wxRICHTEXT_ALL);
                 cell->Layout(dc, context, availableCellSpace, availableSpace, style|wxRICHTEXT_FIXED_HEIGHT|wxRICHTEXT_FIXED_WIDTH);
 
@@ -11144,7 +11144,7 @@ bool wxRichTextTable::CreateTable(int rows, int cols)
         wxRichTextObjectPtrArray& colArray = m_cells[i];
         for (j = 0; j < cols; j++)
         {
-            wxRichTextCell* cell = new wxRichTextCell;
+            wxRichTextCell* cell = NEW_DEBUG wxRichTextCell;
             cell->GetAttributes() = cellattr;
 
             AppendChild(cell);
@@ -11337,7 +11337,7 @@ bool wxRichTextTable::DeleteRows(int startRow, int noRows)
         // Create a clone containing the current state of the table. It will be used to Undo the action
         clone = wxStaticCast(this->Clone(), wxRichTextTable);
         clone->SetParent(GetParent());
-        action = new wxRichTextAction(NULL, _("Delete Row"), wxRICHTEXT_CHANGE_OBJECT, buffer, this, rtc);
+        action = NEW_DEBUG wxRichTextAction(NULL, _("Delete Row"), wxRICHTEXT_CHANGE_OBJECT, buffer, this, rtc);
         action->SetObject(this);
         action->SetPosition(GetRange().GetStart());
     }
@@ -11387,7 +11387,7 @@ bool wxRichTextTable::DeleteColumns(int startCol, int noCols)
         // Create a clone containing the current state of the table. It will be used to Undo the action
         clone = wxStaticCast(this->Clone(), wxRichTextTable);
         clone->SetParent(GetParent());
-        action = new wxRichTextAction(NULL, _("Delete Column"), wxRICHTEXT_CHANGE_OBJECT, buffer, this, rtc);
+        action = NEW_DEBUG wxRichTextAction(NULL, _("Delete Column"), wxRICHTEXT_CHANGE_OBJECT, buffer, this, rtc);
         action->SetObject(this);
         action->SetPosition(GetRange().GetStart());
     }
@@ -11438,7 +11438,7 @@ bool wxRichTextTable::AddRows(int startRow, int noRows, const wxRichTextAttr& at
         // Create a clone containing the current state of the table. It will be used to Undo the action
         clone = wxStaticCast(this->Clone(), wxRichTextTable);
         clone->SetParent(GetParent());
-        action = new wxRichTextAction(NULL, _("Add Row"), wxRICHTEXT_CHANGE_OBJECT, buffer, this, buffer->GetRichTextCtrl());
+        action = NEW_DEBUG wxRichTextAction(NULL, _("Add Row"), wxRICHTEXT_CHANGE_OBJECT, buffer, this, buffer->GetRichTextCtrl());
         action->SetObject(this);
         action->SetPosition(GetRange().GetStart());
     }
@@ -11465,7 +11465,7 @@ bool wxRichTextTable::AddRows(int startRow, int noRows, const wxRichTextAttr& at
         wxRichTextObjectPtrArray& colArray = m_cells[idx];
         for (j = 0; j < m_colCount; j++)
         {
-            wxRichTextCell* cell = new wxRichTextCell;
+            wxRichTextCell* cell = NEW_DEBUG wxRichTextCell;
             cell->GetAttributes() = cellattr;
 
             AppendChild(cell);
@@ -11501,7 +11501,7 @@ bool wxRichTextTable::AddColumns(int startCol, int noCols, const wxRichTextAttr&
         // Create a clone containing the current state of the table. It will be used to Undo the action
         clone = wxStaticCast(this->Clone(), wxRichTextTable);
         clone->SetParent(GetParent());
-        action = new wxRichTextAction(NULL, _("Add Column"), wxRICHTEXT_CHANGE_OBJECT, buffer, this, buffer->GetRichTextCtrl());
+        action = NEW_DEBUG wxRichTextAction(NULL, _("Add Column"), wxRICHTEXT_CHANGE_OBJECT, buffer, this, buffer->GetRichTextCtrl());
         action->SetObject(this);
         action->SetPosition(GetRange().GetStart());
     }
@@ -11516,7 +11516,7 @@ bool wxRichTextTable::AddColumns(int startCol, int noCols, const wxRichTextAttr&
         wxRichTextObjectPtrArray& colArray = m_cells[i];
         for (j = 0; j < noCols; j++)
         {
-            wxRichTextCell* cell = new wxRichTextCell;
+            wxRichTextCell* cell = NEW_DEBUG wxRichTextCell;
             cell->GetAttributes() = cellattr;
 
             AppendChild(cell);
@@ -11650,7 +11650,7 @@ public:
     wxRichTextModule() {}
     bool OnInit() wxOVERRIDE
     {
-        wxRichTextBuffer::SetRenderer(new wxRichTextStdRenderer);
+        wxRichTextBuffer::SetRenderer(NEW_DEBUG wxRichTextStdRenderer);
         wxRichTextBuffer::InitStandardHandlers();
         wxRichTextParagraph::InitDefaultTabs();
 
@@ -11691,7 +11691,7 @@ wxIMPLEMENT_DYNAMIC_CLASS(wxRichTextModule, wxModule);
 // module.  Provide this function to do it manually.
 void wxRichTextModuleInit()
 {
-    wxModule* module = new wxRichTextModule;
+    wxModule* module = NEW_DEBUG wxRichTextModule;
     wxModule::RegisterModule(module);
     wxModule::InitializeModules();
 }
@@ -11706,7 +11706,7 @@ wxRichTextCommand::wxRichTextCommand(const wxString& name, wxRichTextCommandId i
                                      wxRichTextParagraphLayoutBox* container, wxRichTextCtrl* ctrl, bool ignoreFirstTime): wxCommand(true, name)
 {
     m_freeze = ctrl ? ctrl->IsFrozen() : false;
-    /* wxRichTextAction* action = */ new wxRichTextAction(this, name, id, buffer, container, ctrl, ignoreFirstTime);
+    /* wxRichTextAction* action = */ NEW_DEBUG wxRichTextAction(this, name, id, buffer, container, ctrl, ignoreFirstTime);
 }
 
 wxRichTextCommand::wxRichTextCommand(const wxString& name): wxCommand(true, name)
@@ -12107,7 +12107,7 @@ bool wxRichTextAction::Do()
 
             UpdateAppearance(GetPosition(), true);
 
-            // TODO: send new kind of modification event
+            // TODO: send NEW_DEBUG kind of modification event
 
             break;
         }
@@ -12426,7 +12426,7 @@ void wxRichTextAction::UpdateAppearance(long caretPosition, bool sendUpdateEvent
     }
 }
 
-/// Replace the buffer paragraphs with the new ones.
+/// Replace the buffer paragraphs with the NEW_DEBUG ones.
 void wxRichTextAction::ApplyParagraphs(const wxRichTextParagraphLayoutBox& fragment)
 {
     wxRichTextParagraphLayoutBox* container = GetContainer();
@@ -12441,8 +12441,8 @@ void wxRichTextAction::ApplyParagraphs(const wxRichTextParagraphLayoutBox& fragm
         wxASSERT (para != NULL);
 
         // We'll replace the existing paragraph by finding the paragraph at this position,
-        // delete its node data, and setting a copy as the new node data.
-        // TODO: make more efficient by simply swapping old and new paragraph objects.
+        // delete its node data, and setting a copy as the NEW_DEBUG node data.
+        // TODO: make more efficient by simply swapping old and NEW_DEBUG paragraph objects.
 
         wxRichTextParagraph* existingPara = container->GetParagraphAtPosition(para->GetRange().GetStart());
         if (existingPara)
@@ -12450,7 +12450,7 @@ void wxRichTextAction::ApplyParagraphs(const wxRichTextParagraphLayoutBox& fragm
             wxRichTextObjectList::compatibility_iterator bufferParaNode = container->GetChildren().Find(existingPara);
             if (bufferParaNode)
             {
-                wxRichTextParagraph* newPara = new wxRichTextParagraph(*para);
+                wxRichTextParagraph* newPara = NEW_DEBUG wxRichTextParagraph(*para);
                 newPara->SetParent(container);
 
                 bufferParaNode->SetData(newPara);
@@ -12551,7 +12551,7 @@ bool wxRichTextImage::LoadImageCache(wxDC& dc, wxRichTextDrawingContext& context
 
     // If we have an original image size, use that to compute the cached bitmap size
     // instead of loading the image each time. This way we can avoid loading
-    // the image so long as the new cached bitmap size hasn't changed.
+    // the image so long as the NEW_DEBUG cached bitmap size hasn't changed.
 
     wxImage image;
     if (resetCache || m_originalImageSize.GetWidth() <= 0 || m_originalImageSize.GetHeight() <= 0)
@@ -13234,7 +13234,7 @@ bool wxRichTextImageBlock::DoMakeImageBlock(const wxImage& image, wxBitmapType i
         return false;
     }
 
-    unsigned char* block = new unsigned char[memStream.GetSize()];
+    unsigned char* block = NEW_DEBUG unsigned char[memStream.GetSize()];
     if (!block)
         return false;
 
@@ -13264,7 +13264,7 @@ void wxRichTextImageBlock::Copy(const wxRichTextImageBlock& block)
     if (m_dataSize == 0)
         return;
 
-    m_data = new unsigned char[m_dataSize];
+    m_data = NEW_DEBUG unsigned char[m_dataSize];
     unsigned int i;
     for (i = 0; i < m_dataSize; i++)
         m_data[i] = block.m_data[i];
@@ -13310,7 +13310,7 @@ bool wxRichTextImageBlock::WriteHex(wxOutputStream& stream)
     int bufSize = 100000;
     if (int(2*m_dataSize) < bufSize)
         bufSize = 2*m_dataSize;
-    char* buf = new char[bufSize+1];
+    char* buf = NEW_DEBUG char[bufSize+1];
 
     int left = m_dataSize;
     int n, i, j;
@@ -13352,7 +13352,7 @@ bool wxRichTextImageBlock::ReadHex(wxInputStream& stream, int length, wxBitmapTy
     char str[3];
     str[2] = '\0';
 
-    m_data = new unsigned char[dataSize];
+    m_data = NEW_DEBUG unsigned char[dataSize];
     int i;
     for (i = 0; i < dataSize; i ++)
     {
@@ -13371,7 +13371,7 @@ bool wxRichTextImageBlock::ReadHex(wxInputStream& stream, int length, wxBitmapTy
 // Allocate and read from stream as a block of memory
 unsigned char* wxRichTextImageBlock::ReadBlock(wxInputStream& stream, size_t size)
 {
-    unsigned char* block = new unsigned char[size];
+    unsigned char* block = NEW_DEBUG unsigned char[size];
     if (!block)
         return NULL;
 
@@ -13518,7 +13518,7 @@ bool wxRichTextBufferDataObject::SetData(size_t WXUNUSED(len), const void *buf)
 
     wxString bufXML((const char*) buf, wxConvUTF8);
 
-    m_richTextBuffer = new wxRichTextBuffer;
+    m_richTextBuffer = NEW_DEBUG wxRichTextBuffer;
 
     wxStringInputStream stream(bufXML);
     m_richTextBuffer->SetHandlerFlags(wxRICHTEXT_HANDLER_INCLUDE_STYLESHEET);
@@ -13602,7 +13602,7 @@ wxIMPLEMENT_DYNAMIC_CLASS(wxRichTextFontTable, wxObject);
 
 wxRichTextFontTable::wxRichTextFontTable()
 {
-    m_refData = new wxRichTextFontTableData;
+    m_refData = NEW_DEBUG wxRichTextFontTableData;
     m_fontScale = 1.0;
 }
 
@@ -15099,11 +15099,11 @@ void wxTextAttrCollectCommonAttributes(wxTextAttr& currentStyle, const wxTextAtt
     {
         if (currentStyle.HasTextEffects())
         {
-            // We need to find the bits in the new attr that are different:
-            // just look at those bits that are specified by the new attr.
+            // We need to find the bits in the NEW_DEBUG attr that are different:
+            // just look at those bits that are specified by the NEW_DEBUG attr.
 
             // We need to remove the bits and flags that are not common between current attr
-            // and new attr. In so doing we need to take account of the styles absent from one or more of the
+            // and NEW_DEBUG attr. In so doing we need to take account of the styles absent from one or more of the
             // previous styles.
 
             int currentRelevantTextEffects = currentStyle.GetTextEffects() & attr.GetTextEffectFlags();

@@ -493,7 +493,7 @@ public:
 
     virtual wxVariantData* Clone() const wxOVERRIDE
     {
-        return new wxMyVariantData(m_value);
+        return NEW_DEBUG wxMyVariantData(m_value);
     }
 
 protected:
@@ -526,7 +526,7 @@ void wxAnyTestCase::wxVariantConversions()
     wxVariant vArrayString(arrstr);
     wxVariant vDateTime(m_testDateTime);
     wxVariant vVoidPtr(dummyVoidPointer);
-    wxVariant vCustomType(new wxMyVariantData(MyClass(101)));
+    wxVariant vCustomType(NEW_DEBUG wxMyVariantData(MyClass(101)));
     wxVariant vList;
 
     vList.NullList();

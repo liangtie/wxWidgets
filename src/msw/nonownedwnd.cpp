@@ -58,7 +58,7 @@ bool wxNonOwnedWindow::DoSetRegionShape(const wxRegion& region)
     // Windows takes ownership of the region, so
     // we'll have to make a copy of the region to give to it.
     DWORD noBytes = ::GetRegionData(GetHrgnOf(region), 0, NULL);
-    RGNDATA *rgnData = (RGNDATA*) new char[noBytes];
+    RGNDATA *rgnData = (RGNDATA*) NEW_DEBUG char[noBytes];
     ::GetRegionData(GetHrgnOf(region), noBytes, rgnData);
     HRGN hrgn = ::ExtCreateRegion(NULL, noBytes, rgnData);
     delete[] (char*) rgnData;
@@ -68,7 +68,7 @@ bool wxNonOwnedWindow::DoSetRegionShape(const wxRegion& region)
     const wxPoint clientOrigin = GetClientAreaOrigin();
     ::OffsetRgn(hrgn, -clientOrigin.x, -clientOrigin.y);
 
-    // Now call the shape API with the new region.
+    // Now call the shape API with the NEW_DEBUG region.
     if (::SetWindowRgn(GetHwnd(), hrgn, TRUE) == 0)
     {
         wxLogLastError(wxT("SetWindowRgn"));
@@ -131,7 +131,7 @@ private:
 bool wxNonOwnedWindow::DoSetPathShape(const wxGraphicsPath& path)
 {
     delete m_shapeImpl;
-    m_shapeImpl = new wxNonOwnedWindowShapeImpl(this, path);
+    m_shapeImpl = NEW_DEBUG wxNonOwnedWindowShapeImpl(this, path);
 
     return true;
 }
@@ -271,7 +271,7 @@ bool wxNonOwnedWindow::HandleDPIChange(const wxSize& newDPI, const wxRect& newRe
         return false;
     }
 
-    // Update the window decoration size to the new DPI: this seems to be the
+    // Update the window decoration size to the NEW_DEBUG DPI: this seems to be the
     // call with the least amount of side effects that is sufficient to do it
     // and we need to do this in order for the size calculations, either in the
     // user-defined wxEVT_DPI_CHANGED handler or in our own GetBestSize() call
@@ -289,7 +289,7 @@ bool wxNonOwnedWindow::HandleDPIChange(const wxSize& newDPI, const wxRect& newRe
     // window on its own already, but otherwise do it ourselves.
     if ( !processed )
     {
-        // The best size doesn't scale exactly with the DPI, so while the new
+        // The best size doesn't scale exactly with the DPI, so while the NEW_DEBUG
         // size is usually a decent guess, it's typically not exactly correct.
         // We can't always do much better, but at least ensure that the window
         // is still big enough to show its contents if it uses a sizer.

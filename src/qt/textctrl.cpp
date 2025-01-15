@@ -524,11 +524,11 @@ bool wxTextCtrl::Create(wxWindow *parent,
 {
     if ( style & wxTE_MULTILINE )
     {
-        m_qtEdit = new wxQtMultiLineEdit(new wxQtTextEdit(parent, this));
+        m_qtEdit = NEW_DEBUG wxQtMultiLineEdit(NEW_DEBUG wxQtTextEdit(parent, this));
     }
     else
     {
-        m_qtEdit = new wxQtSingleLineEdit(new wxQtLineEdit(parent, this));
+        m_qtEdit = NEW_DEBUG wxQtSingleLineEdit(NEW_DEBUG wxQtLineEdit(parent, this));
     }
 
     m_qtEdit->SetStyleFlags(style);

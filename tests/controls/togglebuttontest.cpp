@@ -49,7 +49,7 @@ CPPUNIT_TEST_SUITE_NAMED_REGISTRATION( ToggleButtonTestCase, "ToggleButtonTestCa
 
 void ToggleButtonTestCase::setUp()
 {
-    m_button = new wxToggleButton(wxTheApp->GetTopWindow(), wxID_ANY, "wxToggleButton");
+    m_button = NEW_DEBUG wxToggleButton(wxTheApp->GetTopWindow(), wxID_ANY, "wxToggleButton");
 }
 
 void ToggleButtonTestCase::tearDown()

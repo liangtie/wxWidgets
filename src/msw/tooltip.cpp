@@ -60,7 +60,7 @@
 // the tooltip parent window
 WXHWND wxToolTip::ms_hwndTT = nullptr;
 
-// new tooltip maximum width, default value is set on first call to wxToolTip::Add()
+// NEW_DEBUG tooltip maximum width, default value is set on first call to wxToolTip::Add()
 int wxToolTip::ms_maxWidth = 0;
 
 #if wxUSE_TTM_WINDOWFROMPOINT
@@ -438,7 +438,7 @@ void wxToolTip::Remove()
 void wxToolTip::AddOtherWindow(WXHWND hWnd)
 {
     if ( !m_others )
-        m_others = new wxToolTipOtherWindows;
+        m_others = NEW_DEBUG wxToolTipOtherWindows;
 
     m_others->push_back(hWnd);
 
@@ -624,7 +624,7 @@ bool wxToolTip::AdjustMaxWidth()
     if ( ms_maxWidth != -1 && maxWidth > ms_maxWidth )
         maxWidth = ms_maxWidth;
 
-    // only set a new width if it is bigger than the current setting:
+    // only set a NEW_DEBUG width if it is bigger than the current setting:
     // otherwise adding a tooltip with shorter line(s) than a previous
     // one would result in breaking the longer lines unnecessarily as
     // all our tooltips share the same maximal width

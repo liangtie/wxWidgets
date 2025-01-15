@@ -281,13 +281,13 @@ HRESULT wxWebViewEdgeImpl::OnNavigationCompleted(ICoreWebView2* WXUNUSED(sender)
                 wxFileName::URLToFileName(m_ctrl->GetCurrentURL()).GetFullPath() == uri))
         {
             // If we are not at the end of the list, then erase everything
-            // between us and the end before adding the new page
+            // between us and the end before adding the NEW_DEBUG page
             if (m_historyPosition != static_cast<int>(m_historyList.size()) - 1)
             {
                 m_historyList.erase(m_historyList.begin() + m_historyPosition + 1,
                     m_historyList.end());
             }
-            wxSharedPtr<wxWebViewHistoryItem> item(new wxWebViewHistoryItem(uri, m_ctrl->GetCurrentTitle()));
+            wxSharedPtr<wxWebViewHistoryItem> item(NEW_DEBUG wxWebViewHistoryItem(uri, m_ctrl->GetCurrentTitle()));
             m_historyList.push_back(item);
             m_historyPosition++;
         }
@@ -522,7 +522,7 @@ ICoreWebView2Settings* wxWebViewEdgeImpl::GetSettings()
 }
 
 wxWebViewEdge::wxWebViewEdge():
-    m_impl(new wxWebViewEdgeImpl(this))
+    m_impl(NEW_DEBUG wxWebViewEdgeImpl(this))
 {
 
 }
@@ -534,7 +534,7 @@ wxWebViewEdge::wxWebViewEdge(wxWindow* parent,
     const wxSize& size,
     long style,
     const wxString& name):
-    m_impl(new wxWebViewEdgeImpl(this))
+    m_impl(NEW_DEBUG wxWebViewEdgeImpl(this))
 {
     Create(parent, id, url, pos, size, style, name);
 }

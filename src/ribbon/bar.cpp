@@ -97,7 +97,7 @@ void wxRibbonBar::AddPage(wxRibbonPage *page)
     }
     m_pages.Add(info);
 
-    page->Hide(); // Most likely case is that this new page is not the active tab
+    page->Hide(); // Most likely case is that this NEW_DEBUG page is not the active tab
     page->SetArtProvider(m_art);
 
     if(m_pages.GetCount() == 1)
@@ -794,7 +794,7 @@ void wxRibbonBar::CommonInit(long style)
 
     if(m_art == NULL)
     {
-        SetArtProvider(new wxRibbonDefaultArtProvider);
+        SetArtProvider(NEW_DEBUG wxRibbonDefaultArtProvider);
     }
     SetBackgroundStyle(wxBG_STYLE_PAINT);
 
@@ -813,7 +813,7 @@ wxImageList* wxRibbonBar::GetButtonImageList(wxSize size)
     }
 
     wxImageList* const
-        il = new wxImageList(size.GetWidth(), size.GetHeight(), /*mask*/false);
+        il = NEW_DEBUG wxImageList(size.GetWidth(), size.GetHeight(), /*mask*/false);
     m_image_lists.push_back(il);
 
     return il;

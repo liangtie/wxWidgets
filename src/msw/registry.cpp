@@ -593,11 +593,11 @@ bool wxRegKey::Rename(const wxString& szNewName)
     // do we stay in the same hive?
     bool inSameHive = !wxStrchr(szNewName, REG_SEPARATOR);
 
-    // construct the full new name of the key
+    // construct the full NEW_DEBUG name of the key
     wxRegKey keyDst;
 
     if ( inSameHive ) {
-        // rename the key to the new name under the same parent
+        // rename the key to the NEW_DEBUG name under the same parent
         wxString strKey = m_strKey.BeforeLast(REG_SEPARATOR);
         if ( !strKey.empty() ) {
             // don't add '\\' in the start if strFullNewName is empty
@@ -636,7 +636,7 @@ bool wxRegKey::Rename(const wxString& szNewName)
 
 bool wxRegKey::Copy(const wxString& szNewName)
 {
-    // create the new key first
+    // create the NEW_DEBUG key first
     wxRegKey keyDst(szNewName);
     bool ok = keyDst.Create(false /* fail if alredy exists */);
     if ( ok ) {
@@ -655,7 +655,7 @@ bool wxRegKey::Copy(wxRegKey& keyDst)
 {
     bool ok = true;
 
-    // copy all sub keys to the new location
+    // copy all sub keys to the NEW_DEBUG location
     wxString strKey;
     long lIndex;
     bool bCont = GetFirstKey(strKey, lIndex);

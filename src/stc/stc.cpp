@@ -204,7 +204,7 @@ bool wxStyledTextCtrl::Create(wxWindow *parent,
 #ifdef LINK_LEXERS
     Scintilla_LinkLexers();
 #endif
-    m_swx = new ScintillaWX(this);
+    m_swx = NEW_DEBUG ScintillaWX(this);
     m_stopWatch.Start();
     m_lastKeyDownConsumed = false;
     m_vScrollBar = NULL;
@@ -2587,7 +2587,7 @@ void wxStyledTextCtrl::LineDown()
     SendMsg(SCI_LINEDOWN, 0, 0);
 }
 
-// Move caret down one line extending selection to new caret position.
+// Move caret down one line extending selection to NEW_DEBUG caret position.
 void wxStyledTextCtrl::LineDownExtend()
 {
     SendMsg(SCI_LINEDOWNEXTEND, 0, 0);
@@ -2599,7 +2599,7 @@ void wxStyledTextCtrl::LineUp()
     SendMsg(SCI_LINEUP, 0, 0);
 }
 
-// Move caret up one line extending selection to new caret position.
+// Move caret up one line extending selection to NEW_DEBUG caret position.
 void wxStyledTextCtrl::LineUpExtend()
 {
     SendMsg(SCI_LINEUPEXTEND, 0, 0);
@@ -2611,7 +2611,7 @@ void wxStyledTextCtrl::CharLeft()
     SendMsg(SCI_CHARLEFT, 0, 0);
 }
 
-// Move caret left one character extending selection to new caret position.
+// Move caret left one character extending selection to NEW_DEBUG caret position.
 void wxStyledTextCtrl::CharLeftExtend()
 {
     SendMsg(SCI_CHARLEFTEXTEND, 0, 0);
@@ -2623,7 +2623,7 @@ void wxStyledTextCtrl::CharRight()
     SendMsg(SCI_CHARRIGHT, 0, 0);
 }
 
-// Move caret right one character extending selection to new caret position.
+// Move caret right one character extending selection to NEW_DEBUG caret position.
 void wxStyledTextCtrl::CharRightExtend()
 {
     SendMsg(SCI_CHARRIGHTEXTEND, 0, 0);
@@ -2635,7 +2635,7 @@ void wxStyledTextCtrl::WordLeft()
     SendMsg(SCI_WORDLEFT, 0, 0);
 }
 
-// Move caret left one word extending selection to new caret position.
+// Move caret left one word extending selection to NEW_DEBUG caret position.
 void wxStyledTextCtrl::WordLeftExtend()
 {
     SendMsg(SCI_WORDLEFTEXTEND, 0, 0);
@@ -2647,7 +2647,7 @@ void wxStyledTextCtrl::WordRight()
     SendMsg(SCI_WORDRIGHT, 0, 0);
 }
 
-// Move caret right one word extending selection to new caret position.
+// Move caret right one word extending selection to NEW_DEBUG caret position.
 void wxStyledTextCtrl::WordRightExtend()
 {
     SendMsg(SCI_WORDRIGHTEXTEND, 0, 0);
@@ -2659,7 +2659,7 @@ void wxStyledTextCtrl::Home()
     SendMsg(SCI_HOME, 0, 0);
 }
 
-// Move caret to first position on line extending selection to new caret position.
+// Move caret to first position on line extending selection to NEW_DEBUG caret position.
 void wxStyledTextCtrl::HomeExtend()
 {
     SendMsg(SCI_HOMEEXTEND, 0, 0);
@@ -2671,7 +2671,7 @@ void wxStyledTextCtrl::LineEnd()
     SendMsg(SCI_LINEEND, 0, 0);
 }
 
-// Move caret to last position on line extending selection to new caret position.
+// Move caret to last position on line extending selection to NEW_DEBUG caret position.
 void wxStyledTextCtrl::LineEndExtend()
 {
     SendMsg(SCI_LINEENDEXTEND, 0, 0);
@@ -2683,7 +2683,7 @@ void wxStyledTextCtrl::DocumentStart()
     SendMsg(SCI_DOCUMENTSTART, 0, 0);
 }
 
-// Move caret to first position in document extending selection to new caret position.
+// Move caret to first position in document extending selection to NEW_DEBUG caret position.
 void wxStyledTextCtrl::DocumentStartExtend()
 {
     SendMsg(SCI_DOCUMENTSTARTEXTEND, 0, 0);
@@ -2695,7 +2695,7 @@ void wxStyledTextCtrl::DocumentEnd()
     SendMsg(SCI_DOCUMENTEND, 0, 0);
 }
 
-// Move caret to last position in document extending selection to new caret position.
+// Move caret to last position in document extending selection to NEW_DEBUG caret position.
 void wxStyledTextCtrl::DocumentEndExtend()
 {
     SendMsg(SCI_DOCUMENTENDEXTEND, 0, 0);
@@ -2707,7 +2707,7 @@ void wxStyledTextCtrl::PageUp()
     SendMsg(SCI_PAGEUP, 0, 0);
 }
 
-// Move caret one page up extending selection to new caret position.
+// Move caret one page up extending selection to NEW_DEBUG caret position.
 void wxStyledTextCtrl::PageUpExtend()
 {
     SendMsg(SCI_PAGEUPEXTEND, 0, 0);
@@ -2719,7 +2719,7 @@ void wxStyledTextCtrl::PageDown()
     SendMsg(SCI_PAGEDOWN, 0, 0);
 }
 
-// Move caret one page down extending selection to new caret position.
+// Move caret one page down extending selection to NEW_DEBUG caret position.
 void wxStyledTextCtrl::PageDownExtend()
 {
     SendMsg(SCI_PAGEDOWNEXTEND, 0, 0);
@@ -2756,7 +2756,7 @@ void wxStyledTextCtrl::BackTab()
     SendMsg(SCI_BACKTAB, 0, 0);
 }
 
-// Insert a new line, may use a CRLF, CR or LF depending on EOL mode.
+// Insert a NEW_DEBUG line, may use a CRLF, CR or LF depending on EOL mode.
 void wxStyledTextCtrl::NewLine()
 {
     SendMsg(SCI_NEWLINE, 0, 0);
@@ -2775,7 +2775,7 @@ void wxStyledTextCtrl::VCHome()
     SendMsg(SCI_VCHOME, 0, 0);
 }
 
-// Like VCHome but extending selection to new caret position.
+// Like VCHome but extending selection to NEW_DEBUG caret position.
 void wxStyledTextCtrl::VCHomeExtend()
 {
     SendMsg(SCI_VCHOMEEXTEND, 0, 0);
@@ -2873,7 +2873,7 @@ void wxStyledTextCtrl::HomeDisplay()
 }
 
 // Move caret to first position on display line extending selection to
-// new caret position.
+// NEW_DEBUG caret position.
 void wxStyledTextCtrl::HomeDisplayExtend()
 {
     SendMsg(SCI_HOMEDISPLAYEXTEND, 0, 0);
@@ -2885,7 +2885,7 @@ void wxStyledTextCtrl::LineEndDisplay()
     SendMsg(SCI_LINEENDDISPLAY, 0, 0);
 }
 
-// Move caret to last position on display line extending selection to new
+// Move caret to last position on display line extending selection to NEW_DEBUG
 // caret position.
 void wxStyledTextCtrl::LineEndDisplayExtend()
 {
@@ -3052,7 +3052,7 @@ void wxStyledTextCtrl::SetEdgeColour(const wxColour& edgeColour)
     SendMsg(SCI_SETEDGECOLOUR, wxColourAsLong(edgeColour), 0);
 }
 
-// Add a new vertical edge to the view.
+// Add a NEW_DEBUG vertical edge to the view.
 void wxStyledTextCtrl::MultiEdgeAddLine(int column, const wxColour& edgeColour)
 {
     SendMsg(SCI_MULTIEDGEADDLINE, column, wxColourAsLong(edgeColour));
@@ -3116,7 +3116,7 @@ int wxStyledTextCtrl::GetZoom() const
     return SendMsg(SCI_GETZOOM, 0, 0);
 }
 
-// Create a new document object.
+// Create a NEW_DEBUG document object.
 // Starts with reference count of 1 and not selected into editor.
 void* wxStyledTextCtrl::CreateDocument() {
          return (void*)SendMsg(SCI_CREATEDOCUMENT);
@@ -3218,7 +3218,7 @@ void wxStyledTextCtrl::WordPartLeft()
 }
 
 // Move to the previous change in capitalisation extending selection
-// to new caret position.
+// to NEW_DEBUG caret position.
 void wxStyledTextCtrl::WordPartLeftExtend()
 {
     SendMsg(SCI_WORDPARTLEFTEXTEND, 0, 0);
@@ -3231,7 +3231,7 @@ void wxStyledTextCtrl::WordPartRight()
 }
 
 // Move to the next change in capitalisation extending selection
-// to new caret position.
+// to NEW_DEBUG caret position.
 void wxStyledTextCtrl::WordPartRightExtend()
 {
     SendMsg(SCI_WORDPARTRIGHTEXTEND, 0, 0);
@@ -3432,31 +3432,31 @@ int wxStyledTextCtrl::GetLineSelEndPosition(int line)
     return SendMsg(SCI_GETLINESELENDPOSITION, line, 0);
 }
 
-// Move caret down one line, extending rectangular selection to new caret position.
+// Move caret down one line, extending rectangular selection to NEW_DEBUG caret position.
 void wxStyledTextCtrl::LineDownRectExtend()
 {
     SendMsg(SCI_LINEDOWNRECTEXTEND, 0, 0);
 }
 
-// Move caret up one line, extending rectangular selection to new caret position.
+// Move caret up one line, extending rectangular selection to NEW_DEBUG caret position.
 void wxStyledTextCtrl::LineUpRectExtend()
 {
     SendMsg(SCI_LINEUPRECTEXTEND, 0, 0);
 }
 
-// Move caret left one character, extending rectangular selection to new caret position.
+// Move caret left one character, extending rectangular selection to NEW_DEBUG caret position.
 void wxStyledTextCtrl::CharLeftRectExtend()
 {
     SendMsg(SCI_CHARLEFTRECTEXTEND, 0, 0);
 }
 
-// Move caret right one character, extending rectangular selection to new caret position.
+// Move caret right one character, extending rectangular selection to NEW_DEBUG caret position.
 void wxStyledTextCtrl::CharRightRectExtend()
 {
     SendMsg(SCI_CHARRIGHTRECTEXTEND, 0, 0);
 }
 
-// Move caret to first position on line, extending rectangular selection to new caret position.
+// Move caret to first position on line, extending rectangular selection to NEW_DEBUG caret position.
 void wxStyledTextCtrl::HomeRectExtend()
 {
     SendMsg(SCI_HOMERECTEXTEND, 0, 0);
@@ -3464,25 +3464,25 @@ void wxStyledTextCtrl::HomeRectExtend()
 
 // Move caret to before first visible character on line.
 // If already there move to first character on line.
-// In either case, extend rectangular selection to new caret position.
+// In either case, extend rectangular selection to NEW_DEBUG caret position.
 void wxStyledTextCtrl::VCHomeRectExtend()
 {
     SendMsg(SCI_VCHOMERECTEXTEND, 0, 0);
 }
 
-// Move caret to last position on line, extending rectangular selection to new caret position.
+// Move caret to last position on line, extending rectangular selection to NEW_DEBUG caret position.
 void wxStyledTextCtrl::LineEndRectExtend()
 {
     SendMsg(SCI_LINEENDRECTEXTEND, 0, 0);
 }
 
-// Move caret one page up, extending rectangular selection to new caret position.
+// Move caret one page up, extending rectangular selection to NEW_DEBUG caret position.
 void wxStyledTextCtrl::PageUpRectExtend()
 {
     SendMsg(SCI_PAGEUPRECTEXTEND, 0, 0);
 }
 
-// Move caret one page down, extending rectangular selection to new caret position.
+// Move caret one page down, extending rectangular selection to NEW_DEBUG caret position.
 void wxStyledTextCtrl::PageDownRectExtend()
 {
     SendMsg(SCI_PAGEDOWNRECTEXTEND, 0, 0);
@@ -3494,7 +3494,7 @@ void wxStyledTextCtrl::StutteredPageUp()
     SendMsg(SCI_STUTTEREDPAGEUP, 0, 0);
 }
 
-// Move caret to top of page, or one page up if already at top of page, extending selection to new caret position.
+// Move caret to top of page, or one page up if already at top of page, extending selection to NEW_DEBUG caret position.
 void wxStyledTextCtrl::StutteredPageUpExtend()
 {
     SendMsg(SCI_STUTTEREDPAGEUPEXTEND, 0, 0);
@@ -3506,7 +3506,7 @@ void wxStyledTextCtrl::StutteredPageDown()
     SendMsg(SCI_STUTTEREDPAGEDOWN, 0, 0);
 }
 
-// Move caret to bottom of page, or one page down if already at bottom of page, extending selection to new caret position.
+// Move caret to bottom of page, or one page down if already at bottom of page, extending selection to NEW_DEBUG caret position.
 void wxStyledTextCtrl::StutteredPageDownExtend()
 {
     SendMsg(SCI_STUTTEREDPAGEDOWNEXTEND, 0, 0);
@@ -3518,7 +3518,7 @@ void wxStyledTextCtrl::WordLeftEnd()
     SendMsg(SCI_WORDLEFTEND, 0, 0);
 }
 
-// Move caret left one word, position cursor at end of word, extending selection to new caret position.
+// Move caret left one word, position cursor at end of word, extending selection to NEW_DEBUG caret position.
 void wxStyledTextCtrl::WordLeftEndExtend()
 {
     SendMsg(SCI_WORDLEFTENDEXTEND, 0, 0);
@@ -3530,7 +3530,7 @@ void wxStyledTextCtrl::WordRightEnd()
     SendMsg(SCI_WORDRIGHTEND, 0, 0);
 }
 
-// Move caret right one word, position cursor at end of word, extending selection to new caret position.
+// Move caret right one word, position cursor at end of word, extending selection to NEW_DEBUG caret position.
 void wxStyledTextCtrl::WordRightEndExtend()
 {
     SendMsg(SCI_WORDRIGHTENDEXTEND, 0, 0);
@@ -4478,7 +4478,7 @@ void wxStyledTextCtrl::VCHomeDisplay()
     SendMsg(SCI_VCHOMEDISPLAY, 0, 0);
 }
 
-// Like VCHomeDisplay but extending selection to new caret position.
+// Like VCHomeDisplay but extending selection to NEW_DEBUG caret position.
 void wxStyledTextCtrl::VCHomeDisplayExtend()
 {
     SendMsg(SCI_VCHOMEDISPLAYEXTEND, 0, 0);
@@ -4963,7 +4963,7 @@ wxStyledTextCtrl::DoLoadFile(const wxString& filename, int WXUNUSED(fileType))
             const wxString::size_type posLF = text.find('\n');
             if ( posLF != wxString::npos )
             {
-                // Set EOL mode to ensure that the new lines inserted into the
+                // Set EOL mode to ensure that the NEW_DEBUG lines inserted into the
                 // text use the same EOLs as the existing ones.
                 if ( posLF > 0 && text[posLF - 1] == '\r' )
                     SetEOLMode(wxSTC_EOL_CRLF);
@@ -5438,7 +5438,7 @@ void wxStyledTextCtrl::OnDPIChanged(wxDPIChangedEvent& evt) {
     SetSTCCursor(-1);
     SetSTCCursor(oldCursor);
 
-    // adjust the margins to the new DPI
+    // adjust the margins to the NEW_DEBUG DPI
     for ( int i = 0; i < SC_MAX_MARGIN; ++i )
     {
         SetMarginWidth(i, evt.ScaleX(GetMarginWidth(i)));

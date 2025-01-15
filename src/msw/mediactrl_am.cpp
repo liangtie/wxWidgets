@@ -1049,11 +1049,11 @@ bool wxAMMediaBackend::CreateControl(wxControl* ctrl, wxWindow* parent,
     // interface and query them
     //
     m_ctrl = wxStaticCast(ctrl, wxMediaCtrl);
-    m_pAX = new wxActiveXContainer(ctrl,
+    m_pAX = NEW_DEBUG wxActiveXContainer(ctrl,
                 m_pMP ? IID_IMediaPlayer : IID_IActiveMovie, m_pAM
                                   );
     // Connect for events
-    m_evthandler = new wxAMMediaEvtHandler(this);
+    m_evthandler = NEW_DEBUG wxAMMediaEvtHandler(this);
     m_ctrl->PushEventHandler(m_evthandler);
 
     //

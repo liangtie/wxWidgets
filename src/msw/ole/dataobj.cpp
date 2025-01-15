@@ -317,9 +317,9 @@ wxIDataObject::SaveSystemData(FORMATETC *pformatetc,
         }
     }
 
-    // create new format/medium
-    FORMATETC* pnewformatEtc = new FORMATETC;
-    STGMEDIUM* pnewmedium = new STGMEDIUM;
+    // create NEW_DEBUG format/medium
+    FORMATETC* pnewformatEtc = NEW_DEBUG FORMATETC;
+    STGMEDIUM* pnewmedium = NEW_DEBUG STGMEDIUM;
 
     wxZeroMemory(*pnewformatEtc);
     wxZeroMemory(*pnewmedium);
@@ -334,7 +334,7 @@ wxIDataObject::SaveSystemData(FORMATETC *pformatetc,
         wxCopyStgMedium(pmedium, pnewmedium);
 
     // save entry
-    m_systemData.push_back(new SystemDataEntry(pnewformatEtc, pnewmedium));
+    m_systemData.push_back(NEW_DEBUG SystemDataEntry(pnewformatEtc, pnewmedium));
 
     return S_OK;
 }
@@ -423,7 +423,7 @@ wxIEnumFORMATETC::wxIEnumFORMATETC(const wxDataFormat *formats, ULONG nCount)
 {
     m_nCurrent = 0;
     m_nCount = nCount;
-    m_formats = new CLIPFORMAT[nCount];
+    m_formats = NEW_DEBUG CLIPFORMAT[nCount];
     for ( ULONG n = 0; n < nCount; n++ ) {
         if ( formats[n].GetFormatId() == wxDF_HTML )
             m_formats[n] = ::RegisterClipboardFormat(wxT("HTML Format"));
@@ -487,9 +487,9 @@ STDMETHODIMP wxIEnumFORMATETC::Clone(IEnumFORMATETC **ppenum)
     wxLogTrace(wxTRACE_OleCalls, wxT("wxIEnumFORMATETC::Clone"));
 
     // unfortunately, we can't reuse the code in ctor - types are different
-    wxIEnumFORMATETC *pNew = new wxIEnumFORMATETC(NULL, 0);
+    wxIEnumFORMATETC *pNew = NEW_DEBUG wxIEnumFORMATETC(NULL, 0);
     pNew->m_nCount = m_nCount;
-    pNew->m_formats = new CLIPFORMAT[m_nCount];
+    pNew->m_formats = NEW_DEBUG CLIPFORMAT[m_nCount];
     for ( ULONG n = 0; n < m_nCount; n++ ) {
         pNew->m_formats[n] = m_formats[n];
     }
@@ -904,7 +904,7 @@ STDMETHODIMP wxIDataObject::EnumFormatEtc(DWORD dwDir,
         format = entry->pformatetc->cfFormat;
     }
 
-    wxIEnumFORMATETC *pEnum = new wxIEnumFORMATETC(formats.get(), nFormatCount);
+    wxIEnumFORMATETC *pEnum = NEW_DEBUG wxIEnumFORMATETC(formats.get(), nFormatCount);
     pEnum->AddRef();
     *ppenumFormatEtc = pEnum;
 
@@ -939,7 +939,7 @@ STDMETHODIMP wxIDataObject::EnumDAdvise(IEnumSTATDATA **WXUNUSED(ppenumAdvise))
 
 wxDataObject::wxDataObject()
 {
-    m_pIDataObject = new wxIDataObject(this);
+    m_pIDataObject = NEW_DEBUG wxIDataObject(this);
     m_pIDataObject->AddRef();
 }
 
@@ -1023,7 +1023,7 @@ const wxChar *wxDataObject::GetFormatName(wxDataFormat format)
         default:
             if ( !::GetClipboardFormatName(format, s_szBuf, WXSIZEOF(s_szBuf)) )
             {
-                // it must be a new predefined format we don't know the name of
+                // it must be a NEW_DEBUG predefined format we don't know the name of
                 wxSprintf(s_szBuf, wxT("unknown CF (0x%04x)"), format.GetFormatId());
             }
 
@@ -1453,8 +1453,8 @@ wxURLDataObject::wxURLDataObject(const wxString& url)
     // we support CF_TEXT and CFSTR_SHELLURL formats which are basically the
     // same but it seems that some browsers only provide one of them so we have
     // to support both
-    Add(new wxTextDataObject);
-    Add(new CFSTR_SHELLURLDataObject());
+    Add(NEW_DEBUG wxTextDataObject);
+    Add(NEW_DEBUG CFSTR_SHELLURLDataObject());
 
     // we don't have any data yet
     m_dataObjectLast = NULL;

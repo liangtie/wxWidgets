@@ -47,7 +47,7 @@ wxStatusBar::wxStatusBar(wxWindow *parent, wxWindowID winid,
 bool wxStatusBar::Create(wxWindow *parent, wxWindowID WXUNUSED(winid),
                          long style, const wxString& WXUNUSED(name))
 {
-    m_qtStatusBar = new wxQtStatusBar( parent, this );
+    m_qtStatusBar = NEW_DEBUG wxQtStatusBar( parent, this );
 
     if ( style & wxSTB_SIZEGRIP )
         m_qtStatusBar->setSizeGripEnabled(true);
@@ -124,7 +124,7 @@ void wxStatusBar::UpdateFields()
         //Set sizes
         int width = m_panes[i].GetWidth();
 
-        QLabel *pane = new QLabel( m_qtStatusBar );
+        QLabel *pane = NEW_DEBUG QLabel( m_qtStatusBar );
         m_qtPanes.push_back(pane);
 
         if ( width >= 0 )

@@ -238,12 +238,12 @@ wxPGWindowList wxPGSpinCtrlEditor::CreateControls( wxPropertyGrid* propgrid, wxP
 #if IS_MOTION_SPIN_SUPPORTED
         if ( prop->UseSpinMotion() )
         {
-            wnd2 = new wxPGSpinButton();
+            wnd2 = NEW_DEBUG wxPGSpinButton();
         }
         else
 #endif
         {
-            wnd2 = new wxSpinButton();
+            wnd2 = NEW_DEBUG wxSpinButton();
         }
 
 #ifdef __WXMSW__
@@ -393,7 +393,7 @@ wxPGWindowList wxPGDatePickerCtrlEditor::CreateControls( wxPropertyGrid* propgri
     wxDateProperty* prop = wxDynamicCast(property, wxDateProperty);
 
     // Use two stage creation to allow cleaner display on wxMSW
-    wxDatePickerCtrl* ctrl = new wxDatePickerCtrl();
+    wxDatePickerCtrl* ctrl = NEW_DEBUG wxDatePickerCtrl();
 #ifdef __WXMSW__
     ctrl->Hide();
     wxSize useSz = wxDefaultSize;
@@ -563,14 +563,14 @@ wxFontProperty::wxFontProperty( const wxString& label, const wxString& name,
 
         faceNames.Sort();
 
-        wxPGGlobalVars->m_fontFamilyChoices = new wxPGChoices(faceNames);
+        wxPGGlobalVars->m_fontFamilyChoices = NEW_DEBUG wxPGChoices(faceNames);
     }
 
     wxFont font;
     font << m_value;
 
     /* TRANSLATORS: Label of font point size */
-    AddPrivateChild( new wxIntProperty( _("Point Size"),
+    AddPrivateChild( NEW_DEBUG wxIntProperty( _("Point Size"),
                      wxS("Point Size"),(long)font.GetPointSize() ) );
 
     wxString faceName = font.GetFaceName();
@@ -580,7 +580,7 @@ wxFontProperty::wxFontProperty( const wxString& label, const wxString& name,
         wxPGGlobalVars->m_fontFamilyChoices->AddAsSorted(faceName);
 
     /* TRANSLATORS: Label of font face name */
-    wxPGProperty* p = new wxEnumProperty(_("Face Name"), wxS("Face Name"),
+    wxPGProperty* p = NEW_DEBUG wxEnumProperty(_("Face Name"), wxS("Face Name"),
                                          *wxPGGlobalVars->m_fontFamilyChoices);
 
     p->SetValueFromString(faceName, wxPG_FULL_VALUE);
@@ -588,21 +588,21 @@ wxFontProperty::wxFontProperty( const wxString& label, const wxString& name,
     AddPrivateChild( p );
 
     /* TRANSLATORS: Label of font style */
-    AddPrivateChild( new wxEnumProperty(_("Style"), wxS("Style"),
+    AddPrivateChild( NEW_DEBUG wxEnumProperty(_("Style"), wxS("Style"),
                      gs_fp_es_style_labels,gs_fp_es_style_values,
                      font.GetStyle()) );
 
     /* TRANSLATORS: Label of font weight */
-    AddPrivateChild( new wxEnumProperty(_("Weight"), wxS("Weight"),
+    AddPrivateChild( NEW_DEBUG wxEnumProperty(_("Weight"), wxS("Weight"),
                      gs_fp_es_weight_labels,gs_fp_es_weight_values,
                      font.GetWeight()) );
 
     /* TRANSLATORS: Label of underlined font */
-    AddPrivateChild( new wxBoolProperty(_("Underlined"), wxS("Underlined"),
+    AddPrivateChild( NEW_DEBUG wxBoolProperty(_("Underlined"), wxS("Underlined"),
                      font.GetUnderlined()) );
 
     /* TRANSLATORS: Label of font family */
-    AddPrivateChild( new wxEnumProperty(_("Family"), wxS("PointSize"),
+    AddPrivateChild( NEW_DEBUG wxEnumProperty(_("Family"), wxS("PointSize"),
                      gs_fp_es_family_labels,gs_fp_es_family_values,
                      font.GetFamily()) );
 }
@@ -1321,16 +1321,16 @@ void wxSystemColourProperty::OnCustomPaint( wxDC& dc, const wxRect& rect,
         {
             if ( wxPaintDC *paintdc = wxDynamicCast(&dc, wxPaintDC) )
             {
-                gdc = new wxGCDC(*paintdc);
+                gdc = NEW_DEBUG wxGCDC(*paintdc);
             }
             else if ( wxMemoryDC *memdc = wxDynamicCast(&dc, wxMemoryDC) )
             {
-                gdc = new wxGCDC(*memdc);
+                gdc = NEW_DEBUG wxGCDC(*memdc);
             }
 #if wxUSE_METAFILE && defined(wxMETAFILE_IS_ENH)
             else if ( wxMetafileDC *metadc = wxDynamicCast(&dc, wxMetafileDC) )
             {
-                gdc = new wxGCDC(*metadc);
+                gdc = NEW_DEBUG wxGCDC(*metadc);
             }
 #endif
             else

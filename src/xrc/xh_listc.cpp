@@ -233,7 +233,7 @@ long wxListCtrlXmlHandler::GetImageIndex(wxListCtrl *listctrl, int which)
         wxImageList *imgList = listctrl->GetImageList(which);
         if ( !imgList )
         {
-            imgList = new wxImageList( bmp.GetWidth(), bmp.GetHeight() );
+            imgList = NEW_DEBUG wxImageList( bmp.GetWidth(), bmp.GetHeight() );
             listctrl->AssignImageList( imgList, which );
         }
 

@@ -37,6 +37,6 @@ void wxScreenDCImpl::DoGetSize(int *width, int *height) const
 QPixmap *wxScreenDCImpl::GetQPixmap()
 {
     if ( !m_qtPixmap )
-        m_qtPixmap = new QPixmap(QApplication::primaryScreen()->grabWindow(QApplication::desktop()->winId()));
+        m_qtPixmap = NEW_DEBUG QPixmap(QApplication::primaryScreen()->grabWindow(QApplication::desktop()->winId()));
     return m_qtPixmap;
 }

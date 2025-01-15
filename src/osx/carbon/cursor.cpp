@@ -192,7 +192,7 @@ ClassicCursor gMacCursors[kwxCursorLast+1] =
 0x1FF8, 0x1FF8, 0x1FF8, 0x0FF0, 0x07E0, 0x07E0, 0x07E0, 0x07E0},
 {0x0008, 0x0008}
 },
-    
+
 };
 
 #endif
@@ -239,12 +239,12 @@ wxCursor::wxCursor(const char* const* xpmData)
 
 wxGDIRefData *wxCursor::CreateGDIRefData() const
 {
-    return new wxCursorRefData;
+    return NEW_DEBUG wxCursorRefData;
 }
 
 wxGDIRefData *wxCursor::CloneGDIRefData(const wxGDIRefData *data) const
 {
-    return new wxCursorRefData(*static_cast<const wxCursorRefData *>(data));
+    return NEW_DEBUG wxCursorRefData(*static_cast<const wxCursorRefData *>(data));
 }
 
 WXHCURSOR wxCursor::GetHCURSOR() const
@@ -256,7 +256,7 @@ WXHCURSOR wxCursor::GetHCURSOR() const
 
 void wxCursor::InitFromImage(const wxImage & image)
 {
-    m_refData = new wxCursorRefData;
+    m_refData = NEW_DEBUG wxCursorRefData;
     int hotSpotX = image.GetOptionInt(wxIMAGE_OPTION_CUR_HOTSPOT_X);
     int hotSpotY = image.GetOptionInt(wxIMAGE_OPTION_CUR_HOTSPOT_Y);
 #if wxOSX_USE_COCOA
@@ -274,7 +274,7 @@ void wxCursor::InitFromImage(const wxImage & image)
 
 wxCursor::wxCursor(const wxString& cursor_file, wxBitmapType flags, int hotSpotX, int hotSpotY)
 {
-    m_refData = new wxCursorRefData;
+    m_refData = NEW_DEBUG wxCursorRefData;
     if ( flags == wxBITMAP_TYPE_MACCURSOR_RESOURCE )
     {
 #if wxOSX_USE_COCOA
@@ -301,7 +301,7 @@ wxCursor::wxCursor(const wxString& cursor_file, wxBitmapType flags, int hotSpotX
 // Cursors by stock number
 void wxCursor::InitFromStock(wxStockCursor cursor_type)
 {
-    m_refData = new wxCursorRefData;
+    m_refData = NEW_DEBUG wxCursorRefData;
 #if wxOSX_USE_COCOA
     M_CURSORDATA->m_hCursor = wxMacCocoaCreateStockCursor( cursor_type );
 #endif

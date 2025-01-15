@@ -78,7 +78,7 @@ wx28HtmlTagsCache::wx28HtmlTagsCache(const wxString& source)
             }
             tagBuffer[i] = wxT('\0');
 
-            m_Cache[tg].Name = new wxChar[i+1];
+            m_Cache[tg].Name = NEW_DEBUG wxChar[i+1];
             memcpy(m_Cache[tg].Name, tagBuffer, (i+1)*sizeof(wxChar));
 
             while (pos < lng && src[pos] != wxT('>')) pos++;

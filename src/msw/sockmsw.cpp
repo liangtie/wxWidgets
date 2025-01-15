@@ -70,7 +70,7 @@ public:
 
     virtual wxSocketImpl *CreateSocket(wxSocketBase& wxsocket) wxOVERRIDE
     {
-        return new wxSocketImplMSW(wxsocket);
+        return NEW_DEBUG wxSocketImplMSW(wxsocket);
     }
     virtual void Install_Callback(wxSocketImpl *socket,
                                   wxSocketNotify event = wxSOCKET_LOST) wxOVERRIDE;
@@ -114,7 +114,7 @@ void wxSocketMSWManager::OnExit()
 wxSocketImplMSW::wxSocketImplMSW(wxSocketBase& wxsocket)
     : wxSocketImpl(wxsocket)
 {
-  /* Allocate a new message number for this socket */
+  /* Allocate a NEW_DEBUG message number for this socket */
   wxCRIT_SECT_LOCKER(lock, gs_critical);
 
   int i = firstAvailable;
@@ -141,7 +141,7 @@ wxSocketImplMSW::~wxSocketImplMSW()
   if ( m_msgnumber )
   {
       // we need to remove any pending messages for this socket to avoid having
-      // them sent to a new socket which could reuse the same message number as
+      // them sent to a NEW_DEBUG socket which could reuse the same message number as
       // soon as we destroy this one
       MSG msg;
       while ( ::PeekMessage(&msg, hWin, m_msgnumber, m_msgnumber, PM_REMOVE) )

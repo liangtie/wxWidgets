@@ -479,7 +479,7 @@ private:
     void Init(int argc)
     {
         m_argc = argc;
-        m_argv = new char *[m_argc + 1];
+        m_argv = NEW_DEBUG char *[m_argc + 1];
         m_argv[m_argc] = NULL;
     }
 
@@ -547,7 +547,7 @@ int BlockUntilChildExit(wxExecuteData& execData)
     // signal handler so that we could react to the child process
     // termination too.
 
-    // Notice that we must create a new dispatcher object here instead of
+    // Notice that we must create a NEW_DEBUG dispatcher object here instead of
     // reusing the global wxFDIODispatcher::Get() because we want to
     // monitor only the events on the FDs explicitly registered with this
     // one and not all the other ones that could be registered with the
@@ -566,13 +566,13 @@ int BlockUntilChildExit(wxExecuteData& execData)
         stderrHandler;
     if ( execData.IsRedirected() )
     {
-        stdoutHandler.reset(new wxExecuteFDIOHandler
+        stdoutHandler.reset(NEW_DEBUG wxExecuteFDIOHandler
                                 (
                                     dispatcher,
                                     execData.m_fdOut,
                                     execData.m_bufOut
                                 ));
-        stderrHandler.reset(new wxExecuteFDIOHandler
+        stderrHandler.reset(NEW_DEBUG wxExecuteFDIOHandler
                                 (
                                     dispatcher,
                                     execData.m_fdErr,
@@ -632,7 +632,7 @@ long wxExecute(const char* const* argv, int flags, wxProcess* process,
 #endif // __DARWIN__
 
     // this struct contains all information which we use for housekeeping
-    wxScopedPtr<wxExecuteData> execDataPtr(new wxExecuteData);
+    wxScopedPtr<wxExecuteData> execDataPtr(NEW_DEBUG wxExecuteData);
     wxExecuteData& execData = *execDataPtr;
 
     execData.m_flags = flags;
@@ -776,7 +776,7 @@ long wxExecute(const char* const* argv, int flags, wxProcess* process,
                         wxUnsetEnv(it->first);
                 }
 
-                // And add the new ones (possibly replacing the old values)
+                // And add the NEW_DEBUG ones (possibly replacing the old values)
                 for ( it = env->env.begin(); it != env->env.end(); ++it )
                     wxSetEnv(it->first, it->second);
             }
@@ -827,13 +827,13 @@ long wxExecute(const char* const* argv, int flags, wxProcess* process,
             }
 
             wxOutputStream *inStream =
-                new wxPipeOutputStream(pipeIn.Detach(wxPipe::Write));
+                NEW_DEBUG wxPipeOutputStream(pipeIn.Detach(wxPipe::Write));
 
             const int fdOut = pipeOut.Detach(wxPipe::Read);
-            wxPipeInputStream *outStream = new wxPipeInputStream(fdOut);
+            wxPipeInputStream *outStream = NEW_DEBUG wxPipeInputStream(fdOut);
 
             const int fdErr = pipeErr.Detach(wxPipe::Read);
-            wxPipeInputStream *errStream = new wxPipeInputStream(fdErr);
+            wxPipeInputStream *errStream = NEW_DEBUG wxPipeInputStream(fdErr);
 
             process->SetPipeStreams(outStream, inStream, errStream);
 
@@ -1617,11 +1617,11 @@ wxAppTraits::RunLoopUntilChildExit(wxExecuteData& execData,
         stderrHandler;
     if ( execData.IsRedirected() )
     {
-        stdoutHandler.reset(new wxExecuteEventLoopSourceHandler
+        stdoutHandler.reset(NEW_DEBUG wxExecuteEventLoopSourceHandler
                                 (
                                     execData.m_fdOut, execData.m_bufOut
                                 ));
-        stderrHandler.reset(new wxExecuteEventLoopSourceHandler
+        stderrHandler.reset(NEW_DEBUG wxExecuteEventLoopSourceHandler
                                 (
                                     execData.m_fdErr, execData.m_bufErr
                                 ));

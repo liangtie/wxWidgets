@@ -186,7 +186,7 @@ wxString GetPathForIconFile( CFBundleRef bundle, CFStringRef iconFile )
     // iconFile must be represented as UniChar[]
     {
         // Allocate a buffer and copy in the iconFile string
-        UniChar* buffer = new UniChar[ wholeString.length ];
+        UniChar* buffer = NEW_DEBUG UniChar[ wholeString.length ];
         CFStringGetCharacters( iconFile, wholeString, buffer );
 
         // Locate the period character
@@ -367,7 +367,7 @@ wxFileType *wxMimeTypesManagerImpl::GetFileTypeFromUti(const wxString& uti)
         LoadDisplayDataForUti( uti );
     }
 
-    wxFileType* const ft = new wxFileType;
+    wxFileType* const ft = NEW_DEBUG wxFileType;
     ft->m_impl->m_uti = uti;
     ft->m_impl->m_manager = this;
 

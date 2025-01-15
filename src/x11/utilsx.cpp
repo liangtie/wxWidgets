@@ -184,7 +184,7 @@ void wxXVisualInfo::Init( Display* dpy, XVisualInfo* vi )
     if (m_visualDepth > 8)
         return;
 
-    m_visualColormap = new XColor[m_visualColormapSize];
+    m_visualColormap = NEW_DEBUG XColor[m_visualColormapSize];
     XColor* colors = (XColor*) m_visualColormap;
 
     for (int i = 0; i < m_visualColormapSize; i++)

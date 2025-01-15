@@ -211,7 +211,7 @@ void wxMenuItem::AddExtraAccel(const wxAcceleratorEntry& accel)
         wxMenuItemBase::AddExtraAccel(accel);
 
         // create the same wxMenuItem but hidden and with different accelerator.
-        wxMenuItem* hiddenMenuItem = new wxMenuItem(m_parentMenu, GetId(), m_text, m_help, GetKind(), m_subMenu);
+        wxMenuItem* hiddenMenuItem = NEW_DEBUG wxMenuItem(m_parentMenu, GetId(), m_text, m_help, GetKind(), m_subMenu);
         hiddenMenuItem->SetAccel(&(m_extraAccels.back()));
         hiddenMenuItem->GetPeer()->Hide(true);
         hiddenMenuItem->GetPeer()->SetAllowsKeyEquivalentWhenHidden(true);
@@ -252,7 +252,7 @@ wxMenuItem *wxMenuItemBase::New(wxMenu *parentMenu,
                                 wxItemKind kind,
                                 wxMenu *subMenu)
 {
-    return new wxMenuItem(parentMenu, id, name, help, kind, subMenu);
+    return NEW_DEBUG wxMenuItem(parentMenu, id, name, help, kind, subMenu);
 }
 
 #endif

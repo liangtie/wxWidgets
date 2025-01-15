@@ -34,7 +34,7 @@ public:
     {
         m_bmp.Create(100, 100);
         m_dc.SelectObject(m_bmp);
-        m_gcdc = new wxGCDC(m_dc);
+        m_gcdc = NEW_DEBUG wxGCDC(m_dc);
     }
 
     ~GCDCBoundingBoxTestCase()

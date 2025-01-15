@@ -527,7 +527,7 @@ wxValidator* wxIntProperty::GetClassValidator()
 #if wxUSE_VALIDATORS
     WX_PG_DOGETVALIDATOR_ENTRY()
 
-    wxValidator* validator = new wxNumericPropertyValidator(
+    wxValidator* validator = NEW_DEBUG wxNumericPropertyValidator(
                                     wxNumericPropertyValidator::Signed);
 
     WX_PG_DOGETVALIDATOR_EXIT(validator)
@@ -801,7 +801,7 @@ wxValidator* wxUIntProperty::DoGetValidator() const
 #if wxUSE_VALIDATORS
     WX_PG_DOGETVALIDATOR_ENTRY()
 
-    wxValidator* validator = new wxNumericPropertyValidator(
+    wxValidator* validator = NEW_DEBUG wxNumericPropertyValidator(
                                     wxNumericPropertyValidator::Unsigned,
                                     m_realBase);
 
@@ -1033,7 +1033,7 @@ wxFloatProperty::GetClassValidator()
 #if wxUSE_VALIDATORS
     WX_PG_DOGETVALIDATOR_ENTRY()
 
-    wxValidator* validator = new wxNumericPropertyValidator(
+    wxValidator* validator = NEW_DEBUG wxNumericPropertyValidator(
                                     wxNumericPropertyValidator::Float);
 
     WX_PG_DOGETVALIDATOR_EXIT(validator)
@@ -1565,12 +1565,12 @@ void wxFlagsProperty::Init()
         #if wxUSE_INTL
             if ( wxPGGlobalVars->m_autoGetTranslation )
             {
-                boolProp = new wxBoolProperty( ::wxGetTranslation(label), label, child_val );
+                boolProp = NEW_DEBUG wxBoolProperty( ::wxGetTranslation(label), label, child_val );
             }
             else
         #endif
             {
-                boolProp = new wxBoolProperty( label, label, child_val );
+                boolProp = NEW_DEBUG wxBoolProperty( label, label, child_val );
             }
             boolProp->SetAttribute(wxPG_BOOL_USE_CHECKBOX, attrUseCheckBox);
             boolProp->SetAttribute(wxPG_BOOL_USE_DOUBLE_CLICK_CYCLING, attrUseDCC);
@@ -1972,7 +1972,7 @@ wxEditorDialogProperty::~wxEditorDialogProperty()
 
 wxPGEditorDialogAdapter* wxEditorDialogProperty::GetEditorDialog() const
 {
-    return new wxPGDialogAdapter();
+    return NEW_DEBUG wxPGDialogAdapter();
 }
 
 bool wxEditorDialogProperty::DoSetAttribute(const wxString& name, wxVariant& value)
@@ -2012,7 +2012,7 @@ wxValidator* wxFileProperty::GetClassValidator()
 
     // At least wxPython 2.6.2.1 required that the string argument is given
     static wxString v;
-    wxTextValidator* validator = new wxTextValidator(wxFILTER_EXCLUDE_CHAR_LIST,&v);
+    wxTextValidator* validator = NEW_DEBUG wxTextValidator(wxFILTER_EXCLUDE_CHAR_LIST,&v);
 
     validator->SetCharExcludes(wxString("?*|<>\""));
 
@@ -2243,7 +2243,7 @@ bool wxLongStringProperty::DisplayEditorDialog(wxPropertyGrid* pg, wxVariant& va
     wxASSERT_MSG(value.IsType(wxS("string")), "Function called for incompatible property");
 
     // launch editor dialog
-    wxDialog* dlg = new wxDialog(pg->GetPanel(), wxID_ANY,
+    wxDialog* dlg = NEW_DEBUG wxDialog(pg->GetPanel(), wxID_ANY,
                                  m_dlgTitle.empty() ? GetLabel() : m_dlgTitle,
                                  wxDefaultPosition, wxDefaultSize, m_dlgStyle);
 
@@ -2251,14 +2251,14 @@ bool wxLongStringProperty::DisplayEditorDialog(wxPropertyGrid* pg, wxVariant& va
 
     // Multi-line text editor dialog.
     const int spacing = wxPropertyGrid::IsSmallScreen()? 4 : 8;
-    wxBoxSizer* topsizer = new wxBoxSizer( wxVERTICAL );
-    wxBoxSizer* rowsizer = new wxBoxSizer( wxHORIZONTAL );
+    wxBoxSizer* topsizer = NEW_DEBUG wxBoxSizer( wxVERTICAL );
+    wxBoxSizer* rowsizer = NEW_DEBUG wxBoxSizer( wxHORIZONTAL );
     long edStyle = wxTE_MULTILINE;
     if ( HasFlag(wxPG_PROP_READONLY) )
         edStyle |= wxTE_READONLY;
     wxString strVal;
     wxPropertyGrid::ExpandEscapeSequences(strVal, value.GetString());
-    wxTextCtrl* ed = new wxTextCtrl(dlg,wxID_ANY,strVal,
+    wxTextCtrl* ed = NEW_DEBUG wxTextCtrl(dlg,wxID_ANY,strVal,
         wxDefaultPosition,wxDefaultSize,edStyle);
     if ( m_maxLen > 0 )
         ed->SetMaxLength(m_maxLen);
@@ -2392,14 +2392,14 @@ bool wxPGArrayEditorDialog::Create( wxWindow *parent,
 
     m_modified = false;
 
-    wxBoxSizer* topsizer = new wxBoxSizer( wxVERTICAL );
+    wxBoxSizer* topsizer = NEW_DEBUG wxBoxSizer( wxVERTICAL );
 
     // Message
     if ( !message.empty() )
-        topsizer->Add( new wxStaticText(this, wxID_ANY, message),
+        topsizer->Add( NEW_DEBUG wxStaticText(this, wxID_ANY, message),
             wxSizerFlags(0).Left().Border(wxALL, spacing) );
 
-    m_elb = new wxEditableListBox(this, wxID_ANY, message,
+    m_elb = NEW_DEBUG wxEditableListBox(this, wxID_ANY, message,
                                   wxDefaultPosition,
                                   wxDefaultSize,
                                   wxEL_ALLOW_NEW |
@@ -2554,7 +2554,7 @@ void wxPGArrayEditorDialog::OnEndLabelEdit(wxListEvent& event)
 
     if ( m_itemPendingAtIndex >= 0 )
     {
-        // Add a new item
+        // Add a NEW_DEBUG item
         if ( ArrayInsert(str, m_itemPendingAtIndex) )
         {
             m_modified = true;
@@ -2590,7 +2590,7 @@ void wxPGArrayEditorDialog::OnBeginLabelEdit(wxListEvent& evt)
     const int lastStringIndex = lc->GetItemCount() - 1;
     const int curItemIndex = evt.GetIndex();
     // If current index is >= then last available index
-    // then we have a new pending element.
+    // then we have a NEW_DEBUG pending element.
     m_itemPendingAtIndex  = curItemIndex < lastStringIndex? -1: curItemIndex;
 
     evt.Skip();
@@ -2794,7 +2794,7 @@ bool wxArrayStringProperty::OnButtonClick(wxPropertyGrid* WXUNUSED(propgrid),
 
 wxPGArrayEditorDialog* wxArrayStringProperty::CreateEditorDialog()
 {
-    return new wxPGArrayStringEditorDialog();
+    return NEW_DEBUG wxPGArrayStringEditorDialog();
 }
 
 bool wxArrayStringProperty::DisplayEditorDialog(wxPropertyGrid* pg, wxVariant& value)
@@ -2915,7 +2915,7 @@ bool wxPGInDialogValidator::DoValidate( wxPropertyGrid* propGrid,
     if ( !tc )
     {
         {
-            tc = new wxTextCtrl( propGrid, wxID_ANY, wxEmptyString,
+            tc = NEW_DEBUG wxTextCtrl( propGrid, wxID_ANY, wxEmptyString,
                                  wxPoint(30000,30000));
             tc->Hide();
         }

@@ -77,7 +77,7 @@ public:
         wxCHECK_MSG( fd != -1, NULL, "can't monitor invalid fd" );
 
         wxScopedPtr<wxCFEventLoopSource>
-            source(new wxCFEventLoopSource(handler, flags));
+            source(NEW_DEBUG wxCFEventLoopSource(handler, flags));
 
         CFSocketContext context = { 0, source.get(), NULL, NULL, NULL };
 

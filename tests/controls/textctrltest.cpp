@@ -177,7 +177,7 @@ void TextCtrlTestCase::CreateText(long extraStyles)
 {
     const long style = ms_style | extraStyles;
     const int h = (style & wxTE_MULTILINE) ? TEXT_HEIGHT : -1;
-    m_text = new wxTextCtrl(wxTheApp->GetTopWindow(), wxID_ANY, "",
+    m_text = NEW_DEBUG wxTextCtrl(wxTheApp->GetTopWindow(), wxID_ANY, "",
                             wxDefaultPosition, wxSize(400, h),
                             style);
 }
@@ -621,7 +621,7 @@ void TextCtrlTestCase::LogTextCtrl()
 {
     CPPUNIT_ASSERT(m_text->IsEmpty());
 
-    wxLogTextCtrl* logtext = new wxLogTextCtrl(m_text);
+    wxLogTextCtrl* logtext = NEW_DEBUG wxLogTextCtrl(m_text);
 
     wxLog* old = wxLog::SetActiveTarget(logtext);
 
@@ -723,7 +723,7 @@ void TextCtrlTestCase::DoPositionToCoordsTestWithStyle(long style)
     WX_ASSERT_FAILS_WITH_ASSERT( m_text->PositionToCoords(6) );
 
     // Test getting the coordinates of the last character when it is in the
-    // beginning of a new line to exercise MSW code which has specific logic
+    // beginning of a NEW_DEBUG line to exercise MSW code which has specific logic
     // for it.
     m_text->AppendText("\n");
     const wxPoint posLast = m_text->PositionToCoords(m_text->GetLastPosition());
@@ -853,10 +853,10 @@ void TextCtrlTestCase::DoPositionToXYMultiLine(long style)
     m_text->SetValue(text);
 
 #if wxHAS_2CHAR_NEWLINES
-    // Take into account that every new line mark occupies
+    // Take into account that every NEW_DEBUG line mark occupies
     // two characters, not one.
     const long numChars_msw_2 = 8 + 2;
-    // Note: Two new line characters refer to the same X-Y position.
+    // Note: Two NEW_DEBUG line characters refer to the same X-Y position.
     XYPos coords_2_msw[numChars_msw_2 + 1] =
         { { 0, 0 },{ 1, 0 },{ 2, 0 },{ 3, 0 },{ 3, 0 },
           { 0, 1 },{ 1, 1 },{ 2, 1 },{ 2, 1 },
@@ -901,10 +901,10 @@ void TextCtrlTestCase::DoPositionToXYMultiLine(long style)
     m_text->SetValue(text);
 
 #if wxHAS_2CHAR_NEWLINES
-    // Take into account that every new line mark occupies
+    // Take into account that every NEW_DEBUG line mark occupies
     // two characters, not one.
     const long numChars_msw_3 = 3 + 3;
-    // Note: Two new line characters refer to the same X-Y position.
+    // Note: Two NEW_DEBUG line characters refer to the same X-Y position.
     XYPos coords_3_msw[numChars_msw_3 + 1] =
         { { 0, 0 },{ 0, 0 },
           { 0, 1 },{ 0, 1 },
@@ -951,10 +951,10 @@ void TextCtrlTestCase::DoPositionToXYMultiLine(long style)
     m_text->SetValue(text);
 
 #if wxHAS_2CHAR_NEWLINES
-    // Take into account that every new line mark occupies
+    // Take into account that every NEW_DEBUG line mark occupies
     // two characters, not one.
     const long numChars_msw_4 = 10 + 5;
-    // Note: Two new line characters refer to the same X-Y position.
+    // Note: Two NEW_DEBUG line characters refer to the same X-Y position.
     XYPos coords_4_msw[numChars_msw_4 + 1] =
         { { 0, 0 },{ 1, 0 },{ 2, 0 },{ 3, 0 },{ 3, 0 },
           { 0, 1 },{ 1, 1 },{ 1, 1 },
@@ -1213,7 +1213,7 @@ void TextCtrlTestCase::PositionToXYSingleLine()
     ok = m_text->PositionToXY(numChars_1+1, NULL, NULL);
     CPPUNIT_ASSERT_EQUAL( false, ok );
 
-    // with new line characters
+    // with NEW_DEBUG line characters
     text = wxS("123\nab\nX");
     m_text->SetValue(text);
     const long numChars_2 = text.Length();
@@ -1267,7 +1267,7 @@ void TextCtrlTestCase::XYToPositionSingleLine()
         CPPUNIT_ASSERT_EQUAL( -1, p1 );
     }
 
-    // with new line characters
+    // with NEW_DEBUG line characters
     text = wxS("123\nab\nX");
     m_text->SetValue(text);
     CPPUNIT_ASSERT_EQUAL( 1, m_text->GetNumberOfLines() );
@@ -1296,14 +1296,14 @@ TEST_CASE("wxTextCtrl::ProcessEnter", "[wxTextCtrl][enter]")
 
         virtual wxControl* Create(wxWindow* parent, int style) const wxOVERRIDE
         {
-            return new wxTextCtrl(parent, wxID_ANY, wxString(),
+            return NEW_DEBUG wxTextCtrl(parent, wxID_ANY, wxString(),
                                   wxDefaultPosition, wxDefaultSize,
                                   style | m_styleToAdd);
         }
 
         virtual TextLikeControlCreator* CloneAsMultiLine() const wxOVERRIDE
         {
-            return new TextCtrlCreator(wxTE_MULTILINE);
+            return NEW_DEBUG TextCtrlCreator(wxTE_MULTILINE);
         }
 
     private:
@@ -1320,7 +1320,7 @@ TEST_CASE("wxTextCtrl::GetBestSize", "[wxTextCtrl][best-size]")
         wxSize operator()(const wxString& text) const
         {
             wxScopedPtr<wxTextCtrl>
-                t(new wxTextCtrl(wxTheApp->GetTopWindow(), wxID_ANY, text,
+                t(NEW_DEBUG wxTextCtrl(wxTheApp->GetTopWindow(), wxID_ANY, text,
                                  wxDefaultPosition, wxDefaultSize,
                                  wxTE_MULTILINE));
             return t->GetBestSize();
@@ -1389,7 +1389,7 @@ TEST_CASE("wxTextCtrl::LongPaste", "[wxTextCtrl][clipboard][paste]")
     }
 
     wxScopedPtr<wxTextCtrl>
-        text(new wxTextCtrl(wxTheApp->GetTopWindow(), wxID_ANY, wxString(),
+        text(NEW_DEBUG wxTextCtrl(wxTheApp->GetTopWindow(), wxID_ANY, wxString(),
                             wxDefaultPosition, wxDefaultSize, style));
 
     // This could actually be much higher, but it makes the test proportionally
@@ -1410,7 +1410,7 @@ TEST_CASE("wxTextCtrl::LongPaste", "[wxTextCtrl][clipboard][paste]")
 
         s += "THE END";
 
-        wxTheClipboard->AddData(new wxTextDataObject(s));
+        wxTheClipboard->AddData(NEW_DEBUG wxTextDataObject(s));
     }
 
     text->ChangeValue("THE BEGINNING\n");
@@ -1431,7 +1431,7 @@ TEST_CASE("wxTextCtrl::EventsOnCreate", "[wxTextCtrl][event]")
 
     EventCounter updated(parent, wxEVT_TEXT);
 
-    wxScopedPtr<wxTextCtrl> text(new wxTextCtrl(parent, wxID_ANY, "Hello"));
+    wxScopedPtr<wxTextCtrl> text(NEW_DEBUG wxTextCtrl(parent, wxID_ANY, "Hello"));
 
     // Creating the control shouldn't result in any wxEVT_TEXT events.
     CHECK( updated.GetCount() == 0 );
@@ -1465,7 +1465,7 @@ TEST_CASE("wxTextCtrl::InitialCanUndo", "[wxTextCtrl][undo]")
 
         INFO("wxTextCtrl with style " << style);
 
-        wxScopedPtr<wxTextCtrl> text(new wxTextCtrl(parent, wxID_ANY, "",
+        wxScopedPtr<wxTextCtrl> text(NEW_DEBUG wxTextCtrl(parent, wxID_ANY, "",
                                                     wxDefaultPosition,
                                                     wxDefaultSize,
                                                     style));
@@ -1487,7 +1487,7 @@ TEST_CASE("wxTextCtrl::EmptyUndoBuffer", "[wxTextCtrl][undo]")
         return;
     }
 
-    wxScopedPtr<wxTextCtrl> text(new wxTextCtrl(wxTheApp->GetTopWindow(),
+    wxScopedPtr<wxTextCtrl> text(NEW_DEBUG wxTextCtrl(wxTheApp->GetTopWindow(),
                                                 wxID_ANY, "",
                                                 wxDefaultPosition,
                                                 wxDefaultSize,

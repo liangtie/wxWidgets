@@ -190,9 +190,9 @@ int wxDialog::ShowModal()
     wxBusyCursorSuspender suspender;
 #endif
 
-    m_windowDisabler = new wxWindowDisabler(this);
+    m_windowDisabler = NEW_DEBUG wxWindowDisabler(this);
     if ( !m_eventLoop )
-        m_eventLoop = new wxEventLoop;
+        m_eventLoop = NEW_DEBUG wxEventLoop;
 
     m_eventLoop->Run();
 

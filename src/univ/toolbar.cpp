@@ -320,14 +320,14 @@ wxToolBarToolBase *wxToolBar::CreateTool(int id,
                                          const wxString& shortHelp,
                                          const wxString& longHelp)
 {
-    return new wxToolBarTool(this, id, label, bmpNormal, bmpDisabled, kind,
+    return NEW_DEBUG wxToolBarTool(this, id, label, bmpNormal, bmpDisabled, kind,
                              clientData, shortHelp, longHelp);
 }
 
 wxToolBarToolBase *
 wxToolBar::CreateTool(wxControl *control, const wxString& label)
 {
-    return new wxToolBarTool(this, control, label);
+    return NEW_DEBUG wxToolBarTool(this, control, label);
 }
 
 // ----------------------------------------------------------------------------
@@ -913,7 +913,7 @@ bool wxStdToolbarInputHandler::HandleMouseMove(wxInputConsumer *consumer,
 
             if (tool)
             {
-                // Enter new tool if any
+                // Enter NEW_DEBUG tool if any
                 consumer->PerformAction( wxACTION_TOOLBAR_ENTER, tool->GetId() );
             }
 

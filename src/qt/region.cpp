@@ -62,18 +62,18 @@ wxRegion::wxRegion()
 
 wxRegion::wxRegion(wxCoord x, wxCoord y, wxCoord w, wxCoord h)
 {
-    m_refData = new wxRegionRefData( QRect( x, y, w, h ) );
+    m_refData = NEW_DEBUG wxRegionRefData( QRect( x, y, w, h ) );
 }
 
 wxRegion::wxRegion(const wxPoint& topLeft, const wxPoint& bottomRight)
 {
-    m_refData = new wxRegionRefData( QRect( wxQtConvertPoint( topLeft ),
+    m_refData = NEW_DEBUG wxRegionRefData( QRect( wxQtConvertPoint( topLeft ),
                                            wxQtConvertPoint( bottomRight ) ) );
 }
 
 wxRegion::wxRegion(const wxRect& rect)
 {
-    m_refData = new wxRegionRefData( wxQtConvertRect( rect ) );
+    m_refData = NEW_DEBUG wxRegionRefData( wxQtConvertRect( rect ) );
 }
 
 wxRegion::wxRegion(size_t n, const wxPoint *points, wxPolygonFillMode fillStyle)
@@ -86,26 +86,26 @@ wxRegion::wxRegion(size_t n, const wxPoint *points, wxPolygonFillMode fillStyle)
     QPolygon p( qtPoints );
 
     Qt::FillRule fillingRule = fillStyle == wxODDEVEN_RULE ? Qt::OddEvenFill : Qt::WindingFill;
-    m_refData = new wxRegionRefData( p, fillingRule );
+    m_refData = NEW_DEBUG wxRegionRefData( p, fillingRule );
 }
 
 wxRegion::wxRegion(const wxBitmap& bmp)
 {
     if ( bmp.GetMask() != NULL )
-        m_refData = new wxRegionRefData( *bmp.GetMask()->GetHandle() );
+        m_refData = NEW_DEBUG wxRegionRefData( *bmp.GetMask()->GetHandle() );
     else
-        m_refData = new wxRegionRefData( QRect( 0, 0, bmp.GetWidth(), bmp.GetHeight() ) );
+        m_refData = NEW_DEBUG wxRegionRefData( QRect( 0, 0, bmp.GetWidth(), bmp.GetHeight() ) );
 }
 
 wxRegion::wxRegion(const wxBitmap& bmp, const wxColour& transp, int tolerance)
 {
     if ( !bmp.GetHandle() ) {
-        m_refData = new wxRegionRefData();
+        m_refData = NEW_DEBUG wxRegionRefData();
         return;
     }
 
     if ( tolerance == 0 ) {
-        m_refData = new wxRegionRefData(bmp.GetHandle()->createMaskFromColor(transp.GetQColor()));
+        m_refData = NEW_DEBUG wxRegionRefData(bmp.GetHandle()->createMaskFromColor(transp.GetQColor()));
         return;
     }
 
@@ -128,7 +128,7 @@ wxRegion::wxRegion(const wxBitmap& bmp, const wxColour& transp, int tolerance)
         }
     }
 
-    m_refData = new wxRegionRefData(QBitmap::fromData(bmp.GetHandle()->size(), raw.get()));
+    m_refData = NEW_DEBUG wxRegionRefData(QBitmap::fromData(bmp.GetHandle()->size(), raw.get()));
 }
 
 bool wxRegion::IsEmpty() const
@@ -160,12 +160,12 @@ void wxRegion::QtSetRegion(QRegion region)
 
 wxGDIRefData *wxRegion::CreateGDIRefData() const
 {
-    return new wxRegionRefData;
+    return NEW_DEBUG wxRegionRefData;
 }
 
 wxGDIRefData *wxRegion::CloneGDIRefData(const wxGDIRefData *data) const
 {
-    return new wxRegionRefData(*(wxRegionRefData *)data);
+    return NEW_DEBUG wxRegionRefData(*(wxRegionRefData *)data);
 }
 
 bool wxRegion::DoIsEqual(const wxRegion& region) const
@@ -304,7 +304,7 @@ bool wxRegion::DoUnionWithRect(const wxRect& rect)
 {
     if ( m_refData == NULL )
     {
-        m_refData = new wxRegionRefData(wxQtConvertRect(rect));
+        m_refData = NEW_DEBUG wxRegionRefData(wxQtConvertRect(rect));
         return true;
     }
 
@@ -334,13 +334,13 @@ wxRegionIterator::wxRegionIterator()
 
 wxRegionIterator::wxRegionIterator(const wxRegion& region)
 {
-    m_qtRects = new QVector< QRect >( region.GetHandle().rects() );
+    m_qtRects = NEW_DEBUG QVector< QRect >( region.GetHandle().rects() );
     m_pos = 0;
 }
 
 wxRegionIterator::wxRegionIterator(const wxRegionIterator& ri)
 {
-    m_qtRects = new QVector< QRect >( *ri.m_qtRects );
+    m_qtRects = NEW_DEBUG QVector< QRect >( *ri.m_qtRects );
     m_pos = ri.m_pos;
 }
 
@@ -354,7 +354,7 @@ wxRegionIterator& wxRegionIterator::operator=(const wxRegionIterator& ri)
     if (this != &ri)
     {
         delete m_qtRects;
-        m_qtRects = new QVector< QRect >( *ri.m_qtRects );
+        m_qtRects = NEW_DEBUG QVector< QRect >( *ri.m_qtRects );
         m_pos = ri.m_pos;
     }
     return *this;
@@ -369,7 +369,7 @@ void wxRegionIterator::Reset(const wxRegion& region)
 {
     delete m_qtRects;
 
-    m_qtRects = new QVector< QRect >( region.GetHandle().rects() );
+    m_qtRects = NEW_DEBUG QVector< QRect >( region.GetHandle().rects() );
     m_pos = 0;
 }
 

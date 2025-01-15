@@ -29,7 +29,7 @@ wxIMPLEMENT_DYNAMIC_CLASS(wxBestHelpController, wxHelpControllerBase);
 bool wxBestHelpController::Initialize( const wxString& filename )
 {
     // try wxCHMHelpController
-    wxCHMHelpController* chm = new wxCHMHelpController(m_parentWindow);
+    wxCHMHelpController* chm = NEW_DEBUG wxCHMHelpController(m_parentWindow);
 
     m_helpControllerType = wxUseChmHelp;
     // do not warn upon failure
@@ -47,7 +47,7 @@ bool wxBestHelpController::Initialize( const wxString& filename )
 
     // try wxHtmlHelpController
     wxHtmlHelpController *
-        html = new wxHtmlHelpController(m_style, m_parentWindow);
+        html = NEW_DEBUG wxHtmlHelpController(m_style, m_parentWindow);
 
     m_helpControllerType = wxUseHtmlHelp;
     if( html->Initialize( GetValidFilename( filename ) ) )

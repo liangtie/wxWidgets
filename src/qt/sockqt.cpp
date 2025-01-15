@@ -67,7 +67,7 @@ public:
                 break;
         }
         m_qtNotifiers.insert(m_qtNotifiers.end(),
-                             new wxQtFDIONotifier(fd, type, handler));
+                             NEW_DEBUG wxQtFDIONotifier(fd, type, handler));
         handler->SetRegisteredEvent(d);
         return fd;
     }

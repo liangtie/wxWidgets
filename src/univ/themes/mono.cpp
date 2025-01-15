@@ -534,7 +534,7 @@ wxRenderer *wxMonoTheme::GetRenderer()
 {
     if ( !m_renderer )
     {
-        m_renderer = new wxMonoRenderer(GetColourScheme());
+        m_renderer = NEW_DEBUG wxMonoRenderer(GetColourScheme());
     }
 
     return m_renderer;
@@ -544,7 +544,7 @@ wxArtProvider *wxMonoTheme::GetArtProvider()
 {
     if ( !m_artProvider )
     {
-        m_artProvider = new wxMonoArtProvider;
+        m_artProvider = NEW_DEBUG wxMonoArtProvider;
     }
 
     return m_artProvider;
@@ -554,7 +554,7 @@ wxColourScheme *wxMonoTheme::GetColourScheme()
 {
     if ( !m_scheme )
     {
-        m_scheme = new wxMonoColourScheme;
+        m_scheme = NEW_DEBUG wxMonoColourScheme;
     }
 
     return m_scheme;

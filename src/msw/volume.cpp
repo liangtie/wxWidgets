@@ -426,7 +426,7 @@ wxArrayString wxFSVolumeBase::GetVolumes(int flagsSet, int flagsUnset)
     //-------------------------------
     // Allocate the required space for the API call.
     const DWORD chars = GetLogicalDriveStrings(0, NULL);
-    TCHAR* buf = new TCHAR[chars+1];
+    TCHAR* buf = NEW_DEBUG TCHAR[chars+1];
 
     // Get the list of drives.
     GetLogicalDriveStrings(chars, buf);

@@ -109,7 +109,7 @@ public:
     TransformMatrixTestCaseDCBase()
     {
         m_dc = NULL;
-        wxImage::AddHandler(new wxJPEGHandler);
+        wxImage::AddHandler(NEW_DEBUG wxJPEGHandler);
         m_imgOrig.LoadFile(wxS("horse.jpg"));
         CPPUNIT_ASSERT( m_imgOrig.IsOk() );
     }
@@ -211,7 +211,7 @@ public:
     {
         TransformMatrixTestCaseDC::setUp();
 
-        m_gcdc = new wxGCDC(m_mdc);
+        m_gcdc = NEW_DEBUG wxGCDC(m_mdc);
         m_dc = m_gcdc;
 
         wxGraphicsContext* ctx = m_gcdc->GetGraphicsContext();

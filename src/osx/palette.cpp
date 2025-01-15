@@ -48,7 +48,7 @@ wxPaletteRefData::wxPaletteRefData()
 wxPaletteRefData::wxPaletteRefData(const wxPaletteRefData& data) : wxGDIRefData()
 {
     m_count = data.m_count;
-    m_palette = new wxColour[m_count];
+    m_palette = NEW_DEBUG wxColour[m_count];
     for ( wxInt32 i = 0; i < m_count; i++ )
         m_palette[i] = data.m_palette[i];
 }
@@ -79,10 +79,10 @@ bool wxPalette::Create(int n, const unsigned char *red, const unsigned char *gre
 {
     UnRef();
 
-    m_refData = new wxPaletteRefData;
+    m_refData = NEW_DEBUG wxPaletteRefData;
 
     M_PALETTEDATA->m_count = n ;
-    M_PALETTEDATA->m_palette = new wxColour[n] ;
+    M_PALETTEDATA->m_palette = NEW_DEBUG wxColour[n] ;
 
     for ( int i = 0 ; i < n ; ++i)
     {
@@ -143,12 +143,12 @@ int wxPalette::GetColoursCount() const
 
 wxGDIRefData *wxPalette::CreateGDIRefData() const
 {
-    return new wxPaletteRefData;
+    return NEW_DEBUG wxPaletteRefData;
 }
 
 wxGDIRefData *wxPalette::CloneGDIRefData(const wxGDIRefData *data) const
 {
-    return new wxPaletteRefData(*static_cast<const wxPaletteRefData *>(data));
+    return NEW_DEBUG wxPaletteRefData(*static_cast<const wxPaletteRefData *>(data));
 }
 
 #endif // wxUSE_PALETTE

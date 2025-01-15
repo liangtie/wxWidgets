@@ -276,12 +276,12 @@ void wxWindowQt::Init()
     m_vertScrollBar = NULL;
 
     m_qtPicture = NULL;
-    m_qtPainter.reset(new QPainter());
+    m_qtPainter.reset(NEW_DEBUG QPainter());
 
     m_mouseInside = false;
 
 #if wxUSE_ACCEL
-    m_qtShortcutHandler.reset(new wxQtShortcutHandler(this));
+    m_qtShortcutHandler.reset(NEW_DEBUG wxQtShortcutHandler(this));
     m_processingShortcut = false;
 #endif
     m_qtWindow = NULL;
@@ -353,7 +353,7 @@ bool wxWindowQt::Create( wxWindowQt * parent, wxWindowID id, const wxPoint & pos
     {
         if ( style & (wxHSCROLL | wxVSCROLL) )
         {
-            m_qtContainer = new wxQtScrollArea( parent, this );
+            m_qtContainer = NEW_DEBUG wxQtScrollArea( parent, this );
             m_qtWindow = m_qtContainer;
             // Create the scroll bars if needed:
             if ( style & wxHSCROLL )
@@ -362,7 +362,7 @@ bool wxWindowQt::Create( wxWindowQt * parent, wxWindowID id, const wxPoint & pos
                 QtSetScrollBar( wxVERTICAL );
         }
         else
-            m_qtWindow = new wxQtWidget( parent, this );
+            m_qtWindow = NEW_DEBUG wxQtWidget( parent, this );
     }
 
     if ( !wxWindowBase::CreateBase( parent, id, pos, size, style, wxDefaultValidator, name ))
@@ -657,17 +657,17 @@ QScrollBar *wxWindowQt::QtGetScrollBar( int orientation ) const
     return scrollBar;
 }
 
-/* Returns a new scrollbar for the given orientation, or set the scrollbar
+/* Returns a NEW_DEBUG scrollbar for the given orientation, or set the scrollbar
  * passed as parameter */
 QScrollBar *wxWindowQt::QtSetScrollBar( int orientation, QScrollBar *scrollBar )
 {
     QScrollArea *scrollArea = QtGetScrollBarsContainer();
     wxCHECK_MSG( scrollArea, NULL, "Window without scrolling area" );
 
-    // Create a new scrollbar if needed
+    // Create a NEW_DEBUG scrollbar if needed
     if ( !scrollBar )
     {
-        scrollBar = new wxQtInternalScrollBar(this, this);
+        scrollBar = NEW_DEBUG wxQtInternalScrollBar(this, this);
         scrollBar->setOrientation( orientation == wxHORIZONTAL ? Qt::Horizontal : Qt::Vertical );
     }
 

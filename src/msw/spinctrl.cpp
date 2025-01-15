@@ -528,7 +528,7 @@ void wxSpinCtrl::SetLayoutDirection(wxLayoutDirection dir)
 
     wxSpinButton::SetLayoutDirection(dir);
 
-    // Reposition the child windows according to the new layout.
+    // Reposition the child windows according to the NEW_DEBUG layout.
     SetSize(-1, -1, -1, -1, wxSIZE_AUTO | wxSIZE_FORCE);
 }
 
@@ -643,7 +643,7 @@ bool wxSpinCtrl::Reparent(wxWindowBase *newParent)
         wxLogLastError(wxT("DestroyWindow"));
     }
 
-    // create and initialize the new one
+    // create and initialize the NEW_DEBUG one
     if ( !wxSpinButton::Create(GetParent(), GetId(),
                                wxPoint(0, 0), wxSize(0, 0), // it will have a buddy
                                GetWindowStyle(), GetName()) )

@@ -123,7 +123,7 @@ bool wxVariantDataCurrency::GetAsAny(wxAny* any) const
 
 wxVariantData* wxVariantDataCurrency::VariantDataFactory(const wxAny& any)
 {
-    return new wxVariantDataCurrency(any.As<CURRENCY>());
+    return NEW_DEBUG wxVariantDataCurrency(any.As<CURRENCY>());
 }
 
 REGISTER_WXANY_CONVERSION(CURRENCY, wxVariantDataCurrency)
@@ -176,7 +176,7 @@ bool wxVariantDataErrorCode::GetAsAny(wxAny* any) const
 
 wxVariantData* wxVariantDataErrorCode::VariantDataFactory(const wxAny& any)
 {
-    return new wxVariantDataErrorCode(any.As<SCODE>());
+    return NEW_DEBUG wxVariantDataErrorCode(any.As<SCODE>());
 }
 
 REGISTER_WXANY_CONVERSION(SCODE, wxVariantDataErrorCode)
@@ -224,7 +224,7 @@ bool wxVariantDataSafeArray::GetAsAny(wxAny* any) const
 
 wxVariantData* wxVariantDataSafeArray::VariantDataFactory(const wxAny& any)
 {
-    return new wxVariantDataSafeArray(any.As<SAFEARRAY*>());
+    return NEW_DEBUG wxVariantDataSafeArray(any.As<SAFEARRAY*>());
 }
 
 REGISTER_WXANY_CONVERSION(SAFEARRAY*, wxVariantDataSafeArray)
@@ -393,7 +393,7 @@ wxConvertOleToVariant(const VARIANTARG& oleVariant, wxVariant& variant, long fla
     {
         if ( flags & wxOleConvertVariant_ReturnSafeArrays  )
         {
-            variant.SetData(new wxVariantDataSafeArray(oleVariant.parray));
+            variant.SetData(NEW_DEBUG wxVariantDataSafeArray(oleVariant.parray));
         }
         else
         {
@@ -458,11 +458,11 @@ wxConvertOleToVariant(const VARIANTARG& oleVariant, wxVariant& variant, long fla
         switch ( oleVariant.vt & VT_TYPEMASK )
         {
             case VT_ERROR:
-                variant.SetData(new wxVariantDataErrorCode(oleVariant.scode));
+                variant.SetData(NEW_DEBUG wxVariantDataErrorCode(oleVariant.scode));
                 break;
 
             case VT_CY:
-                variant.SetData(new wxVariantDataCurrency(oleVariant.cyVal));
+                variant.SetData(NEW_DEBUG wxVariantDataCurrency(oleVariant.cyVal));
                 break;
 
             case VT_BSTR:

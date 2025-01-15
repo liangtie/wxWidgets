@@ -108,7 +108,7 @@ wxMacCarbonPrinterDC::~wxMacCarbonPrinterDC()
 
 wxNativePrinterDC* wxNativePrinterDC::Create(wxPrintData* data)
 {
-    return new wxMacCarbonPrinterDC(data) ;
+    return NEW_DEBUG wxMacCarbonPrinterDC(data) ;
 }
 
 bool wxMacCarbonPrinterDC::StartDoc(  wxPrinterDC* dc , const wxString& message  )

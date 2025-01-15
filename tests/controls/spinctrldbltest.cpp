@@ -24,7 +24,7 @@ class SpinCtrlDoubleTestCase
 {
 public:
     SpinCtrlDoubleTestCase(int style = wxSP_ARROW_KEYS)
-        : m_spin(new wxSpinCtrlDouble(wxTheApp->GetTopWindow(), wxID_ANY, "",
+        : m_spin(NEW_DEBUG wxSpinCtrlDouble(wxTheApp->GetTopWindow(), wxID_ANY, "",
                                       wxDefaultPosition, wxDefaultSize,
                                       style))
     {
@@ -55,7 +55,7 @@ TEST_CASE("SpinCtrlDouble::NoEventsInCtor", "[spinctrl][spinctrldouble]")
 {
     // Verify that creating the control does not generate any events. This is
     // unexpected and shouldn't happen.
-    wxScopedPtr<wxSpinCtrlDouble> m_spin(new wxSpinCtrlDouble);
+    wxScopedPtr<wxSpinCtrlDouble> m_spin(NEW_DEBUG wxSpinCtrlDouble);
 
     EventCounter updatedSpin(m_spin.get(), wxEVT_SPINCTRLDOUBLE);
     EventCounter updatedText(m_spin.get(), wxEVT_TEXT);
@@ -122,7 +122,7 @@ TEST_CASE_METHOD(SpinCtrlDoubleTestCase,
     CHECK( m_spin->GetMin() == 0.0 );
     CHECK( m_spin->GetMax() == 100.0 );
 
-    // Test that the value is adjusted to be inside the new valid range but
+    // Test that the value is adjusted to be inside the NEW_DEBUG valid range but
     // that this doesn't result in any events (as this is not something done by
     // the user).
     {
@@ -246,7 +246,7 @@ TEST_CASE_METHOD(SpinCtrlDoubleTestCase,
 
 static inline unsigned int GetInitialDigits(double inc)
 {
-    wxScopedPtr<wxSpinCtrlDouble> sc(new wxSpinCtrlDouble
+    wxScopedPtr<wxSpinCtrlDouble> sc(NEW_DEBUG wxSpinCtrlDouble
         (
             wxTheApp->GetTopWindow(),
             wxID_ANY,

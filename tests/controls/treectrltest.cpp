@@ -126,7 +126,7 @@ bool TreeCtrlTestCase::ms_hiddenRoot = false;
 
 void TreeCtrlTestCase::setUp()
 {
-    m_tree = new wxTreeCtrl(wxTheApp->GetTopWindow(),
+    m_tree = NEW_DEBUG wxTreeCtrl(wxTheApp->GetTopWindow(),
                             wxID_ANY,
                             wxDefaultPosition,
                             wxSize(400, 200),
@@ -457,21 +457,21 @@ void TreeCtrlTestCase::Menu()
 
 void TreeCtrlTestCase::ItemData()
 {
-    wxTreeItemData* child1data = new wxTreeItemData();
-    wxTreeItemData* appenddata = new wxTreeItemData();
-    wxTreeItemData* insertdata = new wxTreeItemData();
+    wxTreeItemData* child1data = NEW_DEBUG wxTreeItemData();
+    wxTreeItemData* appenddata = NEW_DEBUG wxTreeItemData();
+    wxTreeItemData* insertdata = NEW_DEBUG wxTreeItemData();
 
     m_tree->SetItemData(m_child1, child1data);
 
     CPPUNIT_ASSERT_EQUAL(child1data, m_tree->GetItemData(m_child1));
     CPPUNIT_ASSERT_EQUAL(m_child1, child1data->GetId());
 
-    wxTreeItemId append = m_tree->AppendItem(m_root, "new", -1, -1, appenddata);
+    wxTreeItemId append = m_tree->AppendItem(m_root, "NEW_DEBUG", -1, -1, appenddata);
 
     CPPUNIT_ASSERT_EQUAL(appenddata, m_tree->GetItemData(append));
     CPPUNIT_ASSERT_EQUAL(append, appenddata->GetId());
 
-    wxTreeItemId insert = m_tree->InsertItem(m_root, m_child1, "new", -1, -1,
+    wxTreeItemId insert = m_tree->InsertItem(m_root, m_child1, "NEW_DEBUG", -1, -1,
                                              insertdata);
 
     CPPUNIT_ASSERT_EQUAL(insertdata, m_tree->GetItemData(insert));
@@ -539,10 +539,10 @@ void TreeCtrlTestCase::AssignImageList()
 {
     wxSize size(16, 16);
 
-    wxImageList *imagelist = new wxImageList(size.x, size.y);
+    wxImageList *imagelist = NEW_DEBUG wxImageList(size.x, size.y);
     imagelist->Add(wxArtProvider::GetIcon(wxART_QUESTION, wxART_OTHER, size));
 
-    wxImageList *statelist = new wxImageList(size.x, size.y);
+    wxImageList *statelist = NEW_DEBUG wxImageList(size.x, size.y);
     statelist->Add(wxArtProvider::GetIcon(wxART_ERROR, wxART_OTHER, size));
 
     m_tree->AssignImageList(imagelist);

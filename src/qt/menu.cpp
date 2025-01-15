@@ -25,7 +25,7 @@ static void ApplyStyle( QMenu *qtMenu, long style )
 wxMenu::wxMenu(long style)
     : wxMenuBase( style )
 {
-    m_qtMenu = new QMenu();
+    m_qtMenu = NEW_DEBUG QMenu();
 
     ApplyStyle( m_qtMenu, style );
 }
@@ -33,7 +33,7 @@ wxMenu::wxMenu(long style)
 wxMenu::wxMenu(const wxString& title, long style)
     : wxMenuBase( title, style )
 {
-    m_qtMenu = new QMenu( wxQtConvertString( title ));
+    m_qtMenu = NEW_DEBUG QMenu( wxQtConvertString( title ));
 
     ApplyStyle( m_qtMenu, style );
 }
@@ -68,7 +68,7 @@ static void InsertMenuItemAction( const wxMenu *menu, const wxMenuItem *previous
     {
         case wxITEM_RADIO:
             // If a neighbouring menu item is a radio item then add this item to the
-            // same action group, otherwise start a new group:
+            // same action group, otherwise start a NEW_DEBUG group:
 
             if ( previousItem != NULL && previousItem->GetKind() == wxITEM_RADIO )
             {
@@ -80,7 +80,7 @@ static void InsertMenuItemAction( const wxMenu *menu, const wxMenuItem *previous
             }
             else
             {
-                QActionGroup *actionGroup = new QActionGroup( qtMenu );
+                QActionGroup *actionGroup = NEW_DEBUG QActionGroup( qtMenu );
                 actionGroup->addAction( itemAction );
                 item->Check();
                 wxASSERT_MSG( itemAction->actionGroup() == actionGroup, "Must be the same action group" );
@@ -181,19 +181,19 @@ QMenu *wxMenu::GetHandle() const
 
 wxMenuBar::wxMenuBar()
 {
-    m_qtMenuBar  = new QMenuBar();
+    m_qtMenuBar  = NEW_DEBUG QMenuBar();
     PostCreation(false);
 }
 
 wxMenuBar::wxMenuBar( long WXUNUSED( style ))
 {
-    m_qtMenuBar = new QMenuBar();
+    m_qtMenuBar = NEW_DEBUG QMenuBar();
     PostCreation(false);
 }
 
 wxMenuBar::wxMenuBar(size_t count, wxMenu *menus[], const wxString titles[], long WXUNUSED( style ))
 {
-    m_qtMenuBar = new QMenuBar();
+    m_qtMenuBar = NEW_DEBUG QMenuBar();
 
     for ( size_t i = 0; i < count; ++i )
         Append( menus[ i ], titles[ i ] );

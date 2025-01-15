@@ -121,7 +121,7 @@ private:
     virtual void DoDeleteInStream() wxOVERRIDE;
     virtual void DoDeleteOutStream() wxOVERRIDE;
 
-    // Helper that can be used to create new wx compatibility tests...
+    // Helper that can be used to create NEW_DEBUG wx compatibility tests...
     // Otherwise not used by the tests.
     void genExtTestData(wxTextOutputStream &out, const char *buf, int flag);
 
@@ -307,7 +307,7 @@ const unsigned char *zlibStream::GetCompressedData()
 
         // Copy the to the
         m_SizeCompressedData = memstream_out.GetSize();
-        m_pCompressedData = new unsigned char[m_SizeCompressedData];
+        m_pCompressedData = NEW_DEBUG unsigned char[m_SizeCompressedData];
         memstream_out.CopyTo(m_pCompressedData, m_SizeCompressedData);
     }
 
@@ -477,17 +477,17 @@ void zlibStream::doDecompress_ExternalData(const unsigned char *data, const char
 wxZlibInputStream *zlibStream::DoCreateInStream()
 {
     const unsigned char *buf = GetCompressedData();
-    m_pTmpMemInStream = new wxMemoryInputStream(buf, m_SizeCompressedData);
+    m_pTmpMemInStream = NEW_DEBUG wxMemoryInputStream(buf, m_SizeCompressedData);
     CPPUNIT_ASSERT(m_pTmpMemInStream->IsOk());
-    wxZlibInputStream *pzstream_in = new wxZlibInputStream(*m_pTmpMemInStream);
+    wxZlibInputStream *pzstream_in = NEW_DEBUG wxZlibInputStream(*m_pTmpMemInStream);
     CPPUNIT_ASSERT(pzstream_in->IsOk());
     return pzstream_in;
 }
 wxZlibOutputStream *zlibStream::DoCreateOutStream()
 {
-    m_pTmpMemOutStream = new wxMemoryOutputStream();
+    m_pTmpMemOutStream = NEW_DEBUG wxMemoryOutputStream();
     CPPUNIT_ASSERT(m_pTmpMemOutStream->IsOk());
-    wxZlibOutputStream *pzstream_out = new wxZlibOutputStream(*m_pTmpMemOutStream);
+    wxZlibOutputStream *pzstream_out = NEW_DEBUG wxZlibOutputStream(*m_pTmpMemOutStream);
     CPPUNIT_ASSERT(pzstream_out->IsOk());
     return pzstream_out;
 }
@@ -518,7 +518,7 @@ void zlibStream::genExtTestData(wxTextOutputStream &out, const char *buf, int fl
             memstream_out.PutC(' ');
 
         size = memstream_out.GetSize();
-        data = new unsigned char[size];
+        data = NEW_DEBUG unsigned char[size];
         memstream_out.CopyTo(data, size);
     }
 

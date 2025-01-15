@@ -132,21 +132,21 @@ ImageTestCase::ImageTestCase()
     wxSocketBase::Initialize();
 
     // the formats we're going to test:
-    wxImage::AddHandler(new wxICOHandler);
-    wxImage::AddHandler(new wxXPMHandler);
-    wxImage::AddHandler(new wxPNGHandler);
-    wxImage::AddHandler(new wxANIHandler);
-    wxImage::AddHandler(new wxBMPHandler);
-    wxImage::AddHandler(new wxCURHandler);
+    wxImage::AddHandler(NEW_DEBUG wxICOHandler);
+    wxImage::AddHandler(NEW_DEBUG wxXPMHandler);
+    wxImage::AddHandler(NEW_DEBUG wxPNGHandler);
+    wxImage::AddHandler(NEW_DEBUG wxANIHandler);
+    wxImage::AddHandler(NEW_DEBUG wxBMPHandler);
+    wxImage::AddHandler(NEW_DEBUG wxCURHandler);
 #if wxUSE_GIF
-    wxImage::AddHandler(new wxGIFHandler);
+    wxImage::AddHandler(NEW_DEBUG wxGIFHandler);
 #endif // wxUSE_GIF
-    wxImage::AddHandler(new wxJPEGHandler);
-    wxImage::AddHandler(new wxPCXHandler);
-    wxImage::AddHandler(new wxPNMHandler);
-    wxImage::AddHandler(new wxTGAHandler);
+    wxImage::AddHandler(NEW_DEBUG wxJPEGHandler);
+    wxImage::AddHandler(NEW_DEBUG wxPCXHandler);
+    wxImage::AddHandler(NEW_DEBUG wxPNMHandler);
+    wxImage::AddHandler(NEW_DEBUG wxTGAHandler);
 #if wxUSE_LIBTIFF
-    wxImage::AddHandler(new wxTIFFHandler);
+    wxImage::AddHandler(NEW_DEBUG wxTIFFHandler);
 #endif // wxUSE_LIBTIFF
 }
 
@@ -245,7 +245,7 @@ void ImageTestCase::LoadFromZipStream()
 void ImageTestCase::SizeImage()
 {
    // Test the wxImage::Size() function which takes a rectangle from source and
-   // places it in a new image at a given position. This test checks, if the
+   // places it in a NEW_DEBUG image at a given position. This test checks, if the
    // correct areas are chosen, and clipping is done correctly.
 
    // our test image:
@@ -1633,7 +1633,7 @@ TEST_CASE("wxImage::Paste", "[image][paste]")
 
     // Execute AddHandler() just once.
     static const bool
-        registeredHandler = (wxImage::AddHandler(new wxPNGHandler()), true);
+        registeredHandler = (wxImage::AddHandler(NEW_DEBUG wxPNGHandler()), true);
 
     SECTION("Paste same size image")
     {
@@ -2055,7 +2055,7 @@ TEST_CASE("wxImage::Clipboard", "[image][clipboard]")
     wxImage imgOriginal;
     REQUIRE(imgOriginal.LoadFile("horse.png") == true);
 
-    wxImageDataObject* dobj1 = new wxImageDataObject(imgOriginal);
+    wxImageDataObject* dobj1 = NEW_DEBUG wxImageDataObject(imgOriginal);
     {
         wxClipboardLocker lockClip;
         REQUIRE(wxTheClipboard->SetData(dobj1) == true);
@@ -2245,7 +2245,7 @@ TEST_CASE("wxImage::XPM", "[image][xpm]")
 TEST_CASE("wxImage::PNM", "[image][pnm]")
 {
 #if wxUSE_PNM
-    wxImage::AddHandler(new wxPNMHandler);
+    wxImage::AddHandler(NEW_DEBUG wxPNMHandler);
 
     SECTION("width*height*3 overflow")
     {

@@ -992,7 +992,7 @@ bool wxGStreamerMediaBackend::CreateControl(wxControl* ctrl, wxWindow* parent,
     //Convert arguments to unicode if enabled
 #if wxUSE_UNICODE
     int i;
-    char **argvGST = new char*[wxTheApp->argc + 1];
+    char **argvGST = NEW_DEBUG char*[wxTheApp->argc + 1];
     for ( i = 0; i < wxTheApp->argc; i++ )
     {
         argvGST[i] = wxStrdupA(wxTheApp->argv[i].utf8_str());
@@ -1163,7 +1163,7 @@ bool wxGStreamerMediaBackend::CreateControl(wxControl* ctrl, wxWindow* parent,
                   "audio-sink", audiosink,
                    NULL);
 
-    m_eventHandler = new wxGStreamerMediaEventHandler(this);
+    m_eventHandler = NEW_DEBUG wxGStreamerMediaEventHandler(this);
     return true;
 }
 
@@ -1496,7 +1496,7 @@ wxSize wxGStreamerMediaBackend::GetVideoSize() const
 //TODO: forcing frame/samplerates, see audioscale and videorate. Audioscale is
 //TODO: part of playbin.
 //
-// In 0.10 GStreamer has new gst_element_seek API that might
+// In 0.10 GStreamer has NEW_DEBUG gst_element_seek API that might
 // support this - and I've got an attempt to do so but it is untested
 // but it would appear to work...
 //-----------------------------------------------------------------------------

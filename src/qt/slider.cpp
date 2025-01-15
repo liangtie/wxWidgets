@@ -72,7 +72,7 @@ bool wxSlider::Create(wxWindow *parent,
             const wxValidator& validator,
             const wxString& name)
 {
-    m_qtSlider = new wxQtSlider( parent, this );
+    m_qtSlider = NEW_DEBUG wxQtSlider( parent, this );
     m_qtSlider->setOrientation( wxQtConvertOrientation( style, wxSL_HORIZONTAL ) );
 
     m_qtSlider->setInvertedAppearance( style & wxSL_INVERSE );

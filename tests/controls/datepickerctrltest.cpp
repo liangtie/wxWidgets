@@ -55,7 +55,7 @@ CPPUNIT_TEST_SUITE_NAMED_REGISTRATION( DatePickerCtrlTestCase, "DatePickerCtrlTe
 
 void DatePickerCtrlTestCase::setUp()
 {
-    m_datepicker = new wxDatePickerCtrl(wxTheApp->GetTopWindow(), wxID_ANY);
+    m_datepicker = NEW_DEBUG wxDatePickerCtrl(wxTheApp->GetTopWindow(), wxID_ANY);
     m_button = NULL;
 }
 
@@ -134,7 +134,7 @@ static wxPoint GetRectCenter(const wxRect& r)
 void DatePickerCtrlTestCase::Focus()
 {
     // Create another control just to give focus to it initially.
-    m_button = new wxButton(wxTheApp->GetTopWindow(), wxID_OK);
+    m_button = NEW_DEBUG wxButton(wxTheApp->GetTopWindow(), wxID_OK);
     m_button->Move(0, m_datepicker->GetSize().y * 3);
     m_button->SetFocus();
     wxYield();

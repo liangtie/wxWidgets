@@ -94,7 +94,7 @@ wxREGISTER_UNIT_TEST_WITH_TAGS(ComboBoxTestCase,
 
 void ComboBoxTestCase::setUp()
 {
-    m_combo = new wxComboBox(wxTheApp->GetTopWindow(), wxID_ANY);
+    m_combo = NEW_DEBUG wxComboBox(wxTheApp->GetTopWindow(), wxID_ANY);
 }
 
 void ComboBoxTestCase::tearDown()
@@ -157,7 +157,7 @@ void ComboBoxTestCase::Sort()
 {
 #if !defined(__WXOSX__)
     delete m_combo;
-    m_combo = new wxComboBox(wxTheApp->GetTopWindow(), wxID_ANY, "",
+    m_combo = NEW_DEBUG wxComboBox(wxTheApp->GetTopWindow(), wxID_ANY, "",
                              wxDefaultPosition, wxDefaultSize, 0, NULL,
                              wxCB_SORT);
 
@@ -188,7 +188,7 @@ void ComboBoxTestCase::ReadOnly()
     testitems.Add("item 2");
 
     delete m_combo;
-    m_combo = new wxComboBox(wxTheApp->GetTopWindow(), wxID_ANY, "",
+    m_combo = NEW_DEBUG wxComboBox(wxTheApp->GetTopWindow(), wxID_ANY, "",
                              wxDefaultPosition, wxDefaultSize, testitems,
                              wxCB_READONLY);
 
@@ -238,7 +238,7 @@ TEST_CASE("wxComboBox::ProcessEnter", "[wxComboBox][enter]")
         {
             const wxString choices[] = { "foo", "bar", "baz" };
 
-            return new wxComboBox(parent, wxID_ANY, wxString(),
+            return NEW_DEBUG wxComboBox(parent, wxID_ANY, wxString(),
                                   wxDefaultPosition, wxDefaultSize,
                                   WXSIZEOF(choices), choices,
                                   style);

@@ -286,7 +286,7 @@ bool wxOSXPrintData::TransferFrom( const wxPrintData &data )
     TransferPaperInfoFrom(data);
     TransferResolutionFrom(data);
 
-    // after setting the new resolution the format has to be updated, otherwise the page rect remains
+    // after setting the NEW_DEBUG resolution the format has to be updated, otherwise the page rect remains
     // at the 'old' scaling
 
     PMSessionValidatePageFormat(m_macPrintSession,
@@ -521,7 +521,7 @@ void wxOSXPrintData::TransferFrom( const wxPrintDialogData* data )
 wxPrintNativeDataBase* wxOSXCreatePrintData()
 {
 #if wxOSX_USE_COCOA
-    return new wxOSXCocoaPrintData();
+    return NEW_DEBUG wxOSXCocoaPrintData();
 #else
     return NULL;
 #endif
@@ -572,7 +572,7 @@ bool wxMacPrinter::Print(wxWindow *parent, wxPrintout *printout, bool prompt)
     }
     else
     {
-        dc = new wxPrinterDC( m_printDialogData.GetPrintData() ) ;
+        dc = NEW_DEBUG wxPrinterDC( m_printDialogData.GetPrintData() ) ;
     }
 
     // May have pressed cancel.
@@ -629,7 +629,7 @@ bool wxMacPrinter::Print(wxWindow *parent, wxPrintout *printout, bool prompt)
     if ( !prompt )
     {
         m_printDialogData.SetFromPage(fromPage);
-        
+
         if( m_printDialogData.GetAllPages() )
             m_printDialogData.SetToPage(maxPage);
         else

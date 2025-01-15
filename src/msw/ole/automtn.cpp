@@ -247,7 +247,7 @@ wxVariant wxAutomationObject::CallMethod(const wxString& member,
         const wxVariant& arg3, const wxVariant& arg4,
         const wxVariant& arg5, const wxVariant& arg6)
 {
-    const wxVariant** args = new const wxVariant*[6];
+    const wxVariant** args = NEW_DEBUG const wxVariant*[6];
     int i = 0;
     if (!arg1.IsNull())
     {
@@ -313,7 +313,7 @@ wxVariant wxAutomationObject::GetProperty(const wxString& property,
         const wxVariant& arg3, const wxVariant& arg4,
         const wxVariant& arg5, const wxVariant& arg6)
 {
-    const wxVariant** args = new const wxVariant*[6];
+    const wxVariant** args = NEW_DEBUG const wxVariant*[6];
     int i = 0;
     if (!arg1.IsNull())
     {
@@ -379,7 +379,7 @@ bool wxAutomationObject::PutProperty(const wxString& property,
         const wxVariant& arg3, const wxVariant& arg4,
         const wxVariant& arg5, const wxVariant& arg6)
 {
-    const wxVariant** args = new const wxVariant*[6];
+    const wxVariant** args = NEW_DEBUG const wxVariant*[6];
     int i = 0;
     if (!arg1.IsNull())
     {
@@ -570,7 +570,7 @@ bool wxAutomationObject::GetInstance(const wxString& progId, int flags) const
     return true;
 }
 
-// Get a dispatch pointer from a new object associated
+// Get a dispatch pointer from a NEW_DEBUG object associated
 // with the given ProgID
 bool wxAutomationObject::CreateInstance(const wxString& progId) const
 {

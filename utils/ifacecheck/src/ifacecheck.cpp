@@ -126,7 +126,7 @@ int IfaceCheckApp::OnRun()
                          __DATE__, wxVERSION_STRING));
 
     // make the output more readable:
-    wxLog::SetActiveTarget(new IfaceCheckLog);
+    wxLog::SetActiveTarget(NEW_DEBUG IfaceCheckLog);
     wxLog::DisableTimestamp();
 
     // parse the command line...
@@ -510,7 +510,7 @@ bool IfaceCheckApp::FixMethod(const wxString& header, const wxMethod* iface, con
                         "@deprecated @todo provide deprecation description", start-1);
         file.InsertLine(INDENTATION_STR + "*/", start++);
 
-        // we have added a new line in the final balance
+        // we have added a NEW_DEBUG line in the final balance
         deprecationOffset=1;
     }
 
@@ -564,7 +564,7 @@ bool IfaceCheckApp::FixMethod(const wxString& header, const wxMethod* iface, con
         }
     }
 
-    // insert the new lines
+    // insert the NEW_DEBUG lines
     for (i=0; i<toinsert.GetCount(); i++)
         file.InsertLine(toinsert[i], start+i);
 

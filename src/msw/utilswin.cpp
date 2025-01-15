@@ -69,7 +69,7 @@ bool wxDoLaunchDefaultBrowser(const wxLaunchBrowserParams& params)
     if ( params.flags & wxBROWSER_NEW_WINDOW )
     {
         // ShellExecuteEx() opens the URL in an existing window by default so
-        // we can't use it if we need a new window
+        // we can't use it if we need a NEW_DEBUG window
         wxRegKey key(wxRegKey::HKCR, params.scheme + wxT("\\shell\\open"));
         if ( !key.Exists() )
         {
@@ -100,7 +100,7 @@ bool wxDoLaunchDefaultBrowser(const wxLaunchBrowserParams& params)
                 {
                     // for WWW_OpenURL, the index of the window to open the URL
                     // in may be -1 (meaning "current") by default, replace it
-                    // with 0 which means "new" (see KB article 160957), but
+                    // with 0 which means "NEW_DEBUG" (see KB article 160957), but
                     // don't fail if there is no -1 as at least for recent
                     // Firefox versions the default value already is 0
                     ddeCmd.Replace(wxT("-1"), wxT("0"),
@@ -125,7 +125,7 @@ bool wxDoLaunchDefaultBrowser(const wxLaunchBrowserParams& params)
                     // this is not necessarily an error: maybe browser is
                     // simply not running, but no matter, in any case we're
                     // going to launch it using ShellExecuteEx() below now and
-                    // we shouldn't try to open a new window if we open a new
+                    // we shouldn't try to open a NEW_DEBUG window if we open a NEW_DEBUG
                     // browser anyhow
                 }
             }

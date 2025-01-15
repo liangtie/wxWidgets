@@ -61,7 +61,7 @@ wxConsoleEventLoop::wxConsoleEventLoop()
     m_wakeupSource = NULL;
 
     // Create the pipe.
-    wxScopedPtr<wxWakeUpPipeMT> wakeupPipe(new wxWakeUpPipeMT);
+    wxScopedPtr<wxWakeUpPipeMT> wakeupPipe(NEW_DEBUG wxWakeUpPipeMT);
     const int pipeFD = wakeupPipe->GetReadFd();
     if ( pipeFD == wxPipe::INVALID_FD )
         return;
@@ -120,12 +120,12 @@ public:
         //
         // TODO: refactor the code so that only wxEventLoopSourceHandler is used
         wxScopedPtr<wxFDIOHandler>
-            fdioHandler(new wxFDIOEventLoopSourceHandler(handler));
+            fdioHandler(NEW_DEBUG wxFDIOEventLoopSourceHandler(handler));
 
         if ( !wxFDIODispatcher::Get()->RegisterFD(fd, fdioHandler.get(), flags) )
             return NULL;
 
-        return new wxUnixEventLoopSource(wxFDIODispatcher::Get(), fdioHandler.release(),
+        return NEW_DEBUG wxUnixEventLoopSource(wxFDIODispatcher::Get(), fdioHandler.release(),
                                          fd, handler, flags);
     }
 };
@@ -221,7 +221,7 @@ void wxConsoleEventLoop::DoYieldFor(long eventsToProcess)
 
 wxEventLoopBase *wxConsoleAppTraits::CreateEventLoop()
 {
-    return new wxEventLoop();
+    return NEW_DEBUG wxEventLoop();
 }
 
 #endif // wxUSE_CONSOLE_EVENTLOOP

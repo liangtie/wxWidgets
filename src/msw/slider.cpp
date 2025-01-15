@@ -138,7 +138,7 @@ bool wxSlider::Create(wxWindow *parent,
     // to do it like this
     if ( m_windowStyle & wxSL_LABELS )
     {
-        m_labels = new wxSubwindows(SliderLabel_Last);
+        m_labels = NEW_DEBUG wxSubwindows(SliderLabel_Last);
 
         HWND hwndParent = GetHwndOf(parent);
         for ( size_t n = 0; n < SliderLabel_Last; n++ )
@@ -693,7 +693,7 @@ void wxSlider::SetRange(int minValue, int maxValue)
         Move(wxDefaultPosition, wxSIZE_FORCE); // Force a re-layout the labels.
 
         // Update the label with the value adjusted by the control as
-        // old value can be out of the new range.
+        // old value can be out of the NEW_DEBUG range.
         if ( HasFlag(wxSL_VALUE_LABEL) )
         {
             SetValue(GetValue());

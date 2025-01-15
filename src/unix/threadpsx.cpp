@@ -1149,7 +1149,7 @@ wxThreadError wxThreadInternal::Create(wxThread *thread, unsigned int stackSize)
     }
     //else: threads are created joinable by default, it's ok
 
-    // create the new OS thread object
+    // create the NEW_DEBUG OS thread object
     int rc = pthread_create
              (
                 GetIdPtr(),
@@ -1379,7 +1379,7 @@ wxThread::wxThread(wxThreadKind kind)
         gs_allThreads.Add(this);
     }
 
-    m_internal = new wxThreadInternal();
+    m_internal = NEW_DEBUG wxThreadInternal();
 
     m_isDetached = kind == wxTHREAD_DETACHED;
 }
@@ -1898,17 +1898,17 @@ bool wxThreadModule::OnInit()
 
     wxThread::ms_idMainThread = wxThread::GetCurrentId();
 
-    gs_mutexAllThreads = new wxMutex();
+    gs_mutexAllThreads = NEW_DEBUG wxMutex();
 
 #ifdef __DARWIN__
     wxOSXThreadModuleOnInit();
 #else
-    gs_mutexGui = new wxMutex();
+    gs_mutexGui = NEW_DEBUG wxMutex();
     gs_mutexGui->Lock();
 #endif
 
-    gs_mutexDeleteThread = new wxMutex();
-    gs_condAllDeleted = new wxCondition(*gs_mutexDeleteThread);
+    gs_mutexDeleteThread = NEW_DEBUG wxMutex();
+    gs_condAllDeleted = NEW_DEBUG wxCondition(*gs_mutexDeleteThread);
 
     return true;
 }
@@ -2055,7 +2055,7 @@ wxThreadSpecificInfo& wxThreadSpecificInfo::Get()
                 static_cast<wxThreadSpecificInfo*>(pthread_getspecific(m_key));
             if (!info)
             {
-                info = new wxThreadSpecificInfo;
+                info = NEW_DEBUG wxThreadSpecificInfo;
                 if (pthread_setspecific(m_key, info) != 0)
                 {
                     // This will crash, but we'd leak memory otherwise which

@@ -144,7 +144,7 @@ bool wxSound::Create(const wxString& fileName, bool isResource)
         return false;
     }
 
-    m_data = new wxOSXAudioToolboxSoundData(soundID);
+    m_data = NEW_DEBUG wxOSXAudioToolboxSoundData(soundID);
 
     return true;
 }

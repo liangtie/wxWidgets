@@ -105,11 +105,11 @@ ImageListTestCase::ImageListTestCase()
     }
 
     bmpRGBWithMask = bmpRGB;
-    bmpRGBWithMask.SetMask(new wxMask(bmpMask));
+    bmpRGBWithMask.SetMask(NEW_DEBUG wxMask(bmpMask));
     REQUIRE(bmpRGBWithMask.IsOk());
 
     bmpRGBAWithMask = bmpRGBA;
-    bmpRGBAWithMask.SetMask(new wxMask(bmpMask));
+    bmpRGBAWithMask.SetMask(NEW_DEBUG wxMask(bmpMask));
     REQUIRE(bmpRGBAWithMask.IsOk());
 
     ico.CopyFromBitmap(bmpRGBWithMask);

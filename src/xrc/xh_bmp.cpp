@@ -28,7 +28,7 @@ wxBitmapXmlHandler::wxBitmapXmlHandler()
 
 wxObject *wxBitmapXmlHandler::DoCreateResource()
 {
-    return new wxBitmap(GetBitmap(m_node));
+    return NEW_DEBUG wxBitmap(GetBitmap(m_node));
 }
 
 bool wxBitmapXmlHandler::CanHandle(wxXmlNode *node)
@@ -45,7 +45,7 @@ wxIconXmlHandler::wxIconXmlHandler()
 
 wxObject *wxIconXmlHandler::DoCreateResource()
 {
-    return new wxIcon(GetIcon(m_node));
+    return NEW_DEBUG wxIcon(GetIcon(m_node));
 }
 
 bool wxIconXmlHandler::CanHandle(wxXmlNode *node)

@@ -131,10 +131,10 @@ public:
 
         if ( opts.useGL )
         {
-            m_glCanvas = new wxGLCanvas(this, wxID_ANY, NULL,
+            m_glCanvas = NEW_DEBUG wxGLCanvas(this, wxID_ANY, NULL,
                                         wxPoint(0, 0),
                                         wxSize(opts.width, opts.height));
-            m_glContext = new wxGLContext(m_glCanvas);
+            m_glContext = NEW_DEBUG wxGLContext(m_glCanvas);
             m_glContext->SetCurrent(*m_glCanvas);
 
             glViewport(0, 0, opts.width, opts.height);
@@ -178,10 +178,10 @@ public:
 #if defined(__WXMSW__) || defined(__WXOSX__)
         m_bitmapARGBwithMask.UseAlpha(true);
 #endif // __WXMSW__ || __WXOSX__
-        m_bitmapARGBwithMask.SetMask(new wxMask(bmpMask));
+        m_bitmapARGBwithMask.SetMask(NEW_DEBUG wxMask(bmpMask));
 
         m_bitmapRGBwithMask.Create(64, 64, 24);
-        m_bitmapRGBwithMask.SetMask(new wxMask(bmpMask));
+        m_bitmapRGBwithMask.SetMask(NEW_DEBUG wxMask(bmpMask));
 
         m_renderer = NULL;
         if ( opts.useGC )
@@ -1049,7 +1049,7 @@ public:
         if ( !wxApp::OnInit() )
             return false;
 
-        new GraphicsBenchmarkFrame;
+        NEW_DEBUG GraphicsBenchmarkFrame;
 
         return true;
     }

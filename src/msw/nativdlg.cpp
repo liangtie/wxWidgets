@@ -175,14 +175,14 @@ wxWindow* wxWindow::CreateWindowFromHWND(wxWindow* parent, WXHWND hWnd)
         if ((style1 == BS_3STATE) || (style1 == BS_AUTO3STATE) || (style1 == BS_AUTOCHECKBOX) ||
             (style1 == BS_CHECKBOX))
         {
-            win = new wxCheckBox;
+            win = NEW_DEBUG wxCheckBox;
         }
         else
 #endif
 #if wxUSE_RADIOBTN
         if ((style1 == BS_AUTORADIOBUTTON) || (style1 == BS_RADIOBUTTON))
         {
-            win = new wxRadioButton;
+            win = NEW_DEBUG wxRadioButton;
         }
         else
 #endif
@@ -190,7 +190,7 @@ wxWindow* wxWindow::CreateWindowFromHWND(wxWindow* parent, WXHWND hWnd)
         if (style & BS_BITMAP)
         {
             // TODO: how to find the bitmap?
-            win = new wxBitmapButton;
+            win = NEW_DEBUG wxBitmapButton;
             wxLogError(wxT("Have not yet implemented bitmap button as BS_BITMAP button."));
         }
         else
@@ -202,21 +202,21 @@ wxWindow* wxWindow::CreateWindowFromHWND(wxWindow* parent, WXHWND hWnd)
             // PROBLEM: this assumes that we're using resource-based bitmaps.
             // So maybe need 2 implementations of bitmap buttons/static controls,
             // with a switch in the drawing code. Call default proc if BS_BITMAP.
-            win = new wxBitmapButton;
+            win = NEW_DEBUG wxBitmapButton;
         }
         else
 #endif
 #if wxUSE_BUTTON
         if ((style1 == BS_PUSHBUTTON) || (style1 == BS_DEFPUSHBUTTON))
         {
-            win = new wxButton;
+            win = NEW_DEBUG wxButton;
         }
         else
 #endif
 #if wxUSE_STATBOX
         if (style1 == BS_GROUPBOX)
         {
-            win = new wxStaticBox;
+            win = NEW_DEBUG wxStaticBox;
         }
         else
 #endif
@@ -228,7 +228,7 @@ wxWindow* wxWindow::CreateWindowFromHWND(wxWindow* parent, WXHWND hWnd)
 #if wxUSE_COMBOBOX
     else if (str == wxT("COMBOBOX"))
     {
-        win = new wxComboBox;
+        win = NEW_DEBUG wxComboBox;
     }
 #endif
 #if wxUSE_TEXTCTRL
@@ -240,32 +240,32 @@ wxWindow* wxWindow::CreateWindowFromHWND(wxWindow* parent, WXHWND hWnd)
     // to be overridden by each control class.
     else if (str == wxT("EDIT"))
     {
-        win = new wxTextCtrl;
+        win = NEW_DEBUG wxTextCtrl;
     }
 #endif
 #if wxUSE_LISTBOX
     else if (str == wxT("LISTBOX"))
     {
-        win = new wxListBox;
+        win = NEW_DEBUG wxListBox;
     }
 #endif
 #if wxUSE_SCROLLBAR
     else if (str == wxT("SCROLLBAR"))
     {
-        win = new wxScrollBar;
+        win = NEW_DEBUG wxScrollBar;
     }
 #endif
 #if wxUSE_SPINBTN
     else if (str == wxT("MSCTLS_UPDOWN32"))
     {
-        win = new wxSpinButton;
+        win = NEW_DEBUG wxSpinButton;
     }
 #endif
 #if wxUSE_SLIDER
     else if (str == wxT("MSCTLS_TRACKBAR32"))
     {
         // Need to ascertain if it's horiz or vert
-        win = new wxSlider;
+        win = NEW_DEBUG wxSlider;
     }
 #endif // wxUSE_SLIDER
 #if wxUSE_STATTEXT
@@ -276,11 +276,11 @@ wxWindow* wxWindow::CreateWindowFromHWND(wxWindow* parent, WXHWND hWnd)
         if ((style1 == SS_LEFT) || (style1 == SS_RIGHT)
             || (style1 == SS_SIMPLE)
             )
-            win = new wxStaticText;
+            win = NEW_DEBUG wxStaticText;
 #if wxUSE_STATBMP
         else if (style1 == SS_BITMAP)
         {
-            win = new wxStaticBitmap;
+            win = NEW_DEBUG wxStaticBitmap;
 
             // Help! this doesn't correspond with the wxWin implementation.
             wxLogError(wxT("Please make SS_BITMAP statics into owner-draw buttons."));

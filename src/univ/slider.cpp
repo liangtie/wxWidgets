@@ -246,7 +246,7 @@ void wxSlider::SetRange(int minValue, int maxValue)
         m_min = minValue;
         m_max = maxValue;
 
-        // reset the value to make sure it is in the new range
+        // reset the value to make sure it is in the NEW_DEBUG range
         SetValue(m_value);
 
         // the size of the label rect might have changed

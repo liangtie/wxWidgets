@@ -154,17 +154,17 @@ public:
 
 wxFont::wxFont()
 {
-    m_refData = new wxFontRefData();
+    m_refData = NEW_DEBUG wxFontRefData();
 }
 
 wxFont::wxFont(const wxFontInfo& info)
 {
-    m_refData = new wxFontRefData(info);
+    m_refData = NEW_DEBUG wxFontRefData(info);
 }
 
 wxFont::wxFont(const wxString& nativeFontInfoString)
 {
-    m_refData = new wxFontRefData();
+    m_refData = NEW_DEBUG wxFontRefData();
 
     QFont font;
     font.fromString(wxQtConvertString( nativeFontInfoString ));
@@ -173,14 +173,14 @@ wxFont::wxFont(const wxString& nativeFontInfoString)
 
 wxFont::wxFont(const wxNativeFontInfo& info)
 {
-    m_refData = new wxFontRefData();
+    m_refData = NEW_DEBUG wxFontRefData();
 
     M_FONTDATA.m_qtFont = info.m_qtFont;
 }
 
 wxFont::wxFont(const QFont& font)
 {
-    m_refData = new wxFontRefData();
+    m_refData = NEW_DEBUG wxFontRefData();
 
     M_FONTDATA.m_qtFont = font;
 }
@@ -193,7 +193,7 @@ wxFont::wxFont(int size,
        const wxString& face,
        wxFontEncoding encoding)
 {
-    m_refData = new wxFontRefData();
+    m_refData = NEW_DEBUG wxFontRefData();
     Create(wxSize(0, size), family, style, weight, underlined, face, encoding);
 }
 
@@ -226,7 +226,7 @@ bool wxFont::Create(wxSize size, wxFontFamily family, wxFontStyle style,
 {
     UnRef();
 
-    m_refData = new wxFontRefData(InfoFromLegacyParams(size.GetHeight(), family,
+    m_refData = NEW_DEBUG wxFontRefData(InfoFromLegacyParams(size.GetHeight(), family,
                                                        style, weight, underlined,
                                                        face, encoding));
 
@@ -361,12 +361,12 @@ void wxFont::DoSetNativeFontInfo(const wxNativeFontInfo& info)
 
 wxGDIRefData *wxFont::CreateGDIRefData() const
 {
-    return new wxFontRefData;
+    return NEW_DEBUG wxFontRefData;
 }
 
 wxGDIRefData *wxFont::CloneGDIRefData(const wxGDIRefData *data) const
 {
-    return new wxFontRefData(*(wxFontRefData *)data);
+    return NEW_DEBUG wxFontRefData(*(wxFontRefData *)data);
 }
 
 QFont wxFont::GetHandle() const
@@ -559,7 +559,7 @@ bool wxNativeFontInfo::SetFaceName(const wxString& facename)
 void wxNativeFontInfo::SetFamily(wxFontFamily family)
 {
     m_qtFont.setStyleHint(ConvertFontFamily(family));
-    // reset the face name to force qt to choose a new font
+    // reset the face name to force qt to choose a NEW_DEBUG font
     m_qtFont.setFamily(m_qtFont.defaultFamily());
 }
 

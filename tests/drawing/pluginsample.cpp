@@ -24,7 +24,7 @@
 class SampleDrawingTestGCFactory: public DrawingTestGCFactory {
 public:
     SampleDrawingTestGCFactory() {
-        wxImage::AddHandler (new wxBMPHandler());
+        wxImage::AddHandler (NEW_DEBUG wxBMPHandler());
     }
 
     virtual ~SampleDrawingTestGCFactory() {
@@ -41,7 +41,7 @@ public:
 
     virtual wxGraphicsContext *BuildNewContext (wxSize expectedSize,
         double WXUNUSED(pointsPerInch), const wxFileName &targetFileName) wxOVERRIDE {
-        m_image = new wxImage (expectedSize);
+        m_image = NEW_DEBUG wxImage (expectedSize);
         m_image->InitAlpha();
 
         m_targetFileName = targetFileName.GetFullPath();
@@ -73,7 +73,7 @@ public:
 
 extern "C" WXEXPORT DrawingTestGCFactory * CreateDrawingTestLifeCycle()
 {
-    return new SampleDrawingTestGCFactory;
+    return NEW_DEBUG SampleDrawingTestGCFactory;
 }
 
 extern "C" WXEXPORT void DestroyDrawingTestLifeCycle (DrawingTestGCFactory* lc)

@@ -91,7 +91,7 @@ public:
     // override base class virtual to use a custom connection class
     virtual wxConnectionBase *OnMakeConnection()
     {
-        return new PokeAdviseConn;
+        return NEW_DEBUG PokeAdviseConn;
     }
 };
 
@@ -100,7 +100,7 @@ class PokeAdvisePersistentConnection
 public:
     PokeAdvisePersistentConnection()
     {
-        m_client = new PokeAdviseClient;
+        m_client = NEW_DEBUG PokeAdviseClient;
         m_conn = m_client->Connect();
         if ( m_conn )
             m_conn->StartAdvise(IPC_BENCHMARK_ITEM);
@@ -130,7 +130,7 @@ PokeAdvisePersistentConnection *theConnection = NULL;
 
 bool ConnInit()
 {
-    theConnection = new PokeAdvisePersistentConnection;
+    theConnection = NEW_DEBUG PokeAdvisePersistentConnection;
     if ( !theConnection->Get() )
     {
         delete theConnection;

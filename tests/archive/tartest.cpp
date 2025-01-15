@@ -56,13 +56,13 @@ CppUnit::Test *tartest::makeTest(
 
     if (genericInterface)
     {
-        return new ArchiveTestCase<wxArchiveClassFactory>(
-                            descr, new wxTarClassFactory,
+        return NEW_DEBUG ArchiveTestCase<wxArchiveClassFactory>(
+                            descr, NEW_DEBUG wxTarClassFactory,
                             options, archiver, unarchiver);
     }
 
-    return new ArchiveTestCase<wxTarClassFactory>(
-                        descr, new wxTarClassFactory,
+    return NEW_DEBUG ArchiveTestCase<wxTarClassFactory>(
+                        descr, NEW_DEBUG wxTarClassFactory,
                         options, archiver, unarchiver);
 }
 

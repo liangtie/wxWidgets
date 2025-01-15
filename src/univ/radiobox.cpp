@@ -198,15 +198,15 @@ void wxRadioBox::Append(int count, const wxString *choices)
     m_buttons.Alloc(count);
     for ( int n = 0; n < count; n++ )
     {
-        // make the first button in the box the start of new group by giving it
+        // make the first button in the box the start of NEW_DEBUG group by giving it
         // wxRB_GROUP style
-        wxRadioButton *btn = new wxRadioButton(parent, wxID_ANY, choices[n],
+        wxRadioButton *btn = NEW_DEBUG wxRadioButton(parent, wxID_ANY, choices[n],
                                                wxDefaultPosition,
                                                wxDefaultSize,
                                                n == 0 ? wxRB_GROUP : 0);
 
         // we want to get the events from the buttons to translate it into
-        btn->PushEventHandler(new wxRadioHookHandler(this));
+        btn->PushEventHandler(NEW_DEBUG wxRadioHookHandler(this));
         m_buttons.Add(btn);
     }
 }
@@ -436,7 +436,7 @@ void wxRadioBox::DoMoveWindow(int x0, int y0, int width, int height)
             }
             else
             {
-                // start a new column
+                // start a NEW_DEBUG column
                 x += sizeBtn.x;
                 y = y0;
             }
@@ -451,7 +451,7 @@ void wxRadioBox::DoMoveWindow(int x0, int y0, int width, int height)
             }
             else
             {
-                // start a new row
+                // start a NEW_DEBUG row
                 y += sizeBtn.y;
                 x = x0;
             }

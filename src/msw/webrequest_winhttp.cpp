@@ -346,7 +346,7 @@ void wxWebRequestWinHTTP::CreateResponse()
         return;
     }
 
-    m_response.reset(new wxWebResponseWinHTTP(*this));
+    m_response.reset(NEW_DEBUG wxWebResponseWinHTTP(*this));
     // wxWebResponseWinHTTP ctor could have changed the state if its
     // initialization failed, so check for this.
     if ( GetState() == wxWebRequest::State_Failed )
@@ -355,7 +355,7 @@ void wxWebRequestWinHTTP::CreateResponse()
     int status = m_response->GetStatus();
     if ( status == HTTP_STATUS_DENIED || status == HTTP_STATUS_PROXY_AUTH_REQ )
     {
-        m_authChallenge.reset(new wxWebAuthChallengeWinHTTP
+        m_authChallenge.reset(NEW_DEBUG wxWebAuthChallengeWinHTTP
             (
                 status == HTTP_STATUS_PROXY_AUTH_REQ
                     ? wxWebAuthChallenge::Source_Proxy
@@ -734,7 +734,7 @@ wxWebSessionWinHTTP::CreateRequest(wxWebSession& session,
     }
 
     return wxWebRequestImplPtr(
-        new wxWebRequestWinHTTP(session, *this, handler, url, id));
+        NEW_DEBUG wxWebRequestWinHTTP(session, *this, handler, url, id));
 }
 
 wxVersionInfo wxWebSessionWinHTTP::GetLibraryVersionInfo()

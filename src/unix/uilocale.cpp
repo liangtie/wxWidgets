@@ -840,7 +840,7 @@ wxUILocaleImplUnix::CompareStrings(const wxString& lhs, const wxString& rhs,
 /* static */
 wxUILocaleImpl* wxUILocaleImpl::CreateStdC()
 {
-    return new wxUILocaleImplUnix(wxLocaleIdent().Language("C"));
+    return NEW_DEBUG wxUILocaleImplUnix(wxLocaleIdent().Language("C"));
 }
 
 /* static */
@@ -855,11 +855,11 @@ wxUILocaleImpl* wxUILocaleImpl::CreateUserDefault()
     if ( !loc )
         return NULL;
 
-    return new wxUILocaleImplUnix(wxLocaleIdent(), loc);
+    return NEW_DEBUG wxUILocaleImplUnix(wxLocaleIdent(), loc);
 #else // !HAVE_LOCALE_T
     // We could temporarily change the locale here to check if it's supported,
     // but for now don't bother and assume it is.
-    return new wxUILocaleImplUnix(wxLocaleIdent());
+    return NEW_DEBUG wxUILocaleImplUnix(wxLocaleIdent());
 #endif // HAVE_LOCALE_T/!HAVE_LOCALE_T
 }
 
@@ -874,11 +874,11 @@ wxUILocaleImpl* wxUILocaleImpl::CreateForLocale(const wxLocaleIdent& locIdOrig)
     if ( !loc )
         return NULL;
 
-    return new wxUILocaleImplUnix(locId, loc);
+    return NEW_DEBUG wxUILocaleImplUnix(locId, loc);
 #else // !HAVE_LOCALE_T
     // We can't check locale availability without changing it in this case, so
     // just assume it's valid.
-    return new wxUILocaleImplUnix(locIdOrig);
+    return NEW_DEBUG wxUILocaleImplUnix(locIdOrig);
 #endif // HAVE_LOCALE_T/!HAVE_LOCALE_T
 }
 

@@ -330,7 +330,7 @@ void wxFontRefData::AllocIfNeeded() const
 void wxFontRefData::Alloc()
 {
     wxCHECK_RET(m_info.GetPointSize() > 0, wxT("Point size should not be zero."));
-    
+
     // use font caching, we cache a font with a certain size and a font with just any size for faster creation
     wxString lookupnameNoSize = wxString::Format("%s_%d_%d", m_info.GetPostScriptName(), (int)m_info.GetStyle(), m_info.GetNumericWeight());
 
@@ -451,7 +451,7 @@ bool wxFont::Create(const wxNativeFontInfo& info)
 {
     UnRef();
 
-    m_refData = new wxFontRefData(info);
+    m_refData = NEW_DEBUG wxFontRefData(info);
     RealizeResource();
 
     return true;
@@ -529,11 +529,11 @@ public:
                     uifont = kCTFontUIFontUserFixedPitch;
                     break;
 
-                // Remember to update Cache array size when adding new cases to
+                // Remember to update Cache array size when adding NEW_DEBUG cases to
                 // this switch statement!
             }
             wxCFRef<CTFontRef> ctfont(CTFontCreateUIFontForLanguage(uifont, 0.0, NULL));
-            cached = new wxFontRefData(ctfont);
+            cached = NEW_DEBUG wxFontRefData(ctfont);
         }
 
         cached->IncRef();
@@ -543,9 +543,9 @@ public:
 
 private:
     // This relies on wxOSX_SYSTEM_FONT_FIXED being the last element of enum,
-    // which should rename true until a new enum element is added, at which
+    // which should rename true until a NEW_DEBUG enum element is added, at which
     // stage we should get a warning about the missing case in the switch above
-    // and the size of this array will need to be modified when adding the new
+    // and the size of this array will need to be modified when adding the NEW_DEBUG
     // case.
     //
     // Notice that we don't need "+ 1" here because we never cache the font for
@@ -572,14 +572,14 @@ wxFont::wxFont(wxOSXSystemFont font)
 
 wxFont::wxFont(WX_NSFont nsfont)
 {
-    m_refData = new wxFontRefData((CTFontRef)nsfont);
+    m_refData = NEW_DEBUG wxFontRefData((CTFontRef)nsfont);
 }
 
 #endif
 
 wxFont::wxFont(CTFontRef font)
 {
-    m_refData = new wxFontRefData(font);
+    m_refData = NEW_DEBUG wxFontRefData(font);
 }
 
 wxFont::wxFont(const wxString& fontdesc)
@@ -591,7 +591,7 @@ wxFont::wxFont(const wxString& fontdesc)
 
 wxFont::wxFont(const wxFontInfo& info)
 {
-    m_refData = new wxFontRefData(info);
+    m_refData = NEW_DEBUG wxFontRefData(info);
 
     if ( info.IsUsingSizeInPixels() )
         SetPixelSize(info.GetPixelSize());
@@ -617,7 +617,7 @@ bool wxFont::Create(int pointSize,
     const wxString& faceName,
     wxFontEncoding encoding)
 {
-    m_refData = new wxFontRefData(InfoFromLegacyParams(pointSize, family,
+    m_refData = NEW_DEBUG wxFontRefData(InfoFromLegacyParams(pointSize, family,
                                                        style, weight, underlined,
                                                        faceName, encoding));
 
@@ -632,7 +632,7 @@ void wxFont::DoSetNativeFontInfo(const wxNativeFontInfo& info)
 {
     UnRef();
 
-    m_refData = new wxFontRefData(info);
+    m_refData = NEW_DEBUG wxFontRefData(info);
 }
 
 bool wxFont::RealizeResource()
@@ -649,12 +649,12 @@ void wxFont::SetEncoding(wxFontEncoding encoding)
 
 wxGDIRefData* wxFont::CreateGDIRefData() const
 {
-    return new wxFontRefData;
+    return NEW_DEBUG wxFontRefData;
 }
 
 wxGDIRefData* wxFont::CloneGDIRefData(const wxGDIRefData* data) const
 {
-    return new wxFontRefData(*static_cast<const wxFontRefData*>(data));
+    return NEW_DEBUG wxFontRefData(*static_cast<const wxFontRefData*>(data));
 }
 
 void wxFont::SetFractionalPointSize(double pointSize)
@@ -981,7 +981,7 @@ void wxNativeFontInfo::CreateCTFontDescriptor()
     wxASSERT(descriptor != NULL);
 
     m_descriptor = descriptor;
-    
+
     wxCFTypeRef(CTFontDescriptorCopyAttribute(m_descriptor, kCTFontFamilyNameAttribute)).GetValue(m_familyName);
 
 #if wxDEBUG_LEVEL >= 2
@@ -991,15 +991,15 @@ void wxNativeFontInfo::CreateCTFontDescriptor()
     wxCFTypeRef(CTFontDescriptorCopyAttribute(m_descriptor, kCTFontFamilyNameAttribute)).GetValue(familyname);
     wxLogTrace(TRACE_CTFONT,"****** CreateCTFontDescriptor ******");
     wxLogTrace(TRACE_CTFONT,"Descriptor FontFamilyName: %s",familyname);
-    
+
     wxString name;
     wxCFTypeRef(CTFontDescriptorCopyAttribute(m_descriptor, kCTFontNameAttribute)).GetValue(name);
     wxLogTrace(TRACE_CTFONT,"Descriptor FontName: %s",name);
-    
+
     wxString display;
     wxCFTypeRef(CTFontDescriptorCopyAttribute(m_descriptor, kCTFontDisplayNameAttribute)).GetValue(display);
     wxLogTrace(TRACE_CTFONT,"Descriptor DisplayName: %s",display);
-    
+
     wxString style;
     wxCFTypeRef(CTFontDescriptorCopyAttribute(m_descriptor, kCTFontStyleNameAttribute)).GetValue(style);
     wxLogTrace(TRACE_CTFONT,"Descriptor StyleName: %s",style);
@@ -1007,11 +1007,11 @@ void wxNativeFontInfo::CreateCTFontDescriptor()
     wxString psname;
     wxCFTypeRef(CTFontCopyPostScriptName(font)).GetValue(psname);
     wxLogTrace(TRACE_CTFONT,"Created Font PostScriptName: %s",psname);
-    
+
     wxString fullname;
     wxCFTypeRef(CTFontCopyFullName(font)).GetValue(fullname);
     wxLogTrace(TRACE_CTFONT,"Created Font FullName: %s",fullname);
-    
+
     wxLogTrace(TRACE_CTFONT,"************************************");
 #endif
 }
@@ -1371,7 +1371,7 @@ bool wxNativeFontInfo::SetPostScriptName(const wxString& postScriptName)
         Free();
         m_postScriptName = postScriptName;
     }
-    
+
     return true;
 }
 

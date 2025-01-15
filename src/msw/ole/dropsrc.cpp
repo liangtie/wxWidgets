@@ -139,7 +139,7 @@ STDMETHODIMP wxIDropSource::GiveFeedback(DWORD dwEffect)
 // common part of all ctors
 void wxDropSource::Init()
 {
-    m_pIDropSource = new wxIDropSource(this);
+    m_pIDropSource = NEW_DEBUG wxIDropSource(this);
     m_pIDropSource->AddRef();
 }
 

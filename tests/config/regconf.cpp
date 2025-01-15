@@ -33,7 +33,7 @@ TEST_CASE("wxRegConfig::ReadWrite", "[regconfig][config][registry]")
 
     // NOTE: we use wxCONFIG_USE_LOCAL_FILE explicitly to test wxRegConfig
     //       with something different from the default value wxCONFIG_USE_GLOBAL_FILE
-    wxScopedPtr<wxConfigBase> config(new wxRegConfig(app, vendor, "", "",
+    wxScopedPtr<wxConfigBase> config(NEW_DEBUG wxRegConfig(app, vendor, "", "",
                                                      wxCONFIG_USE_LOCAL_FILE));
 
     // test writing

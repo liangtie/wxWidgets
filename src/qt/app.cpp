@@ -43,10 +43,10 @@ bool wxApp::Initialize( int &argc, wxChar **argv )
     // Need to store argc, argv. The argc, argv from wxAppBase are
     // being initialized *after* Initialize();
 
-    // TODO: Check whether new/strdup etc. can be replaced with std::vector<>.
+    // TODO: Check whether NEW_DEBUG/strdup etc. can be replaced with std::vector<>.
 
     // Clone and store arguments
-    m_qtArgv.reset(new char* [argc + 1]);
+    m_qtArgv.reset(NEW_DEBUG char* [argc + 1]);
     for ( int i = 0; i < argc; i++ )
     {
         m_qtArgv[i] = wxStrdupA(wxConvUTF8.cWX2MB(argv[i]));
@@ -54,7 +54,7 @@ bool wxApp::Initialize( int &argc, wxChar **argv )
     m_qtArgv[argc] = NULL;
     m_qtArgc = argc;
 
-    m_qtApplication.reset(new QApplication(m_qtArgc, m_qtArgv.get()));
+    m_qtApplication.reset(NEW_DEBUG QApplication(m_qtArgc, m_qtArgv.get()));
 
     // Use the args returned by Qt as it may have deleted (processed) some of them
     // Using QApplication::arguments() forces argument processing
@@ -69,7 +69,7 @@ bool wxApp::Initialize( int &argc, wxChar **argv )
 
         // Qt changed the arguments
         delete [] argv;
-        argv = new wxChar *[qtArgs.size() + 1];
+        argv = NEW_DEBUG wxChar *[qtArgs.size() + 1];
         for ( int i = 0; i < qtArgs.size(); i++ )
         {
 #if wxUSE_UNICODE

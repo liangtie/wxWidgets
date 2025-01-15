@@ -184,9 +184,9 @@ void wxGLContextAttrs::EndList()
 //
 //   Notice in particular that
 //   - GLX_RGBA is boolean attribute in the old version of the API but a
-//     value of GLX_RENDER_TYPE in the new one
+//     value of GLX_RENDER_TYPE in the NEW_DEBUG one
 //   - Boolean attributes such as GLX_DOUBLEBUFFER don't take values in the
-//     old version but must be followed by True or False in the new one.
+//     old version but must be followed by True or False in the NEW_DEBUG one.
 
 wxGLAttributes& wxGLAttributes::RGBA()
 {
@@ -439,10 +439,10 @@ bool wxGLCanvas::Create(wxWindow *parent,
     if (!wxGLCanvas::ConvertWXAttrsToQtGL(attribList, format))
         return false;
 
-    m_qtWindow = new wxQtGLWidget(parent, this, format);
+    m_qtWindow = NEW_DEBUG wxQtGLWidget(parent, this, format);
 
     // Create and register a custom pan recognizer, available to all instances of this class.
-    QGestureRecognizer* pPanRecognizer = new PanGestureRecognizer();
+    QGestureRecognizer* pPanRecognizer = NEW_DEBUG PanGestureRecognizer();
     QGestureRecognizer::registerRecognizer(pPanRecognizer);
 
     return wxWindow::Create( parent, id, pos, size, style, name );
@@ -616,7 +616,7 @@ PanGestureRecognizer::IsValidMove(int dx, int dy)
 QGesture*
 PanGestureRecognizer::create(QObject* pTarget)
 {
-   return new QPanGesture(pTarget);
+   return NEW_DEBUG QPanGesture(pTarget);
 }
 
 

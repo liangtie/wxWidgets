@@ -170,7 +170,7 @@ public:
         if ( IsControl() && !m_label.empty() )
         {
             // Create a control to render the control's label.
-            m_staticText = new wxStaticText(m_tbar, wxID_ANY, m_label);
+            m_staticText = NEW_DEBUG wxStaticText(m_tbar, wxID_ANY, m_label);
         }
         else // no label
         {
@@ -213,12 +213,12 @@ public:
             {
                 if ( !label.empty() )
                 {
-                    m_staticText = new wxStaticText(m_tbar, wxID_ANY, label);
+                    m_staticText = NEW_DEBUG wxStaticText(m_tbar, wxID_ANY, label);
                 }
             }
         }
 
-        // Because new label can have different length than the old one
+        // Because NEW_DEBUG label can have different length than the old one
         // so updating button's label with TB_SETBUTTONINFO would require
         // also manual re-positionining items in the control tools located
         // to the right in the toolbar and recalculation of stretchable
@@ -357,14 +357,14 @@ wxToolBarToolBase *wxToolBar::CreateTool(int id,
                                          const wxString& shortHelp,
                                          const wxString& longHelp)
 {
-    return new wxToolBarTool(this, id, label, bmpNormal, bmpDisabled, kind,
+    return NEW_DEBUG wxToolBarTool(this, id, label, bmpNormal, bmpDisabled, kind,
                              clientData, shortHelp, longHelp);
 }
 
 wxToolBarToolBase *
 wxToolBar::CreateTool(wxControl *control, const wxString& label)
 {
-    return new wxToolBarTool(this, control, label);
+    return NEW_DEBUG wxToolBarTool(this, control, label);
 }
 
 // ----------------------------------------------------------------------------
@@ -506,7 +506,7 @@ void wxToolBar::Recreate()
     const wxSize minSizeOrig = GetMinSize();
 
     // Hide the toolbar before recreating it to ensure that wxFrame doesn't try
-    // to account for its size, e.g. to offset the position of the new toolbar
+    // to account for its size, e.g. to offset the position of the NEW_DEBUG toolbar
     // being created by the size of this toolbar itself. This wouldn't work
     // anyhow, because we can't query for the size of a window without any
     // valid HWND, but would result in debug warning messages and is just a
@@ -528,7 +528,7 @@ void wxToolBar::Recreate()
     // Undo the effect of Hide() above.
     Show();
 
-    // reparent all our children under the new toolbar
+    // reparent all our children under the NEW_DEBUG toolbar
     for ( wxWindowList::compatibility_iterator node = m_children.GetFirst();
           node;
           node = node->GetNext() )
@@ -542,7 +542,7 @@ void wxToolBar::Recreate()
     // after all the children had been reparented
     ::DestroyWindow(hwndOld);
 
-    // it is for the old bitmap control and can't be used with the new one
+    // it is for the old bitmap control and can't be used with the NEW_DEBUG one
     if ( m_hBitmap )
     {
         ::DeleteObject((HBITMAP) m_hBitmap);
@@ -824,7 +824,7 @@ void wxToolBar::CreateDisabledImageList()
                                                               m_defaultHeight));
         if ( bmpDisabled.IsOk() )
         {
-            m_disabledImgList = new wxImageList
+            m_disabledImgList = NEW_DEBUG wxImageList
                                     (
                                         m_defaultWidth,
                                         m_defaultHeight,
@@ -886,7 +886,7 @@ bool wxToolBar::Realize()
     if ( !HasFlag(wxTB_NOICONS) )
     {
         // if we already have a bitmap, we'll replace the existing one --
-        // otherwise we'll install a new one
+        // otherwise we'll install a NEW_DEBUG one
         HBITMAP oldToolBarBitmap = (HBITMAP)m_hBitmap;
 
         const wxCoord totalBitmapWidth  = m_defaultWidth *
@@ -1607,7 +1607,7 @@ bool wxToolBar::MSWCommand(WXUINT WXUNUSED(cmd), WXWORD id_)
     gs_liveToolbars.pop();
 
     // Check if the tool hasn't been deleted in the event handler (notice that
-    // it's also possible that this tool was deleted and a new tool with the
+    // it's also possible that this tool was deleted and a NEW_DEBUG tool with the
     // same ID was created, so we really need to check if the pointer to the
     // tool with the given ID didn't change, not just that it's non null).
     if ( FindById(id) != tool )

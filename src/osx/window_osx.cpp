@@ -115,7 +115,7 @@ public:
     wxBlindPlateWindow() { Init(); }
 
     // Old-style constructor (no default values for coordinates to avoid
-    // ambiguity with the new one)
+    // ambiguity with the NEW_DEBUG one)
     wxBlindPlateWindow(wxWindow *parent,
             int x, int y, int width, int height,
             long style = wxTAB_TRAVERSAL | wxNO_BORDER,
@@ -237,7 +237,7 @@ wxWindowMac::~wxWindowMac()
                 wxLogLastError(wxT("UnregisterHotKey"));
             }
         }
-    }    
+    }
 #endif
 
     MacInvalidateBorders() ;
@@ -277,9 +277,9 @@ WXWidget wxWindowMac::GetHandle() const
     return NULL;
 }
 
-wxOSXWidgetImpl* wxWindowMac::GetPeer() const 
-{ 
-    return m_peer == kOSXNoWidgetImpl ? NULL : m_peer ; 
+wxOSXWidgetImpl* wxWindowMac::GetPeer() const
+{
+    return m_peer == kOSXNoWidgetImpl ? NULL : m_peer ;
 }
 
 bool wxWindowMac::ShouldCreatePeer() const
@@ -293,7 +293,7 @@ void wxWindowMac::DontCreatePeer()
 }
 
 void wxWindowMac::SetWrappingPeer(wxOSXWidgetImpl* wrapper)
-{ 
+{
     wxOSXWidgetImpl* inner = GetPeer();
     wxASSERT_MSG( inner != NULL && inner->IsOk(), "missing or incomplete inner peer" );
     wxASSERT_MSG( wrapper != NULL && wrapper->IsOk(), "missing or incomplete wrapper" );
@@ -349,16 +349,16 @@ void wxWindowMac::SetPeer(wxOSXWidgetImpl* peer)
 
 #if WXWIN_COMPATIBILITY_2_8
 
-bool wxWindowMac::MacIsUserPane() 
-{ 
-    return GetPeer() == NULL || GetPeer()->IsUserPane(); 
+bool wxWindowMac::MacIsUserPane()
+{
+    return GetPeer() == NULL || GetPeer()->IsUserPane();
 }
 
 #endif
 
-bool wxWindowMac::MacIsUserPane() const 
-{ 
-    return GetPeer() == NULL || GetPeer()->IsUserPane(); 
+bool wxWindowMac::MacIsUserPane() const
+{
+    return GetPeer() == NULL || GetPeer()->IsUserPane();
 }
 
 // ---------------------------------------------------------------------------
@@ -1191,7 +1191,7 @@ void wxWindowMac::DoSetClientSize(int clientwidth, int clientheight)
     }
 }
 
-double wxWindowMac::GetContentScaleFactor() const 
+double wxWindowMac::GetContentScaleFactor() const
 {
     return GetPeer()->GetContentScaleFactor();
 }
@@ -2090,19 +2090,19 @@ void wxWindowMac::MacCreateScrollBars( long style )
         // we have to set the min size to a smaller value, otherwise they cannot get smaller (InitialSize sets MinSize)
         if ( style & wxVSCROLL )
         {
-            m_vScrollBar = new wxScrollBar((wxWindow*)this, wxID_ANY, vPoint, vSize , wxVERTICAL);
+            m_vScrollBar = NEW_DEBUG wxScrollBar((wxWindow*)this, wxID_ANY, vPoint, vSize , wxVERTICAL);
             m_vScrollBar->SetMinSize( wxDefaultSize );
         }
 
         if ( style  & wxHSCROLL )
         {
-            m_hScrollBar = new wxScrollBar((wxWindow*)this, wxID_ANY, hPoint, hSize , wxHORIZONTAL);
+            m_hScrollBar = NEW_DEBUG wxScrollBar((wxWindow*)this, wxID_ANY, hPoint, hSize , wxHORIZONTAL);
             m_hScrollBar->SetMinSize( wxDefaultSize );
         }
 
         wxPoint gPoint(width - scrlsize, height - scrlsize);
         wxSize gSize(scrlsize, scrlsize);
-        m_growBox = new wxBlindPlateWindow((wxWindow *)this, wxID_ANY, gPoint, gSize, 0);
+        m_growBox = NEW_DEBUG wxBlindPlateWindow((wxWindow *)this, wxID_ANY, gPoint, gSize, 0);
     }
 
     // because the create does not take into account the client area origin
@@ -2465,7 +2465,7 @@ wxHotKeyHandler(EventHandlerCallRef WXUNUSED(nextHandler),
 
             wxKeyEvent wxevent(wxEVT_HOTKEY);
             wxevent.SetId(hotKeyId.id);
-            wxTheApp->MacCreateKeyEvent( wxevent, s_hotkeys[i].window , keymessage , 
+            wxTheApp->MacCreateKeyEvent( wxevent, s_hotkeys[i].window , keymessage ,
                                         modifiers , when , 0 ) ;
 
             s_hotkeys[i].window->HandleWindowEvent(wxevent);
@@ -2548,7 +2548,7 @@ bool wxWindowMac::UnregisterHotKey(int hotkeyId)
 
                 return false;
             }
-            else 
+            else
                 return true;
         }
     }
@@ -2701,7 +2701,7 @@ wxIMPLEMENT_ABSTRACT_CLASS(wxWidgetImpl, wxObject);
 
 wxWidgetImpl::wxWidgetImpl( wxWindowMac* peer , int flags )
 {
-    Init();    
+    Init();
     m_isRootControl = flags & Widget_IsRoot;
     m_isUserPane = flags & Widget_IsUserPane;
     m_wantsUserKey = m_isUserPane || (flags & Widget_UserKeyEvents);

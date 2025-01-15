@@ -24,8 +24,8 @@ GUIFrame::GUIFrame( wxWindow* parent, wxWindowID id, const wxString& title, cons
     AddMenuBar();
 
     wxBoxSizer* bSizer0;
-    bSizer0 = new wxBoxSizer( wxVERTICAL );
-    m_notebook1 = new wxNotebook( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
+    bSizer0 = NEW_DEBUG wxBoxSizer( wxVERTICAL );
+    m_notebook1 = NEW_DEBUG wxNotebook( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
 
     m_commonExpandFlags = wxSizerFlags(1).Expand().Border(wxALL, 20);
 
@@ -57,40 +57,40 @@ GUIFrame::GUIFrame( wxWindow* parent, wxWindowID id, const wxString& title, cons
 
 void GUIFrame::AddMenuBar()
 {
-    mbar = new wxMenuBar( 0 );
+    mbar = NEW_DEBUG wxMenuBar( 0 );
 
     //File Menu
-    fileMenu = new wxMenu();
+    fileMenu = NEW_DEBUG wxMenu();
 
     wxMenuItem* m_menuSeeScr;
-    m_menuSeeScr = new wxMenuItem( fileMenu, wxID_ZOOM_IN, wxString( _("&Open screenshots folder...") ) + wxT('\t') + wxT("Ctrl+O"), _("Opens the directory where the screenshots are saved."), wxITEM_NORMAL );
+    m_menuSeeScr = NEW_DEBUG wxMenuItem( fileMenu, wxID_ZOOM_IN, wxString( _("&Open screenshots folder...") ) + wxT('\t') + wxT("Ctrl+O"), _("Opens the directory where the screenshots are saved."), wxITEM_NORMAL );
     fileMenu->Append( m_menuSeeScr );
 
     fileMenu->AppendSeparator();
 
     wxMenuItem* m_menuFileQuit;
-    m_menuFileQuit = new wxMenuItem( fileMenu, wxID_EXIT, wxString( _("&Quit") ) + wxT('\t') + wxT("Alt+F4"), _("Quits the application."), wxITEM_NORMAL );
+    m_menuFileQuit = NEW_DEBUG wxMenuItem( fileMenu, wxID_EXIT, wxString( _("&Quit") ) + wxT('\t') + wxT("Alt+F4"), _("Quits the application."), wxITEM_NORMAL );
     fileMenu->Append( m_menuFileQuit );
 
     mbar->Append( fileMenu, _("&File") );
 
     //Capture Menu
-    captureMenu = new wxMenu();
+    captureMenu = NEW_DEBUG wxMenu();
 
     wxMenuItem* m_menuCapFullScreen;
-    m_menuCapFullScreen = new wxMenuItem( captureMenu, idMenuCapFullScreen, wxString( _("&Full Screen") ) + wxT('\t') + wxT("Ctrl+Alt+F"), _("Takes a screenshot of the entire screen."), wxITEM_NORMAL );
+    m_menuCapFullScreen = NEW_DEBUG wxMenuItem( captureMenu, idMenuCapFullScreen, wxString( _("&Full Screen") ) + wxT('\t') + wxT("Ctrl+Alt+F"), _("Takes a screenshot of the entire screen."), wxITEM_NORMAL );
     captureMenu->Append( m_menuCapFullScreen );
 
     wxMenuItem* m_menuCapAll;
-    m_menuCapAll = new wxMenuItem( captureMenu, idMenuCapAll, wxString( _("Capture All") ) + wxT('\t') + wxT("Ctrl+Alt+A"), _("Takes screenshots for all controls automatically."), wxITEM_NORMAL );
+    m_menuCapAll = NEW_DEBUG wxMenuItem( captureMenu, idMenuCapAll, wxString( _("Capture All") ) + wxT('\t') + wxT("Ctrl+Alt+A"), _("Takes screenshots for all controls automatically."), wxITEM_NORMAL );
     captureMenu->Append( m_menuCapAll );
 
     mbar->Append( captureMenu, _("&Capture") );
 
     //Help Menu
-    helpMenu = new wxMenu();
+    helpMenu = NEW_DEBUG wxMenu();
     wxMenuItem* m_menuHelpAbout;
-    m_menuHelpAbout = new wxMenuItem( helpMenu, wxID_ABOUT, wxString( _("&About") ) + wxT('\t') + wxT("F1"), _("Shows info about this application."), wxITEM_NORMAL );
+    m_menuHelpAbout = NEW_DEBUG wxMenuItem( helpMenu, wxID_ABOUT, wxString( _("&About") ) + wxT('\t') + wxT("F1"), _("Shows info about this application."), wxITEM_NORMAL );
     helpMenu->Append( m_menuHelpAbout );
 
     mbar->Append( helpMenu, _("&Help") );
@@ -107,26 +107,26 @@ void GUIFrame::AddMenuBar()
 
 void GUIFrame::AddPanel_1()
 {
-    m_panel1 = new wxPanel( m_notebook1, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+    m_panel1 = NEW_DEBUG wxPanel( m_notebook1, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 
     wxFlexGridSizer* fgSizer1;
-    fgSizer1 = new wxFlexGridSizer( 0, 2, 0, 0 );
+    fgSizer1 = NEW_DEBUG wxFlexGridSizer( 0, 2, 0, 0 );
     fgSizer1->SetFlexibleDirection( wxBOTH );
     fgSizer1->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_NONE );
 
-    m_button1 = new wxButton( m_panel1, wxID_ANY, _("wxButton"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_button1 = NEW_DEBUG wxButton( m_panel1, wxID_ANY, _("wxButton"), wxDefaultPosition, wxDefaultSize, 0 );
     fgSizer1->Add( m_button1, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 20 );
 
-    m_staticText1 = new wxStaticText( m_panel1, wxID_ANY, _("wxStaticText"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_staticText1 = NEW_DEBUG wxStaticText( m_panel1, wxID_ANY, _("wxStaticText"), wxDefaultPosition, wxDefaultSize, 0 );
     m_staticText1->Wrap( -1 );
     fgSizer1->Add( m_staticText1, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 20 );
 
-    m_checkBox1 = new wxCheckBox( m_panel1, wxID_ANY, _("Checked"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_checkBox1 = NEW_DEBUG wxCheckBox( m_panel1, wxID_ANY, _("Checked"), wxDefaultPosition, wxDefaultSize, 0 );
     m_checkBox1->SetValue(true);
     m_checkBox1->SetToolTip( _("wxCheckBox") );
     fgSizer1->Add( m_checkBox1, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 20 );
 
-    m_checkBox2 = new wxCheckBox( m_panel1, wxID_ANY, _("Unchecked"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_checkBox2 = NEW_DEBUG wxCheckBox( m_panel1, wxID_ANY, _("Unchecked"), wxDefaultPosition, wxDefaultSize, 0 );
     m_checkBox2->SetToolTip( _("wxCheckBox") );
     fgSizer1->Add( m_checkBox2, 0, wxALL|wxALIGN_CENTER_VERTICAL|wxALIGN_CENTER_HORIZONTAL, 20 );
 
@@ -135,55 +135,55 @@ void GUIFrame::AddPanel_1()
             important to put the wxRB_GROUP style on the first wxRadioButton
             (the one "checked") and no flags on the second one.
     */
-    m_radioBtn1 = new wxRadioButton( m_panel1, wxID_ANY, _("Checked"), wxDefaultPosition, wxDefaultSize, wxRB_GROUP );
+    m_radioBtn1 = NEW_DEBUG wxRadioButton( m_panel1, wxID_ANY, _("Checked"), wxDefaultPosition, wxDefaultSize, wxRB_GROUP );
     m_radioBtn1->SetValue( true );
     m_radioBtn1->SetToolTip( _("wxRadioButton") );
     fgSizer1->Add( m_radioBtn1, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 20 );
 
-    m_radioBtn2 = new wxRadioButton( m_panel1, wxID_ANY, _("Unchecked"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_radioBtn2 = NEW_DEBUG wxRadioButton( m_panel1, wxID_ANY, _("Unchecked"), wxDefaultPosition, wxDefaultSize, 0 );
     m_radioBtn2->SetToolTip( _("wxRadioButton") );
     fgSizer1->Add( m_radioBtn2, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 20 );
 
-    m_bpButton1 = new wxBitmapButton( m_panel1, wxID_ANY, wxBitmap( wxT("bitmaps/wxwin32x32.png"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, 0 );
+    m_bpButton1 = NEW_DEBUG wxBitmapButton( m_panel1, wxID_ANY, wxBitmap( wxT("bitmaps/wxwin32x32.png"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, 0 );
     m_bpButton1->SetToolTip( _("wxBitmapButton") );
     m_bpButton1->SetToolTip( _("wxBitmapButton") );
     fgSizer1->Add( m_bpButton1, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 20 );
 
-    m_bitmap1 = new wxStaticBitmap( m_panel1, wxID_ANY, wxBitmap( wxT("bitmaps/wxwin32x32.png"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, 0 );
+    m_bitmap1 = NEW_DEBUG wxStaticBitmap( m_panel1, wxID_ANY, wxBitmap( wxT("bitmaps/wxwin32x32.png"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, 0 );
     m_bitmap1->SetToolTip( _("wxStaticBitmap") );
     fgSizer1->Add( m_bitmap1, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 20 );
 
-    m_gauge1 = new wxGauge( m_panel1, wxID_ANY, 100, wxDefaultPosition, wxDefaultSize, wxGA_HORIZONTAL, wxDefaultValidator, wxT("_Gauge") );
+    m_gauge1 = NEW_DEBUG wxGauge( m_panel1, wxID_ANY, 100, wxDefaultPosition, wxDefaultSize, wxGA_HORIZONTAL, wxDefaultValidator, wxT("_Gauge") );
     m_gauge1->SetValue( 50 );
     m_gauge1->SetToolTip( _("wxGauge") );
     fgSizer1->Add(m_gauge1, m_commonExpandFlags);
 
-    m_slider1 = new wxSlider( m_panel1, wxID_ANY, 50, 0, 100, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL );
+    m_slider1 = NEW_DEBUG wxSlider( m_panel1, wxID_ANY, 50, 0, 100, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL );
     m_slider1->SetToolTip( _("wxSlider") );
     fgSizer1->Add(m_slider1, m_commonExpandFlags);
 
-    m_toggleBtn1 = new wxToggleButton( m_panel1, wxID_ANY, _("Untoggled"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_toggleBtn1 = NEW_DEBUG wxToggleButton( m_panel1, wxID_ANY, _("Untoggled"), wxDefaultPosition, wxDefaultSize, 0 );
     m_toggleBtn1->SetToolTip( _("wxToggleButton") );
     fgSizer1->Add( m_toggleBtn1, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 20 );
 
-    m_toggleBtn2 = new wxToggleButton( m_panel1, wxID_ANY, _("Toggled"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_toggleBtn2 = NEW_DEBUG wxToggleButton( m_panel1, wxID_ANY, _("Toggled"), wxDefaultPosition, wxDefaultSize, 0 );
     m_toggleBtn2->SetValue( true );
     m_toggleBtn2->SetToolTip( _("wxToggleButton") );
     fgSizer1->Add( m_toggleBtn2, 0, wxALL|wxALIGN_CENTER_VERTICAL|wxALIGN_CENTER_HORIZONTAL, 20 );
 
-    m_hyperlink1 = new wxHyperlinkCtrl( m_panel1, wxID_ANY, _("www.wxwidgets.org"), wxT("http://www.wxwidgets.org"), wxDefaultPosition, wxDefaultSize, wxHL_DEFAULT_STYLE );
+    m_hyperlink1 = NEW_DEBUG wxHyperlinkCtrl( m_panel1, wxID_ANY, _("www.wxwidgets.org"), wxT("http://www.wxwidgets.org"), wxDefaultPosition, wxDefaultSize, wxHL_DEFAULT_STYLE );
     m_hyperlink1->SetToolTip( _("wxHyperlinkCtrl") );
     fgSizer1->Add( m_hyperlink1, 0, wxALL|wxALIGN_CENTER_VERTICAL|wxALIGN_CENTER_HORIZONTAL, 20 );
 
-    m_spinCtrl1 = new wxSpinCtrl( m_panel1, wxID_ANY, wxT("5"), wxDefaultPosition, wxDefaultSize, wxSP_ARROW_KEYS, 0, 10, 0 );
+    m_spinCtrl1 = NEW_DEBUG wxSpinCtrl( m_panel1, wxID_ANY, wxT("5"), wxDefaultPosition, wxDefaultSize, wxSP_ARROW_KEYS, 0, 10, 0 );
     m_spinCtrl1->SetToolTip( _("wxSpinCtrl") );
     fgSizer1->Add( m_spinCtrl1, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 20 );
 
-    m_spinBtn1 = new wxSpinButton( m_panel1, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
+    m_spinBtn1 = NEW_DEBUG wxSpinButton( m_panel1, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
     m_spinBtn1->SetToolTip( _("wxSpinButton") );
     fgSizer1->Add( m_spinBtn1, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 20 );
 
-    m_scrollBar1 = new wxScrollBar( m_panel1, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxSB_HORIZONTAL );
+    m_scrollBar1 = NEW_DEBUG wxScrollBar( m_panel1, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxSB_HORIZONTAL );
     m_scrollBar1->SetScrollbar(50, 1, 100, 1);
     m_scrollBar1->SetToolTip( _("wxScrollBar") );
     fgSizer1->Add(m_scrollBar1, m_commonExpandFlags);
@@ -196,20 +196,20 @@ void GUIFrame::AddPanel_1()
 
 void GUIFrame::AddPanel_2()
 {
-    m_panel2 = new wxPanel( m_notebook1, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+    m_panel2 = NEW_DEBUG wxPanel( m_notebook1, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 
     wxFlexGridSizer* fgSizer2;
-    fgSizer2 = new wxFlexGridSizer( 0, 2, 0, 0 );
+    fgSizer2 = NEW_DEBUG wxFlexGridSizer( 0, 2, 0, 0 );
     fgSizer2->SetFlexibleDirection( wxBOTH );
     fgSizer2->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 
     wxString m_checkList1Choices[] = { _("wxCheckListBox"), _("Item1"), _("Item2") };
     int m_checkList1NChoices = sizeof( m_checkList1Choices ) / sizeof( wxString );
-    m_checkList1 = new wxCheckListBox( m_panel2, wxID_ANY, wxDefaultPosition, wxDefaultSize, m_checkList1NChoices, m_checkList1Choices, 0 );
+    m_checkList1 = NEW_DEBUG wxCheckListBox( m_panel2, wxID_ANY, wxDefaultPosition, wxDefaultSize, m_checkList1NChoices, m_checkList1Choices, 0 );
     m_checkList1->Check(0);
     fgSizer2->Add(m_checkList1, m_commonExpandFlags);
 
-    m_listBox1 = new wxListBox( m_panel2, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, NULL, 0 );
+    m_listBox1 = NEW_DEBUG wxListBox( m_panel2, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, NULL, 0 );
     m_listBox1->Append( _("wxListBox") );
     m_listBox1->Append( _("Item1") );
     m_listBox1->Append( _("Item2") );
@@ -217,14 +217,14 @@ void GUIFrame::AddPanel_2()
 
     wxString m_radioBox1Choices[] = { _("Item1"), _("Item2") };
     int m_radioBox1NChoices = sizeof( m_radioBox1Choices ) / sizeof( wxString );
-    m_radioBox1 = new wxRadioBox( m_panel2, wxID_ANY, _("wxRadioBox"), wxDefaultPosition, wxDefaultSize, m_radioBox1NChoices, m_radioBox1Choices, 1, wxRA_SPECIFY_COLS );
+    m_radioBox1 = NEW_DEBUG wxRadioBox( m_panel2, wxID_ANY, _("wxRadioBox"), wxDefaultPosition, wxDefaultSize, m_radioBox1NChoices, m_radioBox1Choices, 1, wxRA_SPECIFY_COLS );
     m_radioBox1->SetSelection( 0 );
     fgSizer2->Add( m_radioBox1, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 20 );
 
-    m_staticBox1 = new wxStaticBox(m_panel2,wxID_ANY, _("wxStaticBox"), wxDefaultPosition, wxDefaultSize, 0, _("_StaticBox"));
+    m_staticBox1 = NEW_DEBUG wxStaticBox(m_panel2,wxID_ANY, _("wxStaticBox"), wxDefaultPosition, wxDefaultSize, 0, _("_StaticBox"));
     fgSizer2->Add(m_staticBox1, m_commonExpandFlags);
 
-    m_treeCtrl1 = new wxTreeCtrl( m_panel2, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTR_DEFAULT_STYLE|wxSUNKEN_BORDER );
+    m_treeCtrl1 = NEW_DEBUG wxTreeCtrl( m_panel2, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTR_DEFAULT_STYLE|wxSUNKEN_BORDER );
     wxTreeItemId root = m_treeCtrl1->AddRoot(_("wxTreeCtrl"));
     m_treeCtrl1->AppendItem(root, _("Node1"));
     wxTreeItemId node2 = m_treeCtrl1->AppendItem(root, _("Node2"));
@@ -232,7 +232,7 @@ void GUIFrame::AddPanel_2()
     m_treeCtrl1->ExpandAll();
     fgSizer2->Add( m_treeCtrl1, m_commonExpandFlags);
 
-    m_listCtrl1 = new wxListCtrl( m_panel2, wxID_ANY, wxDefaultPosition, wxSize(220,120), wxLC_REPORT|wxSUNKEN_BORDER );
+    m_listCtrl1 = NEW_DEBUG wxListCtrl( m_panel2, wxID_ANY, wxDefaultPosition, wxSize(220,120), wxLC_REPORT|wxSUNKEN_BORDER );
     m_listCtrl1->InsertColumn(0, "Names");
     m_listCtrl1->InsertColumn(1, "Values");
     for(long index = 0; index < 5; index++) {
@@ -242,21 +242,21 @@ void GUIFrame::AddPanel_2()
     m_listCtrl1->SetToolTip( _("wxListCtrl") );
     fgSizer2->Add( m_listCtrl1, m_commonExpandFlags);
 
-    m_animationCtrl1 = new wxAnimationCtrl(m_panel2, wxID_ANY);
+    m_animationCtrl1 = NEW_DEBUG wxAnimationCtrl(m_panel2, wxID_ANY);
     m_animationCtrl1->SetToolTip(_("wxAnimationCtrl"));
     if (m_animationCtrl1->LoadFile(wxT("bitmaps/throbber.gif")))
     m_animationCtrl1->Play();
     fgSizer2->Add( m_animationCtrl1, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 20 );
 
     //wxCollapsiblePane 1
-    m_collPane1 = new wxCollapsiblePane(m_panel2, -1, wxT("Collapsed"));
+    m_collPane1 = NEW_DEBUG wxCollapsiblePane(m_panel2, -1, wxT("Collapsed"));
     wxWindow *win = m_collPane1->GetPane();
     m_collPane1->SetToolTip(_("wxCollapsiblePane"));
 
-    wxBoxSizer * collbSizer = new wxBoxSizer(wxVERTICAL);
-    wxStaticText* m_collSText = new wxStaticText(win, -1, wxT("You can place"));
-    wxButton* m_collBut = new wxButton(win, -1, wxT("anything"));
-    wxTextCtrl* m_collText = new wxTextCtrl(win, -1, wxT("inside a wxCollapsiblePane"));
+    wxBoxSizer * collbSizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
+    wxStaticText* m_collSText = NEW_DEBUG wxStaticText(win, -1, wxT("You can place"));
+    wxButton* m_collBut = NEW_DEBUG wxButton(win, -1, wxT("anything"));
+    wxTextCtrl* m_collText = NEW_DEBUG wxTextCtrl(win, -1, wxT("inside a wxCollapsiblePane"));
     collbSizer->Add( m_collSText, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 0 );
     collbSizer->Add( m_collBut, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 0 );
     collbSizer->Add( m_collText, wxSizerFlags().Expand() );
@@ -264,14 +264,14 @@ void GUIFrame::AddPanel_2()
     fgSizer2->Add( m_collPane1, wxSizerFlags().Expand().Border(wxALL, 5) );
 
     //wxCollapsiblePane 2
-    m_collPane2 = new wxCollapsiblePane(m_panel2, -1, wxT("Expanded"));
+    m_collPane2 = NEW_DEBUG wxCollapsiblePane(m_panel2, -1, wxT("Expanded"));
     wxWindow *win2 = m_collPane2->GetPane();
     m_collPane2->SetToolTip(_("wxCollapsiblePane"));
 
-    wxBoxSizer * collbSizer2 = new wxBoxSizer(wxVERTICAL);
-    wxStaticText* m_collSText2 = new wxStaticText(win2, -1, wxT("You can place"));
-    wxButton* m_collBut2 = new wxButton(win2, -1, wxT("anything"));
-    wxTextCtrl* m_collText2 = new wxTextCtrl(win2, -1, wxT("inside a wxCollapsiblePane"));
+    wxBoxSizer * collbSizer2 = NEW_DEBUG wxBoxSizer(wxVERTICAL);
+    wxStaticText* m_collSText2 = NEW_DEBUG wxStaticText(win2, -1, wxT("You can place"));
+    wxButton* m_collBut2 = NEW_DEBUG wxButton(win2, -1, wxT("anything"));
+    wxTextCtrl* m_collText2 = NEW_DEBUG wxTextCtrl(win2, -1, wxT("inside a wxCollapsiblePane"));
     collbSizer2->Add( m_collSText2, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 0 );
     collbSizer2->Add( m_collBut2, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 0 );
     collbSizer2->Add( m_collText2, wxSizerFlags().Expand() );
@@ -290,22 +290,22 @@ void GUIFrame::AddPanel_2()
 
 void GUIFrame::AddPanel_3()
 {
-    m_panel3 = new wxPanel( m_notebook1, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+    m_panel3 = NEW_DEBUG wxPanel( m_notebook1, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 
     wxBoxSizer* bSizer2;
-    bSizer2 = new wxBoxSizer( wxVERTICAL );
+    bSizer2 = NEW_DEBUG wxBoxSizer( wxVERTICAL );
 
-    m_textCtrl1 = new wxTextCtrl( m_panel3, wxID_ANY, _("Single-line"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_textCtrl1 = NEW_DEBUG wxTextCtrl( m_panel3, wxID_ANY, _("Single-line"), wxDefaultPosition, wxDefaultSize, 0 );
     m_textCtrl1->SetToolTip( _("wxTextCtrl") );
     bSizer2->Add( m_textCtrl1, 0, wxTOP|wxRIGHT|wxLEFT, 20 );
 
     bSizer2->Add( 0, 10, 0, 0, 5 );
 
-    m_textCtrl2 = new wxTextCtrl( m_panel3, wxID_ANY, _("Multi-line\nLine1\nLine2\n"), wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE );
+    m_textCtrl2 = NEW_DEBUG wxTextCtrl( m_panel3, wxID_ANY, _("Multi-line\nLine1\nLine2\n"), wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE );
     m_textCtrl2->SetToolTip( _("wxTextCtrl") );
     bSizer2->Add( m_textCtrl2, 0, wxBOTTOM|wxRIGHT|wxLEFT, 20 );
 
-    m_richText1 = new wxRichTextCtrl( m_panel3, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( -1,-1 ), 0|wxVSCROLL|wxHSCROLL|wxNO_BORDER|wxWANTS_CHARS );
+    m_richText1 = NEW_DEBUG wxRichTextCtrl( m_panel3, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( -1,-1 ), 0|wxVSCROLL|wxHSCROLL|wxNO_BORDER|wxWANTS_CHARS );
     m_richText1->LoadFile(wxT("richtext.xml"));
     m_richText1->SetToolTip( _("wxRichTextCtrl") );
     m_richText1->SetMinSize( wxSize( 200,200 ) );
@@ -320,23 +320,23 @@ void GUIFrame::AddPanel_3()
 
 void GUIFrame::AddPanel_4()
 {
-    m_panel4 = new wxPanel( m_notebook1, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+    m_panel4 = NEW_DEBUG wxPanel( m_notebook1, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 
     wxFlexGridSizer* fgSizer5;
-    fgSizer5 = new wxFlexGridSizer( 0, 2, 10, 10 );
+    fgSizer5 = NEW_DEBUG wxFlexGridSizer( 0, 2, 10, 10 );
     fgSizer5->SetFlexibleDirection( wxBOTH );
     fgSizer5->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 
-    m_colourPicker1 = new wxColourPickerCtrl( m_panel4, wxID_ANY, *wxBLACK, wxDefaultPosition, wxDefaultSize, wxCLRP_DEFAULT_STYLE );
+    m_colourPicker1 = NEW_DEBUG wxColourPickerCtrl( m_panel4, wxID_ANY, *wxBLACK, wxDefaultPosition, wxDefaultSize, wxCLRP_DEFAULT_STYLE );
     m_colourPicker1->SetToolTip( _("wxColourPickerCtrl") );
     fgSizer5->Add( m_colourPicker1, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 20 );
 
-    m_fontPicker1 = new wxFontPickerCtrl( m_panel4, wxID_ANY, wxNullFont, wxDefaultPosition, wxDefaultSize, wxFNTP_DEFAULT_STYLE );
+    m_fontPicker1 = NEW_DEBUG wxFontPickerCtrl( m_panel4, wxID_ANY, wxNullFont, wxDefaultPosition, wxDefaultSize, wxFNTP_DEFAULT_STYLE );
     m_fontPicker1->SetMaxPointSize( 100 );
     m_fontPicker1->SetToolTip( _("wxFontPickerCtrl") );
     fgSizer5->Add( m_fontPicker1, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxALL, 20 );
 
-    m_filePicker1 = new wxFilePickerCtrl( m_panel4, wxID_ANY, wxEmptyString, _("Select a file"), wxT("*.*"), wxDefaultPosition, wxDefaultSize, wxFLP_DEFAULT_STYLE, wxDefaultValidator, wxT("_FilePickerCtrl") );
+    m_filePicker1 = NEW_DEBUG wxFilePickerCtrl( m_panel4, wxID_ANY, wxEmptyString, _("Select a file"), wxT("*.*"), wxDefaultPosition, wxDefaultSize, wxFLP_DEFAULT_STYLE, wxDefaultValidator, wxT("_FilePickerCtrl") );
     #if defined(__WXMSW__)
          const wxString a_file = "C:\\Windows\\explorer.exe";
     #else
@@ -348,21 +348,21 @@ void GUIFrame::AddPanel_4()
 
     fgSizer5->Add( 0, 0, 1, wxEXPAND, 5 );
 
-    m_calendar1 = new wxCalendarCtrl( m_panel4, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxDefaultSize, wxCAL_SHOW_HOLIDAYS );
+    m_calendar1 = NEW_DEBUG wxCalendarCtrl( m_panel4, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxDefaultSize, wxCAL_SHOW_HOLIDAYS );
     m_calendar1->SetToolTip( _("wxCalendarCtrl") );
     fgSizer5->Add( m_calendar1, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 20 );
 
-    m_datePicker1 = new wxDatePickerCtrl( m_panel4, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxDefaultSize, wxDP_DEFAULT );
+    m_datePicker1 = NEW_DEBUG wxDatePickerCtrl( m_panel4, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxDefaultSize, wxDP_DEFAULT );
     m_datePicker1->SetToolTip( _("wxDatePickerCtrl") );
     fgSizer5->Add( m_datePicker1, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 20 );
 
-    m_genericDirCtrl1 = new wxGenericDirCtrl( m_panel4, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxDIRCTRL_3D_INTERNAL|wxSUNKEN_BORDER, wxEmptyString, 0, wxT("_GenericDirCtrl") );
+    m_genericDirCtrl1 = NEW_DEBUG wxGenericDirCtrl( m_panel4, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxDIRCTRL_3D_INTERNAL|wxSUNKEN_BORDER, wxEmptyString, 0, wxT("_GenericDirCtrl") );
     m_genericDirCtrl1->ShowHidden( false );
     m_genericDirCtrl1->SetToolTip( _("wxGenericDirCtrl") );
     m_genericDirCtrl1->SetMinSize( wxSize( -1,150 ) );
     fgSizer5->Add(m_genericDirCtrl1, m_commonExpandFlags);
 
-    m_dirPicker1 = new wxDirPickerCtrl( m_panel4, wxID_ANY, wxEmptyString, _("Select a folder"), wxDefaultPosition, wxDefaultSize, wxDIRP_DEFAULT_STYLE, wxDefaultValidator, wxT("_DirPickerCtrl") );
+    m_dirPicker1 = NEW_DEBUG wxDirPickerCtrl( m_panel4, wxID_ANY, wxEmptyString, _("Select a folder"), wxDefaultPosition, wxDefaultSize, wxDIRP_DEFAULT_STYLE, wxDefaultValidator, wxT("_DirPickerCtrl") );
     #if defined(__WXMSW__)
         const wxString a_dir = "C:\\Windows";
     #else
@@ -381,20 +381,20 @@ void GUIFrame::AddPanel_4()
 
 void GUIFrame::AddPanel_5()
 {
-    m_panel5 = new wxPanel( m_notebook1, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+    m_panel5 = NEW_DEBUG wxPanel( m_notebook1, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 
     wxFlexGridSizer* fgSizer4;
-    fgSizer4 = new wxFlexGridSizer( 0, 2, 0, 0 );
+    fgSizer4 = NEW_DEBUG wxFlexGridSizer( 0, 2, 0, 0 );
     fgSizer4->SetFlexibleDirection( wxBOTH );
     fgSizer4->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 
     wxString m_choice1Choices[] = { _("wxChoice"), _("Item1"), _("Item2"), _("Item3"), _("Item4") };
     int m_choice1NChoices = sizeof( m_choice1Choices ) / sizeof( wxString );
-    m_choice1 = new wxChoice( m_panel5, wxID_ANY, wxDefaultPosition, wxDefaultSize, m_choice1NChoices, m_choice1Choices, 0 );
+    m_choice1 = NEW_DEBUG wxChoice( m_panel5, wxID_ANY, wxDefaultPosition, wxDefaultSize, m_choice1NChoices, m_choice1Choices, 0 );
     m_choice1->SetSelection( 0 );
     fgSizer4->Add( m_choice1, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 20 );
 
-    m_comboBox1 = new wxComboBox( m_panel5, wxID_ANY, _("wxComboBox"), wxDefaultPosition, wxDefaultSize, 0, NULL, 0 );
+    m_comboBox1 = NEW_DEBUG wxComboBox( m_panel5, wxID_ANY, _("wxComboBox"), wxDefaultPosition, wxDefaultSize, 0, NULL, 0 );
     m_comboBox1->Append( _("wxComboBox") );
     m_comboBox1->Append( _("Item1") );
     m_comboBox1->Append( _("Item2") );
@@ -416,7 +416,7 @@ void GUIFrame::AddPanel_5()
     it shows a bitmap next to the edit field which is more suitable
     for a screenshot.
     */
-    m_bmpComboBox1 = new wxBitmapComboBox(m_panel5, wxID_ANY,_("Item1"),
+    m_bmpComboBox1 = NEW_DEBUG wxBitmapComboBox(m_panel5, wxID_ANY,_("Item1"),
         wxDefaultPosition, wxDefaultSize, 0, NULL, wxCB_READONLY);
     m_bmpComboBox1->Append(_("Item1"), wxBitmap(wxT("bitmaps/bell.png"),wxBITMAP_TYPE_PNG));
     m_bmpComboBox1->Append(_("Item2"), wxBitmap(wxT("bitmaps/sound.png"),wxBITMAP_TYPE_PNG));
@@ -436,9 +436,9 @@ void GUIFrame::AddPanel_5()
     fgSizer4->Add( 0, 90, 1, wxEXPAND, 5 );
 
     //wxComboCtrl 1
-        m_comboCtrl1 = new wxComboCtrl(m_panel5,wxID_ANY,wxEmptyString);
+        m_comboCtrl1 = NEW_DEBUG wxComboCtrl(m_panel5,wxID_ANY,wxEmptyString);
         // first of all, set the popup control!
-        ListViewComboPopup* popupList = new ListViewComboPopup();
+        ListViewComboPopup* popupList = NEW_DEBUG ListViewComboPopup();
         m_comboCtrl1->SetPopupControl(popupList);
         m_comboCtrl1->SetPopupMaxHeight(80);
 
@@ -458,9 +458,9 @@ void GUIFrame::AddPanel_5()
         fgSizer4->Add(m_comboCtrl1, m_commonExpandFlags);
 
     //wxComboCtrl 2
-        m_comboCtrl2 = new wxComboCtrl(m_panel5,wxID_ANY,wxEmptyString);
+        m_comboCtrl2 = NEW_DEBUG wxComboCtrl(m_panel5,wxID_ANY,wxEmptyString);
         // first of all, set the popup control!
-        TreeCtrlComboPopup* popupTree = new TreeCtrlComboPopup();
+        TreeCtrlComboPopup* popupTree = NEW_DEBUG TreeCtrlComboPopup();
         m_comboCtrl2->SetPopupControl(popupTree);
         m_comboCtrl2->SetPopupMaxHeight(80);
 

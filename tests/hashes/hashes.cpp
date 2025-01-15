@@ -241,7 +241,7 @@ void HashesTestCase::wxUntypedHashTableDeleteContents()
         size_t n;
         for ( n = 0; n < WXSIZEOF(hashTestData); n++ )
         {
-            hash.Put(hashTestData[n], n, new FooObject(n));
+            hash.Put(hashTestData[n], n, NEW_DEBUG FooObject(n));
         }
 
         CPPUNIT_ASSERT( hash.GetCount() == WXSIZEOF(hashTestData) );
@@ -279,7 +279,7 @@ void HashesTestCase::wxTypedHashTableTest()
         size_t n;
         for ( n = 0; n < WXSIZEOF(hashTestData); n++ )
         {
-            hash.Put(hashTestData[n], n, new Foo(n));
+            hash.Put(hashTestData[n], n, NEW_DEBUG Foo(n));
         }
 
         CPPUNIT_ASSERT( hash.GetCount() == WXSIZEOF(hashTestData) );

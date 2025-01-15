@@ -46,7 +46,7 @@ public:
     wxRegionRefData(const wxRegionRefData& data) : wxGDIRefData()
     {
         DWORD noBytes = ::GetRegionData(data.m_region, 0, NULL);
-        RGNDATA *rgnData = (RGNDATA*) new char[noBytes];
+        RGNDATA *rgnData = (RGNDATA*) NEW_DEBUG char[noBytes];
         ::GetRegionData(data.m_region, noBytes, rgnData);
         m_region = ::ExtCreateRegion(NULL, noBytes, rgnData);
         delete[] (char*) rgnData;
@@ -87,7 +87,7 @@ wxRegion::wxRegion()
 
 wxRegion::wxRegion(WXHRGN hRegion)
 {
-    m_refData = new wxRegionRefData;
+    m_refData = NEW_DEBUG wxRegionRefData;
     M_REGION = (HRGN) hRegion;
 }
 
@@ -111,25 +111,25 @@ static HRGN CreateRectRgnMSW(wxCoord x, wxCoord y, wxCoord w, wxCoord h)
 
 wxRegion::wxRegion(wxCoord x, wxCoord y, wxCoord w, wxCoord h)
 {
-    m_refData = new wxRegionRefData;
+    m_refData = NEW_DEBUG wxRegionRefData;
     M_REGION = CreateRectRgnMSW(x, y, w, h);
 }
 
 wxRegion::wxRegion(const wxPoint& topLeft, const wxPoint& bottomRight)
 {
-    m_refData = new wxRegionRefData;
+    m_refData = NEW_DEBUG wxRegionRefData;
     M_REGION = CreateRectRgnMSW(topLeft.x, topLeft.y, bottomRight.x-topLeft.x, bottomRight.y-topLeft.y);
 }
 
 wxRegion::wxRegion(const wxRect& rect)
 {
-    m_refData = new wxRegionRefData;
+    m_refData = NEW_DEBUG wxRegionRefData;
     M_REGION = CreateRectRgnMSW(rect.x, rect.y, rect.width, rect.height);
 }
 
 wxRegion::wxRegion(size_t n, const wxPoint *points, wxPolygonFillMode fillStyle)
 {
-    m_refData = new wxRegionRefData;
+    m_refData = NEW_DEBUG wxRegionRefData;
     M_REGION = ::CreatePolygonRgn
                (
                     reinterpret_cast<const POINT*>(points),
@@ -145,12 +145,12 @@ wxRegion::~wxRegion()
 
 wxGDIRefData *wxRegion::CreateGDIRefData() const
 {
-    return new wxRegionRefData;
+    return NEW_DEBUG wxRegionRefData;
 }
 
 wxGDIRefData *wxRegion::CloneGDIRefData(const wxGDIRefData *data) const
 {
-    return new wxRegionRefData(*static_cast<const wxRegionRefData*>(data));
+    return NEW_DEBUG wxRegionRefData(*static_cast<const wxRegionRefData*>(data));
 }
 
 // ----------------------------------------------------------------------------
@@ -365,7 +365,7 @@ wxRegionIterator& wxRegionIterator::operator=(const wxRegionIterator& ri)
     m_numRects = ri.m_numRects;
     if ( m_numRects )
     {
-        m_rects = new wxRect[m_numRects];
+        m_rects = NEW_DEBUG wxRect[m_numRects];
         for ( long n = 0; n < m_numRects; n++ )
             m_rects[n] = ri.m_rects[n];
     }
@@ -381,7 +381,7 @@ wxRegionIterator& wxRegionIterator::operator=(const wxRegionIterator& ri)
 // wxRegionIterator operations
 // ----------------------------------------------------------------------------
 
-// Reset iterator for a new region.
+// Reset iterator for a NEW_DEBUG region.
 void wxRegionIterator::Reset(const wxRegion& region)
 {
     m_current = 0;
@@ -394,12 +394,12 @@ void wxRegionIterator::Reset(const wxRegion& region)
     else
     {
         DWORD noBytes = ::GetRegionData(((wxRegionRefData*)region.m_refData)->m_region, 0, NULL);
-        RGNDATA *rgnData = (RGNDATA*) new char[noBytes];
+        RGNDATA *rgnData = (RGNDATA*) NEW_DEBUG char[noBytes];
         ::GetRegionData(((wxRegionRefData*)region.m_refData)->m_region, noBytes, rgnData);
 
         RGNDATAHEADER* header = (RGNDATAHEADER*) rgnData;
 
-        m_rects = new wxRect[header->nCount];
+        m_rects = NEW_DEBUG wxRect[header->nCount];
 
         RECT* rect = (RECT*) ((char*)rgnData + sizeof(RGNDATAHEADER));
         size_t i;

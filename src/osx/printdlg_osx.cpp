@@ -74,7 +74,7 @@ wxMacPrintDialog::~wxMacPrintDialog()
 
 wxDC *wxMacPrintDialog::GetPrintDC()
 {
-    return new wxPrinterDC( m_printDialogData.GetPrintData() );
+    return NEW_DEBUG wxPrinterDC( m_printDialogData.GetPrintData() );
 }
 
 wxIMPLEMENT_CLASS(wxMacPageSetupDialog, wxPageSetupDialogBase);
@@ -111,18 +111,18 @@ wxMacPageMarginsDialog::wxMacPageMarginsDialog(wxFrame *parent, wxPageSetupDialo
   m_pageSetupDialogData(data)
   {
   GetMinMargins();
-  wxBoxSizer *colSizer = new wxBoxSizer(wxVERTICAL);
-  wxFlexGridSizer *gridSizer = new wxFlexGridSizer(4, 5, 5);
+  wxBoxSizer *colSizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
+  wxFlexGridSizer *gridSizer = NEW_DEBUG wxFlexGridSizer(4, 5, 5);
   colSizer->Add(gridSizer, wxSizerFlags().Border(wxALL, 5));
-  gridSizer->Add(new wxStaticText(this, wxID_ANY, wxT("Left (mm):")), wxSizerFlags().Right());
-  gridSizer->Add(m_LeftMargin = new wxTextCtrl(this, wxID_ANY), wxSizerFlags().Left());
-  gridSizer->Add(new wxStaticText(this, wxID_ANY, wxT("Top (mm):")), wxSizerFlags().Right());
-  gridSizer->Add(m_TopMargin = new wxTextCtrl(this, wxID_ANY), wxSizerFlags().Left());
-  gridSizer->Add(new wxStaticText(this, wxID_ANY, wxT("Right (mm):")), wxSizerFlags().Right());
-  gridSizer->Add(m_RightMargin = new wxTextCtrl(this, wxID_ANY), wxSizerFlags().Left());
-  gridSizer->Add(new wxStaticText(this, wxID_ANY, wxT("Bottom (mm):")), wxSizerFlags().Right());
-  gridSizer->Add(m_BottomMargin = new wxTextCtrl(this, wxID_ANY), wxSizerFlags().Left());
-  colSizer->Add(new wxStaticLine(this), wxSizerFlags().Expand().Border(wxTOP|wxBOTTOM, 5));
+  gridSizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, wxT("Left (mm):")), wxSizerFlags().Right());
+  gridSizer->Add(m_LeftMargin = NEW_DEBUG wxTextCtrl(this, wxID_ANY), wxSizerFlags().Left());
+  gridSizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, wxT("Top (mm):")), wxSizerFlags().Right());
+  gridSizer->Add(m_TopMargin = NEW_DEBUG wxTextCtrl(this, wxID_ANY), wxSizerFlags().Left());
+  gridSizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, wxT("Right (mm):")), wxSizerFlags().Right());
+  gridSizer->Add(m_RightMargin = NEW_DEBUG wxTextCtrl(this, wxID_ANY), wxSizerFlags().Left());
+  gridSizer->Add(NEW_DEBUG wxStaticText(this, wxID_ANY, wxT("Bottom (mm):")), wxSizerFlags().Right());
+  gridSizer->Add(m_BottomMargin = NEW_DEBUG wxTextCtrl(this, wxID_ANY), wxSizerFlags().Left());
+  colSizer->Add(NEW_DEBUG wxStaticLine(this), wxSizerFlags().Expand().Border(wxTOP|wxBOTTOM, 5));
   colSizer->Add(CreateButtonSizer(wxOK | wxCANCEL), wxSizerFlags().Expand().Border(wxALL, 5));
   TransferToWindow();
   SetSizerAndFit(colSizer);

@@ -69,7 +69,7 @@ wxBitmap DoCreateBitmapRGB(int w, int h, int bpp, bool withMask)
             dc.SetBrush(*wxWHITE_BRUSH);
             dc.DrawRectangle(4, 4, 4, 4);
         }
-        bmp.SetMask(new wxMask(bmask));
+        bmp.SetMask(NEW_DEBUG wxMask(bmask));
         REQUIRE_FALSE(bmp.HasAlpha());
         REQUIRE(bmp.GetMask() != NULL);
     }
@@ -154,7 +154,7 @@ wxBitmap CreateBitmapRGBA(int w, int h, bool withMask)
             dc.SetBrush(*wxWHITE_BRUSH);
             dc.DrawRectangle(4, 4, 4, 4);
         }
-        bmp.SetMask(new wxMask(bmask));
+        bmp.SetMask(NEW_DEBUG wxMask(bmask));
         REQUIRE(bmp.HasAlpha() == true);
         REQUIRE(bmp.GetMask() != NULL);
     }
@@ -173,7 +173,7 @@ wxImage MakeReferenceImage(const wxImage& img)
         {
             // We need to blend mask with alpha values
             size_t numPixels = refImg.GetWidth() * refImg.GetHeight();
-            unsigned char* oldAlpha = new unsigned char[numPixels];
+            unsigned char* oldAlpha = NEW_DEBUG unsigned char[numPixels];
             memcpy(oldAlpha, refImg.GetAlpha(), numPixels);
 
             refImg.ClearAlpha();

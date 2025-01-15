@@ -146,7 +146,7 @@ wxSetIconsX11(WXDisplay* display, WXWindow window, const wxIconBundle& ib)
 
     if ( size > 0 )
     {
-        unsigned long* data = new unsigned long[size];
+        unsigned long* data = NEW_DEBUG unsigned long[size];
         unsigned long* ptr = data;
 
         for ( size_t i = 0; i < numIcons; ++i )

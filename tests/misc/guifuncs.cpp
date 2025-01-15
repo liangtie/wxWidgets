@@ -62,7 +62,7 @@ TEST_CASE("GUI::TextDataObject", "[guifuncs][clipboard]")
 {
     const wxString text("Hello clipboard!");
 
-    wxTextDataObject* const dobj = new wxTextDataObject(text);
+    wxTextDataObject* const dobj = NEW_DEBUG wxTextDataObject(text);
     CHECK( dobj->GetText() == text );
 
     wxClipboardLocker lockClip;
@@ -79,7 +79,7 @@ TEST_CASE("GUI::URLDataObject", "[guifuncs][clipboard]")
     // this tests for buffer overflow, see #11102
     const char * const
         url = "http://something.long.to.overwrite.plenty.memory.example.com";
-    wxURLDataObject * const dobj = new wxURLDataObject(url);
+    wxURLDataObject * const dobj = NEW_DEBUG wxURLDataObject(url);
     CHECK( dobj->GetURL() == url );
 
     wxClipboardLocker lockClip;
@@ -143,11 +143,11 @@ TEST_CASE("GUI::ClientToScreen", "[guifuncs]")
     REQUIRE( tlw );
 
     wxScopedPtr<wxPanel> const
-        p1(new wxPanel(tlw, wxID_ANY, wxPoint(0, 0), wxSize(100, 50)));
+        p1(NEW_DEBUG wxPanel(tlw, wxID_ANY, wxPoint(0, 0), wxSize(100, 50)));
     wxScopedPtr<wxPanel> const
-        p2(new wxPanel(tlw, wxID_ANY, wxPoint(0, 50), wxSize(100, 50)));
+        p2(NEW_DEBUG wxPanel(tlw, wxID_ANY, wxPoint(0, 50), wxSize(100, 50)));
     wxWindow* const
-        b = new wxWindow(p2.get(), wxID_ANY, wxPoint(10, 10), wxSize(30, 10));
+        b = NEW_DEBUG wxWindow(p2.get(), wxID_ANY, wxPoint(10, 10), wxSize(30, 10));
 
     // We need this to realize the windows created above under wxGTK.
     wxYield();
@@ -194,11 +194,11 @@ TEST_CASE("GUI::FindWindowAtPoint", "[guifuncs]")
     // assertion messages.
     parent->SetLabel("parent");
 
-    wxScopedPtr<wxWindow> btn1(new TestButton(parent, "1", wxPoint(10, 10)));
-    wxScopedPtr<wxWindow> btn2(new TestButton(parent, "2", wxPoint(10, 90)));
+    wxScopedPtr<wxWindow> btn1(NEW_DEBUG TestButton(parent, "1", wxPoint(10, 10)));
+    wxScopedPtr<wxWindow> btn2(NEW_DEBUG TestButton(parent, "2", wxPoint(10, 90)));
 
     // No need to use wxScopedPtr<> for this one, it will be deleted by btn2.
-    wxWindow* btn3 = new TestButton(btn2.get(), "3", wxPoint(20, 20));
+    wxWindow* btn3 = NEW_DEBUG TestButton(btn2.get(), "3", wxPoint(20, 20));
 
     // We need this to realize the windows created above under wxGTK.
     wxYield();
@@ -234,7 +234,7 @@ TEST_CASE("wxWindow::Dump", "[window]")
     CHECK_NOTHROW( wxDumpWindow(NULL) );
 
     wxScopedPtr<wxButton>
-        button(new wxButton(wxTheApp->GetTopWindow(), wxID_ANY, "bloordyblop"));
+        button(NEW_DEBUG wxButton(wxTheApp->GetTopWindow(), wxID_ANY, "bloordyblop"));
 
     const std::string s = wxDumpWindow(button.get()).utf8_string();
 

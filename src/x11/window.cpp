@@ -1384,7 +1384,7 @@ static bool DoAddWindowToTable(wxWindowHash *hash, Window w, wxWindow *win)
 {
     if ( !hash->insert(wxWindowHash::value_type(w, win)).second )
     {
-        wxLogDebug( wxT("Widget table clash: new widget is 0x%08x, %s"),
+        wxLogDebug( wxT("Widget table clash: NEW_DEBUG widget is 0x%08x, %s"),
                     (unsigned int)w, win->GetClassInfo()->GetClassName());
         return false;
     }

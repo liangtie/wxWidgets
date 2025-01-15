@@ -221,7 +221,7 @@ public:
     {
         m_imageStates[item].SetState(state);
     }
-        
+
     int GetItemState(QTreeWidgetItem *item) const
     {
         const ImageStateMap::const_iterator i = m_imageStates.find(item);
@@ -365,7 +365,7 @@ private:
 
         // QT doesn't update the selection until this signal has been
         // processed. Deferring this event ensures that
-        // wxTreeCtrl::GetSelection returns the new selection in the
+        // wxTreeCtrl::GetSelection returns the NEW_DEBUG selection in the
         // wx event handler.
         wxTreeEvent changedEvent(
             wxEVT_TREE_SEL_CHANGED,
@@ -549,7 +549,7 @@ private:
     typedef std::map<QTreeWidgetItem*,ImageState> ImageStateMap;
     ImageStateMap m_imageStates;
 
-    // Place holder image to reserve enough space in a row 
+    // Place holder image to reserve enough space in a row
     // for us to draw our icon
     QPixmap m_placeHolderImage;
 };
@@ -576,7 +576,7 @@ bool wxTreeCtrl::Create(wxWindow *parent, wxWindowID id,
             const wxValidator& validator,
             const wxString& name)
 {
-    m_qtTreeWidget = new wxQTreeWidget(parent, this);
+    m_qtTreeWidget = NEW_DEBUG wxQTreeWidget(parent, this);
     m_qtTreeWidget->header()->hide();
 
     SetWindowStyleFlag(style);
@@ -941,7 +941,7 @@ wxTreeItemId wxTreeCtrl::GetLastChild(const wxTreeItemId& item) const
 
     const QTreeWidgetItem *qTreeItem = wxQtConvertTreeItem(item);
     const int childCount = qTreeItem->childCount();
-    return childCount == 0 
+    return childCount == 0
         ? wxTreeItemId()
         : wxQtConvertTreeItem(qTreeItem->child(childCount - 1));
 }
@@ -969,7 +969,7 @@ wxTreeItemId wxTreeCtrl::GetNextSibling(const wxTreeItemId& item) const
 
     ++index;
     return index < m_qtTreeWidget->topLevelItemCount()
-        ? wxQtConvertTreeItem(m_qtTreeWidget->topLevelItem(index)) 
+        ? wxQtConvertTreeItem(m_qtTreeWidget->topLevelItem(index))
         : wxTreeItemId();
 }
 
@@ -1343,7 +1343,7 @@ wxTreeItemId wxTreeCtrl::DoInsertItem(const wxTreeItemId& parent,
 
     QTreeWidgetItem *qTreeItem = wxQtConvertTreeItem(parent);
 
-    QTreeWidgetItem *newItem = new QTreeWidgetItem;
+    QTreeWidgetItem *newItem = NEW_DEBUG QTreeWidgetItem;
     newItem->setText(0, wxQtConvertString(text));
     newItem->setFlags(newItem->flags() | Qt::ItemIsEditable);
 
@@ -1431,7 +1431,7 @@ wxTreeItemId wxTreeCtrl::GetNext(const wxTreeItemId &item) const
     {
         return qTreeItem->child(0);
     }
-    
+
     // Try a sibling of this or ancestor instead
     wxTreeItemId p = item;
     wxTreeItemId toFind;

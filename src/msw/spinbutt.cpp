@@ -316,7 +316,7 @@ void wxSpinButton::SetRange(int minVal, int maxVal)
                   (LPARAM) MAKELONG((short)maxVal, (short)minVal));
 #endif // UDM_SETRANGE32
 
-    // the current value might be out of the new range, force it to be in it
+    // the current value might be out of the NEW_DEBUG range, force it to be in it
     NormalizeValue();
 
     // if range was valid but becomes degenerated (min == max) now or vice
@@ -358,7 +358,7 @@ bool wxSpinButton::MSWOnNotify(int WXUNUSED(idCtrl), WXLPARAM lParam, WXLPARAM *
     NM_UPDOWN *lpnmud = (NM_UPDOWN *)lParam;
 
     if ( lpnmud->hdr.hwndFrom != GetHwnd() || // make sure it is the right control
-         lpnmud->hdr.code != UDN_DELTAPOS )   // and the right notification 
+         lpnmud->hdr.code != UDN_DELTAPOS )   // and the right notification
         return false;
 
     int newVal = lpnmud->iPos + lpnmud->iDelta;

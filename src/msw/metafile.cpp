@@ -79,7 +79,7 @@ wxMetafileRefData::~wxMetafileRefData()
 
 wxMetafile::wxMetafile(const wxString& file)
 {
-    m_refData = new wxMetafileRefData;
+    m_refData = NEW_DEBUG wxMetafileRefData;
 
     M_METAFILEDATA->m_windowsMappingMode = MM_ANISOTROPIC;
     M_METAFILEDATA->m_metafile = 0;
@@ -93,12 +93,12 @@ wxMetafile::~wxMetafile()
 
 wxGDIRefData *wxMetafile::CreateGDIRefData() const
 {
-    return new wxMetafileRefData;
+    return NEW_DEBUG wxMetafileRefData;
 }
 
 wxGDIRefData *wxMetafile::CloneGDIRefData(const wxGDIRefData *data) const
 {
-    return new wxMetafileRefData(*static_cast<const wxMetafileRefData *>(data));
+    return NEW_DEBUG wxMetafileRefData(*static_cast<const wxMetafileRefData *>(data));
 }
 
 bool wxMetafile::SetClipboard(int width, int height)
@@ -144,7 +144,7 @@ bool wxMetafile::Play(wxDC *dc)
 void wxMetafile::SetHMETAFILE(WXHANDLE mf)
 {
     if (!m_refData)
-        m_refData = new wxMetafileRefData;
+        m_refData = NEW_DEBUG wxMetafileRefData;
 
     M_METAFILEDATA->m_metafile = mf;
 }
@@ -152,7 +152,7 @@ void wxMetafile::SetHMETAFILE(WXHANDLE mf)
 void wxMetafile::SetWindowsMappingMode(int mm)
 {
     if (!m_refData)
-        m_refData = new wxMetafileRefData;
+        m_refData = NEW_DEBUG wxMetafileRefData;
 
     M_METAFILEDATA->m_windowsMappingMode = mm;
 }
@@ -263,7 +263,7 @@ wxMetafile *wxMetafileDCImpl::Close()
     m_hDC = 0;
     if (mf)
     {
-        wxMetafile *wx_mf = new wxMetafile;
+        wxMetafile *wx_mf = NEW_DEBUG wxMetafile;
         wx_mf->SetHMETAFILE((WXHANDLE) mf);
         wx_mf->SetWindowsMappingMode(m_windowsMappingMode);
         return wx_mf;

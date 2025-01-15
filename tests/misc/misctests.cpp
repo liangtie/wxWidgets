@@ -100,7 +100,7 @@ void MiscTestCase::CallForEach()
 void MiscTestCase::Delete()
 {
     // Allocate some arbitrary memory to get a valid pointer:
-    long *pointer = new long;
+    long *pointer = NEW_DEBUG long;
     CPPUNIT_ASSERT( pointer != NULL );
 
     // Check that wxDELETE sets the pointer to NULL:
@@ -108,7 +108,7 @@ void MiscTestCase::Delete()
     CPPUNIT_ASSERT( pointer == NULL );
 
     // Allocate some arbitrary array to get a valid pointer:
-    long *array = new long[ 3 ];
+    long *array = NEW_DEBUG long[ 3 ];
     CPPUNIT_ASSERT( array != NULL );
 
     // Check that wxDELETEA sets the pointer to NULL:

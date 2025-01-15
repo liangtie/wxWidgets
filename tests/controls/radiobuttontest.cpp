@@ -38,7 +38,7 @@ protected:
 
 RadioButtonTestCase::RadioButtonTestCase()
 {
-    m_radio = new wxRadioButton(wxTheApp->GetTopWindow(), wxID_ANY,
+    m_radio = NEW_DEBUG wxRadioButton(wxTheApp->GetTopWindow(), wxID_ANY,
                                 "wxRadioButton");
     m_radio->Update();
     m_radio->Refresh();
@@ -89,22 +89,22 @@ TEST_CASE_METHOD(RadioButtonTestCase, "RadioButton::Group", "[radiobutton]")
     wxWindow* const parent = wxTheApp->GetTopWindow();
 
     // Create two different radio groups.
-    wxScopedPtr<wxRadioButton> g1radio0(new wxRadioButton(parent, wxID_ANY, "radio 1.0",
+    wxScopedPtr<wxRadioButton> g1radio0(NEW_DEBUG wxRadioButton(parent, wxID_ANY, "radio 1.0",
                                                 wxDefaultPosition, wxDefaultSize,
                                                 wxRB_GROUP));
 
-    wxScopedPtr<wxRadioButton> g1radio1(new wxRadioButton(parent, wxID_ANY, "radio 1.1"));
+    wxScopedPtr<wxRadioButton> g1radio1(NEW_DEBUG wxRadioButton(parent, wxID_ANY, "radio 1.1"));
 
-    wxScopedPtr<wxRadioButton> g2radio0(new wxRadioButton(parent, wxID_ANY, "radio 2.0",
+    wxScopedPtr<wxRadioButton> g2radio0(NEW_DEBUG wxRadioButton(parent, wxID_ANY, "radio 2.0",
                                                 wxDefaultPosition, wxDefaultSize,
                                                 wxRB_GROUP));
 
-    wxScopedPtr<wxRadioButton> g2radio1(new wxRadioButton(parent, wxID_ANY, "radio 2.1"));
+    wxScopedPtr<wxRadioButton> g2radio1(NEW_DEBUG wxRadioButton(parent, wxID_ANY, "radio 2.1"));
 
     // Check that having another control between radio buttons doesn't break
     // grouping.
-    wxScopedPtr<wxStaticText> text(new wxStaticText(parent, wxID_ANY, "Label"));
-    wxScopedPtr<wxRadioButton> g2radio2(new wxRadioButton(parent, wxID_ANY, "radio 2.2"));
+    wxScopedPtr<wxStaticText> text(NEW_DEBUG wxStaticText(parent, wxID_ANY, "Label"));
+    wxScopedPtr<wxRadioButton> g2radio2(NEW_DEBUG wxRadioButton(parent, wxID_ANY, "radio 2.2"));
 
     g1radio0->SetValue(true);
     g2radio0->SetValue(true);
@@ -174,24 +174,24 @@ TEST_CASE_METHOD(RadioButtonTestCase, "RadioButton::Group", "[radiobutton]")
 TEST_CASE_METHOD(RadioButtonTestCase, "RadioButton::Single", "[radiobutton]")
 {
     //Create a group of 2 buttons, having second button selected
-    wxScopedPtr<wxRadioButton> gradio0(new wxRadioButton(wxTheApp->GetTopWindow(),
+    wxScopedPtr<wxRadioButton> gradio0(NEW_DEBUG wxRadioButton(wxTheApp->GetTopWindow(),
         wxID_ANY, "wxRadioButton",
         wxDefaultPosition,
         wxDefaultSize, wxRB_GROUP));
 
-    wxScopedPtr<wxRadioButton> gradio1(new wxRadioButton(wxTheApp->GetTopWindow(),
+    wxScopedPtr<wxRadioButton> gradio1(NEW_DEBUG wxRadioButton(wxTheApp->GetTopWindow(),
         wxID_ANY, "wxRadioButton"));
 
     gradio1->SetValue(true);
 
     //Create a "single" button (by default it will not be selected)
-    wxScopedPtr<wxRadioButton> sradio(new wxRadioButton(wxTheApp->GetTopWindow(),
+    wxScopedPtr<wxRadioButton> sradio(NEW_DEBUG wxRadioButton(wxTheApp->GetTopWindow(),
         wxID_ANY, "wxRadioButton",
         wxDefaultPosition,
         wxDefaultSize, wxRB_SINGLE));
 
     //Create a non-grouped button and select it
-    wxScopedPtr<wxRadioButton> ngradio(new wxRadioButton(wxTheApp->GetTopWindow(),
+    wxScopedPtr<wxRadioButton> ngradio(NEW_DEBUG wxRadioButton(wxTheApp->GetTopWindow(),
         wxID_ANY, "wxRadioButton"));
 
     ngradio->SetValue(true);
@@ -214,22 +214,22 @@ TEST_CASE("RadioButton::Focus", "[radiobutton][focus]")
     // Create a container panel just to be able to destroy all the windows
     // created here at once by simply destroying it.
     wxWindow* const tlw = wxTheApp->GetTopWindow();
-    wxScopedPtr<wxPanel> parentPanel(new wxPanel(tlw));
+    wxScopedPtr<wxPanel> parentPanel(NEW_DEBUG wxPanel(tlw));
 
     // Create a panel containing 2 radio buttons and another control outside
     // this panel, so that we could give focus to something different and then
     // return it back to the panel.
-    wxPanel* const radioPanel = new wxPanel(parentPanel.get());
-    wxRadioButton* const radio1 = new wxRadioButton(radioPanel, wxID_ANY, "1");
-    wxRadioButton* const radio2 = new wxRadioButton(radioPanel, wxID_ANY, "2");
-    wxSizer* const radioSizer = new wxBoxSizer(wxHORIZONTAL);
+    wxPanel* const radioPanel = NEW_DEBUG wxPanel(parentPanel.get());
+    wxRadioButton* const radio1 = NEW_DEBUG wxRadioButton(radioPanel, wxID_ANY, "1");
+    wxRadioButton* const radio2 = NEW_DEBUG wxRadioButton(radioPanel, wxID_ANY, "2");
+    wxSizer* const radioSizer = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     radioSizer->Add(radio1);
     radioSizer->Add(radio2);
     radioPanel->SetSizer(radioSizer);
 
-    wxButton* const dummyButton = new wxButton(parentPanel.get(), wxID_OK);
+    wxButton* const dummyButton = NEW_DEBUG wxButton(parentPanel.get(), wxID_OK);
 
-    wxSizer* const sizer = new wxBoxSizer(wxVERTICAL);
+    wxSizer* const sizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     sizer->Add(radioPanel, wxSizerFlags(1).Expand());
     sizer->Add(dummyButton, wxSizerFlags().Expand());
     parentPanel->SetSizer(sizer);

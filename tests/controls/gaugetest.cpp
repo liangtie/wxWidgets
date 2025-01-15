@@ -48,7 +48,7 @@ CPPUNIT_TEST_SUITE_NAMED_REGISTRATION( GaugeTestCase, "GaugeTestCase" );
 
 void GaugeTestCase::setUp()
 {
-    m_gauge = new wxGauge(wxTheApp->GetTopWindow(), wxID_ANY, 100);
+    m_gauge = NEW_DEBUG wxGauge(wxTheApp->GetTopWindow(), wxID_ANY, 100);
 }
 
 void GaugeTestCase::tearDown()
@@ -62,13 +62,13 @@ void GaugeTestCase::Direction()
     CPPUNIT_ASSERT(!m_gauge->IsVertical());
 
     wxDELETE(m_gauge);
-    m_gauge = new wxGauge(wxTheApp->GetTopWindow(), wxID_ANY, 100,
+    m_gauge = NEW_DEBUG wxGauge(wxTheApp->GetTopWindow(), wxID_ANY, 100,
                           wxDefaultPosition, wxDefaultSize, wxGA_VERTICAL);
 
     CPPUNIT_ASSERT(m_gauge->IsVertical());
 
     wxDELETE(m_gauge);
-    m_gauge = new wxGauge(wxTheApp->GetTopWindow(), wxID_ANY, 100,
+    m_gauge = NEW_DEBUG wxGauge(wxTheApp->GetTopWindow(), wxID_ANY, 100,
                           wxDefaultPosition, wxDefaultSize, wxGA_HORIZONTAL);
 
     CPPUNIT_ASSERT(!m_gauge->IsVertical());

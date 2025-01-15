@@ -49,7 +49,7 @@ rhhcClient::rhhcClient( bool *isconn_a )
 
 wxConnectionBase *rhhcClient::OnMakeConnection()
 {
-    return new rhhcConnection( isconn_2 );
+    return NEW_DEBUG rhhcConnection( isconn_2 );
 }
 
 rhhcConnection::rhhcConnection( bool *isconn_a )
@@ -165,8 +165,8 @@ bool wxRemoteHtmlHelpController::DoConnection()
     // ignored under DDE, host name in TCP/IP based classes
     wxString hostName = wxT("localhost");
 
-    // Create a new client
-    if( !m_client ) m_client = new rhhcClient(&isconn_1);
+    // Create a NEW_DEBUG client
+    if( !m_client ) m_client = NEW_DEBUG rhhcClient(&isconn_1);
 
     nsleep = 0;
 
@@ -186,10 +186,10 @@ bool wxRemoteHtmlHelpController::DoConnection()
 
             cmd = m_appname + blank + m_service + blank + m_windowname + blank + m_book + blank + stylestr;
 
-            m_process = new wxProcess(NULL);
+            m_process = NEW_DEBUG wxProcess(NULL);
             m_pid = wxExecute( cmd, false, m_process );
             // leaks - wxExecute itself (if not deleted) and in wxExecute at
-            // wxExecuteData *data = new wxExecuteData;
+            // wxExecuteData *data = NEW_DEBUG wxExecuteData;
             if( m_pid <= 0 ) {
                 wxLogError( wxT("wxRemoteHtmlHelpController - Failed to start Help server") );
                 return false;

@@ -151,7 +151,7 @@ public:
         // once, e.g. wxPython does it, see #23165, and in this case we
         // shouldn't lose the current state.
         if ( !wxPGGlobalVars )
-            wxPGGlobalVars = new wxPGGlobalVarsClass();
+            wxPGGlobalVars = NEW_DEBUG wxPGGlobalVarsClass();
         return true;
     }
     virtual void OnExit() wxOVERRIDE { wxDELETE(wxPGGlobalVars); }
@@ -164,7 +164,7 @@ wxIMPLEMENT_DYNAMIC_CLASS(wxPGGlobalVarsClassManager, wxModule);
 // then the built-in module system won't pick this one up.  Add it manually.
 void wxPGInitResourceModule()
 {
-    wxModule* module = new wxPGGlobalVarsClassManager;
+    wxModule* module = NEW_DEBUG wxPGGlobalVarsClassManager;
     wxModule::RegisterModule(module);
     wxModule::InitializeModules();
 }
@@ -175,7 +175,7 @@ wxPGGlobalVarsClass* wxPGGlobalVars = NULL;
 wxPGGlobalVarsClass::wxPGGlobalVarsClass()
     // Prepare some shared variants
     : m_fontFamilyChoices(NULL)
-    , m_defaultRenderer(new wxPGDefaultRenderer())
+    , m_defaultRenderer(NEW_DEBUG wxPGDefaultRenderer())
     , m_vEmptyString(wxString())
     , m_vZero(0L)
     , m_vMinusOne(-1L)
@@ -199,7 +199,7 @@ wxPGGlobalVarsClass::wxPGGlobalVarsClass()
     , m_extraStyle(0)
     , m_warnings(0)
 {
-    wxPGProperty::sm_wxPG_LABEL = new wxString(wxPG_LABEL_STRING);
+    wxPGProperty::sm_wxPG_LABEL = NEW_DEBUG wxString(wxPG_LABEL_STRING);
 
     /* TRANSLATORS: Name of Boolean false value */
     m_boolChoices.Add(_("False"));
@@ -386,14 +386,14 @@ void wxPropertyGrid::Init1()
     m_width = m_height = 0;
 
     /* TRANSLATORS: Text  displayed for unspecified value */
-    m_commonValues.push_back(new wxPGCommonValue(_("Unspecified"), wxPGGlobalVars->m_defaultRenderer) );
+    m_commonValues.push_back(NEW_DEBUG wxPGCommonValue(_("Unspecified"), wxPGGlobalVars->m_defaultRenderer) );
     m_cvUnspecified = 0;
 
     m_chgInfo_changedProperty = NULL;
 #if WXWIN_COMPATIBILITY_3_0
     // Object array for this wxPG shouldn't exist in the hash map.
     wxASSERT( gs_deletedEditorObjects.find(this) == gs_deletedEditorObjects.end() );
-    gs_deletedEditorObjects[this] = new wxArrayPGObject;
+    gs_deletedEditorObjects[this] = NEW_DEBUG wxArrayPGObject;
 #endif
 }
 
@@ -601,7 +601,7 @@ bool wxPropertyGrid::Destroy()
 
 wxPropertyGridPageState* wxPropertyGrid::CreateState() const
 {
-    return new wxPropertyGridPageState();
+    return NEW_DEBUG wxPropertyGridPageState();
 }
 
 // -----------------------------------------------------------------------
@@ -1198,7 +1198,7 @@ void wxPropertyGrid::OnTLPChanging( wxWindow* newTLP )
 
     if ( newTLP )
     {
-        // Only accept new tlp if same one was not just dismissed.
+        // Only accept NEW_DEBUG tlp if same one was not just dismissed.
         if ( newTLP != m_tlpClosed ||
              m_tlpClosedTime+250 < currentTime )
         {
@@ -1880,12 +1880,12 @@ void wxPropertyGrid::OnPaint( wxPaintEvent& WXUNUSED(event) )
     {
         if ( m_doubleBuffer )
         {
-            dcPtr = new wxBufferedPaintDC(this, *m_doubleBuffer);
+            dcPtr = NEW_DEBUG wxBufferedPaintDC(this, *m_doubleBuffer);
         }
     }
     if ( !dcPtr )
     {
-        dcPtr = new wxPaintDC(this);
+        dcPtr = NEW_DEBUG wxPaintDC(this);
     }
     wxASSERT( dcPtr );
     PrepareDC(*dcPtr);
@@ -2906,7 +2906,7 @@ bool wxPropertyGrid::CommitChangesFromEditor( wxUint32 flags )
         wxVariant variant(selected->GetValueRef());
         bool valueIsPending = false;
 
-        // JACS - necessary to avoid new focus being found spuriously within OnIdle
+        // JACS - necessary to avoid NEW_DEBUG focus being found spuriously within OnIdle
         // due to another window getting focus
         wxWindow* oldFocus = m_curFocused;
 
@@ -3934,7 +3934,7 @@ void wxPropertyGrid::SetupChildEventHandling( wxWindow* argWnd )
     }
 
     wxPropertyGridEditorEventForwarder* forwarder;
-    forwarder = new wxPropertyGridEditorEventForwarder(this);
+    forwarder = NEW_DEBUG wxPropertyGridEditorEventForwarder(this);
     argWnd->PushEventHandler(forwarder);
 
     argWnd->Bind(wxEVT_KEY_DOWN, &wxPropertyGrid::OnChildKeyDown, this, id);
@@ -4601,7 +4601,7 @@ void wxPropertyGrid::OnResize( wxSizeEvent& event )
             // Create double buffer bitmap to draw on, if none
             int w = wxMax(width, 250);
             int h = wxMax(height + dblh, 400);
-            m_doubleBuffer = new wxBitmap;
+            m_doubleBuffer = NEW_DEBUG wxBitmap;
             m_doubleBuffer->CreateWithDIPSize( w, h, scaleFactor );
         }
         else
@@ -4615,7 +4615,7 @@ void wxPropertyGrid::OnResize( wxSizeEvent& event )
                 if ( w < width ) w = width;
                 if ( h < (height+dblh) ) h = height + dblh;
                 delete m_doubleBuffer;
-                m_doubleBuffer = new wxBitmap;
+                m_doubleBuffer = NEW_DEBUG wxBitmap;
                 m_doubleBuffer->CreateWithDIPSize( w, h, scaleFactor );
             }
         }
@@ -6108,7 +6108,7 @@ wxPGEditor* wxPropertyGrid::DoRegisterEditorClass( wxPGEditor* editorClass,
     if ( wxPGEditor_##EDITOR == NULL ) \
     { \
         wxPGEditor_##EDITOR = wxPropertyGrid::RegisterEditorClass( \
-            new wxPG##EDITOR##Editor, true ); \
+            NEW_DEBUG wxPG##EDITOR##Editor, true ); \
     }
 
 // Registers all default editor classes
@@ -6358,7 +6358,7 @@ wxPropertyGridEvent::~wxPropertyGridEvent()
 
 wxEvent* wxPropertyGridEvent::Clone() const
 {
-    return new wxPropertyGridEvent( *this );
+    return NEW_DEBUG wxPropertyGridEvent( *this );
 }
 
 // -----------------------------------------------------------------------
@@ -6420,7 +6420,7 @@ wxPGProperty* wxPropertyGridPopulator::Add( const wxString& propClass,
 
     if ( parent->HasFlag(wxPG_PROP_AGGREGATE) )
     {
-        ProcessError(wxString::Format(wxS("new children cannot be added to '%s'"),parent->GetName()));
+        ProcessError(wxString::Format(wxS("NEW_DEBUG children cannot be added to '%s'"),parent->GetName()));
         return NULL;
     }
 

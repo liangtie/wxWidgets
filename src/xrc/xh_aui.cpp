@@ -102,9 +102,9 @@ wxObject *wxAuiXmlHandler::DoCreateResource()
             wxWindow     *old_win = m_window;
 
             // Create the manager with the specified or default style and
-            // assign the new values related to this manager
+            // assign the NEW_DEBUG values related to this manager
             m_window    = m_parentAsWindow;
-            manager     = new wxAuiManager( m_window,
+            manager     = NEW_DEBUG wxAuiManager( m_window,
                                             GetStyle(wxS("style"), wxAUI_MGR_DEFAULT) );
             m_manager   = manager;
             m_mgrInside = true;
@@ -277,9 +277,9 @@ wxObject *wxAuiXmlHandler::DoCreateResource()
 
         wxString provider = GetText("art-provider", false);
         if (provider == "default" || provider.IsEmpty())
-            anb->SetArtProvider(new wxAuiDefaultTabArt);
+            anb->SetArtProvider(NEW_DEBUG wxAuiDefaultTabArt);
         else if (provider.CmpNoCase("simple") == 0)
-            anb->SetArtProvider(new wxAuiSimpleTabArt);
+            anb->SetArtProvider(NEW_DEBUG wxAuiSimpleTabArt);
         else
             ReportError("invalid wxAuiNotebook art provider");
 

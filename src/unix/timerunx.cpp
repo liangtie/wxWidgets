@@ -62,7 +62,7 @@ wxTimerScheduler::~wxTimerScheduler()
 
 void wxTimerScheduler::AddTimer(wxUnixTimerImpl *timer, wxUsecClock_t expiration)
 {
-    DoAddTimer(new wxTimerSchedule(timer, expiration));
+    DoAddTimer(NEW_DEBUG wxTimerSchedule(timer, expiration));
 }
 
 void wxTimerScheduler::DoAddTimer(wxTimerSchedule *s)
@@ -252,7 +252,7 @@ wxIMPLEMENT_DYNAMIC_CLASS(wxTimerUnixModule, wxModule);
 
 wxTimerImpl *wxConsoleAppTraits::CreateTimerImpl(wxTimer *timer)
 {
-    return new wxUnixTimerImpl(timer);
+    return NEW_DEBUG wxUnixTimerImpl(timer);
 }
 
 #endif // wxUSE_TIMER

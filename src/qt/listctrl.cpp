@@ -97,7 +97,7 @@ public:
             destroyEditor(m_textCtrl->GetHandle(), m_currentModelIndex);
 
         m_currentModelIndex = index;
-        m_textCtrl = new wxQtListTextCtrl(m_parent, parent);
+        m_textCtrl = NEW_DEBUG wxQtListTextCtrl(m_parent, parent);
         m_textCtrl->SetFocus();
         return m_textCtrl->GetHandle();
     }
@@ -1059,10 +1059,10 @@ bool wxListCtrl::Create(wxWindow *parent,
             const wxString& name)
 {
     m_model = style & wxLC_VIRTUAL
-        ? new wxQtVirtualListModel(this)
-        : new wxQtListModel(this);
+        ? NEW_DEBUG wxQtVirtualListModel(this)
+        : NEW_DEBUG wxQtListModel(this);
 
-    m_qtTreeWidget = new wxQtListTreeWidget(parent, this);
+    m_qtTreeWidget = NEW_DEBUG wxQtListTreeWidget(parent, this);
     m_qtTreeWidget->setModel(m_model);
     m_model->SetView(m_qtTreeWidget);
 
@@ -1497,8 +1497,8 @@ void wxListCtrl::SetWindowStyleFlag(long style)
     {
         wxQtListModel *oldModel = m_model;
         m_model = needVirtual
-            ? new wxQtVirtualListModel(this)
-            : new wxQtListModel(this);
+            ? NEW_DEBUG wxQtVirtualListModel(this)
+            : NEW_DEBUG wxQtListModel(this);
         m_model->SetView(m_qtTreeWidget);
         m_qtTreeWidget->setModel(m_model);
         delete oldModel;

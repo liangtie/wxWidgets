@@ -40,10 +40,10 @@ void wxQtTabWidget::currentChanged(int index)
         {
             handler->ChangeSelection(old);
         }
-        // send the wx event and check if accepted (and then show the new tab):
+        // send the wx event and check if accepted (and then show the NEW_DEBUG tab):
         if (handler->SendPageChangingEvent(index))
         {
-            // not vetoed, send the event and store new index
+            // not vetoed, send the event and store NEW_DEBUG index
             handler->ChangeSelection(index);
             handler->SendPageChangedEvent(old, index);
         }
@@ -73,7 +73,7 @@ bool wxNotebook::Create(wxWindow *parent,
           long style,
           const wxString& name)
 {
-    m_qtTabWidget = new wxQtTabWidget( parent, this );
+    m_qtTabWidget = NEW_DEBUG wxQtTabWidget( parent, this );
 
     return QtCreateControl( parent, id, pos, size, style, wxDefaultValidator, name );
 }
@@ -115,7 +115,7 @@ bool wxNotebook::SetPageImage(size_t n, int imageId)
     {
         wxCHECK_MSG(HasImageList(), false, "invalid notebook imagelist");
         const wxBitmap bitmap = GetImageList()->GetBitmap(imageId);
-        // set the new image:
+        // set the NEW_DEBUG image:
         m_qtTabWidget->setTabIcon( n, QIcon( *bitmap.GetHandle() ));
     }
     else

@@ -112,7 +112,7 @@ bool AutoCaptureMechanism::Capture(wxBitmap* bitmap, int x, int y,
                 y  // What's the Y offset in the original DC?
               );
 
-    // Select the Bitmap out of the memory DC by selecting a new
+    // Select the Bitmap out of the memory DC by selecting a NEW_DEBUG
     // uninitialized Bitmap
     memDC.SelectObject(wxNullBitmap);
 #endif // #ifdef __WXMAC__
@@ -296,21 +296,21 @@ wxRect AutoCaptureMechanism::GetRect(wxWindow* ctrl, int flag)
         +---------+-----------+---------+
        */
 
-        m_grid = new wxFlexGridSizer(3, 3, m_margin, m_margin);
+        m_grid = NEW_DEBUG wxFlexGridSizer(3, 3, m_margin, m_margin);
 
         wxStaticText* l[4];
 
         for (int i = 0; i < 4; ++i)
-            l[i] = new wxStaticText(parent, wxID_ANY, wxT(" "));
+            l[i] = NEW_DEBUG wxStaticText(parent, wxID_ANY, wxT(" "));
 
         m_grid->Add(l[0]);
-        m_grid->Add(new wxStaticText(parent, wxID_ANY, wxT(" ")));
+        m_grid->Add(NEW_DEBUG wxStaticText(parent, wxID_ANY, wxT(" ")));
         m_grid->Add(l[1]);
-        m_grid->Add(new wxStaticText(parent, wxID_ANY, wxT(" ")));
+        m_grid->Add(NEW_DEBUG wxStaticText(parent, wxID_ANY, wxT(" ")));
         m_grid->Add(ctrl, 1, wxEXPAND);
-        m_grid->Add(new wxStaticText(parent, wxID_ANY, wxT(" ")));
+        m_grid->Add(NEW_DEBUG wxStaticText(parent, wxID_ANY, wxT(" ")));
         m_grid->Add(l[2]);
-        m_grid->Add(new wxStaticText(parent, wxID_ANY, wxT(" ")));
+        m_grid->Add(NEW_DEBUG wxStaticText(parent, wxID_ANY, wxT(" ")));
         m_grid->Add(l[3]);
 
         sizer->Add(m_grid);

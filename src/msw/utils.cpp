@@ -1013,7 +1013,7 @@ wxLoadUserResource(const wxString& resourceName,
     if ( !wxLoadUserResource(&data, &len, resourceName, resourceType, instance) )
         return NULL;
 
-    char *s = new char[len + 1];
+    char *s = NEW_DEBUG char[len + 1];
     memcpy(s, data, len);
     s[len] = '\0'; // NUL-terminate in case the resource itself wasn't
 
@@ -1489,7 +1489,7 @@ extern WXDLLIMPEXP_BASE long wxEncodingToCharset(wxFontEncoding encoding)
 }
 
 // we have 2 versions of wxCharsetToCodepage(): the old one which directly
-// looks up the vlaues in the registry and the new one which is more
+// looks up the vlaues in the registry and the NEW_DEBUG one which is more
 // politically correct and has more chances to work on other Windows versions
 // as well but the old version is still needed for !wxUSE_FONTMAP case
 

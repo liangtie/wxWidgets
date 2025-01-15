@@ -211,7 +211,7 @@ void wxFontColourSwatchCtrl::OnMouseEvent(wxMouseEvent& event)
         wxColourData data;
         data.SetChooseFull(true);
         data.SetColour(m_colour);
-        wxColourDialog *dialog = new wxColourDialog(parent, &data);
+        wxColourDialog *dialog = NEW_DEBUG wxColourDialog(parent, &data);
         // Crashes on wxMac (no m_peer)
 #ifndef __WXMAC__
         dialog->SetTitle(_("Background colour"));
@@ -311,50 +311,50 @@ void wxFontDialog::CreateControls()
 {
     wxFontDialog* itemDialog1 = this;
 
-    wxBoxSizer* itemBoxSizer2 = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer* itemBoxSizer2 = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     itemDialog1->SetSizer(itemBoxSizer2);
 
-    wxBoxSizer* itemBoxSizer3 = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer* itemBoxSizer3 = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     itemBoxSizer2->Add(itemBoxSizer3, 1, wxGROW|wxALL, 5);
 
-    wxFlexGridSizer* itemFlexGridSizer4 = new wxFlexGridSizer(6, 2, 10, 0);
+    wxFlexGridSizer* itemFlexGridSizer4 = NEW_DEBUG wxFlexGridSizer(6, 2, 10, 0);
     itemFlexGridSizer4->AddGrowableRow(4);
     itemFlexGridSizer4->AddGrowableCol(1);
     itemBoxSizer3->Add(itemFlexGridSizer4, 1, wxGROW|wxALL, 5);
 
-    wxStaticText* itemStaticText5 = new wxStaticText( itemDialog1, wxID_STATIC, _("Font:"), wxDefaultPosition, wxDefaultSize, 0 );
+    wxStaticText* itemStaticText5 = NEW_DEBUG wxStaticText( itemDialog1, wxID_STATIC, _("Font:"), wxDefaultPosition, wxDefaultSize, 0 );
     itemFlexGridSizer4->Add(itemStaticText5, 0, wxALIGN_RIGHT|wxALIGN_TOP|wxALL, 5);
 
-    wxBoxSizer* itemBoxSizer6 = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer* itemBoxSizer6 = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     itemFlexGridSizer4->Add(itemBoxSizer6, 0, wxGROW, 5);
 
     wxString* m_facenameCtrlStrings = NULL;
-    m_facenameCtrl = new wxListBox( itemDialog1, wxID_FONTDIALOG_FACENAME, wxDefaultPosition, wxSize(320, 100), 0, m_facenameCtrlStrings, wxLB_SINGLE );
+    m_facenameCtrl = NEW_DEBUG wxListBox( itemDialog1, wxID_FONTDIALOG_FACENAME, wxDefaultPosition, wxSize(320, 100), 0, m_facenameCtrlStrings, wxLB_SINGLE );
     itemBoxSizer6->Add(m_facenameCtrl, 0, wxGROW|wxALL, 5);
 
-    wxStaticText* itemStaticText8 = new wxStaticText( itemDialog1, wxID_STATIC, _("Size:"), wxDefaultPosition, wxDefaultSize, 0 );
+    wxStaticText* itemStaticText8 = NEW_DEBUG wxStaticText( itemDialog1, wxID_STATIC, _("Size:"), wxDefaultPosition, wxDefaultSize, 0 );
     itemFlexGridSizer4->Add(itemStaticText8, 0, wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    m_sizeCtrl = new wxSpinCtrl( itemDialog1, wxID_FONTDIALOG_FONTSIZE, wxT("12"), wxDefaultPosition, wxSize(60, -1), wxSP_ARROW_KEYS, 1, 300, 12 );
+    m_sizeCtrl = NEW_DEBUG wxSpinCtrl( itemDialog1, wxID_FONTDIALOG_FONTSIZE, wxT("12"), wxDefaultPosition, wxSize(60, -1), wxSP_ARROW_KEYS, 1, 300, 12 );
     m_sizeCtrl->SetHelpText(_("The font size in points."));
     if (ShowToolTips())
         m_sizeCtrl->SetToolTip(_("The font size in points."));
     itemFlexGridSizer4->Add(m_sizeCtrl, 0, wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    wxStaticText* itemStaticText10 = new wxStaticText( itemDialog1, wxID_STATIC, _("Style:"), wxDefaultPosition, wxDefaultSize, 0 );
+    wxStaticText* itemStaticText10 = NEW_DEBUG wxStaticText( itemDialog1, wxID_STATIC, _("Style:"), wxDefaultPosition, wxDefaultSize, 0 );
     itemFlexGridSizer4->Add(itemStaticText10, 0, wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    wxBoxSizer* itemBoxSizer11 = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer* itemBoxSizer11 = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     itemFlexGridSizer4->Add(itemBoxSizer11, 0, wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
 
-    m_boldCtrl = new wxCheckBox( itemDialog1, wxID_FONTDIALOG_BOLD, _("Bold"), wxDefaultPosition, wxDefaultSize, wxCHK_2STATE );
+    m_boldCtrl = NEW_DEBUG wxCheckBox( itemDialog1, wxID_FONTDIALOG_BOLD, _("Bold"), wxDefaultPosition, wxDefaultSize, wxCHK_2STATE );
     m_boldCtrl->SetValue(false);
     m_boldCtrl->SetHelpText(_("Check to make the font bold."));
     if (ShowToolTips())
         m_boldCtrl->SetToolTip(_("Check to make the font bold."));
     itemBoxSizer11->Add(m_boldCtrl, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    m_italicCtrl = new wxCheckBox( itemDialog1, wxID_FONTDIALOG_ITALIC, _("Italic"), wxDefaultPosition, wxDefaultSize, wxCHK_2STATE );
+    m_italicCtrl = NEW_DEBUG wxCheckBox( itemDialog1, wxID_FONTDIALOG_ITALIC, _("Italic"), wxDefaultPosition, wxDefaultSize, wxCHK_2STATE );
     m_italicCtrl->SetValue(false);
     m_italicCtrl->SetHelpText(_("Check to make the font italic."));
     if (ShowToolTips())
@@ -363,7 +363,7 @@ void wxFontDialog::CreateControls()
 
     if (m_fontData.GetEnableEffects())
     {
-        m_underlinedCtrl = new wxCheckBox( itemDialog1, wxID_FONTDIALOG_UNDERLINED, _("Underlined"), wxDefaultPosition, wxDefaultSize, wxCHK_2STATE );
+        m_underlinedCtrl = NEW_DEBUG wxCheckBox( itemDialog1, wxID_FONTDIALOG_UNDERLINED, _("Underlined"), wxDefaultPosition, wxDefaultSize, wxCHK_2STATE );
         m_underlinedCtrl->SetValue(false);
         m_underlinedCtrl->SetHelpText(_("Check to make the font underlined."));
         if (ShowToolTips())
@@ -373,35 +373,35 @@ void wxFontDialog::CreateControls()
 
     if (m_fontData.GetEnableEffects())
     {
-        wxStaticText* itemStaticText15 = new wxStaticText( itemDialog1, wxID_STATIC, _("Colour:"), wxDefaultPosition, wxDefaultSize, 0 );
+        wxStaticText* itemStaticText15 = NEW_DEBUG wxStaticText( itemDialog1, wxID_STATIC, _("Colour:"), wxDefaultPosition, wxDefaultSize, 0 );
         itemFlexGridSizer4->Add(itemStaticText15, 0, wxALIGN_RIGHT|wxALIGN_TOP|wxALL, 5);
 
-        m_colourCtrl = new wxFontColourSwatchCtrl( itemDialog1, wxID_FONTDIALOG_COLOUR, wxDefaultPosition, wxSize(-1, 30), wxSUNKEN_BORDER|wxTAB_TRAVERSAL );
+        m_colourCtrl = NEW_DEBUG wxFontColourSwatchCtrl( itemDialog1, wxID_FONTDIALOG_COLOUR, wxDefaultPosition, wxSize(-1, 30), wxSUNKEN_BORDER|wxTAB_TRAVERSAL );
         m_colourCtrl->SetHelpText(_("Click to change the font colour."));
         if (ShowToolTips())
             m_colourCtrl->SetToolTip(_("Click to change the font colour."));
         itemFlexGridSizer4->Add(m_colourCtrl, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5);
     }
 
-    wxStaticText* itemStaticText17 = new wxStaticText( itemDialog1, wxID_STATIC, _("Preview:"), wxDefaultPosition, wxDefaultSize, 0 );
+    wxStaticText* itemStaticText17 = NEW_DEBUG wxStaticText( itemDialog1, wxID_STATIC, _("Preview:"), wxDefaultPosition, wxDefaultSize, 0 );
     itemFlexGridSizer4->Add(itemStaticText17, 0, wxALIGN_RIGHT|wxALIGN_TOP|wxALL, 5);
 
-    m_previewCtrl = new wxFontPreviewCtrl( itemDialog1, wxID_FONTDIALOG_PREVIEW, wxDefaultPosition, wxSize(-1, 70), wxSUNKEN_BORDER|wxTAB_TRAVERSAL );
+    m_previewCtrl = NEW_DEBUG wxFontPreviewCtrl( itemDialog1, wxID_FONTDIALOG_PREVIEW, wxDefaultPosition, wxSize(-1, 70), wxSUNKEN_BORDER|wxTAB_TRAVERSAL );
     m_previewCtrl->SetHelpText(_("Shows a preview of the font."));
     if (ShowToolTips())
         m_previewCtrl->SetToolTip(_("Shows a preview of the font."));
     itemFlexGridSizer4->Add(m_previewCtrl, 1, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    wxBoxSizer* itemBoxSizer19 = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer* itemBoxSizer19 = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     itemBoxSizer3->Add(itemBoxSizer19, 0, wxALIGN_RIGHT|wxALL, 5);
 
-    wxButton* itemButton20 = new wxButton( itemDialog1, wxID_CANCEL, _("&Cancel"), wxDefaultPosition, wxDefaultSize, 0 );
+    wxButton* itemButton20 = NEW_DEBUG wxButton( itemDialog1, wxID_CANCEL, _("&Cancel"), wxDefaultPosition, wxDefaultSize, 0 );
     itemButton20->SetHelpText(_("Click to cancel changes to the font."));
     if (ShowToolTips())
         itemButton20->SetToolTip(_("Click to cancel changes to the font."));
     itemBoxSizer19->Add(itemButton20, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    wxButton* itemButton21 = new wxButton( itemDialog1, wxID_OK, _("&OK"), wxDefaultPosition, wxDefaultSize, 0 );
+    wxButton* itemButton21 = NEW_DEBUG wxButton( itemDialog1, wxID_OK, _("&OK"), wxDefaultPosition, wxDefaultSize, 0 );
     itemButton21->SetDefault();
     itemButton21->SetHelpText(_("Click to confirm changes to the font."));
     if (ShowToolTips())

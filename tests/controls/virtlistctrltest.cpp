@@ -80,7 +80,7 @@ void VirtListCtrlTestCase::setUp()
         }
     };
 
-    m_list = new VirtListCtrl;
+    m_list = NEW_DEBUG VirtListCtrl;
 }
 
 void VirtListCtrlTestCase::tearDown()

@@ -55,7 +55,7 @@ wxObject *wxStatusBarXmlHandler::DoCreateResource()
 
     if (fields > 1 && !widths.IsEmpty())
     {
-        int *width = new int[fields];
+        int *width = NEW_DEBUG int[fields];
 
         for (int i = 0; i < fields; ++i)
         {
@@ -71,7 +71,7 @@ wxObject *wxStatusBarXmlHandler::DoCreateResource()
 
     if (!styles.empty())
     {
-        int *style = new int[fields];
+        int *style = NEW_DEBUG int[fields];
         for (int i = 0; i < fields; ++i)
         {
             style[i] = wxSB_NORMAL;

@@ -74,7 +74,7 @@ void SliderTestCase::setUp()
     if ( ms_inversed )
         style |= wxSL_INVERSE;
 
-    m_slider = new wxSlider(wxTheApp->GetTopWindow(), wxID_ANY, 50, 0, 100,
+    m_slider = NEW_DEBUG wxSlider(wxTheApp->GetTopWindow(), wxID_ANY, 50, 0, 100,
                             wxDefaultPosition, wxDefaultSize,
                             style);
 }

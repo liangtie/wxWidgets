@@ -500,7 +500,7 @@ bool wxGLCanvas::Create(wxWindow *parent,
 
     if ( !wxGLCanvas::DoCreate(parent,id,pos,size,style,name) )
         return false;
-    
+
     return true;
 }
 
@@ -516,7 +516,7 @@ wxGLCanvas::wxGLCanvas(wxWindow *parent,
                        const wxPalette& palette)
 {
     if ( Create(parent, id, pos, size, style, name, attribList, palette) )
-        m_glContext = new wxGLContext(this);
+        m_glContext = NEW_DEBUG wxGLContext(this);
 }
 
 wxGLCanvas::wxGLCanvas(wxWindow *parent,
@@ -530,7 +530,7 @@ wxGLCanvas::wxGLCanvas(wxWindow *parent,
                        const wxPalette& palette)
 {
     if ( Create(parent, id, pos, size, style, name, attribList, palette) )
-        m_glContext = new wxGLContext(this, shared);
+        m_glContext = NEW_DEBUG wxGLContext(this, shared);
 }
 
 wxGLCanvas::wxGLCanvas(wxWindow *parent,
@@ -544,7 +544,7 @@ wxGLCanvas::wxGLCanvas(wxWindow *parent,
                        const wxPalette& palette)
 {
     if ( Create(parent, id, pos, size, style, name, attribList, palette) )
-        m_glContext = new wxGLContext(this, shared ? shared->m_glContext : NULL);
+        m_glContext = NEW_DEBUG wxGLContext(this, shared ? shared->m_glContext : NULL);
 }
 
 #endif // WXWIN_COMPATIBILITY_2_8

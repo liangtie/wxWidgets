@@ -8,7 +8,7 @@
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
 //
-// new DataBrowser-based version
+// NEW_DEBUG DataBrowser-based version
 
 
 #include "wx/wxprec.h"
@@ -55,8 +55,8 @@ bool wxCheckListBox::Create(
    long style,
    const wxValidator& validator,
    const wxString& name )
-{    
-    
+{
+
     wxASSERT_MSG( !(style & wxLB_MULTIPLE) || !(style & wxLB_EXTENDED),
                   wxT("only one of listbox selection modes can be specified") );
 
@@ -85,7 +85,7 @@ bool wxCheckListBox::IsChecked(unsigned int n) const
 
     // It's possible that m_checks has not yet been expanded to match the
     // wxCheckListBox::GetCount() value (for example while in the midst of
-    // appending a new item) so double-check that we don't read beyond the end
+    // appending a NEW_DEBUG item) so double-check that we don't read beyond the end
     // of the array.
     if (n < m_checks.size())
         return m_checks[n] != 0;

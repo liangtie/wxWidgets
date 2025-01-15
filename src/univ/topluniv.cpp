@@ -657,7 +657,7 @@ void wxTopLevelWindow::InteractiveMove(int flags)
     data.m_minSize = wxSize(GetMinWidth(), GetMinHeight());
     data.m_maxSize = wxSize(GetMaxWidth(), GetMaxHeight());
 
-    wxEvtHandler *handler = new wxInteractiveMoveHandler(data);
+    wxEvtHandler *handler = NEW_DEBUG wxInteractiveMoveHandler(data);
     this->PushEventHandler(handler);
 
     CaptureMouse();

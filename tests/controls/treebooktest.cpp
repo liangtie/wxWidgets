@@ -63,7 +63,7 @@ CPPUNIT_TEST_SUITE_NAMED_REGISTRATION( TreebookTestCase, "TreebookTestCase" );
 
 void TreebookTestCase::setUp()
 {
-    m_treebook = new wxTreebook(wxTheApp->GetTopWindow(), wxID_ANY);
+    m_treebook = NEW_DEBUG wxTreebook(wxTheApp->GetTopWindow(), wxID_ANY);
     AddPanels();
 }
 
@@ -74,9 +74,9 @@ void TreebookTestCase::tearDown()
 
 void TreebookTestCase::SubPages()
 {
-    wxPanel* subpanel1 = new wxPanel(m_treebook);
-    wxPanel* subpanel2 = new wxPanel(m_treebook);
-    wxPanel* subpanel3 = new wxPanel(m_treebook);
+    wxPanel* subpanel1 = NEW_DEBUG wxPanel(m_treebook);
+    wxPanel* subpanel2 = NEW_DEBUG wxPanel(m_treebook);
+    wxPanel* subpanel3 = NEW_DEBUG wxPanel(m_treebook);
 
     m_treebook->AddSubPage(subpanel1, "Subpanel 1", false, 0);
 
@@ -101,15 +101,15 @@ void TreebookTestCase::ContainerPage()
     REQUIRE_NOTHROW( m_treebook->AddPage(NULL, "Container page") );
     CHECK( m_treebook->GetPageParent(0) == -1 );
 
-    m_treebook->AddSubPage(new wxPanel(m_treebook), "Child page");
+    m_treebook->AddSubPage(NEW_DEBUG wxPanel(m_treebook), "Child page");
     CHECK( m_treebook->GetPageParent(1) == 0 );
 }
 
 void TreebookTestCase::Expand()
 {
-    wxPanel* subpanel1 = new wxPanel(m_treebook);
-    wxPanel* subpanel2 = new wxPanel(m_treebook);
-    wxPanel* subpanel3 = new wxPanel(m_treebook);
+    wxPanel* subpanel1 = NEW_DEBUG wxPanel(m_treebook);
+    wxPanel* subpanel2 = NEW_DEBUG wxPanel(m_treebook);
+    wxPanel* subpanel3 = NEW_DEBUG wxPanel(m_treebook);
 
     m_treebook->AddSubPage(subpanel1, "Subpanel 1", false, 0);
     m_treebook->InsertSubPage(1, subpanel2, "Subpanel 2", false, 1);
@@ -133,9 +133,9 @@ void TreebookTestCase::Expand()
 
 void TreebookTestCase::Delete()
 {
-    wxPanel* subpanel1 = new wxPanel(m_treebook);
-    wxPanel* subpanel2 = new wxPanel(m_treebook);
-    wxPanel* subpanel3 = new wxPanel(m_treebook);
+    wxPanel* subpanel1 = NEW_DEBUG wxPanel(m_treebook);
+    wxPanel* subpanel2 = NEW_DEBUG wxPanel(m_treebook);
+    wxPanel* subpanel3 = NEW_DEBUG wxPanel(m_treebook);
 
     m_treebook->AddSubPage(subpanel1, "Subpanel 1", false, 0);
     m_treebook->InsertSubPage(1, subpanel2, "Subpanel 2", false, 1);

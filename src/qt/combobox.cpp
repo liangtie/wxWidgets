@@ -161,7 +161,7 @@ bool wxComboBox::Create(wxWindow *parent, wxWindowID id,
             const wxValidator& validator,
             const wxString& name )
 {
-    m_qtComboBox = new wxQtComboBox( parent, this );
+    m_qtComboBox = NEW_DEBUG wxQtComboBox( parent, this );
     m_qtComboBox->setEditable(!(style & wxCB_READONLY));
     QtInitSort( m_qtComboBox );
 

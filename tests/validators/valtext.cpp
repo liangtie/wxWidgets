@@ -22,7 +22,7 @@ class TextValidatorTestCase
 {
 public:
     TextValidatorTestCase()
-        : m_text(new wxTextCtrl(wxTheApp->GetTopWindow(), wxID_ANY))
+        : m_text(NEW_DEBUG wxTextCtrl(wxTheApp->GetTopWindow(), wxID_ANY))
     {
     }
 

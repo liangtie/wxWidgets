@@ -194,7 +194,7 @@ public:
 
     virtual wxSocketImpl *CreateSocket(wxSocketBase& wxsocket) wxOVERRIDE
     {
-        return new wxSocketImplMac(wxsocket);
+        return NEW_DEBUG wxSocketImplMac(wxsocket);
     }
 
     virtual void Install_Callback(wxSocketImpl *socket, wxSocketNotify event) wxOVERRIDE;

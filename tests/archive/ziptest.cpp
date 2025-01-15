@@ -32,7 +32,7 @@ public:
                 const wxString& archiver = wxEmptyString,
                 const wxString& unarchiver = wxEmptyString)
     :
-        ArchiveTestCase<wxZipClassFactory>(name, new wxZipClassFactory,
+        ArchiveTestCase<wxZipClassFactory>(name, NEW_DEBUG wxZipClassFactory,
                                            options, archiver, unarchiver),
         m_count(0)
     { }
@@ -237,12 +237,12 @@ CppUnit::Test *ziptest::makeTest(
 
     if (genericInterface)
     {
-        return new ArchiveTestCase<wxArchiveClassFactory>(
-                            descr, new wxZipClassFactory,
+        return NEW_DEBUG ArchiveTestCase<wxArchiveClassFactory>(
+                            descr, NEW_DEBUG wxZipClassFactory,
                             options, archiver, unarchiver);
     }
 
-    return new ZipTestCase(descr, options, archiver, unarchiver);
+    return NEW_DEBUG ZipTestCase(descr, options, archiver, unarchiver);
 }
 
 CPPUNIT_TEST_SUITE_REGISTRATION(ziptest);

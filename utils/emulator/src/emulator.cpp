@@ -61,7 +61,7 @@ wxBEGIN_EVENT_TABLE(wxEmulatorFrame, wxFrame)
     EVT_CLOSE(wxEmulatorFrame::OnCloseWindow)
 wxEND_EVENT_TABLE()
 
-// Create a new application object: this macro will allow wxWidgets to create
+// Create a NEW_DEBUG application object: this macro will allow wxWidgets to create
 // the application object during program execution (it's better than using a
 // static object for many reasons) and also declares the accessor function
 // wxGetApp() which will return the reference of the right type (i.e. wxEmulatorApp and
@@ -131,7 +131,7 @@ bool wxEmulatorApp::OnInit()
     if (res == -1 || res > 0 || parser.Found(wxT("h")))
     {
 #ifdef __X__
-        wxLog::SetActiveTarget(new wxLogStderr);
+        wxLog::SetActiveTarget(NEW_DEBUG wxLogStderr);
 #endif
         parser.Usage();
         return false;
@@ -139,7 +139,7 @@ bool wxEmulatorApp::OnInit()
     if (parser.Found(wxT("v")))
     {
 #ifdef __X__
-        wxLog::SetActiveTarget(new wxLogStderr);
+        wxLog::SetActiveTarget(NEW_DEBUG wxLogStderr);
 #endif
         wxString msg;
         msg.Printf(wxT("wxWidgets PDA Emulator (c) Julian Smart, 2002 Version %.2f, %s"), wxEMULATOR_VERSION, __DATE__);
@@ -172,7 +172,7 @@ bool wxEmulatorApp::OnInit()
     }
 
     // create the main application window
-    wxEmulatorFrame *frame = new wxEmulatorFrame(wxT("wxEmulator"),
+    wxEmulatorFrame *frame = NEW_DEBUG wxEmulatorFrame(wxT("wxEmulator"),
                                  wxPoint(50, 50), wxSize(450, 340));
 
 #if wxUSE_STATUSBAR
@@ -184,7 +184,7 @@ bool wxEmulatorApp::OnInit()
     frame->SetStatusText(sizeStr, 1);
 #endif // wxUSE_STATUSBAR
 
-    m_containerWindow = new wxEmulatorContainer(frame, wxID_ANY);
+    m_containerWindow = NEW_DEBUG wxEmulatorContainer(frame, wxID_ANY);
 
     frame->SetClientSize(m_emulatorInfo.m_emulatorDeviceSize.x,
                          m_emulatorInfo.m_emulatorDeviceSize.y);
@@ -194,7 +194,7 @@ bool wxEmulatorApp::OnInit()
     frame->Show(true);
 
 #ifdef __WXX11__
-    m_xnestWindow = new wxAdoptedWindow;
+    m_xnestWindow = NEW_DEBUG wxAdoptedWindow;
 
     wxString cmd;
     cmd.Printf(wxT("Xnest :%s -geometry %dx%d"),
@@ -266,16 +266,16 @@ wxEmulatorFrame::wxEmulatorFrame(const wxString& title,
 
 #if wxUSE_MENUS
     // create a menu bar
-    wxMenu *menuFile = new wxMenu;
+    wxMenu *menuFile = NEW_DEBUG wxMenu;
 
     // the "About" item should be in the help menu
-    wxMenu *helpMenu = new wxMenu;
+    wxMenu *helpMenu = NEW_DEBUG wxMenu;
     helpMenu->Append(Emulator_About, wxT("&About\tF1"), wxT("Show about dialog"));
 
     menuFile->Append(Emulator_Quit, wxT("E&xit\tAlt-X"), wxT("Quit this program"));
 
     // now append the freshly created menu to the menu bar...
-    wxMenuBar *menuBar = new wxMenuBar();
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar();
     menuBar->Append(menuFile, wxT("&File"));
     menuBar->Append(helpMenu, wxT("&Help"));
 
@@ -390,7 +390,7 @@ void wxEmulatorContainer::OnEraseBackground(wxEraseEvent& event)
     }
     else
     {
-        dc = new wxClientDC(this);
+        dc = NEW_DEBUG wxClientDC(this);
     }
 
     dc->SetBackground(wxBrush(wxGetApp().m_emulatorInfo.m_emulatorBackgroundColour));

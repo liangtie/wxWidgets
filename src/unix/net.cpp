@@ -231,7 +231,7 @@ bool
 wxDialUpManagerImpl::EnableAutoCheckOnlineStatus(size_t nSeconds)
 {
    wxASSERT(m_timer == NULL);
-   m_timer = new AutoCheckTimer(this);
+   m_timer = NEW_DEBUG AutoCheckTimer(this);
    bool rc = m_timer->Start(nSeconds*1000);
    if(! rc)
    {
@@ -336,9 +336,9 @@ wxDialUpManagerImpl::CheckStatusInternal(void)
       close(STDERR_FILENO);
 
       int
-         // new stdout:
+         // NEW_DEBUG stdout:
          output_fd = open(tmpfile, O_CREAT|O_TRUNC, S_IRUSR|S_IWUSR),
-         // new stderr:
+         // NEW_DEBUG stderr:
          null_fd = open("/dev/null", O_CREAT, S_IRUSR|S_IWUSR);
       // verify well behaved unix behaviour:
       wxASSERT(output_fd == STDOUT_FILENO);
@@ -357,7 +357,7 @@ wxDialUpManagerImpl::CheckStatusInternal(void)
          wxFile file;
          if( file.Open(tmpfile) )
          {
-            char *output = new char [file.Length()+1];
+            char *output = NEW_DEBUG char [file.Length()+1];
             output[file.Length()] = '\0';
             if(file.Read(output,file.Length()) == file.Length())
             {
@@ -412,7 +412,7 @@ wxDialUpManagerImpl::CheckStatusInternal(void)
 wxDialUpManager *
 wxDialUpManager::wxDialUpManager::Create(void)
 {
-   return new wxDialUpManagerImpl;
+   return NEW_DEBUG wxDialUpManagerImpl;
 }
 
 #endif // wxUSE_DIALUP_MANAGER

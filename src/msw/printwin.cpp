@@ -102,7 +102,7 @@ bool wxWindowsPrinter::Print(wxWindow *parent, wxPrintout *printout, bool prompt
     }
     else
     {
-        dc = new wxPrinterDC(m_printDialogData.GetPrintData());
+        dc = NEW_DEBUG wxPrinterDC(m_printDialogData.GetPrintData());
     }
 
     // May have pressed cancel.

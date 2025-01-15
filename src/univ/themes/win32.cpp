@@ -1120,7 +1120,7 @@ wxRenderer *wxWin32Theme::GetRenderer()
 {
     if ( !m_renderer )
     {
-        m_renderer = new wxWin32Renderer(GetColourScheme());
+        m_renderer = NEW_DEBUG wxWin32Renderer(GetColourScheme());
     }
 
     return m_renderer;
@@ -1130,7 +1130,7 @@ wxArtProvider *wxWin32Theme::GetArtProvider()
 {
     if ( !m_artProvider )
     {
-        m_artProvider = new wxWin32ArtProvider;
+        m_artProvider = NEW_DEBUG wxWin32ArtProvider;
     }
 
     return m_artProvider;
@@ -1149,7 +1149,7 @@ wxWin32Theme::GetInputHandler(const wxString& control,
         wxInputHandler * const
           handlerStd = consumer->DoGetStdInputHandler(&s_handlerDef);
 
-        // create a new handler
+        // create a NEW_DEBUG handler
         if ( control == wxINP_HANDLER_TOPLEVEL )
         {
             static wxWin32FrameInputHandler s_handler(handlerStd);
@@ -1209,7 +1209,7 @@ wxColourScheme *wxWin32Theme::GetColourScheme()
 {
     if ( !m_scheme )
     {
-        m_scheme = new wxWin32ColourScheme;
+        m_scheme = NEW_DEBUG wxWin32ColourScheme;
     }
     return m_scheme;
 }
@@ -1527,7 +1527,7 @@ wxWin32Renderer::wxWin32Renderer(const wxColourScheme *scheme)
                           wxXOR);
             dcInverse.SelectObject(wxNullBitmap);
 
-            mask = new wxMask(m_bmpArrows[Arrow_Inverted][n], *wxBLACK);
+            mask = NEW_DEBUG wxMask(m_bmpArrows[Arrow_Inverted][n], *wxBLACK);
             m_bmpArrows[Arrow_Inverted][n].SetMask(mask);
 
             m_bmpArrows[Arrow_InvertedDisabled][n].Create(w, h);
@@ -1538,16 +1538,16 @@ wxWin32Renderer::wxWin32Renderer(const wxColourScheme *scheme)
                           wxXOR);
             dcInverse.SelectObject(wxNullBitmap);
 
-            mask = new wxMask(m_bmpArrows[Arrow_InvertedDisabled][n], *wxBLACK);
+            mask = NEW_DEBUG wxMask(m_bmpArrows[Arrow_InvertedDisabled][n], *wxBLACK);
             m_bmpArrows[Arrow_InvertedDisabled][n].SetMask(mask);
         }
 
         dcNormal.SelectObject(wxNullBitmap);
         dcDisabled.SelectObject(wxNullBitmap);
 
-        mask = new wxMask(m_bmpArrows[Arrow_Normal][n], *wxWHITE);
+        mask = NEW_DEBUG wxMask(m_bmpArrows[Arrow_Normal][n], *wxWHITE);
         m_bmpArrows[Arrow_Normal][n].SetMask(mask);
-        mask = new wxMask(m_bmpArrows[Arrow_Disabled][n], *wxWHITE);
+        mask = NEW_DEBUG wxMask(m_bmpArrows[Arrow_Disabled][n], *wxWHITE);
         m_bmpArrows[Arrow_Disabled][n].SetMask(mask);
 
         m_bmpArrows[Arrow_Pressed][n] = m_bmpArrows[Arrow_Normal][n];
@@ -2551,7 +2551,7 @@ wxMenuGeometryInfo *wxWin32Renderer::GetMenuGeometry(wxWindow *win,
     }
 
     // bundle the metrics into a struct and return it
-    wxWin32MenuGeometryInfo *gi = new wxWin32MenuGeometryInfo;
+    wxWin32MenuGeometryInfo *gi = NEW_DEBUG wxWin32MenuGeometryInfo;
 
     gi->m_ofsLabel = widthBmpMax + 2*MENU_BMP_MARGIN;
     gi->m_ofsAccel = gi->m_ofsLabel + widthLabelMax;
@@ -3687,7 +3687,7 @@ void wxWin32SystemMenuEvtHandler::OnClose(wxCloseEvent &event)
 wxWin32FrameInputHandler::wxWin32FrameInputHandler(wxInputHandler *handler)
                         : wxStdInputHandler(handler)
 {
-    m_menuHandler = new wxWin32SystemMenuEvtHandler(this);
+    m_menuHandler = NEW_DEBUG wxWin32SystemMenuEvtHandler(this);
 }
 
 wxWin32FrameInputHandler::~wxWin32FrameInputHandler()

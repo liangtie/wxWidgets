@@ -41,9 +41,9 @@ bool wxNotebook::Create( wxWindow *parent,
     const wxSize& size,
     long style,
     const wxString& name )
-{    
+{
     DontCreatePeer();
-    
+
     if (! (style & wxBK_ALIGN_MASK))
         style |= wxBK_TOP;
 
@@ -412,7 +412,7 @@ void wxNotebook::Command(wxCommandEvent& WXUNUSED(event))
 // wxNotebook helper functions
 // ----------------------------------------------------------------------------
 
-// hide the currently active panel and show the new one
+// hide the currently active panel and show the NEW_DEBUG one
 void wxNotebook::ChangePage(int nOldSel, int nSel)
 {
     if (nOldSel == nSel)

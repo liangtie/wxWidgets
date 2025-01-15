@@ -573,7 +573,7 @@ TEST_CASE("wxObjArray", "[dynarray]")
         CHECK( bars.GetCount() == 0 );
         CHECK( Bar::GetNumber() == 1 );
 
-        bars.Add(new Bar(wxT("first bar in array")));
+        bars.Add(NEW_DEBUG Bar(wxT("first bar in array")));
         bars.Add(bar, 2);
 
         CHECK( bars.GetCount() == 3 );
@@ -677,8 +677,8 @@ TEST_CASE("wxDynArray::Clear", "[dynarray]")
     WX_CLEAR_ARRAY(items);
     CHECK( items.size() == 0 );
 
-    items.push_back(new Item(17));
-    items.push_back(new Item(71));
+    items.push_back(NEW_DEBUG Item(17));
+    items.push_back(NEW_DEBUG Item(71));
     CHECK( items.size() == 2 );
 
     WX_CLEAR_ARRAY(items);
@@ -776,7 +776,7 @@ TEST_CASE("wxDynArray::TestSTL", "[dynarray]")
 
 
     ItemPtrArray items;
-    items.push_back(new Item(17));
+    items.push_back(NEW_DEBUG Item(17));
     CHECK( (*(items.rbegin()))->n == 17 );
     CHECK( (**items.begin()).n == 17 );
     WX_CLEAR_ARRAY(items);

@@ -48,8 +48,8 @@ Uuid::Uuid(const Uuid& uuid)
   UuidToString(&m_uuid, &m_pszUuid);
 #endif
 
-  // allocate new buffer
-  m_pszCForm = new wxChar[UUID_CSTRLEN];
+  // allocate NEW_DEBUG buffer
+  m_pszCForm = NEW_DEBUG wxChar[UUID_CSTRLEN];
   // and fill it
   memcpy(m_pszCForm, uuid.m_pszCForm, UUID_CSTRLEN*sizeof(wxChar));
 }
@@ -67,9 +67,9 @@ Uuid& Uuid::operator=(const Uuid& uuid)
   UuidToString(&m_uuid, &m_pszUuid);
 #endif
 
-  // allocate new buffer if not done yet
+  // allocate NEW_DEBUG buffer if not done yet
   if ( !m_pszCForm )
-    m_pszCForm = new wxChar[UUID_CSTRLEN];
+    m_pszCForm = NEW_DEBUG wxChar[UUID_CSTRLEN];
 
   // and fill it
   memcpy(m_pszCForm, uuid.m_pszCForm, UUID_CSTRLEN*sizeof(wxChar));
@@ -97,12 +97,12 @@ Uuid::~Uuid()
 #endif
 
   // perhaps we should just use a static buffer and not bother
-  // with new and delete?
+  // with NEW_DEBUG and delete?
   if ( m_pszCForm )
     delete [] m_pszCForm;
 }
 
-// update string representation of new UUID
+// update string representation of NEW_DEBUG UUID
 void Uuid::Set(const UUID &uuid)
 {
   m_uuid = uuid;
@@ -118,7 +118,7 @@ void Uuid::Set(const UUID &uuid)
   UuidToCForm();
 }
 
-// create a new UUID
+// create a NEW_DEBUG UUID
 void Uuid::Create()
 {
   UUID uuid;
@@ -162,7 +162,7 @@ bool Uuid::Set(const wxChar *pc)
 void Uuid::UuidToCForm()
 {
   if ( m_pszCForm == NULL )
-    m_pszCForm = new wxChar[UUID_CSTRLEN];
+    m_pszCForm = NEW_DEBUG wxChar[UUID_CSTRLEN];
 
   wsprintf(m_pszCForm, wxT("0x%8.8X,0x%4.4X,0x%4.4X,0x%2.2X,0x2.2%X,0x2.2%X,0x2.2%X,0x2.2%X,0x2.2%X,0x2.2%X,0x2.2%X"),
            m_uuid.Data1, m_uuid.Data2, m_uuid.Data3,

@@ -77,13 +77,13 @@ fileStream::fileStream()
 
 wxFileInputStream *fileStream::DoCreateInStream()
 {
-    wxFileInputStream *pFileInStream = new wxFileInputStream(GetInFileName());
+    wxFileInputStream *pFileInStream = NEW_DEBUG wxFileInputStream(GetInFileName());
     CPPUNIT_ASSERT(pFileInStream->IsOk());
     return pFileInStream;
 }
 wxFileOutputStream *fileStream::DoCreateOutStream()
 {
-    wxFileOutputStream *pFileOutStream = new wxFileOutputStream(FILENAME_FILEOUTSTREAM);
+    wxFileOutputStream *pFileOutStream = NEW_DEBUG wxFileOutputStream(FILENAME_FILEOUTSTREAM);
     CPPUNIT_ASSERT(pFileOutStream->IsOk());
     return pFileOutStream;
 }

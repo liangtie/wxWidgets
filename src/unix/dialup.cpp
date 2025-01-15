@@ -329,7 +329,7 @@ wxDialUpManagerImpl::Dial(const wxString &isp,
 
     if ( async )
     {
-        m_DialProcess = new wxDialProcess(this);
+        m_DialProcess = NEW_DEBUG wxDialProcess(this);
         m_DialPId = (int)wxExecute(cmd, false, m_DialProcess);
         if(m_DialPId == 0)
         {
@@ -371,7 +371,7 @@ bool wxDialUpManagerImpl::CancelDialing()
 bool wxDialUpManagerImpl::EnableAutoCheckOnlineStatus(size_t nSeconds)
 {
    DisableAutoCheckOnlineStatus();
-   m_timer = new AutoCheckTimer(this);
+   m_timer = NEW_DEBUG AutoCheckTimer(this);
    bool rc = m_timer->Start(nSeconds*1000);
    if(! rc)
    {
@@ -824,7 +824,7 @@ wxDialUpManagerImpl::NetConnection wxDialUpManagerImpl::CheckPing()
 /* static */
 wxDialUpManager *wxDialUpManager::Create()
 {
-   return new wxDialUpManagerImpl;
+   return NEW_DEBUG wxDialUpManagerImpl;
 }
 
 #endif // wxUSE_DIALUP_MANAGER

@@ -281,7 +281,7 @@ bool wxTaskBarIcon::SetIcon(const wxBitmapBundle& icon, const wxString& tooltip)
 {
     if (!m_iconWnd)
     {
-        m_iconWnd = new wxTaskBarIconArea(this, icon);
+        m_iconWnd = NEW_DEBUG wxTaskBarIconArea(this, icon);
         if (m_iconWnd->IsOk())
         {
             m_iconWnd->Bind(wxEVT_DESTROY, &wxTaskBarIcon::OnDestroy, this);

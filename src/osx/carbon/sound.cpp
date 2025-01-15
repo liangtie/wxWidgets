@@ -355,16 +355,16 @@ void wxOSXQuickTimeSoundData::SoundTask()
 
 bool wxSound::Create(size_t size, const void* data)
 {
-    m_data = new wxOSXQuickTimeSoundData(size,data);
+    m_data = NEW_DEBUG wxOSXQuickTimeSoundData(size,data);
     return true;
 }
 
 bool wxSound::Create(const wxString& fileName, bool isResource)
 {
     if ( isResource )
-        m_data = new wxOSXSoundManagerSoundData(fileName);
+        m_data = NEW_DEBUG wxOSXSoundManagerSoundData(fileName);
     else
-        m_data = new wxOSXQuickTimeSoundData(fileName);
+        m_data = NEW_DEBUG wxOSXQuickTimeSoundData(fileName);
     return true;
 }
 

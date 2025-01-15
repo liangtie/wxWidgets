@@ -656,7 +656,7 @@ void wxTextCtrl::Init()
     m_widthAvg = -1;
 
     // init the undo manager
-    m_cmdProcessor = new wxTextCtrlCommandProcessor(this);
+    m_cmdProcessor = NEW_DEBUG wxTextCtrlCommandProcessor(this);
 
     // no data yet
     m_data.data = NULL;
@@ -692,7 +692,7 @@ bool wxTextCtrl::Create(wxWindow *parent,
         // wrap as needed
         if ( style & wxHSCROLL )
         {
-            m_data.mdata = new wxTextMultiLineData;
+            m_data.mdata = NEW_DEBUG wxTextMultiLineData;
         }
         else // we must wrap lines if we don't have horizontal scrollbar
         {
@@ -701,7 +701,7 @@ bool wxTextCtrl::Create(wxWindow *parent,
             //     wxHSCROLL in wxUniv, so remember that we have a wrapped data
             //     and not just a multi line data in a separate variable
             m_wrapLines = true;
-            m_data.wdata = new wxTextWrappedData;
+            m_data.wdata = NEW_DEBUG wxTextWrappedData;
         }
     }
     else
@@ -710,7 +710,7 @@ bool wxTextCtrl::Create(wxWindow *parent,
         style &= ~wxHSCROLL;
 
         // create data object for single line controls
-        m_data.sdata = new wxTextSingleLineData;
+        m_data.sdata = NEW_DEBUG wxTextSingleLineData;
     }
 
 #if wxUSE_TWO_WINDOWS
@@ -733,7 +733,7 @@ bool wxTextCtrl::Create(wxWindow *parent,
 
         if ( !(style & wxHSCROLL) )
         {
-            WData().m_linesData.Add(new wxWrappedLineData);
+            WData().m_linesData.Add(NEW_DEBUG wxWrappedLineData);
             WData().InvalidateLinesBelow(0);
         }
 
@@ -928,7 +928,7 @@ void wxTextCtrl::InsertLine(wxTextCoord line, const wxString& text)
     MData().m_lines.Insert(text, line);
     if ( WrapLines() )
     {
-        WData().m_linesData.Insert(new wxWrappedLineData, line);
+        WData().m_linesData.Insert(NEW_DEBUG wxWrappedLineData, line);
 
         // invalidate everything below it
         WData().InvalidateLinesBelow(line);
@@ -939,7 +939,7 @@ void wxTextCtrl::Replace(wxTextPos from, wxTextPos to, const wxString& text)
 {
     wxTextCoord colStart, colEnd,
                 lineStart, lineEnd;
-    // as convention, ( src/gtk/textctrl.cpp:1411, src/msw/textctrl.cpp:759, 
+    // as convention, ( src/gtk/textctrl.cpp:1411, src/msw/textctrl.cpp:759,
     // test/controls/textentrytest.cpp:171 )
     // if `to` equal -1, it means go to the last position
     if ( to == -1 )
@@ -955,7 +955,7 @@ void wxTextCtrl::Replace(wxTextPos from, wxTextPos to, const wxString& text)
     }
 
 #ifdef WXDEBUG_TEXT_REPLACE
-    // a straighforward (but very inefficient) way of calculating what the new
+    // a straighforward (but very inefficient) way of calculating what the NEW_DEBUG
     // value should be
     wxString textTotal = GetValue();
     wxString textTotalNew(textTotal, (size_t)from);
@@ -973,7 +973,7 @@ void wxTextCtrl::Replace(wxTextPos from, wxTextPos to, const wxString& text)
 
     // set selection range for GetSelection and GetInsertionPoint call
     // if give a range but the text length that give doesn't equal the range
-    // it mean clear the text in the range and set the text after `from` 
+    // it mean clear the text in the range and set the text after `from`
     if ( (to - from) != (wxTextPos)text.Len() )
     {
         m_selStart = from;
@@ -982,7 +982,7 @@ void wxTextCtrl::Replace(wxTextPos from, wxTextPos to, const wxString& text)
 
     if ( IsSingleLine() )
     {
-        // replace the part of the text with the new value
+        // replace the part of the text with the NEW_DEBUG value
         wxString valueNew(m_value, (size_t)from);
 
         // remember it for later use
@@ -1006,7 +1006,7 @@ void wxTextCtrl::Replace(wxTextPos from, wxTextPos to, const wxString& text)
         }
         else // text appended, not replaced
         {
-            // refresh only the new text
+            // refresh only the NEW_DEBUG text
             widthNewText = GetTextWidth(text);
         }
 
@@ -1024,7 +1024,7 @@ void wxTextCtrl::Replace(wxTextPos from, wxTextPos to, const wxString& text)
 
         /*
            Join all the lines in the replacement range into one string, then
-           replace a part of it with the new text and break it into lines again.
+           replace a part of it with the NEW_DEBUG text and break it into lines again.
         */
 
         // (0) we want to know if this replacement changes the number of rows
@@ -1062,7 +1062,7 @@ void wxTextCtrl::Replace(wxTextPos from, wxTextPos to, const wxString& text)
                 startNewText = GetTextWidth(textNew);
         if ( (size_t)colStart == linesOld[lineStart].length() )
         {
-            // text appended, refresh just enough to show the new text
+            // text appended, refresh just enough to show the NEW_DEBUG text
             widthNewText = GetTextWidth(text.BeforeFirst(wxT('\n')));
         }
         else // text inserted, refresh till the end of line
@@ -1070,7 +1070,7 @@ void wxTextCtrl::Replace(wxTextPos from, wxTextPos to, const wxString& text)
             widthNewText = 0;
         }
 
-        // (2b) insert new text
+        // (2b) insert NEW_DEBUG text
         textNew += text;
 
         // (2c) and append the end of the old text
@@ -1173,7 +1173,7 @@ void wxTextCtrl::Replace(wxTextPos from, wxTextPos to, const wxString& text)
             }
         }
 
-        // (4c) insert the new lines
+        // (4c) insert the NEW_DEBUG lines
         if ( nReplaceLine < nReplaceCount )
         {
             // even the line number changed
@@ -1288,7 +1288,7 @@ void wxTextCtrl::Remove(wxTextPos from, wxTextPos to)
 
 void wxTextCtrl::WriteText(const wxString& text)
 {
-    // replace the selection with the new text
+    // replace the selection with the NEW_DEBUG text
     RemoveSelection();
 
     Replace(m_curPos, m_curPos, text);
@@ -1365,7 +1365,7 @@ wxTextPos wxTextCtrl::GetInsertionPoint() const
     long from;
     if ( HasSelection() )
         GetSelection(&from, NULL);
-    else 
+    else
         from = m_curPos;
     return from;
 }
@@ -2170,7 +2170,7 @@ void wxTextCtrl::Copy()
 
         // wxTextFile::Translate() is needed to transform all '\n' into "\r\n"
         wxString text = wxTextFile::Translate(GetTextToShow(GetSelectionText()));
-        wxTextDataObject *data = new wxTextDataObject(text);
+        wxTextDataObject *data = NEW_DEBUG wxTextDataObject(text);
         wxTheClipboard->SetData(data);
     }
 #endif // wxUSE_CLIPBOARD
@@ -3395,7 +3395,7 @@ void wxTextCtrl::ScrollText(wxTextCoord col)
 
         /*
            we need to manually refresh the part which ScrollWindow() doesn't
-           refresh (with new API this means the part outside the rect returned
+           refresh (with NEW_DEBUG API this means the part outside the rect returned
            by ScrollNoRefresh): indeed, if we had this:
 
                                    ********o
@@ -3408,7 +3408,7 @@ void wxTextCtrl::ScrollText(wxTextCoord col)
 
            where 'R' is the area refreshed by ScrollWindow() - but we still
            need to refresh the 'o' at the end as it may be now big enough to
-           hold the new character shifted into view.
+           hold the NEW_DEBUG character shifted into view.
 
            when we are scrolling to the right, we need to update this rect as
            well because it might have contained something before but doesn't
@@ -3511,7 +3511,7 @@ void wxTextCtrl::UpdateMaxWidth(wxTextCoord line)
         }
         else if ( width < MData().m_widthMax )
         {
-            // we need to find the new longest line
+            // we need to find the NEW_DEBUG longest line
             RecalcMaxWidth();
         }
         //else: its length didn't change, nothing to do
@@ -4331,7 +4331,7 @@ void wxTextCtrl::CreateCaret()
     if ( IsEditable() )
     {
         // FIXME use renderer
-        caret = new wxCaret(this, 1, GetLineHeight());
+        caret = NEW_DEBUG wxCaret(this, 1, GetLineHeight());
     }
     else
     {
@@ -4554,7 +4554,7 @@ bool wxTextCtrl::PerformAction(const wxControlAction& actionOrig,
 
             if ( !acceptedString.empty() )
                 // inserting text can be undone
-                command = new wxTextCtrlInsertCommand(acceptedString);
+                command = NEW_DEBUG wxTextCtrlInsertCommand(acceptedString);
         }
 
     }
@@ -4674,7 +4674,7 @@ bool wxTextCtrl::PerformAction(const wxControlAction& actionOrig,
 
     if ( newPos != INVALID_POS_VALUE )
     {
-        // bring the new position into the range
+        // bring the NEW_DEBUG position into the range
         if ( newPos < 0 )
             newPos = 0;
 
@@ -4694,7 +4694,7 @@ bool wxTextCtrl::PerformAction(const wxControlAction& actionOrig,
             else
             {
                 // otherwise delete everything between current position and
-                // the new one
+                // the NEW_DEBUG one
                 if ( m_curPos != newPos )
                 {
                     from = m_curPos;
@@ -4712,7 +4712,7 @@ bool wxTextCtrl::PerformAction(const wxControlAction& actionOrig,
 
             if ( from != INVALID_POS_VALUE )
             {
-                command = new wxTextCtrlRemoveCommand(from, to);
+                command = NEW_DEBUG wxTextCtrlRemoveCommand(from, to);
             }
         }
         else // cursor movement command
@@ -4772,7 +4772,7 @@ void wxTextCtrl::OnChar(wxKeyEvent& event)
             {
                 ClickDefaultButtonIfPossible();
             }
-            else // interpret <Enter> normally: insert new line
+            else // interpret <Enter> normally: insert NEW_DEBUG line
             {
                 PerformAction(wxACTION_TEXT_INSERT, -1, wxT('\n'));
             }

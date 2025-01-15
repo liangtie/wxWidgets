@@ -193,7 +193,7 @@ protected:
     // set the current node and item without refreshing anything
     void SetCurrentItem(wxMenuItemIter node);
 
-    // change the current item refreshing the old and new items
+    // change the current item refreshing the old and NEW_DEBUG items
     void ChangeCurrent(wxMenuItemIter node);
 
     // activate item, i.e. call either ClickItem() or OpenSubmenu() depending
@@ -1159,7 +1159,7 @@ wxMenuItem* wxMenu::DoAppend(wxMenuItem *item)
 
         if ( m_startRadioGroup == -1 )
         {
-            // start a new radio group
+            // start a NEW_DEBUG radio group
             m_startRadioGroup = count;
 
             // for now it has just one element
@@ -1212,7 +1212,7 @@ wxMenuItem* wxMenu::DoInsert(size_t pos, wxMenuItem *item)
 
         if ( m_startRadioGroup == -1 )
         {
-            // start a new radio group
+            // start a NEW_DEBUG radio group
             m_startRadioGroup = pos;
 
             // set this element as the first of radio group
@@ -1408,7 +1408,7 @@ void wxMenu::Popup(const wxPoint& pos, const wxSize& size, bool selectFirst)
     // create the popup window if not done yet
     if ( !m_popupMenu )
     {
-        m_popupMenu = new wxPopupMenuWindow(GetRootWindow(), this);
+        m_popupMenu = NEW_DEBUG wxPopupMenuWindow(GetRootWindow(), this);
     }
 
     // select the first item unless disabled
@@ -1569,7 +1569,7 @@ wxMenuItem *wxMenuItemBase::New(wxMenu *parentMenu,
                                 wxItemKind kind,
                                 wxMenu *subMenu)
 {
-    return new wxMenuItem(parentMenu, id, name, help, kind, subMenu);
+    return NEW_DEBUG wxMenuItem(parentMenu, id, name, help, kind, subMenu);
 }
 
 // ----------------------------------------------------------------------------
@@ -1809,7 +1809,7 @@ bool wxMenuBar::Insert(size_t pos, wxMenu *menu, const wxString& title)
 
     menu->SetTitle( title );
 
-    wxMenuInfo *info = new wxMenuInfo(title);
+    wxMenuInfo *info = NEW_DEBUG wxMenuInfo(title);
     m_menuInfos.Insert(info, pos);
 
     RefreshAllItemsAfter(pos);
@@ -1827,10 +1827,10 @@ wxMenu *wxMenuBar::Replace(size_t pos, wxMenu *menu, const wxString& title)
 
         info.SetLabel(title);
 
-        // even if the old menu was disabled, the new one is not any more
+        // even if the old menu was disabled, the NEW_DEBUG one is not any more
         info.SetEnabled();
 
-        // even if we change only this one, the new label has different width,
+        // even if we change only this one, the NEW_DEBUG label has different width,
         // so we need to refresh everything beyond this item as well
         RefreshAllItemsAfter(pos);
     }
@@ -2210,7 +2210,7 @@ bool wxMenuBar::ProcessMouseEvent(const wxPoint& pt)
 {
     // a hack to ignore the extra mouse events MSW sends us: this is similar to
     // wxUSE_MOUSEEVENT_HACK in wxWin itself but it isn't enough for us here as
-    // we get the messages from different windows (old and new popup menus for
+    // we get the messages from different windows (old and NEW_DEBUG popup menus for
     // example)
 #ifdef __WXMSW__
     static wxPoint s_ptLast;
@@ -2228,14 +2228,14 @@ bool wxMenuBar::ProcessMouseEvent(const wxPoint& pt)
         return false;
     }
 
-    // select the new active item
+    // select the NEW_DEBUG active item
     DoSelectMenu(currentNew);
 
     // show the menu if we know that we should, even if we hadn't been showing
     // it before (this may happen if the previous menu was disabled)
     if ( m_shouldShowMenu && !m_menuShown)
     {
-        // open the new menu if the old one we closed had been opened
+        // open the NEW_DEBUG menu if the old one we closed had been opened
         PopupCurrentMenu(false /* don't select first item - as Windows does */);
     }
 
@@ -2305,7 +2305,7 @@ void wxMenuBar::OnKeyDown(wxKeyEvent& event)
                 //else: otherwise, it will
 
                 // remember if we were showing a menu - if we did, we should
-                // show the new menu after changing the item
+                // show the NEW_DEBUG menu after changing the item
                 bool wasMenuOpened = IsShowingMenu();
                 if ( wasMenuOpened )
                 {
@@ -2652,10 +2652,10 @@ bool wxWindow::DoPopupMenu(wxMenu *menu, int x, int y)
     WarpPointer(x, y);
 
     // we have to redirect all keyboard input to the menu temporarily
-    PushEventHandler(new wxMenuKbdRedirector(menu));
+    PushEventHandler(NEW_DEBUG wxMenuKbdRedirector(menu));
 
     // enter the local modal loop
-    ms_evtLoopPopup = new wxEventLoop;
+    ms_evtLoopPopup = NEW_DEBUG wxEventLoop;
     ms_evtLoopPopup->Run();
 
     wxDELETE(ms_evtLoopPopup);

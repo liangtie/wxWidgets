@@ -900,9 +900,9 @@ wxTopLevelWindowMSW::MSWGetCreateWindowCoords(const wxPoint& pos,
         //     default size anyhow)
         //
         //  3. There is just no advantage in doing it: with x and y it is
-        //     possible that [future versions of] Windows position the new top
+        //     possible that [future versions of] Windows position the NEW_DEBUG top
         //     level window in some smart way which we can't do, but we can
-        //     guess a reasonably good size for a new window just as well
+        //     guess a reasonably good size for a NEW_DEBUG window just as well
         //     ourselves
         //
         wxSize sizeReal = size;

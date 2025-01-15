@@ -131,7 +131,7 @@ void wxXmlNode::DoCopy(const wxXmlNode& node)
     wxXmlNode *n = node.m_children;
     while (n)
     {
-        AddChild(new wxXmlNode(*n));
+        AddChild(NEW_DEBUG wxXmlNode(*n));
         n = n->GetNext();
     }
 
@@ -199,7 +199,7 @@ void wxXmlNode::AddChild(wxXmlNode *child)
     child->m_parent = this;
 }
 
-// inserts a new node in front of 'followingNode'
+// inserts a NEW_DEBUG node in front of 'followingNode'
 bool wxXmlNode::InsertChild(wxXmlNode *child, wxXmlNode *followingNode)
 {
     wxCHECK_MSG( child, false, "cannot insert a NULL node!" );
@@ -238,7 +238,7 @@ bool wxXmlNode::InsertChild(wxXmlNode *child, wxXmlNode *followingNode)
     return true;
 }
 
-// inserts a new node right after 'precedingNode'
+// inserts a NEW_DEBUG node right after 'precedingNode'
 bool wxXmlNode::InsertChildAfter(wxXmlNode *child, wxXmlNode *precedingNode)
 {
     wxCHECK_MSG( child, false, "cannot insert a NULL node!" );
@@ -311,7 +311,7 @@ bool wxXmlNode::DeleteAttribute(const wxString& name)
 
 void wxXmlNode::AddProperty(const wxString& name, const wxString& value)
 {
-    AddProperty(new wxXmlAttribute(name, value, NULL));
+    AddProperty(NEW_DEBUG wxXmlAttribute(name, value, NULL));
 }
 
 void wxXmlNode::AddProperty(wxXmlAttribute *attr)
@@ -510,7 +510,7 @@ void wxXmlDocument::DoCopy(const wxXmlDocument& doc)
     m_eol = doc.m_eol;
 
     if (doc.m_docNode)
-        m_docNode = new wxXmlNode(*doc.m_docNode);
+        m_docNode = NEW_DEBUG wxXmlNode(*doc.m_docNode);
     else
         m_docNode = NULL;
 }
@@ -600,7 +600,7 @@ void wxXmlDocument::SetRoot(wxXmlNode *root)
     }
     else
     {
-        m_docNode = new wxXmlNode(wxXML_DOCUMENT_NODE, wxEmptyString);
+        m_docNode = NEW_DEBUG wxXmlNode(wxXML_DOCUMENT_NODE, wxEmptyString);
         m_docNode->SetChildren(root);
     }
     if (root)
@@ -616,7 +616,7 @@ void wxXmlDocument::SetFileType(wxTextFileType fileType)
 void wxXmlDocument::AppendToProlog(wxXmlNode *node)
 {
     if (!m_docNode)
-        m_docNode = new wxXmlNode(wxXML_DOCUMENT_NODE, wxEmptyString);
+        m_docNode = NEW_DEBUG wxXmlNode(wxXML_DOCUMENT_NODE, wxEmptyString);
     if (IsOk())
         m_docNode->InsertChild( node, GetRoot() );
     else
@@ -695,7 +695,7 @@ extern "C" {
 static void StartElementHnd(void *userData, const char *name, const char **atts)
 {
     wxXmlParsingContext *ctx = (wxXmlParsingContext*)userData;
-    wxXmlNode *node = new wxXmlNode(wxXML_ELEMENT_NODE,
+    wxXmlNode *node = NEW_DEBUG wxXmlNode(wxXML_ELEMENT_NODE,
                                     CharToString(ctx->conv, name),
                                     wxEmptyString,
                                     XML_GetCurrentLineNumber(ctx->parser));
@@ -711,7 +711,7 @@ static void StartElementHnd(void *userData, const char *name, const char **atts)
     ASSERT_LAST_CHILD_OK(ctx);
     ctx->node->InsertChildAfter(node, ctx->lastChild);
     ctx->lastAsText = NULL;
-    ctx->lastChild = NULL; // our new node "node" has no children yet
+    ctx->lastChild = NULL; // our NEW_DEBUG node "node" has no children yet
 
     ctx->node = node;
 }
@@ -747,7 +747,7 @@ static void TextHnd(void *userData, const char *s, int len)
         if (!whiteOnly)
         {
             wxXmlNode *textnode =
-                new wxXmlNode(wxXML_TEXT_NODE, wxS("text"), str,
+                NEW_DEBUG wxXmlNode(wxXML_TEXT_NODE, wxS("text"), str,
                               XML_GetCurrentLineNumber(ctx->parser));
 
             ASSERT_LAST_CHILD_OK(ctx);
@@ -762,7 +762,7 @@ static void StartCdataHnd(void *userData)
     wxXmlParsingContext *ctx = (wxXmlParsingContext*)userData;
 
     wxXmlNode *textnode =
-        new wxXmlNode(wxXML_CDATA_SECTION_NODE, wxS("cdata"), wxS(""),
+        NEW_DEBUG wxXmlNode(wxXML_CDATA_SECTION_NODE, wxS("cdata"), wxS(""),
                       XML_GetCurrentLineNumber(ctx->parser));
 
     ASSERT_LAST_CHILD_OK(ctx);
@@ -775,7 +775,7 @@ static void EndCdataHnd(void *userData)
     wxXmlParsingContext *ctx = (wxXmlParsingContext*)userData;
 
     // we need to reset this pointer so that subsequent text nodes don't append
-    // their contents to this one but create new wxXML_TEXT_NODE objects (or
+    // their contents to this one but create NEW_DEBUG wxXML_TEXT_NODE objects (or
     // not create anything at all if only white space follows the CDATA section
     // and wxXMLDOC_KEEP_WHITESPACE_NODES is not used as is commonly the case)
     ctx->lastAsText = NULL;
@@ -786,7 +786,7 @@ static void CommentHnd(void *userData, const char *data)
     wxXmlParsingContext *ctx = (wxXmlParsingContext*)userData;
 
     wxXmlNode *commentnode =
-        new wxXmlNode(wxXML_COMMENT_NODE,
+        NEW_DEBUG wxXmlNode(wxXML_COMMENT_NODE,
                       wxS("comment"), CharToString(ctx->conv, data),
                       XML_GetCurrentLineNumber(ctx->parser));
 
@@ -801,7 +801,7 @@ static void PIHnd(void *userData, const char *target, const char *data)
     wxXmlParsingContext *ctx = (wxXmlParsingContext*)userData;
 
     wxXmlNode *pinode =
-        new wxXmlNode(wxXML_PI_NODE, CharToString(ctx->conv, target),
+        NEW_DEBUG wxXmlNode(wxXML_PI_NODE, CharToString(ctx->conv, target),
                       CharToString(ctx->conv, data),
                       XML_GetCurrentLineNumber(ctx->parser));
 
@@ -890,13 +890,13 @@ bool wxXmlDocument::Load(wxInputStream& stream, const wxString& encoding, int fl
     wxXmlParsingContext ctx;
     bool done;
     XML_Parser parser = XML_ParserCreate(NULL);
-    wxXmlNode *root = new wxXmlNode(wxXML_DOCUMENT_NODE, wxEmptyString);
+    wxXmlNode *root = NEW_DEBUG wxXmlNode(wxXML_DOCUMENT_NODE, wxEmptyString);
 
     ctx.encoding = wxS("UTF-8"); // default in absence of encoding=""
     ctx.conv = NULL;
 #if !wxUSE_UNICODE
     if ( encoding.CmpNoCase(wxS("UTF-8")) != 0 )
-        ctx.conv = new wxCSConv(encoding);
+        ctx.conv = NEW_DEBUG wxCSConv(encoding);
 #endif
     ctx.doctype = &m_doctype;
     ctx.removeWhiteOnlyNodes = (flags & wxXMLDOC_KEEP_WHITESPACE_NODES) == 0;
@@ -1201,12 +1201,12 @@ bool wxXmlDocument::Save(wxOutputStream& stream, int indentstep) const
     wxScopedPtr<wxMBConv> convMem, convFile;
 
 #if wxUSE_UNICODE
-    convFile.reset(new wxCSConv(GetFileEncoding()));
+    convFile.reset(NEW_DEBUG wxCSConv(GetFileEncoding()));
 #else
     if ( GetFileEncoding().CmpNoCase(GetEncoding()) != 0 )
     {
-        convFile.reset(new wxCSConv(GetFileEncoding()));
-        convMem.reset(new wxCSConv(GetEncoding()));
+        convFile.reset(NEW_DEBUG wxCSConv(GetFileEncoding()));
+        convMem.reset(NEW_DEBUG wxCSConv(GetEncoding()));
     }
     //else: file and in-memory encodings are the same, no conversion needed
 #endif

@@ -54,7 +54,7 @@ void RearrangeListTestCase::setUp()
     wxArrayInt order;
     wxArrayString items;
 
-    m_rearrange = new wxRearrangeList(wxTheApp->GetTopWindow(), wxID_ANY,
+    m_rearrange = NEW_DEBUG wxRearrangeList(wxTheApp->GetTopWindow(), wxID_ANY,
                                       wxDefaultPosition, wxDefaultSize, order,
                                       items);
 }
@@ -78,7 +78,7 @@ void RearrangeListTestCase::Move()
 
     wxDELETE(m_rearrange);
 
-    m_rearrange = new wxRearrangeList(wxTheApp->GetTopWindow(), wxID_ANY,
+    m_rearrange = NEW_DEBUG wxRearrangeList(wxTheApp->GetTopWindow(), wxID_ANY,
                                       wxDefaultPosition, wxDefaultSize, order,
                                       items);
 
@@ -126,13 +126,13 @@ void RearrangeListTestCase::MoveClientData()
     items.push_back("second");
     items.push_back("third");
 
-    wxClientData* item0data = new wxStringClientData("item0data");
-    wxClientData* item1data = new wxStringClientData("item1data");
-    wxClientData* item2data = new wxStringClientData("item2data");
+    wxClientData* item0data = NEW_DEBUG wxStringClientData("item0data");
+    wxClientData* item1data = NEW_DEBUG wxStringClientData("item1data");
+    wxClientData* item2data = NEW_DEBUG wxStringClientData("item2data");
 
     wxDELETE(m_rearrange);
 
-    m_rearrange = new wxRearrangeList(wxTheApp->GetTopWindow(), wxID_ANY,
+    m_rearrange = NEW_DEBUG wxRearrangeList(wxTheApp->GetTopWindow(), wxID_ANY,
                                       wxDefaultPosition, wxDefaultSize, order,
                                       items);
 

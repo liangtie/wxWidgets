@@ -126,15 +126,15 @@ void wxDynamicLibrary::ReportError(const wxString& message,
 // ----------------------------------------------------------------------------
 
 // wxDynamicLibraryDetails declares this class as its friend, so put the code
-// initializing new details objects here
+// initializing NEW_DEBUG details objects here
 class wxDynamicLibraryDetailsCreator
 {
 public:
-    // create a new wxDynamicLibraryDetails from the given data
+    // create a NEW_DEBUG wxDynamicLibraryDetails from the given data
     static wxDynamicLibraryDetails *
     New(void *start, void *end, const wxString& path)
     {
-        wxDynamicLibraryDetails *details = new wxDynamicLibraryDetails;
+        wxDynamicLibraryDetails *details = NEW_DEBUG wxDynamicLibraryDetails;
         details->m_path = path;
         details->m_name = path.AfterLast(wxT('/'));
         details->m_address = start;
@@ -213,7 +213,7 @@ wxDynamicLibraryDetailsArray wxDynamicLibrary::ListLoaded()
             wxString pathNew = wxString::FromAscii(path);
             if ( pathCur.empty() )
             {
-                // new module start
+                // NEW_DEBUG module start
                 pathCur = pathNew;
                 startCur = start;
                 endCur = end;

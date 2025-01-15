@@ -91,7 +91,7 @@ void wxSourceUndoStep::Undo()
     if (m_type == wxSOURCE_UNDO_BACK)
     {
         m_owner->m_lines[m_y1].m_text = m_lines[0];
-        m_owner->m_lines.Insert( new wxSourceLine( m_lines[1] ), m_y1+1 );
+        m_owner->m_lines.Insert( NEW_DEBUG wxSourceLine( m_lines[1] ), m_y1+1 );
         m_owner->MyAdjustScrollbars();
         m_owner->MoveCursor( m_cursorX, m_cursorY );
         m_owner->RefreshDown( m_y1 );
@@ -100,7 +100,7 @@ void wxSourceUndoStep::Undo()
     {
         m_owner->m_lines[m_y1].m_text = m_lines[0];
         for (int i = 1; i < (int)m_lines.GetCount(); i++)
-            m_owner->m_lines.Insert( new wxSourceLine( m_lines[i] ), m_y1+i );
+            m_owner->m_lines.Insert( NEW_DEBUG wxSourceLine( m_lines[i] ), m_y1+i );
         m_owner->MyAdjustScrollbars();
         m_owner->MoveCursor( m_cursorX, m_cursorY );
         m_owner->RefreshDown( m_y1 );
@@ -288,7 +288,7 @@ void wxTextCtrl::DoSetValue(const wxString& value, int flags)
 
     if (value.empty())
     {
-        m_lines.Add( new wxSourceLine( wxEmptyString ) );
+        m_lines.Add( NEW_DEBUG wxSourceLine( wxEmptyString ) );
     }
     else
     {
@@ -299,7 +299,7 @@ void wxTextCtrl::DoSetValue(const wxString& value, int flags)
             pos = value.find( wxT('\n'), begin );
             if (pos < 0)
             {
-                wxSourceLine *sl = new wxSourceLine( value.Mid( begin, value.Len()-begin ) );
+                wxSourceLine *sl = NEW_DEBUG wxSourceLine( value.Mid( begin, value.Len()-begin ) );
                 m_lines.Add( sl );
 
                 // if (sl->m_text.Len() > m_longestLine)
@@ -314,7 +314,7 @@ void wxTextCtrl::DoSetValue(const wxString& value, int flags)
             }
             else
             {
-                wxSourceLine *sl = new wxSourceLine( value.Mid( begin, pos-begin ) );
+                wxSourceLine *sl = NEW_DEBUG wxSourceLine( value.Mid( begin, pos-begin ) );
                 m_lines.Add( sl );
 
                 // if (sl->m_text.Len() > m_longestLine)
@@ -399,7 +399,7 @@ void wxTextCtrl::Clear()
     ClearSelection();
 
     m_lines.Clear();
-    m_lines.Add( new wxSourceLine( wxEmptyString ) );
+    m_lines.Add( NEW_DEBUG wxSourceLine( wxEmptyString ) );
 
     SetScrollbars( m_charWidth, m_lineHeight, 0, 0, 0, 0 );
     Refresh();
@@ -513,7 +513,7 @@ void wxTextCtrl::WriteText(const wxString& text2)
 
     if (count == 1)
     {
-        m_undos.Append( new wxSourceUndoStep( wxSOURCE_UNDO_LINE, m_cursorY, m_cursorY, this ) );
+        m_undos.Append( NEW_DEBUG wxSourceUndoStep( wxSOURCE_UNDO_LINE, m_cursorY, m_cursorY, this ) );
 
         tmp1.Append( tmp2 );
         m_lines[m_cursorY].m_text = tmp1;
@@ -521,12 +521,12 @@ void wxTextCtrl::WriteText(const wxString& text2)
     }
     else
     {
-        m_undos.Append( new wxSourceUndoStep( wxSOURCE_UNDO_PASTE, m_cursorY, m_cursorY+count-1, this ) );
+        m_undos.Append( NEW_DEBUG wxSourceUndoStep( wxSOURCE_UNDO_PASTE, m_cursorY, m_cursorY+count-1, this ) );
 
         m_lines[m_cursorY].m_text = tmp1;
         int i;
         for (i = 1; i < count; i++)
-            m_lines.Insert( new wxSourceLine( lines[i] ), m_cursorY+i );
+            m_lines.Insert( NEW_DEBUG wxSourceLine( lines[i] ), m_cursorY+i );
         m_lines[m_cursorY+i-1].m_text.Append( tmp2 );
 
         MyAdjustScrollbars();
@@ -558,19 +558,19 @@ void wxTextCtrl::AppendText(const wxString& text2)
 
     if (count == 1)
     {
-        m_undos.Append( new wxSourceUndoStep( wxSOURCE_UNDO_LINE, y, y, this ) );
+        m_undos.Append( NEW_DEBUG wxSourceUndoStep( wxSOURCE_UNDO_LINE, y, y, this ) );
 
         m_lines[y].m_text = tmp;
         RefreshLine( y );
     }
     else
     {
-        m_undos.Append( new wxSourceUndoStep( wxSOURCE_UNDO_PASTE, y, y+count-1, this ) );
+        m_undos.Append( NEW_DEBUG wxSourceUndoStep( wxSOURCE_UNDO_PASTE, y, y+count-1, this ) );
 
         m_lines[y].m_text = tmp;
         int i;
         for (i = 1; i < count; i++)
-            m_lines.Insert( new wxSourceLine( lines[i] ), y+i );
+            m_lines.Insert( NEW_DEBUG wxSourceLine( lines[i] ), y+i );
 
         MyAdjustScrollbars();
         RefreshDown( y );
@@ -708,7 +708,7 @@ void wxTextCtrl::Copy()
 
     if (wxTheClipboard->Open())
     {
-        wxTheClipboard->SetData( new wxTextDataObject( sel ) );
+        wxTheClipboard->SetData( NEW_DEBUG wxTextDataObject( sel ) );
         wxTheClipboard->Close();
     }
 }
@@ -774,7 +774,7 @@ void wxTextCtrl::Paste()
 
     if (count == 1)
     {
-        m_undos.Append( new wxSourceUndoStep( wxSOURCE_UNDO_LINE, m_cursorY, m_cursorY, this ) );
+        m_undos.Append( NEW_DEBUG wxSourceUndoStep( wxSOURCE_UNDO_LINE, m_cursorY, m_cursorY, this ) );
 
         tmp1.Append( tmp2 );
         m_lines[m_cursorY].m_text = tmp1;
@@ -782,12 +782,12 @@ void wxTextCtrl::Paste()
     }
     else
     {
-        m_undos.Append( new wxSourceUndoStep( wxSOURCE_UNDO_PASTE, m_cursorY, m_cursorY+count-1, this ) );
+        m_undos.Append( NEW_DEBUG wxSourceUndoStep( wxSOURCE_UNDO_PASTE, m_cursorY, m_cursorY+count-1, this ) );
 
         m_lines[m_cursorY].m_text = tmp1;
         int i;
         for (i = 1; i < count; i++)
-            m_lines.Insert( new wxSourceLine( lines[i] ), m_cursorY+i );
+            m_lines.Insert( NEW_DEBUG wxSourceLine( lines[i] ), m_cursorY+i );
         m_lines[m_cursorY+i-1].m_text.Append( tmp2 );
 
         MyAdjustScrollbars();
@@ -1080,7 +1080,7 @@ void wxTextCtrl::Delete()
 
     if (selStartY == selEndY)
     {
-        m_undos.Append( new wxSourceUndoStep( wxSOURCE_UNDO_LINE, selStartY, selStartY, this ) );
+        m_undos.Append( NEW_DEBUG wxSourceUndoStep( wxSOURCE_UNDO_LINE, selStartY, selStartY, this ) );
 
         wxString tmp( m_lines[selStartY].m_text );
         if (selStartX < len)
@@ -1096,7 +1096,7 @@ void wxTextCtrl::Delete()
     }
     else
     {
-        m_undos.Append( new wxSourceUndoStep( wxSOURCE_UNDO_DELETE, selStartY, selEndY, this ) );
+        m_undos.Append( NEW_DEBUG wxSourceUndoStep( wxSOURCE_UNDO_DELETE, selStartY, selEndY, this ) );
 
         if (selStartX < len)
             m_lines[selStartY].m_text.Remove( selStartX );
@@ -1126,7 +1126,7 @@ void wxTextCtrl::DeleteLine()
 
     if (m_cursorY < 0 || m_cursorY >= (int)m_lines.GetCount()-1) return;  // TODO
 
-    m_undos.Append( new wxSourceUndoStep( wxSOURCE_UNDO_DELETE, m_cursorY, m_cursorY+1, this ) );
+    m_undos.Append( NEW_DEBUG wxSourceUndoStep( wxSOURCE_UNDO_DELETE, m_cursorY, m_cursorY+1, this ) );
 
     m_lines.RemoveAt( m_cursorY );
     m_cursorX = 0;
@@ -1140,7 +1140,7 @@ void wxTextCtrl::DoChar( char c )
 {
     m_modified = true;
 
-    m_undos.Append( new wxSourceUndoStep( wxSOURCE_UNDO_LINE, m_cursorY, m_cursorY, this ) );
+    m_undos.Append( NEW_DEBUG wxSourceUndoStep( wxSOURCE_UNDO_LINE, m_cursorY, m_cursorY, this ) );
 
     wxString tmp( m_lines[m_cursorY].m_text );
     tmp.Trim();
@@ -1214,7 +1214,7 @@ void wxTextCtrl::DoBack()
     {
         if (m_cursorY == 0) return;
 
-        m_undos.Append( new wxSourceUndoStep( wxSOURCE_UNDO_BACK, m_cursorY-1, m_cursorY, this ) );
+        m_undos.Append( NEW_DEBUG wxSourceUndoStep( wxSOURCE_UNDO_BACK, m_cursorY-1, m_cursorY, this ) );
 
         wxString tmp1( m_lines[m_cursorY-1].m_text );
         tmp1.Trim();
@@ -1231,7 +1231,7 @@ void wxTextCtrl::DoBack()
     }
     else
     {
-        m_undos.Append( new wxSourceUndoStep( wxSOURCE_UNDO_LINE, m_cursorY, m_cursorY, this ) );
+        m_undos.Append( NEW_DEBUG wxSourceUndoStep( wxSOURCE_UNDO_LINE, m_cursorY, m_cursorY, this ) );
 
         if (m_cursorX <= (int)m_lines[m_cursorY].m_text.Len())
             m_lines[m_cursorY].m_text.Remove( m_cursorX-1, 1 );
@@ -1260,7 +1260,7 @@ void wxTextCtrl::DoDelete()
     {
         if (m_cursorY == (int)m_lines.GetCount()-1) return;
 
-        m_undos.Append( new wxSourceUndoStep( wxSOURCE_UNDO_DELETE, m_cursorY, m_cursorY+1, this ) );
+        m_undos.Append( NEW_DEBUG wxSourceUndoStep( wxSOURCE_UNDO_DELETE, m_cursorY, m_cursorY+1, this ) );
 
         for (int i = 0; i < (m_cursorX-len); i++)
             tmp += ' ';
@@ -1275,7 +1275,7 @@ void wxTextCtrl::DoDelete()
     }
     else
     {
-        m_undos.Append( new wxSourceUndoStep( wxSOURCE_UNDO_LINE, m_cursorY, m_cursorY, this ) );
+        m_undos.Append( NEW_DEBUG wxSourceUndoStep( wxSOURCE_UNDO_LINE, m_cursorY, m_cursorY, this ) );
 
         tmp.Remove( m_cursorX, 1 );
         m_lines[m_cursorY].m_text = tmp;
@@ -1296,7 +1296,7 @@ void wxTextCtrl::DoReturn()
 {
     m_modified = true;
 
-    m_undos.Append( new wxSourceUndoStep( wxSOURCE_UNDO_ENTER, m_cursorY, m_cursorY, this ) );
+    m_undos.Append( NEW_DEBUG wxSourceUndoStep( wxSOURCE_UNDO_ENTER, m_cursorY, m_cursorY, this ) );
 
     wxString tmp( m_lines[m_cursorY].m_text );
     size_t indent = tmp.find_first_not_of( ' ' );
@@ -1309,7 +1309,7 @@ void wxTextCtrl::DoReturn()
 
         wxString new_tmp;
         for (size_t i = 0; i < indent; i++) new_tmp.Append( ' ' );
-        m_lines.Insert( new wxSourceLine( new_tmp ), cursorY );
+        m_lines.Insert( NEW_DEBUG wxSourceLine( new_tmp ), cursorY );
 
         MyAdjustScrollbars();
         MoveCursor( cursorX, cursorY );
@@ -1330,7 +1330,7 @@ void wxTextCtrl::DoReturn()
         wxString new_tmp;
         for (size_t i = 0; i < indent; i++) new_tmp.Append( ' ' );
         new_tmp.Append( tmp2 );
-        m_lines.Insert( new wxSourceLine( new_tmp ), cursorY );
+        m_lines.Insert( NEW_DEBUG wxSourceLine( new_tmp ), cursorY );
 
         MyAdjustScrollbars();
         MoveCursor( cursorX, cursorY );
@@ -1992,7 +1992,7 @@ void wxTextCtrl::Indent()
         }
     }
 
-    m_undos.Append( new wxSourceUndoStep( wxSOURCE_UNDO_LINE, startY, endY, this ) );
+    m_undos.Append( NEW_DEBUG wxSourceUndoStep( wxSOURCE_UNDO_LINE, startY, endY, this ) );
 
     for (int i = startY; i <= endY; i++)
     {
@@ -2017,7 +2017,7 @@ void wxTextCtrl::Unindent()
         }
     }
 
-    m_undos.Append( new wxSourceUndoStep( wxSOURCE_UNDO_LINE, startY, endY, this ) );
+    m_undos.Append( NEW_DEBUG wxSourceUndoStep( wxSOURCE_UNDO_LINE, startY, endY, this ) );
 
     for (int i = startY; i <= endY; i++)
     {

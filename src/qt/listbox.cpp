@@ -111,7 +111,7 @@ bool wxListBox::Create(wxWindow *parent, wxWindowID id,
     while ( n-- > 0 )
     {
         QListWidgetItem* item;
-        item = new QListWidgetItem();
+        item = NEW_DEBUG QListWidgetItem();
         item->setText(wxQtConvertString( *choices++ ));
         if ( m_hasCheckBoxes )
         {
@@ -148,7 +148,7 @@ void wxListBox::DoCreate(wxWindow* parent, long style)
     Init();
 
     m_qtWindow =
-    m_qtListWidget = new wxQtListWidget( parent, this );
+    m_qtListWidget = NEW_DEBUG wxQtListWidget( parent, this );
 
     if ( style & wxLB_SORT )
     {
@@ -261,7 +261,7 @@ int wxListBox::DoInsertItems(const wxArrayStringsAdapter & items,
 
 int wxListBox::DoInsertOneItem(const wxString& text, unsigned int pos)
 {
-    QListWidgetItem* item = new QListWidgetItem();
+    QListWidgetItem* item = NEW_DEBUG QListWidgetItem();
     item->setText(wxQtConvertString( text ));
     if ( m_hasCheckBoxes )
     {

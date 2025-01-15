@@ -23,10 +23,10 @@
 
 TEST_CASE("wxWrapSizer::CalcMin", "[wxWrapSizer]")
 {
-    wxScopedPtr<wxWindow> win(new wxWindow(wxTheApp->GetTopWindow(), wxID_ANY));
+    wxScopedPtr<wxWindow> win(NEW_DEBUG wxWindow(wxTheApp->GetTopWindow(), wxID_ANY));
     win->SetClientSize(180, 240);
 
-    wxSizer *sizer = new wxWrapSizer(wxHORIZONTAL);
+    wxSizer *sizer = NEW_DEBUG wxWrapSizer(wxHORIZONTAL);
     win->SetSizer(sizer);
 
     wxSize sizeMinExpected;
@@ -36,7 +36,7 @@ TEST_CASE("wxWrapSizer::CalcMin", "[wxWrapSizer]")
     sizeMinExpected = sizeChild1;
 
     wxWindow * const
-        child1 = new wxWindow(win.get(), wxID_ANY, wxDefaultPosition, sizeChild1);
+        child1 = NEW_DEBUG wxWindow(win.get(), wxID_ANY, wxDefaultPosition, sizeChild1);
     child1->SetBackgroundColour(*wxRED);
     sizer->Add(child1);
     win->Layout();
@@ -51,7 +51,7 @@ TEST_CASE("wxWrapSizer::CalcMin", "[wxWrapSizer]")
     sizeMinExpected.y = wxMax(sizeChild1.y, sizeChild2.y);
 
     wxWindow * const
-        child2 = new wxWindow(win.get(), wxID_ANY, wxDefaultPosition, sizeChild2);
+        child2 = NEW_DEBUG wxWindow(win.get(), wxID_ANY, wxDefaultPosition, sizeChild2);
     child2->SetBackgroundColour(*wxYELLOW);
     sizer->Add(child2);
     win->Layout();
@@ -64,7 +64,7 @@ TEST_CASE("wxWrapSizer::CalcMin", "[wxWrapSizer]")
     sizeMinExpected.y += sizeChild3.y;
 
     wxWindow * const
-        child3 = new wxWindow(win.get(), wxID_ANY, wxDefaultPosition, sizeChild3);
+        child3 = NEW_DEBUG wxWindow(win.get(), wxID_ANY, wxDefaultPosition, sizeChild3);
     child3->SetBackgroundColour(*wxGREEN);
     sizer->Add(child3);
     win->Layout();
@@ -74,34 +74,34 @@ TEST_CASE("wxWrapSizer::CalcMin", "[wxWrapSizer]")
 
 TEST_CASE("wxWrapSizer::CalcMinFromMinor", "[wxWrapSizer]")
 {
-    wxScopedPtr<wxWindow> win(new wxWindow(wxTheApp->GetTopWindow(), wxID_ANY));
+    wxScopedPtr<wxWindow> win(NEW_DEBUG wxWindow(wxTheApp->GetTopWindow(), wxID_ANY));
     win->SetClientSize(180, 240);
 
-    wxSizer* boxSizer = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer* boxSizer = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     win->SetSizer(boxSizer);
 
     // To test CalcMinFromMinor function the wrap sizer with the
     // horizonral align added to the box sizer with horizontal align.
-    wxSizer* wrapSizer = new wxWrapSizer(wxHORIZONTAL);
+    wxSizer* wrapSizer = NEW_DEBUG wxWrapSizer(wxHORIZONTAL);
     boxSizer->Add(wrapSizer);
 
     // Add three child windows. Sum of the first and the second windows widths should
     // be less than the width of the third window.
     const wxSize sizeChild1 = wxSize(40, 60);
     wxWindow * const
-        child1 = new wxWindow(win.get(), wxID_ANY, wxDefaultPosition, sizeChild1);
+        child1 = NEW_DEBUG wxWindow(win.get(), wxID_ANY, wxDefaultPosition, sizeChild1);
     child1->SetBackgroundColour(*wxRED);
     wrapSizer->Add(child1);
 
     const wxSize sizeChild2 = wxSize(50, 80);
     wxWindow * const
-        child2 = new wxWindow(win.get(), wxID_ANY, wxDefaultPosition, sizeChild2);
+        child2 = NEW_DEBUG wxWindow(win.get(), wxID_ANY, wxDefaultPosition, sizeChild2);
     child2->SetBackgroundColour(*wxGREEN);
     wrapSizer->Add(child2);
 
     const wxSize sizeChild3 = wxSize(100, 120);
     wxWindow * const
-        child3 = new wxWindow(win.get(), wxID_ANY, wxDefaultPosition, sizeChild3);
+        child3 = NEW_DEBUG wxWindow(win.get(), wxID_ANY, wxDefaultPosition, sizeChild3);
     child3->SetBackgroundColour(*wxBLUE);
     wrapSizer->Add(child3);
 

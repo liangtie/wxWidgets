@@ -220,7 +220,7 @@ wxThreadSpecificInfo& wxThreadSpecificInfo::Get()
     wxThreadSpecificInfo* info = wxThreadSpecificInfoTLS::Get();
     if (!info)
     {
-        info = new wxThreadSpecificInfo;
+        info = NEW_DEBUG wxThreadSpecificInfo;
         if (!wxThreadSpecificInfoTLS::Set(info))
         {
             // This will crash, but we'd leak memory otherwise which
@@ -533,7 +533,7 @@ public:
         }
     }
 
-    // create a new (suspended) thread (for the given thread object)
+    // create a NEW_DEBUG (suspended) thread (for the given thread object)
     bool Create(wxThread *thread, unsigned int stackSize);
 
     // wait for the thread to terminate, either by itself, or by asking it
@@ -911,7 +911,7 @@ wxThreadInternal::WaitForTerminate(wxCriticalSection& cs,
 
             case WAIT_OBJECT_0 + 1:
             case WAIT_OBJECT_0 + 2:
-                // Wake up has been signaled or a new message arrived, process
+                // Wake up has been signaled or a NEW_DEBUG message arrived, process
                 // it -- but only if we're the main thread as we don't support
                 // processing messages in the other ones
                 //
@@ -1138,7 +1138,7 @@ bool wxThread::SetConcurrency(size_t level)
 
 wxThread::wxThread(wxThreadKind kind)
 {
-    m_internal = new wxThreadInternal(this);
+    m_internal = NEW_DEBUG wxThreadInternal(this);
 
     m_isDetached = kind == wxTHREAD_DETACHED;
 }
@@ -1458,9 +1458,9 @@ bool wxThreadModule::OnInit()
         return false;
     }
 
-    gs_critsectWaitingForGui = new wxCriticalSection();
+    gs_critsectWaitingForGui = NEW_DEBUG wxCriticalSection();
 
-    gs_critsectGui = new wxCriticalSection();
+    gs_critsectGui = NEW_DEBUG wxCriticalSection();
     gs_critsectGui->Enter();
 
     wxThread::ms_idMainThread = wxThread::GetCurrentId();

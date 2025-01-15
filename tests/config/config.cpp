@@ -46,7 +46,7 @@ TEST_CASE("wxConfig::ReadWriteLocal", "[config]")
 {
     wxString app = "wxConfigTestCase";
     wxString vendor = "wxWidgets";
-    wxScopedPtr<wxConfig> config(new wxConfig(app, vendor, "", "",
+    wxScopedPtr<wxConfig> config(NEW_DEBUG wxConfig(app, vendor, "", "",
                                               wxCONFIG_USE_LOCAL_FILE));
     config->DeleteAll();
     config->Write("string1", "abc");
@@ -69,7 +69,7 @@ TEST_CASE("wxConfig::ReadWriteLocal", "[config]")
 #endif // TEST_WXCOLOUR
     config->Flush();
 
-    config.reset(new wxConfig(app, vendor, "", "",
+    config.reset(NEW_DEBUG wxConfig(app, vendor, "", "",
                               wxCONFIG_USE_LOCAL_FILE));
     wxString string1 = config->Read("string1");
     CHECK( string1 == "abc" );
@@ -199,7 +199,7 @@ TEST_CASE("wxConfig::RecordingDefaults", "[config]")
 {
     wxString app = "wxConfigTestCaseRD";
     wxString vendor = "wxWidgets";
-    wxScopedPtr<wxConfig> config(new wxConfig(app, vendor, "", "",
+    wxScopedPtr<wxConfig> config(NEW_DEBUG wxConfig(app, vendor, "", "",
                                               wxCONFIG_USE_LOCAL_FILE));
     config->DeleteAll();
     config->SetRecordDefaults(false); // by default it is false

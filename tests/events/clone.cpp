@@ -46,7 +46,7 @@ TEST_CASE("EventClone", "[wxEvent][clone]")
         }
         else if ( cn == "wxTimerEvent" )
         {
-            test = new wxTimerEvent(dummyTimer);
+            test = NEW_DEBUG wxTimerEvent(dummyTimer);
         }
         else
         {

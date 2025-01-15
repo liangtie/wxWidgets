@@ -666,7 +666,7 @@ bool wxQTMediaBackend::CreateControl(wxControl* ctrl, wxWindow* parent,
 
     // Part of a suggestion from Greg Hazel
     // to repaint movie when idle
-    m_evthandler = new wxQTMediaEvtHandler(this, m_ctrl->GetHWND());
+    m_evthandler = NEW_DEBUG wxQTMediaEvtHandler(this, m_ctrl->GetHWND());
     m_ctrl->PushEventHandler(m_evthandler);
 
     // done
@@ -749,7 +749,7 @@ void wxQTMediaBackend::PPRMProc (Movie theMovie,
     long lTime = pBE->m_lib.GetMovieTime(theMovie,NULL);
     Fixed rate = pBE->m_lib.GetMoviePreferredRate(theMovie);
     pBE->m_lib.PrerollMovie(theMovie, lTime, rate);
-    pBE->m_timer = new wxQTLoadTimer(pBE->m_movie, pBE, &pBE->m_lib);
+    pBE->m_timer = NEW_DEBUG wxQTLoadTimer(pBE->m_movie, pBE, &pBE->m_lib);
     pBE->m_timer->Start(MOVIE_DELAY);
 }
 
@@ -828,7 +828,7 @@ bool wxQTMediaBackend::Load(const wxURI& location)
 void wxQTMediaBackend::FinishLoad()
 {
     // Create the playing/streaming timer
-    m_timer = new wxQTPlayTimer(m_movie, (wxQTMediaBackend*) this, &m_lib);
+    m_timer = NEW_DEBUG wxQTPlayTimer(m_movie, (wxQTMediaBackend*) this, &m_lib);
     wxASSERT(m_timer);
 
     m_timer->Start(MOVIE_DELAY, wxTIMER_CONTINUOUS);

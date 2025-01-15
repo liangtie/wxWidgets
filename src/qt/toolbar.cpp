@@ -160,7 +160,7 @@ wxToolBar::~wxToolBar()
 bool wxToolBar::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos,
                        const wxSize& size, long style, const wxString& name)
 {
-    m_qtToolBar = new wxQtToolbar( parent, this );
+    m_qtToolBar = NEW_DEBUG wxQtToolbar( parent, this );
     m_qtToolBar->setWindowTitle( wxQtConvertString( name ) );
 
     SetWindowStyleFlag(style);
@@ -273,7 +273,7 @@ QActionGroup* wxToolBar::GetActionGroup(size_t pos)
     if (actionGroup == NULL && (int)pos < m_qtToolBar->actions().size() - 1)
         actionGroup = m_qtToolBar->actions().at(pos+1)->actionGroup();
     if (actionGroup == NULL)
-        actionGroup = new QActionGroup(m_qtToolBar);
+        actionGroup = NEW_DEBUG QActionGroup(m_qtToolBar);
     return actionGroup;
 }
 
@@ -288,7 +288,7 @@ bool wxToolBar::DoInsertTool(size_t pos, wxToolBarToolBase *toolBase)
     switch ( tool->GetStyle() )
     {
         case wxTOOL_STYLE_BUTTON:
-            tool->m_qtToolButton = new wxQtToolButton(this, tool);
+            tool->m_qtToolButton = NEW_DEBUG wxQtToolButton(this, tool);
             tool->m_qtToolButton->setToolButtonStyle((Qt::ToolButtonStyle)GetButtonStyle());
             tool->SetLabel( tool->GetLabel() );
 
@@ -317,7 +317,7 @@ bool wxToolBar::DoInsertTool(size_t pos, wxToolBarToolBase *toolBase)
 
         case wxTOOL_STYLE_SEPARATOR:
             if (tool->IsStretchable()) {
-                QWidget* spacer = new QWidget();
+                QWidget* spacer = NEW_DEBUG QWidget();
                 spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
                 m_qtToolBar->insertWidget(before, spacer);
             } else
@@ -368,14 +368,14 @@ wxToolBarToolBase *wxToolBar::CreateTool(int id, const wxString& label, const wx
                                       const wxBitmapBundle& bmpDisabled, wxItemKind kind, wxObject *clientData,
                                       const wxString& shortHelp, const wxString& longHelp)
 {
-    return new wxToolBarTool(this, id, label, bmpNormal, bmpDisabled, kind,
+    return NEW_DEBUG wxToolBarTool(this, id, label, bmpNormal, bmpDisabled, kind,
                              clientData, shortHelp, longHelp);
 }
 
 wxToolBarToolBase *wxToolBar::CreateTool(wxControl *control,
                                           const wxString& label)
 {
-    return new wxToolBarTool(this, control, label);
+    return NEW_DEBUG wxToolBarTool(this, control, label);
 }
 
 long wxToolBar::GetButtonStyle()

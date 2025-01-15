@@ -159,7 +159,7 @@ wxJoystick::wxJoystick(int joystick)
             {
                 /* Found the one we want, store actual OS id and return */
                 m_joystick = i;
-                m_thread = new wxJoystickThread(m_joystick);
+                m_thread = NEW_DEBUG wxJoystickThread(m_joystick);
                 m_thread->Run();
                 return;
             }

@@ -199,7 +199,7 @@ bool wxDirData::Read(wxString * WXUNUSED(filename))
     return false;
 }
 
-#endif // not or new VMS/old VMS
+#endif // not or NEW_DEBUG VMS/old VMS
 
 // ----------------------------------------------------------------------------
 // wxDir construction/destruction
@@ -215,7 +215,7 @@ wxDir::wxDir(const wxString& dirname)
 bool wxDir::Open(const wxString& dirname)
 {
     delete M_DIR;
-    m_data = new wxDirData(dirname);
+    m_data = NEW_DEBUG wxDirData(dirname);
 
     if ( !M_DIR->IsOk() )
     {

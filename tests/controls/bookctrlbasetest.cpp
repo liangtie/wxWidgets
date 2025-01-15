@@ -27,7 +27,7 @@ void BookCtrlBaseTestCase::AddPanels()
 
     wxSize size(32, 32);
 
-    m_list = new wxImageList(size.x, size.y);
+    m_list = NEW_DEBUG wxImageList(size.x, size.y);
     m_list->Add(wxArtProvider::GetIcon(wxART_INFORMATION, wxART_OTHER, size));
     m_list->Add(wxArtProvider::GetIcon(wxART_QUESTION, wxART_OTHER, size));
     m_list->Add(wxArtProvider::GetIcon(wxART_WARNING, wxART_OTHER, size));
@@ -36,9 +36,9 @@ void BookCtrlBaseTestCase::AddPanels()
 
     Realize();
 
-    m_panel1 = new wxPanel(base);
-    m_panel2 = new wxPanel(base);
-    m_panel3 = new wxPanel(base);
+    m_panel1 = NEW_DEBUG wxPanel(base);
+    m_panel2 = NEW_DEBUG wxPanel(base);
+    m_panel3 = NEW_DEBUG wxPanel(base);
 
     base->AddPage(m_panel1, "Panel 1", false, 0);
     base->AddPage(m_panel2, "Panel 2", false, 1);
@@ -89,7 +89,7 @@ void BookCtrlBaseTestCase::PageManagement()
 {
     wxBookCtrlBase * const base = GetBase();
 
-    base->InsertPage(0, new wxPanel(base), "New Panel", true, 0);
+    base->InsertPage(0, NEW_DEBUG wxPanel(base), "New Panel", true, 0);
 
     Realize();
 

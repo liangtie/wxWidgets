@@ -315,10 +315,10 @@ void EventPropagationTestCase::TwoHandlers()
 void EventPropagationTestCase::WindowWithoutHandler()
 {
     wxCommandEvent event(TEST_EVT);
-    TestWindow * const parent = new TestWindow(wxTheApp->GetTopWindow(), 'p');
+    TestWindow * const parent = NEW_DEBUG TestWindow(wxTheApp->GetTopWindow(), 'p');
     wxON_BLOCK_EXIT_OBJ0( *parent, wxWindow::Destroy );
 
-    TestWindow * const child = new TestWindow(parent, 'c');
+    TestWindow * const child = NEW_DEBUG TestWindow(parent, 'c');
 
     child->GetEventHandler()->ProcessEvent(event);
     CPPUNIT_ASSERT_EQUAL( "acpA", g_str );
@@ -327,10 +327,10 @@ void EventPropagationTestCase::WindowWithoutHandler()
 void EventPropagationTestCase::WindowWithHandler()
 {
     wxCommandEvent event(TEST_EVT);
-    TestWindow * const parent = new TestWindow(wxTheApp->GetTopWindow(), 'p');
+    TestWindow * const parent = NEW_DEBUG TestWindow(wxTheApp->GetTopWindow(), 'p');
     wxON_BLOCK_EXIT_OBJ0( *parent, wxWindow::Destroy );
 
-    TestWindow * const child = new TestWindow(parent, 'c');
+    TestWindow * const child = NEW_DEBUG TestWindow(parent, 'c');
 
     TestEvtHandler h1('1');
     child->PushEventHandler(&h1);
@@ -348,7 +348,7 @@ void EventPropagationTestCase::ForwardEvent()
     // The idea of this test is to check that the events explicitly forwarded
     // to another event handler still get pre/post-processed as usual as this
     // used to be broken by the fixes trying to avoid duplicate processing.
-    TestWindow * const win = new TestWindow(wxTheApp->GetTopWindow(), 'w');
+    TestWindow * const win = NEW_DEBUG TestWindow(wxTheApp->GetTopWindow(), 'w');
     wxON_BLOCK_EXIT_OBJ0( *win, wxWindow::Destroy );
 
     TestEvtHandler h1('1');
@@ -387,10 +387,10 @@ void EventPropagationTestCase::ForwardEvent()
 
 void EventPropagationTestCase::ScrollWindowWithoutHandler()
 {
-    TestWindow * const parent = new TestWindow(wxTheApp->GetTopWindow(), 'p');
+    TestWindow * const parent = NEW_DEBUG TestWindow(wxTheApp->GetTopWindow(), 'p');
     wxON_BLOCK_EXIT_OBJ0( *parent, wxWindow::Destroy );
 
-    TestScrollWindow * const win = new TestScrollWindow(parent);
+    TestScrollWindow * const win = NEW_DEBUG TestScrollWindow(parent);
 
 #ifdef CAN_TEST_PAINT_EVENTS
     win->GeneratePaintEvent();
@@ -405,10 +405,10 @@ void EventPropagationTestCase::ScrollWindowWithoutHandler()
 
 void EventPropagationTestCase::ScrollWindowWithHandler()
 {
-    TestWindow * const parent = new TestWindow(wxTheApp->GetTopWindow(), 'p');
+    TestWindow * const parent = NEW_DEBUG TestWindow(wxTheApp->GetTopWindow(), 'p');
     wxON_BLOCK_EXIT_OBJ0( *parent, wxWindow::Destroy );
 
-    TestScrollWindow * const win = new TestScrollWindow(parent);
+    TestScrollWindow * const win = NEW_DEBUG TestScrollWindow(parent);
 
 #ifdef CAN_TEST_PAINT_EVENTS
     TestPaintEvtHandler h('h');
@@ -431,10 +431,10 @@ void EventPropagationTestCase::ScrollWindowWithHandler()
 // attach it to the specified frame.
 wxMenu* CreateTestMenu(wxFrame* frame)
 {
-    wxMenu* const menu = new wxMenu;
+    wxMenu* const menu = NEW_DEBUG wxMenu;
     menu->Append(wxID_APPLY);
 #if wxUSE_MENUBAR
-    wxMenuBar* const mb = new wxMenuBar;
+    wxMenuBar* const mb = NEW_DEBUG wxMenuBar;
     mb->Append(menu, "&Menu");
     frame->SetMenuBar(mb);
 #endif
@@ -480,7 +480,7 @@ void EventPropagationTestCase::MenuEvent()
 
 
     // Check that a handler can also be attached to a submenu.
-    wxMenu* const submenu = new wxMenu;
+    wxMenu* const submenu = NEW_DEBUG wxMenu;
     submenu->Append(wxID_ABOUT);
     menu->Append(wxID_ANY, "Submenu", submenu);
 
@@ -538,7 +538,7 @@ void EventPropagationTestCase::DocView()
     wxDocManager docManager;
 
     wxScopedPtr<wxDocMDIParentFrame>
-        parent(new wxDocMDIParentFrame(&docManager, NULL, wxID_ANY, "Parent"));
+        parent(NEW_DEBUG wxDocMDIParentFrame(&docManager, NULL, wxID_ANY, "Parent"));
 
     wxMenu* const menu = CreateTestMenu(parent.get());
 
@@ -566,7 +566,7 @@ void EventPropagationTestCase::DocView()
     wxView* const view = doc->GetFirstView();
 
     wxScopedPtr<wxMDIChildFrame>
-        child(new wxDocMDIChildFrame(doc, view, parent.get(), wxID_ANY, "Child"));
+        child(NEW_DEBUG wxDocMDIChildFrame(doc, view, parent.get(), wxID_ANY, "Child"));
 
     wxMenu* const menuChild = CreateTestMenu(child.get());
 
@@ -652,11 +652,11 @@ private:
 void EventPropagationTestCase::ContextMenuEvent()
 {
     ContextMenuTestWindow * const
-        parent = new ContextMenuTestWindow(wxTheApp->GetTopWindow(), 'p');
+        parent = NEW_DEBUG ContextMenuTestWindow(wxTheApp->GetTopWindow(), 'p');
     wxON_BLOCK_EXIT_OBJ0( *parent, wxWindow::Destroy );
 
     ContextMenuTestWindow * const
-        child = new ContextMenuTestWindow(parent, 'c');
+        child = NEW_DEBUG ContextMenuTestWindow(parent, 'c');
     parent->SetSize(100, 100);
     child->SetSize(0, 0, 50, 50);
     child->SetFocus();

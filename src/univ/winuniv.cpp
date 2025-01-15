@@ -180,7 +180,7 @@ bool wxWindow::Create(wxWindow *parent,
         SetInsertIntoMain( true );
 #endif
 #if wxUSE_SCROLLBAR
-        m_scrollbarVert = new wxWindowScrollBar(this, wxID_ANY,
+        m_scrollbarVert = NEW_DEBUG wxWindowScrollBar(this, wxID_ANY,
                                                 wxDefaultPosition, wxDefaultSize,
                                                 wxSB_VERTICAL);
 #endif // wxUSE_SCROLLBAR
@@ -196,7 +196,7 @@ bool wxWindow::Create(wxWindow *parent,
         SetInsertIntoMain( true );
 #endif
 #if wxUSE_SCROLLBAR
-        m_scrollbarHorz = new wxWindowScrollBar(this, wxID_ANY,
+        m_scrollbarHorz = NEW_DEBUG wxWindowScrollBar(this, wxID_ANY,
                                                 wxDefaultPosition, wxDefaultSize,
                                                 wxSB_HORIZONTAL);
 #endif // wxUSE_SCROLLBAR
@@ -531,7 +531,7 @@ bool wxWindow::Enable(bool enable)
     if ( m_renderer )
     {
         // a window with renderer is drawn by ourselves and it has to be
-        // refreshed to reflect its new status
+        // refreshed to reflect its NEW_DEBUG status
         Refresh();
     }
 
@@ -928,7 +928,7 @@ void wxWindow::SetScrollbar(int orient,
 #if wxUSE_TWO_WINDOWS
             SetInsertIntoMain( true );
 #endif
-            scrollbar = new wxWindowScrollBar(this, wxID_ANY,
+            scrollbar = NEW_DEBUG wxWindowScrollBar(this, wxID_ANY,
                                               wxDefaultPosition, wxDefaultSize,
                                               orient & wxVERTICAL ? wxSB_VERTICAL
                                                                   : wxSB_HORIZONTAL);
@@ -1145,7 +1145,7 @@ wxRect wxWindow::ScrollNoRefresh(int dx, int dy, const wxRect *rectTotal)
         return rect;
     }
 
-    // calculate the part of the window which we can just redraw in the new
+    // calculate the part of the window which we can just redraw in the NEW_DEBUG
     // location
     wxSize sizeTotal = rectTotal ? rectTotal->GetSize() : GetClientSize();
 
@@ -1171,7 +1171,7 @@ wxRect wxWindow::ScrollNoRefresh(int dx, int dy, const wxRect *rectTotal)
 
         rect = rectTotal ? *rectTotal : wxRect(0, 0, sizeTotal.x, sizeTotal.y);
     }
-    else // move the part which doesn't change to the new location
+    else // move the part which doesn't change to the NEW_DEBUG location
     {
         // note that when we scroll the canvas in some direction we move the
         // block which doesn't need to be refreshed in the opposite direction

@@ -56,9 +56,9 @@ bool wxSlider::Create(wxWindow *parent,
     const wxSize& size, long style,
     const wxValidator& validator,
     const wxString& name)
-{    
+{
     DontCreatePeer();
-    
+
     m_macMinimumStatic = NULL;
     m_macMaximumStatic = NULL;
     m_macValueStatic = NULL;
@@ -116,16 +116,16 @@ bool wxSlider::Create(wxWindow *parent,
     // proper dimensions, it also means other people cannot bugger the slider with
     // other values
 #endif
-    
+
     if (style & wxSL_MIN_MAX_LABELS)
     {
-        m_macMinimumStatic = new wxStaticText( parent, wxID_ANY, wxEmptyString );
-        m_macMaximumStatic = new wxStaticText( parent, wxID_ANY, wxEmptyString );
+        m_macMinimumStatic = NEW_DEBUG wxStaticText( parent, wxID_ANY, wxEmptyString );
+        m_macMaximumStatic = NEW_DEBUG wxStaticText( parent, wxID_ANY, wxEmptyString );
     }
 
     if (style & wxSL_VALUE_LABEL)
     {
-        m_macValueStatic = new wxStaticText( parent, wxID_ANY, wxEmptyString );
+        m_macValueStatic = NEW_DEBUG wxStaticText( parent, wxID_ANY, wxEmptyString );
     }
 
     SetRange(minValue, maxValue);
@@ -499,7 +499,7 @@ void wxSlider::DoSetSize(int x, int y, int w, int h, int sizeFlags)
     // yet another hack since this is a composite control
     // when wxSlider has its size hardcoded, we're not allowed to
     // change the size. But when the control has labels, we DO need
-    
+
     // to resize the internal Mac control to accommodate the text labels.
     // We need to trick the wxWidgets resize mechanism so that we can
     // resize the slider part of the control ONLY.

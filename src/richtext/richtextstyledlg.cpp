@@ -179,90 +179,90 @@ void wxRichTextStyleOrganiserDialog::CreateControls()
 ////@begin wxRichTextStyleOrganiserDialog content construction
     wxRichTextStyleOrganiserDialog* itemDialog1 = this;
 
-    wxBoxSizer* itemBoxSizer2 = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer* itemBoxSizer2 = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     itemDialog1->SetSizer(itemBoxSizer2);
 
-    m_innerSizer = new wxBoxSizer(wxVERTICAL);
+    m_innerSizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     itemBoxSizer2->Add(m_innerSizer, 1, wxGROW|wxALL, 5);
 
-    m_buttonSizerParent = new wxBoxSizer(wxHORIZONTAL);
+    m_buttonSizerParent = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     m_innerSizer->Add(m_buttonSizerParent, 1, wxGROW, 5);
 
-    wxBoxSizer* itemBoxSizer5 = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer* itemBoxSizer5 = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     m_buttonSizerParent->Add(itemBoxSizer5, 1, wxGROW, 5);
 
-    wxStaticText* itemStaticText6 = new wxStaticText( itemDialog1, wxID_STATIC, _("&Styles:"), wxDefaultPosition, wxDefaultSize, 0 );
+    wxStaticText* itemStaticText6 = NEW_DEBUG wxStaticText( itemDialog1, wxID_STATIC, _("&Styles:"), wxDefaultPosition, wxDefaultSize, 0 );
     itemBoxSizer5->Add(itemStaticText6, 0, wxALIGN_LEFT|wxLEFT|wxRIGHT|wxTOP, 5);
 
-    m_stylesListBox = new wxRichTextStyleListCtrl( itemDialog1, ID_RICHTEXTSTYLEORGANISERDIALOG_STYLES, wxDefaultPosition, wxSize(280, 260), listCtrlStyle );
+    m_stylesListBox = NEW_DEBUG wxRichTextStyleListCtrl( itemDialog1, ID_RICHTEXTSTYLEORGANISERDIALOG_STYLES, wxDefaultPosition, wxSize(280, 260), listCtrlStyle );
     m_stylesListBox->SetHelpText(_("The available styles."));
     if (wxRichTextStyleOrganiserDialog::ShowToolTips())
         m_stylesListBox->SetToolTip(_("The available styles."));
     itemBoxSizer5->Add(m_stylesListBox, 1, wxGROW|wxALL, 5);
 
-    wxBoxSizer* itemBoxSizer8 = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer* itemBoxSizer8 = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     m_buttonSizerParent->Add(itemBoxSizer8, 0, wxGROW, 5);
 
-    wxStaticText* itemStaticText9 = new wxStaticText( itemDialog1, ID_RICHTEXTSTYLEORGANISERDIALOG_CURRENT_STYLE, _(" "), wxDefaultPosition, wxDefaultSize, 0 );
+    wxStaticText* itemStaticText9 = NEW_DEBUG wxStaticText( itemDialog1, ID_RICHTEXTSTYLEORGANISERDIALOG_CURRENT_STYLE, _(" "), wxDefaultPosition, wxDefaultSize, 0 );
     itemBoxSizer8->Add(itemStaticText9, 0, wxGROW|wxLEFT|wxRIGHT|wxTOP, 5);
 
-    m_previewCtrl = new wxRichTextCtrl( itemDialog1, ID_RICHTEXTSTYLEORGANISERDIALOG_PREVIEW, wxEmptyString, wxDefaultPosition, wxSize(250, 200), wxBORDER_THEME|wxVSCROLL|wxTE_READONLY );
+    m_previewCtrl = NEW_DEBUG wxRichTextCtrl( itemDialog1, ID_RICHTEXTSTYLEORGANISERDIALOG_PREVIEW, wxEmptyString, wxDefaultPosition, wxSize(250, 200), wxBORDER_THEME|wxVSCROLL|wxTE_READONLY );
     m_previewCtrl->SetHelpText(_("The style preview."));
     if (wxRichTextStyleOrganiserDialog::ShowToolTips())
         m_previewCtrl->SetToolTip(_("The style preview."));
     itemBoxSizer8->Add(m_previewCtrl, 1, wxGROW|wxALL, 5);
 
-    m_buttonSizer = new wxBoxSizer(wxVERTICAL);
+    m_buttonSizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     m_buttonSizerParent->Add(m_buttonSizer, 0, wxGROW, 5);
 
-    wxStaticText* itemStaticText12 = new wxStaticText( itemDialog1, wxID_STATIC, _(" "), wxDefaultPosition, wxDefaultSize, 0 );
+    wxStaticText* itemStaticText12 = NEW_DEBUG wxStaticText( itemDialog1, wxID_STATIC, _(" "), wxDefaultPosition, wxDefaultSize, 0 );
     m_buttonSizer->Add(itemStaticText12, 0, wxALIGN_LEFT|wxLEFT|wxRIGHT|wxTOP, 5);
 
-    m_newCharacter = new wxButton( itemDialog1, ID_RICHTEXTSTYLEORGANISERDIALOG_NEW_CHAR, _("New &Character Style..."), wxDefaultPosition, wxDefaultSize, 0 );
-    m_newCharacter->SetHelpText(_("Click to create a new character style."));
+    m_newCharacter = NEW_DEBUG wxButton( itemDialog1, ID_RICHTEXTSTYLEORGANISERDIALOG_NEW_CHAR, _("New &Character Style..."), wxDefaultPosition, wxDefaultSize, 0 );
+    m_newCharacter->SetHelpText(_("Click to create a NEW_DEBUG character style."));
     if (wxRichTextStyleOrganiserDialog::ShowToolTips())
-        m_newCharacter->SetToolTip(_("Click to create a new character style."));
+        m_newCharacter->SetToolTip(_("Click to create a NEW_DEBUG character style."));
     m_buttonSizer->Add(m_newCharacter, 0, wxGROW|wxALL, 5);
 
-    m_newParagraph = new wxButton( itemDialog1, ID_RICHTEXTSTYLEORGANISERDIALOG_NEW_PARA, _("New &Paragraph Style..."), wxDefaultPosition, wxDefaultSize, 0 );
-    m_newParagraph->SetHelpText(_("Click to create a new paragraph style."));
+    m_newParagraph = NEW_DEBUG wxButton( itemDialog1, ID_RICHTEXTSTYLEORGANISERDIALOG_NEW_PARA, _("New &Paragraph Style..."), wxDefaultPosition, wxDefaultSize, 0 );
+    m_newParagraph->SetHelpText(_("Click to create a NEW_DEBUG paragraph style."));
     if (wxRichTextStyleOrganiserDialog::ShowToolTips())
-        m_newParagraph->SetToolTip(_("Click to create a new paragraph style."));
+        m_newParagraph->SetToolTip(_("Click to create a NEW_DEBUG paragraph style."));
     m_buttonSizer->Add(m_newParagraph, 0, wxGROW|wxLEFT|wxRIGHT|wxBOTTOM, 5);
 
-    m_newList = new wxButton( itemDialog1, ID_RICHTEXTSTYLEORGANISERDIALOG_NEW_LIST, _("New &List Style..."), wxDefaultPosition, wxDefaultSize, 0 );
-    m_newList->SetHelpText(_("Click to create a new list style."));
+    m_newList = NEW_DEBUG wxButton( itemDialog1, ID_RICHTEXTSTYLEORGANISERDIALOG_NEW_LIST, _("New &List Style..."), wxDefaultPosition, wxDefaultSize, 0 );
+    m_newList->SetHelpText(_("Click to create a NEW_DEBUG list style."));
     if (wxRichTextStyleOrganiserDialog::ShowToolTips())
-        m_newList->SetToolTip(_("Click to create a new list style."));
+        m_newList->SetToolTip(_("Click to create a NEW_DEBUG list style."));
     m_buttonSizer->Add(m_newList, 0, wxGROW|wxLEFT|wxRIGHT|wxBOTTOM, 5);
 
-    m_newBox = new wxButton( itemDialog1, ID_RICHTEXTSTYLEORGANISERDIALOG_NEW_BOX, _("New &Box Style..."), wxDefaultPosition, wxDefaultSize, 0 );
-    m_newBox->SetHelpText(_("Click to create a new box style."));
+    m_newBox = NEW_DEBUG wxButton( itemDialog1, ID_RICHTEXTSTYLEORGANISERDIALOG_NEW_BOX, _("New &Box Style..."), wxDefaultPosition, wxDefaultSize, 0 );
+    m_newBox->SetHelpText(_("Click to create a NEW_DEBUG box style."));
     if (wxRichTextStyleOrganiserDialog::ShowToolTips())
-        m_newBox->SetToolTip(_("Click to create a new box style."));
+        m_newBox->SetToolTip(_("Click to create a NEW_DEBUG box style."));
     m_buttonSizer->Add(m_newBox, 0, wxGROW|wxLEFT|wxRIGHT|wxBOTTOM, 5);
 
     m_buttonSizer->Add(5, 5, 1, wxALIGN_CENTER_HORIZONTAL|wxALL, 5);
 
-    m_applyStyle = new wxButton( itemDialog1, ID_RICHTEXTSTYLEORGANISERDIALOG_APPLY, _("&Apply Style"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_applyStyle = NEW_DEBUG wxButton( itemDialog1, ID_RICHTEXTSTYLEORGANISERDIALOG_APPLY, _("&Apply Style"), wxDefaultPosition, wxDefaultSize, 0 );
     m_applyStyle->SetHelpText(_("Click to apply the selected style."));
     if (wxRichTextStyleOrganiserDialog::ShowToolTips())
         m_applyStyle->SetToolTip(_("Click to apply the selected style."));
     m_buttonSizer->Add(m_applyStyle, 0, wxGROW|wxALL, 5);
 
-    m_renameStyle = new wxButton( itemDialog1, ID_RICHTEXTSTYLEORGANISERDIALOG_RENAME, _("&Rename Style..."), wxDefaultPosition, wxDefaultSize, 0 );
+    m_renameStyle = NEW_DEBUG wxButton( itemDialog1, ID_RICHTEXTSTYLEORGANISERDIALOG_RENAME, _("&Rename Style..."), wxDefaultPosition, wxDefaultSize, 0 );
     m_renameStyle->SetHelpText(_("Click to rename the selected style."));
     if (wxRichTextStyleOrganiserDialog::ShowToolTips())
         m_renameStyle->SetToolTip(_("Click to rename the selected style."));
     m_buttonSizer->Add(m_renameStyle, 0, wxGROW|wxLEFT|wxRIGHT|wxBOTTOM, 5);
 
-    m_editStyle = new wxButton( itemDialog1, ID_RICHTEXTSTYLEORGANISERDIALOG_EDIT, _("&Edit Style..."), wxDefaultPosition, wxDefaultSize, 0 );
+    m_editStyle = NEW_DEBUG wxButton( itemDialog1, ID_RICHTEXTSTYLEORGANISERDIALOG_EDIT, _("&Edit Style..."), wxDefaultPosition, wxDefaultSize, 0 );
     m_editStyle->SetHelpText(_("Click to edit the selected style."));
     if (wxRichTextStyleOrganiserDialog::ShowToolTips())
         m_editStyle->SetToolTip(_("Click to edit the selected style."));
     m_buttonSizer->Add(m_editStyle, 0, wxGROW|wxLEFT|wxRIGHT|wxBOTTOM, 5);
 
-    m_deleteStyle = new wxButton( itemDialog1, ID_RICHTEXTSTYLEORGANISERDIALOG_DELETE, _("&Delete Style..."), wxDefaultPosition, wxDefaultSize, 0 );
+    m_deleteStyle = NEW_DEBUG wxButton( itemDialog1, ID_RICHTEXTSTYLEORGANISERDIALOG_DELETE, _("&Delete Style..."), wxDefaultPosition, wxDefaultSize, 0 );
     m_deleteStyle->SetHelpText(_("Click to delete the selected style."));
     if (wxRichTextStyleOrganiserDialog::ShowToolTips())
         m_deleteStyle->SetToolTip(_("Click to delete the selected style."));
@@ -270,33 +270,33 @@ void wxRichTextStyleOrganiserDialog::CreateControls()
 
     m_buttonSizer->Add(5, 5, 1, wxALIGN_CENTER_HORIZONTAL|wxALL, 5);
 
-    m_closeButton = new wxButton( itemDialog1, wxID_CANCEL, _("Close"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_closeButton = NEW_DEBUG wxButton( itemDialog1, wxID_CANCEL, _("Close"), wxDefaultPosition, wxDefaultSize, 0 );
     m_closeButton->SetDefault();
     m_closeButton->SetHelpText(_("Click to close this window."));
     if (wxRichTextStyleOrganiserDialog::ShowToolTips())
         m_closeButton->SetToolTip(_("Click to close this window."));
     m_buttonSizer->Add(m_closeButton, 0, wxGROW|wxALL, 5);
 
-    m_bottomButtonSizer = new wxBoxSizer(wxHORIZONTAL);
+    m_bottomButtonSizer = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     m_innerSizer->Add(m_bottomButtonSizer, 0, wxGROW, 5);
 
-    m_restartNumberingCtrl = new wxCheckBox( itemDialog1, ID_RICHTEXTSTYLEORGANISERDIALOG_RESTART_NUMBERING, _("&Restart numbering"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_restartNumberingCtrl = NEW_DEBUG wxCheckBox( itemDialog1, ID_RICHTEXTSTYLEORGANISERDIALOG_RESTART_NUMBERING, _("&Restart numbering"), wxDefaultPosition, wxDefaultSize, 0 );
     m_restartNumberingCtrl->SetValue(false);
     m_restartNumberingCtrl->SetHelpText(_("Check to restart numbering."));
     if (wxRichTextStyleOrganiserDialog::ShowToolTips())
         m_restartNumberingCtrl->SetToolTip(_("Check to restart numbering."));
     m_bottomButtonSizer->Add(m_restartNumberingCtrl, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    m_stdButtonSizer = new wxStdDialogButtonSizer;
+    m_stdButtonSizer = NEW_DEBUG wxStdDialogButtonSizer;
 
     m_bottomButtonSizer->Add(m_stdButtonSizer, 1, wxALIGN_CENTER_VERTICAL|wxALL, 5);
-    m_okButton = new wxButton( itemDialog1, wxID_OK, _("OK"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_okButton = NEW_DEBUG wxButton( itemDialog1, wxID_OK, _("OK"), wxDefaultPosition, wxDefaultSize, 0 );
     m_stdButtonSizer->AddButton(m_okButton);
 
-    m_cancelButton = new wxButton( itemDialog1, wxID_CANCEL, _("Cancel"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_cancelButton = NEW_DEBUG wxButton( itemDialog1, wxID_CANCEL, _("Cancel"), wxDefaultPosition, wxDefaultSize, 0 );
     m_stdButtonSizer->AddButton(m_cancelButton);
 
-    wxButton* itemButton29 = new wxButton( itemDialog1, wxID_HELP, _("&Help"), wxDefaultPosition, wxDefaultSize, 0 );
+    wxButton* itemButton29 = NEW_DEBUG wxButton( itemDialog1, wxID_HELP, _("&Help"), wxDefaultPosition, wxDefaultSize, 0 );
     m_stdButtonSizer->AddButton(itemButton29);
 
     m_stdButtonSizer->Realize();
@@ -608,7 +608,7 @@ void wxRichTextStyleOrganiserDialog::OnNewCharClick( wxCommandEvent& WXUNUSED(ev
             return;
         }
 
-        wxRichTextCharacterStyleDefinition* style = new wxRichTextCharacterStyleDefinition(styleName);
+        wxRichTextCharacterStyleDefinition* style = NEW_DEBUG wxRichTextCharacterStyleDefinition(styleName);
 
         int pages = wxRICHTEXT_FORMAT_FONT|wxRICHTEXT_FORMAT_STYLE_EDITOR;
         wxRichTextFormattingDialog formatDlg;
@@ -656,7 +656,7 @@ void wxRichTextStyleOrganiserDialog::OnNewParaClick( wxCommandEvent& WXUNUSED(ev
             return;
         }
 
-        wxRichTextParagraphStyleDefinition* style = new wxRichTextParagraphStyleDefinition(styleName);
+        wxRichTextParagraphStyleDefinition* style = NEW_DEBUG wxRichTextParagraphStyleDefinition(styleName);
 
         int pages = wxRICHTEXT_FORMAT_STYLE_EDITOR|wxRICHTEXT_FORMAT_FONT|wxRICHTEXT_FORMAT_INDENTS_SPACING|wxRICHTEXT_FORMAT_TABS|wxRICHTEXT_FORMAT_BULLETS;
         wxRichTextFormattingDialog formatDlg;
@@ -822,7 +822,7 @@ void wxRichTextStyleOrganiserDialog::OnNewListClick( wxCommandEvent& WXUNUSED(ev
             return;
         }
 
-        wxRichTextListStyleDefinition* style = new wxRichTextListStyleDefinition(styleName);
+        wxRichTextListStyleDefinition* style = NEW_DEBUG wxRichTextListStyleDefinition(styleName);
 
         // Initialize the style to make it easier to edit
         int i;
@@ -886,7 +886,7 @@ void wxRichTextStyleOrganiserDialog::OnRenameClick( wxCommandEvent& WXUNUSED(eve
     if (!def)
         return;
 
-    wxString styleName = wxGetTextFromUser(_("Enter a new style name"), _("New Style"), def->GetName());
+    wxString styleName = wxGetTextFromUser(_("Enter a NEW_DEBUG style name"), _("New Style"), def->GetName());
     if (!styleName.IsEmpty())
     {
         if (styleName == def->GetName())
@@ -936,7 +936,7 @@ void wxRichTextStyleOrganiserDialog::OnNewBoxClick( wxCommandEvent& WXUNUSED(eve
             return;
         }
 
-        wxRichTextBoxStyleDefinition* style = new wxRichTextBoxStyleDefinition(styleName);
+        wxRichTextBoxStyleDefinition* style = NEW_DEBUG wxRichTextBoxStyleDefinition(styleName);
 
         int pages = wxRICHTEXT_FORMAT_MARGINS|wxRICHTEXT_FORMAT_SIZE|wxRICHTEXT_FORMAT_BORDERS|wxRICHTEXT_FORMAT_BACKGROUND;
         wxRichTextFormattingDialog formatDlg;

@@ -248,7 +248,7 @@ wxObject* wxSizerXmlHandler::Handle_sizer()
     wxSizer *old_par = m_parentSizer;
     bool old_ins = m_isInside;
 
-    // set new state
+    // set NEW_DEBUG state
     m_parentSizer = sizer;
     m_isInside = true;
     m_isGBS = (m_class == wxT("wxGridBagSizer"));
@@ -318,7 +318,7 @@ wxObject* wxSizerXmlHandler::Handle_sizer()
 
 wxSizer*  wxSizerXmlHandler::Handle_wxBoxSizer()
 {
-    return new wxBoxSizer(GetStyle(wxT("orient"), wxHORIZONTAL));
+    return NEW_DEBUG wxBoxSizer(GetStyle(wxT("orient"), wxHORIZONTAL));
 }
 
 #if wxUSE_STATBOX
@@ -358,7 +358,7 @@ wxSizer*  wxSizerXmlHandler::Handle_wxStaticBoxSizer()
             return NULL;
         }
 
-        box = new wxStaticBox(m_parentAsWindow,
+        box = NEW_DEBUG wxStaticBox(m_parentAsWindow,
                               GetID(),
                               wndLabel,
                               wxDefaultPosition, wxDefaultSize,
@@ -372,7 +372,7 @@ wxSizer*  wxSizerXmlHandler::Handle_wxStaticBoxSizer()
     }
     else // Using plain text label.
     {
-        box = new wxStaticBox(m_parentAsWindow,
+        box = NEW_DEBUG wxStaticBox(m_parentAsWindow,
                               GetID(),
                               labelText,
                               wxDefaultPosition, wxDefaultSize,
@@ -380,13 +380,13 @@ wxSizer*  wxSizerXmlHandler::Handle_wxStaticBoxSizer()
                               GetName());
     }
 
-    return new wxStaticBoxSizer(box, GetStyle(wxS("orient"), wxHORIZONTAL));
+    return NEW_DEBUG wxStaticBoxSizer(box, GetStyle(wxS("orient"), wxHORIZONTAL));
 }
 #endif // wxUSE_STATBOX
 
 wxSizer*  wxSizerXmlHandler::Handle_wxGridSizer()
 {
-    return new wxGridSizer(GetLong(wxT("rows")), GetLong(wxT("cols")),
+    return NEW_DEBUG wxGridSizer(GetLong(wxT("rows")), GetLong(wxT("cols")),
                            GetDimension(wxT("vgap")), GetDimension(wxT("hgap")));
 }
 
@@ -395,7 +395,7 @@ wxFlexGridSizer* wxSizerXmlHandler::Handle_wxFlexGridSizer()
 {
     if ( !ValidateGridSizerChildren() )
         return NULL;
-    return new wxFlexGridSizer(GetLong(wxT("rows")), GetLong(wxT("cols")),
+    return NEW_DEBUG wxFlexGridSizer(GetLong(wxT("rows")), GetLong(wxT("cols")),
                                GetDimension(wxT("vgap")), GetDimension(wxT("hgap")));
 }
 
@@ -404,12 +404,12 @@ wxGridBagSizer* wxSizerXmlHandler::Handle_wxGridBagSizer()
 {
     if ( !ValidateGridSizerChildren() )
         return NULL;
-    return new wxGridBagSizer(GetDimension(wxT("vgap")), GetDimension(wxT("hgap")));
+    return NEW_DEBUG wxGridBagSizer(GetDimension(wxT("vgap")), GetDimension(wxT("hgap")));
 }
 
 wxSizer*  wxSizerXmlHandler::Handle_wxWrapSizer()
 {
-    wxWrapSizer *sizer = new wxWrapSizer(GetStyle("orient", wxHORIZONTAL), GetStyle("flag"));
+    wxWrapSizer *sizer = NEW_DEBUG wxWrapSizer(GetStyle("orient", wxHORIZONTAL), GetStyle("flag"));
     return sizer;
 }
 
@@ -586,9 +586,9 @@ wxGBSpan wxSizerXmlHandler::GetGBSpan()
 wxSizerItem* wxSizerXmlHandler::MakeSizerItem()
 {
     if (m_isGBS)
-        return new wxGBSizerItem();
+        return NEW_DEBUG wxGBSizerItem();
     else
-        return new wxSizerItem();
+        return NEW_DEBUG wxSizerItem();
 }
 
 int wxSizerXmlHandler::GetSizerFlags()
@@ -952,7 +952,7 @@ wxObject *wxStdDialogButtonSizerXmlHandler::DoCreateResource()
     {
         wxASSERT( !m_parentSizer );
 
-        wxSizer *s = m_parentSizer = new wxStdDialogButtonSizer;
+        wxSizer *s = m_parentSizer = NEW_DEBUG wxStdDialogButtonSizer;
         m_isInside = true;
 
         CreateChildren(m_parent, true/*only this handler*/);

@@ -163,7 +163,7 @@ void wxMessageDialog::ReplaceStaticWithEdit()
     // set the right font for GetCharHeight() call below
     wxWindowBase::SetFont(GetMessageFont());
 
-    // put the new edit control at the same place
+    // put the NEW_DEBUG edit control at the same place
     RECT rc = wxGetWindowRect(hwndStatic);
     ScreenRectToClient(GetHwnd(), rc);
 
@@ -191,7 +191,7 @@ void wxMessageDialog::ReplaceStaticWithEdit()
     rc.right += dw;
 
 
-    // chop of the trailing new line(s) from the message box text, they are
+    // chop of the trailing NEW_DEBUG line(s) from the message box text, they are
     // ignored by the static control but result in extra lines and hence extra
     // scrollbar position in the edit one
     wxString text(wxGetWindowText(hwndStatic));
@@ -207,7 +207,7 @@ void wxMessageDialog::ReplaceStaticWithEdit()
         }
     }
 
-    // do create the new control
+    // do create the NEW_DEBUG control
     HWND hwndEdit = ::CreateWindow
                       (
                         wxT("EDIT"),
@@ -278,7 +278,7 @@ void wxMessageDialog::AdjustButtonLabels()
 
     // first iteration: find the widest button and update the buttons labels
     int wBtnOld = 0,            // current buttons width
-        wBtnNew = 0;            // required new buttons width
+        wBtnNew = 0;            // required NEW_DEBUG buttons width
     RECT rcBtn;                 // stores the button height and y positions
     unsigned numButtons = 0;    // total number of buttons in the message box
     unsigned n;
@@ -342,7 +342,7 @@ void wxMessageDialog::AdjustButtonLabels()
         SetWindowRect(GetHwnd(), rcBox);
 
         // surprisingly, we don't need to resize the static text control, it
-        // seems to adjust itself to the new size, at least under Windows 2003
+        // seems to adjust itself to the NEW_DEBUG size, at least under Windows 2003
         // (TODO: test if this happens on older Windows versions)
     }
     else // the current width is big enough
@@ -599,7 +599,7 @@ wxTaskDialogCallback(HWND hwnd, UINT msg, WPARAM, LPARAM, LONG_PTR)
 } // anonymous namespace
 
 wxMSWTaskDialogConfig::wxMSWTaskDialogConfig(const wxMessageDialogBase& dlg)
-                     : buttons(new TASKDIALOG_BUTTON[MAX_BUTTONS])
+                     : buttons(NEW_DEBUG TASKDIALOG_BUTTON[MAX_BUTTONS])
 {
     parent = dlg.GetParentForModalDialog();
     caption = dlg.GetCaption();

@@ -246,7 +246,7 @@ bool wxScrollArrows::HandleMouse(const wxMouseEvent& event) const
             }
 
             wxConstCast(this, wxScrollArrows)->m_captureData =
-                new wxScrollArrowCaptureData;
+                NEW_DEBUG wxScrollArrowCaptureData;
             m_captureData->m_arrowPressed = arrow;
             m_captureData->m_btnCapture = btn;
             m_captureData->m_window = m_control->GetWindow();
@@ -255,7 +255,7 @@ bool wxScrollArrows::HandleMouse(const wxMouseEvent& event) const
 #if wxUSE_TIMER
             // start scrolling
             wxScrollArrowTimer *tmpTimerScroll =
-                new wxScrollArrowTimer(m_control, arrow);
+                NEW_DEBUG wxScrollArrowTimer(m_control, arrow);
 #endif // wxUSE_TIMER
 
             // Because in some cases wxScrollArrowTimer can cause

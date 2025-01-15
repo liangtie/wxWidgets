@@ -3827,9 +3827,9 @@ TEST_CASE("ClippingBoxTestCase::wxClientDC", "[clip][dc][clientdc]")
     // Under wxGTK2 we need to have two children (at least) because if there
     // is exactly one child its size is set to fill the whole parent frame
     // and the window cannot be resized - see wxTopLevelWindowBase::Layout().
-    wxScopedPtr<wxWindow> w0(new wxWindow(wxTheApp->GetTopWindow(), wxID_ANY));
+    wxScopedPtr<wxWindow> w0(NEW_DEBUG wxWindow(wxTheApp->GetTopWindow(), wxID_ANY));
 #endif // wxGTK 2
-    wxScopedPtr<wxWindow> win(new wxWindow(wxTheApp->GetTopWindow(), wxID_ANY, wxPoint(0, 0)));
+    wxScopedPtr<wxWindow> win(NEW_DEBUG wxWindow(wxTheApp->GetTopWindow(), wxID_ANY, wxPoint(0, 0)));
 
     win->SetClientSize(s_dcSize);
 
@@ -4504,7 +4504,7 @@ static void RegionsAndPushPopState(wxScopedPtr<wxGraphicsContext>& gc, const wxB
         return;
     }
 #endif
-    
+
     // Get rectangle of the entire drawing area.
     double x, y, w, h;
     gc->GetClipBox(&x, &y, &w, &h);

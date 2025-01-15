@@ -663,7 +663,7 @@ wxString wxCFStringRef::AsString( CFStringRef ref, wxFontEncoding WXUNUSED_IN_UN
     CFIndex cStrLen ;
     CFStringGetBytes( ref , CFRangeMake(0, cflen) , cfencoding ,
         '?' , false , NULL , 0 , &cStrLen ) ;
-    char* buf = new char[cStrLen];
+    char* buf = NEW_DEBUG char[cStrLen];
     CFStringGetBytes( ref , CFRangeMake(0, cflen) , cfencoding,
         '?' , false , (unsigned char*) buf , cStrLen , &cStrLen) ;
 

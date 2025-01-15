@@ -239,10 +239,10 @@ ScintillaWX::ScintillaWX(wxStyledTextCtrl* win) {
 #endif // wxHAVE_STC_RECT_FORMAT
 
     //A timer is needed for each member of TickReason enum except tickPlatform
-    timers[tickCaret] = new wxSTCTimer(this,tickCaret);
-    timers[tickScroll] = new wxSTCTimer(this,tickScroll);
-    timers[tickWiden] = new wxSTCTimer(this,tickWiden);
-    timers[tickDwell] = new wxSTCTimer(this,tickDwell);
+    timers[tickCaret] = NEW_DEBUG wxSTCTimer(this,tickCaret);
+    timers[tickScroll] = NEW_DEBUG wxSTCTimer(this,tickScroll);
+    timers[tickWiden] = NEW_DEBUG wxSTCTimer(this,tickWiden);
+    timers[tickDwell] = NEW_DEBUG wxSTCTimer(this,tickDwell);
 
     m_surfaceData = NULL;
 }
@@ -268,7 +268,7 @@ ScintillaWX::~ScintillaWX() {
 void ScintillaWX::Initialise() {
     //ScintillaBase::Initialise();
 #if wxUSE_DRAG_AND_DROP
-    dropTarget = new wxSTCDropTarget;
+    dropTarget = NEW_DEBUG wxSTCDropTarget;
     dropTarget->SetScintilla(this);
     stc->SetDropTarget(dropTarget);
 #endif // wxUSE_DRAG_AND_DROP
@@ -572,14 +572,14 @@ void ScintillaWX::CopyToClipboard(const SelectionText& st) {
             // when copying the text to the clipboard, add extra meta-data that
             // tells the Paste() method that the user copied a rectangular
             // block of text, as opposed to a stream of text.
-            wxDataObjectComposite* composite = new wxDataObjectComposite();
-            composite->Add(new wxTextDataObject(text), true);
-            composite->Add(new wxCustomDataObject(m_clipRectTextFormat));
+            wxDataObjectComposite* composite = NEW_DEBUG wxDataObjectComposite();
+            composite->Add(NEW_DEBUG wxTextDataObject(text), true);
+            composite->Add(NEW_DEBUG wxCustomDataObject(m_clipRectTextFormat));
             wxTheClipboard->SetData(composite);
         }
         else
 #endif // wxHAVE_STC_RECT_FORMAT
-            wxTheClipboard->SetData(new wxTextDataObject(text));
+            wxTheClipboard->SetData(NEW_DEBUG wxTextDataObject(text));
         wxTheClipboard->Close();
     }
 #else
@@ -613,7 +613,7 @@ bool ScintillaWX::CanPaste() {
 
 void ScintillaWX::CreateCallTipWindow(PRectangle) {
     if (! ct.wCallTip.Created() ) {
-        ct.wCallTip = new wxSTCCallTip(stc, &ct, this);
+        ct.wCallTip = NEW_DEBUG wxSTCCallTip(stc, &ct, this);
         ct.wDraw = ct.wCallTip.GetID();
     }
 }
@@ -643,7 +643,7 @@ void ScintillaWX::ClaimSelection() {
         wxTheClipboard->UsePrimarySelection(true);
         if (wxTheClipboard->Open()) {
             wxString text = stc2wx(st.Data(), st.Length());
-            wxTheClipboard->SetData(new wxTextDataObject(text));
+            wxTheClipboard->SetData(NEW_DEBUG wxTextDataObject(text));
             wxTheClipboard->Close();
         }
         wxTheClipboard->UsePrimarySelection(false);
@@ -685,7 +685,7 @@ bool ScintillaWX::CreateSystemCaret() {
     }
     sysCaretHeight = vs.lineHeight;
     int bitmapSize = (((sysCaretWidth + 15) & ~15) >> 3) * sysCaretHeight;
-    char *bits = new char[bitmapSize];
+    char *bits = NEW_DEBUG char[bitmapSize];
     memset(bits, 0, bitmapSize);
     sysCaretBitmap = ::CreateBitmap(sysCaretWidth, sysCaretHeight, 1,
                                     1, reinterpret_cast<BYTE *>(bits));
@@ -763,8 +763,8 @@ sptr_t ScintillaWX::WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam)
       case SCI_CALLTIPSHOW: {
           // NOTE: This is copied here from scintilla/src/ScintillaBase.cxx
           // because of the little tweak that needs done below for wxGTK.
-          // When updating new versions double check that this is still
-          // needed, and that any new code there is copied here too.
+          // When updating NEW_DEBUG versions double check that this is still
+          // needed, and that any NEW_DEBUG code there is copied here too.
           Point pt = LocationFromPosition(wParam);
           char* defn = reinterpret_cast<char *>(lParam);
           AutoCompleteCancel();
@@ -809,7 +809,7 @@ sptr_t ScintillaWX::WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam)
                     SurfaceDataD2D* newSurfaceData(NULL);
 
                     if (static_cast<int>(wParam) > SC_TECHNOLOGY_DEFAULT) {
-                        newSurfaceData =  new SurfaceDataD2D(this);
+                        newSurfaceData =  NEW_DEBUG SurfaceDataD2D(this);
 
                         if (!newSurfaceData->Initialised()) {
                             // Failed to load Direct2D or DirectWrite so no effect
@@ -888,8 +888,8 @@ void ScintillaWX::DoPaint(wxDC* dc, wxRect rect) {
     }
 
     if (paintState == paintAbandoned) {
-        // Painting area was insufficient to cover new styling or brace
-        // highlight positions.  So trigger a new paint event that will
+        // Painting area was insufficient to cover NEW_DEBUG styling or brace
+        // highlight positions.  So trigger a NEW_DEBUG paint event that will
         // repaint the whole window.
         stc->Refresh(false);
 

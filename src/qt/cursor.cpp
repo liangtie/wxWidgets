@@ -169,10 +169,10 @@ void wxCursor::InitFromImage( const wxImage & image )
 
 wxGDIRefData *wxCursor::CreateGDIRefData() const
 {
-    return new wxCursorRefData;
+    return NEW_DEBUG wxCursorRefData;
 }
 
 wxGDIRefData *wxCursor::CloneGDIRefData(const wxGDIRefData *data) const
 {
-    return new wxCursorRefData(*(wxCursorRefData *)data);
+    return NEW_DEBUG wxCursorRefData(*(wxCursorRefData *)data);
 }

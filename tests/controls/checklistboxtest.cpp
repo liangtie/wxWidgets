@@ -48,7 +48,7 @@ wxREGISTER_UNIT_TEST_WITH_TAGS(CheckListBoxTestCase,
 
 void CheckListBoxTestCase::setUp()
 {
-    m_check = new wxCheckListBox(wxTheApp->GetTopWindow(), wxID_ANY);
+    m_check = NEW_DEBUG wxCheckListBox(wxTheApp->GetTopWindow(), wxID_ANY);
 }
 
 void CheckListBoxTestCase::tearDown()

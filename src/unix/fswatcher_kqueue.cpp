@@ -85,7 +85,7 @@ public:
         m_source(NULL),
         m_kfd(-1)
     {
-        m_handler = new wxFSWSourceHandler(this);
+        m_handler = NEW_DEBUG wxFSWSourceHandler(this);
     }
 
     virtual ~wxFSWatcherImplKqueue()
@@ -223,8 +223,8 @@ public:
     }
 
 protected:
-    // returns all new dirs/files present in the immediate level of the dir
-    // pointed by watch.GetPath(). "new" means created between the last time
+    // returns all NEW_DEBUG dirs/files present in the immediate level of the dir
+    // pointed by watch.GetPath(). "NEW_DEBUG" means created between the last time
     // the state of watch was computed and now
     void FindChanges(wxFSWatchEntryKq& watch,
                      wxArrayString& changedFiles,
@@ -318,7 +318,7 @@ protected:
             if ( nflags & NOTE_WRITE && wxDirExists(basepath) )
             {
                 // NOTE_LINK is set when the dir was created, but we
-                // don't care - we look for new names in directory
+                // don't care - we look for NEW_DEBUG names in directory
                 // regardless of type. Also, clear all this, because
                 // it cannot mean more by itself
                 nflags &= ~(NOTE_WRITE | NOTE_ATTRIB | NOTE_LINK);
@@ -447,7 +447,7 @@ wxKqueueFileSystemWatcher::~wxKqueueFileSystemWatcher()
 
 bool wxKqueueFileSystemWatcher::Init()
 {
-    m_service = new wxFSWatcherImplKqueue(this);
+    m_service = NEW_DEBUG wxFSWatcherImplKqueue(this);
     return m_service->Init();
 }
 

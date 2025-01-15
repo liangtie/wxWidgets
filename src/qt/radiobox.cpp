@@ -127,7 +127,7 @@ static void AddChoices( QButtonGroup *qtButtonGroup, QGridLayout *qtGridLayout, 
 
     for ( int i = 0; i < count; ++i )
     {
-        QRadioButton *btn = new QRadioButton(wxQtConvertString (choices[i]) );
+        QRadioButton *btn = NEW_DEBUG QRadioButton(wxQtConvertString (choices[i]) );
         qtButtonGroup->addButton( btn, i );
 
         int row;
@@ -167,22 +167,22 @@ bool wxRadioBox::Create(wxWindow *parent,
             const wxValidator& val,
             const wxString& name)
 {
-    m_qtGroupBox = new wxQtRadioBox( parent, this );
+    m_qtGroupBox = NEW_DEBUG wxQtRadioBox( parent, this );
     m_qtGroupBox->setTitle( wxQtConvertString( title ) );
-    m_qtButtonGroup = new wxQtButtonGroup( m_qtGroupBox, this );
+    m_qtButtonGroup = NEW_DEBUG wxQtButtonGroup( m_qtGroupBox, this );
 
     if ( !(style & (wxRA_SPECIFY_ROWS | wxRA_SPECIFY_COLS)) )
         style |= wxRA_SPECIFY_COLS;
 
-    m_qtGridLayout = new QGridLayout;
+    m_qtGridLayout = NEW_DEBUG QGridLayout;
 
     AddChoices( m_qtButtonGroup, m_qtGridLayout, n, choices, style, majorDim );
 
-    QVBoxLayout *vertLayout = new QVBoxLayout;
+    QVBoxLayout *vertLayout = NEW_DEBUG QVBoxLayout;
     vertLayout->addLayout(m_qtGridLayout);
     vertLayout->addStretch();
 
-    QHBoxLayout *horzLayout = new QHBoxLayout;
+    QHBoxLayout *horzLayout = NEW_DEBUG QHBoxLayout;
     horzLayout->addLayout(vertLayout);
     horzLayout->addStretch();
 

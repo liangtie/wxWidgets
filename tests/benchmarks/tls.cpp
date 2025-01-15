@@ -158,7 +158,7 @@ BENCHMARK_FUNC(BoostTLS)
 {
     static boost::thread_specific_ptr<int> s_ptr;
     if ( !s_ptr.get() )
-        s_ptr.reset(new int(0));
+        s_ptr.reset(NEW_DEBUG int(0));
 
     for ( int n = 0; n < NUM_ITER; n++ )
     {

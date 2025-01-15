@@ -72,7 +72,7 @@ public:
         m_dvc(dvc),
         m_valueOrig(m_dvc->m_Deleting)
     {
-        m_dvc->m_Deleting = new wxOSXDVCDeleting(parent);
+        m_dvc->m_Deleting = NEW_DEBUG wxOSXDVCDeleting(parent);
     }
 
     ~wxOSXDVCScopedDeleter()
@@ -383,7 +383,7 @@ wxDataViewCustomRenderer::~wxDataViewCustomRenderer()
 wxDC* wxDataViewCustomRenderer::GetDC()
 {
   if ((m_DCPtr == NULL) && (GetOwner() != NULL) && (GetOwner()->GetOwner() != NULL))
-    m_DCPtr = new wxClientDC(GetOwner()->GetOwner());
+    m_DCPtr = NEW_DEBUG wxClientDC(GetOwner()->GetOwner());
   return m_DCPtr;
 }
 
@@ -473,7 +473,7 @@ bool wxDataViewCtrl::AssociateModel(wxDataViewModel* model)
   {
     if (model != NULL)
     {
-      m_ModelNotifier = new wxOSXDataViewModelNotifier(this);
+      m_ModelNotifier = NEW_DEBUG wxOSXDataViewModelNotifier(this);
       model->AddNotifier(m_ModelNotifier);
     }
     return true;
@@ -766,7 +766,7 @@ bool wxDataViewCtrl::DoEnableDropTarget(const wxVector<wxDataFormat> &formats)
     wxDropTarget* dt = NULL;
     if (wxDataObject* dataObject = CreateDataObject(formats))
     {
-        dt = new wxDropTarget(dataObject);
+        dt = NEW_DEBUG wxDropTarget(dataObject);
     }
 
     SetDropTarget(dt);

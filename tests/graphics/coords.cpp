@@ -81,7 +81,7 @@ class CoordinatesGCDCTestCase : public CoordinatesDCTestCase
 public:
     CoordinatesGCDCTestCase()
     {
-        m_gcdc = new wxGCDC(m_mdc);
+        m_gcdc = NEW_DEBUG wxGCDC(m_mdc);
 
         wxGraphicsContext* ctx = m_gcdc->GetGraphicsContext();
         ctx->SetAntialiasMode(wxANTIALIAS_NONE);

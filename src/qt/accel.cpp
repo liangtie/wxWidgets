@@ -60,7 +60,7 @@ wxIMPLEMENT_DYNAMIC_CLASS( wxAcceleratorTable, wxObject );
 QShortcut *ConvertAccelerator( wxAcceleratorEntry *e, QWidget *parent )
 {
     // TODO: Not all keys have the same string representation in wx and qt
-    QShortcut *s = new QShortcut( wxQtConvertString( e->ToString() ), parent );
+    QShortcut *s = NEW_DEBUG QShortcut( wxQtConvertString( e->ToString() ), parent );
 
     // Set a property to save wx Command to send when activated
     s->setProperty( "wxQt_Command", e->GetCommand() );
@@ -74,11 +74,11 @@ wxAcceleratorTable::wxAcceleratorTable()
 
 wxAcceleratorTable::wxAcceleratorTable(int n, const wxAcceleratorEntry entries[])
 {
-    m_refData = new wxAccelRefData;
+    m_refData = NEW_DEBUG wxAccelRefData;
 
     for ( int i = 0; i < n; i++ )
     {
-        M_ACCELDATA->m_accels.Append( new wxAcceleratorEntry( entries[i] ) );
+        M_ACCELDATA->m_accels.Append( NEW_DEBUG wxAcceleratorEntry( entries[i] ) );
     }
 }
 
@@ -97,12 +97,12 @@ wxVector<QShortcut*> wxAcceleratorTable::ConvertShortcutTable( QWidget *parent )
 
 wxObjectRefData *wxAcceleratorTable::CreateRefData() const
 {
-    return new wxAccelRefData;
+    return NEW_DEBUG wxAccelRefData;
 }
 
 wxObjectRefData *wxAcceleratorTable::CloneRefData(const wxObjectRefData *data) const
 {
-    return new wxAccelRefData(*(wxAccelRefData *)data);
+    return NEW_DEBUG wxAccelRefData(*(wxAccelRefData *)data);
 }
 
 bool wxAcceleratorTable::IsOk() const

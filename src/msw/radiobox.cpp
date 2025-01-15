@@ -42,7 +42,7 @@
 WX_DEFINE_FLAGS( wxRadioBoxStyle )
 
 wxBEGIN_FLAGS( wxRadioBoxStyle )
-    // new style border flags, we put them first to
+    // NEW_DEBUG style border flags, we put them first to
     // use them for streaming out
     wxFLAGS_MEMBER(wxBORDER_SIMPLE)
     wxFLAGS_MEMBER(wxBORDER_SUNKEN)
@@ -186,7 +186,7 @@ bool wxRadioBox::Create(wxWindow *parent,
 
     for ( int i = 0; i < n; i++ )
     {
-        auto rb = new wxRadioBoxButton(this, i, choices[i]);
+        auto rb = NEW_DEBUG wxRadioBoxButton(this, i, choices[i]);
 
         m_radioButtons.push_back(rb);
 
@@ -204,7 +204,7 @@ bool wxRadioBox::Create(wxWindow *parent,
     // The gap is arbitrary, but this is simple and seems to work well.
     wxSize gapSize = GetTextExtent("X");
     gapSize.y /= 2;
-    wxSizer* const sizerButtons = new wxGridSizer(numCols, gapSize);
+    wxSizer* const sizerButtons = NEW_DEBUG wxGridSizer(numCols, gapSize);
 
     // This sizer can't be used directly for a couple of reasons: first, we
     // don't want it to expand to the total box area and spread out the buttons
@@ -212,7 +212,7 @@ bool wxRadioBox::Create(wxWindow *parent,
     // extra margins (and unfortunately we can't use wxStaticBoxSizer here as
     // this sizer can't be used with the box whose contents it's used to lay
     // out -- doing this would result in an infinite recursion).
-    wxSizer* const sizerBox = new wxBoxSizer(wxVERTICAL);
+    wxSizer* const sizerBox = NEW_DEBUG wxBoxSizer(wxVERTICAL);
 
     int borderTop, borderOther;
     GetBordersForSizer(&borderTop, &borderOther);

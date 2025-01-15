@@ -160,7 +160,7 @@ bool wxDataObject::IsSupportedFormat(const wxDataFormat& format, Direction dir) 
     }
     else
     {
-        wxDataFormat *formats = new wxDataFormat[nFormatCount];
+        wxDataFormat *formats = NEW_DEBUG wxDataFormat[nFormatCount];
         GetAllFormats(formats,dir);
 
         size_t n;

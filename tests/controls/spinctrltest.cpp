@@ -24,7 +24,7 @@ class SpinCtrlTestCase1
 {
 public:
     SpinCtrlTestCase1()
-        : m_spin(new wxSpinCtrl())
+        : m_spin(NEW_DEBUG wxSpinCtrl())
     {
     }
 
@@ -41,7 +41,7 @@ class SpinCtrlTestCase2
 {
 public:
     SpinCtrlTestCase2()
-        : m_spin(new wxSpinCtrl(wxTheApp->GetTopWindow()))
+        : m_spin(NEW_DEBUG wxSpinCtrl(wxTheApp->GetTopWindow()))
     {
     }
 
@@ -58,7 +58,7 @@ class SpinCtrlTestCase3
 {
 public:
     SpinCtrlTestCase3()
-        : m_spin(new wxSpinCtrl(wxTheApp->GetTopWindow()))
+        : m_spin(NEW_DEBUG wxSpinCtrl(wxTheApp->GetTopWindow()))
     {
         m_spin->Bind(wxEVT_SPINCTRL, &SpinCtrlTestCase3::OnSpinSetValue, this);
     }
@@ -209,7 +209,7 @@ TEST_CASE_METHOD(SpinCtrlTestCase2, "SpinCtrl::Range", "[spinctrl]")
     CHECK(m_spin->GetMax() == 100);
     CHECK(m_spin->GetBase() == 10);
 
-    // Test that the value is adjusted to be inside the new valid range but
+    // Test that the value is adjusted to be inside the NEW_DEBUG valid range but
     // that this doesn't result in any events (as this is not something done by
     // the user).
     {
@@ -342,7 +342,7 @@ TEST_CASE_METHOD(SpinCtrlTestCase3, "SpinCtrl::SetValueInsideEventHandler", "[sp
 {
 #if wxUSE_UIACTIONSIMULATOR
     // A dummy control with which we change the focus.
-    wxTextCtrl* text = new wxTextCtrl(wxTheApp->GetTopWindow(), wxID_ANY);
+    wxTextCtrl* text = NEW_DEBUG wxTextCtrl(wxTheApp->GetTopWindow(), wxID_ANY);
     text->Move(m_spin->GetSize().x, m_spin->GetSize().y * 3);
 
     wxUIActionSimulator sim;

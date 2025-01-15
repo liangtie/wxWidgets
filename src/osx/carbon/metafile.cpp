@@ -165,7 +165,7 @@ void wxMetafileRefData::UpdateDocumentFromData()
 
 wxMetaFile::wxMetaFile(const wxString& file)
 {
-    m_refData = new wxMetafileRefData(file);
+    m_refData = NEW_DEBUG wxMetafileRefData(file);
 }
 
 wxMetaFile::~wxMetaFile()
@@ -174,7 +174,7 @@ wxMetaFile::~wxMetaFile()
 
 wxGDIRefData *wxMetaFile::CreateGDIRefData() const
 {
-    return new wxMetafileRefData;
+    return NEW_DEBUG wxMetafileRefData;
 }
 
 wxGDIRefData *
@@ -182,7 +182,7 @@ wxMetaFile::CloneGDIRefData(const wxGDIRefData * WXUNUSED(data)) const
 {
     wxFAIL_MSG( wxS("Cloning metafiles is not implemented in wxCarbon.") );
 
-    return new wxMetafileRefData;
+    return NEW_DEBUG wxMetafileRefData;
 }
 
 WXHMETAFILE wxMetaFile::GetHMETAFILE() const
@@ -206,7 +206,7 @@ bool wxMetaFile::SetClipboard(int WXUNUSED(width), int WXUNUSED(height))
         wxTheClipboard->Clear();
     }
 
-    wxDataObject *data = new wxMetafileDataObject( *this );
+    wxDataObject *data = NEW_DEBUG wxMetafileDataObject( *this );
     success = wxTheClipboard->SetData( data );
     if (!alreadyOpen)
         wxTheClipboard->Close();
@@ -219,7 +219,7 @@ void wxMetafile::SetHMETAFILE(WXHMETAFILE mf)
 {
     UnRef();
 
-    m_refData = new wxMetafileRefData((CFDataRef)mf);
+    m_refData = NEW_DEBUG wxMetafileRefData((CFDataRef)mf);
 }
 
 bool wxMetaFile::Play(wxDC *dc)
@@ -276,8 +276,8 @@ wxMetafileDCImpl::wxMetafileDCImpl(
     wxASSERT_MSG( width != 0 || height != 0, wxT("no arbitration of metafile size supported") );
     wxASSERT_MSG( filename.empty(), wxT("no file based metafile support yet"));
 
-    m_metaFile = new wxMetaFile( filename );
-    wxMetafileRefData* metafiledata = new wxMetafileRefData(width, height);
+    m_metaFile = NEW_DEBUG wxMetaFile( filename );
+    wxMetafileRefData* metafiledata = NEW_DEBUG wxMetafileRefData(width, height);
     m_metaFile->UnRef();
     m_metaFile->SetRefData( metafiledata );
 
@@ -341,7 +341,7 @@ bool wxMetafileDataObject::GetDataHere(void *buf) const
 
 bool wxMetafileDataObject::SetData(size_t len, const void *buf)
 {
-    wxMetafileRefData* metafiledata = new wxMetafileRefData(wxCFRefFromGet(wxCFDataRef(static_cast<const UInt8*>(buf), len).get()));
+    wxMetafileRefData* metafiledata = NEW_DEBUG wxMetafileRefData(wxCFRefFromGet(wxCFDataRef(static_cast<const UInt8*>(buf), len).get()));
     m_metafile.UnRef();
     m_metafile.SetRefData( metafiledata );
     return true;

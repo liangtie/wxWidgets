@@ -543,7 +543,7 @@ wxRenderer *wxGTKTheme::GetRenderer()
 {
     if ( !m_renderer )
     {
-        m_renderer = new wxGTKRenderer(GetColourScheme());
+        m_renderer = NEW_DEBUG wxGTKRenderer(GetColourScheme());
     }
 
     return m_renderer;
@@ -553,7 +553,7 @@ wxArtProvider *wxGTKTheme::GetArtProvider()
 {
     if ( !m_artProvider )
     {
-        m_artProvider = new wxGTKArtProvider;
+        m_artProvider = NEW_DEBUG wxGTKArtProvider;
     }
 
     return m_artProvider;
@@ -563,7 +563,7 @@ wxColourScheme *wxGTKTheme::GetColourScheme()
 {
     if ( !m_scheme )
     {
-        m_scheme = new wxGTKColourScheme;
+        m_scheme = NEW_DEBUG wxGTKColourScheme;
     }
     return m_scheme;
 }
@@ -580,7 +580,7 @@ wxInputHandler *wxGTKTheme::GetInputHandler(const wxString& control,
         wxInputHandler * const
           handlerStd = consumer->DoGetStdInputHandler(&s_handlerDef);
 
-        // create a new handler
+        // create a NEW_DEBUG handler
 #if wxUSE_CHECKBOX
         if ( control == wxINP_HANDLER_CHECKBOX )
         {
@@ -999,7 +999,7 @@ void wxGTKRenderer::DrawRadioButtonBitmap(wxDC& dc,
     DrawBackground(dc, wxSCHEME_COLOUR(m_scheme, CONTROL_CURRENT), rect);
 
     dc.SetPen(m_penDarkGrey);
-    dc.SetBrush(wxSCHEME_COLOUR(m_scheme, CONTROL_CURRENT)); 
+    dc.SetBrush(wxSCHEME_COLOUR(m_scheme, CONTROL_CURRENT));
     // draw the normal border
     dc.DrawCircle(xRight/2,yBottom/2,yMid);
 
@@ -1803,7 +1803,7 @@ wxMenuGeometryInfo *wxGTKRenderer::GetMenuGeometry(wxWindow *win,
     }
 
     // bundle the metrics into a struct and return it
-    wxGTKMenuGeometryInfo *gi = new wxGTKMenuGeometryInfo;
+    wxGTKMenuGeometryInfo *gi = NEW_DEBUG wxGTKMenuGeometryInfo;
 
     gi->m_ofsLabel = widthBmpMax + 2*MENU_BMP_MARGIN;
     gi->m_ofsAccel = gi->m_ofsLabel + widthLabelMax;

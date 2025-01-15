@@ -258,7 +258,7 @@ void wxTopLevelWindowX11::OnInternalIdle()
     wxWindow::OnInternalIdle();
 
     // Do this only after the last idle event so that
-    // all windows have been updated before a new
+    // all windows have been updated before a NEW_DEBUG
     // round of size events is sent
     if (m_needResizeInIdle && !wxTheApp->Pending())
     {

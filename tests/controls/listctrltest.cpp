@@ -78,7 +78,7 @@ CPPUNIT_TEST_SUITE_NAMED_REGISTRATION( ListCtrlTestCase, "ListCtrlTestCase" );
 
 void ListCtrlTestCase::setUp()
 {
-    m_list = new wxListCtrl(wxTheApp->GetTopWindow());
+    m_list = NEW_DEBUG wxListCtrl(wxTheApp->GetTopWindow());
     m_list->SetWindowStyle(wxLC_REPORT);
     m_list->SetSize(400, 200);
 }
@@ -100,7 +100,7 @@ void ListCtrlTestCase::SubitemRect()
 {
     wxBitmap bmp = wxArtProvider::GetBitmap(wxART_ERROR);
 
-    wxImageList* const iml = new wxImageList(bmp.GetWidth(), bmp.GetHeight());
+    wxImageList* const iml = NEW_DEBUG wxImageList(bmp.GetWidth(), bmp.GetHeight());
     iml->Add(bmp);
     m_list->AssignImageList(iml, wxIMAGE_LIST_SMALL);
 
@@ -150,19 +150,19 @@ void ListCtrlTestCase::ColumnCount()
 
     // Recreate the control in other modes to check the count there as well.
     delete m_list;
-    m_list = new wxListCtrl(wxTheApp->GetTopWindow(), wxID_ANY,
+    m_list = NEW_DEBUG wxListCtrl(wxTheApp->GetTopWindow(), wxID_ANY,
                             wxDefaultPosition, wxDefaultSize,
                             wxLC_LIST);
     CHECK(m_list->GetColumnCount() == 1);
 
     delete m_list;
-    m_list = new wxListCtrl(wxTheApp->GetTopWindow(), wxID_ANY,
+    m_list = NEW_DEBUG wxListCtrl(wxTheApp->GetTopWindow(), wxID_ANY,
                             wxDefaultPosition, wxDefaultSize,
                             wxLC_ICON);
     CHECK(m_list->GetColumnCount() == 0);
 
     delete m_list;
-    m_list = new wxListCtrl(wxTheApp->GetTopWindow(), wxID_ANY,
+    m_list = NEW_DEBUG wxListCtrl(wxTheApp->GetTopWindow(), wxID_ANY,
                             wxDefaultPosition, wxDefaultSize,
                             wxLC_SMALL_ICON);
     CHECK(m_list->GetColumnCount() == 0);

@@ -31,9 +31,9 @@ bool ScreenshotApp::OnInit()
     wxInitAllImageHandlers();
 
     // Add richtext extra handlers (plain text is automatically added)
-    wxRichTextBuffer::AddHandler(new wxRichTextXMLHandler);
+    wxRichTextBuffer::AddHandler(NEW_DEBUG wxRichTextXMLHandler);
 
-    ScreenshotFrame* frame = new ScreenshotFrame(0L);
+    ScreenshotFrame* frame = NEW_DEBUG ScreenshotFrame(0L);
     frame->Show();
 
     return true;

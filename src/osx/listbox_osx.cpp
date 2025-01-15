@@ -83,9 +83,9 @@ bool wxListBox::Create(
         return false;
 
     if ( IsSorted() )
-        m_strings.sorted = new wxSortedArrayString(wxDictionaryStringSortAscending);
+        m_strings.sorted = NEW_DEBUG wxSortedArrayString(wxDictionaryStringSortAscending);
     else
-        m_strings.unsorted = new wxArrayString;
+        m_strings.unsorted = NEW_DEBUG wxArrayString;
 
     SetPeer(wxWidgetImpl::CreateListBox( this, parent, id, pos, size, style, GetExtraStyle() ));
 
@@ -132,10 +132,10 @@ void wxListBox::FreeData()
 
 void wxListBox::DoSetFirstItem(int n)
 {
-    // osx actually only has an implementation for ensuring the visibility of a row, it does so  
+    // osx actually only has an implementation for ensuring the visibility of a row, it does so
     // by scrolling the minimal amount necessary from the current scrolling position.
-    // in order to get the same behaviour I'd have to make sure first that the last line is visible, 
-    // followed by a scrollRowToVisible for the desired line 
+    // in order to get the same behaviour I'd have to make sure first that the last line is visible,
+    // followed by a scrollRowToVisible for the desired line
     GetListPeer()->ListScrollTo( GetCount()-1 );
     GetListPeer()->ListScrollTo( n );
 }

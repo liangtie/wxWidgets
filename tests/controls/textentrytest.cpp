@@ -401,7 +401,7 @@ public:
           m_processEnter(processEnter),
           m_gotEnter(false)
     {
-        wxSizer* const sizer = new wxBoxSizer(wxVERTICAL);
+        wxSizer* const sizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
         sizer->Add(m_control, wxSizerFlags().Expand());
         sizer->Add(CreateStdDialogButtonSizer(wxOK));
         SetSizerAndFit(sizer);

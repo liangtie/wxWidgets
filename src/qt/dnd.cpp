@@ -79,7 +79,7 @@ void AddDataFormat(wxDataObject* dataObject,
 
 QMimeData* CreateMimeData(wxDataObject* dataObject)
 {
-    QMimeData* mimeData = new QMimeData();
+    QMimeData* mimeData = NEW_DEBUG QMimeData();
 
     const size_t count = dataObject->GetFormatCount();
 
@@ -275,7 +275,7 @@ private:
 
 wxDropTarget::wxDropTarget(wxDataObject *dataObject)
     : wxDropTargetBase(dataObject),
-      m_pImpl(new Impl(this))
+      m_pImpl(NEW_DEBUG Impl(this))
 {
 }
 

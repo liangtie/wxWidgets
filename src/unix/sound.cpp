@@ -356,7 +356,7 @@ bool wxSoundSyncOnlyAdaptor::Play(wxSoundData *data, unsigned flags,
         m_status.m_playing = true;
         m_status.m_stopRequested = false;
         data->IncRef();
-        wxThread *th = new wxSoundAsyncPlaybackThread(this, data, flags);
+        wxThread *th = NEW_DEBUG wxSoundAsyncPlaybackThread(this, data, flags);
         th->Create();
         th->Run();
         wxLogTrace(wxT("sound"), wxT("launched async playback thread"));
@@ -452,7 +452,7 @@ bool wxSound::Create(const wxString& fileName,
         return false;
 
     size_t len = wx_truncate_cast(size_t, lenOrig);
-    wxUint8 *data = new wxUint8[len];
+    wxUint8 *data = NEW_DEBUG wxUint8[len];
     if ( fileWave.Read(data, len) != lenOrig )
     {
         delete [] data;
@@ -505,7 +505,7 @@ bool wxSound::Create(size_t size, const void* data)
                        wxT("trying to load SDL plugin from '%s'..."),
                        dllname);
             wxLogNull null;
-            ms_backendSDL = new wxDynamicLibrary(dllname, wxDL_NOW);
+            ms_backendSDL = NEW_DEBUG wxDynamicLibrary(dllname, wxDL_NOW);
             if (!ms_backendSDL->IsLoaded())
             {
                 wxDELETE(ms_backendSDL);
@@ -531,7 +531,7 @@ bool wxSound::Create(size_t size, const void* data)
 #ifdef HAVE_SYS_SOUNDCARD_H
         if (!ms_backend)
         {
-            ms_backend = new wxSoundBackendOSS();
+            ms_backend = NEW_DEBUG wxSoundBackendOSS();
             if (!ms_backend->IsAvailable())
             {
                 wxDELETE(ms_backend);
@@ -540,10 +540,10 @@ bool wxSound::Create(size_t size, const void* data)
 #endif
 
         if (!ms_backend)
-            ms_backend = new wxSoundBackendNull();
+            ms_backend = NEW_DEBUG wxSoundBackendNull();
 
         if (!ms_backend->HasNativeAsyncPlayback())
-            ms_backend = new wxSoundSyncOnlyAdaptor(ms_backend);
+            ms_backend = NEW_DEBUG wxSoundSyncOnlyAdaptor(ms_backend);
 
         wxLogTrace(wxT("sound"),
                    wxT("using backend '%s'"), ms_backend->GetName());
@@ -714,7 +714,7 @@ bool wxSound::LoadWAV(const void* data_, size_t length, bool copyData)
     if (ul > length - FMT_INDEX - waveformat.uiSize - 16)
         return false;
 
-    m_data = new wxSoundData;
+    m_data = NEW_DEBUG wxSoundData;
     m_data->m_channels = waveformat.uiChannels;
     m_data->m_samplingRate = waveformat.ulSamplesPerSec;
     m_data->m_bitsPerSample = waveformat.uiBitsPerSample;
@@ -723,7 +723,7 @@ bool wxSound::LoadWAV(const void* data_, size_t length, bool copyData)
 
     if (copyData)
     {
-        m_data->m_dataWithHeader = new wxUint8[length];
+        m_data->m_dataWithHeader = NEW_DEBUG wxUint8[length];
         memcpy(m_data->m_dataWithHeader, data, length);
     }
     else

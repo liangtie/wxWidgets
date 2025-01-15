@@ -114,11 +114,11 @@ bool MyApp::OnInit()
     wxConfig *conf = (wxConfig*) wxConfig::Get();
 
 #if defined(USE_REMOTE)
-    m_help = new wxRemoteHtmlHelpController();
+    m_help = NEW_DEBUG wxRemoteHtmlHelpController();
     m_help->SetServer( a_appname );
     m_help->SetService( a_service );
 #else
-    m_help = new wxHtmlHelpController();
+    m_help = NEW_DEBUG wxHtmlHelpController();
 #endif
 
     //this is a dummy for wxRemoteHtmlHelpController
@@ -128,7 +128,7 @@ bool MyApp::OnInit()
     m_help->SetTitleFormat( a_windowname );
 
     // Create the main frame window
-    MyFrame* frame = new MyFrame(NULL, "Help Client");
+    MyFrame* frame = NEW_DEBUG MyFrame(NULL, "Help Client");
     frame->Show(true);
 
     return true;
@@ -151,7 +151,7 @@ MyFrame::MyFrame(wxFrame *frame, const wxString& title)
     SetIcon(wxICON(mondrian));
 
     // Make a menubar
-    wxMenu *file_menu = new wxMenu;
+    wxMenu *file_menu = NEW_DEBUG wxMenu;
 
     file_menu->Append(CLIENT_HELPMAIN, "Help - Main");
     file_menu->Append(CLIENT_HELPBOOK1, "Help - Book1");
@@ -168,7 +168,7 @@ MyFrame::MyFrame(wxFrame *frame, const wxString& title)
     file_menu->Append(DIALOG_MODAL, "Modal dialog");
     file_menu->Append(CLIENT_QUIT, "Quit");
 
-    wxMenuBar *menu_bar = new wxMenuBar;
+    wxMenuBar *menu_bar = NEW_DEBUG wxMenuBar;
 
     menu_bar->Append(file_menu, "File");
 
@@ -176,9 +176,9 @@ MyFrame::MyFrame(wxFrame *frame, const wxString& title)
     SetMenuBar(menu_bar);
 
     // Make a panel
-    m_panel = new wxPanel(this );
+    m_panel = NEW_DEBUG wxPanel(this );
 
-    m_modalbutton = new wxButton( this, BUTTON_MODAL, "Modal Dialog",
+    m_modalbutton = NEW_DEBUG wxButton( this, BUTTON_MODAL, "Modal Dialog",
     wxPoint(10,10), wxDefaultSize );
 }
 
@@ -253,11 +253,11 @@ wxEND_EVENT_TABLE()
 MyModalDialog::MyModalDialog(wxWindow *parent)
 : wxDialog(parent, wxID_ANY, wxString("Modal dialog"))
 {
-    wxBoxSizer *sizerTop = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer *sizerTop = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
 
-    m_main = new wxButton(this, wxID_ANY, "Main");
-    m_book1 = new wxButton(this, wxID_ANY, "Book1");
-    m_book2 = new wxButton(this, wxID_ANY, "Book2");
+    m_main = NEW_DEBUG wxButton(this, wxID_ANY, "Main");
+    m_book1 = NEW_DEBUG wxButton(this, wxID_ANY, "Book1");
+    m_book2 = NEW_DEBUG wxButton(this, wxID_ANY, "Book2");
     sizerTop->Add(m_main, 0, wxALIGN_CENTER | wxALL, 5);
     sizerTop->Add(m_book1, 0, wxALIGN_CENTER | wxALL, 5);
     sizerTop->Add(m_book2, 0, wxALIGN_CENTER | wxALL, 5);

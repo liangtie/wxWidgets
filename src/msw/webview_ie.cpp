@@ -101,7 +101,7 @@ bool wxWebViewIE::Create(wxWindow* parent,
         return false;
     }
 
-    m_impl = new wxWebViewIEImpl(this);
+    m_impl = NEW_DEBUG wxWebViewIEImpl(this);
     if ( !m_impl->Create() )
         return false;
 
@@ -141,9 +141,9 @@ bool wxWebViewIEImpl::Create()
     m_webBrowser->put_RegisterAsBrowser(VARIANT_TRUE);
     m_webBrowser->put_RegisterAsDropTarget(VARIANT_TRUE);
 
-    m_uiHandler = new DocHostUIHandler(m_webview);
+    m_uiHandler = NEW_DEBUG DocHostUIHandler(m_webview);
 
-    m_container = new wxIEContainer(m_webview, IID_IWebBrowser2, m_webBrowser, m_uiHandler);
+    m_container = NEW_DEBUG wxIEContainer(m_webview, IID_IWebBrowser2, m_webBrowser, m_uiHandler);
 
     EnableControlFeature(21 /* FEATURE_DISABLE_NAVIGATION_SOUNDS */);
 
@@ -1077,7 +1077,7 @@ void wxWebViewIE::RegisterHandler(wxSharedPtr<wxWebViewHandler> handler)
         typedef HRESULT (WINAPI *CoInternetGetSession_t)(DWORD, wxIInternetSession**, DWORD);
         wxDYNLIB_FUNCTION(CoInternetGetSession_t, CoInternetGetSession, urlMon);
 
-        ClassFactory* cf = new ClassFactory(handler);
+        ClassFactory* cf = NEW_DEBUG ClassFactory(handler);
         wxIInternetSession* session;
         HRESULT res = (*pfnCoInternetGetSession)(0, &session, 0);
         if(FAILED(res))
@@ -1477,13 +1477,13 @@ void wxWebViewIE::onActiveXEvent(wxActiveXEvent& evt)
                wxFileName::URLToFileName(GetCurrentURL()).GetFullPath() == url)))
             {
                 //If we are not at the end of the list, then erase everything
-                //between us and the end before adding the new page
+                //between us and the end before adding the NEW_DEBUG page
                 if(m_impl->m_historyPosition != static_cast<int>(m_impl->m_historyList.size()) - 1)
                 {
                     m_impl->m_historyList.erase(m_impl->m_historyList.begin() + m_impl->m_historyPosition + 1,
                                                 m_impl->m_historyList.end());
                 }
-                wxSharedPtr<wxWebViewHistoryItem> item(new wxWebViewHistoryItem(url, GetCurrentTitle()));
+                wxSharedPtr<wxWebViewHistoryItem> item(NEW_DEBUG wxWebViewHistoryItem(url, GetCurrentTitle()));
                 m_impl->m_historyList.push_back(item);
                 m_impl->m_historyPosition++;
             }
@@ -1824,7 +1824,7 @@ HRESULT STDMETHODCALLTYPE ClassFactory::CreateInstance(IUnknown* pUnkOuter, REFI
 {
     if (pUnkOuter)
         return CLASS_E_NOAGGREGATION;
-    VirtualProtocol* vp = new VirtualProtocol(m_handler);
+    VirtualProtocol* vp = NEW_DEBUG VirtualProtocol(m_handler);
     vp->AddRef();
     HRESULT hr = vp->QueryInterface(riid, ppvObject);
     vp->Release();

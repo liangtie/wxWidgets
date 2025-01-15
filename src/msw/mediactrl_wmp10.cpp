@@ -822,10 +822,10 @@ bool wxWMP10MediaBackend::CreateControl(wxControl* ctrl, wxWindow* parent,
     m_ctrl = wxStaticCast(ctrl, wxMediaCtrl);
 
 #ifndef WXTEST_ATL
-    m_pAX = new wxActiveXContainer(ctrl, IID_IWMPPlayer, m_pWMPPlayer);
+    m_pAX = NEW_DEBUG wxActiveXContainer(ctrl, IID_IWMPPlayer, m_pWMPPlayer);
 
     // Connect for events
-    m_evthandler = new wxWMP10MediaEvtHandler(this);
+    m_evthandler = NEW_DEBUG wxWMP10MediaEvtHandler(this);
     m_ctrl->PushEventHandler(m_evthandler);
 #else
     _Module.Init(NULL, ::GetModuleHandle(NULL));

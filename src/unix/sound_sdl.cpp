@@ -36,7 +36,7 @@ class wxSoundBackendSDLNotification : public wxEvent
 public:
     wxDECLARE_DYNAMIC_CLASS(wxSoundBackendSDLNotification);
     wxSoundBackendSDLNotification();
-    wxEvent *Clone() const wxOVERRIDE { return new wxSoundBackendSDLNotification(*this); }
+    wxEvent *Clone() const wxOVERRIDE { return NEW_DEBUG wxSoundBackendSDLNotification(*this); }
 };
 
 typedef void (wxEvtHandler::*wxSoundBackendSDLNotificationFunction)
@@ -196,7 +196,7 @@ bool wxSoundBackendSDL::OpenAudio()
     if (!m_audioOpen)
     {
         if (!m_evtHandler)
-            m_evtHandler = new wxSoundBackendSDLEvtHandler(this);
+            m_evtHandler = NEW_DEBUG wxSoundBackendSDLEvtHandler(this);
 
         m_spec.silence = 0;
         m_spec.samples = 4096;
@@ -211,7 +211,7 @@ bool wxSoundBackendSDL::OpenAudio()
             char driver[256];
 #if SDL_MAJOR_VERSION == 1
             SDL_AudioDriverName(driver, 256);
-#elif SDL_MAJOR_VERSION > 1            
+#elif SDL_MAJOR_VERSION > 1
             wxStrlcpy(driver, SDL_GetCurrentAudioDriver(), 256);
 #endif
             wxLogTrace(wxT("sound"), wxT("opened audio, driver '%s'"),
@@ -278,7 +278,7 @@ bool wxSoundBackendSDL::Play(wxSoundData *data, unsigned flags,
     }
 
     SDL_LockAudio();
-    wxLogTrace(wxT("sound"), wxT("playing new sound"));
+    wxLogTrace(wxT("sound"), wxT("playing NEW_DEBUG sound"));
     m_playing = true;
     m_pos = 0;
     m_loop = (flags & wxSOUND_LOOP);
@@ -327,7 +327,7 @@ void wxSoundBackendSDL::Stop()
 
 extern "C" wxSoundBackend *wxCreateSoundBackendSDL()
 {
-    return new wxSoundBackendSDL();
+    return NEW_DEBUG wxSoundBackendSDL();
 }
 
 #endif // wxUSE_SOUND && wxUSE_LIBSDL

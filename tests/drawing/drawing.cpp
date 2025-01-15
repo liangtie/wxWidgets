@@ -51,7 +51,7 @@
 // so that it is easy to run a particular test
 
 // The test requires reference files and must produce them when an
-// implementation changed and new good references are known to be produced.
+// implementation changed and NEW_DEBUG good references are known to be produced.
 // Environment variables control where reference files are located and when to
 // produce them:
 //  - WX_TEST_SUITE_BUILD_REFERENCE must be "1" to request production of
@@ -62,7 +62,7 @@
 
 //// WRITING NEW TEST CASES
 
-// - add a new function to realize the drawing in the "cases functions" section
+// - add a NEW_DEBUG function to realize the drawing in the "cases functions" section
 // - add a case structure declaration for it in the "test cases" section
 // - use drawingbasic.cpp as a sample to add your own test case implementation
 
@@ -73,7 +73,7 @@
 //      together with a declaration for it and its implementation
 //      can be placed in drawing.cpp
 //      Once this is done duplicate all the CPP UNIT test functions
-//      and entries "DrawToImage_YYY" to your new GC "DrawTo<newGc>_YYYY"
+//      and entries "DrawToImage_YYY" to your NEW_DEBUG GC "DrawTo<newGc>_YYYY"
 //
 // - if it is not built-in (contributed library/wxCode...), make a plugin for it
 //      test.bkl contains a sample "test_drawingplugin" target, you can use
@@ -216,7 +216,7 @@ GraphicsContextDrawingTestCase::ImageGraphicsContextLifeCycle::
     BuildNewContext (wxSize expectedSize, double WXUNUSED(pointsPerInch),
     const wxFileName &targetFileName)
 {
-    m_image = new wxImage (expectedSize);
+    m_image = NEW_DEBUG wxImage (expectedSize);
     m_image->InitAlpha();
 
     m_targetFileName = targetFileName.GetFullPath();
@@ -252,7 +252,7 @@ GraphicsContextDrawingTestCase::SvgGraphicsContextLifeCycle::
     const wxFileName &WXUNUSED(targetFileName))
 {
     m_svgFileDc = NULL;
-    //m_svg_file_dc = new wxSVGFileDC (target_file_name.GetFullPath(),
+    //m_svg_file_dc = NEW_DEBUG wxSVGFileDC (target_file_name.GetFullPath(),
     //    expected_size.GetWidth(), expected_size.GetHeight(), points_per_inch);
 
     // unfortunately cannot make GC over a DC yet :(

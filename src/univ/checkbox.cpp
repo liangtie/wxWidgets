@@ -38,7 +38,7 @@
 // ----------------------------------------------------------------------------
 // wxStdCheckboxInputHandler: handles the mouse events for the check and radio
 // boxes (handling the keyboard input is simple, but its handling differs a
-// lot between GTK and MSW, so a new class should be derived for this)
+// lot between GTK and MSW, so a NEW_DEBUG class should be derived for this)
 // ----------------------------------------------------------------------------
 
 class WXDLLEXPORT wxStdCheckboxInputHandler : public wxStdInputHandler

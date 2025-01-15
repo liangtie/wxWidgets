@@ -43,7 +43,7 @@ private:
     void InvalidStyles();
 #endif // wxHAS_3STATE_CHECKBOX
 
-    // Initialize m_check with a new checkbox with the specified style
+    // Initialize m_check with a NEW_DEBUG checkbox with the specified style
     //
     // This function always returns false just to make it more convenient to
     // use inside WX_ASSERT_FAILS_WITH_ASSERT(), its return value doesn't have
@@ -51,7 +51,7 @@ private:
     bool CreateCheckBox(long style)
     {
         wxDELETE( m_check );
-        m_check = new wxCheckBox(wxTheApp->GetTopWindow(), wxID_ANY, "Check box",
+        m_check = NEW_DEBUG wxCheckBox(wxTheApp->GetTopWindow(), wxID_ANY, "Check box",
                                  wxDefaultPosition, wxDefaultSize, style);
         return false;
     }
@@ -70,7 +70,7 @@ CPPUNIT_TEST_SUITE_NAMED_REGISTRATION( CheckBoxTestCase, "CheckBoxTestCase" );
 
 void CheckBoxTestCase::setUp()
 {
-    m_check = new wxCheckBox(wxTheApp->GetTopWindow(), wxID_ANY, "Check box");
+    m_check = NEW_DEBUG wxCheckBox(wxTheApp->GetTopWindow(), wxID_ANY, "Check box");
 }
 
 void CheckBoxTestCase::tearDown()

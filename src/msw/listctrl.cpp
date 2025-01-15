@@ -365,7 +365,7 @@ void wxListCtrl::MSWInitHeader()
     // It's not clear why do we have to do it, but without using custom drawing
     // the header text is drawn in black, making it unreadable, so do use it.
     if ( !m_headerCustomDraw )
-        m_headerCustomDraw = new wxMSWHeaderCtrlCustomDraw();
+        m_headerCustomDraw = NEW_DEBUG wxMSWHeaderCtrlCustomDraw();
 
     m_headerCustomDraw->UseHeaderThemeColors(hwndHdr);
 }
@@ -487,7 +487,7 @@ void wxListCtrl::UpdateStyle()
 {
     if ( GetHwnd() )
     {
-        // The new window view style
+        // The NEW_DEBUG window view style
         DWORD dwStyleNew = MSWGetStyle(m_windowStyle, nullptr);
 
         // some styles are not returned by MSWGetStyle()
@@ -716,7 +716,7 @@ bool wxListCtrl::SetHeaderAttr(const wxItemAttr& attr)
     else // We do have custom attributes.
     {
         if ( !m_headerCustomDraw )
-            m_headerCustomDraw = new wxMSWHeaderCtrlCustomDraw();
+            m_headerCustomDraw = NEW_DEBUG wxMSWHeaderCtrlCustomDraw();
 
         if ( m_headerCustomDraw->m_attr == attr )
         {
@@ -770,7 +770,7 @@ bool wxListCtrl::GetColumn(int col, wxListItem& item) const
     if ( item.m_mask & wxLIST_MASK_TEXT )
     {
         lvCol.mask |= LVCF_TEXT;
-        lvCol.pszText = new wxChar[513];
+        lvCol.pszText = NEW_DEBUG wxChar[513];
         lvCol.cchTextMax = 512;
     }
 
@@ -945,7 +945,7 @@ wxTextCtrl* wxListCtrl::GetEditControl() const
             wxListCtrl * const self = const_cast<wxListCtrl *>(this);
 
             if ( !m_textCtrl )
-                self->m_textCtrl = new wxTextCtrl;
+                self->m_textCtrl = NEW_DEBUG wxTextCtrl;
             self->InitEditControl((WXHWND)hwndEdit);
         }
     }
@@ -969,7 +969,7 @@ bool wxListCtrl::GetItem(wxListItem& info) const
     if ( mask & wxLIST_MASK_TEXT )
     {
         lvItem.mask |= LVIF_TEXT;
-        lvItem.pszText = new wxChar[513];
+        lvItem.pszText = NEW_DEBUG wxChar[513];
         lvItem.cchTextMax = 512;
     }
     else
@@ -1049,7 +1049,7 @@ bool wxListCtrl::SetItem(wxListItem& info)
         if ( !data )
         {
             // need to allocate the internal data object
-            data = new wxMSWListItemData;
+            data = NEW_DEBUG wxMSWListItemData;
             m_internalData.push_back(data);
             item.lParam = (LPARAM) data;
             item.mask |= LVIF_PARAM;
@@ -1069,7 +1069,7 @@ bool wxListCtrl::SetItem(wxListItem& info)
             if ( data->attr )
                 data->attr->AssignFrom(attrNew);
             else
-                data->attr = new wxItemAttr(attrNew);
+                data->attr = NEW_DEBUG wxItemAttr(attrNew);
         }
     }
 
@@ -1086,7 +1086,7 @@ bool wxListCtrl::SetItem(wxListItem& info)
         }
     }
 
-    // we need to update the item immediately to show the new image
+    // we need to update the item immediately to show the NEW_DEBUG image
     bool updateNow = (info.m_mask & wxLIST_MASK_IMAGE) != 0;
 
     // check whether it has any custom attributes
@@ -2043,7 +2043,7 @@ wxListCtrl::HitTest(const wxPoint& point, int& flags, long *ptrSubItem) const
 }
 
 
-// Inserts an item, returning the index of the new item if successful,
+// Inserts an item, returning the index of the NEW_DEBUG item if successful,
 // -1 otherwise.
 long wxListCtrl::InsertItem(const wxListItem& info)
 {
@@ -2066,7 +2066,7 @@ long wxListCtrl::InsertItem(const wxListItem& info)
     {
         item.mask |= LVIF_PARAM;
 
-        wxMSWListItemData * const data = new wxMSWListItemData;
+        wxMSWListItemData * const data = NEW_DEBUG wxMSWListItemData;
         m_internalData.push_back(data);
         item.lParam = (LPARAM)data;
 
@@ -2077,7 +2077,7 @@ long wxListCtrl::InsertItem(const wxListItem& info)
         if ( info.HasAttributes() )
         {
             // take copy of attributes
-            data->attr = new wxItemAttr(*info.GetAttributes());
+            data->attr = NEW_DEBUG wxItemAttr(*info.GetAttributes());
 
             // and remember that we have some now...
             m_hasAnyAttr = true;
@@ -2123,7 +2123,7 @@ long wxListCtrl::DoInsertColumn(long col, const wxListItem& item)
     LV_COLUMN lvCol;
     wxConvertToMSWListCol(GetHwnd(), col, item, lvCol);
 
-    // LVSCW_AUTOSIZE_USEHEADER is not supported when inserting new column,
+    // LVSCW_AUTOSIZE_USEHEADER is not supported when inserting NEW_DEBUG column,
     // we'll deal with it below instead. Plain LVSCW_AUTOSIZE is not supported
     // either but it doesn't need any special handling as we use fixed value
     // for it here, both because we can't do anything else (there are no items
@@ -2132,7 +2132,7 @@ long wxListCtrl::DoInsertColumn(long col, const wxListItem& item)
     // parameter used to mean "arbitrary fixed width".
     if ( !(lvCol.mask & LVCF_WIDTH) || lvCol.cx < 0 )
     {
-        // always give some width to the new column: this one is compatible
+        // always give some width to the NEW_DEBUG column: this one is compatible
         // with the generic version
         lvCol.mask |= LVCF_WIDTH;
         lvCol.cx = wxLIST_DEFAULT_COL_WIDTH;
@@ -2148,7 +2148,7 @@ long wxListCtrl::DoInsertColumn(long col, const wxListItem& item)
 
     m_colCount++;
 
-    // Now adjust the new column size.
+    // Now adjust the NEW_DEBUG column size.
     if ( (item.GetMask() & wxLIST_MASK_WIDTH) &&
             (item.GetWidth() == wxLIST_AUTOSIZE_USEHEADER) )
     {
@@ -2599,7 +2599,7 @@ bool wxListCtrl::MSWOnNotify(int idCtrl, WXLPARAM lParam, WXLPARAM *result)
                             if ( stOld == INDEXTOSTATEIMAGEMASK(0) )
                             {
                                 // item does not yet have a state
-                                // occurs when checkboxes are enabled and when a new item is added
+                                // occurs when checkboxes are enabled and when a NEW_DEBUG item is added
                                 eventType = wxEVT_NULL;
                             }
                             else if ( stNew == INDEXTOSTATEIMAGEMASK(1) )
@@ -2969,7 +2969,7 @@ bool wxListCtrl::MSWOnNotify(int idCtrl, WXLPARAM lParam, WXLPARAM *result)
         case HDN_ITEMCHANGING:
             // Always let the default handling of this event take place when
             // using comctl32.dll v6, as otherwise the selected items are not
-            // redrawn to correspond to the new column widths, see #18032.
+            // redrawn to correspond to the NEW_DEBUG column widths, see #18032.
             if ( wxApp::GetComCtl32Version() >= 600 )
                 return false;
             break;
@@ -3663,7 +3663,7 @@ static void wxConvertFromMSWListItem(HWND hwndListCtrl,
 
         if ( needText )
         {
-            lvItem.pszText = new wxChar[513];
+            lvItem.pszText = NEW_DEBUG wxChar[513];
             lvItem.cchTextMax = 512;
         }
         lvItem.mask |= LVIF_TEXT | LVIF_IMAGE | LVIF_PARAM;

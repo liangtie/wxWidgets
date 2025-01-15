@@ -126,7 +126,7 @@ wxThemeInfo::wxThemeInfo(Constructor c,
 
     if ( ms_theme )
     {
-        // automatically start using the art provider of the new theme if it
+        // automatically start using the art provider of the NEW_DEBUG theme if it
         // has one
         wxArtProvider *art = ms_theme->GetArtProvider();
         if ( art )

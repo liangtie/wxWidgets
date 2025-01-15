@@ -46,7 +46,7 @@ static void TopLevelWindowShowTest(wxTopLevelWindow* tlw)
 {
     CHECK(!tlw->IsShown());
 
-    wxTextCtrl* textCtrl = new wxTextCtrl(tlw, -1, "test");
+    wxTextCtrl* textCtrl = NEW_DEBUG wxTextCtrl(tlw, -1, "test");
     textCtrl->SetFocus();
 
 // only run this test on platforms where ShowWithoutActivating is implemented.
@@ -87,7 +87,7 @@ TEST_CASE("wxTopLevel::Show", "[tlw][show]")
 {
     SECTION("Dialog")
     {
-        wxDialog* dialog = new wxDialog(NULL, -1, "Dialog Test");
+        wxDialog* dialog = NEW_DEBUG wxDialog(NULL, -1, "Dialog Test");
         DestroyOnScopeExit destroy(dialog);
 
         TopLevelWindowShowTest(dialog);
@@ -95,7 +95,7 @@ TEST_CASE("wxTopLevel::Show", "[tlw][show]")
 
     SECTION("Frame")
     {
-        wxFrame* frame = new wxFrame(NULL, -1, "Frame test");
+        wxFrame* frame = NEW_DEBUG wxFrame(NULL, -1, "Frame test");
         DestroyOnScopeExit destroy(frame);
 
         TopLevelWindowShowTest(frame);
@@ -105,7 +105,7 @@ TEST_CASE("wxTopLevel::Show", "[tlw][show]")
 // Check that we receive the expected event when showing the TLW.
 TEST_CASE("wxTopLevel::ShowEvent", "[tlw][show][event]")
 {
-    wxFrame* const frame = new wxFrame(NULL, wxID_ANY, "Maximized frame");
+    wxFrame* const frame = NEW_DEBUG wxFrame(NULL, wxID_ANY, "Maximized frame");
     DestroyOnScopeExit destroy(frame);
 
     EventCounter countShow(frame, wxEVT_SHOW);

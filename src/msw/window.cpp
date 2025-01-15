@@ -640,7 +640,7 @@ bool wxWindowMSW::Show(bool show)
     // we could be called before the underlying window is created (this is
     // actually useful to prevent it from being initially shown), e.g.
     //
-    //      wxFoo *foo = new wxFoo;
+    //      wxFoo *foo = NEW_DEBUG wxFoo;
     //      foo->Hide();
     //      foo->Create(parent, ...);
     //
@@ -1121,7 +1121,7 @@ void wxWindowMSW::SetScrollbar(int orient,
     // gets changed.
     //
     // Fix this simply by "flushing" the pending windows positions and starting
-    // a new deferring operation.
+    // a NEW_DEBUG deferring operation.
     if ( m_hDWP )
     {
         // Do reposition the children already moved.
@@ -1245,7 +1245,7 @@ void wxWindowMSW::SetLayoutDirection(wxLayoutDirection dir)
     if ( wxUpdateLayoutDirection(GetHwnd(), dir) )
     {
         // Update layout: whether we have children or are drawing something, we
-        // need to redo it with the new layout.
+        // need to redo it with the NEW_DEBUG layout.
         SendSizeEvent();
         Refresh();
     }
@@ -1450,9 +1450,9 @@ void wxWindowMSW::MSWUpdateStyle(long flagsOld, long exflagsOld)
     if ( style != styleOld )
     {
         // some flags (e.g. WS_VISIBLE or WS_DISABLED) should not be changed by
-        // this function so instead of simply setting the style to the new
+        // this function so instead of simply setting the style to the NEW_DEBUG
         // value we clear the bits which were set in styleOld but are set in
-        // the new one and set the ones which were not set before
+        // the NEW_DEBUG one and set the ones which were not set before
         wxMSWWinStyleUpdater updateStyle(GetHwnd());
         updateStyle.TurnOff(styleOld).TurnOn(style);
 
@@ -1853,7 +1853,7 @@ void wxWindowMSW::DoGetSize(int *x, int *y) const
 #if wxUSE_DEFERRED_SIZING
     // if SetSize() had been called at wx level but not realized at Windows
     // level yet (i.e. EndDeferWindowPos() not called), we still should return
-    // the new and not the old position to the other wx code
+    // the NEW_DEBUG and not the old position to the other wx code
     if ( m_pendingSize != wxDefaultSize )
     {
         if ( x )
@@ -2062,7 +2062,7 @@ wxWindowMSW::DoMoveSibling(WXHWND hwnd, int x, int y, int width, int height)
 
         if ( hdwp )
         {
-            // did deferred move, remember new coordinates of the window as they're
+            // did deferred move, remember NEW_DEBUG coordinates of the window as they're
             // different from what Windows would return for it
             return true;
         }
@@ -2235,7 +2235,7 @@ void wxWindowMSW::DoSetClientSize(int width, int height)
         }
 
         // Find the difference between the entire window (title bar and all)
-        // and the client area; add this to the new client size to move the
+        // and the client area; add this to the NEW_DEBUG client size to move the
         // window
         RECT rectWin;
         ::GetWindowRect(GetHwnd(), &rectWin);
@@ -2263,7 +2263,7 @@ void wxWindowMSW::DoSetClientSize(int width, int height)
 
             // Another complication with TLWs is that changing their size may
             // change the monitor they are on, even without changing their
-            // position. This is unexpected and especially so if the new
+            // position. This is unexpected and especially so if the NEW_DEBUG
             // monitor uses a different DPI scaling and so moving the window to
             // it changes its size -- which may result in an infinite recursion
             // if the window calls SetClientSize() when DPI changes.
@@ -2930,7 +2930,7 @@ void wxWindowMSW::UnpackMenuSelect(WXWPARAM wParam, WXLPARAM lParam,
 // Main wxWidgets window proc and the window proc for wxWindow
 // ---------------------------------------------------------------------------
 
-// Hook for new window just as it's being created, when the window isn't yet
+// Hook for NEW_DEBUG window just as it's being created, when the window isn't yet
 // associated with the handle
 static wxWindowMSW *gs_winBeingCreated = nullptr;
 
@@ -4061,7 +4061,7 @@ bool wxWindowMSW::MSWCreate(const wxChar *wclass,
     wxCHECK_MSG( wclass, false, "failed to register window class?" );
 
 
-    // choose the position/size for the new window
+    // choose the position/size for the NEW_DEBUG window
     int x, y, w, h;
     (void)MSWGetCreateWindowCoords(pos, size, x, y, w, h);
 
@@ -4463,7 +4463,7 @@ bool wxWindowMSW::HandleDropFiles(WXWPARAM wParam)
                                 (UINT)0
                             );
 
-    wxString *files = new wxString[gwFilesDropped];
+    wxString *files = NEW_DEBUG wxString[gwFilesDropped];
     for ( UINT wIndex = 0; wIndex < gwFilesDropped; wIndex++ )
     {
         // first get the needed buffer length (+1 for terminating NUL)
@@ -5226,7 +5226,7 @@ extern wxCOLORMAP *wxGetStdColourMap()
         {
             // When a bitmap is loaded, the RGB values can change (apparently
             // because Windows adjusts them to care for the old programs always
-            // using 0xc0c0c0 while the transparent colour for the new Windows
+            // using 0xc0c0c0 while the transparent colour for the NEW_DEBUG Windows
             // versions is different). But we do this adjustment ourselves so
             // we want to avoid Windows' "help" and for this we need to have a
             // reference bitmap which can tell us what the RGB values change

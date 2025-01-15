@@ -47,10 +47,10 @@ protected:
 
 GridSizerTestCase::GridSizerTestCase()
 {
-    m_win = new wxWindow(wxTheApp->GetTopWindow(), wxID_ANY);
+    m_win = NEW_DEBUG wxWindow(wxTheApp->GetTopWindow(), wxID_ANY);
     m_win->SetClientSize(127, 35);
 
-    m_sizer = new wxFlexGridSizer(2);
+    m_sizer = NEW_DEBUG wxFlexGridSizer(2);
     m_win->SetSizer(m_sizer);
 }
 
@@ -96,7 +96,7 @@ TEST_CASE_METHOD(GridSizerTestCase,
     wxVector<wxWindow*> children;
     for ( int n = 0; n < 4; n++ )
     {
-        children.push_back(new wxWindow(m_win, wxID_ANY, wxDefaultPosition,
+        children.push_back(NEW_DEBUG wxWindow(m_win, wxID_ANY, wxDefaultPosition,
                                         sizeChild));
     }
 
@@ -187,7 +187,7 @@ TEST_CASE_METHOD(GridSizerTestCase,
     wxVector<wxWindow*> children;
     for ( int n = 0; n < 4; n++ )
     {
-        children.push_back(new wxWindow(m_win, wxID_ANY));
+        children.push_back(NEW_DEBUG wxWindow(m_win, wxID_ANY));
     }
 
     // Proportions of growable columns should be respected.

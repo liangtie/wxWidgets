@@ -277,7 +277,7 @@ public:
 
     enum MenuLayoutType
     {
-        FullTheme,      // full menu themes (Vista or new)
+        FullTheme,      // full menu themes (Vista or NEW_DEBUG)
         Classic
     };
 
@@ -1354,7 +1354,7 @@ wxMenuItem *wxMenuItemBase::New(wxMenu *parentMenu,
                                 wxItemKind kind,
                                 wxMenu *subMenu)
 {
-    return new wxMenuItem(parentMenu, id, name, help, kind, subMenu);
+    return NEW_DEBUG wxMenuItem(parentMenu, id, name, help, kind, subMenu);
 }
 
 #endif // wxUSE_MENUS

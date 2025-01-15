@@ -1050,7 +1050,7 @@ bool wxStdScrollBarInputHandler::HandleMouse(wxInputConsumer *consumer,
                 // start dragging
                 if ( hasAction )
                 {
-                    m_timerScroll = new wxScrollBarTimer(this, action,
+                    m_timerScroll = NEW_DEBUG wxScrollBarTimer(this, action,
                                                          scrollbar);
                     m_timerScroll->StartAutoScroll();
                 }

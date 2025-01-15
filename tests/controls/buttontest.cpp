@@ -40,7 +40,7 @@ ButtonTestCase::ButtonTestCase()
 {
     //We use wxTheApp->GetTopWindow() as there is only a single testable frame
     //so it will always be returned
-    m_button = new wxButton(wxTheApp->GetTopWindow(), wxID_ANY, "wxButton");
+    m_button = NEW_DEBUG wxButton(wxTheApp->GetTopWindow(), wxID_ANY, "wxButton");
 }
 
 ButtonTestCase::~ButtonTestCase()
@@ -84,7 +84,7 @@ TEST_CASE_METHOD(ButtonTestCase, "Button::Disabled", "[button]")
     SECTION("Create disabled")
     {
         delete m_button;
-        m_button = new wxButton();
+        m_button = NEW_DEBUG wxButton();
         m_button->Disable();
         m_button->Create(wxTheApp->GetTopWindow(), wxID_ANY, "wxButton");
     }

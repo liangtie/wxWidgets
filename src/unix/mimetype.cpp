@@ -417,7 +417,7 @@ wxFileTypeImpl::SetCommand(const wxString& cmd,
     if ( strTypes.IsEmpty() )
         return false;
 
-    wxMimeTypeCommands *entry = new wxMimeTypeCommands();
+    wxMimeTypeCommands *entry = NEW_DEBUG wxMimeTypeCommands();
     entry->Add(verb + wxT("=")  + cmd + wxT(" %s "));
 
     bool ok = false;
@@ -458,7 +458,7 @@ bool wxFileTypeImpl::SetDefaultIcon(const wxString& strIcon, int WXUNUSED(index)
     if ( strTypes.IsEmpty() )
         return false;
 
-    wxMimeTypeCommands *entry = new wxMimeTypeCommands();
+    wxMimeTypeCommands *entry = NEW_DEBUG wxMimeTypeCommands();
     bool ok = false;
     size_t nCount = strTypes.GetCount();
     for ( size_t i = 0; i < nCount; i++ )
@@ -677,7 +677,7 @@ wxFileType * wxMimeTypesManagerImpl::Associate(const wxFileTypeInfo& ftInfo)
     wxString strDesc = ftInfo.GetDescription();
     wxString strIcon = ftInfo.GetIconFile();
 
-    wxMimeTypeCommands *entry = new wxMimeTypeCommands();
+    wxMimeTypeCommands *entry = NEW_DEBUG wxMimeTypeCommands();
 
     if ( ! ftInfo.GetOpenCommand().empty())
         entry->Add(wxT("open=")  + ftInfo.GetOpenCommand() + wxT(" %s "));
@@ -751,10 +751,10 @@ int wxMimeTypesManagerImpl::AddToMimeData(const wxString& strType,
         // rather find "text/html" than "application/x-mozilla-bookmarks".
         if (mimeType.Find( "application" ) == 0)
         {
-           // new file type
+           // NEW_DEBUG file type
            m_aTypes.Add(mimeType);
            m_aIcons.Add(strIcon);
-           m_aEntries.Add(entry ? entry : new wxMimeTypeCommands);
+           m_aEntries.Add(entry ? entry : NEW_DEBUG wxMimeTypeCommands);
 
            // change nIndex so we can use it below to add the extensions
            m_aExtensions.Add(wxEmptyString);
@@ -764,10 +764,10 @@ int wxMimeTypesManagerImpl::AddToMimeData(const wxString& strType,
         }
         else
         {
-           // new file type
+           // NEW_DEBUG file type
            m_aTypes.Insert(mimeType,0);
            m_aIcons.Insert(strIcon,0);
-           m_aEntries.Insert(entry ? entry : new wxMimeTypeCommands,0);
+           m_aEntries.Insert(entry ? entry : NEW_DEBUG wxMimeTypeCommands,0);
 
            // change nIndex so we can use it below to add the extensions
            m_aExtensions.Insert(wxEmptyString,0);
@@ -780,11 +780,11 @@ int wxMimeTypesManagerImpl::AddToMimeData(const wxString& strType,
     {
         if ( replaceExisting )
         {
-            // if new description change it
+            // if NEW_DEBUG description change it
             if ( !strDesc.empty())
                 m_aDescriptions[nIndex] = strDesc;
 
-            // if new icon change it
+            // if NEW_DEBUG icon change it
             if ( !strIcon.empty())
                 m_aIcons[nIndex] = strIcon;
 
@@ -796,15 +796,15 @@ int wxMimeTypesManagerImpl::AddToMimeData(const wxString& strType,
         }
         else // add data we don't already have ...
         {
-            // if new description add only if none
+            // if NEW_DEBUG description add only if none
             if ( m_aDescriptions[nIndex].empty() )
                 m_aDescriptions[nIndex] = strDesc;
 
-            // if new icon and no existing icon
+            // if NEW_DEBUG icon and no existing icon
             if ( m_aIcons[nIndex].empty() )
                 m_aIcons[nIndex] = strIcon;
 
-            // add any new entries...
+            // add any NEW_DEBUG entries...
             if ( entry )
             {
                 wxMimeTypeCommands *entryOld = m_aEntries[nIndex];
@@ -871,7 +871,7 @@ wxFileType * wxMimeTypesManagerImpl::GetFileTypeFromExtension(const wxString& ex
             if ( tk.GetNextToken().IsSameAs(ext, false /* no case */) )
             {
                 // found
-                wxFileType *fileType = new wxFileType;
+                wxFileType *fileType = NEW_DEBUG wxFileType;
                 fileType->m_impl->Init(this, n);
 
                 // See if this one has a known open-command. If not, keep
@@ -888,7 +888,7 @@ wxFileType * wxMimeTypesManagerImpl::GetFileTypeFromExtension(const wxString& ex
                 }
                 else
                 {
-                    // Override the previous fallback, if any, with the new
+                    // Override the previous fallback, if any, with the NEW_DEBUG
                     // one: we consider that later entries have priority.
                     delete fileTypeFallback;
                     fileTypeFallback = fileType;
@@ -916,7 +916,7 @@ wxFileType * wxMimeTypesManagerImpl::GetFileTypeFromMimeType(const wxString& mim
 
     if ( index != wxNOT_FOUND )
     {
-        fileType = new wxFileType;
+        fileType = NEW_DEBUG wxFileType;
         fileType->m_impl->Init(this, index);
     }
 
@@ -942,7 +942,7 @@ wxFileType * wxMimeTypesManagerImpl::GetFileTypeFromMimeType(const wxString& mim
     {
        // don't throw away fileType that was already found
         if (!fileType)
-            fileType = new wxFileType;
+            fileType = NEW_DEBUG wxFileType;
         fileType->m_impl->Init(this, index);
     }
 

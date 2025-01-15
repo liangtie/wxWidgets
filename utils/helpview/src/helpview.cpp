@@ -47,10 +47,10 @@ hvApp::hvApp()
 bool hvApp::OnInit()
 {
 #ifdef __WXMOTIF__
-    delete wxLog::SetActiveTarget(new wxLogStderr); // So dialog boxes aren't used
+    delete wxLog::SetActiveTarget(NEW_DEBUG wxLogStderr); // So dialog boxes aren't used
 #endif
 
-    wxArtProvider::Push(new AlternateArtProvider);
+    wxArtProvider::Push(NEW_DEBUG AlternateArtProvider);
 
     int istyle = wxHF_DEFAULT_STYLE;
 
@@ -157,8 +157,8 @@ bool hvApp::OnInit()
 
     if ( createServer )
     {
-        // Create a new server
-        m_server = new hvServer;
+        // Create a NEW_DEBUG server
+        m_server = NEW_DEBUG hvServer;
 
         if ( !m_server->Create(service) )
         {
@@ -176,13 +176,13 @@ bool hvApp::OnInit()
 
     //now add help
     wxInitAllImageHandlers();
-    wxFileSystem::AddHandler(new wxZipFSHandler);
+    wxFileSystem::AddHandler(NEW_DEBUG wxZipFSHandler);
 
     SetVendorName(wxT("wxWidgets") );
     SetAppName(wxT("wxHTMLHelpServer") );
     wxConfig::Get(); // create an instance
 
-    m_helpController = new wxHtmlHelpController( istyle );
+    m_helpController = NEW_DEBUG wxHtmlHelpController( istyle );
 
     // By default, the application doesn't continue running if only the help
     // frame remains. This makes sense for the programs doing something else
@@ -210,7 +210,7 @@ bool hvApp::OnInit()
     }
 
 #ifdef __WXMOTIF__
-    delete wxLog::SetActiveTarget(new wxLogGui);
+    delete wxLog::SetActiveTarget(NEW_DEBUG wxLogGui);
 #endif
 
     m_helpController->DisplayContents();
@@ -383,7 +383,7 @@ wxBitmap AlternateArtProvider::CreateBitmap(const wxArtID& id,
 wxConnectionBase *hvServer::OnAcceptConnection(const wxString& topic)
 {
     if (topic == wxT("HELP"))
-        return new hvConnection();
+        return NEW_DEBUG hvConnection();
     else
         return NULL;
 }

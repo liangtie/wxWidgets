@@ -56,7 +56,7 @@ CPPUNIT_TEST_SUITE_NAMED_REGISTRATION( ColourPickerCtrlTestCase,
 
 void ColourPickerCtrlTestCase::setUp()
 {
-    m_colour = new wxColourPickerCtrl(wxTheApp->GetTopWindow(), wxID_ANY,
+    m_colour = NEW_DEBUG wxColourPickerCtrl(wxTheApp->GetTopWindow(), wxID_ANY,
                                      *wxBLACK, wxDefaultPosition,
                                       wxDefaultSize, wxCLRP_USE_TEXTCTRL);
 }
@@ -100,7 +100,7 @@ CPPUNIT_TEST_SUITE_NAMED_REGISTRATION( DirPickerCtrlTestCase,
 
 void DirPickerCtrlTestCase::setUp()
 {
-    m_dir = new wxDirPickerCtrl(wxTheApp->GetTopWindow(), wxID_ANY,
+    m_dir = NEW_DEBUG wxDirPickerCtrl(wxTheApp->GetTopWindow(), wxID_ANY,
                                 wxEmptyString, wxDirSelectorPromptStr,
                                 wxDefaultPosition, wxDefaultSize,
                                 wxDIRP_USE_TEXTCTRL);
@@ -145,7 +145,7 @@ CPPUNIT_TEST_SUITE_NAMED_REGISTRATION( FilePickerCtrlTestCase,
 
 void FilePickerCtrlTestCase::setUp()
 {
-    m_file = new wxFilePickerCtrl(wxTheApp->GetTopWindow(), wxID_ANY,
+    m_file = NEW_DEBUG wxFilePickerCtrl(wxTheApp->GetTopWindow(), wxID_ANY,
                                   wxEmptyString, wxFileSelectorPromptStr,
                                   wxFileSelectorDefaultWildcardStr,
                                   wxDefaultPosition, wxDefaultSize,
@@ -194,7 +194,7 @@ CPPUNIT_TEST_SUITE_NAMED_REGISTRATION( FontPickerCtrlTestCase,
 
 void FontPickerCtrlTestCase::setUp()
 {
-    m_font = new wxFontPickerCtrl(wxTheApp->GetTopWindow(), wxID_ANY,
+    m_font = NEW_DEBUG wxFontPickerCtrl(wxTheApp->GetTopWindow(), wxID_ANY,
                                   wxNullFont, wxDefaultPosition, wxDefaultSize,
                                   wxFNTP_USE_TEXTCTRL);
 }

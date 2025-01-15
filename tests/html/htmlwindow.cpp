@@ -69,7 +69,7 @@ CPPUNIT_TEST_SUITE_NAMED_REGISTRATION( HtmlWindowTestCase, "HtmlWindowTestCase" 
 
 void HtmlWindowTestCase::setUp()
 {
-    m_win = new wxHtmlWindow(wxTheApp->GetTopWindow(), wxID_ANY,
+    m_win = NEW_DEBUG wxHtmlWindow(wxTheApp->GetTopWindow(), wxID_ANY,
                              wxDefaultPosition, wxSize(400, 200));
 }
 
@@ -160,9 +160,9 @@ void HtmlWindowTestCase::AppendToPage()
 {
 #if wxUSE_CLIPBOARD
     m_win->SetPage(TEST_MARKUP_LINK);
-    m_win->AppendToPage("A new paragraph");
+    m_win->AppendToPage("A NEW_DEBUG paragraph");
 
-    CPPUNIT_ASSERT_EQUAL("link A new paragraph", m_win->ToText());
+    CPPUNIT_ASSERT_EQUAL("link A NEW_DEBUG paragraph", m_win->ToText());
 #endif // wxUSE_CLIPBOARD
 }
 

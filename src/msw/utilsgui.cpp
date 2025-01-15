@@ -45,7 +45,7 @@ void wxBell()
 // helper functions for showing a "busy" cursor
 // ---------------------------------------------------------------------------
 
-static HCURSOR gs_wxBusyCursor = 0;     // new, busy cursor
+static HCURSOR gs_wxBusyCursor = 0;     // NEW_DEBUG, busy cursor
 static HCURSOR gs_wxBusyCursorOld = 0;  // old cursor
 static int gs_wxBusyCursorCount = 0;
 

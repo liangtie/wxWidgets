@@ -41,7 +41,7 @@ public:
     static EventGenerator& Get()
     {
         if (!ms_instance)
-            ms_instance = new EventGenerator(GetWatchDir());
+            ms_instance = NEW_DEBUG EventGenerator(GetWatchDir());
 
         return *ms_instance;
     }
@@ -225,7 +225,7 @@ public:
     // sends idle event, so we get called in a moment
     void SendIdle()
     {
-        wxIdleEvent* e = new wxIdleEvent();
+        wxIdleEvent* e = NEW_DEBUG wxIdleEvent();
         QueueEvent(e);
     }
 
@@ -266,7 +266,7 @@ public:
 
         // XXX only now can we construct Watcher, because we need
         // active loop here
-        m_watcher.reset(new wxFileSystemWatcher());
+        m_watcher.reset(NEW_DEBUG wxFileSystemWatcher());
         m_watcher->SetOwner(this);
 
         // add dir to be watched
@@ -305,7 +305,7 @@ public:
             if ( e2->GetChangeType() == wxFSW_EVENT_MODIFY &&
                     e2->GetPath() == e->GetNewPath() )
             {
-                // This is a modify event for the new file, ignore it.
+                // This is a modify event for the NEW_DEBUG file, ignore it.
                 return;
             }
         }
@@ -427,7 +427,7 @@ TEST_CASE_METHOD(FileSystemWatcherTestCase,
             wxFileSystemWatcherEvent event(wxFSW_EVENT_DELETE);
             event.SetPath(eg.m_old);
 
-            // CHECK maybe new path here could be NULL or sth?
+            // CHECK maybe NEW_DEBUG path here could be NULL or sth?
             event.SetNewPath(eg.m_old);
             return event;
         }

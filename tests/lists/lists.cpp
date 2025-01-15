@@ -186,8 +186,8 @@ void ListsTestCase::wxListCtorTest()
 {
     {
         wxListBazs list1;
-        list1.Append(new Baz(wxT("first")));
-        list1.Append(new Baz(wxT("second")));
+        list1.Append(NEW_DEBUG Baz(wxT("first")));
+        list1.Append(NEW_DEBUG Baz(wxT("second")));
 
         CPPUNIT_ASSERT( list1.GetCount() == 2 );
         CPPUNIT_ASSERT( Baz::GetNumber() == 2 );
@@ -242,7 +242,7 @@ void ElementsListNode::DeleteData()
 
 TEST_CASE("wxWindowList::Find", "[list]")
 {
-    ListElement* const el = new ListElement(17);
+    ListElement* const el = NEW_DEBUG ListElement(17);
     wxScopedPtr<ListElementBase> elb(el);
 
     ElementsList l;

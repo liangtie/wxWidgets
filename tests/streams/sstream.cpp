@@ -86,14 +86,14 @@ strStream::~strStream()
 
 wxStringInputStream *strStream::DoCreateInStream()
 {
-    wxStringInputStream *pStrInStream = new wxStringInputStream(m_str);
+    wxStringInputStream *pStrInStream = NEW_DEBUG wxStringInputStream(m_str);
     CPPUNIT_ASSERT(pStrInStream->IsOk());
     return pStrInStream;
 }
 
 wxStringOutputStream *strStream::DoCreateOutStream()
 {
-    wxStringOutputStream *pStrOutStream = new wxStringOutputStream();
+    wxStringOutputStream *pStrOutStream = NEW_DEBUG wxStringOutputStream();
     CPPUNIT_ASSERT(pStrOutStream->IsOk());
     return pStrOutStream;
 }

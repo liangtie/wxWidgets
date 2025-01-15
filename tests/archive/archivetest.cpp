@@ -48,7 +48,7 @@ TestEntry::TestEntry(const wxDateTime& dt, int len, const char *data)
     m_len(len),
     m_isText(len > 0)
 {
-    m_data = new char[len];
+    m_data = NEW_DEBUG char[len];
     memcpy(m_data, data, len);
 
     for (int i = 0; i < len && m_isText; i++)
@@ -122,7 +122,7 @@ size_t TestOutputStream::OnSysWrite(const void *buffer, size_t size)
             wxCHECK(capacity > m_capacity, 0);
         }
 
-        char *buf = new char[capacity];
+        char *buf = NEW_DEBUG char[capacity];
         if (m_data)
             memcpy(buf, m_data, m_capacity);
         delete [] m_data;
@@ -149,7 +149,7 @@ void TestOutputStream::GetData(char*& data, size_t& size)
         size += STUB_SIZE;
 
         if (size > m_capacity) {
-            d = new char[size];
+            d = NEW_DEBUG char[size];
             memcpy(d + STUB_SIZE, m_data, m_size);
             delete [] m_data;
         }
@@ -177,7 +177,7 @@ TestInputStream::TestInputStream(const TestInputStream& in)
     m_size(in.m_size),
     m_eoftype(in.m_eoftype)
 {
-    m_data = new char[m_size];
+    m_data = NEW_DEBUG char[m_size];
     memcpy(m_data, in.m_data, m_size);
 }
 
@@ -264,7 +264,7 @@ size_t TestInputStream::OnSysRead(void *buffer, size_t size)
 template <class T> class Ptr
 {
 public:
-    explicit Ptr(T* p = NULL) : m_p(p), m_count(new int) { *m_count = 1; }
+    explicit Ptr(T* p = NULL) : m_p(p), m_count(NEW_DEBUG int) { *m_count = 1; }
     Ptr(const Ptr& sp) : m_p(sp.m_p), m_count(sp.m_count) { ++*m_count; }
     ~Ptr() { Free(); }
 
@@ -532,7 +532,7 @@ TestEntry& ArchiveTestCase<ClassFactoryT>::Add(const char *name,
         len = strlen(data);
     TestEntry*& entry = m_testEntries[wxString(name, *wxConvCurrent)];
     wxASSERT(entry == NULL);
-    entry = new TestEntry(m_timeStamp, len, data);
+    entry = NEW_DEBUG TestEntry(m_timeStamp, len, data);
     m_timeStamp += wxTimeSpan(0, 1, 30);
     return *entry;
 }
@@ -753,7 +753,7 @@ void ArchiveTestCase<ClassFactoryT>::ModifyArchive(wxInputStream& in,
     // check that the end of the input archive was reached without error
     CPPUNIT_ASSERT(arcIn->Eof());
 
-    // try adding a new entry
+    // try adding a NEW_DEBUG entry
     TestEntry& testEntry = Add(newName.mb_str(), newData);
     wxScopedPtr<EntryT> newentry(m_factory->NewEntry());
     newentry->SetName(newName);

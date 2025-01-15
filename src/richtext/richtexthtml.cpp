@@ -79,7 +79,7 @@ bool wxRichTextHTMLHandler::DoSaveFile(wxRichTextBuffer *buffer, wxOutputStream&
     wxMBConv* conv = NULL;
     if (!GetEncoding().IsEmpty())
     {
-        customEncoding = new wxCSConv(GetEncoding());
+        customEncoding = NEW_DEBUG wxCSConv(GetEncoding());
         if (!customEncoding->IsOk())
         {
             wxDELETE(customEncoding);
@@ -292,7 +292,7 @@ void wxRichTextHTMLHandler::BeginParagraphFormatting(const wxRichTextAttr& WXUNU
 
             if (m_indents.GetCount() > 0 && indent == m_indents.Last())
             {
-                // Same level, no need to start a new list
+                // Same level, no need to start a NEW_DEBUG list
             }
             else if (m_indents.GetCount() == 0 || indent > m_indents.Last())
             {
@@ -627,7 +627,7 @@ wxChar* wxRichTextHTMLHandler::b64enc( unsigned char* input, size_t in_len )
     // hmmm.. Does wxT macro define a char as 16 bit value
     // when compiling with UNICODE option?
     static const wxChar enc64[] = wxT("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/");
-    wxChar* output = new wxChar[4*((in_len+2)/3)+1];
+    wxChar* output = NEW_DEBUG wxChar[4*((in_len+2)/3)+1];
     wxChar* p = output;
 
     while( in_len-- > 0 )

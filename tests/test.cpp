@@ -275,7 +275,7 @@ public:
 #ifdef __WIN32__
     virtual wxAppTraits *CreateTraits() wxOVERRIDE
     {
-        // Define a new class just to customize CanUseStderr() behaviour.
+        // Define a NEW_DEBUG class just to customize CanUseStderr() behaviour.
         class TestAppTraits : public TestAppTraitsBase
         {
         public:
@@ -298,7 +298,7 @@ public:
             }
         };
 
-        return new TestAppTraits;
+        return NEW_DEBUG TestAppTraits;
     }
 #endif // __WIN32__
 
@@ -642,7 +642,7 @@ bool TestApp::OnInit()
 
 #if wxUSE_GUI
     // create a parent window to be used as parent for the GUI controls
-    new wxTestableFrame();
+    NEW_DEBUG wxTestableFrame();
 
     Connect(wxEVT_IDLE, wxIdleEventHandler(TestApp::OnIdle));
 
@@ -681,7 +681,7 @@ bool TestApp::ProcessEvent(wxEvent& event)
 int TestApp::RunTests()
 {
 #if wxUSE_LOG
-    delete wxLog::SetActiveTarget(new TestLogger);
+    delete wxLog::SetActiveTarget(NEW_DEBUG TestLogger);
 #endif
 
     // Cast is needed under MSW where Catch also provides an overload taking

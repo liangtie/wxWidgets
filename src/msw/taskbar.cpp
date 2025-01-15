@@ -99,8 +99,8 @@ struct NotifyIconData : public NOTIFYICONDATA
     {
         wxZeroMemory(*this);
 
-        // Since Vista there is a new member hBalloonIcon which will be used
-        // if a user specified icon is specified in ShowBalloon(). For XP 
+        // Since Vista there is a NEW_DEBUG member hBalloonIcon which will be used
+        // if a user specified icon is specified in ShowBalloon(). For XP
         // use the old size
         cbSize = wxPlatformInfo::Get().CheckOSVersion(6, 0)
                     ? sizeof(NOTIFYICONDATA)
@@ -168,7 +168,7 @@ wxTaskBarIcon::DoSetIcon(const wxBitmapBundle& icon,
     //     is initialized (as samples/taskbar used to do)
     if (!m_win)
     {
-        m_win = new wxTaskBarIconWindow(this);
+        m_win = NEW_DEBUG wxTaskBarIconWindow(this);
     }
 
     m_icon = icon;

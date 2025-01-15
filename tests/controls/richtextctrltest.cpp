@@ -105,7 +105,7 @@ CPPUNIT_TEST_SUITE_NAMED_REGISTRATION( RichTextCtrlTestCase, "RichTextCtrlTestCa
 
 void RichTextCtrlTestCase::setUp()
 {
-    m_rich = new wxRichTextCtrl(wxTheApp->GetTopWindow(), wxID_ANY, "",
+    m_rich = NEW_DEBUG wxRichTextCtrl(wxTheApp->GetTopWindow(), wxID_ANY, "",
                                 wxDefaultPosition, wxSize(400, 200), wxWANTS_CHARS);
 }
 

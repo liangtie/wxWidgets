@@ -96,17 +96,17 @@ wxBrush::~wxBrush()
 
 wxBrush::wxBrush(const wxColour& col, wxBrushStyle style)
 {
-    m_refData = new wxBrushRefData( col, style );
+    m_refData = NEW_DEBUG wxBrushRefData( col, style );
 }
 
 wxBrush::wxBrush(const wxColour& col, int style)
 {
-    m_refData = new wxBrushRefData(col, (wxBrushStyle)style);
+    m_refData = NEW_DEBUG wxBrushRefData(col, (wxBrushStyle)style);
 }
 
 wxBrush::wxBrush(const wxBitmap& stipple)
 {
-    m_refData = new wxBrushRefData( stipple );
+    m_refData = NEW_DEBUG wxBrushRefData( stipple );
 }
 
 // ----------------------------------------------------------------------------
@@ -123,12 +123,12 @@ bool wxBrush::operator==(const wxBrush& brush) const
 
 wxGDIRefData *wxBrush::CreateGDIRefData() const
 {
-    return new wxBrushRefData;
+    return NEW_DEBUG wxBrushRefData;
 }
 
 wxGDIRefData *wxBrush::CloneGDIRefData(const wxGDIRefData *data) const
 {
-    return new wxBrushRefData(*(const wxBrushRefData *)data);
+    return NEW_DEBUG wxBrushRefData(*(const wxBrushRefData *)data);
 }
 
 // ----------------------------------------------------------------------------

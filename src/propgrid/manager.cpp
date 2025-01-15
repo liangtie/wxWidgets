@@ -100,7 +100,7 @@ static const char gs_svg_noncatmode[] =
 "<line x1=\"16\" y1=\"25\" x2=\"20\" y2=\"25\" stroke-width=\"2\" stroke=\"#868686\" stroke-linecap=\"square\"/>"
 "<line x1=\"24\" y1=\"25\" x2=\"28\" y2=\"25\" stroke-width=\"2\" stroke=\"#868686\" stroke-linecap=\"square\"/>"
 "<line x1=\"16\" y1=\"29\" x2=\"20\" y2=\"29\" stroke-width=\"2\" stroke=\"#868686\" stroke-linecap=\"square\"/>"
-"<line x1=\"24\" y1=\"29\" x2=\"28\" y2=\"29\" stroke-width=\"2\" stroke=\"#868686\" stroke-linecap=\"square\"/>" 
+"<line x1=\"24\" y1=\"29\" x2=\"28\" y2=\"29\" stroke-width=\"2\" stroke=\"#868686\" stroke-linecap=\"square\"/>"
 "</svg>";
 
 // Default Page Icon.
@@ -463,7 +463,7 @@ private:
     {
         while ( m_columns.size() < count )
         {
-            wxHeaderColumnSimple* colInfo = new wxHeaderColumnSimple(wxEmptyString);
+            wxHeaderColumnSimple* colInfo = NEW_DEBUG wxHeaderColumnSimple(wxEmptyString);
             m_columns.push_back(colInfo);
         }
     }
@@ -707,7 +707,7 @@ void wxPropertyGridManager::Init2( int style )
     // Prepare the first page
     // NB: But just prepare - you still need to call Add/InsertPage
     //     to actually add properties on it.
-    wxPropertyGridPage* pd = new wxPropertyGridPage();
+    wxPropertyGridPage* pd = NEW_DEBUG wxPropertyGridPage();
     pd->m_isDefault = true;
     pd->m_manager = this;
     wxPropertyGridPageState* state = pd->GetStatePtr();
@@ -793,7 +793,7 @@ wxPropertyGridManager::~wxPropertyGridManager()
 
 wxPropertyGrid* wxPropertyGridManager::CreatePropertyGrid() const
 {
-    return new wxPropertyGrid();
+    return NEW_DEBUG wxPropertyGrid();
 }
 
 // -----------------------------------------------------------------------
@@ -934,7 +934,7 @@ bool wxPropertyGridManager::DoSelectPage( int index )
     {
         if ( !m_emptyPage )
         {
-            m_emptyPage = new wxPropertyGridPage();
+            m_emptyPage = NEW_DEBUG wxPropertyGridPage();
             m_emptyPage->m_pPropGrid = m_pPropGrid;
         }
 
@@ -1122,7 +1122,7 @@ wxPropertyGridPage* wxPropertyGridManager::InsertPage( int index,
     if ( !pageObj )
     {
         // No custom page object was given, so we will either re-use the default base
-        // page (if index==0), or create a new default page object.
+        // page (if index==0), or create a NEW_DEBUG default page object.
         if ( !isPageInserted )
         {
             pageObj = GetPage(0);
@@ -1131,14 +1131,14 @@ wxPropertyGridPage* wxPropertyGridManager::InsertPage( int index,
             if ( !pageObj->m_isDefault )
             {
                 delete pageObj;
-                pageObj = new wxPropertyGridPage();
+                pageObj = NEW_DEBUG wxPropertyGridPage();
                 m_arrPages[0] = pageObj;
             }
             needInit = false;
         }
         else
         {
-            pageObj = new wxPropertyGridPage();
+            pageObj = NEW_DEBUG wxPropertyGridPage();
         }
         pageObj->m_isDefault = true;
     }
@@ -1661,7 +1661,7 @@ void wxPropertyGridManager::RecreateControls()
         // Has toolbar.
         if ( !m_pToolbar )
         {
-            m_pToolbar = new wxToolBar(this, wxID_ANY,
+            m_pToolbar = NEW_DEBUG wxToolBar(this, wxID_ANY,
                                        wxDefaultPosition,
                                        wxDefaultSize,
                                        toolBarFlags);
@@ -1820,7 +1820,7 @@ void wxPropertyGridManager::RecreateControls()
     {
         if ( !m_pHeaderCtrl )
         {
-            m_pHeaderCtrl = new wxPGHeaderCtrl(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0);
+            m_pHeaderCtrl = NEW_DEBUG wxPGHeaderCtrl(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0);
         }
         else
         {
@@ -1843,7 +1843,7 @@ void wxPropertyGridManager::RecreateControls()
 
         if ( !m_pTxtHelpCaption )
         {
-            m_pTxtHelpCaption = new wxStaticText(this,
+            m_pTxtHelpCaption = NEW_DEBUG wxStaticText(this,
                                                  wxID_ANY,
                                                  wxEmptyString,
                                                  wxDefaultPosition,
@@ -1854,7 +1854,7 @@ void wxPropertyGridManager::RecreateControls()
         }
         if ( !m_pTxtHelpContent )
         {
-            m_pTxtHelpContent = new wxStaticText(this,
+            m_pTxtHelpContent = NEW_DEBUG wxStaticText(this,
                                                  wxID_ANY,
                                                  wxEmptyString,
                                                  wxDefaultPosition,
@@ -2392,7 +2392,7 @@ private:
 
 wxPGVIterator wxPropertyGridManager::GetVIterator( int flags ) const
 {
-    return wxPGVIterator(new wxPGVIteratorBase_Manager(const_cast<wxPropertyGridManager*>(this), flags));
+    return wxPGVIterator(NEW_DEBUG wxPGVIteratorBase_Manager(const_cast<wxPropertyGridManager*>(this), flags));
 }
 
 #endif  // wxUSE_PROPGRID

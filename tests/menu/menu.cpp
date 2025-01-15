@@ -141,12 +141,12 @@ CPPUNIT_TEST_SUITE_NAMED_REGISTRATION( MenuTestCase, "MenuTestCase" );
 
 void MenuTestCase::CreateFrame()
 {
-    m_frame = new wxFrame(wxTheApp->GetTopWindow(), wxID_ANY, "test frame");
+    m_frame = NEW_DEBUG wxFrame(wxTheApp->GetTopWindow(), wxID_ANY, "test frame");
 
-    wxMenu *fileMenu = new wxMenu;
-    wxMenu *helpMenu = new wxMenu;
-    wxMenu *subMenu = new wxMenu;
-    wxMenu *subsubMenu = new wxMenu;
+    wxMenu *fileMenu = NEW_DEBUG wxMenu;
+    wxMenu *helpMenu = NEW_DEBUG wxMenu;
+    wxMenu *subMenu = NEW_DEBUG wxMenu;
+    wxMenu *subsubMenu = NEW_DEBUG wxMenu;
 
     m_itemCount = 0;
 
@@ -179,7 +179,7 @@ void MenuTestCase::CreateFrame()
     wxAcceleratorEntry entry;
 
     wxMenuItem* const
-        extraAccel = new wxMenuItem(fileMenu, MenuTestCase_ExtraAccel, "Extra accels");
+        extraAccel = NEW_DEBUG wxMenuItem(fileMenu, MenuTestCase_ExtraAccel, "Extra accels");
 
     CHECK( entry.FromString("Ctrl-U") );
     extraAccel->SetAccel(&entry);
@@ -215,7 +215,7 @@ void MenuTestCase::CreateFrame()
     m_menuLabels.Add("&File");
     m_menuLabels.Add("&Help");
 
-    wxMenuBar *menuBar = new wxMenuBar();
+    wxMenuBar *menuBar = NEW_DEBUG wxMenuBar();
     menuBar->Append(fileMenu, m_menuLabels[0]);
     menuBar->Append(helpMenu, m_menuLabels[1]);
     m_frame->SetMenuBar(menuBar);
@@ -431,7 +431,7 @@ void MenuTestCase::TranslatedMnemonics()
 void MenuTestCase::RadioItems()
 {
     wxMenuBar * const bar = m_frame->GetMenuBar();
-    wxMenu * const menu = new wxMenu;
+    wxMenu * const menu = NEW_DEBUG wxMenu;
     bar->Append(menu, "&Radio");
 
     // Adding consecutive radio items creates a radio group.
@@ -514,7 +514,7 @@ void MenuTestCase::RemoveAdd()
 
     wxMenu* menu0 = bar->GetMenu(0);
     wxMenu* menu1 = bar->GetMenu(1);
-    wxMenuItem* item = new wxMenuItem(menu0, MenuTestCase_Foo + 100, "t&ext\tCtrl-E");
+    wxMenuItem* item = NEW_DEBUG wxMenuItem(menu0, MenuTestCase_Foo + 100, "t&ext\tCtrl-E");
     menu0->Insert(0, item);
     CPPUNIT_ASSERT( menu0->FindItemByPosition(0) == item );
     menu0->Remove(item);
@@ -530,9 +530,9 @@ void MenuTestCase::RemoveAdd()
 
 void MenuTestCase::ChangeBitmap()
 {
-    wxMenu *menu = new wxMenu;
+    wxMenu *menu = NEW_DEBUG wxMenu;
 
-    wxMenuItem *item = new wxMenuItem(menu, wxID_ANY, "Item");
+    wxMenuItem *item = NEW_DEBUG wxMenuItem(menu, wxID_ANY, "Item");
     menu->Append(item);
 
     // On Windows Vista (and later) calling SetBitmap, *after* the menu
@@ -669,7 +669,7 @@ void MenuTestCase::Events()
     // Now create a text control which uses the same accelerator for itself and
     // check that when the text control has focus, the accelerator does _not_
     // work.
-    wxTextCtrl* const text = new wxTextCtrl(m_frame, wxID_ANY, "Testing");
+    wxTextCtrl* const text = NEW_DEBUG wxTextCtrl(m_frame, wxID_ANY, "Testing");
     text->SetFocus();
 
     sim.Char('A', wxMOD_CONTROL);
@@ -813,7 +813,7 @@ key specialKeys[] =
 
 TEST_CASE( "wxMenuItemAccelEntry", "[menu][accelentry]" )
 {
-    wxMenu* menu = new wxMenu;
+    wxMenu* menu = NEW_DEBUG wxMenu;
 
     menu->Append( wxID_ANY, "Test" );
     wxMenuItem* item = menu->FindItemByPosition( 0 );

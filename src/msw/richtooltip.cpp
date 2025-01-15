@@ -190,9 +190,9 @@ wxRichToolTipImpl::Create(const wxString& title, const wxString& message)
     // EM_SHOWBALLOONTIP is only implemented by comctl32.dll v6 so don't even
     // bother using the native implementation if we're not using themes.
     if ( wxUxThemeIsActive() )
-        return new wxRichToolTipMSWImpl(title, message);
+        return NEW_DEBUG wxRichToolTipMSWImpl(title, message);
 
-    return new wxRichToolTipGenericImpl(title, message);
+    return NEW_DEBUG wxRichToolTipGenericImpl(title, message);
 }
 
 #endif // wxUSE_RICHTOOLTIP

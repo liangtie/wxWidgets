@@ -23,7 +23,7 @@ BENCHMARK_FUNC(LoadJPEG)
     if ( !s_handlerAdded )
     {
         s_handlerAdded = true;
-        wxImage::AddHandler(new wxJPEGHandler);
+        wxImage::AddHandler(NEW_DEBUG wxJPEGHandler);
     }
 
     wxImage image;
@@ -36,7 +36,7 @@ BENCHMARK_FUNC(LoadPNG)
     if ( !s_handlerAdded )
     {
         s_handlerAdded = true;
-        wxImage::AddHandler(new wxPNGHandler);
+        wxImage::AddHandler(NEW_DEBUG wxPNGHandler);
     }
 
     wxImage image;
@@ -50,7 +50,7 @@ BENCHMARK_FUNC(LoadTIFF)
     if ( !s_handlerAdded )
     {
         s_handlerAdded = true;
-        wxImage::AddHandler(new wxTIFFHandler);
+        wxImage::AddHandler(NEW_DEBUG wxTIFFHandler);
     }
 
     wxImage image;

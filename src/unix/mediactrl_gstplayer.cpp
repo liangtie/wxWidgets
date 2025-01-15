@@ -295,7 +295,7 @@ bool wxGStreamerMediaBackend::CreateControl(wxControl* ctrl, wxWindow* parent,
     //Convert arguments to unicode if enabled
 #if wxUSE_UNICODE
     int i;
-    char **argvGST = new char*[wxTheApp->argc + 1];
+    char **argvGST = NEW_DEBUG char*[wxTheApp->argc + 1];
     for ( i = 0; i < wxTheApp->argc; i++ )
     {
         argvGST[i] = wxStrdupA(wxTheApp->argv[i].utf8_str());

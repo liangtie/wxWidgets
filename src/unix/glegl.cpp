@@ -749,7 +749,7 @@ EGLConfig *wxGLCanvasEGL::InitConfig(const wxGLAttributes& dispAttrs)
             {
                 // We can just get the first config proposed by the driver in
                 // this case.
-                wxScopedPtr<EGLConfig> config(new EGLConfig);
+                wxScopedPtr<EGLConfig> config(NEW_DEBUG EGLConfig);
 
                 if ( !eglChooseConfig(dpy, attrsList, config.get(), 1, &numConfigs)
                         || numConfigs != 1 )
@@ -791,13 +791,13 @@ EGLConfig *wxGLCanvasEGL::InitConfig(const wxGLAttributes& dispAttrs)
         if ( alpha == 0 )
         {
             // We can use this one.
-            return new EGLConfig(*it);
+            return NEW_DEBUG EGLConfig(*it);
         }
     }
 
     // Choose the first config, it's better to return something using alpha
     // than nothing at all.
-    return new EGLConfig(configs.front());
+    return NEW_DEBUG EGLConfig(configs.front());
 }
 
 /* static */

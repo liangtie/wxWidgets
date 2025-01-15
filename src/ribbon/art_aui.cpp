@@ -65,7 +65,7 @@ wxRibbonAUIArtProvider::~wxRibbonAUIArtProvider()
 
 wxRibbonArtProvider* wxRibbonAUIArtProvider::Clone() const
 {
-    wxRibbonAUIArtProvider *copy = new wxRibbonAUIArtProvider();
+    wxRibbonAUIArtProvider *copy = NEW_DEBUG wxRibbonAUIArtProvider();
     CloneTo(copy);
 
     copy->m_tab_ctrl_background_colour = m_tab_ctrl_background_colour;

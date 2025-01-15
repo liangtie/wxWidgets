@@ -67,7 +67,7 @@ CPPUNIT_TEST_SUITE_NAMED_REGISTRATION( NotebookTestCase, "NotebookTestCase" );
 
 void NotebookTestCase::setUp()
 {
-    m_notebook = new wxNotebook(wxTheApp->GetTopWindow(), wxID_ANY,
+    m_notebook = NEW_DEBUG wxNotebook(wxTheApp->GetTopWindow(), wxID_ANY,
                                 wxDefaultPosition, wxSize(400, 200));
     AddPanels();
 }
@@ -83,13 +83,13 @@ void NotebookTestCase::RowCount()
 
 #ifdef __WXMSW__
     wxDELETE(m_notebook);
-    m_notebook = new wxNotebook(wxTheApp->GetTopWindow(), wxID_ANY,
+    m_notebook = NEW_DEBUG wxNotebook(wxTheApp->GetTopWindow(), wxID_ANY,
                                 wxDefaultPosition, wxSize(400, 200),
                                 wxNB_MULTILINE);
 
     for( unsigned int i = 0; i < 10; i++ )
     {
-        m_notebook->AddPage(new wxPanel(m_notebook), "Panel", false, 0);
+        m_notebook->AddPage(NEW_DEBUG wxPanel(m_notebook), "Panel", false, 0);
     }
 
     CPPUNIT_ASSERT( m_notebook->GetRowCount() != 1 );
@@ -121,7 +121,7 @@ void NotebookTestCase::NoEventsOnDestruction()
 TEST_CASE("wxNotebook::AddPageEvents", "[wxNotebook][AddPage][event]")
 {
     wxNotebook* const
-        notebook = new wxNotebook(wxTheApp->GetTopWindow(), wxID_ANY,
+        notebook = NEW_DEBUG wxNotebook(wxTheApp->GetTopWindow(), wxID_ANY,
                                   wxDefaultPosition, wxSize(400, 200));
     wxScopedPtr<wxNotebook> cleanup(notebook);
 
@@ -131,7 +131,7 @@ TEST_CASE("wxNotebook::AddPageEvents", "[wxNotebook][AddPage][event]")
     EventCounter countPageChanged(notebook, wxEVT_NOTEBOOK_PAGE_CHANGED);
 
     // Add the first page, it is special.
-    notebook->AddPage(new wxPanel(notebook), "Initial page");
+    notebook->AddPage(NEW_DEBUG wxPanel(notebook), "Initial page");
 
     // The selection should have been changed.
     CHECK( notebook->GetSelection() == 0 );
@@ -142,7 +142,7 @@ TEST_CASE("wxNotebook::AddPageEvents", "[wxNotebook][AddPage][event]")
 
 
     // Add another page without selecting it.
-    notebook->AddPage(new wxPanel(notebook), "Unselected page");
+    notebook->AddPage(NEW_DEBUG wxPanel(notebook), "Unselected page");
 
     // Selection shouldn't have changed.
     CHECK( notebook->GetSelection() == 0 );
@@ -153,7 +153,7 @@ TEST_CASE("wxNotebook::AddPageEvents", "[wxNotebook][AddPage][event]")
 
 
     // Finally add another page and do select it.
-    notebook->AddPage(new wxPanel(notebook), "Selected page", true);
+    notebook->AddPage(NEW_DEBUG wxPanel(notebook), "Selected page", true);
 
     // It should have become selected.
     CHECK( notebook->GetSelection() == 2 );

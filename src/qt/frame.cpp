@@ -50,12 +50,12 @@ wxFrame::~wxFrame()
 bool wxFrame::Create( wxWindow *parent, wxWindowID id, const wxString& title,
     const wxPoint& pos, const wxSize& size, long style, const wxString& name )
 {
-    m_qtWindow = new wxQtMainWindow( parent, this );
+    m_qtWindow = NEW_DEBUG wxQtMainWindow( parent, this );
 
     // TODO: Could we use a wxPanel as the central widget? If so then we could
     // remove wxWindow::QtReparent.
 
-    GetQMainWindow()->setCentralWidget( new wxQtCentralWidget( parent, this ) );
+    GetQMainWindow()->setCentralWidget( NEW_DEBUG wxQtCentralWidget( parent, this ) );
 
     if ( !wxFrameBase::Create( parent, id, title, pos, size, style, name ) )
         return false;
@@ -78,7 +78,7 @@ void wxFrame::SetMenuBar( wxMenuBar *menuBar )
     else
     {
         // Creating an empty menu bar should hide it and free the previous:
-        QMenuBar *qmenubar = new QMenuBar(GetHandle());
+        QMenuBar *qmenubar = NEW_DEBUG QMenuBar(GetHandle());
         GetQMainWindow()->setMenuBar( qmenubar );
     }
     wxFrameBase::SetMenuBar( menuBar );
@@ -251,7 +251,7 @@ QMainWindow *wxFrame::GetQMainWindow() const
 wxQtMainWindow::wxQtMainWindow( wxWindow *parent, wxFrame *handler )
     : wxQtEventSignalHandler< QMainWindow, wxFrame >( parent, handler )
 {
-//    setCentralWidget( new wxQtWidget( parent, handler ));
+//    setCentralWidget( NEW_DEBUG wxQtWidget( parent, handler ));
 }
 
 wxQtCentralWidget::wxQtCentralWidget( wxWindow *parent, wxFrame *handler )

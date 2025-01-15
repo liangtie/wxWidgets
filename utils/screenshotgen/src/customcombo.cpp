@@ -157,7 +157,7 @@ PenStyleComboBox * PenStyleComboBox::CreateSample(wxWindow* parent)
     // When defining derivative class for callbacks, we need
     // to use two-stage creation (or redefine the common wx
     // constructor).
-    odc = new PenStyleComboBox();
+    odc = NEW_DEBUG PenStyleComboBox();
     odc->Create(parent,wxID_ANY,wxEmptyString,
                 wxDefaultPosition, wxDefaultSize,
                 arrItems,

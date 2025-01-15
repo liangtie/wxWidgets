@@ -59,7 +59,7 @@ bool wxDialog::Create( wxWindow *parent, wxWindowID id,
     // all dialogs should have tab traversal enabled
     style |= wxTAB_TRAVERSAL;
 
-    m_qtWindow = new wxQtDialog(parent, this);
+    m_qtWindow = NEW_DEBUG wxQtDialog(parent, this);
 
     // Qt adds the context help button by default and we need to explicitly
     // remove it to avoid having it if it's not explicitly requested.

@@ -3,7 +3,7 @@
 // Purpose:     Implements the rich text formatting dialog background
 //              properties page.
 // Author:      Julian Smart
-// Modified by: 
+// Modified by:
 // Created:     13/11/2010 11:17:25
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows Licence
@@ -132,90 +132,90 @@ void wxRichTextBackgroundPage::Init()
  */
 
 void wxRichTextBackgroundPage::CreateControls()
-{    
+{
 ////@begin wxRichTextBackgroundPage content construction
     wxRichTextBackgroundPage* itemRichTextDialogPage1 = this;
 
-    wxBoxSizer* itemBoxSizer2 = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer* itemBoxSizer2 = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     itemRichTextDialogPage1->SetSizer(itemBoxSizer2);
 
-    wxBoxSizer* itemBoxSizer3 = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer* itemBoxSizer3 = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     itemBoxSizer2->Add(itemBoxSizer3, 1, wxGROW, 5);
 
-    wxBoxSizer* itemBoxSizer4 = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer* itemBoxSizer4 = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     itemBoxSizer3->Add(itemBoxSizer4, 0, wxGROW, 5);
 
-    wxStaticText* itemStaticText5 = new wxStaticText( itemRichTextDialogPage1, wxID_STATIC, _("Background"), wxDefaultPosition, wxDefaultSize, 0 );
+    wxStaticText* itemStaticText5 = NEW_DEBUG wxStaticText( itemRichTextDialogPage1, wxID_STATIC, _("Background"), wxDefaultPosition, wxDefaultSize, 0 );
     itemStaticText5->SetFont(wxFont(wxSystemSettings::GetFont(wxSYS_DEFAULT_GUI_FONT).GetPointSize(), wxSystemSettings::GetFont(wxSYS_DEFAULT_GUI_FONT).GetFamily(), wxSystemSettings::GetFont(wxSYS_DEFAULT_GUI_FONT).GetStyle(), wxFONTWEIGHT_BOLD, false, wxT("")));
     itemBoxSizer4->Add(itemStaticText5, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    wxStaticLine* itemStaticLine6 = new wxStaticLine( itemRichTextDialogPage1, wxID_STATIC, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL );
+    wxStaticLine* itemStaticLine6 = NEW_DEBUG wxStaticLine( itemRichTextDialogPage1, wxID_STATIC, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL );
     itemBoxSizer4->Add(itemStaticLine6, 1, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    wxBoxSizer* itemBoxSizer7 = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer* itemBoxSizer7 = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     itemBoxSizer3->Add(itemBoxSizer7, 0, wxGROW, 5);
 
     itemBoxSizer7->Add(5, 5, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    m_backgroundColourCheckBox = new wxCheckBox( itemRichTextDialogPage1, ID_RICHTEXT_BACKGROUND_COLOUR_CHECKBOX, _("Background &colour:"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_backgroundColourCheckBox = NEW_DEBUG wxCheckBox( itemRichTextDialogPage1, ID_RICHTEXT_BACKGROUND_COLOUR_CHECKBOX, _("Background &colour:"), wxDefaultPosition, wxDefaultSize, 0 );
     m_backgroundColourCheckBox->SetValue(false);
     m_backgroundColourCheckBox->SetHelpText(_("Enables a background colour."));
     if (wxRichTextBackgroundPage::ShowToolTips())
         m_backgroundColourCheckBox->SetToolTip(_("Enables a background colour."));
     itemBoxSizer7->Add(m_backgroundColourCheckBox, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    m_backgroundColourSwatch = new wxRichTextColourSwatchCtrl( itemRichTextDialogPage1, ID_RICHTEXT_BACKGROUND_COLOUR_SWATCH, wxDefaultPosition, wxSize(80, 20), wxBORDER_THEME );
+    m_backgroundColourSwatch = NEW_DEBUG wxRichTextColourSwatchCtrl( itemRichTextDialogPage1, ID_RICHTEXT_BACKGROUND_COLOUR_SWATCH, wxDefaultPosition, wxSize(80, 20), wxBORDER_THEME );
     m_backgroundColourSwatch->SetHelpText(_("The background colour."));
     if (wxRichTextBackgroundPage::ShowToolTips())
         m_backgroundColourSwatch->SetToolTip(_("The background colour."));
     itemBoxSizer7->Add(m_backgroundColourSwatch, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    m_shadowBox = new wxBoxSizer(wxVERTICAL);
+    m_shadowBox = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     itemBoxSizer3->Add(m_shadowBox, 0, wxGROW, 5);
 
-    wxBoxSizer* itemBoxSizer12 = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer* itemBoxSizer12 = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     m_shadowBox->Add(itemBoxSizer12, 0, wxGROW, 5);
 
-    wxStaticText* itemStaticText13 = new wxStaticText( itemRichTextDialogPage1, wxID_STATIC, _("Shadow"), wxDefaultPosition, wxDefaultSize, 0 );
+    wxStaticText* itemStaticText13 = NEW_DEBUG wxStaticText( itemRichTextDialogPage1, wxID_STATIC, _("Shadow"), wxDefaultPosition, wxDefaultSize, 0 );
     itemStaticText13->SetFont(wxFont(wxSystemSettings::GetFont(wxSYS_DEFAULT_GUI_FONT).GetPointSize(), wxSystemSettings::GetFont(wxSYS_DEFAULT_GUI_FONT).GetFamily(), wxSystemSettings::GetFont(wxSYS_DEFAULT_GUI_FONT).GetStyle(), wxFONTWEIGHT_BOLD, false, wxT("")));
     itemBoxSizer12->Add(itemStaticText13, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    wxStaticLine* itemStaticLine14 = new wxStaticLine( itemRichTextDialogPage1, wxID_STATIC, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL );
+    wxStaticLine* itemStaticLine14 = NEW_DEBUG wxStaticLine( itemRichTextDialogPage1, wxID_STATIC, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL );
     itemBoxSizer12->Add(itemStaticLine14, 1, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    wxBoxSizer* itemBoxSizer15 = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer* itemBoxSizer15 = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     m_shadowBox->Add(itemBoxSizer15, 0, wxGROW, 5);
 
     itemBoxSizer15->Add(5, 5, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    wxBoxSizer* itemBoxSizer17 = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer* itemBoxSizer17 = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     itemBoxSizer15->Add(itemBoxSizer17, 0, wxALIGN_CENTER_VERTICAL, 5);
 
-    m_useShadow = new wxCheckBox( itemRichTextDialogPage1, ID_RICHTEXT_USE_SHADOW, _("Use &shadow"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_useShadow = NEW_DEBUG wxCheckBox( itemRichTextDialogPage1, ID_RICHTEXT_USE_SHADOW, _("Use &shadow"), wxDefaultPosition, wxDefaultSize, 0 );
     m_useShadow->SetValue(false);
     m_useShadow->SetHelpText(_("Enables a shadow."));
     if (wxRichTextBackgroundPage::ShowToolTips())
         m_useShadow->SetToolTip(_("Enables a shadow."));
     itemBoxSizer17->Add(m_useShadow, 0, wxALIGN_LEFT|wxALL, 5);
 
-    wxBoxSizer* itemBoxSizer19 = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer* itemBoxSizer19 = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     itemBoxSizer17->Add(itemBoxSizer19, 0, wxGROW, 5);
 
     itemBoxSizer19->Add(5, 5, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    wxBoxSizer* itemBoxSizer21 = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer* itemBoxSizer21 = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     itemBoxSizer19->Add(itemBoxSizer21, 0, wxALIGN_CENTER_VERTICAL, 5);
 
-    wxFlexGridSizer* itemFlexGridSizer22 = new wxFlexGridSizer(0, 2, 0, 0);
+    wxFlexGridSizer* itemFlexGridSizer22 = NEW_DEBUG wxFlexGridSizer(0, 2, 0, 0);
     itemBoxSizer21->Add(itemFlexGridSizer22, 0, wxGROW, 5);
 
-    wxStaticText* itemStaticText23 = new wxStaticText( itemRichTextDialogPage1, wxID_STATIC, _("&Horizontal offset:"), wxDefaultPosition, wxDefaultSize, 0 );
+    wxStaticText* itemStaticText23 = NEW_DEBUG wxStaticText( itemRichTextDialogPage1, wxID_STATIC, _("&Horizontal offset:"), wxDefaultPosition, wxDefaultSize, 0 );
     itemFlexGridSizer22->Add(itemStaticText23, 0, wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    wxBoxSizer* itemBoxSizer24 = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer* itemBoxSizer24 = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     itemFlexGridSizer22->Add(itemBoxSizer24, 0, wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
 
-    m_offsetX = new wxTextCtrl( itemRichTextDialogPage1, ID_RICHTEXT_SHADOW_HORIZONTAL_OFFSET, wxEmptyString, wxDefaultPosition, wxSize(60, -1), 0 );
+    m_offsetX = NEW_DEBUG wxTextCtrl( itemRichTextDialogPage1, ID_RICHTEXT_SHADOW_HORIZONTAL_OFFSET, wxEmptyString, wxDefaultPosition, wxSize(60, -1), 0 );
     m_offsetX->SetHelpText(_("The horizontal offset."));
     if (wxRichTextBackgroundPage::ShowToolTips())
         m_offsetX->SetToolTip(_("The horizontal offset."));
@@ -225,20 +225,20 @@ void wxRichTextBackgroundPage::CreateControls()
     m_unitsHorizontalOffsetStrings.Add(_("px"));
     m_unitsHorizontalOffsetStrings.Add(_("cm"));
     m_unitsHorizontalOffsetStrings.Add(_("pt"));
-    m_unitsHorizontalOffset = new wxComboBox( itemRichTextDialogPage1, ID_RICHTEXT_SHADOW_HORIZONTAL_OFFSET_UNITS, _("px"), wxDefaultPosition, wxSize(60, -1), m_unitsHorizontalOffsetStrings, wxCB_READONLY );
+    m_unitsHorizontalOffset = NEW_DEBUG wxComboBox( itemRichTextDialogPage1, ID_RICHTEXT_SHADOW_HORIZONTAL_OFFSET_UNITS, _("px"), wxDefaultPosition, wxSize(60, -1), m_unitsHorizontalOffsetStrings, wxCB_READONLY );
     m_unitsHorizontalOffset->SetStringSelection(_("px"));
     m_unitsHorizontalOffset->SetHelpText(_("Units for this value."));
     if (wxRichTextBackgroundPage::ShowToolTips())
         m_unitsHorizontalOffset->SetToolTip(_("Units for this value."));
     itemBoxSizer24->Add(m_unitsHorizontalOffset, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    wxStaticText* itemStaticText27 = new wxStaticText( itemRichTextDialogPage1, wxID_STATIC, _("&Vertical offset:"), wxDefaultPosition, wxDefaultSize, 0 );
+    wxStaticText* itemStaticText27 = NEW_DEBUG wxStaticText( itemRichTextDialogPage1, wxID_STATIC, _("&Vertical offset:"), wxDefaultPosition, wxDefaultSize, 0 );
     itemFlexGridSizer22->Add(itemStaticText27, 0, wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    wxBoxSizer* itemBoxSizer28 = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer* itemBoxSizer28 = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     itemFlexGridSizer22->Add(itemBoxSizer28, 0, wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
 
-    m_offsetY = new wxTextCtrl( itemRichTextDialogPage1, ID_RICHTEXT_SHADOW_VERTICAL_OFFSET, wxEmptyString, wxDefaultPosition, wxSize(60, -1), 0 );
+    m_offsetY = NEW_DEBUG wxTextCtrl( itemRichTextDialogPage1, ID_RICHTEXT_SHADOW_VERTICAL_OFFSET, wxEmptyString, wxDefaultPosition, wxSize(60, -1), 0 );
     m_offsetY->SetHelpText(_("The vertical offset."));
     if (wxRichTextBackgroundPage::ShowToolTips())
         m_offsetY->SetToolTip(_("The vertical offset."));
@@ -248,37 +248,37 @@ void wxRichTextBackgroundPage::CreateControls()
     m_unitsVerticalOffsetStrings.Add(_("px"));
     m_unitsVerticalOffsetStrings.Add(_("cm"));
     m_unitsVerticalOffsetStrings.Add(_("pt"));
-    m_unitsVerticalOffset = new wxComboBox( itemRichTextDialogPage1, ID_RICHTEXT_SHADOW_VERTICAL_OFFSET_UNITS, _("px"), wxDefaultPosition, wxSize(60, -1), m_unitsVerticalOffsetStrings, wxCB_READONLY );
+    m_unitsVerticalOffset = NEW_DEBUG wxComboBox( itemRichTextDialogPage1, ID_RICHTEXT_SHADOW_VERTICAL_OFFSET_UNITS, _("px"), wxDefaultPosition, wxSize(60, -1), m_unitsVerticalOffsetStrings, wxCB_READONLY );
     m_unitsVerticalOffset->SetStringSelection(_("px"));
     m_unitsVerticalOffset->SetHelpText(_("Units for this value."));
     if (wxRichTextBackgroundPage::ShowToolTips())
         m_unitsVerticalOffset->SetToolTip(_("Units for this value."));
     itemBoxSizer28->Add(m_unitsVerticalOffset, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    m_shadowColourCheckBox = new wxCheckBox( itemRichTextDialogPage1, ID_RICHTEXT_USE_SHADOW_COLOUR, _("Shadow c&olour:"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_shadowColourCheckBox = NEW_DEBUG wxCheckBox( itemRichTextDialogPage1, ID_RICHTEXT_USE_SHADOW_COLOUR, _("Shadow c&olour:"), wxDefaultPosition, wxDefaultSize, 0 );
     m_shadowColourCheckBox->SetValue(false);
     m_shadowColourCheckBox->SetHelpText(_("Enables the shadow colour."));
     if (wxRichTextBackgroundPage::ShowToolTips())
         m_shadowColourCheckBox->SetToolTip(_("Enables the shadow colour."));
     itemFlexGridSizer22->Add(m_shadowColourCheckBox, 0, wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    m_shadowColourSwatch = new wxRichTextColourSwatchCtrl( itemRichTextDialogPage1, ID_RICHTEXTSHADOWCOLOURSWATCHCTRL, wxDefaultPosition, wxSize(60, 20), wxBORDER_THEME );
+    m_shadowColourSwatch = NEW_DEBUG wxRichTextColourSwatchCtrl( itemRichTextDialogPage1, ID_RICHTEXTSHADOWCOLOURSWATCHCTRL, wxDefaultPosition, wxSize(60, 20), wxBORDER_THEME );
     m_shadowColourSwatch->SetHelpText(_("The shadow colour."));
     if (wxRichTextBackgroundPage::ShowToolTips())
         m_shadowColourSwatch->SetToolTip(_("The shadow colour."));
     itemFlexGridSizer22->Add(m_shadowColourSwatch, 0, wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    m_useShadowSpread = new wxCheckBox( itemRichTextDialogPage1, ID_RICHTEXT_USE_SHADOW_SPREAD, _("Sh&adow spread:"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_useShadowSpread = NEW_DEBUG wxCheckBox( itemRichTextDialogPage1, ID_RICHTEXT_USE_SHADOW_SPREAD, _("Sh&adow spread:"), wxDefaultPosition, wxDefaultSize, 0 );
     m_useShadowSpread->SetValue(false);
     m_useShadowSpread->SetHelpText(_("Enables the shadow spread."));
     if (wxRichTextBackgroundPage::ShowToolTips())
         m_useShadowSpread->SetToolTip(_("Enables the shadow spread."));
     itemFlexGridSizer22->Add(m_useShadowSpread, 0, wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    wxBoxSizer* itemBoxSizer34 = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer* itemBoxSizer34 = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     itemFlexGridSizer22->Add(itemBoxSizer34, 0, wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
 
-    m_spread = new wxTextCtrl( itemRichTextDialogPage1, ID_RICHTEXT_SHADOW_SPREAD, wxEmptyString, wxDefaultPosition, wxSize(60, -1), 0 );
+    m_spread = NEW_DEBUG wxTextCtrl( itemRichTextDialogPage1, ID_RICHTEXT_SHADOW_SPREAD, wxEmptyString, wxDefaultPosition, wxSize(60, -1), 0 );
     m_spread->SetHelpText(_("The shadow spread."));
     if (wxRichTextBackgroundPage::ShowToolTips())
         m_spread->SetToolTip(_("The shadow spread."));
@@ -288,24 +288,24 @@ void wxRichTextBackgroundPage::CreateControls()
     m_unitsShadowSpreadStrings.Add(_("px"));
     m_unitsShadowSpreadStrings.Add(_("cm"));
     m_unitsShadowSpreadStrings.Add(_("pt"));
-    m_unitsShadowSpread = new wxComboBox( itemRichTextDialogPage1, ID_RICHTEXT_SHADOW_SPREAD_UNITS, _("px"), wxDefaultPosition, wxSize(60, -1), m_unitsShadowSpreadStrings, wxCB_READONLY );
+    m_unitsShadowSpread = NEW_DEBUG wxComboBox( itemRichTextDialogPage1, ID_RICHTEXT_SHADOW_SPREAD_UNITS, _("px"), wxDefaultPosition, wxSize(60, -1), m_unitsShadowSpreadStrings, wxCB_READONLY );
     m_unitsShadowSpread->SetStringSelection(_("px"));
     m_unitsShadowSpread->SetHelpText(_("Units for this value."));
     if (wxRichTextBackgroundPage::ShowToolTips())
         m_unitsShadowSpread->SetToolTip(_("Units for this value."));
     itemBoxSizer34->Add(m_unitsShadowSpread, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    m_useBlurDistance = new wxCheckBox( itemRichTextDialogPage1, ID_RICHTEXT_USE_BLUR_DISTANCE, _("&Blur distance:"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_useBlurDistance = NEW_DEBUG wxCheckBox( itemRichTextDialogPage1, ID_RICHTEXT_USE_BLUR_DISTANCE, _("&Blur distance:"), wxDefaultPosition, wxDefaultSize, 0 );
     m_useBlurDistance->SetValue(false);
     m_useBlurDistance->SetHelpText(_("Enables the blur distance."));
     if (wxRichTextBackgroundPage::ShowToolTips())
         m_useBlurDistance->SetToolTip(_("Enables the blur distance."));
     itemFlexGridSizer22->Add(m_useBlurDistance, 0, wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    wxBoxSizer* itemBoxSizer38 = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer* itemBoxSizer38 = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     itemFlexGridSizer22->Add(itemBoxSizer38, 0, wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
 
-    m_blurDistance = new wxTextCtrl( itemRichTextDialogPage1, ID_RICHTEXT_SHADOW_BLUR_DISTANCE, wxEmptyString, wxDefaultPosition, wxSize(60, -1), 0 );
+    m_blurDistance = NEW_DEBUG wxTextCtrl( itemRichTextDialogPage1, ID_RICHTEXT_SHADOW_BLUR_DISTANCE, wxEmptyString, wxDefaultPosition, wxSize(60, -1), 0 );
     m_blurDistance->SetHelpText(_("The shadow blur distance."));
     if (wxRichTextBackgroundPage::ShowToolTips())
         m_blurDistance->SetToolTip(_("The shadow blur distance."));
@@ -315,30 +315,30 @@ void wxRichTextBackgroundPage::CreateControls()
     m_unitsBlurDistanceStrings.Add(_("px"));
     m_unitsBlurDistanceStrings.Add(_("cm"));
     m_unitsBlurDistanceStrings.Add(_("pt"));
-    m_unitsBlurDistance = new wxComboBox( itemRichTextDialogPage1, ID_RICHTEXT_SHADOW_BLUR_DISTANCE_UNITS, _("px"), wxDefaultPosition, wxSize(60, -1), m_unitsBlurDistanceStrings, wxCB_READONLY );
+    m_unitsBlurDistance = NEW_DEBUG wxComboBox( itemRichTextDialogPage1, ID_RICHTEXT_SHADOW_BLUR_DISTANCE_UNITS, _("px"), wxDefaultPosition, wxSize(60, -1), m_unitsBlurDistanceStrings, wxCB_READONLY );
     m_unitsBlurDistance->SetStringSelection(_("px"));
     m_unitsBlurDistance->SetHelpText(_("Units for this value."));
     if (wxRichTextBackgroundPage::ShowToolTips())
         m_unitsBlurDistance->SetToolTip(_("Units for this value."));
     itemBoxSizer38->Add(m_unitsBlurDistance, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    m_useShadowOpacity = new wxCheckBox( itemRichTextDialogPage1, ID_RICHTEXT_USE_SHADOW_OPACITY, _("Opaci&ty:"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_useShadowOpacity = NEW_DEBUG wxCheckBox( itemRichTextDialogPage1, ID_RICHTEXT_USE_SHADOW_OPACITY, _("Opaci&ty:"), wxDefaultPosition, wxDefaultSize, 0 );
     m_useShadowOpacity->SetValue(false);
     m_useShadowOpacity->SetHelpText(_("Enables the shadow opacity."));
     if (wxRichTextBackgroundPage::ShowToolTips())
         m_useShadowOpacity->SetToolTip(_("Enables the shadow opacity."));
     itemFlexGridSizer22->Add(m_useShadowOpacity, 0, wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    wxBoxSizer* itemBoxSizer42 = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer* itemBoxSizer42 = NEW_DEBUG wxBoxSizer(wxHORIZONTAL);
     itemFlexGridSizer22->Add(itemBoxSizer42, 0, wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
 
-    m_opacity = new wxTextCtrl( itemRichTextDialogPage1, ID_RICHTEXT_SHADOW_OPACITY, wxEmptyString, wxDefaultPosition, wxSize(60, -1), 0 );
+    m_opacity = NEW_DEBUG wxTextCtrl( itemRichTextDialogPage1, ID_RICHTEXT_SHADOW_OPACITY, wxEmptyString, wxDefaultPosition, wxSize(60, -1), 0 );
     m_opacity->SetHelpText(_("The shadow opacity."));
     if (wxRichTextBackgroundPage::ShowToolTips())
         m_opacity->SetToolTip(_("The shadow opacity."));
     itemBoxSizer42->Add(m_opacity, 0, wxALIGN_CENTER_VERTICAL|wxLEFT|wxTOP|wxBOTTOM, 5);
 
-    wxStaticText* itemStaticText44 = new wxStaticText( itemRichTextDialogPage1, wxID_STATIC, _("%"), wxDefaultPosition, wxDefaultSize, 0 );
+    wxStaticText* itemStaticText44 = NEW_DEBUG wxStaticText( itemRichTextDialogPage1, wxID_STATIC, _("%"), wxDefaultPosition, wxDefaultSize, 0 );
     itemBoxSizer42->Add(itemStaticText44, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
 ////@end wxRichTextBackgroundPage content construction
@@ -369,7 +369,7 @@ bool wxRichTextBackgroundPage::TransferDataToWindow()
     }
 
     m_useShadow->SetValue(attr->GetTextBoxAttr().GetShadow().IsValid());
-    
+
     wxArrayInt units;
     units.Add(wxTEXT_ATTR_UNITS_PIXELS);
     units.Add(wxTEXT_ATTR_UNITS_TENTHS_MM);
@@ -419,7 +419,7 @@ bool wxRichTextBackgroundPage::TransferDataFromWindow()
     {
         attr->SetFlags(attr->GetFlags() & ~wxTEXT_ATTR_BACKGROUND_COLOUR);
     }
-    
+
     if (!m_useShadow->GetValue())
         attr->GetTextBoxAttr().GetShadow().Reset();
     else

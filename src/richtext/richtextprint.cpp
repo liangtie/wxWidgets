@@ -102,7 +102,7 @@ void wxRichTextPrintout::OnPreparePrinting()
                             // New page starting at this line
                             int newY = rect.y;
 
-                            // We increase the offset by the difference between new and old positions
+                            // We increase the offset by the difference between NEW_DEBUG and old positions
 
                             int increaseOffsetBy = lineY - newY;
                             yOffset += increaseOffsetBy;
@@ -453,7 +453,7 @@ wxRichTextPrinting::wxRichTextPrinting(const wxString& name, wxWindow *parentWin
     m_parentWindow = parentWindow;
     m_printData = NULL;
 
-    m_pageSetupData = new wxPageSetupDialogData;
+    m_pageSetupData = NEW_DEBUG wxPageSetupDialogData;
     m_pageSetupData->EnableMargins(true);
     m_pageSetupData->SetMarginTopLeft(wxPoint(25, 25));
     m_pageSetupData->SetMarginBottomRight(wxPoint(25, 25));
@@ -470,7 +470,7 @@ wxRichTextPrinting::~wxRichTextPrinting()
 wxPrintData *wxRichTextPrinting::GetPrintData()
 {
     if (m_printData == NULL)
-        m_printData = new wxPrintData();
+        m_printData = NEW_DEBUG wxPrintData();
     return m_printData;
 }
 
@@ -509,7 +509,7 @@ void wxRichTextPrinting::SetRichTextBufferPreview(wxRichTextBuffer* buf)
 #if wxUSE_FFILE && wxUSE_STREAMS
 bool wxRichTextPrinting::PreviewFile(const wxString& richTextFile)
 {
-    SetRichTextBufferPreview(new wxRichTextBuffer);
+    SetRichTextBufferPreview(NEW_DEBUG wxRichTextBuffer);
 
     if (!m_richTextBufferPreview->LoadFile(richTextFile))
     {
@@ -517,7 +517,7 @@ bool wxRichTextPrinting::PreviewFile(const wxString& richTextFile)
         return false;
     }
     else
-        SetRichTextBufferPrinting(new wxRichTextBuffer(*m_richTextBufferPreview));
+        SetRichTextBufferPrinting(NEW_DEBUG wxRichTextBuffer(*m_richTextBufferPreview));
 
     wxRichTextPrintout *p1 = CreatePrintout();
     p1->SetRichTextBuffer(m_richTextBufferPreview);
@@ -530,8 +530,8 @@ bool wxRichTextPrinting::PreviewFile(const wxString& richTextFile)
 
 bool wxRichTextPrinting::PreviewBuffer(const wxRichTextBuffer& buffer)
 {
-    SetRichTextBufferPreview(new wxRichTextBuffer(buffer));
-    SetRichTextBufferPrinting(new wxRichTextBuffer(buffer));
+    SetRichTextBufferPreview(NEW_DEBUG wxRichTextBuffer(buffer));
+    SetRichTextBufferPrinting(NEW_DEBUG wxRichTextBuffer(buffer));
 
     wxRichTextPrintout *p1 = CreatePrintout();
     p1->SetRichTextBuffer(m_richTextBufferPreview);
@@ -545,7 +545,7 @@ bool wxRichTextPrinting::PreviewBuffer(const wxRichTextBuffer& buffer)
 #if wxUSE_FFILE && wxUSE_STREAMS
 bool wxRichTextPrinting::PrintFile(const wxString& richTextFile, bool showPrintDialog)
 {
-    SetRichTextBufferPrinting(new wxRichTextBuffer);
+    SetRichTextBufferPrinting(NEW_DEBUG wxRichTextBuffer);
 
     if (!m_richTextBufferPrinting->LoadFile(richTextFile))
     {
@@ -564,7 +564,7 @@ bool wxRichTextPrinting::PrintFile(const wxString& richTextFile, bool showPrintD
 
 bool wxRichTextPrinting::PrintBuffer(const wxRichTextBuffer& buffer, bool showPrintDialog)
 {
-    SetRichTextBufferPrinting(new wxRichTextBuffer(buffer));
+    SetRichTextBufferPrinting(NEW_DEBUG wxRichTextBuffer(buffer));
 
     wxRichTextPrintout *p = CreatePrintout();
     p->SetRichTextBuffer(m_richTextBufferPrinting);
@@ -578,14 +578,14 @@ bool wxRichTextPrinting::DoPreview(wxRichTextPrintout *printout1, wxRichTextPrin
 {
     // Pass two printout objects: for preview, and possible printing.
     wxPrintDialogData printDialogData(*GetPrintData());
-    wxPrintPreview *preview = new wxPrintPreview(printout1, printout2, &printDialogData);
+    wxPrintPreview *preview = NEW_DEBUG wxPrintPreview(printout1, printout2, &printDialogData);
     if (!preview->IsOk())
     {
         delete preview;
         return false;
     }
 
-    wxPreviewFrame *frame = new wxPreviewFrame(preview, m_parentWindow,
+    wxPreviewFrame *frame = NEW_DEBUG wxPreviewFrame(preview, m_parentWindow,
                                                m_title + _(" Preview"),
                                                m_previewRect.GetPosition(), m_previewRect.GetSize());
     frame->Centre(wxBOTH);
@@ -628,7 +628,7 @@ void wxRichTextPrinting::PageSetup()
 
 wxRichTextPrintout *wxRichTextPrinting::CreatePrintout()
 {
-    wxRichTextPrintout *p = new wxRichTextPrintout(m_title);
+    wxRichTextPrintout *p = NEW_DEBUG wxRichTextPrintout(m_title);
 
     p->SetHeaderFooterData(GetHeaderFooterData());
     p->SetMargins(10*m_pageSetupData->GetMarginTopLeft().y,

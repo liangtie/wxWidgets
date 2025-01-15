@@ -259,9 +259,9 @@ void wxGLContextAttrs::EndList()
 //
 //   Notice in particular that
 //   - GLX_RGBA is boolean attribute in the old version of the API but a
-//     value of GLX_RENDER_TYPE in the new one
+//     value of GLX_RENDER_TYPE in the NEW_DEBUG one
 //   - Boolean attributes such as GLX_DOUBLEBUFFER don't take values in the
-//     old version but must be followed by True or False in the new one.
+//     old version but must be followed by True or False in the NEW_DEBUG one.
 
 wxGLAttributes& wxGLAttributes::RGBA()
 {

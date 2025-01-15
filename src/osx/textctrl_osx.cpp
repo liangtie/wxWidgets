@@ -633,7 +633,7 @@ void wxTextCtrl::OnContextMenu(wxContextMenuEvent& event)
 #if wxUSE_MENUS
     if (m_privateContextMenu == NULL)
     {
-        m_privateContextMenu = new wxMenu;
+        m_privateContextMenu = NEW_DEBUG wxMenu;
         m_privateContextMenu->Append(wxID_UNDO, _("&Undo"));
         m_privateContextMenu->Append(wxID_REDO, _("&Redo"));
         m_privateContextMenu->AppendSeparator();

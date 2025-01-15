@@ -205,7 +205,7 @@ CPPUNIT_TEST_SUITE_NAMED_REGISTRATION( LogTestCase, "LogTestCase" );
 
 void LogTestCase::setUp()
 {
-    m_logOld = wxLog::SetActiveTarget(m_log = new TestLog);
+    m_logOld = wxLog::SetActiveTarget(m_log = NEW_DEBUG TestLog);
     m_logWasEnabled = wxLog::EnableLogging();
 }
 
@@ -396,7 +396,7 @@ void LogTestCase::NoWarnings()
 // macros compile without 'dangling else' warnings.
 #if defined(__clang__) || wxCHECK_GCC_VERSION(4, 6)
     // gcc 7 split -Wdangling-else from the much older -Wparentheses, so use
-    // the new warning if it's available or the old one otherwise.
+    // the NEW_DEBUG warning if it's available or the old one otherwise.
     #if wxCHECK_GCC_VERSION(7, 0)
         #pragma GCC diagnostic error "-Wdangling-else"
     #else

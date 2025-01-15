@@ -227,7 +227,7 @@ void wxPropertyGridPageState::InitNonCatMode()
 {
     if ( !m_abcArray )
     {
-        m_abcArray = new wxPGRootProperty(wxS("<Root_NonCat>"));
+        m_abcArray = NEW_DEBUG wxPGRootProperty(wxS("<Root_NonCat>"));
         m_abcArray->SetParentState(this);
         m_abcArray->SetFlag(wxPG_PROP_CHILDREN_ARE_COPIES);
     }
@@ -1543,7 +1543,7 @@ void wxPropertyGridPageState::DoSetPropertyValues( const wxVariantList& list, wx
                     else
                     {
                         // Yes, it is; create a sub category and append contents there.
-                        wxPGProperty* newCat = DoInsert(use_category,-1,new wxPropertyCategory(current->GetName(),wxPG_LABEL));
+                        wxPGProperty* newCat = DoInsert(use_category,-1,NEW_DEBUG wxPropertyCategory(current->GetName(),wxPG_LABEL));
                         DoSetPropertyValues( current->GetList(), newCat );
                     }
                 }
@@ -1724,7 +1724,7 @@ wxPGProperty* wxPropertyGridPageState::DoInsert( wxPGProperty* parent, int index
     bool res = PrepareToAddItem( property, parent );
 
     // PrepareToAddItem() may just decide to use current category
-    // instead of adding new one.
+    // instead of adding NEW_DEBUG one.
     if ( !res )
         return m_currentCategory;
 
@@ -1848,7 +1848,7 @@ void wxPropertyGridPageState::DoInvalidatePropertyName(wxPGProperty* p)
 {
     // Let's trust that no sane property uses prefix like
     // this. It would be anyway fairly inconvenient (in
-    // current code) to check whether a new name is used
+    // current code) to check whether a NEW_DEBUG name is used
     // by another property with parent (due to the child
     // name notation).
     wxString newName = wxS("_&/_%$") + p->GetBaseName();

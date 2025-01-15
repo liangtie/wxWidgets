@@ -137,6 +137,6 @@ void URLTestCase::CopyAndAssignment()
     wxCLANG_WARNING_RESTORE(self-assign-overloaded)
 
     // check for destructor (with base pointer!)
-    puri = new wxURL();
+    puri = NEW_DEBUG wxURL();
     delete puri;
 }

@@ -157,7 +157,7 @@ STDMETHODIMP wxIEnumVARIANT::Clone(IEnumVARIANT **ppenum)
 {
     wxLogTrace(wxTRACE_OleCalls, wxT("wxIEnumVARIANT::Clone"));
 
-    wxIEnumVARIANT *pNew = new wxIEnumVARIANT(m_variant);
+    wxIEnumVARIANT *pNew = NEW_DEBUG wxIEnumVARIANT(m_variant);
     pNew->AddRef();
     *ppenum = pNew;
 
@@ -1600,7 +1600,7 @@ STDMETHODIMP wxIAccessible::get_accSelection ( VARIANT * pVarChildren)
                           wxS("Multiple child objects should be selected") );
             // TODO: should we AddRef for every "void*" member??
 
-            wxIEnumVARIANT* enumVariant = new wxIEnumVARIANT(selections);
+            wxIEnumVARIANT* enumVariant = NEW_DEBUG wxIEnumVARIANT(selections);
             enumVariant->AddRef();
 
             pVarChildren->vt = VT_UNKNOWN;
@@ -1773,7 +1773,7 @@ IAccessible* wxIAccessible::GetChildAccessible(int id)
 void wxAccessible::Init()
 {
     m_pIAccessibleStd = NULL;
-    m_pIAccessible = new wxIAccessible(this);
+    m_pIAccessible = NEW_DEBUG wxIAccessible(this);
     m_pIAccessible->AddRef();
 }
 

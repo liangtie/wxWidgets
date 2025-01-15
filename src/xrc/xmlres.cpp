@@ -70,7 +70,7 @@ wxDateTime GetXRCFileModTime(const wxString& filename)
 
 } // anonymous namespace
 
-// Assign the given value to the specified entry or add a new value with this
+// Assign the given value to the specified entry or add a NEW_DEBUG value with this
 // name.
 static void XRCID_Assign(const wxString& str_id, int value);
 
@@ -171,7 +171,7 @@ public:
     // one (may be NULL).
     static wxIdRangeManager *Set(wxIdRangeManager *res);
 
-    // Create a new IDrange from this node
+    // Create a NEW_DEBUG IDrange from this node
     void AddRange(const wxXmlNode* node);
     // Tell the IdRange that this item exists, and should be pre-allocated an ID
     void NotifyRangeOfItem(const wxXmlNode* node, const wxString& item) const;
@@ -219,7 +219,7 @@ GetFileNameFromNode(const wxXmlNode *node, const wxXmlResourceDataRecords& files
         // in some rare cases (specifically, when an <object_ref> is used, see
         // wxXmlResource::CreateResFromNode() and MergeNodesOver()), we work
         // with XML nodes that are not rooted in any document from 'files'
-        // (because a new node was created by CreateResFromNode() to merge the
+        // (because a NEW_DEBUG node was created by CreateResFromNode() to merge the
         // content of <object_ref> and the referenced <object>); in that case,
         // we hack around the problem by putting the information about input
         // file into a custom attribute
@@ -254,7 +254,7 @@ wxXmlResource *wxXmlResource::ms_instance = NULL;
 /*static*/ wxXmlResource *wxXmlResource::Get()
 {
     if ( !ms_instance )
-        ms_instance = new wxXmlResource;
+        ms_instance = NEW_DEBUG wxXmlResource;
     return ms_instance;
 }
 
@@ -269,7 +269,7 @@ wxXmlResource::wxXmlResource(int flags, const wxString& domain)
 {
     m_flags = flags;
     m_version = -1;
-    m_data = new wxXmlResourceDataRecords;
+    m_data = NEW_DEBUG wxXmlResourceDataRecords;
     SetDomain(domain);
 }
 
@@ -277,7 +277,7 @@ wxXmlResource::wxXmlResource(const wxString& filemask, int flags, const wxString
 {
     m_flags = flags;
     m_version = -1;
-    m_data = new wxXmlResourceDataRecords;
+    m_data = NEW_DEBUG wxXmlResourceDataRecords;
     SetDomain(domain);
     Load(filemask);
 }
@@ -400,7 +400,7 @@ bool wxXmlResource::Load(const wxString& filemask_)
             if ( !doc )
                 thisOK = false;
             else
-                Data().push_back(new wxXmlResourceDataRecord(fnd, doc));
+                Data().push_back(NEW_DEBUG wxXmlResourceDataRecord(fnd, doc));
         }
 
         if ( thisOK )
@@ -466,7 +466,7 @@ bool wxXmlResource::Unload(const wxString& filename)
 
 void wxXmlResource::AddHandler(wxXmlResourceHandler *handler)
 {
-    wxXmlResourceHandlerImpl *impl = new wxXmlResourceHandlerImpl(handler);
+    wxXmlResourceHandlerImpl *impl = NEW_DEBUG wxXmlResourceHandlerImpl(handler);
     handler->SetImpl(impl);
     m_handlers.push_back(handler);
     handler->SetParentResource(this);
@@ -474,7 +474,7 @@ void wxXmlResource::AddHandler(wxXmlResourceHandler *handler)
 
 void wxXmlResource::InsertHandler(wxXmlResourceHandler *handler)
 {
-    wxXmlResourceHandlerImpl *impl = new wxXmlResourceHandlerImpl(handler);
+    wxXmlResourceHandlerImpl *impl = NEW_DEBUG wxXmlResourceHandlerImpl(handler);
     handler->SetImpl(impl);
     m_handlers.insert(m_handlers.begin(), handler);
     handler->SetParentResource(this);
@@ -718,7 +718,7 @@ bool wxXmlResource::UpdateResources()
             continue;
         }
 
-        // Replace the old resource contents with the new one.
+        // Replace the old resource contents with the NEW_DEBUG one.
         delete rec->Doc;
         rec->Doc = doc;
 
@@ -768,7 +768,7 @@ wxXmlDocument *wxXmlResource::DoLoadFile(const wxString& filename)
     }
 #endif
 
-    wxScopedPtr<wxXmlDocument> doc(new wxXmlDocument);
+    wxScopedPtr<wxXmlDocument> doc(NEW_DEBUG wxXmlDocument);
     if (!doc->Load(*stream, encoding))
     {
         wxLogError(_("Cannot load resources from file '%s'."), filename);
@@ -837,7 +837,7 @@ bool wxXmlResource::LoadDocument(wxXmlDocument* doc, const wxString& name)
         docname = wxString::Format(wxS("<XML document #%lu>"), ++s_xrcDocument);
     }
 
-    Data().push_back(new wxXmlResourceDataRecord(docname, doc, XRCWhence::From_Doc));
+    Data().push_back(NEW_DEBUG wxXmlResourceDataRecord(docname, doc, XRCWhence::From_Doc));
 
     return true;
 }
@@ -1001,7 +1001,7 @@ static void MergeNodesOver(wxXmlNode& dest, wxXmlNode& overwriteWith,
 
         if ( !dnode )
         {
-            wxXmlNode *copyOfNode = new wxXmlNode(*node);
+            wxXmlNode *copyOfNode = NEW_DEBUG wxXmlNode(*node);
             // remember referenced object's file, see GetFileNameFromNode()
             copyOfNode->AddAttribute(ATTR_INPUT_FILENAME, overwriteFilename);
 
@@ -1306,7 +1306,7 @@ wxIdRangeManager *wxIdRangeManager::ms_instance = NULL;
 /*static*/ wxIdRangeManager *wxIdRangeManager::Get()
 {
     if ( !ms_instance )
-        ms_instance = new wxIdRangeManager;
+        ms_instance = NEW_DEBUG wxIdRangeManager;
     return ms_instance;
 }
 
@@ -1349,7 +1349,7 @@ void wxIdRangeManager::AddRange(const wxXmlNode* node)
                    "Adding ID range, name=%s start=%s size=%s",
                    name, start, size);
 
-        m_IdRanges.push_back(new wxIdRange(node, name, start, size));
+        m_IdRanges.push_back(NEW_DEBUG wxIdRange(node, name, start, size));
     }
     else
     {
@@ -1360,7 +1360,7 @@ void wxIdRangeManager::AddRange(const wxXmlNode* node)
                    name, start, size);
 
         wxIdRange* oldrange = m_IdRanges.at(index);
-        m_IdRanges.at(index) = new wxIdRange(node, name, start, size);
+        m_IdRanges.at(index) = NEW_DEBUG wxIdRange(node, name, start, size);
         delete oldrange;
     }
 }
@@ -1439,7 +1439,7 @@ wxXmlSubclassFactories *wxXmlResource::ms_subclassFactories = NULL;
 {
     if (!ms_subclassFactories)
     {
-        ms_subclassFactories = new wxXmlSubclassFactories;
+        ms_subclassFactories = NEW_DEBUG wxXmlSubclassFactories;
     }
     ms_subclassFactories->push_back(factory);
 }
@@ -2184,7 +2184,7 @@ wxImageList *wxXmlResourceHandlerImpl::GetImageList(const wxString& param)
                     // We use the mask by default.
                     bool mask = GetBool(wxS("mask"), true);
 
-                    imagelist = new wxImageList(size.x, size.y, mask);
+                    imagelist = NEW_DEBUG wxImageList(size.x, size.y, mask);
                 }
 
                 // add icon instead of bitmap to keep the bitmap mask
@@ -2937,7 +2937,7 @@ static void XRCID_Assign(const wxString& str_id, int value)
 
     XRCID_record **rec_var = (oldrec == NULL) ?
                               &XRCID_Records[index] : &oldrec->next;
-    *rec_var = new XRCID_record;
+    *rec_var = NEW_DEBUG XRCID_record;
     (*rec_var)->key = wxStrdup(str_id);
     (*rec_var)->id = value;
     (*rec_var)->next = NULL;
@@ -2960,7 +2960,7 @@ static int XRCID_Lookup(const char *str_id, int value_if_not_found = wxID_NONE)
 
     XRCID_record **rec_var = (oldrec == NULL) ?
                               &XRCID_Records[index] : &oldrec->next;
-    *rec_var = new XRCID_record;
+    *rec_var = NEW_DEBUG XRCID_record;
     (*rec_var)->key = wxStrdup(str_id);
     (*rec_var)->next = NULL;
 
@@ -3213,7 +3213,7 @@ public:
     wxXmlResourceModule() {}
     bool OnInit() wxOVERRIDE
     {
-        wxXmlResource::AddSubclassFactory(new wxXmlSubclassFactoryCXX);
+        wxXmlResource::AddSubclassFactory(NEW_DEBUG wxXmlSubclassFactoryCXX);
         return true;
     }
     void OnExit() wxOVERRIDE
@@ -3240,7 +3240,7 @@ wxIMPLEMENT_DYNAMIC_CLASS(wxXmlResourceModule, wxModule);
 // then the built-in module system won't pick this one up.  Add it manually.
 void wxXmlInitResourceModule()
 {
-    wxModule* module = new wxXmlResourceModule;
+    wxModule* module = NEW_DEBUG wxXmlResourceModule;
     wxModule::RegisterModule(module);
     wxModule::InitializeModules();
 }

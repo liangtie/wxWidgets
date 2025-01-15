@@ -173,7 +173,7 @@ bool wxToggleButton::MSWCommand(WXUINT param, WXWORD WXUNUSED(id))
     if ( param != BN_CLICKED && param != BN_DBLCLK )
         return false;
 
-    // first update the value so that user event handler gets the new
+    // first update the value so that user event handler gets the NEW_DEBUG
     // toggle button value
 
     // ownerdrawn buttons don't manage their state themselves unlike usual

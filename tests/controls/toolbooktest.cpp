@@ -59,7 +59,7 @@ CPPUNIT_TEST_SUITE_NAMED_REGISTRATION( ToolbookTestCase, "ToolbookTestCase" );
 
 void ToolbookTestCase::setUp()
 {
-    m_toolbook = new wxToolbook(wxTheApp->GetTopWindow(), wxID_ANY, wxDefaultPosition, wxSize(400, 200));
+    m_toolbook = NEW_DEBUG wxToolbook(wxTheApp->GetTopWindow(), wxID_ANY, wxDefaultPosition, wxSize(400, 200));
     AddPanels();
 }
 

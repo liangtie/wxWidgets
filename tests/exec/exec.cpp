@@ -252,7 +252,7 @@ void ExecTestCase::TestProcess()
     AsyncInEventLoop asyncInEventLoop;
 
     // test wxExecute with wxProcess
-    wxProcess *proc = new wxProcess;
+    wxProcess *proc = NEW_DEBUG wxProcess;
 
     // asyncInEventLoop.DoExecute will perform the
     // call to wxExecute(ASYNC) in an event loop, as required by

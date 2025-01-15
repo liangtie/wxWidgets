@@ -104,8 +104,8 @@ bool wxMenu::OSXGetRadioGroupRange(int pos, int *start, int *end) const
     return m_radioData && m_radioData->GetGroupRange(pos, start, end);
 }
 
-// function appends a new item or submenu to the menu
-// append a new item or submenu to the menu
+// function appends a NEW_DEBUG item or submenu to the menu
+// append a NEW_DEBUG item or submenu to the menu
 bool wxMenu::DoInsertOrAppend(wxMenuItem *item, size_t pos)
 {
     wxASSERT_MSG( item != NULL, wxT("can't append NULL item to the menu") );
@@ -129,7 +129,7 @@ bool wxMenu::DoInsertOrAppend(wxMenuItem *item, size_t pos)
         pos = GetMenuItemCount() - 1;
     }
 
-    // Update radio groups if we're inserting a new menu item.
+    // Update radio groups if we're inserting a NEW_DEBUG menu item.
     // Inserting radio and non-radio item has a different impact
     // on radio groups, so we have to handle each case separately.
     // (Inserting a radio item in the middle of existing groups extends this group,
@@ -138,7 +138,7 @@ bool wxMenu::DoInsertOrAppend(wxMenuItem *item, size_t pos)
     if ( item->IsRadio() )
     {
         if ( !m_radioData )
-            m_radioData = new wxMenuRadioItemsData;
+            m_radioData = NEW_DEBUG wxMenuRadioItemsData;
 
         if ( m_radioData->UpdateOnInsertRadio(pos) )
             check = true; // ensure that we have a checked item in the radio group
@@ -380,7 +380,7 @@ bool wxMenu::HandleCommandProcess( wxMenuItem* item )
 
     if(!processed)
     {
-        processed = item->GetPeer()->DoDefault();  
+        processed = item->GetPeer()->DoDefault();
     }
 
     return processed;
@@ -483,7 +483,7 @@ const int firstMenuPos = 1; // to account for the 0th application menu on mac
 
 static wxMenu *CreateAppleMenu()
 {
-    wxMenu *appleMenu = new wxMenu();
+    wxMenu *appleMenu = NEW_DEBUG wxMenu();
     appleMenu->SetAllowRearrange(false);
 
     // Create standard items unless the application explicitly disabled this by
@@ -510,7 +510,7 @@ static wxMenu *CreateAppleMenu()
     }
 
     appleMenu->Append(wxID_OSX_SERVICES, wxGETTEXT_IN_CONTEXT("macOS menu item", "Services"),
-                      new wxMenu());
+                      NEW_DEBUG wxMenu());
     appleMenu->AppendSeparator();
 
     // standard menu items, handled in wxMenu::HandleCommandProcess(), see above:
@@ -526,7 +526,7 @@ static wxMenu *CreateAppleMenu()
     appleMenu->Append( wxID_OSX_SHOWALL,
                        wxGETTEXT_IN_CONTEXT("macOS menu item", "Show All") );
     appleMenu->AppendSeparator();
-    
+
     // Do always add "Quit" item unconditionally however, it can't be disabled.
     wxString quitLabel;
     if ( wxTheApp )
@@ -543,13 +543,13 @@ void wxMenuBar::Init()
 {
     if ( !gs_emptyMenuBar )
     {
-        gs_emptyMenuBar.reset( new wxMenu() );
+        gs_emptyMenuBar.reset( NEW_DEBUG wxMenu() );
         gs_emptyMenuBar->AppendSubMenu(CreateAppleMenu(), "\x14") ;
     }
-    
+
     m_eventHandler = this;
     m_menuBarFrame = NULL;
-    m_rootMenu = new wxMenu();
+    m_rootMenu = NEW_DEBUG wxMenu();
     m_rootMenu->Attach(this);
 
     m_appleMenu = CreateAppleMenu();
@@ -614,9 +614,9 @@ void wxMenuBar::MacInstallMenuBar()
         return ;
 
     m_rootMenu->GetPeer()->MakeRoot();
-    
+
     // hide items in the apple menu that don't exist in the wx menubar
-    
+
     wxMenuItem* appleItem = NULL;
     wxMenuItem* wxItem = NULL;
 
@@ -627,10 +627,10 @@ void wxMenuBar::MacInstallMenuBar()
     {
         if ( wxItem == NULL )
             appleItem->GetPeer()->Hide();
-        else 
+        else
             appleItem->SetItemLabel(wxItem->GetItemLabel());
     }
-    
+
     menuid = wxApp::s_macPreferencesMenuItemId;
     appleItem = m_appleMenu->FindItem(menuid);
     wxItem = FindItem(menuid);
@@ -638,7 +638,7 @@ void wxMenuBar::MacInstallMenuBar()
     {
         if ( wxItem == NULL )
             appleItem->GetPeer()->Hide();
-        else 
+        else
             appleItem->SetItemLabel(wxItem->GetItemLabel());
     }
 
@@ -763,7 +763,7 @@ bool wxMenuBar::Append(wxMenu *menu, const wxString& title)
 void wxMenuBar::DoGetPosition(int *x, int *y) const
 {
     int _x,_y,_width,_height;
-    
+
     m_rootMenu->GetPeer()->GetMenuBarDimensions(_x, _y, _width, _height);
 
     if (x)
@@ -775,7 +775,7 @@ void wxMenuBar::DoGetPosition(int *x, int *y) const
 void wxMenuBar::DoGetSize(int *width, int *height) const
 {
     int _x,_y,_width,_height;
-    
+
     m_rootMenu->GetPeer()->GetMenuBarDimensions(_x, _y, _width, _height);
 
     if (width)

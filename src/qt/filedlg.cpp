@@ -95,7 +95,7 @@ bool wxFileDialog::Create(wxWindow *parent,
                           const wxSize& sz,
                           const wxString& name)
 {
-    m_qtWindow = new wxQtFileDialog( parent, this, message, defaultDir,
+    m_qtWindow = NEW_DEBUG wxQtFileDialog( parent, this, message, defaultDir,
                                      defaultFile, wildCard, style);
 
     return wxTopLevelWindow::Create( parent, wxID_ANY, message, pos, sz, style, name );
@@ -235,7 +235,7 @@ bool wxDirDialog::Create(wxWindow *parent,
                          const wxSize& size,
                          const wxString& name)
 {
-    m_qtWindow = new wxQtDirDialog( parent, this, message, defaultPath, style);
+    m_qtWindow = NEW_DEBUG wxQtDirDialog( parent, this, message, defaultPath, style);
     return wxTopLevelWindow::Create( parent, wxID_ANY, message, pos, size, style, name );
 }
 

@@ -45,7 +45,7 @@ wxREGISTER_UNIT_TEST_WITH_TAGS(HtmlListBoxTestCase,
 
 void HtmlListBoxTestCase::setUp()
 {
-    m_htmllbox = new wxSimpleHtmlListBox(wxTheApp->GetTopWindow(), wxID_ANY);
+    m_htmllbox = NEW_DEBUG wxSimpleHtmlListBox(wxTheApp->GetTopWindow(), wxID_ANY);
 }
 
 void HtmlListBoxTestCase::tearDown()

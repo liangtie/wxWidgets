@@ -1394,7 +1394,7 @@ wxIMPLEMENT_DYNAMIC_CLASS(wxFontModule, wxModule);
 
 bool wxFontModule::OnInit()
 {
-    g_fontHash = new wxHashTable( wxKEY_STRING );
+    g_fontHash = NEW_DEBUG wxHashTable( wxKEY_STRING );
 
     return true;
 }

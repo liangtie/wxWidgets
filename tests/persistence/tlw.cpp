@@ -38,7 +38,7 @@
 // Create the frame used for testing.
 static wxFrame* CreatePersistenceTestFrame()
 {
-    wxFrame* const frame = new wxFrame(wxTheApp->GetTopWindow(), wxID_ANY, "wxTest");
+    wxFrame* const frame = NEW_DEBUG wxFrame(wxTheApp->GetTopWindow(), wxID_ANY, "wxTest");
     frame->SetName("frame");
 
     return frame;

@@ -75,13 +75,13 @@ void ListBoxTestCase::setUp()
 {
     if( ms_ownerdrawn )
     {
-        m_list = new wxListBox(wxTheApp->GetTopWindow(), wxID_ANY,
+        m_list = NEW_DEBUG wxListBox(wxTheApp->GetTopWindow(), wxID_ANY,
                                wxDefaultPosition, wxSize(300, 200), 0, NULL,
                                wxLB_OWNERDRAW);
     }
     else
     {
-        m_list = new wxListBox(wxTheApp->GetTopWindow(), wxID_ANY,
+        m_list = NEW_DEBUG wxListBox(wxTheApp->GetTopWindow(), wxID_ANY,
                                wxDefaultPosition, wxSize(300, 200));
     }
 }
@@ -95,7 +95,7 @@ void ListBoxTestCase::Sort()
 {
 #ifndef __WXOSX__
     wxDELETE(m_list);
-    m_list = new wxListBox(wxTheApp->GetTopWindow(), wxID_ANY,
+    m_list = NEW_DEBUG wxListBox(wxTheApp->GetTopWindow(), wxID_ANY,
                             wxDefaultPosition, wxDefaultSize, 0, 0,
                             wxLB_SORT);
 
@@ -126,7 +126,7 @@ void ListBoxTestCase::Sort()
 void ListBoxTestCase::MultipleSelect()
 {
     wxDELETE(m_list);
-    m_list = new wxListBox(wxTheApp->GetTopWindow(), wxID_ANY,
+    m_list = NEW_DEBUG wxListBox(wxTheApp->GetTopWindow(), wxID_ANY,
                             wxDefaultPosition, wxDefaultSize, 0, 0,
                             wxLB_MULTIPLE);
 
@@ -267,8 +267,8 @@ void ListBoxTestCase::HitTest()
 
     wxPoint p(5, 5);
 #ifdef __WXOSX__
-    // On macOS >= 11 wxListBox has a new layout because underlying
-    // NSTableView has a new style with padding so we need to move
+    // On macOS >= 11 wxListBox has a NEW_DEBUG layout because underlying
+    // NSTableView has a NEW_DEBUG style with padding so we need to move
     // the point to be tested to another position.
     if ( wxCheckOsVersion(11, 0) )
     {

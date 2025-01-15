@@ -19,13 +19,13 @@
 
 wxEventLoopBase *wxGUIAppTraits::CreateEventLoop()
 {
-    return new wxEventLoop();
+    return NEW_DEBUG wxEventLoop();
 }
 
 #if wxUSE_TIMER
 wxTimerImpl *wxGUIAppTraits::CreateTimerImpl(wxTimer *timer)
 {
-    return new wxQtTimerImpl( timer );
+    return NEW_DEBUG wxQtTimerImpl( timer );
 }
 #endif
 

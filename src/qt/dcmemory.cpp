@@ -19,14 +19,14 @@ wxMemoryDCImpl::wxMemoryDCImpl( wxMemoryDC *owner )
     : wxQtDCImpl( owner )
 {
     m_ok = false;
-    m_qtPainter = new QPainter();
+    m_qtPainter = NEW_DEBUG QPainter();
 }
 
 wxMemoryDCImpl::wxMemoryDCImpl( wxMemoryDC *owner, wxBitmap& bitmap )
     : wxQtDCImpl( owner )
 {
     m_ok = false;
-    m_qtPainter = new QPainter();
+    m_qtPainter = NEW_DEBUG QPainter();
     DoSelect( bitmap );
 }
 
@@ -34,7 +34,7 @@ wxMemoryDCImpl::wxMemoryDCImpl( wxMemoryDC *owner, wxDC *WXUNUSED(dc) )
     : wxQtDCImpl( owner )
 {
     m_ok = false;
-    m_qtPainter = new QPainter();
+    m_qtPainter = NEW_DEBUG QPainter();
 }
 
 wxMemoryDCImpl::~wxMemoryDCImpl()

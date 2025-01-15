@@ -37,7 +37,7 @@ private:
 wxMenuItem *wxMenuItemBase::New(wxMenu *parentMenu, int id, const wxString& name,
     const wxString& help, wxItemKind kind, wxMenu *subMenu)
 {
-    return new wxMenuItem(parentMenu, id, name, help, kind, subMenu);
+    return NEW_DEBUG wxMenuItem(parentMenu, id, name, help, kind, subMenu);
 }
 
 
@@ -46,7 +46,7 @@ wxMenuItem::wxMenuItem(wxMenu *parentMenu, int id, const wxString& text,
         const wxString& help, wxItemKind kind, wxMenu *subMenu)
     : wxMenuItemBase( parentMenu, id, text, help, kind, subMenu )
 {
-    m_qtAction = new wxQtAction( parentMenu, id, text, help, kind, subMenu, this );
+    m_qtAction = NEW_DEBUG wxQtAction( parentMenu, id, text, help, kind, subMenu, this );
 }
 
 

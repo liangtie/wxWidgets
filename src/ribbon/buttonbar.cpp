@@ -436,7 +436,7 @@ wxRibbonButtonBarButtonBase* wxRibbonButtonBar::InsertButton(
         }
     }
 
-    wxRibbonButtonBarButtonBase* base = new wxRibbonButtonBarButtonBase;
+    wxRibbonButtonBarButtonBase* base = NEW_DEBUG wxRibbonButtonBarButtonBase;
     base->id = button_id;
     base->label = label;
     base->SetBitmaps(m_ribbonBar, m_bitmap_size_large, m_bitmap_size_small,
@@ -981,7 +981,7 @@ void wxRibbonButtonBar::CommonInit(long WXUNUSED(style))
     m_bitmap_size_large = wxSize(32, 32);
     m_bitmap_size_small = wxSize(16, 16);
 
-    wxRibbonButtonBarLayout* placeholder_layout = new wxRibbonButtonBarLayout;
+    wxRibbonButtonBarLayout* placeholder_layout = NEW_DEBUG wxRibbonButtonBarLayout;
     placeholder_layout->overall_size = wxSize(20, 20);
     m_layouts.Add(placeholder_layout);
     m_current_layout = 0;
@@ -1064,7 +1064,7 @@ void wxRibbonButtonBar::MakeLayouts()
     {
         // Best layout : all buttons large, stacking horizontally,
         //               small buttons small, stacked vertically
-        wxRibbonButtonBarLayout* layout = new wxRibbonButtonBarLayout;
+        wxRibbonButtonBarLayout* layout = NEW_DEBUG wxRibbonButtonBarLayout;
         wxPoint cursor(0, 0);
         layout->overall_size.SetHeight(0);
         for(btn_i = 0; btn_i < btn_count; ++btn_i)
@@ -1119,7 +1119,7 @@ void wxRibbonButtonBar::MakeLayouts()
                               wxRIBBON_BUTTONBAR_BUTTON_MEDIUM);
         }
 
-        // TODO: small buttons are not implemented yet in 
+        // TODO: small buttons are not implemented yet in
         //       art_msw.cpp:2581 and will be invisible
         /*iLast = btn_count;
         while(iLast-- > 0)
@@ -1201,7 +1201,7 @@ void wxRibbonButtonBar::TryCollapseLayout(wxRibbonButtonBarLayout* original,
         *last_button = btn_i;
     }
 
-    wxRibbonButtonBarLayout* layout = new wxRibbonButtonBarLayout;
+    wxRibbonButtonBarLayout* layout = NEW_DEBUG wxRibbonButtonBarLayout;
     WX_APPEND_ARRAY(layout->buttons, original->buttons);
     wxPoint cursor(layout->buttons.Item(btn_i).position);
 

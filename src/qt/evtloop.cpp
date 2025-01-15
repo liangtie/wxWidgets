@@ -40,7 +40,7 @@ wxQtIdleTimer::wxQtIdleTimer()
     // already exist as we can't modify wxAppConsole
     if ( !QCoreApplication::instance() )
     {
-        new QApplication(wxAppConsole::GetInstance()->argc, wxAppConsole::GetInstance()->argv);
+        NEW_DEBUG QApplication(wxAppConsole::GetInstance()->argc, wxAppConsole::GetInstance()->argv);
     }
 
 
@@ -95,10 +95,10 @@ wxQtEventLoopBase::wxQtEventLoopBase()
 {
     // Create an idle timer to run each time there are no events (timeout = 0)
     if ( !gs_idleTimer )
-        gs_idleTimer.reset(new wxQtIdleTimer());
+        gs_idleTimer.reset(NEW_DEBUG wxQtIdleTimer());
 
     m_qtIdleTimer = gs_idleTimer;
-    m_qtEventLoop = new QEventLoop;
+    m_qtEventLoop = NEW_DEBUG QEventLoop;
 }
 
 wxQtEventLoopBase::~wxQtEventLoopBase()
@@ -205,19 +205,19 @@ public:
         : wxEventLoopSource(handler, fd)
     {
         if ( flags & wxEVENT_SOURCE_INPUT )
-            m_reader = new wxQtSocketNotifier<&wxEventLoopSourceHandler::OnReadWaiting>
+            m_reader = NEW_DEBUG wxQtSocketNotifier<&wxEventLoopSourceHandler::OnReadWaiting>
                 (fd, QSocketNotifier::Read, handler);
         else
             m_reader = NULL;
 
         if ( flags & wxEVENT_SOURCE_OUTPUT )
-            m_writer = new wxQtSocketNotifier<&wxEventLoopSourceHandler::OnWriteWaiting>
+            m_writer = NEW_DEBUG wxQtSocketNotifier<&wxEventLoopSourceHandler::OnWriteWaiting>
                 (fd, QSocketNotifier::Write, handler);
         else
             m_writer = NULL;
 
         if ( flags & wxEVENT_SOURCE_EXCEPTION )
-            m_exception = new wxQtSocketNotifier<&wxEventLoopSourceHandler::OnExceptionWaiting>
+            m_exception = NEW_DEBUG wxQtSocketNotifier<&wxEventLoopSourceHandler::OnExceptionWaiting>
                 (fd, QSocketNotifier::Exception, handler);
         else
             m_exception = NULL;
@@ -241,7 +241,7 @@ public:
     wxEventLoopSource*
     AddSourceForFD(int fd, wxEventLoopSourceHandler* handler, int flags) wxOVERRIDE
     {
-        return new wxQtEventLoopSource(fd, handler, flags);
+        return NEW_DEBUG wxQtEventLoopSource(fd, handler, flags);
     }
 };
 

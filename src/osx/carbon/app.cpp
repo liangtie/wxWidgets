@@ -155,7 +155,7 @@ void wxApp::MacNewFile()
 void wxApp::MacReopenApp()
 {
     // HIG says :
-    // if there is no open window -> create a new one
+    // if there is no open window -> create a NEW_DEBUG one
     // if all windows are hidden -> show the first
     // if some windows are not hidden -> do nothing
     //
@@ -189,7 +189,7 @@ void wxApp::MacReopenApp()
         return;
     }
 
-    // no window was shown, we need to create a new one
+    // no window was shown, we need to create a NEW_DEBUG one
     MacNewFile();
 }
 
@@ -278,7 +278,7 @@ bool wxApp::Initialize(int& argc, wxChar **argv)
      -NSShowAllViews YES.  Cocoa picks these up from the real argv so
      our removal of them from the wx copy of it does not affect Cocoa's
      ability to see them.
-     
+
      We basically just assume that any "-NS" option and its following
      argument needs to be removed from argv.  We hope that user code does
      not expect to see -NS options and indeed it's probably a safe bet
@@ -386,7 +386,7 @@ wxApp::wxApp()
 
     m_macCurrentEvent = NULL ;
     m_macCurrentEventHandlerCallRef = NULL ;
-    m_macPool = sm_isEmbedded ? NULL : new wxMacAutoreleasePool();
+    m_macPool = sm_isEmbedded ? NULL : NEW_DEBUG wxMacAutoreleasePool();
 }
 
 wxApp::~wxApp()
@@ -412,7 +412,7 @@ void wxApp::MacReleaseAutoreleasePool()
 {
     if (m_macPool)
         delete m_macPool;
-    m_macPool = new wxMacAutoreleasePool();
+    m_macPool = NEW_DEBUG wxMacAutoreleasePool();
 }
 
 void wxApp::OnIdle(wxIdleEvent& WXUNUSED(event))
@@ -478,7 +478,7 @@ void wxApp::MacHandleUnhandledEvent( WXEVENTREF WXUNUSED(evr) )
 CGKeyCode wxCharCodeWXToOSX(wxKeyCode code)
 {
     CGKeyCode keycode;
-    
+
     switch (code)
     {
         // Clang warns about switch values not of the same type as (enumerated)
@@ -516,7 +516,7 @@ CGKeyCode wxCharCodeWXToOSX(wxKeyCode code)
         case 'x': case 'X':   keycode = kVK_ANSI_X; break;
         case 'y': case 'Y':   keycode = kVK_ANSI_Y; break;
         case 'z': case 'Z':   keycode = kVK_ANSI_Z; break;
-            
+
         case '0':             keycode = kVK_ANSI_0; break;
         case '1':             keycode = kVK_ANSI_1; break;
         case '2':             keycode = kVK_ANSI_2; break;
@@ -531,19 +531,19 @@ CGKeyCode wxCharCodeWXToOSX(wxKeyCode code)
 #ifdef __clang__
     #pragma clang diagnostic pop
 #endif // __clang__
-            
+
         case WXK_BACK:        keycode = kVK_Delete; break;
         case WXK_TAB:         keycode = kVK_Tab; break;
         case WXK_RETURN:      keycode = kVK_Return; break;
         case WXK_ESCAPE:      keycode = kVK_Escape; break;
         case WXK_SPACE:       keycode = kVK_Space; break;
         case WXK_DELETE:      keycode = kVK_ForwardDelete; break;
-            
+
         case WXK_SHIFT:       keycode = kVK_Shift; break;
         case WXK_ALT:         keycode = kVK_Option; break;
         case WXK_RAW_CONTROL: keycode = kVK_Control; break;
         case WXK_CONTROL:     keycode = kVK_Command; break;
-            
+
         case WXK_CAPITAL:     keycode = kVK_CapsLock; break;
         case WXK_END:         keycode = kVK_End; break;
         case WXK_HOME:        keycode = kVK_Home; break;
@@ -551,10 +551,10 @@ CGKeyCode wxCharCodeWXToOSX(wxKeyCode code)
         case WXK_UP:          keycode = kVK_UpArrow; break;
         case WXK_RIGHT:       keycode = kVK_RightArrow; break;
         case WXK_DOWN:        keycode = kVK_DownArrow; break;
-            
+
         case WXK_HELP:        keycode = kVK_Help; break;
-            
-            
+
+
         case WXK_NUMPAD0:     keycode = kVK_ANSI_Keypad0; break;
         case WXK_NUMPAD1:     keycode = kVK_ANSI_Keypad1; break;
         case WXK_NUMPAD2:     keycode = kVK_ANSI_Keypad2; break;
@@ -585,10 +585,10 @@ CGKeyCode wxCharCodeWXToOSX(wxKeyCode code)
         case WXK_F18:         keycode = kVK_F18; break;
         case WXK_F19:         keycode = kVK_F19; break;
         case WXK_F20:         keycode = kVK_F20; break;
-            
+
         case WXK_PAGEUP:      keycode = kVK_PageUp; break;
         case WXK_PAGEDOWN:    keycode = kVK_PageDown; break;
-            
+
         case WXK_NUMPAD_DELETE:    keycode = kVK_ANSI_KeypadClear; break;
         case WXK_NUMPAD_EQUAL:     keycode = kVK_ANSI_KeypadEquals; break;
         case WXK_NUMPAD_MULTIPLY:  keycode = kVK_ANSI_KeypadMultiply; break;
@@ -596,12 +596,12 @@ CGKeyCode wxCharCodeWXToOSX(wxKeyCode code)
         case WXK_NUMPAD_SUBTRACT:  keycode = kVK_ANSI_KeypadMinus; break;
         case WXK_NUMPAD_DECIMAL:   keycode = kVK_ANSI_KeypadDecimal; break;
         case WXK_NUMPAD_DIVIDE:    keycode = kVK_ANSI_KeypadDivide; break;
-            
+
         default:
             wxLogDebug( "Unrecognised keycode %d", code );
             keycode = static_cast<CGKeyCode>(-1);
     }
-    
+
     return keycode;
 }
 
@@ -779,7 +779,7 @@ int wxMacKeyCodeToModifier(wxKeyCode key)
 
 #endif
 
-// TODO : once the new key/char handling is tested, move all the code to wxWindow
+// TODO : once the NEW_DEBUG key/char handling is tested, move all the code to wxWindow
 
 bool wxApp::MacSendKeyDownEvent( wxWindow* focus , long keymessage , long modifiers , long when , wxChar uniChar )
 {
@@ -819,7 +819,7 @@ bool wxApp::MacSendCharEvent( wxWindow* focus , long keymessage , long modifiers
 void wxApp::MacCreateKeyEvent( wxKeyEvent& event, wxWindow* focus , long keymessage , long modifiers , long when , wxChar uniChar )
 {
 #if wxOSX_USE_COCOA_OR_CARBON
-    
+
     short keycode, keychar ;
 
     keychar = short(keymessage & charCodeMask);
@@ -828,7 +828,7 @@ void wxApp::MacCreateKeyEvent( wxKeyEvent& event, wxWindow* focus , long keymess
     {
         // control interferes with some built-in keys like pgdown, return etc. therefore we remove the controlKey modifier
         // and look at the character after
-        // TODO new implementation using TextInputSources
+        // TODO NEW_DEBUG implementation using TextInputSources
     }
 
     long keyval = wxMacTranslateKey(keychar, keycode) ;

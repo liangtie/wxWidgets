@@ -62,7 +62,7 @@ void GarbageTestCase::LoadGarbage()
     for (size_t size = 1; size < GARBAGE_DATA_SIZE; size *= size+1)
     {
         // first, generate some garbage data
-        unsigned char *data = new unsigned char[size];
+        unsigned char *data = NEW_DEBUG unsigned char[size];
         for (size_t i = 0; i < size; i++)
             data[i] = rand();
 
@@ -150,12 +150,12 @@ void GarbageTestCase::DoLoadFile(const wxString& fullname)
 /*
 #if wxUSE_MEDIACTRL
     // test wxMediaCtrl
-    wxMediaCtrl *media = new wxMediaCtrl(wxTheApp->GetTopWindow());
+    wxMediaCtrl *media = NEW_DEBUG wxMediaCtrl(wxTheApp->GetTopWindow());
     CPPUNIT_ASSERT( media->Load(fullname) == false );
 #endif
 
     // test wxHtmlWindow
-    wxHtmlWindow *htmlwin = new wxHtmlWindow(wxTheApp->GetTopWindow());
+    wxHtmlWindow *htmlwin = NEW_DEBUG wxHtmlWindow(wxTheApp->GetTopWindow());
     CPPUNIT_ASSERT( htmlwin->LoadFile(fullname) == false );
     delete htmlwin;
 */
@@ -183,7 +183,7 @@ void GarbageTestCase::DoLoadStream(wxInputStream& stream)
 #endif
 /*
     // test wxHtmlWindow
-    wxHtmlWindow *htmlwin = new wxHtmlWindow(wxTheApp->GetTopWindow());
+    wxHtmlWindow *htmlwin = NEW_DEBUG wxHtmlWindow(wxTheApp->GetTopWindow());
     CPPUNIT_ASSERT( htmlwin->LoadFile(fullname) == false );
     delete htmlwin;
 */

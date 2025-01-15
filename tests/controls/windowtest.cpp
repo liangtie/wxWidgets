@@ -32,7 +32,7 @@ class WindowTestCase
 {
 public:
     WindowTestCase()
-        : m_window(new wxWindow(wxTheApp->GetTopWindow(), wxID_ANY))
+        : m_window(NEW_DEBUG wxWindow(wxTheApp->GetTopWindow(), wxID_ANY))
     {
     #ifdef __WXGTK3__
         // Without this, when running this test suite solo it succeeds,
@@ -130,7 +130,7 @@ TEST_CASE_METHOD(WindowTestCase, "Window::FocusEvent", "[window]")
     CHECK(setfocus.WaitEvent(500));
     CHECK_FOCUS_IS( m_window );
 
-    wxButton* button = new wxButton(wxTheApp->GetTopWindow(), wxID_ANY);
+    wxButton* button = NEW_DEBUG wxButton(wxTheApp->GetTopWindow(), wxID_ANY);
 
     wxYield();
     button->SetFocus();
@@ -155,12 +155,12 @@ TEST_CASE_METHOD(WindowTestCase, "Window::Mouse", "[window]")
     // Try creating the caret in two different, but normally equivalent, ways.
     SECTION("Caret 1-step")
     {
-        caret = new wxCaret(m_window, 16, 16);
+        caret = NEW_DEBUG wxCaret(m_window, 16, 16);
     }
 
     SECTION("Caret 2-step")
     {
-        caret = new wxCaret();
+        caret = NEW_DEBUG wxCaret();
         caret->Create(m_window, 16, 16);
     }
 
@@ -211,7 +211,7 @@ TEST_CASE_METHOD(WindowTestCase, "Window::ToolTip", "[window]")
     CHECK(!m_window->GetToolTip());
     CHECK( m_window->GetToolTipText() == "" );
 
-    wxToolTip* tip = new wxToolTip("other tip");
+    wxToolTip* tip = NEW_DEBUG wxToolTip("other tip");
 
     m_window->SetToolTip(tip);
 
@@ -223,7 +223,7 @@ TEST_CASE_METHOD(WindowTestCase, "Window::ToolTip", "[window]")
 TEST_CASE_METHOD(WindowTestCase, "Window::Help", "[window]")
 {
 #if wxUSE_HELP
-    wxHelpProvider::Set(new wxSimpleHelpProvider());
+    wxHelpProvider::Set(NEW_DEBUG wxSimpleHelpProvider());
 
     CHECK( m_window->GetHelpText() == "" );
 
@@ -244,7 +244,7 @@ TEST_CASE_METHOD(WindowTestCase, "Window::Siblings", "[window]")
     CHECK( m_window->GetNextSibling() == static_cast<wxWindow*>(NULL) );
     CHECK( m_window->GetPrevSibling() == static_cast<wxWindow*>(NULL) );
 
-    wxWindow* newwin = new wxWindow(wxTheApp->GetTopWindow(), wxID_ANY);
+    wxWindow* newwin = NEW_DEBUG wxWindow(wxTheApp->GetTopWindow(), wxID_ANY);
 
     CHECK( m_window->GetNextSibling() == newwin );
     CHECK( m_window->GetPrevSibling() == static_cast<wxWindow*>(NULL) );
@@ -259,7 +259,7 @@ TEST_CASE_METHOD(WindowTestCase, "Window::Children", "[window]")
 {
     CHECK( m_window->GetChildren().GetCount() == 0 );
 
-    wxWindow* child1 = new wxWindow(m_window, wxID_ANY);
+    wxWindow* child1 = NEW_DEBUG wxWindow(m_window, wxID_ANY);
 
     CHECK( m_window->GetChildren().GetCount() == 1 );
 
@@ -327,7 +327,7 @@ TEST_CASE_METHOD(WindowTestCase, "Window::PositioningBeyondShortLimit", "[window
     //
     //Test window creation beyond SHRT_MAX
     int commonDim = 10;
-    wxWindow* w = new wxWindow(m_window, wxID_ANY,
+    wxWindow* w = NEW_DEBUG wxWindow(m_window, wxID_ANY,
                                wxPoint(0, SHRT_MAX + commonDim),
                                wxSize(commonDim, commonDim));
     CHECK( w->GetPosition().y == SHRT_MAX + commonDim );
@@ -347,10 +347,10 @@ TEST_CASE_METHOD(WindowTestCase, "Window::PositioningBeyondShortLimit", "[window
     //
     //Test deferred move beyond SHRT_MAX
     m_window->SetVirtualSize(-1, SHRT_MAX + 2 * commonDim);
-    wxWindow* bigWin = new wxWindow(m_window, wxID_ANY, wxDefaultPosition,
+    wxWindow* bigWin = NEW_DEBUG wxWindow(m_window, wxID_ANY, wxDefaultPosition,
                                     //size is also limited by SHRT_MAX
                                     wxSize(commonDim, SHRT_MAX));
-    wxSizer *sizer = new wxBoxSizer(wxVERTICAL);
+    wxSizer *sizer = NEW_DEBUG wxBoxSizer(wxVERTICAL);
     sizer->Add(bigWin);
     sizer->AddSpacer(commonDim); //add some space to go beyond SHRT_MAX
     sizer->Add(w);
@@ -403,7 +403,7 @@ TEST_CASE_METHOD(WindowTestCase, "Window::Enable", "[window]")
     m_window->Enable();
 
 
-    wxWindow* const child = new wxWindow(m_window, wxID_ANY);
+    wxWindow* const child = NEW_DEBUG wxWindow(m_window, wxID_ANY);
     CHECK(child->IsEnabled());
     CHECK(child->IsThisEnabled());
 
@@ -441,9 +441,9 @@ TEST_CASE_METHOD(WindowTestCase, "Window::FindWindowBy", "[window]")
 
 TEST_CASE_METHOD(WindowTestCase, "Window::SizerErrors", "[window][sizer][error]")
 {
-    wxWindow* const child = new wxWindow(m_window, wxID_ANY);
-    wxScopedPtr<wxSizer> const sizer1(new wxBoxSizer(wxHORIZONTAL));
-    wxScopedPtr<wxSizer> const sizer2(new wxBoxSizer(wxHORIZONTAL));
+    wxWindow* const child = NEW_DEBUG wxWindow(m_window, wxID_ANY);
+    wxScopedPtr<wxSizer> const sizer1(NEW_DEBUG wxBoxSizer(wxHORIZONTAL));
+    wxScopedPtr<wxSizer> const sizer2(NEW_DEBUG wxBoxSizer(wxHORIZONTAL));
 
     REQUIRE_NOTHROW( sizer1->Add(child) );
 #ifdef __WXDEBUG__

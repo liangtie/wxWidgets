@@ -53,7 +53,7 @@ CPPUNIT_TEST_SUITE_NAMED_REGISTRATION( SimplebookTestCase, "SimplebookTestCase" 
 
 void SimplebookTestCase::setUp()
 {
-    m_simplebook = new wxSimplebook(wxTheApp->GetTopWindow(), wxID_ANY);
+    m_simplebook = NEW_DEBUG wxSimplebook(wxTheApp->GetTopWindow(), wxID_ANY);
     AddPanels();
 }
 

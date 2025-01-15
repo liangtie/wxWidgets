@@ -168,7 +168,7 @@ bool wxNotebook::SetPageText(size_t nPage, const wxString& strText)
         }
         else // var width tabs
         {
-            // we need to resize the tab to fit the new string
+            // we need to resize the tab to fit the NEW_DEBUG string
             ResizeTab(nPage);
         }
     }
@@ -1117,7 +1117,7 @@ void wxNotebook::UpdateSpinBtn()
         if ( !m_spinbtn )
         {
             // create it once only
-            m_spinbtn = new wxNotebookSpinBtn(this);
+            m_spinbtn = NEW_DEBUG wxNotebookSpinBtn(this);
 
             // set the correct value to keep it in sync
             m_spinbtn->SetValue(m_selection);

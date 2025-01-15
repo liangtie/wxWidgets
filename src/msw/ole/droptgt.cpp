@@ -450,7 +450,7 @@ wxDropTarget::wxDropTarget(wxDataObject *dataObj)
 {
     // create an IDropTarget implementation which will notify us about d&d
     // operations.
-    m_pIDropTarget = new wxIDropTarget(this);
+    m_pIDropTarget = NEW_DEBUG wxIDropTarget(this);
     m_pIDropTarget->AddRef();
 }
 
@@ -593,7 +593,7 @@ wxDataFormat wxDropTarget::MSWGetSupportedFormat(IDataObject *pIDataSource) cons
     size_t nFormats = m_dataObject->GetFormatCount(wxDataObject::Set);
     wxDataFormat format;
     wxDataFormat *formats;
-    formats = nFormats == 1 ? &format :  new wxDataFormat[nFormats];
+    formats = nFormats == 1 ? &format :  NEW_DEBUG wxDataFormat[nFormats];
 
     m_dataObject->GetAllFormats(formats, wxDataObject::Set);
 

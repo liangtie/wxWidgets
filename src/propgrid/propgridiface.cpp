@@ -621,7 +621,7 @@ void wxPropertyGridInterface::SetPropertyLabel( wxPGPropArg id, const wxString& 
         {
             pg->Refresh();
             // If any property is selected it has to
-            // be refreshed in the new location.
+            // be refreshed in the NEW_DEBUG location.
             if ( pg == p->GetGrid() && pg->GetSelectedProperty() )
             {
                 RefreshProperty(pg->GetSelectedProperty());
@@ -894,7 +894,7 @@ public:
 
 wxPGVIterator wxPropertyGridInterface::GetVIterator( int flags ) const
 {
-    return wxPGVIterator( new wxPGVIteratorBase_State( m_pState, flags ) );
+    return wxPGVIterator( NEW_DEBUG wxPGVIteratorBase_State( m_pState, flags ) );
 }
 
 // -----------------------------------------------------------------------

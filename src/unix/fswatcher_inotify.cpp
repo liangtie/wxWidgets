@@ -44,7 +44,7 @@ public:
         m_source(NULL),
         m_ifd(-1)
     {
-        m_handler = new wxFSWSourceHandler(this);
+        m_handler = NEW_DEBUG wxFSWSourceHandler(this);
     }
 
     ~wxFSWatcherImplUnix()
@@ -429,7 +429,7 @@ protected:
             if ( it2 == m_cookies.end() )
             {
                 int size = sizeof(inevt) + inevt.len;
-                inotify_event* e = (inotify_event*)new char[size];
+                inotify_event* e = (inotify_event*)NEW_DEBUG char[size];
                 memcpy(e, &inevt, size);
 
                 wxInotifyCookies::value_type val(e->cookie, e);
@@ -713,7 +713,7 @@ wxInotifyFileSystemWatcher::~wxInotifyFileSystemWatcher()
 
 bool wxInotifyFileSystemWatcher::Init()
 {
-    m_service = new wxFSWatcherImplUnix(this);
+    m_service = NEW_DEBUG wxFSWatcherImplUnix(this);
     return m_service->Init();
 }
 

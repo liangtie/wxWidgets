@@ -192,7 +192,7 @@ wxFont wxSystemSettingsNative::GetFont(wxSystemFont index)
             const wxNativeFontInfo
                 info(wxMSWImpl::GetNonClientMetrics(win).lfMessageFont, win);
 
-            gs_fontDefault = new wxFont(info);
+            gs_fontDefault = NEW_DEBUG wxFont(info);
         }
 
         return *gs_fontDefault;
@@ -290,7 +290,7 @@ int wxSystemSettingsNative::GetMetric(wxSystemMetric index, const wxWindow* win)
         {
             return -1;
         }
-        
+
         if ( blinkTime == INFINITE ) // caret does not blink
         {
             return 0;

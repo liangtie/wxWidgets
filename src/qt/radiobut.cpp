@@ -30,7 +30,7 @@ void QtStartNewGroup(QRadioButton* qtRadioButton)
 {
     // Note that the QButtonGroup created here will be deallocated when its
     // parent // QRadioButton is destroyed.
-    QButtonGroup* qtButtonGroup = new QButtonGroup(qtRadioButton);
+    QButtonGroup* qtButtonGroup = NEW_DEBUG QButtonGroup(qtRadioButton);
     qtButtonGroup->addButton(qtRadioButton);
 }
 
@@ -109,13 +109,13 @@ bool wxRadioButton::Create( wxWindow *parent,
              const wxValidator& validator,
              const wxString& name)
 {
-    m_qtRadioButton = new wxQtRadioButton( parent, this );
+    m_qtRadioButton = NEW_DEBUG wxQtRadioButton( parent, this );
     m_qtRadioButton->setText( wxQtConvertString( label ));
 
     if ( !QtCreateControl(parent, id, pos, size, style, validator, name) )
         return false;
 
-    // Check if we need to create a new button group: this must be done when
+    // Check if we need to create a NEW_DEBUG button group: this must be done when
     // explicitly requested to do so (wxRB_GROUP) but also for wxRB_SINGLE
     // buttons to prevent them implicitly becoming part of an existing group.
     if ( (style & wxRB_GROUP) || (style & wxRB_SINGLE) )

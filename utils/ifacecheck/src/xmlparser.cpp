@@ -1587,7 +1587,7 @@ bool wxXmlDoxygenInterface::ParseCompoundDefinition(const wxString& filename)
                 subchild = subchild->GetNext();
             }
 
-            // add a new class
+            // add a NEW_DEBUG class
             if (klass.IsOk())
             {
                 m_classes.Add(klass);

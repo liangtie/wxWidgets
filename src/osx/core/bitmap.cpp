@@ -174,7 +174,7 @@ wxBitmapRefData::wxBitmapRefData(const wxBitmapRefData &tocopy) : wxGDIRefData()
 
     // Bitmap can have both mask and alpha channel so we have to copy both form the source.
     if (tocopy.m_bitmapMask)
-        m_bitmapMask = new wxMask(*tocopy.m_bitmapMask);
+        m_bitmapMask = NEW_DEBUG wxMask(*tocopy.m_bitmapMask);
 
     if (tocopy.HasAlpha())
         UseAlpha(true);
@@ -439,7 +439,7 @@ void wxBitmapRefData::EndRawAccess()
 
     --m_rawAccessCount ;
 
-    // Update existing NSImage with new bitmap data
+    // Update existing NSImage with NEW_DEBUG bitmap data
     if ( m_nsImage )
     {
         wxCFRef<CGImageRef> image(CGBitmapContextCreateImage(m_hBitmap));
@@ -491,7 +491,7 @@ IconRef wxBitmapRefData::GetIconRef() const
             sz = 512;
         else if ( sz <= 1024)
             sz = 1024;
-        
+
         switch (sz)
         {
             case 1024:
@@ -501,11 +501,11 @@ IconRef wxBitmapRefData::GetIconRef() const
             case 512:
                 dataType = kIconServices512PixelDataARGB;
                 break;
-                
+
             case 256:
                 dataType = kIconServices256PixelDataARGB;
                 break;
- 
+
             case 128:
                 dataType = kIconServices128PixelDataARGB ;
                 break;
@@ -796,7 +796,7 @@ wxBitmapRefData::~wxBitmapRefData()
 
 wxBitmap::wxBitmap(const char bits[], int the_width, int the_height, int no_bits)
 {
-    m_refData = new wxBitmapRefData( the_width , the_height , no_bits ) ;
+    m_refData = NEW_DEBUG wxBitmapRefData( the_width , the_height , no_bits ) ;
 
     if (GetBitmapData()->IsOk())
     {
@@ -868,12 +868,12 @@ wxBitmap::wxBitmap(CGImageRef image, double scale)
 
 wxGDIRefData* wxBitmap::CreateGDIRefData() const
 {
-    return new wxBitmapRefData;
+    return NEW_DEBUG wxBitmapRefData;
 }
 
 wxGDIRefData* wxBitmap::CloneGDIRefData(const wxGDIRefData* data) const
 {
-    return new wxBitmapRefData(*static_cast<const wxBitmapRefData *>(data));
+    return NEW_DEBUG wxBitmapRefData(*static_cast<const wxBitmapRefData *>(data));
 }
 
 #if WXWIN_COMPATIBILITY_3_0
@@ -931,7 +931,7 @@ wxBitmap::wxBitmap(WXImage image)
 #if wxOSX_USE_COCOA
 wxBitmap::wxBitmap(const wxCursor &cursor)
 {
-    m_refData = new wxBitmapRefData( wxOSXGetNSImageFromNSCursor( cursor.GetHCURSOR() ) );
+    m_refData = NEW_DEBUG wxBitmapRefData( wxOSXGetNSImageFromNSCursor( cursor.GetHCURSOR() ) );
 }
 #endif
 
@@ -939,7 +939,7 @@ bool wxBitmap::Create(WXImage image)
 {
     UnRef();
 
-    m_refData = new wxBitmapRefData( image );
+    m_refData = NEW_DEBUG wxBitmapRefData( image );
 
     return GetBitmapData()->IsOk() ;
 }
@@ -953,7 +953,7 @@ bool wxBitmap::Create(CGContextRef bitmapcontext)
 {
     UnRef();
 
-    m_refData = new wxBitmapRefData( bitmapcontext );
+    m_refData = NEW_DEBUG wxBitmapRefData( bitmapcontext );
 
     return GetBitmapData()->IsOk() ;
 }
@@ -1026,7 +1026,7 @@ wxBitmap wxBitmap::GetSubBitmap(const wxRect &rect) const
 
             maskbuf.UngetWriteBuf( maskbufsize ) ;
         }
-        wxMask* const mask = new wxMask();
+        wxMask* const mask = NEW_DEBUG wxMask();
         mask->OSXCreate( maskbuf , destwidth , destheight , rowBytes );
         ret.SetMask(mask) ;
     }
@@ -1043,7 +1043,7 @@ bool wxBitmap::Create(int w, int h, int d)
     if ( d < 0 )
         d = wxDisplayDepth() ;
 
-    m_refData = new wxBitmapRefData( w , h , d );
+    m_refData = NEW_DEBUG wxBitmapRefData( w , h , d );
 
     return GetBitmapData()->IsOk() ;
 }
@@ -1062,7 +1062,7 @@ bool wxBitmap::DoCreate(const wxSize& size, double scale, int d)
         d = wxDisplayDepth() ;
 
     const wxSize sizePhys = size*scale;
-    m_refData = new wxBitmapRefData( sizePhys.x, sizePhys.y, d, scale );
+    m_refData = NEW_DEBUG wxBitmapRefData( sizePhys.x, sizePhys.y, d, scale );
 
     return GetBitmapData()->IsOk() ;
 }
@@ -1071,7 +1071,7 @@ bool wxBitmap::Create(CGImageRef image, double scale)
 {
     UnRef();
 
-    m_refData = new wxBitmapRefData( image, scale );
+    m_refData = NEW_DEBUG wxBitmapRefData( image, scale );
 
     return GetBitmapData()->IsOk() ;
 }
@@ -1084,7 +1084,7 @@ bool wxBitmap::LoadFile(const wxString& filename, wxBitmapType type)
 
     if ( handler )
     {
-        m_refData = new wxBitmapRefData;
+        m_refData = NEW_DEBUG wxBitmapRefData;
 
         return handler->LoadFile(this, filename, type, -1, -1);
     }
@@ -1130,7 +1130,7 @@ bool wxBitmap::Create(const void* data, wxBitmapType type, int width, int height
 {
     UnRef();
 
-    m_refData = new wxBitmapRefData;
+    m_refData = NEW_DEBUG wxBitmapRefData;
 
     wxBitmapHandler *handler = FindHandler(type);
 
@@ -1158,7 +1158,7 @@ void wxBitmap::InitFromImage(const wxImage& image, int depth, double scale)
 
     wxBitmapRefData* bitmapRefData;
 
-    m_refData = bitmapRefData = new wxBitmapRefData( width, height, depth, scale) ;
+    m_refData = bitmapRefData = NEW_DEBUG wxBitmapRefData( width, height, depth, scale) ;
 
     if ( bitmapRefData->IsOk())
     {
@@ -1238,7 +1238,7 @@ void wxBitmap::InitFromImage(const wxImage& image, int depth, double scale)
             {
                 maskbuf.UngetWriteBuf( maskbufsize ) ;
 
-                wxMask* mask = new wxMask();
+                wxMask* mask = NEW_DEBUG wxMask();
                 mask->OSXCreate(maskbuf, width , height , maskRowBytes ) ;
 
                 SetMask( mask );
@@ -1945,7 +1945,7 @@ bool wxICNSResourceHandler::LoadFile(wxBitmap *bitmap,
     if ( theId != 0 )
     {
         IconRef iconRef = NULL ;
-        
+
         wxOSX_VERIFY_NOERR(GetIconRef( kOnSystemDisk, kSystemIconsCreator, theId, &iconRef )) ;
         img = wxOSXGetNSImageFromIconRef(iconRef);
     }
@@ -1956,10 +1956,10 @@ bool wxICNSResourceHandler::LoadFile(wxBitmap *bitmap,
         wxCFStringRef restype(GetExtension().Lower());
 
         iconURL.reset(CFBundleCopyResourceURL(CFBundleGetMainBundle(), resname, restype, NULL));
-        
+
         img = wxOSXGetNSImageFromCFURL(iconURL);
     }
-    
+
     if ( img )
     {
         bitmap->Create(img);
@@ -1980,9 +1980,9 @@ bool wxBundleResourceHandler::LoadFile(wxBitmap *bitmap,
     wxString ext = GetExtension().Lower();
     wxCFStringRef restype(ext);
     double scale = 1.0;
-    
+
     wxCFRef<CFURLRef> imageURL;
-    
+
     const int contentScaleFactor = wxRound(wxOSXGetMainScreenContentScaleFactor());
     if ( contentScaleFactor > 1 )
     {
@@ -1990,20 +1990,20 @@ bool wxBundleResourceHandler::LoadFile(wxBitmap *bitmap,
         imageURL.reset(CFBundleCopyResourceURL(CFBundleGetMainBundle(), resname, restype, NULL));
         scale = contentScaleFactor;
     }
-    
+
     if ( imageURL.get() == NULL )
     {
         wxCFStringRef resname(name);
         imageURL.reset(CFBundleCopyResourceURL(CFBundleGetMainBundle(), resname, restype, NULL));
         scale = 1.0;
     }
-    
+
     if ( imageURL.get() != NULL )
     {
         // Create the data provider object
         wxCFRef<CGDataProviderRef> provider(CGDataProviderCreateWithURL (imageURL) );
         CGImageRef image = NULL;
-        
+
         if ( ext == "jpeg" )
             image = CGImageCreateWithJPEGDataProvider (provider, NULL, true,
                                                    kCGRenderingIntentDefault);
@@ -2017,7 +2017,7 @@ bool wxBundleResourceHandler::LoadFile(wxBitmap *bitmap,
             return true;
         }
     }
-        
+
     return false ;
 }
 
@@ -2037,11 +2037,11 @@ void wxBitmap::InitStandardHandlers()
 {
 #if wxOSX_USE_COCOA_OR_CARBON
     // no icns on iOS
-    AddHandler( new wxICNSHandler );
-    AddHandler( new wxICNSResourceHandler ) ;
+    AddHandler( NEW_DEBUG wxICNSHandler );
+    AddHandler( NEW_DEBUG wxICNSResourceHandler ) ;
 #endif
-    AddHandler( new wxPNGResourceHandler );
-    AddHandler( new wxJPEGResourceHandler );
+    AddHandler( NEW_DEBUG wxPNGResourceHandler );
+    AddHandler( NEW_DEBUG wxJPEGResourceHandler );
 }
 
 // ----------------------------------------------------------------------------

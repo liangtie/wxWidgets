@@ -45,11 +45,11 @@ TEST_CASE("wxHtmlCell::Detach", "[html][cell]")
 {
     wxMemoryDC dc;
 
-    wxScopedPtr<wxHtmlContainerCell> const top(new wxHtmlContainerCell(NULL));
-    wxHtmlContainerCell* const cont = new wxHtmlContainerCell(NULL);
-    wxHtmlCell* const cell1 = new wxHtmlWordCell("Hello", dc);
-    wxHtmlCell* const cell2 = new wxHtmlColourCell(*wxRED);
-    wxHtmlCell* const cell3 = new wxHtmlWordCell("world", dc);
+    wxScopedPtr<wxHtmlContainerCell> const top(NEW_DEBUG wxHtmlContainerCell(NULL));
+    wxHtmlContainerCell* const cont = NEW_DEBUG wxHtmlContainerCell(NULL);
+    wxHtmlCell* const cell1 = NEW_DEBUG wxHtmlWordCell("Hello", dc);
+    wxHtmlCell* const cell2 = NEW_DEBUG wxHtmlColourCell(*wxRED);
+    wxHtmlCell* const cell3 = NEW_DEBUG wxHtmlWordCell("world", dc);
 
     cont->InsertCell(cell1);
     cont->InsertCell(cell2);

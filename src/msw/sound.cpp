@@ -155,7 +155,7 @@ bool wxSound::Create(const wxString& filename, bool isResource)
 {
     Free();
 
-    m_data = new wxSoundDataFile(filename, isResource);
+    m_data = NEW_DEBUG wxSoundDataFile(filename, isResource);
 
     return CheckCreatedOk();
 }
@@ -164,7 +164,7 @@ bool wxSound::Create(size_t size, const void* data)
 {
     Free();
 
-    m_data = new wxSoundDataMemory(size, data);
+    m_data = NEW_DEBUG wxSoundDataMemory(size, data);
 
     return CheckCreatedOk();
 }

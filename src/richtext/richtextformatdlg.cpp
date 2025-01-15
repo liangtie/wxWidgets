@@ -328,52 +328,52 @@ wxPanel* wxRichTextFormattingDialogFactory::CreatePage(int page, wxString& title
 
     if (page == wxRICHTEXT_FORMAT_STYLE_EDITOR)
     {
-        panel = new wxRichTextStylePage(dialog->GetBookCtrl(), wxID_ANY);
+        panel = NEW_DEBUG wxRichTextStylePage(dialog->GetBookCtrl(), wxID_ANY);
         title = _("Style");
     }
     else if (page == wxRICHTEXT_FORMAT_FONT)
     {
-        panel = new wxRichTextFontPage(dialog->GetBookCtrl(), wxID_ANY);
+        panel = NEW_DEBUG wxRichTextFontPage(dialog->GetBookCtrl(), wxID_ANY);
         title = _("Font");
     }
     else if (page == wxRICHTEXT_FORMAT_INDENTS_SPACING)
     {
-        panel = new wxRichTextIndentsSpacingPage(dialog->GetBookCtrl(), wxID_ANY);
+        panel = NEW_DEBUG wxRichTextIndentsSpacingPage(dialog->GetBookCtrl(), wxID_ANY);
         title = _("Indents && Spacing");
     }
     else if (page == wxRICHTEXT_FORMAT_TABS)
     {
-        panel = new wxRichTextTabsPage(dialog->GetBookCtrl(), wxID_ANY);
+        panel = NEW_DEBUG wxRichTextTabsPage(dialog->GetBookCtrl(), wxID_ANY);
         title = _("Tabs");
     }
     else if (page == wxRICHTEXT_FORMAT_BULLETS)
     {
-        panel = new wxRichTextBulletsPage(dialog->GetBookCtrl(), wxID_ANY);
+        panel = NEW_DEBUG wxRichTextBulletsPage(dialog->GetBookCtrl(), wxID_ANY);
         title = _("Bullets");
     }
     else if (page == wxRICHTEXT_FORMAT_LIST_STYLE)
     {
-        panel = new wxRichTextListStylePage(dialog->GetBookCtrl(), wxID_ANY);
+        panel = NEW_DEBUG wxRichTextListStylePage(dialog->GetBookCtrl(), wxID_ANY);
         title = _("List Style");
     }
     else if (page == wxRICHTEXT_FORMAT_SIZE)
     {
-        panel = new wxRichTextSizePage(dialog->GetBookCtrl(), wxID_ANY);
+        panel = NEW_DEBUG wxRichTextSizePage(dialog->GetBookCtrl(), wxID_ANY);
         title = _("Size");
     }
     else if (page == wxRICHTEXT_FORMAT_MARGINS)
     {
-        panel = new wxRichTextMarginsPage(dialog->GetBookCtrl(), wxID_ANY);
+        panel = NEW_DEBUG wxRichTextMarginsPage(dialog->GetBookCtrl(), wxID_ANY);
         title = _("Margins");
     }
     else if (page == wxRICHTEXT_FORMAT_BORDERS)
     {
-        panel = new wxRichTextBordersPage(dialog->GetBookCtrl(), wxID_ANY);
+        panel = NEW_DEBUG wxRichTextBordersPage(dialog->GetBookCtrl(), wxID_ANY);
         title = _("Borders");
     }
     else if (page == wxRICHTEXT_FORMAT_BACKGROUND)
     {
-        panel = new wxRichTextBackgroundPage(dialog->GetBookCtrl(), wxID_ANY);
+        panel = NEW_DEBUG wxRichTextBackgroundPage(dialog->GetBookCtrl(), wxID_ANY);
         title = _("Background");
     }
 
@@ -475,7 +475,7 @@ class wxRichTextFormattingDialogModule: public wxModule
     wxDECLARE_DYNAMIC_CLASS(wxRichTextFormattingDialogModule);
 public:
     wxRichTextFormattingDialogModule() {}
-    bool OnInit() wxOVERRIDE { wxRichTextFormattingDialog::SetFormattingDialogFactory(new wxRichTextFormattingDialogFactory); return true; }
+    bool OnInit() wxOVERRIDE { wxRichTextFormattingDialog::SetFormattingDialogFactory(NEW_DEBUG wxRichTextFormattingDialogFactory); return true; }
     void OnExit() wxOVERRIDE { wxRichTextFormattingDialog::SetFormattingDialogFactory(NULL); }
 };
 
@@ -603,7 +603,7 @@ void wxRichTextFormattingDialog::SetDimensionValue(wxTextAttrDimension& dim, wxT
     {
         if (checkBox)
             checkBox->SetValue(true);
-        
+
         if (dim.GetUnits() == wxTEXT_ATTR_UNITS_PIXELS)
         {
             unitsIdx = 0;  // By default, the 1st in the list.
@@ -631,7 +631,7 @@ void wxRichTextFormattingDialog::SetDimensionValue(wxTextAttrDimension& dim, wxT
             unitsIdx = 3; // By default, the 4th in the list (we don't have points and hundredths of points in the same list)
             valueCtrl->SetValue(wxString::Format(wxT("%d"), (int) dim.GetValue()));
         }
-        
+
         if (units)
         {
             unitsIdx = units->Index(dim.GetUnits());
@@ -762,7 +762,7 @@ void wxRichTextColourSwatchCtrl::OnMouseEvent(wxMouseEvent& event)
         data.SetChooseFull(true);
         data.SetColour(m_colour);
 #if wxUSE_COLOURDLG
-        wxColourDialog *dialog = new wxColourDialog(parent, &data);
+        wxColourDialog *dialog = NEW_DEBUG wxColourDialog(parent, &data);
         // Crashes on wxMac (no m_peer)
 #ifndef __WXMAC__
         dialog->SetTitle(_("Colour"));

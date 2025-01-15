@@ -420,7 +420,7 @@ protected:
 
 DataViewCtrlTestCase::DataViewCtrlTestCase(long style)
 {
-    m_dvc = new wxDataViewTreeCtrl(wxTheApp->GetTopWindow(),
+    m_dvc = NEW_DEBUG wxDataViewTreeCtrl(wxTheApp->GetTopWindow(),
                                    wxID_ANY,
                                    wxDefaultPosition,
                                    wxSize(400, 200),
@@ -446,7 +446,7 @@ MultiColumnsDataViewCtrlTestCase::MultiColumnsDataViewCtrlTestCase()
     : m_size(200, 100),
       m_firstColumnWidth(50)
 {
-    m_dvc = new wxDataViewListCtrl(wxTheApp->GetTopWindow(), wxID_ANY);
+    m_dvc = NEW_DEBUG wxDataViewListCtrl(wxTheApp->GetTopWindow(), wxID_ANY);
 
     m_firstColumn =
         m_dvc->AppendTextColumn(wxString(), wxDATAVIEW_CELL_INERT, m_firstColumnWidth);
@@ -467,20 +467,20 @@ MultiColumnsDataViewCtrlTestCase::~MultiColumnsDataViewCtrlTestCase()
 
 DataViewCtrlWithCustomModelTestCase::DataViewCtrlWithCustomModelTestCase()
 {
-    m_dvc = new wxDataViewCtrl(wxTheApp->GetTopWindow(),
+    m_dvc = NEW_DEBUG wxDataViewCtrl(wxTheApp->GetTopWindow(),
                                wxID_ANY,
                                wxDefaultPosition,
                                wxSize(400, 200),
                                wxDV_SINGLE);
 
-    m_model = new DataViewCtrlTestModel();
+    m_model = NEW_DEBUG DataViewCtrlTestModel();
     m_dvc->AssociateModel(m_model);
     m_model->DecRef();
 
     m_dvc->AppendColumn(
-        new wxDataViewColumn(
+        NEW_DEBUG wxDataViewColumn(
             "Value",
-            new wxDataViewTextRenderer("string", wxDATAVIEW_CELL_INERT),
+            NEW_DEBUG wxDataViewTextRenderer("string", wxDATAVIEW_CELL_INERT),
             0,
             m_dvc->FromDIP(200),
             wxALIGN_LEFT,

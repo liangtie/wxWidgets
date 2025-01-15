@@ -46,7 +46,7 @@ wxObject *wxToggleButtonXmlHandler::DoCreateResource()
     if (m_class == wxT("wxBitmapToggleButton"))
     {
        if (!control)
-           control = new wxBitmapToggleButton;
+           control = NEW_DEBUG wxBitmapToggleButton;
 
         DoCreateBitmapToggleButton(control);
     }
@@ -54,7 +54,7 @@ wxObject *wxToggleButtonXmlHandler::DoCreateResource()
 #endif
     {
        if (!control)
-           control = new wxToggleButton;
+           control = NEW_DEBUG wxToggleButton;
 
         DoCreateToggleButton(control);
     }

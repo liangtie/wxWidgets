@@ -116,7 +116,7 @@ wxPortId wxGUIAppTraits::GetToolkitVersion(int *verMaj,
 
 wxEventLoopBase* wxGUIAppTraits::CreateEventLoop()
 {
-    return new wxEventLoop;
+    return NEW_DEBUG wxEventLoop;
 }
 
 wxWindow* wxFindWindowAtPoint(wxWindow* win, const wxPoint& pt);

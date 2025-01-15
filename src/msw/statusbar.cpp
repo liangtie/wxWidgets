@@ -319,9 +319,9 @@ void wxStatusBar::DoUpdateStatusText(int nField)
         }
         else
         {
-            // create a new tooltip for this pane if needed
+            // create a NEW_DEBUG tooltip for this pane if needed
             if (GetField(nField).IsEllipsized())
-                m_tooltips[nField].reset(new wxToolTip(this, nField, GetStatusText(nField), rc));
+                m_tooltips[nField].reset(NEW_DEBUG wxToolTip(this, nField, GetStatusText(nField), rc));
             //else: leave m_tooltips[nField]==nullptr
         }
     }

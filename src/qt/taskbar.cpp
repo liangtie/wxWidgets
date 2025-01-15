@@ -25,7 +25,7 @@ wxIMPLEMENT_DYNAMIC_CLASS(wxTaskBarIcon, wxEvtHandler);
 
 wxTaskBarIcon::wxTaskBarIcon(wxTaskBarIconType WXUNUSED(iconType))
 {
-    m_qtSystemTrayIcon = new QSystemTrayIcon;
+    m_qtSystemTrayIcon = NEW_DEBUG QSystemTrayIcon;
 }
 
 wxTaskBarIcon::~wxTaskBarIcon()

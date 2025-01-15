@@ -670,7 +670,7 @@ long wxExecute(const wxString& cmd, int flags, wxProcess *handler,
             if ( wxExecuteDDE(ddeServer, ddeTopic, ddeCommand) )
             {
                 // a dummy PID - this is a hack, of course, but it's well worth
-                // it as we don't open a new server each time we're called
+                // it as we don't open a NEW_DEBUG server each time we're called
                 // which would be quite bad
                 return -1;
             }
@@ -885,11 +885,11 @@ long wxExecute(const wxString& cmd, int flags, wxProcess *handler,
     {
         // We can now initialize the wxStreams
         wxPipeInputStream *
-            outStream = new wxPipeInputStream(pipeOut.Detach(wxPipe::Read));
+            outStream = NEW_DEBUG wxPipeInputStream(pipeOut.Detach(wxPipe::Read));
         wxPipeInputStream *
-            errStream = new wxPipeInputStream(pipeErr.Detach(wxPipe::Read));
+            errStream = NEW_DEBUG wxPipeInputStream(pipeErr.Detach(wxPipe::Read));
         wxPipeOutputStream *
-            inStream = new wxPipeOutputStream(pipeIn.Detach(wxPipe::Write));
+            inStream = NEW_DEBUG wxPipeOutputStream(pipeIn.Detach(wxPipe::Write));
 
         handler->SetPipeStreams(outStream, inStream, errStream);
 
@@ -910,7 +910,7 @@ long wxExecute(const wxString& cmd, int flags, wxProcess *handler,
     wxASSERT_MSG( hwnd, wxT("can't create a hidden window for wxExecute") );
 
     // Alloc data
-    wxExecuteData *data = new wxExecuteData;
+    wxExecuteData *data = NEW_DEBUG wxExecuteData;
     data->hProcess    = pi.hProcess;
     data->dwProcessId = pi.dwProcessId;
     data->hWnd        = hwnd;
