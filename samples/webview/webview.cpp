@@ -119,6 +119,16 @@ public:
         Private = 2
     };
 
+    enum
+    {
+        ID_CLEAR_BROWSING_DATA_ALL = wxID_HIGHEST + 1,
+        ID_CLEAR_BROWSING_DATA_CACHE,
+        ID_CLEAR_BROWSING_DATA_COOKIES,
+        ID_CLEAR_BROWSING_DATA_DOM_STORAGE,
+        ID_CLEAR_BROWSING_DATA_OTHER,
+        ID_CLEAR_BROWSING_DATA_LAST_HOUR
+    };
+
     WebFrame(const wxString& url, int flags = 0, wxWebViewWindowFeatures* windowFeatures = nullptr);
     virtual ~WebFrame();
 
@@ -184,6 +194,7 @@ public:
     void OnAddUserScript(wxCommandEvent& evt);
     void OnSetCustomUserAgent(wxCommandEvent& evt);
     void OnSetProxy(wxCommandEvent& evt);
+    void OnClearBrowsingData(wxCommandEvent& evt);
     void OnClearSelection(wxCommandEvent& evt);
     void OnDeleteSelection(wxCommandEvent& evt);
     void OnSelectAll(wxCommandEvent& evt);
@@ -196,6 +207,7 @@ public:
     void OnFindOptions(wxCommandEvent& evt);
     void OnEnableContextMenu(wxCommandEvent& evt);
     void OnEnableDevTools(wxCommandEvent& evt);
+    void OnShowDevTools(wxCommandEvent& evt);
     void OnEnableBrowserAcceleratorKeys(wxCommandEvent& evt);
 
 private:
@@ -361,24 +373,6 @@ bool WebApp::OnInit()
         "</head><body><h1>Page 2</h1>"
         "<p><a href='memory:page1.htm'>Page 1</a> was better.</p></body>");
     wxMemoryFSHandler::AddFile("test.css", "h1 {color: red;}");
-
-    // Set log target which only logs debugging messages in the usual way: all
-    // the rest will be shown in wxLogWindow created by WebFrame.
-    class DebugOnlyLog : public wxLog
-    {
-    public:
-        DebugOnlyLog() = default;
-
-    protected:
-        void DoLogTextAtLevel(wxLogLevel level, const wxString& msg) override
-        {
-            // Ignore all non-debug/trace messages.
-            if ( level == wxLOG_Debug || level == wxLOG_Trace )
-                wxLog::DoLogTextAtLevel(level, msg);
-        }
-    };
-
-    delete wxLog::SetActiveTarget(new DebugOnlyLog);
 
     WebFrame *frame = new WebFrame(m_url, WebFrame::Main);
     frame->Show();
@@ -548,15 +542,39 @@ WebFrame::WebFrame(const wxString& url, int flags, wxWebViewWindowFeatures* wind
         m_log_textCtrl = new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE | wxTE_READONLY | wxTE_RICH2);
         m_log_textCtrl->SetMinSize(FromDIP(wxSize(100, 100)));
         topsizer->Add(m_log_textCtrl, wxSizerFlags().Expand().Proportion(0));
-        wxLog::SetActiveTarget(new wxLogTextCtrl(m_log_textCtrl));
+        delete wxLog::SetActiveTarget(new wxLogTextCtrl(m_log_textCtrl));
 
         // Log backend information
-        wxLogMessage("Backend: %s Version: %s", m_browser->GetClassInfo()->GetClassName(),
-            wxWebView::GetBackendVersionInfo(backend).ToString());
+
+        const auto formatVersion = [](const char* context,
+                                      const wxVersionInfo& version) {
+            wxString str;
+
+            if ( version.IsOk() )
+            {
+                str.Printf(", %s version=%s",
+                           context, version.GetNumericVersionString());
+
+                if ( version.HasDescription() )
+                    str += wxString::Format(" (%s)", version.GetDescription());
+            }
+
+            return str;
+        };
+
+        const auto versionRunTime = formatVersion("run-time", wxWebView::GetBackendVersionInfo(backend));
+        const auto versionBuildTime = formatVersion("build-time", wxWebView::GetBackendVersionInfo(
+            backend, wxVersionContext::BuildTime
+        ));
+
+        wxLogMessage("Backend: %s%s%s",
+                     m_browser->GetClassInfo()->GetClassName(),
+                     versionRunTime,
+                     versionBuildTime);
 
         // Chromium backend can't be used immediately after creation, so wait
         // until the browser is created before calling GetUserAgent(), but we
-        // can't do it unconditionally neither as doing it with WebViewGTK
+        // can't do it unconditionally either as doing it with WebViewGTK
         // triggers https://gitlab.gnome.org/GNOME/gtk/-/issues/124 and just
         // kills the sample.
         const auto initShow = [this](){
@@ -584,6 +602,15 @@ WebFrame::WebFrame(const wxString& url, int flags, wxWebViewWindowFeatures* wind
         {
             initShow();
         }
+
+
+        m_browser->Bind(wxEVT_WEBVIEW_BROWSING_DATA_CLEARED, [](wxWebViewEvent& event) {
+            if (event.IsError())
+                wxLogError("Failed to clear browsing data");
+            else
+                wxLogMessage("Browsing data cleared");
+            event.Skip();
+        });
 
 #ifndef __WXMAC__
         //We register the wxfs:// protocol for testing purposes
@@ -644,6 +671,17 @@ WebFrame::WebFrame(const wxString& url, int flags, wxWebViewWindowFeatures* wind
     m_tools_history_menu->AppendSeparator();
 
     m_tools_menu->AppendSubMenu(m_tools_history_menu, "History");
+
+    // Browsing data menu
+    wxMenu* browsingDataMenu = new wxMenu();
+    browsingDataMenu->Append(ID_CLEAR_BROWSING_DATA_ALL, _("All"));
+    browsingDataMenu->Append(ID_CLEAR_BROWSING_DATA_CACHE, _("Cache"));
+    browsingDataMenu->Append(ID_CLEAR_BROWSING_DATA_COOKIES, _("Cookies"));
+    browsingDataMenu->Append(ID_CLEAR_BROWSING_DATA_DOM_STORAGE, _("DOM Storage"));
+    browsingDataMenu->Append(ID_CLEAR_BROWSING_DATA_OTHER, _("Other"));
+    browsingDataMenu->AppendSeparator();
+    browsingDataMenu->Append(ID_CLEAR_BROWSING_DATA_LAST_HOUR, _("All in last hour"));
+    m_tools_menu->AppendSubMenu(browsingDataMenu, _("Clear Browsing Data"));
 
     //Create an editing menu
     wxMenu* editmenu = new wxMenu();
@@ -708,8 +746,9 @@ WebFrame::WebFrame(const wxString& url, int flags, wxWebViewWindowFeatures* wind
     m_tools_menu->AppendSubMenu(handlers, _("Handler Examples"));
 
     m_context_menu = m_tools_menu->AppendCheckItem(wxID_ANY, _("Enable Context Menu"));
-    m_dev_tools = m_tools_menu->AppendCheckItem(wxID_ANY, _("Enable Dev Tools"));
     m_browser_accelerator_keys = m_tools_menu->AppendCheckItem(wxID_ANY, _("Enable Browser Accelerator Keys"));
+    m_dev_tools = m_tools_menu->AppendCheckItem(wxID_ANY, _("Enable Dev Tools"));
+    auto* const show_dev_tools = m_tools_menu->Append(wxID_ANY, _("Show Dev Tools"));
 
     if (m_flags & Main)
     {
@@ -813,6 +852,7 @@ WebFrame::WebFrame(const wxString& url, int flags, wxWebViewWindowFeatures* wind
     Bind(wxEVT_MENU, &WebFrame::OnAddUserScript, this, addUserScript->GetId());
     Bind(wxEVT_MENU, &WebFrame::OnSetCustomUserAgent, this, setCustomUserAgent->GetId());
     Bind(wxEVT_MENU, &WebFrame::OnSetProxy, this, setProxy->GetId());
+    Bind(wxEVT_MENU, &WebFrame::OnClearBrowsingData, this, ID_CLEAR_BROWSING_DATA_ALL, ID_CLEAR_BROWSING_DATA_LAST_HOUR);
     Bind(wxEVT_MENU, &WebFrame::OnClearSelection, this, m_selection_clear->GetId());
     Bind(wxEVT_MENU, &WebFrame::OnDeleteSelection, this, m_selection_delete->GetId());
     Bind(wxEVT_MENU, &WebFrame::OnSelectAll, this, selectall->GetId());
@@ -822,6 +862,7 @@ WebFrame::WebFrame(const wxString& url, int flags, wxWebViewWindowFeatures* wind
     Bind(wxEVT_MENU, &WebFrame::OnFind, this, m_find->GetId());
     Bind(wxEVT_MENU, &WebFrame::OnEnableContextMenu, this, m_context_menu->GetId());
     Bind(wxEVT_MENU, &WebFrame::OnEnableDevTools, this, m_dev_tools->GetId());
+    Bind(wxEVT_MENU, &WebFrame::OnShowDevTools, this, show_dev_tools->GetId());
     Bind(wxEVT_MENU, &WebFrame::OnEnableBrowserAcceleratorKeys, this, m_browser_accelerator_keys->GetId());
 
     //Connect the idle events
@@ -997,6 +1038,12 @@ void WebFrame::OnEnableContextMenu(wxCommandEvent& evt)
 void WebFrame::OnEnableDevTools(wxCommandEvent& evt)
 {
     m_browser->EnableAccessToDevTools(evt.IsChecked());
+}
+
+void WebFrame::OnShowDevTools(wxCommandEvent& WXUNUSED(evt))
+{
+    if ( !m_browser->ShowDevTools() )
+        wxLogWarning("Failed to show development tools window");
 }
 
 void WebFrame::OnEnableBrowserAcceleratorKeys(wxCommandEvent& evt)
@@ -1552,6 +1599,40 @@ void WebFrame::OnSetProxy(wxCommandEvent& WXUNUSED(evt))
 
     if (!m_browser->SetProxy(s_proxy))
         wxLogError("Could not set proxy");
+}
+
+void WebFrame::OnClearBrowsingData(wxCommandEvent &evt)
+{
+    int dataTypes;
+    wxDateTime since((time_t) 0);
+    switch (evt.GetId())
+    {
+        case ID_CLEAR_BROWSING_DATA_ALL:
+            dataTypes = wxWEBVIEW_BROWSING_DATA_ALL;
+            break;
+        case ID_CLEAR_BROWSING_DATA_CACHE:
+            dataTypes = wxWEBVIEW_BROWSING_DATA_CACHE;
+            break;
+        case ID_CLEAR_BROWSING_DATA_COOKIES:
+            dataTypes = wxWEBVIEW_BROWSING_DATA_COOKIES;
+            break;
+        case ID_CLEAR_BROWSING_DATA_DOM_STORAGE:
+            dataTypes = wxWEBVIEW_BROWSING_DATA_DOM_STORAGE;
+            break;
+        case ID_CLEAR_BROWSING_DATA_OTHER:
+            dataTypes = wxWEBVIEW_BROWSING_DATA_OTHER;
+            break;
+        case ID_CLEAR_BROWSING_DATA_LAST_HOUR:
+            dataTypes = wxWEBVIEW_BROWSING_DATA_ALL;
+            since = wxDateTime::Now() - wxTimeSpan::Hour();
+            break;
+        default:
+            wxFAIL_MSG("Unexpected event ID");
+            return;
+    }
+
+    if (!m_browser->ClearBrowsingData(dataTypes, since))
+        wxLogError("Clearing this browsing data type is not supported by this backend");
 }
 
 void WebFrame::OnClearSelection(wxCommandEvent& WXUNUSED(evt))

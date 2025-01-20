@@ -101,6 +101,7 @@
     wxIMPLEMENT_DYNAMIC_CLASS(wxMouseCaptureChangedEvent, wxEvent);
     wxIMPLEMENT_DYNAMIC_CLASS(wxMouseCaptureLostEvent, wxEvent);
     wxIMPLEMENT_DYNAMIC_CLASS(wxClipboardTextEvent, wxCommandEvent);
+    wxIMPLEMENT_DYNAMIC_CLASS(wxMultiTouchEvent, wxEvent);
     wxIMPLEMENT_DYNAMIC_CLASS(wxGestureEvent, wxEvent);
     wxIMPLEMENT_DYNAMIC_CLASS(wxPanGestureEvent, wxGestureEvent);
     wxIMPLEMENT_DYNAMIC_CLASS(wxZoomGestureEvent, wxGestureEvent);
@@ -241,6 +242,12 @@ wxDEFINE_EVENT( wxEVT_SCROLLWIN_PAGEUP, wxScrollWinEvent );
 wxDEFINE_EVENT( wxEVT_SCROLLWIN_PAGEDOWN, wxScrollWinEvent );
 wxDEFINE_EVENT( wxEVT_SCROLLWIN_THUMBTRACK, wxScrollWinEvent );
 wxDEFINE_EVENT( wxEVT_SCROLLWIN_THUMBRELEASE, wxScrollWinEvent );
+
+// MultiTouch Events
+wxDEFINE_EVENT( wxEVT_TOUCH_BEGIN, wxMultiTouchEvent );
+wxDEFINE_EVENT( wxEVT_TOUCH_MOVE, wxMultiTouchEvent );
+wxDEFINE_EVENT( wxEVT_TOUCH_END, wxMultiTouchEvent );
+wxDEFINE_EVENT( wxEVT_TOUCH_CANCEL, wxMultiTouchEvent );
 
 // Gesture events
 wxDEFINE_EVENT( wxEVT_GESTURE_PAN, wxPanGestureEvent );
@@ -456,13 +463,33 @@ wxNcPaintEvent::wxNcPaintEvent(wxWindowBase* window)
 // wxUpdateUIEvent
 // ----------------------------------------------------------------------------
 
-#if wxUSE_LONGLONG
 wxLongLong wxUpdateUIEvent::sm_lastUpdate = 0;
-#endif
 
 long wxUpdateUIEvent::sm_updateInterval = 0;
 
 wxUpdateUIMode wxUpdateUIEvent::sm_updateMode = wxUPDATE_UI_PROCESS_ALL;
+
+void wxUpdateUIEvent::Set3StateValue(wxCheckBoxState check)
+{
+    wxASSERT_MSG(IsCheckable(), "Shouldn't be called if non-checkable");
+    wxASSERT_MSG(Is3State() || check != wxCHK_UNDETERMINED, "Is3State() not enabled");
+
+    m_3checked = check;
+    m_setChecked = true;
+}
+
+void wxUpdateUIEvent::DisallowCheck()
+{
+    wxASSERT_MSG(!GetSetChecked(), "SetCheck() or Set3StateValue() has already been called");
+
+    m_isCheckable = false;
+}
+
+void wxUpdateUIEvent::Allow3rdState(bool b /*= true*/)
+{
+    wxASSERT_MSG(b || Get3StateValue() != wxCHK_UNDETERMINED, "wxCHK_UNDETERMINED already set");
+    m_is3State = b;
+}
 
 // Can we update?
 bool wxUpdateUIEvent::CanUpdate(wxWindowBase *win)
@@ -487,7 +514,6 @@ bool wxUpdateUIEvent::CanUpdate(wxWindowBase *win)
     if (sm_updateInterval == 0)
         return true;
 
-#if wxUSE_STOPWATCH && wxUSE_LONGLONG
     wxLongLong now = wxGetLocalTimeMillis();
     if (now > (sm_lastUpdate + sm_updateInterval))
     {
@@ -495,18 +521,12 @@ bool wxUpdateUIEvent::CanUpdate(wxWindowBase *win)
     }
 
     return false;
-#else
-    // If we don't have wxStopWatch or wxLongLong, we
-    // should err on the safe side and update now anyway.
-    return true;
-#endif
 }
 
 // Reset the update time to provide a delay until the next
 // time we should update
 void wxUpdateUIEvent::ResetUpdateTime()
 {
-#if wxUSE_STOPWATCH && wxUSE_LONGLONG
     if (sm_updateInterval > 0)
     {
         wxLongLong now = wxGetLocalTimeMillis();
@@ -515,7 +535,6 @@ void wxUpdateUIEvent::ResetUpdateTime()
             sm_lastUpdate = now;
         }
     }
-#endif
 }
 
 // ----------------------------------------------------------------------------
@@ -571,6 +590,7 @@ wxMouseEvent::wxMouseEvent(wxEventType commandType)
     m_linesPerAction = 0;
     m_columnsPerAction = 0;
     m_magnification = 0.0f;
+    m_synthesized = false;
 }
 
 void wxMouseEvent::Assign(const wxMouseEvent& event)

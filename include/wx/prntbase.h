@@ -283,8 +283,15 @@ public:
 
     virtual bool HasPage(int page);
     virtual bool OnPrintPage(int page) = 0;
+
+    // Return the total range of pages and fill in the provided parameter with
+    // the ranges of pages that should be printed (if it remains empty, all
+    // pages are printed).
+    virtual wxPrintPageRange GetPagesInfo(wxPrintPageRanges& ranges);
+
+    // Override GetPagesInfo() instead if more than one range of pages needs to
+    // be printed.
     virtual void GetPageInfo(int *minPage, int *maxPage, int *pageFrom, int *pageTo);
-    virtual bool IsPageSelected(int page);
 
     virtual wxString GetTitle() const { return m_printoutTitle; }
 
@@ -386,6 +393,7 @@ private:
     void OnMouseWheel(wxMouseEvent& event);
 #endif // wxUSE_MOUSEWHEEL
     void OnIdle(wxIdleEvent& event);
+    void OnDPIChanged(wxDPIChangedEvent& event);
 
     wxPrintPreviewBase* m_printPreview;
 
@@ -640,6 +648,10 @@ public:
     virtual bool IsOk() const;
     virtual void SetOk(bool ok);
 
+    // This is an internal function used only by wxWidgets itself to update
+    // the rendered page when DPI has changed.
+    virtual void WXUpdateOnDPIChanged();
+
     ///////////////////////////////////////////////////////////////////////////
     // OVERRIDES
 
@@ -734,6 +746,8 @@ public:
     virtual bool Ok() const override { return IsOk(); }
     virtual bool IsOk() const override;
     virtual void SetOk(bool ok) override;
+
+    virtual void WXUpdateOnDPIChanged() override;
 
 private:
     wxPrintPreviewBase *m_pimpl;

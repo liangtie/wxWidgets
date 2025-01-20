@@ -188,6 +188,7 @@ public :
     virtual void        TouchesBegan(NSEvent *event);
     virtual void        TouchesMoved(NSEvent *event);
     virtual void        TouchesEnded(NSEvent *event);
+    virtual void        TouchesCancel(NSEvent *event);
 
 #if !wxOSX_USE_NATIVE_FLIPPED
     void                SetFlipped(bool flipped);
@@ -401,6 +402,8 @@ public:
     WXDLLIMPEXP_CORE wxRect wxFromNSRect( NSView* parent, const NSRect& rect );
     WXDLLIMPEXP_CORE NSPoint wxToNSPoint( NSView* parent, const wxPoint& p );
     WXDLLIMPEXP_CORE wxPoint wxFromNSPoint( NSView* parent, const NSPoint& p );
+    WXDLLIMPEXP_CORE NSPoint wxToNSPointF(NSView* parent, const wxPoint2DDouble& p);
+    WXDLLIMPEXP_CORE wxPoint2DDouble wxFromNSPointF(NSView* parent, const NSPoint& p);
 
     NSRect WXDLLIMPEXP_CORE wxOSXGetFrameForControl( wxWindowMac* window , const wxPoint& pos , const wxSize &size ,
         bool adjustForOrigin = true );
@@ -546,6 +549,7 @@ WX_NSCursor  wxMacCocoaCreateCursorFromCGImage( CGImageRef cgImageRef, float hot
 void  wxMacCocoaSetCursor( WX_NSCursor cursor );
 void  wxMacCocoaHideCursor();
 void  wxMacCocoaShowCursor();
+wxPoint  wxMacCocoaGetCursorHotSpot( WX_NSCursor cursor );
 
 typedef struct tagClassicCursor
 {

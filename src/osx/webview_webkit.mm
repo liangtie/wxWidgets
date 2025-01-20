@@ -23,6 +23,7 @@
 
 #include "wx/osx/private.h"
 #include "wx/osx/core/cfref.h"
+#include "wx/osx/cocoa/private/date.h"
 #include "wx/osx/private/available.h"
 #include "wx/private/jsscriptwrapper.h"
 #include "wx/private/webview.h"
@@ -35,6 +36,8 @@
 
 #include <WebKit/WebKit.h>
 #include <Foundation/NSURLError.h>
+
+using namespace wxOSXImpl;
 
 // using native types to get compile errors and warnings
 
@@ -134,11 +137,21 @@ public:
 // wxWebViewFactoryWebKit
 //-----------------------------------------------------------------------------
 
-wxVersionInfo wxWebViewFactoryWebKit::GetVersionInfo()
+wxVersionInfo wxWebViewFactoryWebKit::GetVersionInfo(wxVersionContext context)
 {
-    int verMaj, verMin, verMicro;
-    wxGetOsVersion(&verMaj, &verMin, &verMicro);
-    return wxVersionInfo("WKWebView", verMaj, verMin, verMicro);
+    switch ( context )
+    {
+        case wxVersionContext::BuildTime:
+            // There is no build-time version for this backend.
+            break;
+
+        case wxVersionContext::RunTime:
+            int verMaj, verMin, verMicro;
+            wxGetOsVersion(&verMaj, &verMin, &verMicro);
+            return wxVersionInfo("WKWebView", verMaj, verMin, verMicro);
+    }
+
+    return {};
 }
 
 wxWebViewConfiguration wxWebViewFactoryWebKit::CreateConfiguration()
@@ -496,6 +509,62 @@ bool wxWebViewWebKit::SetUserAgent(const wxString& userAgent)
             m_webView.customUserAgent = wxCFStringRef(userAgent).AsNSString();
         else
             m_customUserAgent = userAgent;
+
+        return true;
+    }
+    else
+        return false;
+}
+
+bool wxWebViewWebKit::ClearBrowsingData(int types, wxDateTime since)
+{
+    if ( WX_IS_MACOS_AVAILABLE(10, 11) )
+    {
+        // We return immediately if wxWEBVIEW_BROWSING_DATA_OTHER is specified
+        // on its own as it doesn't do anything, but we just ignore it if it is
+        // given together with something else.
+        if (types == wxWEBVIEW_BROWSING_DATA_OTHER)
+            return false;
+
+        NSSet<NSString*>* clearDataTypes = nil;
+        if (types & wxWEBVIEW_BROWSING_DATA_ALL)
+        {
+            clearDataTypes = [WKWebsiteDataStore allWebsiteDataTypes];
+        }
+        else
+        {
+            NSMutableSet<NSString*>* dataTypes = [[NSMutableSet alloc] init];
+            if (types & wxWEBVIEW_BROWSING_DATA_COOKIES)
+                [dataTypes addObject:WKWebsiteDataTypeCookies];
+            if (types & wxWEBVIEW_BROWSING_DATA_CACHE)
+                [dataTypes addObjectsFromArray:@[
+                    WKWebsiteDataTypeDiskCache,
+                    WKWebsiteDataTypeMemoryCache,
+                    WKWebsiteDataTypeOfflineWebApplicationCache
+                ]];
+            if (types & wxWEBVIEW_BROWSING_DATA_DOM_STORAGE)
+                [dataTypes addObjectsFromArray:@[
+                    WKWebsiteDataTypeLocalStorage,
+                    WKWebsiteDataTypeSessionStorage,
+                    WKWebsiteDataTypeWebSQLDatabases,
+                    WKWebsiteDataTypeIndexedDBDatabases
+                ]];
+
+            clearDataTypes = dataTypes;
+        }
+
+        // We rely on the fact that NSDateFromWX() returns nil for invalid
+        // date, as this is exactly what we want here: if the date is not
+        // specified, we pass nil to clear everything.
+        [m_webView.configuration.websiteDataStore removeDataOfTypes:clearDataTypes
+            modifiedSince:NSDateFromWX(since) completionHandler:^{
+                wxWebViewEvent event(wxEVT_WEBVIEW_BROWSING_DATA_CLEARED,
+                    GetId(),
+                    GetCurrentURL(),
+                    "");
+                event.SetInt(1);
+                ProcessWindowEvent(event);
+            }];
 
         return true;
     }

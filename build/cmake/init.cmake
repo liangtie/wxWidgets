@@ -187,7 +187,7 @@ if(WIN32)
     endif()
 endif()
 
-if(0)
+if(WIN32_MSVC_NAMING)
     if(wxBUILD_SHARED)
         set(lib_suffix "_dll")
     else()
@@ -537,7 +537,7 @@ if(wxUSE_GUI)
             if(NOT (CMAKE_CXX_STANDARD GREATER_EQUAL 17 OR wxHAVE_CXX17))
                 # We shouldn't disable this option as it's disabled by default and
                 # if it is on, it means that CEF is meant to be used, but we can't
-                # continue neither as libcef_dll_wrapper will fail to build
+                # continue either as libcef_dll_wrapper will fail to build
                 # (actually it may still succeed with CEF v116 which provided
                 # its own stand-in for std::in_place used in CEF headers, but
                 # not with the later versions, so just fail instead of trying
@@ -610,9 +610,7 @@ if(wxUSE_GUI)
     endif()
 
     if(wxUSE_SOUND AND wxUSE_LIBSDL AND UNIX AND NOT APPLE)
-        find_package(SDL2 CONFIG REQUIRED)
-        set(SDL2_INCLUDE_DIR "" CACHE INTERNAL "")
-        set(SDL2_LIBRARY SDL2::SDL2 CACHE INTERNAL "")
+        find_package(SDL2)
         if(NOT SDL2_FOUND)
             find_package(SDL)
         endif()

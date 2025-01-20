@@ -183,6 +183,8 @@ wxTextCtrl *CreateEditorTextCtrl(wxWindow *parent, const wxRect& labelRect, cons
 
 void wxDataViewColumn::Init(int width, wxAlignment align, int flags)
 {
+    m_renderer->SetOwner(this);
+
     m_width =
     m_manuallySetWidth = width;
     m_minWidth = 0;
@@ -2532,7 +2534,6 @@ void wxDataViewMainWindow::OnPaint( wxPaintEvent &WXUNUSED(event) )
 
     // prepare the DC
     GetOwner()->PrepareDC( dc );
-    dc.SetFont( GetFont() );
 
     wxRect update = GetUpdateRegion().GetBox();
     m_owner->CalcUnscrolledPosition( update.x, update.y, &update.x, &update.y );

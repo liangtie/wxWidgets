@@ -86,6 +86,7 @@ public:
     virtual bool IsContextMenuEnabled() const override;
 
     virtual void EnableAccessToDevTools(bool enable = true) override;
+    virtual bool ShowDevTools() override;
     virtual bool IsAccessToDevToolsEnabled() const override;
 
     virtual void EnableBrowserAcceleratorKeys(bool enable = true) override;
@@ -95,6 +96,9 @@ public:
     virtual wxString GetUserAgent() const override;
 
     virtual bool SetProxy(const wxString& proxy) override;
+
+    virtual bool ClearBrowsingData(int types = wxWEBVIEW_BROWSING_DATA_ALL,
+                                   wxDateTime since = {}) override;
 
     virtual bool RunScript(const wxString& javascript, wxString* output = nullptr) const override;
     virtual void RunScriptAsync(const wxString& javascript, void* clientData = nullptr) const override;
@@ -143,7 +147,7 @@ public:
         return new wxWebViewEdge(parent, id, url, pos, size, style, name);
     }
     virtual bool IsAvailable() override;
-    virtual wxVersionInfo GetVersionInfo() override;
+    virtual wxVersionInfo GetVersionInfo(wxVersionContext context) override;
     virtual wxWebViewConfiguration CreateConfiguration() override;
 };
 

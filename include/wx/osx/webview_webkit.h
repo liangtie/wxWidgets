@@ -74,7 +74,8 @@ public:
     virtual wxVector<wxSharedPtr<wxWebViewHistoryItem> > GetBackwardHistory() override;
     virtual wxVector<wxSharedPtr<wxWebViewHistoryItem> > GetForwardHistory() override;
     virtual void LoadHistoryItem(wxSharedPtr<wxWebViewHistoryItem> item) override;
-
+    virtual bool ClearBrowsingData(int types = wxWEBVIEW_BROWSING_DATA_ALL,
+                                   wxDateTime since = {}) override;
     virtual void Paste() override;
 
     //Undo / redo functionality
@@ -136,7 +137,7 @@ public:
         else
             return nullptr;
     }
-    virtual wxVersionInfo GetVersionInfo() override;
+    virtual wxVersionInfo GetVersionInfo(wxVersionContext context) override;
     virtual wxWebViewConfiguration CreateConfiguration() override;
 };
 

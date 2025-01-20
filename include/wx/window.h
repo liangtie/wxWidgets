@@ -131,7 +131,9 @@ enum
     wxTOUCH_ZOOM_GESTURE            = 0x0004,
     wxTOUCH_ROTATE_GESTURE          = 0x0008,
     wxTOUCH_PRESS_GESTURES          = 0x0010,
-    wxTOUCH_ALL_GESTURES            = 0x001f
+    wxTOUCH_ALL_GESTURES            = 0x001f,
+
+    wxTOUCH_RAW_EVENTS              = 0x0020
 };
 
 // flags for SendSizeEvent()
@@ -1340,6 +1342,11 @@ public:
 
     // send wxUpdateUIEvents to this window, and children if recurse is true
     virtual void UpdateWindowUI(long flags = wxUPDATE_UI_NONE);
+
+    // do the window-specific processing before processing the update event
+    // (mainly for deciding whether wxUpdateUIEvent::Is3State() is set)
+    virtual void DoPrepareUpdateWindowUI(wxUpdateUIEvent& event) const
+        { event.Allow3rdState(false); }
 
     // do the window-specific processing after processing the update event
     virtual void DoUpdateWindowUI(wxUpdateUIEvent& event) ;

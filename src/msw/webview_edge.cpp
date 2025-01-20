@@ -850,6 +850,7 @@ HRESULT wxWebViewEdgeImpl::OnWebViewCreated(HRESULT result, ICoreWebView2Control
     m_initialized = true;
     UpdateBounds();
     m_webViewController->put_IsVisible(true);
+    m_ctrl->NotifyWebViewCreated();
 
     // Connect and handle the various WebView events
     m_webView->add_NavigationStarting(
@@ -1082,8 +1083,6 @@ bool wxWebViewEdge::Create(wxWindow* parent,
     wxWindow* topLevelParent = wxGetTopLevelParent(this);
     if (topLevelParent)
         topLevelParent->Bind(wxEVT_ICONIZE, &wxWebViewEdge::OnTopLevelParentIconized, this);
-
-    NotifyWebViewCreated();
 
     LoadURL(url);
     return true;
@@ -1345,6 +1344,18 @@ void wxWebViewEdge::EnableAccessToDevTools(bool enable)
         m_impl->m_pendingAccessToDevToolsEnabled = enable ? 1 : 0;
 }
 
+bool wxWebViewEdge::ShowDevTools()
+{
+    const HRESULT hr = m_impl->m_webView->OpenDevToolsWindow();
+    if ( FAILED(hr) )
+    {
+        wxLogApiError("ICoreWebView2::OpenDevToolsWindow", hr);
+        return false;
+    }
+
+    return true;
+}
+
 bool wxWebViewEdge::IsAccessToDevToolsEnabled() const
 {
     wxCOMPtr<ICoreWebView2Settings> settings(m_impl->GetSettings());
@@ -1420,7 +1431,75 @@ bool wxWebViewEdge::SetProxy(const wxString& proxy)
     return configImpl->SetProxy(proxy);
 }
 
-void* wxWebViewEdge::GetNativeBackend() const
+bool wxWebViewEdge::ClearBrowsingData(int types, wxDateTime since)
+{
+    wxCOMPtr<ICoreWebView2_13> webView13;
+    if (FAILED(m_impl->m_webView->QueryInterface(IID_PPV_ARGS(&webView13))))
+        return false;
+    wxCOMPtr<ICoreWebView2Profile> profile;
+    if (FAILED(webView13->get_Profile(&profile)))
+        return false;
+    wxCOMPtr<ICoreWebView2Profile2> profile2;
+    if (FAILED(profile->QueryInterface(IID_PPV_ARGS(&profile2))))
+        return false;
+
+    int dataKinds = 0;
+    if (types & wxWEBVIEW_BROWSING_DATA_ALL)
+    {
+        dataKinds = COREWEBVIEW2_BROWSING_DATA_KINDS_ALL_PROFILE;
+    }
+    else
+    {
+        if (types & wxWEBVIEW_BROWSING_DATA_CACHE)
+            dataKinds |= COREWEBVIEW2_BROWSING_DATA_KINDS_DISK_CACHE;
+
+        // This makes the code a bit more complicated, but prefer to use "ALL
+        // SITE" if we want to delete both cookies and DOM storage because this
+        // will include any other kind of data that may be added in the future.
+        switch ( types & (wxWEBVIEW_BROWSING_DATA_COOKIES |
+                          wxWEBVIEW_BROWSING_DATA_DOM_STORAGE) )
+        {
+            case wxWEBVIEW_BROWSING_DATA_COOKIES:
+                dataKinds |= COREWEBVIEW2_BROWSING_DATA_KINDS_COOKIES;
+                break;
+
+            case wxWEBVIEW_BROWSING_DATA_DOM_STORAGE:
+                dataKinds |= COREWEBVIEW2_BROWSING_DATA_KINDS_ALL_DOM_STORAGE;
+
+            case wxWEBVIEW_BROWSING_DATA_COOKIES | wxWEBVIEW_BROWSING_DATA_DOM_STORAGE:
+                dataKinds |= COREWEBVIEW2_BROWSING_DATA_KINDS_ALL_SITE;
+                break;
+        }
+
+        if (types & wxWEBVIEW_BROWSING_DATA_OTHER)
+        {
+            // All the other kinds not already mentioned above.
+            dataKinds |= COREWEBVIEW2_BROWSING_DATA_KINDS_BROWSING_HISTORY |
+                         COREWEBVIEW2_BROWSING_DATA_KINDS_SETTINGS |
+                         COREWEBVIEW2_BROWSING_DATA_KINDS_DOWNLOAD_HISTORY |
+                         COREWEBVIEW2_BROWSING_DATA_KINDS_GENERAL_AUTOFILL |
+                         COREWEBVIEW2_BROWSING_DATA_KINDS_PASSWORD_AUTOSAVE;
+        }
+    }
+
+    profile2->ClearBrowsingDataInTimeRange(
+        (COREWEBVIEW2_BROWSING_DATA_KINDS) dataKinds,
+        (double) (since.IsValid() ? since.GetTicks() : 0),
+        (double) wxDateTime::Now().GetTicks(),
+        Callback<ICoreWebView2ClearBrowsingDataCompletedHandler>(
+            [this](HRESULT error) -> HRESULT
+        {
+            wxWebViewEvent event(wxEVT_WEBVIEW_BROWSING_DATA_CLEARED, GetId(), wxString(), wxString());
+            event.SetInt(SUCCEEDED(error) ? 1 : 0);
+            event.SetEventObject(this);
+            AddPendingEvent(event);
+            return S_OK;
+        }).Get());
+
+    return true;
+}
+
+void *wxWebViewEdge::GetNativeBackend() const
 {
     return m_impl->m_webView;
 }
@@ -1575,32 +1654,42 @@ bool wxWebViewFactoryEdge::IsAvailable()
     return wxWebViewEdgeImpl::Initialize();
 }
 
-wxVersionInfo wxWebViewFactoryEdge::GetVersionInfo()
+wxVersionInfo wxWebViewFactoryEdge::GetVersionInfo(wxVersionContext context)
 {
-    long major = 0,
-         minor = 0,
-         micro = 0,
-         revision = 0;
-
-    if (wxWebViewEdgeImpl::Initialize())
+    switch ( context )
     {
-        wxCoTaskMemPtr<wchar_t> nativeVersionStr;
-        HRESULT hr = wxGetAvailableCoreWebView2BrowserVersionString(
-            wxWebViewConfigurationImplEdge::ms_browserExecutableDir.wc_str(), &nativeVersionStr);
-        if (SUCCEEDED(hr) && nativeVersionStr)
-        {
-            wxStringTokenizer tk(wxString(nativeVersionStr), ". ");
-            // Ignore the return value because if the version component is missing
-            // or invalid (i.e. non-numeric), the only thing we can do is to ignore
-            // it anyhow.
-            tk.GetNextToken().ToLong(&major);
-            tk.GetNextToken().ToLong(&minor);
-            tk.GetNextToken().ToLong(&micro);
-            tk.GetNextToken().ToLong(&revision);
-        }
+        case wxVersionContext::BuildTime:
+            // There is no build-time version for this backend.
+            break;
+
+        case wxVersionContext::RunTime:
+            long major = 0,
+                 minor = 0,
+                 micro = 0,
+                 revision = 0;
+
+            if (wxWebViewEdgeImpl::Initialize())
+            {
+                wxCoTaskMemPtr<wchar_t> nativeVersionStr;
+                HRESULT hr = wxGetAvailableCoreWebView2BrowserVersionString(
+                    wxWebViewConfigurationImplEdge::ms_browserExecutableDir.wc_str(), &nativeVersionStr);
+                if (SUCCEEDED(hr) && nativeVersionStr)
+                {
+                    wxStringTokenizer tk(wxString(nativeVersionStr), ". ");
+                    // Ignore the return value because if the version component is missing
+                    // or invalid (i.e. non-numeric), the only thing we can do is to ignore
+                    // it anyhow.
+                    tk.GetNextToken().ToLong(&major);
+                    tk.GetNextToken().ToLong(&minor);
+                    tk.GetNextToken().ToLong(&micro);
+                    tk.GetNextToken().ToLong(&revision);
+                }
+            }
+
+            return wxVersionInfo("Microsoft Edge WebView2", major, minor, micro, revision);
     }
 
-    return wxVersionInfo("Microsoft Edge WebView2", major, minor, micro, revision);
+    return {};
 }
 
 wxWebViewConfiguration wxWebViewFactoryEdge::CreateConfiguration()

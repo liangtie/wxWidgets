@@ -16,9 +16,6 @@
 #include "wx/dcprint.h"
 
 #ifndef WX_PRECOMP
-    #if defined(__WXMSW__)
-        #include "wx/msw/wrapcdlg.h"
-    #endif // MSW
     #include "wx/utils.h"
     #include "wx/dc.h"
     #include "wx/app.h"
@@ -63,12 +60,6 @@
 #include "wx/generic/prntdlgg.h"
 #include "wx/dcps.h"
 #endif
-
-#ifdef __WXMSW__
-    #ifndef __WIN32__
-        #include <print.h>
-    #endif
-#endif // __WXMSW__
 
 // The value traditionally used as the default max page number and meaning
 // "infinitely many". It should probably be documented and exposed, but for now
@@ -383,12 +374,15 @@ bool wxPrinter::Print(wxWindow *parent, wxPrintout *printout, bool prompt)
         // If the dialog is not shown, set the pages range to print everything
         // by default (as otherwise we wouldn't print anything at all which is
         // certainly not a reasonable default behaviour).
-        int minPage, maxPage, selFrom, selTo;
-        printout->GetPageInfo(&minPage, &maxPage, &selFrom, &selTo);
+        wxPrintPageRanges ranges;
+        const auto all = printout->GetPagesInfo(ranges);
+        if ( ranges.empty() )
+        {
+            // If the printout didn't specify any pages neither, print them all.
+            ranges.push_back(all);
+        }
 
-        wxPrintDialogData& pdd = m_pimpl->GetPrintDialogData();
-        pdd.SetFromPage(minPage);
-        pdd.SetToPage(maxPage);
+        m_pimpl->GetPrintDialogData().SetPageRanges(ranges);
     }
 
     return m_pimpl->Print( parent, printout, prompt );
@@ -531,13 +525,13 @@ wxPrintAbortDialog::wxPrintAbortDialog(wxWindow *parent,
     mainSizer->Add(new wxStaticText(this, wxID_ANY, _("Please wait while printing...")),
                    wxSizerFlags().Expand().DoubleBorder());
 
-    wxFlexGridSizer *gridSizer = new wxFlexGridSizer(2, wxSize(20, 0));
+    wxFlexGridSizer *gridSizer = new wxFlexGridSizer(2, FromDIP(wxSize(20, 0)));
     gridSizer->Add(new wxStaticText(this, wxID_ANY, _("Document:")));
     gridSizer->AddGrowableCol(1);
     gridSizer->Add(new wxStaticText(this, wxID_ANY, documentTitle));
     gridSizer->Add(new wxStaticText(this, wxID_ANY, _("Progress:")));
     m_progress = new wxStaticText(this, wxID_ANY, _("Preparing"));
-    m_progress->SetMinSize(wxSize(250, -1));
+    m_progress->SetMinSize(FromDIP(wxSize(250, -1)));
     gridSizer->Add(m_progress);
     mainSizer->Add(gridSizer, wxSizerFlags().Expand().DoubleBorder(wxLEFT | wxRIGHT));
 
@@ -631,9 +625,19 @@ void wxPrintout::GetPageInfo(int *minPage, int *maxPage, int *fromPage, int *toP
     *toPage = 1;
 }
 
-bool wxPrintout::IsPageSelected(int WXUNUSED(page))
+wxPrintPageRange wxPrintout::GetPagesInfo(wxPrintPageRanges& ranges)
 {
-    return false;
+    int minPage = 0;
+    int maxPage = 0;
+    int fromPage = 0;
+    int toPage = 0;
+
+    GetPageInfo(&minPage, &maxPage, &fromPage, &toPage);
+
+    if ( fromPage > 0 && toPage >= fromPage )
+        ranges.push_back({fromPage, toPage});
+
+    return { minPage, maxPage };
 }
 
 bool wxPrintout::SetUp(wxDC& dc)
@@ -906,6 +910,7 @@ wxBEGIN_EVENT_TABLE(wxPreviewCanvas, wxScrolledWindow)
     EVT_PAINT(wxPreviewCanvas::OnPaint)
     EVT_CHAR(wxPreviewCanvas::OnChar)
     EVT_IDLE(wxPreviewCanvas::OnIdle)
+    EVT_DPI_CHANGED(wxPreviewCanvas::OnDPIChanged)
     EVT_SYS_COLOUR_CHANGED(wxPreviewCanvas::OnSysColourChanged)
 #if wxUSE_MOUSEWHEEL
     EVT_MOUSEWHEEL(wxPreviewCanvas::OnMouseWheel)
@@ -940,7 +945,7 @@ wxScrolledWindow(parent, wxID_ANY, pos, size, style | wxFULL_REPAINT_ON_RESIZE, 
 
     // Use some reasonable default size for this window, roughly proportional
     // to the paper sheet.
-    SetInitialSize(wxSize(600, 750));
+    SetInitialSize(FromDIP(wxSize(600, 750)));
 }
 
 wxPreviewCanvas::~wxPreviewCanvas()
@@ -982,6 +987,16 @@ void wxPreviewCanvas::OnIdle(wxIdleEvent& event)
     }
 
     s_inIdle = false;
+}
+
+void wxPreviewCanvas::OnDPIChanged(wxDPIChangedEvent& event)
+{
+    if ( m_printPreview )
+    {
+        m_printPreview->WXUpdateOnDPIChanged();
+    }
+
+    event.Skip();
 }
 
 // Responds to colour changes, and passes event on to children.
@@ -1941,8 +1956,8 @@ void wxPrintPreviewBase::CalcRects(wxPreviewCanvas *canvas, wxRect& pageRect, wx
     canvas->GetSize(&canvasWidth, &canvasHeight);
 
     float zoomScale = m_currentZoom / 100.0f;
-    float screenPrintableWidth = zoomScale * m_pageWidth * m_previewScaleX;
-    float screenPrintableHeight = zoomScale * m_pageHeight * m_previewScaleY;
+    float screenPrintableWidth = zoomScale * canvas->FromDIP(m_pageWidth) * m_previewScaleX;
+    float screenPrintableHeight = zoomScale * canvas->FromDIP(m_pageHeight) * m_previewScaleY;
 
     wxRect devicePaperRect = m_previewPrintout->GetPaperRectPixels();
     wxCoord devicePrintableWidth, devicePrintableHeight;
@@ -2041,8 +2056,11 @@ bool wxPrintPreviewBase::RenderPageIntoDC(wxDC& dc, int pageNum)
         m_printingPrepared = true;
 
         m_previewPrintout->OnPreparePrinting();
-        int selFrom, selTo;
-        m_previewPrintout->GetPageInfo(&m_minPage, &m_maxPage, &selFrom, &selTo);
+
+        wxPrintPageRanges ranges;
+        const auto all = m_previewPrintout->GetPagesInfo(ranges);
+        m_minPage = all.fromPage;
+        m_maxPage = all.toPage;
 
         // Update the wxPreviewControlBar page range display.
         if ( m_previewFrame )
@@ -2095,7 +2113,9 @@ bool wxPrintPreviewBase::RenderPage(int pageNum)
 
     if (!m_previewBitmap)
     {
-        m_previewBitmap = new wxBitmap(pageRect.width, pageRect.height);
+        m_previewBitmap = new wxBitmap();
+        m_previewBitmap->CreateWithLogicalSize( pageRect.width, pageRect.height,
+                                        m_previewCanvas->GetDPIScaleFactor() );
 
         if (!m_previewBitmap || !m_previewBitmap->IsOk())
         {
@@ -2133,7 +2153,7 @@ bool wxPrintPreviewBase::DrawBlankPage(wxPreviewCanvas *canvas, wxDC& dc)
     CalcRects(canvas, pageRect, paperRect);
 
     // Draw shadow, allowing for 1-pixel border AROUND the actual paper
-    wxCoord shadowOffset = 4;
+    wxCoord shadowOffset = dc.FromDIP(4);
 
     dc.SetPen(*wxBLACK_PEN);
     dc.SetBrush(*wxBLACK_BRUSH);
@@ -2144,10 +2164,11 @@ bool wxPrintPreviewBase::DrawBlankPage(wxPreviewCanvas *canvas, wxDC& dc)
         shadowOffset, paperRect.height);
 
     // Draw blank page allowing for 1-pixel border AROUND the actual paper
-    dc.SetPen(*wxBLACK_PEN);
+    dc.SetPen(wxPen(*wxBLACK, dc.FromDIP(1), wxPENSTYLE_SOLID));
     dc.SetBrush(*wxWHITE_BRUSH);
-    dc.DrawRectangle(paperRect.x - 1, paperRect.y - 1,
-        paperRect.width + 2, paperRect.height + 2);
+    wxCoord borderOffset = wxRound(dc.GetPen().GetWidth() / 2.0);
+    dc.DrawRectangle(paperRect.x - borderOffset, paperRect.y - borderOffset,
+        paperRect.width + 2*borderOffset, paperRect.height + 2*borderOffset);
 
     return true;
 }
@@ -2186,6 +2207,19 @@ bool wxPrintPreviewBase::IsOk() const
 { return m_isOk; }
 void wxPrintPreviewBase::SetOk(bool ok)
 { m_isOk = ok; }
+
+void wxPrintPreviewBase::WXUpdateOnDPIChanged()
+{
+    InvalidatePreviewBitmap();
+    UpdatePageRendering();
+
+    if (m_previewCanvas)
+    {
+        AdjustScrollbars(m_previewCanvas);
+
+        m_previewCanvas->Refresh();
+    }
+}
 
 //----------------------------------------------------------------------------
 // wxPrintPreview
@@ -2324,6 +2358,11 @@ bool wxPrintPreview::IsOk() const
 void wxPrintPreview::SetOk(bool ok)
 {
     m_pimpl->SetOk( ok );
+}
+
+void wxPrintPreview::WXUpdateOnDPIChanged()
+{
+    m_pimpl->WXUpdateOnDPIChanged();
 }
 
 bool wxPrintPreview::Print(bool interactive)

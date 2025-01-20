@@ -188,83 +188,15 @@ int gs_modalEntryWindowCount = 0;
 // Indicates whether we are currently processing WM_CAPTURECHANGED message.
 bool gs_insideCaptureChanged = false;
 
-} // anonymous namespace
-
-#ifdef WM_GESTURE
-
-namespace
-{
-
-// Class used to dynamically load gestures related API functions.
-class GestureFuncs
-{
-public:
-    // Must be called before using any other methods of this class (and they
-    // can't be used if this one returns false).
-    static bool IsOk()
-    {
-        if ( !ms_gestureSymbolsLoaded )
-        {
-            ms_gestureSymbolsLoaded = true;
-            LoadGestureSymbols();
-        }
-
-        return ms_pfnGetGestureInfo &&
-                ms_pfnCloseGestureInfoHandle &&
-                    ms_pfnSetGestureConfig;
-    }
-
-    typedef BOOL (WINAPI *GetGestureInfo_t)(HGESTUREINFO, PGESTUREINFO);
-
-    static GetGestureInfo_t GetGestureInfo()
-    {
-        return ms_pfnGetGestureInfo;
-    }
-
-    typedef BOOL (WINAPI *CloseGestureInfoHandle_t)(HGESTUREINFO);
-
-    static CloseGestureInfoHandle_t CloseGestureInfoHandle()
-    {
-        return ms_pfnCloseGestureInfoHandle;
-    }
-
-    typedef BOOL
-        (WINAPI *SetGestureConfig_t)(HWND, DWORD, UINT, PGESTURECONFIG, UINT);
-
-    static SetGestureConfig_t SetGestureConfig()
-    {
-        return ms_pfnSetGestureConfig;
-    }
-
-private:
-    static void LoadGestureSymbols()
-    {
-        wxLoadedDLL dll(wxS("user32.dll"));
-
-        wxDL_INIT_FUNC(ms_pfn, GetGestureInfo, dll);
-        wxDL_INIT_FUNC(ms_pfn, CloseGestureInfoHandle, dll);
-        wxDL_INIT_FUNC(ms_pfn, SetGestureConfig, dll);
-    }
-
-    static GetGestureInfo_t ms_pfnGetGestureInfo;
-    static CloseGestureInfoHandle_t ms_pfnCloseGestureInfoHandle;
-    static SetGestureConfig_t ms_pfnSetGestureConfig;
-
-    static bool ms_gestureSymbolsLoaded;
-};
-
-GestureFuncs::GetGestureInfo_t
-    GestureFuncs::ms_pfnGetGestureInfo = nullptr;
-GestureFuncs::CloseGestureInfoHandle_t
-    GestureFuncs::ms_pfnCloseGestureInfoHandle = nullptr;
-GestureFuncs::SetGestureConfig_t
-    GestureFuncs::ms_pfnSetGestureConfig = nullptr;
-
-bool GestureFuncs::ms_gestureSymbolsLoaded = false;
+// Set to true once we receive WM_ENDSESSION: after this happens we know that
+// the process will shut down, so we try to do as little as possible and
+// notably don't delete any windows as this is not only useless (everything
+// will be torn down by the OS anyhow) but also dangerous as it could lead to
+// getting another WM_ENDSESSION when dispatching messages happening during
+// their destruction.
+bool gs_gotEndSession = false;
 
 } // anonymous namespace
-
-#endif // WM_GESTURE
 
 // ---------------------------------------------------------------------------
 // private functions
@@ -344,6 +276,16 @@ void wxGetCursorPosMSW(POINT* pt)
         pt->x = GET_X_LPARAM(pos);
         pt->y = GET_Y_LPARAM(pos);
     }
+}
+
+// Checks if the mouse event originated from a pen or touchscreen.
+// This only works for the current (i.e. last received) mouse event.
+static bool wxIsTouchEventMSW()
+{
+    // From https://learn.microsoft.com/en-us/windows/win32/tablet/system-events-and-mouse-messages
+    const LONG_PTR MI_WP_SIGNATURE = 0xFF515700;
+    const LONG_PTR SIGNATURE_MASK = 0xFFFFFF00;
+    return (::GetMessageExtraInfo() & SIGNATURE_MASK) == MI_WP_SIGNATURE;
 }
 
 // ---------------------------------------------------------------------------
@@ -469,8 +411,10 @@ wxWindowMSW::~wxWindowMSW()
 
     if ( m_hWnd )
     {
-        // VZ: test temp removed to understand what really happens here
-        //if (::IsWindow(GetHwnd()))
+        // Don't destroy the window when shutting down, this is unnecessary and
+        // can result in other messages being generated and possibly resulting
+        // in WM_ENDSESSION reentrancy.
+        if ( !gs_gotEndSession )
         {
             if ( !::DestroyWindow(GetHwnd()) )
             {
@@ -946,119 +890,123 @@ void wxWindowMSW::WarpPointer(int x, int y)
 
 bool wxWindowMSW::EnableTouchEvents(int eventsMask)
 {
-#ifdef WM_GESTURE
-    if ( GestureFuncs::IsOk() )
+    // Static struct used when we need to use just a single configuration.
+    GESTURECONFIG config = {0, 0, 0};
+
+    GESTURECONFIG* ptrConfigs = &config;
+    UINT numConfigs = 1;
+
+    // This is used only if we need to allocate the configurations
+    // dynamically.
+    wxVector<GESTURECONFIG> configs;
+
+    if ( eventsMask & wxTOUCH_RAW_EVENTS )
     {
-        // Static struct used when we need to use just a single configuration.
-        GESTURECONFIG config = {0, 0, 0};
-
-        GESTURECONFIG* ptrConfigs = &config;
-        UINT numConfigs = 1;
-
-        // This is used only if we need to allocate the configurations
-        // dynamically.
-        wxVector<GESTURECONFIG> configs;
-
-        // There are two simple cases: enabling or disabling all gestures.
-        if ( eventsMask == wxTOUCH_NONE )
-        {
-            config.dwBlock = GC_ALLGESTURES;
-        }
-        else if ( eventsMask == wxTOUCH_ALL_GESTURES )
-        {
-            config.dwWant = GC_ALLGESTURES;
-        }
-        else // Need to enable the individual gestures
-        {
-            int wantedPan = 0;
-            switch ( eventsMask & wxTOUCH_PAN_GESTURES )
-            {
-                case wxTOUCH_VERTICAL_PAN_GESTURE:
-                    wantedPan = GC_PAN_WITH_SINGLE_FINGER_VERTICALLY;
-                    break;
-
-                case wxTOUCH_HORIZONTAL_PAN_GESTURE:
-                    wantedPan = GC_PAN_WITH_SINGLE_FINGER_HORIZONTALLY;
-                    break;
-
-                case wxTOUCH_PAN_GESTURES:
-                    wantedPan = GC_PAN;
-                    break;
-
-                case 0:
-                    // This is the only other possibility and wantedPan is
-                    // already initialized to 0 anyhow, so don't do anything,
-                    // just list it for completeness.
-                    break;
-            }
-
-            if ( wantedPan )
-            {
-                eventsMask &= ~wxTOUCH_PAN_GESTURES;
-
-                config.dwID = GID_PAN;
-                config.dwWant = wantedPan;
-                configs.push_back(config);
-            }
-
-            if ( eventsMask & wxTOUCH_ZOOM_GESTURE )
-            {
-                eventsMask &= ~wxTOUCH_ZOOM_GESTURE;
-
-                config.dwID = GID_ZOOM;
-                config.dwWant = GC_ZOOM;
-                configs.push_back(config);
-            }
-
-            if ( eventsMask & wxTOUCH_ROTATE_GESTURE )
-            {
-                eventsMask &= ~wxTOUCH_ROTATE_GESTURE;
-
-                config.dwID = GID_ROTATE;
-                config.dwWant = GC_ROTATE;
-                configs.push_back(config);
-            }
-
-            if ( eventsMask & wxTOUCH_PRESS_GESTURES )
-            {
-                eventsMask &= ~wxTOUCH_PRESS_GESTURES;
-
-                config.dwID = GID_TWOFINGERTAP;
-                config.dwWant = GC_TWOFINGERTAP;
-                configs.push_back(config);
-
-                config.dwID = GID_PRESSANDTAP;
-                config.dwWant = GC_PRESSANDTAP;
-                configs.push_back(config);
-            }
-
-            // As we clear all the known bits if they're set in the code above,
-            // there should be nothing left.
-            wxCHECK_MSG( eventsMask == 0, false,
-                         wxS("Unknown touch event mask bit specified") );
-
-            ptrConfigs = &configs[0];
-        }
-
-        if ( !GestureFuncs::SetGestureConfig()
-             (
-                m_hWnd,
-                wxRESERVED_PARAM,
-                numConfigs,             // Number of gesture configurations.
-                ptrConfigs,             // Pointer to the first one.
-                sizeof(GESTURECONFIG)   // Size of each configuration.
-             )
-           )
-        {
+        eventsMask &= ~wxTOUCH_RAW_EVENTS;
+         if ( !::RegisterTouchWindow(m_hWnd, 0) )
             wxLogLastError("SetGestureConfig");
-            return false;
+    }
+    else
+    {
+        ::UnregisterTouchWindow(m_hWnd);
+    }
+
+    // There are two simple cases: enabling or disabling all gestures.
+    if ( eventsMask == wxTOUCH_NONE )
+    {
+        config.dwBlock = GC_ALLGESTURES;
+    }
+    else if ( eventsMask == wxTOUCH_ALL_GESTURES )
+    {
+        config.dwWant = GC_ALLGESTURES;
+    }
+    else // Need to enable the individual gestures
+    {
+        int wantedPan = 0;
+        switch ( eventsMask & wxTOUCH_PAN_GESTURES )
+        {
+            case wxTOUCH_VERTICAL_PAN_GESTURE:
+                wantedPan = GC_PAN_WITH_SINGLE_FINGER_VERTICALLY;
+                break;
+
+            case wxTOUCH_HORIZONTAL_PAN_GESTURE:
+                wantedPan = GC_PAN_WITH_SINGLE_FINGER_HORIZONTALLY;
+                break;
+
+            case wxTOUCH_PAN_GESTURES:
+                wantedPan = GC_PAN;
+                break;
+
+            case 0:
+                // This is the only other possibility and wantedPan is
+                // already initialized to 0 anyhow, so don't do anything,
+                // just list it for completeness.
+                break;
         }
 
-        return true;
-    }
-#endif // WM_GESTURE
+        if ( wantedPan )
+        {
+            eventsMask &= ~wxTOUCH_PAN_GESTURES;
 
-    return wxWindowBase::EnableTouchEvents(eventsMask);
+            config.dwID = GID_PAN;
+            config.dwWant = wantedPan;
+            configs.push_back(config);
+        }
+
+        if ( eventsMask & wxTOUCH_ZOOM_GESTURE )
+        {
+            eventsMask &= ~wxTOUCH_ZOOM_GESTURE;
+
+            config.dwID = GID_ZOOM;
+            config.dwWant = GC_ZOOM;
+            configs.push_back(config);
+        }
+
+        if ( eventsMask & wxTOUCH_ROTATE_GESTURE )
+        {
+            eventsMask &= ~wxTOUCH_ROTATE_GESTURE;
+
+            config.dwID = GID_ROTATE;
+            config.dwWant = GC_ROTATE;
+            configs.push_back(config);
+        }
+
+        if ( eventsMask & wxTOUCH_PRESS_GESTURES )
+        {
+            eventsMask &= ~wxTOUCH_PRESS_GESTURES;
+
+            config.dwID = GID_TWOFINGERTAP;
+            config.dwWant = GC_TWOFINGERTAP;
+            configs.push_back(config);
+
+            config.dwID = GID_PRESSANDTAP;
+            config.dwWant = GC_PRESSANDTAP;
+            configs.push_back(config);
+        }
+
+        // As we clear all the known bits if they're set in the code above,
+        // there should be nothing left.
+        wxCHECK_MSG( eventsMask == 0, false,
+                     wxS("Unknown touch event mask bit specified") );
+
+        ptrConfigs = &configs[0];
+    }
+
+    if ( !::SetGestureConfig
+         (
+            m_hWnd,
+            wxRESERVED_PARAM,
+            numConfigs,             // Number of gesture configurations.
+            ptrConfigs,             // Pointer to the first one.
+            sizeof(GESTURECONFIG)   // Size of each configuration.
+         )
+       )
+    {
+        wxLogLastError("SetGestureConfig");
+        return false;
+    }
+
+    return true;
 }
 
 void wxWindowMSW::MSWUpdateUIState(int action, int state)
@@ -1553,6 +1501,14 @@ wxBorder wxWindowMSW::DoTranslateBorder(wxBorder border) const
 {
     if (border == wxBORDER_THEME)
     {
+        // In dark mode the standard sunken border is too bright, so prefer
+        // using a simple(r) and darker border instead.
+        //
+        // And themed borders don't look good either in dark mode, so don't
+        // use them in it.
+        if ( wxMSWDarkMode::IsActive() )
+            return wxBORDER_SIMPLE;
+
 #if wxUSE_UXTHEME
         if (CanApplyThemeBorder())
         {
@@ -1561,9 +1517,7 @@ wxBorder wxWindowMSW::DoTranslateBorder(wxBorder border) const
         }
 #endif // wxUSE_UXTHEME
 
-        // In dark mode the standard sunken border is too bright, so prefer
-        // using a simple(r) and darker border instead.
-        return wxMSWDarkMode::IsActive() ? wxBORDER_SIMPLE : wxBORDER_SUNKEN;
+        return wxBORDER_SUNKEN;
     }
 
     return border;
@@ -2518,11 +2472,13 @@ wxWindowMSW::HandleMenuSelect(WXWORD nItem, WXWORD flags, WXHMENU hMenu)
     // the top level menus of the menu bar, which can't be represented using
     // any valid identifier in wxMenuEvent so use an otherwise unused value for
     // them
-    if ( flags & (MF_POPUP | MF_SEPARATOR) )
+    if ( flags & MF_SEPARATOR )
         item = wxID_NONE;
 
     wxMenu* menu = MSWFindMenuFromHMENU(hMenu);
-    wxMenuEvent event(wxEVT_MENU_HIGHLIGHT, item, menu);
+    wxMenuItem* menuItem = MSWFindMenuItemFromHMENU(hMenu, item);
+
+    wxMenuEvent event(wxEVT_MENU_HIGHLIGHT, item, menu, menuItem);
     if ( wxMenu::ProcessMenuEvent(menu, event, this) )
         return true;
 
@@ -2569,6 +2525,37 @@ wxMenu* wxWindowMSW::MSWFindMenuFromHMENU(WXHMENU hMenu)
         return wxCurrentPopupMenu;
 
     return nullptr;
+}
+
+wxMenuItem* wxWindowMSW::MSWFindMenuItemFromHMENU(WXHMENU hMenu, int item)
+{
+    WinStruct<MENUITEMINFO> mii;
+    mii.fMask = MIIM_ID | MIIM_DATA; // Include MIIM_DATA to access dwItemData
+
+    const int count = ::GetMenuItemCount(hMenu);
+    for ( int i = 0; i < count; i++ )
+    {
+        if ( ::GetMenuItemInfo(hMenu, i, TRUE, &mii) )
+        {
+            wxMenuItem* menuItem = (wxMenuItem*)mii.dwItemData;
+            if ( mii.wID == (unsigned int)item && menuItem )
+            {
+                return menuItem;
+            }
+
+            // Check for submenus
+            if ( mii.hSubMenu )
+            {
+                wxMenuItem* foundInSubmenu = MSWFindMenuItemFromHMENU(mii.hSubMenu, item);
+                if ( foundInSubmenu )
+                {
+                    return foundInSubmenu;
+                }
+            }
+        }
+    }
+
+    return nullptr; // Not found
 }
 
 #endif // wxUSE_MENUS && !defined(__WXUNIVERSAL__)
@@ -3495,16 +3482,12 @@ wxWindowMSW::MSWHandleMessage(WXLRESULT *result,
             }
             break;
 
-#ifdef WM_GESTURE
         case WM_GESTURE:
         {
-            if ( !GestureFuncs::IsOk() )
-                break;
-
             HGESTUREINFO hGestureInfo = reinterpret_cast<HGESTUREINFO>(lParam);
 
             WinStruct<GESTUREINFO> gestureInfo;
-            if ( !GestureFuncs::GetGestureInfo()(hGestureInfo, &gestureInfo) )
+            if ( !GetGestureInfo(hGestureInfo, &gestureInfo) )
             {
                 wxLogLastError("GetGestureInfo");
                 break;
@@ -3564,14 +3547,19 @@ wxWindowMSW::MSWHandleMessage(WXLRESULT *result,
             if ( processed )
             {
                 // If processed, we must call this to avoid memory leaks
-                if ( !GestureFuncs::CloseGestureInfoHandle()(hGestureInfo) )
+                if ( !::CloseGestureInfoHandle(hGestureInfo) )
                 {
                     wxLogLastError("CloseGestureInfoHandle");
                 }
             }
         }
         break;
-#endif // WM_GESTURE
+
+        case WM_TOUCH:
+            // We consider this event to be processed if all touch events were
+            // handled, otherwise we still pass them to DefWindowProc().
+            processed = HandleTouch(wParam, lParam);
+            break;
 
         // CTLCOLOR messages are sent by children to query the parent for their
         // colors
@@ -4287,34 +4275,71 @@ bool wxWindowMSW::MSWOnNotify(int WXUNUSED(idCtrl),
 // end session messages
 // ---------------------------------------------------------------------------
 
+namespace
+{
+
+// Possible values for the flag below.
+enum class QueryEndSession
+{
+    Unknown,
+    Allow,
+    Veto
+};
+
+// This flag is set to either Allow or Veto when our first top level window
+// gets WM_QUERYENDSESSION in order to allow all the other windows to just
+// return the same value without asking the user again, because this should
+// have been already done in wxApp::OnQueryEndSession().
+QueryEndSession gs_queryEndSession = QueryEndSession::Unknown;
+
+} // anonymous namespace
+
 bool wxWindowMSW::HandleQueryEndSession(long logOff, bool *mayEnd)
 {
-    wxCloseEvent event(wxEVT_QUERY_END_SESSION, wxID_ANY);
-    event.SetEventObject(wxTheApp);
-    event.SetCanVeto(true);
-    event.SetLoggingOff(logOff == (long)ENDSESSION_LOGOFF);
-
-    bool rc = wxTheApp->SafelyProcessEvent(event);
-
-    if ( rc )
+    if ( gs_queryEndSession == QueryEndSession::Unknown )
     {
-        // we may end only if the app didn't veto session closing (double
-        // negation...)
-        *mayEnd = !event.GetVeto();
+        // Make sure we won't generate another wxEVT_QUERY_END_SESSION.
+        gs_queryEndSession = QueryEndSession::Allow;
+
+        wxCloseEvent event(wxEVT_QUERY_END_SESSION, wxID_ANY);
+        event.SetEventObject(wxTheApp);
+        event.SetCanVeto(true);
+        event.SetLoggingOff(logOff == (long)ENDSESSION_LOGOFF);
+
+        if ( !wxTheApp->SafelyProcessEvent(event) )
+        {
+            // If the event wasn't handled at all, skip all the rest.
+            return false;
+        }
+
+        if ( event.GetVeto() )
+            gs_queryEndSession = QueryEndSession::Veto;
     }
 
-    return rc;
+    *mayEnd = gs_queryEndSession == QueryEndSession::Allow;
+
+    return true;
 }
 
 bool wxWindowMSW::HandleEndSession(bool endSession, long logOff)
 {
-    // do nothing if the session isn't ending
+    // If the session isn't ending we don't need to generate any events, but we
+    // need to reset the flag set in HandleQueryEndSession() to make sure we
+    // send wxEVT_QUERY_END_SESSION again next time.
     if ( !endSession )
+    {
+        gs_queryEndSession = QueryEndSession::Unknown;
         return false;
+    }
 
-    // only send once
-    if ( this != wxApp::GetMainTopWindow() )
+    if ( gs_gotEndSession )
+    {
+        // Never generate wxEVT_END_SESSION twice, this can only result in
+        // trouble, such as trying to delete the already deleted window.
         return false;
+    }
+
+    gs_gotEndSession = true;
 
     wxCloseEvent event(wxEVT_END_SESSION, wxID_ANY);
     event.SetEventObject(wxTheApp);
@@ -5928,6 +5953,8 @@ void wxWindowMSW::InitMouseEvent(wxMouseEvent& event,
     event.m_aux2Down = (flags & MK_XBUTTON2) != 0;
     event.m_altDown = ::wxIsAltDown();
 
+    event.m_synthesized = wxIsTouchEventMSW();
+
     event.SetTimestamp(::GetMessageTime());
 
     event.SetEventObject(this);
@@ -6154,7 +6181,6 @@ void wxWindowMSW::GenerateMouseLeave()
     (void)HandleWindowEvent(event);
 }
 
-#ifdef WM_GESTURE
 // ---------------------------------------------------------------------------
 // Gesture events
 // ---------------------------------------------------------------------------
@@ -6290,7 +6316,51 @@ bool wxWindowMSW::HandlePressAndTap(const wxPoint& pt, WXDWORD flags)
 
     return HandleWindowEvent(event);
 }
-#endif // WM_GESTURE
+
+bool wxWindowMSW::HandleTouch(WXWPARAM wParam, WXLPARAM lParam)
+{
+    const unsigned count = LOWORD(wParam);
+    const HTOUCHINPUT hTouchInput = (HTOUCHINPUT)lParam;
+    wxVector<TOUCHINPUT> info(count);
+    if ( !::GetTouchInputInfo(hTouchInput, count, &info[0], sizeof(TOUCHINPUT)) )
+    {
+        wxLogLastError(wxT("GetTouchInputInfo"));
+        return false;
+    }
+
+    bool allHandled = true;
+    for ( const auto& input : info )
+    {
+        // hundredths of a pixel of physical screen coordinates
+        wxPoint2DDouble pt(input.x / 100.0, input.y / 100.0);
+        wxPoint ref = pt.GetFloor();
+        wxPoint2DDouble pos = ScreenToClient(ref) + (pt - ref);
+
+        wxEventType type;
+        if ( input.dwFlags & TOUCHEVENTF_DOWN )
+            type = wxEVT_TOUCH_BEGIN;
+        else if ( input.dwFlags & TOUCHEVENTF_MOVE )
+            type = wxEVT_TOUCH_MOVE;
+        else if ( input.dwFlags & TOUCHEVENTF_UP )
+            type = wxEVT_TOUCH_END;
+        else
+        {
+            allHandled = false;
+            continue;
+        }
+
+        wxMultiTouchEvent event( GetId(), type);
+
+        event.SetEventObject( this );
+        event.SetPosition(pos);
+        event.SetSequenceId(wxTouchSequenceId(wxUIntToPtr(input.dwID + 1)));
+        event.SetPrimary( (input.dwFlags & TOUCHEVENTF_PRIMARY) != 0 );
+        if ( !HandleWindowEvent(event) )
+            allHandled = false;
+    }
+
+    return allHandled;
+}
 
 // ---------------------------------------------------------------------------
 // keyboard handling

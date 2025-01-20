@@ -185,7 +185,7 @@ public :
 
     virtual wxContentProtection GetContentProtection() const override
         {  return wxCONTENT_PROTECTION_NONE; }
-    virtual bool SetContentProtection(wxContentProtection contentProtection) override
+    virtual bool SetContentProtection(wxContentProtection WXUNUSED(contentProtection)) override
         { return false; }
 
     virtual void RequestUserAttention(int flags) override;
@@ -213,6 +213,8 @@ protected :
     WXDLLIMPEXP_CORE wxRect wxFromNSRect( UIView* parent, const CGRect& rect );
     WXDLLIMPEXP_CORE CGPoint wxToNSPoint( UIView* parent, const wxPoint& p );
     WXDLLIMPEXP_CORE wxPoint wxFromNSPoint( UIView* parent, const CGPoint& p );
+    WXDLLIMPEXP_CORE CGPoint wxToNSPointF(UIView* parent, const wxPoint2DDouble& p);
+    WXDLLIMPEXP_CORE wxPoint2DDouble wxFromNSPointF(UIView* parent, const CGPoint& p);
 
     CGRect WXDLLIMPEXP_CORE wxOSXGetFrameForControl( wxWindowMac* window , const wxPoint& pos , const wxSize &size ,
         bool adjustForOrigin = true );

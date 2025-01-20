@@ -16,6 +16,8 @@ wx_option(wxBUILD_TESTS "Build console tests (CONSOLE_ONLY) or ALL" OFF
     STRINGS CONSOLE_ONLY ALL OFF)
 wx_option(wxBUILD_DEMOS "Build demos" OFF)
 wx_option(wxBUILD_BENCHMARKS "Build benchmarks" OFF)
+wx_option(wxBUILD_LOCALES "Build locales" AUTO STRINGS ON OFF AUTO)
+mark_as_advanced(wxBUILD_LOCALES)
 wx_option(wxBUILD_PRECOMP "Use precompiled headers" ON STRINGS ON OFF COTIRE)
 mark_as_advanced(wxBUILD_PRECOMP)
 wx_option(wxBUILD_INSTALL "Create install/uninstall target for wxWidgets")
@@ -75,6 +77,18 @@ mark_as_advanced(wxBUILD_STRIPPED_RELEASE)
 wx_option(wxBUILD_PIC "Enable position independent code (PIC)." ON)
 mark_as_advanced(wxBUILD_PIC)
 wx_option(wxUSE_NO_RTTI "disable RTTI support" OFF)
+
+set(wxBUILD_INSTALL_RUNTIME_DIR "" CACHE PATH "override default sub-directory to install runtime files")
+mark_as_advanced(wxBUILD_INSTALL_RUNTIME_DIR)
+set(wxBUILD_INSTALL_LIBRARY_DIR "" CACHE PATH "override default sub-directory to install library files")
+mark_as_advanced(wxBUILD_INSTALL_LIBRARY_DIR)
+set(wxBUILD_INSTALL_ARCHIVE_DIR "" CACHE PATH "override default sub-directory to install archive files")
+mark_as_advanced(wxBUILD_INSTALL_ARCHIVE_DIR)
+wx_option(wxBUILD_INSTALL_PLATFORM_SUBDIR "platform specific sub-directory (MSVC-naming)" ON)
+mark_as_advanced(wxBUILD_INSTALL_PLATFORM_SUBDIR)
+wx_option(wxBUILD_INSTALL_PDB "install pdb files in the runtime direcotry (MSVC)" OFF)
+mark_as_advanced(wxBUILD_INSTALL_PDB)
+
 
 # STL options
 wx_option(wxUSE_STD_IOSTREAM "use standard C++ streams" ON)
@@ -183,7 +197,6 @@ wx_option(wxUSE_FSVOLUME "use wxFSVolume class")
 wx_option(wxUSE_FSWATCHER "use wxFileSystemWatcher class")
 wx_option(wxUSE_GEOMETRY "use geometry class")
 wx_option(wxUSE_LOG "use logging system")
-wx_option(wxUSE_LONGLONG "use wxLongLong class")
 wx_option(wxUSE_MIMETYPE "use wxMimeTypesManager")
 wx_option(wxUSE_PRINTF_POS_PARAMS "use wxVsnprintf() which supports positional parameters")
 wx_option(wxUSE_SECRETSTORE "use wxSecretStore class")
@@ -392,7 +405,6 @@ wx_option(wxUSE_TREELISTCTRL "use wxTreeListCtrl class")
 # common dialogs
 # ---------------------------------------------------------------------------
 
-wx_option(wxUSE_COMMON_DIALOGS "use all common dialogs")
 wx_option(wxUSE_ABOUTDLG "use wxAboutBox")
 wx_option(wxUSE_CHOICEDLG "use wxChoiceDialog")
 wx_option(wxUSE_COLOURDLG "use wxColourDialog")

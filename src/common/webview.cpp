@@ -57,6 +57,7 @@ wxDEFINE_EVENT( wxEVT_WEBVIEW_TITLE_CHANGED, wxWebViewEvent );
 wxDEFINE_EVENT( wxEVT_WEBVIEW_FULLSCREEN_CHANGED, wxWebViewEvent);
 wxDEFINE_EVENT( wxEVT_WEBVIEW_SCRIPT_MESSAGE_RECEIVED, wxWebViewEvent);
 wxDEFINE_EVENT( wxEVT_WEBVIEW_SCRIPT_RESULT, wxWebViewEvent);
+wxDEFINE_EVENT( wxEVT_WEBVIEW_BROWSING_DATA_CLEARED, wxWebViewEvent);
 
 // wxWebViewConfigurationDefault
 class wxWebViewConfigurationImplDefault : public wxWebViewConfigurationImpl
@@ -476,11 +477,13 @@ bool wxWebView::IsBackendAvailable(const wxString& backend)
         return false;
 }
 
-wxVersionInfo wxWebView::GetBackendVersionInfo(const wxString& backend)
+wxVersionInfo
+wxWebView::GetBackendVersionInfo(const wxString& backend,
+                                 wxVersionContext context)
 {
     wxStringWebViewFactoryMap::iterator iter = FindFactory(backend);
     if (iter != m_factoryMap.end())
-        return iter->second->GetVersionInfo();
+        return iter->second->GetVersionInfo(context);
     else
         return wxVersionInfo();
 }

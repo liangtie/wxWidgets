@@ -402,23 +402,8 @@ is_cross()  { [ "x@cross_compiling@" = "xyes" ]; }
 
 
 # Determine the base directories we require.
-vcpkg_prefix=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd -P)
-case "$vcpkg_prefix" in
-    */lib/wx/config)
-        vcpkg_prefix=${vcpkg_prefix%/*/*/*}
-        ;;
-    */tools/wxwidgets/debug)
-        vcpkg_prefix=${vcpkg_prefix%/*/*/*}/debug
-        ;;
-    */tools/wxwidgets)
-        vcpkg_prefix=${vcpkg_prefix%/*/*}
-        ;;
-esac
-if [ -n "@MINGW@" -a -n "@CMAKE_HOST_WIN32@" ]; then
-    vcpkg_prefix=$(cygpath -m "$vcpkg_prefix")
-fi
-prefix=${input_option_prefix-${this_prefix:-$vcpkg_prefix}}
-exec_prefix=${input_option_exec_prefix-${input_option_prefix-${this_exec_prefix:-$prefix}}}
+prefix=${input_option_prefix-${this_prefix:-@prefix@}}
+exec_prefix=${input_option_exec_prefix-${input_option_prefix-${this_exec_prefix:-@exec_prefix@}}}
 wxconfdir="@libdir@/wx/config"
 
 installed_configs=`cd "$wxconfdir" 2> /dev/null && ls | grep -v "^inplace-"`
@@ -955,9 +940,6 @@ prefix=${this_prefix-$prefix}
 exec_prefix=${this_exec_prefix-$exec_prefix}
 
 includedir="@includedir@"
-if [ "@CMAKE_BUILD_TYPE@" = "Debug" ] ; then
-    includedir="${includedir%/debug/include}/include"
-fi
 libdir="@libdir@"
 bindir="@bindir@"
 
@@ -1315,8 +1297,8 @@ _cppflags=`echo "-I${libdir}/wx/include/@TOOLCHAIN_FULLNAME@" $_include_cppflags
 
 # now without further ado, we can answer these too.
 [ -z "$output_option_cppflags" ] || echo $_cppflags
-[ -z "$output_option_cflags"   ] || echo $_cppflags "@WXCONFIG_CFLAGS@"
-[ -z "$output_option_cxxflags" ] || echo $_cppflags "@WXCONFIG_CXXFLAGS@"
+[ -z "$output_option_cflags"   ] || echo $_cppflags @WXCONFIG_CFLAGS@
+[ -z "$output_option_cxxflags" ] || echo $_cppflags @WXCONFIG_CXXFLAGS@
 [ -z "$output_option_gl_libs"  ] || echo `lib_flags_for gl`
 [ -z "$output_option_linkdeps" ] || echo $link_deps
 
