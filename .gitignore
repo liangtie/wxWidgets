@@ -84,6 +84,8 @@
 /build/msw/*.vcproj.*.user
 /build/msw/*.vcxproj.user
 /build/msw/vc*_mswud
+/build/msw/wx_vc8arm_*.vcproj
+/build/msw/wx_vc8arm.sln
 /build/msw/ipch/
 /build/msw/*.opensdf
 /build/msw/*.sdf
@@ -453,3 +455,8 @@
 /utils/wxrc/wxrc_vc[789].sln
 
 /3rdparty/webview2
+build_win64
+compile_commands.json
+.cache
+.vscode
+CMakeUserPresets.json
