@@ -1,7 +1,7 @@
-wxWidgets 3.2.6 Release Notes
+wxWidgets 3.3.0 Release Notes
 =============================
 
-Welcome to the new stable release of wxWidgets, a free and open source
+Welcome to the latest release of wxWidgets, a free and open source
 cross-platform C++ framework for writing advanced GUI applications using
 native controls.
 
@@ -16,7 +16,7 @@ more about wxWidgets at:
 
 Documentation is available online at:
 
-* https://docs.wxwidgets.org/3.2.6/
+* https://docs.wxwidgets.org/3.3.0/
 
 wxWidgets sources and binaries for the selected platforms are available for
 download from:
@@ -25,44 +25,21 @@ download from:
 
 or, for a more more permanent but less convenient to use link, from
 
-* https://github.com/wxWidgets/wxWidgets/releases/tag/v3.2.6/
+* https://github.com/wxWidgets/wxWidgets/releases/tag/v3.3.0/
 
-Please see https://docs.wxwidgets.org/3.2.6/overview_install.html for full
+Please see https://docs.wxwidgets.org/3.3.0/overview_install.html for full
 installation instructions.
 
 
 
-Changes since 3.2.5
--------------------
+Changes since 3.2
+-----------------
 
-This release contains multiple bug fixes, including some regressions, as well
-as improvements to the CMake build system. Some of the most important changes:
+- TODO
 
-- Fix resource leak in wxBitmapBundle in some circumstances (#24703).
-- Fix crash when using static wx libraries in a Windows DLL (#24730).
-- Fix possible crash during drag-and-drop in wxGTK (#24677).
-- Fix wxDatePickerCtrl being unusable in some locales in wxGTK (#24533).
-- Fix regression in focus handling under macOS 14+ (#24605, #24667).
-- Fix regression in wxTranslations introduced in 3.2.3 (#24297).
-
-Other changes include:
-
-- High DPI fixes for wxBitmapComboBox (#24563), wxDataViewCtrl (#24648),
-  wxNotebook (#24606), wxPropertyGrid (#24607), wxWizard (#24743).
-- Improve wxSlider appearance under macOS (#24532, #24539).
-- Correctly use current keyboard layout in key events in wxGTK (#24772).
-- Fix handling of ligatures in wxStyledTextCtrl in wxGTK (#13168).
-
-
-Please see the full change log for more details:
-
-https://raw.githubusercontent.com/wxWidgets/wxWidgets/v3.2.6/docs/changes.txt
-
-This release is API and ABI-compatible with the previous 3.2.x releases, so
-the existing applications don't even need to be rebuilt to profit from all the
-fixes above if they use shared/dynamic libraries. And if they do need to be
-recompiled, this can be done without any changes to the code.
-
+Note that in spite of all these changes, wxWidgets 3.3 is almost fully
+compatible with wxWidgets 3.2 and updating the existing applications to
+use it shouldn't require much effort.
 
 
 Supported Platforms
@@ -70,14 +47,13 @@ Supported Platforms
 
 This version of wxWidgets supports the following primary platforms:
 
-* Windows XP, Vista, 7, 8, 10 and 11 (32/64 bits).
-* Most Unix variants using the GTK toolkit (version 2.6 or newer)
+* Windows 7, 8, 10 and 11 (32/64 bits).
+* Most Unix variants using the GTK+ toolkit (version 2.6 or newer)
 * macOS (10.10 or newer) using Cocoa (x86-64 or ARM).
 
 There is some support for the following platforms:
 
 * Most Unix variants with X11
-* Most Unix variants with Motif/Lesstif
 * Most Unix variants with GTK+ 1.2
 * Most Unix variants with Qt 5 or newer (experimental)
 
@@ -103,8 +79,8 @@ unrestricted distribution of application binaries. To answer a FAQ, you don't
 have to distribute any source if you wish to write commercial applications using
 wxWidgets.
 
-However, if you distribute wxGTK, wxQt or wxMotif (with Lesstif) version of your
-application, don't forget that it is linked against GTK+, Qt or Lesstif, which
+However, if you distribute wxGTK or wxQt version of your
+application, don't forget that it is linked against GTK or Qt, which
 are covered by LGPL *without* exception notice and so is bound by its
 requirements.
 
@@ -156,4 +132,4 @@ developed by its users and your contributions to it are always welcome!
 
 Have fun!
 
-The wxWidgets Team, September 2024
+The wxWidgets Team, July 2022

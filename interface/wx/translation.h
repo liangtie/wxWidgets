@@ -38,7 +38,7 @@ public:
     wxTranslations();
 
     /**
-        Returns current translations object, may return NULL.
+        Returns current translations object, may return @NULL.
 
         You must either call this early in app initialization code, or let
         wxLocale do it for you.
@@ -108,7 +108,7 @@ public:
         user's preferred languages list. Use GetBestTranslation() instead
         unless you have very specific needs.
 
-        @since 3.2.3
+        @since 3.3.0
      */
     wxString GetBestAvailableTranslation(const wxString& domain);
 
@@ -118,8 +118,8 @@ public:
         The language is determined from the preferred UI language or languages
         list the user configured in the OS. Notice that this may or may not
         correspond to the default @em locale as obtained from
-        wxLocale::GetSystemLanguage(); modern operation systems (Windows
-        Vista+, macOS) have separate language and regional (= locale) settings.
+        wxLocale::GetSystemLanguage() as operating systems have separate
+        language and regional (i.e. locale) settings.
 
         Please note that that this function may return the language
         corresponding to @a msgIdLanguage if this language is considered to be
@@ -143,25 +143,7 @@ public:
     wxString GetBestTranslation(const wxString& domain, wxLanguage msgIdLanguage);
 
     /**
-        Returns the best UI language for the @a domain.
-
-        The language is determined from the preferred UI language or languages
-        list the user configured in the OS. Notice that this may or may not
-        correspond to the default @em locale as obtained from
-        wxLocale::GetSystemLanguage(); modern operation systems (Windows
-        Vista+, macOS) have separate language and regional (= locale) settings.
-
-        @param domain
-            The catalog domain to look for.
-
-        @param msgIdLanguage
-            Specifies the language of "msgid" strings in source code
-            (i.e. arguments to GetString(), wxGetTranslation() and the _() macro).
-
-        @return Language code if a suitable match was found, empty string
-                otherwise.
-
-        @since 2.9.5
+        @overload
      */
     wxString GetBestTranslation(const wxString& domain,
                                 const wxString& msgIdLanguage = "en");
@@ -206,7 +188,7 @@ public:
             selected or system-default languages, but is not necessarily an
             error if no translations are needed in the first place.
 
-        @since 3.2.3 (the msgIdLanguage argument since 3.2.6)
+        @since 3.2.5
      */
     bool AddAvailableCatalog(const wxString& domain,
                              wxLanguage msgIdLanguage = wxLANGUAGE_ENGLISH_US);
@@ -243,34 +225,6 @@ public:
      */
     bool AddCatalog(const wxString& domain,
                     wxLanguage msgIdLanguage = wxLANGUAGE_ENGLISH_US);
-
-    /**
-        Same as AddCatalog(const wxString&, wxLanguage), but takes two
-        additional arguments, @a msgIdLanguage and @a msgIdCharset.
-
-        This overload is only available in non-Unicode build.
-
-        @param domain
-            The catalog domain to add.
-
-        @param msgIdLanguage
-            Specifies the language of "msgid" strings in source code
-            (i.e. arguments to GetString(), wxGetTranslation() and the _() macro).
-            It is used if AddCatalog() cannot find any catalog for current language:
-            if the language is same as source code language, then strings from source
-            code are used instead.
-
-        @param msgIdCharset
-            Lets you specify the charset used for msgids in sources
-            in case they use 8-bit characters (e.g. German or French strings).
-
-        @return
-            @true if catalog was successfully loaded, @false otherwise (which might
-            mean that the catalog is not found or that it isn't in the correct format).
-     */
-    bool AddCatalog(const wxString& domain,
-                    wxLanguage msgIdLanguage,
-                    const wxString& msgIdCharset);
 
     /**
         Check if the given catalog is loaded, and returns @true if it is.
@@ -378,7 +332,7 @@ public:
                              additional modifiers (e.g. "fr", "en_GB" or
                              "ca@valencia").
 
-        @return Loaded catalog or NULL on failure.
+        @return Loaded catalog or @NULL on failure.
      */
     virtual wxMsgCatalog *LoadCatalog(const wxString& domain,
                                       const wxString& lang) = 0;
@@ -432,13 +386,15 @@ public:
     Translations are stored in resources as compiled MO files, with type
     set to "MOFILE" (unless you override GetResourceType()) and name
     consisting of the domain, followed by underscore, followed by language
-    identification. For example, the relevant part of .rc file would look
-    like this:
+    identification. Non-alphanumeric characters in language identification
+    should be replaced by '_'. For example, the relevant part of .rc file
+    would look like this:
 
     @code
-    myapp_de     MOFILE   "catalogs/de/myapp.mo"
-    myapp_fr     MOFILE   "catalogs/fr/myapp.mo"
-    myapp_en_GB  MOFILE   "catalogs/en_GB/myapp.mo"
+    myapp_de        MOFILE  "catalogs/de/myapp.mo"
+    myapp_fr        MOFILE  "catalogs/fr/myapp.mo"
+    myapp_en_GB     MOFILE  "catalogs/en_GB/myapp.mo"
+    myapp_sr_latin  MOFILE  "catalogs/sr@latin/myapp.mo"
     @endcode
 
     This class is only available on Windows.
@@ -482,7 +438,7 @@ public:
         @param domain    Catalog's domain. This typically matches
                          the @a filename.
 
-        @return Successfully loaded catalog or NULL on failure.
+        @return Successfully loaded catalog or @NULL on failure.
      */
     static wxMsgCatalog *CreateFromFile(const wxString& filename,
                                         const wxString& domain);
@@ -494,7 +450,7 @@ public:
         @param domain    Catalog's domain. This typically matches
                          the @a filename.
 
-        @return Successfully loaded catalog or NULL on failure.
+        @return Successfully loaded catalog or @NULL on failure.
      */
     static wxMsgCatalog *CreateFromData(const wxScopedCharBuffer& data,
                                         const wxString& domain);

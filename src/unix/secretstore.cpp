@@ -90,16 +90,16 @@ public:
         secret_value_unref(m_value);
     }
 
-    virtual size_t GetSize() const wxOVERRIDE
+    virtual size_t GetSize() const override
     {
         gsize length = 0;
         (void)secret_value_get(m_value, &length);
         return length;
     }
 
-    virtual const void *GetData() const wxOVERRIDE
+    virtual const void *GetData() const override
     {
-        return secret_value_get(m_value, NULL);
+        return secret_value_get(m_value, nullptr);
     }
 
     SecretValue* GetValue() const
@@ -120,7 +120,7 @@ public:
     {
     }
 
-    virtual bool IsOk(wxString* errmsg) const wxOVERRIDE
+    virtual bool IsOk(wxString* errmsg) const override
     {
         if ( errmsg )
             *errmsg = m_error;
@@ -131,7 +131,7 @@ public:
     virtual bool Save(const wxString& WXUNUSED(service),
                       const wxString& WXUNUSED(user),
                       const wxSecretValueImpl& WXUNUSED(secret),
-                      wxString& errmsg) wxOVERRIDE
+                      wxString& errmsg) override
     {
         errmsg = m_error;
         return false;
@@ -140,14 +140,14 @@ public:
     virtual bool Load(const wxString& WXUNUSED(service),
                       wxString* WXUNUSED(user),
                       wxSecretValueImpl** WXUNUSED(secret),
-                      wxString& errmsg) const wxOVERRIDE
+                      wxString& errmsg) const override
     {
         errmsg = m_error;
         return false;
     }
 
     virtual bool Delete(const wxString& WXUNUSED(service),
-                        wxString& errmsg) wxOVERRIDE
+                        wxString& errmsg) override
     {
         errmsg = m_error;
         return false;
@@ -171,13 +171,13 @@ public:
         SecretService* const service = secret_service_get_sync
                                        (
                                             SECRET_SERVICE_OPEN_SESSION,
-                                            NULL,   // No cancellation
+                                            nullptr,   // No cancellation
                                             error.Out()
                                        );
         if ( !service )
         {
             errmsg = error.GetMessage();
-            return NULL;
+            return nullptr;
         }
 
         // This passes ownership of service to the new object.
@@ -187,7 +187,7 @@ public:
     virtual bool Save(const wxString& service,
                       const wxString& user,
                       const wxSecretValueImpl& secret,
-                      wxString& errmsg) wxOVERRIDE
+                      wxString& errmsg) override
     {
         // We don't have any argument for the user-visible secret description
         // supported by libsecret, so we just reuse the service string. It
@@ -205,7 +205,7 @@ public:
                 SECRET_COLLECTION_DEFAULT,
                 service.utf8_str(),
                 static_cast<const wxSecretValueLibSecretImpl&>(secret).GetValue(),
-                NULL,                           // Can't be cancelled
+                nullptr,                           // Can't be cancelled
                 error.Out()
               ) )
         {
@@ -219,7 +219,7 @@ public:
     virtual bool Load(const wxString& service,
                       wxString* user,
                       wxSecretValueImpl** secret,
-                      wxString& errmsg) const wxOVERRIDE
+                      wxString& errmsg) const override
     {
         wxGtkError error;
         GList* const found = secret_service_search_sync
@@ -232,7 +232,7 @@ public:
                     SECRET_SEARCH_UNLOCK |
                     SECRET_SEARCH_LOAD_SECRETS
                 ),
-                NULL,                           // Can't be cancelled
+                nullptr,                           // Can't be cancelled
                 error.Out()
             );
 
@@ -263,7 +263,7 @@ public:
     }
 
     virtual bool Delete(const wxString& service,
-                        wxString& errmsg) wxOVERRIDE
+                        wxString& errmsg) override
     {
         wxGtkError error;
         if ( !secret_service_clear_sync
@@ -271,7 +271,7 @@ public:
                 m_service,
                 GetSchema(),
                 BuildAttributes(service),
-                NULL,                           // Can't be cancelled
+                nullptr,                           // Can't be cancelled
                 error.Out()
               ) )
         {
@@ -305,7 +305,7 @@ private:
                 {
                     { FIELD_SERVICE,    SECRET_SCHEMA_ATTRIBUTE_STRING },
                     { FIELD_USER,       SECRET_SCHEMA_ATTRIBUTE_STRING },
-                    { NULL }
+                    { nullptr }
                 }
             };
 
@@ -321,7 +321,7 @@ private:
                             (
                                 GetSchema(),
                                 FIELD_SERVICE,  service.utf8_str().data(),
-                                NULL
+                                nullptr
                             ));
     }
 
@@ -333,7 +333,7 @@ private:
                                 GetSchema(),
                                 FIELD_SERVICE,  service.utf8_str().data(),
                                 FIELD_USER,     user.utf8_str().data(),
-                                NULL
+                                nullptr
                             ));
     }
 

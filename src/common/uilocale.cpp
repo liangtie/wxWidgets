@@ -68,7 +68,6 @@ inline bool IsDefaultCLocale(const wxString& locale)
 
 } // anonymous namespace
 
-
 // ----------------------------------------------------------------------------
 // global variables
 // ----------------------------------------------------------------------------
@@ -493,7 +492,7 @@ bool wxUILocale::UseDefault()
 /* static */
 bool wxUILocale::UseLocaleName(const wxString& localeName)
 {
-    wxUILocaleImpl* impl = NULL;
+    wxUILocaleImpl* impl = nullptr;
     if (IsDefaultCLocale(localeName))
     {
         impl = wxUILocaleImpl::CreateStdC();
@@ -541,7 +540,7 @@ wxUILocale::wxUILocale(const wxLocaleIdent& localeId)
     if ( localeId.IsEmpty() )
     {
         wxFAIL_MSG( "Locale identifier must be initialized" );
-        m_impl = NULL;
+        m_impl = nullptr;
         return;
     }
 
@@ -576,7 +575,7 @@ wxUILocale& wxUILocale::operator=(const wxUILocale& loc)
 
 bool wxUILocale::IsSupported() const
 {
-    return m_impl != NULL;
+    return m_impl != nullptr;
 }
 
 wxString wxUILocale::GetName() const
@@ -612,20 +611,20 @@ wxString wxUILocale::GetLocalizedName(wxLocaleName name, wxLocaleForm form) cons
 }
 
 #if wxUSE_DATETIME
-wxString wxUILocale::GetMonthName(wxDateTime::Month month, wxDateTime::NameFlags flags) const
+wxString wxUILocale::GetMonthName(wxDateTime::Month month, wxDateTime::NameForm form) const
 {
     if (!m_impl)
         return wxString();
 
-    return m_impl->GetMonthName(month, flags);
+    return m_impl->GetMonthName(month, form);
 }
 
-wxString wxUILocale::GetWeekDayName(wxDateTime::WeekDay weekday, wxDateTime::NameFlags flags) const
+wxString wxUILocale::GetWeekDayName(wxDateTime::WeekDay weekday, wxDateTime::NameForm form) const
 {
     if (!m_impl)
         return wxString();
 
-    return m_impl->GetWeekDayName(weekday, flags);
+    return m_impl->GetWeekDayName(weekday, form);
 }
 #endif // wxUSE_DATETIME
 
@@ -764,14 +763,25 @@ wxVector<wxString> wxUILocale::GetPreferredUILanguages()
         while (tknzr.HasMoreTokens())
         {
             const wxString tok = tknzr.GetNextToken();
-            if (const wxLanguageInfo* li = wxUILocale::FindLanguageInfo(tok))
+            auto ident = wxLocaleIdent::FromTag(tok);
+            if ( ident.IsEmpty() )
             {
-                preferred.push_back(li->CanonicalName);
+                wxLogTrace(TRACE_I18N, "Invalid language code '%s' in WXLANGUAGE", tok);
+                continue;
             }
+
+            if ( !wxUILocale::FindLanguageInfo(ident.GetLanguage()) )
+            {
+                wxLogTrace(TRACE_I18N, "Unknown language in '%s' in WXLANGUAGE", tok);
+                continue;
+            }
+
+            preferred.push_back(ident.GetTag());
         }
         if (!preferred.empty())
         {
-            wxLogTrace(TRACE_I18N, " - using languages override from WXLANGUAGE: '%s'", languageFromEnv);
+            wxLogTrace(TRACE_I18N, " - using languages override from WXLANGUAGE: [%s]",
+                       wxJoin(preferred, ','));
             return preferred;
         }
     }
@@ -790,7 +800,7 @@ const wxLanguageInfo* wxUILocale::GetLanguageInfo(int lang)
         lang = GetSystemLanguage();
 
     if (lang == wxLANGUAGE_UNKNOWN)
-        return NULL;
+        return nullptr;
 
     const wxLanguageInfos& languagesDB = wxGetLanguageInfos();
     const size_t count = languagesDB.size();
@@ -800,7 +810,7 @@ const wxLanguageInfo* wxUILocale::GetLanguageInfo(int lang)
             return &languagesDB[i];
     }
 
-    return NULL;
+    return nullptr;
 }
 
 /* static */
@@ -837,7 +847,7 @@ wxString wxUILocale::GetLanguageCanonicalName(int lang)
 const wxLanguageInfo* wxUILocale::FindLanguageInfo(const wxString& localeOrig)
 {
     if (localeOrig.empty())
-        return NULL;
+        return nullptr;
 
     CreateLanguagesDB();
 
@@ -859,7 +869,7 @@ const wxLanguageInfo* wxUILocale::FindLanguageInfo(const wxString& localeOrig)
         language << " (" << region << ")";
     }
 
-    const wxLanguageInfo* infoRet = NULL;
+    const wxLanguageInfo* infoRet = nullptr;
 
     const wxLanguageInfos& languagesDB = wxGetLanguageInfos();
     const size_t count = languagesDB.size();
@@ -896,11 +906,11 @@ const wxLanguageInfo* wxUILocale::FindLanguageInfo(const wxString& localeOrig)
 const wxLanguageInfo* wxUILocale::FindLanguageInfo(const wxLocaleIdent& locId)
 {
     if (locId.IsEmpty())
-        return NULL;
+        return nullptr;
 
     CreateLanguagesDB();
 
-    const wxLanguageInfo* infoRet = NULL;
+    const wxLanguageInfo* infoRet = nullptr;
 
     wxString lang = locId.GetLanguage();
     wxString localeTag = locId.GetTag(wxLOCALE_TAGTYPE_BCP47);
@@ -949,6 +959,9 @@ int wxUILocaleImpl::ArrayIndexFromFlag(wxDateTime::NameFlags flags)
 
         case wxDateTime::Name_Abbr:
             return 1;
+
+        case wxDateTime::Name_Shortest:
+            return 2;
 
         default:
             wxFAIL_MSG("unknown wxDateTime::NameFlags value");

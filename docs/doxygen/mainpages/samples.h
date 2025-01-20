@@ -179,17 +179,11 @@ See @ref overview_config for the descriptions of all features of this class.
 
 @sampledir{dataview}
 
-@section page_samples_clipboard Clipboard Sample
-
-@sampleabout{wxClipboard}
-
-@sampledir{clipboard}
-
 @section page_samples_debugrpt Debug Reporter Sample
 
 This sample shows how to use wxDebugReport class to
 generate a debug report in case of a program crash or otherwise. On start up,
-it proposes to either crash itself (by dereferencing a NULL pointer) or
+it proposes to either crash itself (by dereferencing a @NULL) or
 generate debug report without doing it. Next it initializes the debug report
 with standard information adding a custom file to it (just a timestamp) and
 allows to view the information gathered using
@@ -505,14 +499,6 @@ and other files.
 It replaces the old @c dynamic sample.
 
 @sampledir{mediaplayer}
-
-@section page_samples_memcheck Memory Checking Sample
-
-@sampleabout{memory tracing using wxDebugContext}
-
-@sampledir{memcheck}
-
-@buildwith{wxUSE_MEMORY_TRACING, wxUSE_DEBUG_CONTEXT}
 
 @section page_samples_menu Menu Sample
 

@@ -4,7 +4,7 @@ name: Unix builds
 on:
   push:
     branches:
-      - 3.2
+      - master
     paths-ignore:
       - '.circleci/**'
       - '.github/ISSUE_TEMPLATE/**'
@@ -28,7 +28,7 @@ on:
       - 'wxwidgets.props'
   pull_request:
     branches:
-      - 3.2
+      - master
     paths-ignore:
       - '.circleci/**'
       - '.github/ISSUE_TEMPLATE/**'
@@ -50,6 +50,17 @@ on:
       - '*.yml'
       - 'CMakeLists.txt'
       - 'wxwidgets.props'
+  workflow_dispatch:
+    inputs:
+      debug_tests:
+        type: boolean
+        description: 'Enable ssh server before running the tests'
+        required: false
+        default: false
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
@@ -58,7 +69,11 @@ jobs:
   build:
     runs-on: ${{ matrix.runner }}
     name: ${{ matrix.name }}
-    container: ${{ matrix.container }}
+    container:
+      image: ${{ matrix.container }}
+      # We need to make container privileged just to allow writing to
+      # /proc/sys/kernel/core* files below.
+      options: --privileged
     strategy:
       fail-fast: false
       matrix:
@@ -66,7 +81,6 @@ jobs:
           - name: Ubuntu 18.04 wxGTK 2
             runner: ubuntu-latest
             container: ubuntu:18.04
-            compiler_flags: -std=c++98
             gtk_version: 2
             use_xvfb: true
           - name: Ubuntu 18.04 wxGTK UTF-8
@@ -78,34 +92,39 @@ jobs:
             runner: ubuntu-latest
             compiler: g++-4.8
             container: ubuntu:18.04
-            compiler_flags: -std=c++98
             configure_flags: --disable-shared
+            allow_extra_warnings: true
             use_xvfb: true
-          - name: Ubuntu 18.04 wxGTK 3 STL
+          - name: Ubuntu 18.04 wxGTK 3 compatible 3.0
             runner: ubuntu-latest
             container: ubuntu:18.04
-            configure_flags: --enable-cxx11 --enable-pch --enable-stl --disable-compat30
+            configure_flags: --enable-compat30
             use_xvfb: true
-            build_out_of_tree_samples: true
           - name: Ubuntu 20.04 wxGTK 3 with clang
             runner: ubuntu-20.04
             compiler: clang++-10
             configure_flags: --disable-sys-libs
             use_xvfb: true
-          - name: Ubuntu 20.04 wxGTK ANSI
-            runner: ubuntu-20.04
-            configure_flags: --disable-unicode
-            skip_samples: true
+          - name: Ubuntu 22.04 wxGTK with wx containers
+            runner: ubuntu-22.04
+            configure_flags: --enable-compat30 --disable-std_containers
+            use_xvfb: true
           - name: Ubuntu 22.04 wxGTK with ASAN
             runner: ubuntu-22.04
-            configure_flags: --disable-compat30 --disable-sys-libs
+            configure_flags: --disable-compat32 --disable-sys-libs
             skip_samples: true
             use_asan: true
             use_xvfb: true
+          - name: Ubuntu 22.04 wxGTK UTF-8 C++20
+            runner: ubuntu-22.04
+            configure_flags: --with-cxx=20 --enable-utf8 --enable-utf8only
+            use_asan: true
+            use_xvfb: true
+            build_out_of_tree_samples: true
           - name: Ubuntu 18.04 wxX11
             runner: ubuntu-latest
             container: ubuntu:18.04
-            configure_flags: --with-x11 --disable-stc
+            configure_flags: --with-x11 --enable-pch --disable-stc
             skip_samples: true
           - name: Ubuntu 18.04 wxDFB
             runner: ubuntu-latest
@@ -113,16 +132,12 @@ jobs:
             configure_flags: --with-directfb --enable-pch --disable-stc
             skip_samples: true
             allow_warnings: true
-          - name: Ubuntu 18.04 wxMotif
-            runner: ubuntu-latest
-            container: ubuntu:18.04
-            configure_flags: --with-motif --enable-pch --disable-stc
-            skip_samples: true
           - name: Ubuntu 18.04 wxQt
             runner: ubuntu-latest
             container: ubuntu:18.04
             configure_flags: --with-qt --enable-pch --without-opengl
             skip_samples: true
+            use_xvfb: true
 
     env:
       wxGTK_VERSION: ${{ matrix.gtk_version && matrix.gtk_version || 3 }}
@@ -152,13 +167,9 @@ jobs:
 
               # Explanation for installing some less obvious packages:
               #   - coreutils contains nproc used in proc_count.sh called below.
-              #   - locales contains locale-gen also used below.
-              #   - Python can't be installed using the action as usual because
-              #     it installs an ABI-incompatible version, see (wrongly, IMO)
-              #     closed https://github.com/actions/setup-python/issues/370
               #   - xvfb is used for running the GUI tests.
               apt-get update -qq
-              apt-get install -qq coreutils ${compiler-g++} git locales make pkg-config python3 python3-pip sudo xvfb
+              apt-get install -qq coreutils ${compiler-g++} git make pkg-config sudo xvfb
               ;;
 
             '')
@@ -170,19 +181,31 @@ jobs:
           esac
 
       - name: Checkout
+        if: matrix.container != 'ubuntu:18.04'
+        uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
+
+      - name: Checkout Ubuntu 18.04
+        if: matrix.container == 'ubuntu:18.04'
         uses: actions/checkout@v3
         with:
           submodules: 'recursive'
 
       - name: Install CCache
+        if: matrix.container != 'ubuntu:18.04'
+        uses: hendrikmuhs/ccache-action@v1.2.12
+        with:
+          key: ${{ matrix.name }}
+
+      - name: Install CCache Ubuntu 18.04
+        if: matrix.container == 'ubuntu:18.04'
         uses: hendrikmuhs/ccache-action@v1.2.3
         with:
           key: ${{ matrix.name }}
 
       - name: Set up build environment
         run: |
-          echo LD_LIBRARY_PATH=`pwd`/lib >> $GITHUB_ENV
-
           wxPROC_COUNT=`./build/tools/proc_count.sh`
           echo wxBUILD_ARGS=-j$wxPROC_COUNT >> $GITHUB_ENV
 
@@ -210,8 +233,7 @@ jobs:
               ;;
 
             '')
-              # Assume gcc but use the compiler flags if specified.
-              echo 'CXX=g++ ${{ matrix.compiler_flags }}' >> $GITHUB_ENV
+              # Assume gcc.
               allow_warn_opt="-Wno-error=cpp"
               ;;
 
@@ -221,16 +243,15 @@ jobs:
           esac
 
           if [ -z ${{ matrix.allow_warnings }} ]; then
-            error_opts="-Werror $allow_warn_opt"
+            if [ -z ${{ matrix.allow_extra_warnings }} ]; then
+              error_opts="-Wextra"
+            fi
+            error_opts="$error_opts -Werror $allow_warn_opt"
             echo "wxMAKEFILE_ERROR_CXXFLAGS=$error_opts" >> $GITHUB_ENV
             echo "wxMAKEFILE_CXXFLAGS=$wxMAKEFILE_CXXFLAGS $error_opts" >> $GITHUB_ENV
           fi
 
           echo "wxMAKEFILE_CXXFLAGS=$wxMAKEFILE_CXXFLAGS $error_opts" >> $GITHUB_ENV
-
-          # Install locales used by our tests to run all the tests instead of
-          # skipping them.
-          sudo locale-gen de_DE.utf8 de_CH.utf8 en_US.utf8 fr_FR.utf8 sv_SE.utf8
 
           ./build/tools/before_install.sh
 
@@ -247,6 +268,15 @@ jobs:
           echo "ccache version:"
           ccache --version
           echo
+
+          echo "Free space:"
+          df -h /
+          echo
+
+      - name: Work around Ubuntu 22.04 runner problem
+        if: matrix.runner == 'ubuntu-22.04'
+        # See https://github.com/actions/runner-images/issues/9491#issuecomment-1989718917
+        run: sudo sysctl vm.mmap_rnd_bits=28
 
       - name: Configuring
         run: |
@@ -294,11 +324,23 @@ jobs:
           make $wxBUILD_ARGS failtest
           make -k $wxBUILD_ARGS "CXXFLAGS=$wxMAKEFILE_CXXFLAGS" "LDFLAGS=$wxMAKEFILE_LDFLAGS"
 
-      - name: Setup Python
-        if: matrix.container == ''
-        uses: actions/setup-python@v4
+      - name: Setup tmate
+        uses: mxschmitt/action-tmate@v3
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_tests }}
+
+      - name: Setup Go
+        if: matrix.container != 'ubuntu:18.04'
+        uses: actions/setup-go@v5
         with:
-          python-version: '3.10'
+          go-version: '1'
+          cache: false
+
+      - name: Setup Go Ubuntu 18.04
+        if: matrix.container == 'ubuntu:18.04'
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1'
+          cache: false
 
       - name: Testing
         working-directory: tests
@@ -326,6 +368,11 @@ jobs:
             exit $rc
           fi
 
+      - name: Testing launching GUI test
+        working-directory: tests
+        run: |
+          WX_TEST_DISABLE_GUI=1 ./test_gui
+
       - name: Testing GUI using Xvfb
         if: matrix.use_xvfb
         working-directory: tests
@@ -346,7 +393,18 @@ jobs:
             # RichTextCtrlTestCase whose Table sub-test seems to be problematic.
             wx_tests_selection='~[.] ~RichTextCtrlTestCase'
           fi
+
+          # The tests only work reliably with native windows
+          export QT_USE_NATIVE_WINDOWS=1
+
+          # Configure the system to create core files and create them in the
+          # current directory instead of using apport to handle them, as
+          # Ubuntu does by default (even in a container where apport is not
+          # only not running but not even installed). Also turn off appending
+          # PID to the core files names which is on by default.
           ulimit -c unlimited
+          echo core | sudo tee /proc/sys/kernel/core_pattern
+          echo 0 | sudo tee /proc/sys/kernel/core_uses_pid
 
           # This is exceedingly weird, but for some reason the first test using
           # wxWebView sometimes fails (even if the timeout in the test is

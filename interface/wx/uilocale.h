@@ -198,36 +198,41 @@ public:
     wxString GetLocalizedName(wxLocaleName name, wxLocaleForm form) const;
 
     /**
-        Gets the full (default) or abbreviated name of the given month.
+        Gets the full (default), abbreviated or shortest name of the given month.
 
         This function returns the name in the current locale, use
         wxDateTime::GetEnglishMonthName() to get the untranslated name if necessary.
 
         @param month
             One of wxDateTime::Jan, ..., wxDateTime::Dec values.
-        @param flags
-            Either wxDateTime::Name_Full (default) or wxDateTime::Name_Abbr.
+        @param form
+            Name form consisting of the flags (Name_Full, Name_Abbr, or Name_Shortest)
+            and the context (Context_Formatting or Context_Standalone)
+            The default is Name_Full in Context_Formatting.
+            Example: wxNameForm().Abbr().Standalone()
 
         @see GetWeekDayName()
-        @since 3.2.3
+        @since 3.3.0
     */
-    wxString GetMonthName(wxDateTime::Month month, wxDateTime::NameFlags flags = wxDateTime::Name_Full);
+    wxString GetMonthName(wxDateTime::Month month, wxDateTime::NameForm form = {});
 
     /**
-        Gets the full (default) or abbreviated name of the given week day.
+        Gets the full (default), abbreviated or shortest name of the given week day.
 
         This function returns the name in the current locale, use
         wxDateTime::GetEnglishWeekDayName() to get the untranslated name if necessary.
 
         @param weekday
             One of wxDateTime::Sun, ..., wxDateTime::Sat values.
-        @param flags
-            Either wxDateTime::Name_Full (default) or wxDateTime::Name_Abbr.
+        @param form
+            Name form consisting of the flags (Name_Full, Name_Abbr, or Name_Shortest)
+            and the context (Context_Formatting or Context_Standalone)
+            The default is Name_Full in Context_Formatting.
+            Example: wxNameForm().Abbr().Standalone()
 
         @see GetMonthName()
-        @since 3.2.3
     */
-    wxString GetWeekDayName(wxDateTime::WeekDay weekday, wxDateTime::NameFlags flags = wxDateTime::Name_Full);
+    wxString GetWeekDayName(wxDateTime::WeekDay weekday, wxDateTime::NameForm form = {});
 
     /**
         Query the layout direction of the current locale.
@@ -250,7 +255,6 @@ public:
 
     /**
         Adds custom, user-defined language to the database of known languages.
-        This database is used in conjunction with the first form of Init().
     */
     static void AddLanguage(const wxLanguageInfo& info);
 
@@ -303,8 +307,8 @@ public:
     static wxString GetLanguageName(int lang);
 
     /**
-        Returns canonical name (see GetCanonicalName()) of the given language
-        or empty string if this language is unknown.
+        Returns canonical name of the given language or empty string if this
+        language is unknown.
 
         See GetLanguageInfo() for a remark about special meaning of @c wxLANGUAGE_DEFAULT.
     */
@@ -386,7 +390,7 @@ wxString wxGetUIDateFormat();
       Region(), Script() and other methods.
 
     The first method is useful for interoperating with the other software using
-    BCP 47 language tags, while the second one may may result in more readable
+    BCP 47 language tags, while the second one may result in more readable
     code and allows to specify Unix-specific locale description parts such as
     charset and modifier that are not part of the BCP 47 strings.
 

@@ -39,7 +39,7 @@ if(wxUSE_XRC)
 
         # Don't use wx_install() here to preserve escaping.
         install(CODE "execute_process( \
-            COMMAND ${CMAKE_COMMAND} -E create_symlink \
+            COMMAND ${CMAKE_COMMAND} -E copy \
             \"${CMAKE_INSTALL_PREFIX}/bin/${wxrc_output_name}${EXE_SUFFIX}\" \
             \"\$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/wxrc${EXE_SUFFIX}\" \
             )"

@@ -32,10 +32,10 @@
 class IntlTestCase : public CppUnit::TestCase
 {
 public:
-    IntlTestCase() { m_locale=NULL; }
+    IntlTestCase() { m_locale=nullptr; }
 
-    virtual void setUp() wxOVERRIDE;
-    virtual void tearDown() wxOVERRIDE;
+    virtual void setUp() override;
+    virtual void tearDown() override;
 
 private:
     CPPUNIT_TEST_SUITE( IntlTestCase );
@@ -71,7 +71,7 @@ CPPUNIT_TEST_SUITE_NAMED_REGISTRATION( IntlTestCase, "IntlTestCase" );
 void IntlTestCase::setUp()
 {
     // Check that French locale is supported, this test doesn't work without it
-    // and all the other function need to check whether m_locale is non-NULL
+    // and all the other function need to check whether m_locale is non-null
     // before continuing
     if ( !wxLocale::IsAvailable(wxLANGUAGE_FRENCH) )
         return;
@@ -93,7 +93,7 @@ void IntlTestCase::tearDown()
     if (m_locale)
     {
         delete m_locale;
-        m_locale = NULL;
+        m_locale = nullptr;
     }
 }
 
@@ -213,6 +213,8 @@ void IntlTestCase::DateTimeFmtFrench()
     // its middle, so test it piece-wise and hope it doesn't change too much.
     CHECK( fmtDT.StartsWith("%A %d %B %Y") );
     CHECK( fmtDT.EndsWith("%H:%M:%S") );
+
+    wxUnusedVar(FRENCH_DATE_TIME_FMT);
 #else
     // Some glic versions have " %Z" at the end of the locale and some don't.
     // The test is still useful if we just ignore this difference.
@@ -230,12 +232,12 @@ void IntlTestCase::DateTimeFmtFrench()
 
 void IntlTestCase::IsAvailable()
 {
-    const wxString origLocale(setlocale(LC_ALL, NULL));
+    const wxString origLocale(setlocale(LC_ALL, nullptr));
 
     // Calling IsAvailable() shouldn't change the locale.
     wxLocale::IsAvailable(wxLANGUAGE_ENGLISH);
 
-    CPPUNIT_ASSERT_EQUAL( origLocale, setlocale(LC_ALL, NULL) );
+    CPPUNIT_ASSERT_EQUAL( origLocale, setlocale(LC_ALL, nullptr) );
 }
 
 TEST_CASE("wxTranslations::AddCatalog", "[translations]")
@@ -251,7 +253,7 @@ TEST_CASE("wxTranslations::AddCatalog", "[translations]")
 
     SECTION("All")
     {
-        wxArrayString available = trans.GetAvailableTranslations(domain);
+        auto available = trans.GetAvailableTranslations(domain);
         REQUIRE( available.size() == 3 );
 
         available.Sort();
@@ -326,6 +328,7 @@ TEST_CASE("wxTranslations::GetBestTranslation", "[translations]")
         wxSetEnv("WXLANGUAGE", "en_GB");
         CHECK( trans.GetBestTranslation(domain) == "en_GB" );
         CHECK( trans.GetBestAvailableTranslation(domain) == "en_GB" );
+
     }
 
     SECTION("DontSkipMsgidLanguage")
@@ -341,9 +344,24 @@ TEST_CASE("wxTranslations::GetBestTranslation", "[translations]")
     }
 }
 
-// The test may fail in ANSI builds because of unsupported encoding, but we
-// don't really care about this build anyhow, so just skip it there.
-#if wxUSE_UNICODE
+// This test can be used to check how GetBestTranslation() and
+// GetAvailableTranslations() work with the given preferred languages: set
+// WXLANGUAGE environment variable to the colon-separated list of preferred
+// languages to test before running it.
+TEST_CASE("wxTranslations::ShowAvailable", "[.]")
+{
+    wxFileTranslationsLoader::AddCatalogLookupPathPrefix("./intl");
+
+    const wxString domain("internat");
+
+    wxTranslations trans;
+
+    WARN
+    (
+        "Available: [" << wxJoin(trans.GetAvailableTranslations(domain), ',') << "]\n"
+        "Best:      [" << trans.GetBestTranslation(domain) << "]"
+    );
+}
 
 TEST_CASE("wxLocale::Default", "[locale]")
 {
@@ -355,8 +373,6 @@ TEST_CASE("wxLocale::Default", "[locale]")
 
     REQUIRE( loc.Init(langDef, wxLOCALE_DONT_LOAD_DEFAULT) );
 }
-
-#endif // wxUSE_UNICODE
 
 // Under MSW and macOS all the locales used below should be supported, but
 // under Linux some locales may be unavailable.
@@ -434,8 +450,6 @@ TEST_CASE("wxUILocale::CompareStrings", "[uilocale]")
 #endif
     }
 
-    // UTF-8 strings are not supported in ASCII build.
-#if wxUSE_UNICODE
     SECTION("German")
     {
         const wxUILocale l(wxLocaleIdent().Language("de").Region("DE"));
@@ -449,9 +463,9 @@ TEST_CASE("wxUILocale::CompareStrings", "[uilocale]")
         CHECK( l.CompareStrings(u8("ä"), "ae") == -1 );
 
 #if defined(__WINDOWS__) || defined(__WXOSX__)
-        // Unfortunately CompareStringsEx() doesn't seem to work correctly
-        // under Wine.
-        if ( wxIsRunningUnderWine() )
+        // CompareStringsEx() was only implemented correctly in Wine 7.10.
+        wxVersionInfo wineVer;
+        if ( wxIsRunningUnderWine(&wineVer) && !wineVer.AtLeast(7, 10) )
             return;
 
         CHECK( l.CompareStrings(u8("ß"), "ss", wxCompare_CaseInsensitive) == 0 );
@@ -460,7 +474,8 @@ TEST_CASE("wxUILocale::CompareStrings", "[uilocale]")
 
     SECTION("Swedish")
     {
-        if ( wxIsRunningUnderWine() )
+        wxVersionInfo wineVer;
+        if ( wxIsRunningUnderWine(&wineVer) && !wineVer.AtLeast(7, 10) )
             return;
 
         const wxUILocale l(wxUILocale::FromTag("sv"));
@@ -472,7 +487,6 @@ TEST_CASE("wxUILocale::CompareStrings", "[uilocale]")
         CHECK( l.CompareStrings(u8("ä"), "ae") == 1 );
         CHECK( l.CompareStrings(u8("ö"), "z" ) == 1 );
     }
-#endif // wxUSE_UNICODE
 }
 
 // Small helper for making the test below more concise.
@@ -525,7 +539,7 @@ static void CheckFindLanguage(const wxString& tag, const char* expected)
 
 TEST_CASE("wxUILocale::FindLanguageInfo", "[uilocale]")
 {
-    CheckFindLanguage("", NULL);
+    CheckFindLanguage("", nullptr);
     CheckFindLanguage("en", "en");
     CheckFindLanguage("en_US", "en_US");
     CheckFindLanguage("en_US.utf8", "en_US");
@@ -628,12 +642,12 @@ TEST_CASE("wxUILocale::ShowSystem", "[.]")
     WARN(GetLocaleDesc("After wxUILocale::UseDefault()"));
 
     wxString preferredLangsStr;
-    const wxVector<wxString> preferredLangs = wxUILocale::GetPreferredUILanguages();
-    for (size_t n = 0; n < preferredLangs.size(); ++n)
+    const auto preferredLangs = wxUILocale::GetPreferredUILanguages();
+    for (const auto& lang: preferredLangs)
     {
         if ( !preferredLangsStr.empty() )
             preferredLangsStr += ", ";
-        preferredLangsStr += preferredLangs[n];
+        preferredLangsStr += lang;
     }
     WARN("Preferred UI languages:\n" << preferredLangsStr);
 }
