@@ -56,13 +56,6 @@ protected:
                                   WXUINT message,
                                   WXWPARAM wParam,
                                   WXLPARAM lParam) override;
-                           int sizeFlags = wxSIZE_AUTO) override;
-    virtual wxSize DoGetBestClientSize() const override;
-
-    virtual bool MSWHandleMessage(WXLRESULT *result,
-                                  WXUINT message,
-                                  WXWPARAM wParam,
-                                  WXLPARAM lParam) override;
 
     virtual wxString WXGetVisibleLabel() const override;
     virtual void WXSetVisibleLabel(const wxString& str) override;
