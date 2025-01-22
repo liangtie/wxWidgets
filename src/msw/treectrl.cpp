@@ -955,12 +955,6 @@ void wxTreeCtrl::SetImageList(wxImageList *imageList)
     SetAnyImageList(imageList, TVSIL_NORMAL);
 }
 
-void wxTreeCtrl::SetStateImages(const wxVector<wxBitmapBundle>& images)
-{
-    m_imagesState.SetImages(images);
-    SetAnyImageList(m_imagesState.GetUpdatedImageListFor(this), TVSIL_STATE);
-}
-
 void wxTreeCtrl::SetStateImageList(wxImageList *imageList)
 {
     m_imagesState.SetImageList(imageList);

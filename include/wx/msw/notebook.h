@@ -93,7 +93,6 @@ public:
     // style.
   void SetTabSize(const wxSize& sz) override;
 
-  // Return the position and size of the tab for the given page
   wxRect GetTabRect(size_t page) const override;
 
     // hit test

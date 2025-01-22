@@ -189,9 +189,6 @@ wxString wxStandardPaths::GetUserDir(Dir userDir) const
         case Dir_Cache:
             csidl = CSIDL_LOCAL_APPDATA;
             break;
-        case Dir_Config:
-            csidl = CSIDL_APPDATA;
-            break;
         case Dir_Desktop:
             csidl = CSIDL_DESKTOPDIRECTORY;
             break;
@@ -348,11 +345,6 @@ wxStandardPaths::MakeConfigFileName(const wxString& basename,
     return fn.GetFullName();
 }
 
-wxString wxStandardPaths::GetSharedLibrariesDir() const
-{
-    wxFileName fn( GetExecutablePath() );
-    return fn.GetPath();
-}
 
 // ============================================================================
 // wxStandardPathsWin16 implementation

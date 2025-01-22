@@ -123,6 +123,7 @@ wxDateTimePickerCtrl::MSWCreateDateTimePicker(wxWindow *parent,
     return true;
 }
 
+
 void wxDateTimePickerCtrl::MSWSetTimeFormat(wxLocaleInfo index)
 {
     const wxString format = wxGetMSWDateTimeFormat(index);
@@ -132,6 +133,7 @@ void wxDateTimePickerCtrl::MSWSetTimeFormat(wxLocaleInfo index)
                            static_cast<const wchar_t*>(format.t_str()));
     }
 }
+
 
 void wxDateTimePickerCtrl::SetValue(const wxDateTime& dt)
 {

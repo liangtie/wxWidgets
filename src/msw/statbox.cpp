@@ -698,15 +698,12 @@ void wxStaticBox::OnPaint(wxPaintEvent& WXUNUSED(event))
 
     // draw the entire box in a memory DC
     wxMemoryDC memdc(&dc);
-
-    const double scale = dc.GetContentScaleFactor();
-    wxBitmap bitmap;
-    // Physical and logical sizes are the same in wxMSW.
-    bitmap.CreateWithLogicalSize(rc.right, rc.bottom, scale);
+    wxBitmap bitmap(rc.right, rc.bottom);
     memdc.SelectObject(bitmap);
 
     PaintBackground(memdc, rc);
     PaintForeground(memdc, rc);
+
 
     // now only blit the static box border itself, not the interior, to avoid
     // flicker when background is drawn below

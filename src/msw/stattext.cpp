@@ -99,7 +99,7 @@ WXDWORD wxStaticText::MSWGetStyle(long style, WXDWORD *exstyle) const
 
 wxSize wxStaticText::DoGetBestClientSize() const
 {
-    wxInfoDC dc(const_cast<wxStaticText *>(this));
+    wxClientDC dc(const_cast<wxStaticText *>(this));
 
 #if wxUSE_MARKUP
     if ( m_markupText )
@@ -301,8 +301,11 @@ bool wxStaticText::DoSetLabelMarkup(const wxString& markup)
     m_labelOrig = label;
 
     // Don't do anything if the label didn't change.
-    if ( m_markupText && !m_markupText->SetMarkup(markup) )
+    if ( m_markupText )
+    {
+        m_markupText->SetMarkup(markup);
         return true;
+    }
 
     if ( !m_markupText )
     {
@@ -355,8 +358,8 @@ void wxStaticText::WXOnPaint(wxPaintEvent& event)
             wxRect rectShadow = rect;
             rectShadow.Offset(1, 1);
 
-            m_markupText->Render(dc, rectShadow, wxMarkupText::Render_ShowAccels,
-                                 GetAlignment());
+            // m_markupText->Render(dc, rectShadow, wxMarkupText::Render_ShowAccels,
+            //                      GetAlignment());
 
             dc.SetTextForeground(
                 wxSystemSettings::GetColour(wxSYS_COLOUR_BTNSHADOW)
@@ -364,8 +367,8 @@ void wxStaticText::WXOnPaint(wxPaintEvent& event)
         }
     }
 
-    m_markupText->Render(dc, rect, wxMarkupText::Render_ShowAccels,
-                         GetAlignment());
+    // m_markupText->Render(dc, rect, wxMarkupText::Render_ShowAccels,
+    //                      GetAlignment());
 }
 
 #endif // wxUSE_MARKUP

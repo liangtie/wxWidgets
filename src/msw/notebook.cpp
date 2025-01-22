@@ -757,32 +757,6 @@ bool wxNotebook::InsertPage(size_t nPage,
     return true;
 }
 
-// This can be defined to help with debugging this code by visually
-// highlighting the rectangle passed to it.
-#ifdef WXDEBUG_NOTEBOOK_HITTEST
-static void ShowHitbox(wxWindow *w, wxRect r, bool text, bool refresh)
-{
-    wxBrush green(wxColor(0, 200, 0));
-    wxBrush blue(wxColor(0, 0, 200));
-
-    wxScreenDC dc;
-
-    if (refresh)
-    {
-        w->Refresh();
-        w->Update();
-    }
-
-    r.x += (r.width / 2)+2;
-    w->ClientToScreen(&r.x, &r.y);
-    if (text)
-        dc.SetBrush(green);
-    else
-        dc.SetBrush(blue);
-
-    dc.DrawRectangle(r);
-}
-#endif // WXDEBUG_NOTEBOOK_HITTEST
 
 int wxNotebook::MSWHitTestLeftRight(const wxPoint& pt, long *flags) const
 {
@@ -956,6 +930,7 @@ int wxNotebook::MSWHitTestLeftRight(const wxPoint& pt, long *flags) const
     return item;
 }
 
+
 int wxNotebook::HitTest(const wxPoint& pt, long *flags) const
 {
     // In Windows there is a bug so that the flags are not properly reported
@@ -993,6 +968,7 @@ int wxNotebook::HitTest(const wxPoint& pt, long *flags) const
 
     return item;
 }
+
 
 // ----------------------------------------------------------------------------
 // flicker-less notebook redraw

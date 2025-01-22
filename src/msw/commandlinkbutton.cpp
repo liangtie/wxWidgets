@@ -145,7 +145,7 @@ wxSize wxCommandLinkButton::DoGetBestSize() const
 
         wxCommandLinkButton *thisButton =
             const_cast<wxCommandLinkButton *>(this);
-        wxInfoDC dc(thisButton);
+        wxClientDC dc(thisButton);
 
         wxFont noteFont = dc.GetFont();
 

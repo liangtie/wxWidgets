@@ -890,123 +890,119 @@ void wxWindowMSW::WarpPointer(int x, int y)
 
 bool wxWindowMSW::EnableTouchEvents(int eventsMask)
 {
-    // Static struct used when we need to use just a single configuration.
-    GESTURECONFIG config = {0, 0, 0};
+// #ifdef WM_GESTURE
+//     if ( GestureFuncs::IsOk() )
+//     {
+//         // Static struct used when we need to use just a single configuration.
+//         GESTURECONFIG config = {0, 0, 0};
 
-    GESTURECONFIG* ptrConfigs = &config;
-    UINT numConfigs = 1;
+//         GESTURECONFIG* ptrConfigs = &config;
+//         UINT numConfigs = 1;
 
-    // This is used only if we need to allocate the configurations
-    // dynamically.
-    wxVector<GESTURECONFIG> configs;
+//         // This is used only if we need to allocate the configurations
+//         // dynamically.
+//         wxVector<GESTURECONFIG> configs;
 
-    if ( eventsMask & wxTOUCH_RAW_EVENTS )
-    {
-        eventsMask &= ~wxTOUCH_RAW_EVENTS;
-         if ( !::RegisterTouchWindow(m_hWnd, 0) )
-            wxLogLastError("SetGestureConfig");
-    }
-    else
-    {
-        ::UnregisterTouchWindow(m_hWnd);
-    }
+//         // There are two simple cases: enabling or disabling all gestures.
+//         if ( eventsMask == wxTOUCH_NONE )
+//         {
+//             config.dwBlock = GC_ALLGESTURES;
+//         }
+//         else if ( eventsMask == wxTOUCH_ALL_GESTURES )
+//         {
+//             config.dwWant = GC_ALLGESTURES;
+//         }
+//         else // Need to enable the individual gestures
+//         {
+//             int wantedPan = 0;
+//             switch ( eventsMask & wxTOUCH_PAN_GESTURES )
+//             {
+//                 case wxTOUCH_VERTICAL_PAN_GESTURE:
+//                     wantedPan = GC_PAN_WITH_SINGLE_FINGER_VERTICALLY;
+//                     break;
 
-    // There are two simple cases: enabling or disabling all gestures.
-    if ( eventsMask == wxTOUCH_NONE )
-    {
-        config.dwBlock = GC_ALLGESTURES;
-    }
-    else if ( eventsMask == wxTOUCH_ALL_GESTURES )
-    {
-        config.dwWant = GC_ALLGESTURES;
-    }
-    else // Need to enable the individual gestures
-    {
-        int wantedPan = 0;
-        switch ( eventsMask & wxTOUCH_PAN_GESTURES )
-        {
-            case wxTOUCH_VERTICAL_PAN_GESTURE:
-                wantedPan = GC_PAN_WITH_SINGLE_FINGER_VERTICALLY;
-                break;
+//                 case wxTOUCH_HORIZONTAL_PAN_GESTURE:
+//                     wantedPan = GC_PAN_WITH_SINGLE_FINGER_HORIZONTALLY;
+//                     break;
 
-            case wxTOUCH_HORIZONTAL_PAN_GESTURE:
-                wantedPan = GC_PAN_WITH_SINGLE_FINGER_HORIZONTALLY;
-                break;
+//                 case wxTOUCH_PAN_GESTURES:
+//                     wantedPan = GC_PAN;
+//                     break;
 
-            case wxTOUCH_PAN_GESTURES:
-                wantedPan = GC_PAN;
-                break;
+//                 case 0:
+//                     // This is the only other possibility and wantedPan is
+//                     // already initialized to 0 anyhow, so don't do anything,
+//                     // just list it for completeness.
+//                     break;
+//             }
 
-            case 0:
-                // This is the only other possibility and wantedPan is
-                // already initialized to 0 anyhow, so don't do anything,
-                // just list it for completeness.
-                break;
-        }
+//             if ( wantedPan )
+//             {
+//                 eventsMask &= ~wxTOUCH_PAN_GESTURES;
 
-        if ( wantedPan )
-        {
-            eventsMask &= ~wxTOUCH_PAN_GESTURES;
+//                 config.dwID = GID_PAN;
+//                 config.dwWant = wantedPan;
+//                 configs.push_back(config);
+//             }
 
-            config.dwID = GID_PAN;
-            config.dwWant = wantedPan;
-            configs.push_back(config);
-        }
+//             if ( eventsMask & wxTOUCH_ZOOM_GESTURE )
+//             {
+//                 eventsMask &= ~wxTOUCH_ZOOM_GESTURE;
 
-        if ( eventsMask & wxTOUCH_ZOOM_GESTURE )
-        {
-            eventsMask &= ~wxTOUCH_ZOOM_GESTURE;
+//                 config.dwID = GID_ZOOM;
+//                 config.dwWant = GC_ZOOM;
+//                 configs.push_back(config);
+//             }
 
-            config.dwID = GID_ZOOM;
-            config.dwWant = GC_ZOOM;
-            configs.push_back(config);
-        }
+//             if ( eventsMask & wxTOUCH_ROTATE_GESTURE )
+//             {
+//                 eventsMask &= ~wxTOUCH_ROTATE_GESTURE;
 
-        if ( eventsMask & wxTOUCH_ROTATE_GESTURE )
-        {
-            eventsMask &= ~wxTOUCH_ROTATE_GESTURE;
+//                 config.dwID = GID_ROTATE;
+//                 config.dwWant = GC_ROTATE;
+//                 configs.push_back(config);
+//             }
 
-            config.dwID = GID_ROTATE;
-            config.dwWant = GC_ROTATE;
-            configs.push_back(config);
-        }
+//             if ( eventsMask & wxTOUCH_PRESS_GESTURES )
+//             {
+//                 eventsMask &= ~wxTOUCH_PRESS_GESTURES;
 
-        if ( eventsMask & wxTOUCH_PRESS_GESTURES )
-        {
-            eventsMask &= ~wxTOUCH_PRESS_GESTURES;
+//                 config.dwID = GID_TWOFINGERTAP;
+//                 config.dwWant = GC_TWOFINGERTAP;
+//                 configs.push_back(config);
 
-            config.dwID = GID_TWOFINGERTAP;
-            config.dwWant = GC_TWOFINGERTAP;
-            configs.push_back(config);
+//                 config.dwID = GID_PRESSANDTAP;
+//                 config.dwWant = GC_PRESSANDTAP;
+//                 configs.push_back(config);
+//             }
 
-            config.dwID = GID_PRESSANDTAP;
-            config.dwWant = GC_PRESSANDTAP;
-            configs.push_back(config);
-        }
+//             // As we clear all the known bits if they're set in the code above,
+//             // there should be nothing left.
+//             wxCHECK_MSG( eventsMask == 0, false,
+//                          wxS("Unknown touch event mask bit specified") );
 
-        // As we clear all the known bits if they're set in the code above,
-        // there should be nothing left.
-        wxCHECK_MSG( eventsMask == 0, false,
-                     wxS("Unknown touch event mask bit specified") );
+//             ptrConfigs = &configs[0];
+//         }
 
-        ptrConfigs = &configs[0];
-    }
+//         if ( !GestureFuncs::SetGestureConfig()
+//              (
+//                 m_hWnd,
+//                 wxRESERVED_PARAM,
+//                 numConfigs,             // Number of gesture configurations.
+//                 ptrConfigs,             // Pointer to the first one.
+//                 sizeof(GESTURECONFIG)   // Size of each configuration.
+//              )
+//            )
+//         {
+//             wxLogLastError("SetGestureConfig");
+//             return false;
+//         }
 
-    if ( !::SetGestureConfig
-         (
-            m_hWnd,
-            wxRESERVED_PARAM,
-            numConfigs,             // Number of gesture configurations.
-            ptrConfigs,             // Pointer to the first one.
-            sizeof(GESTURECONFIG)   // Size of each configuration.
-         )
-       )
-    {
-        wxLogLastError("SetGestureConfig");
-        return false;
-    }
+//         return true;
+//     }
+// #endif // WM_GESTURE
 
-    return true;
+    return wxWindowBase::EnableTouchEvents(eventsMask);
 }
 
 void wxWindowMSW::MSWUpdateUIState(int action, int state)
@@ -2472,13 +2468,11 @@ wxWindowMSW::HandleMenuSelect(WXWORD nItem, WXWORD flags, WXHMENU hMenu)
     // the top level menus of the menu bar, which can't be represented using
     // any valid identifier in wxMenuEvent so use an otherwise unused value for
     // them
-    if ( flags & MF_SEPARATOR )
+    if ( flags & (MF_POPUP | MF_SEPARATOR) )
         item = wxID_NONE;
 
     wxMenu* menu = MSWFindMenuFromHMENU(hMenu);
-    wxMenuItem* menuItem = MSWFindMenuItemFromHMENU(hMenu, item);
-
-    wxMenuEvent event(wxEVT_MENU_HIGHLIGHT, item, menu, menuItem);
+    wxMenuEvent event(wxEVT_MENU_HIGHLIGHT, item, menu);
     if ( wxMenu::ProcessMenuEvent(menu, event, this) )
         return true;
 
@@ -2494,6 +2488,7 @@ wxWindowMSW::HandleMenuSelect(WXWORD nItem, WXWORD flags, WXHMENU hMenu)
 
     return false;
 }
+
 
 bool
 wxWindowMSW::DoSendMenuOpenCloseEvent(wxEventType evtType, wxMenu* menu)
@@ -5953,7 +5948,7 @@ void wxWindowMSW::InitMouseEvent(wxMouseEvent& event,
     event.m_aux2Down = (flags & MK_XBUTTON2) != 0;
     event.m_altDown = ::wxIsAltDown();
 
-    event.m_synthesized = wxIsTouchEventMSW();
+    // event.m_synthesized = wxIsTouchEventMSW();
 
     event.SetTimestamp(::GetMessageTime());
 
@@ -6329,35 +6324,35 @@ bool wxWindowMSW::HandleTouch(WXWPARAM wParam, WXLPARAM lParam)
     }
 
     bool allHandled = true;
-    for ( const auto& input : info )
-    {
-        // hundredths of a pixel of physical screen coordinates
-        wxPoint2DDouble pt(input.x / 100.0, input.y / 100.0);
-        wxPoint ref = pt.GetFloor();
-        wxPoint2DDouble pos = ScreenToClient(ref) + (pt - ref);
+    // for ( const auto& input : info )
+    // {
+    //     // hundredths of a pixel of physical screen coordinates
+    //     wxPoint2DDouble pt(input.x / 100.0, input.y / 100.0);
+    //     wxPoint ref = pt.GetFloor();
+    //     wxPoint2DDouble pos = ScreenToClient(ref) + (pt - ref);
 
-        wxEventType type;
-        if ( input.dwFlags & TOUCHEVENTF_DOWN )
-            type = wxEVT_TOUCH_BEGIN;
-        else if ( input.dwFlags & TOUCHEVENTF_MOVE )
-            type = wxEVT_TOUCH_MOVE;
-        else if ( input.dwFlags & TOUCHEVENTF_UP )
-            type = wxEVT_TOUCH_END;
-        else
-        {
-            allHandled = false;
-            continue;
-        }
+    //     wxEventType type;
+    //     if ( input.dwFlags & TOUCHEVENTF_DOWN )
+    //         type = wxEVT_TOUCH_BEGIN;
+    //     else if ( input.dwFlags & TOUCHEVENTF_MOVE )
+    //         type = wxEVT_TOUCH_MOVE;
+    //     else if ( input.dwFlags & TOUCHEVENTF_UP )
+    //         type = wxEVT_TOUCH_END;
+    //     else
+    //     {
+    //         allHandled = false;
+    //         continue;
+    //     }
 
-        wxMultiTouchEvent event( GetId(), type);
+    //     wxMultiTouchEvent event( GetId(), type);
 
-        event.SetEventObject( this );
-        event.SetPosition(pos);
-        event.SetSequenceId(wxTouchSequenceId(wxUIntToPtr(input.dwID + 1)));
-        event.SetPrimary( (input.dwFlags & TOUCHEVENTF_PRIMARY) != 0 );
-        if ( !HandleWindowEvent(event) )
-            allHandled = false;
-    }
+    //     event.SetEventObject( this );
+    //     event.SetPosition(pos);
+    //     event.SetSequenceId(wxTouchSequenceId(wxUIntToPtr(input.dwID + 1)));
+    //     event.SetPrimary( (input.dwFlags & TOUCHEVENTF_PRIMARY) != 0 );
+    //     if ( !HandleWindowEvent(event) )
+    //         allHandled = false;
+    // }
 
     return allHandled;
 }

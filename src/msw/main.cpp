@@ -170,7 +170,7 @@ int wxEntry(int& argc, wxChar **argv)
     {
         return wxEntryReal(argc, argv);
     }
-    wxSEH_HANDLE(wxApp::GetFatalErrorExitCode())
+    wxSEH_HANDLE(-1)
 }
 
 #else // !wxUSE_ON_FATAL_EXCEPTION
@@ -225,7 +225,7 @@ WXDLLIMPEXP_CORE int wxEntry(HINSTANCE hInstance,
                         int nCmdShow)
 {
     if ( !wxMSWEntryCommon(hInstance, nCmdShow) )
-        return wxApp::GetFatalErrorExitCode();
+        return -1;
 
     auto& initData = wxInitData::Get();
     return wxEntry(initData.argc, initData.argv);

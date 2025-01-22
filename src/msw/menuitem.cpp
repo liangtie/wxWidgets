@@ -780,7 +780,7 @@ wxSize wxMenuItem::GetMenuTextExtent(const wxString& text) const
     // Note that we must have both a valid menu and a valid window by the time
     // we can be called -- and GetFontToUse() already assumes this, so there is
     // no need to check that they're both non-null here.
-    wxInfoDC dc(GetMenu()->GetWindow());
+    wxClientDC dc(GetMenu()->GetWindow());
 
     wxFont font;
     GetFontToUse(font);

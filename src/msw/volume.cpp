@@ -568,7 +568,10 @@ int wxFSVolumeBase::GetFlags() const
 
 void wxFSVolume::InitIcons()
 {
-    m_icons.resize(wxFS_VOL_ICO_MAX);
+    m_icons.Alloc(wxFS_VOL_ICO_MAX);
+    wxIcon null;
+    for (int idx = 0; idx < wxFS_VOL_ICO_MAX; idx++)
+        m_icons.Add(null);
 }
 
 //=============================================================================

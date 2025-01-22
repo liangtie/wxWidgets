@@ -702,7 +702,7 @@ bool wxListBox::SetFont(const wxFont &font)
 
         // Non owner drawn list boxes update the item height on their own, but
         // we need to do it manually in the owner drawn case.
-        wxInfoDC dc(this);
+        wxClientDC dc(this);
         dc.SetFont(m_font);
         SendMessage(GetHwnd(), LB_SETITEMHEIGHT, 0,
                     dc.GetCharHeight() + 2 * LISTBOX_EXTRA_SPACE);
