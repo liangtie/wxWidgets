@@ -862,6 +862,7 @@ void wxAuiToolBar::Init()
     m_overflowVisible = false;
     m_overflowState = 0;
     m_orientation = wxHORIZONTAL;
+    SetBackgroundStyle(wxBG_STYLE_PAINT);
 }
 
 bool wxAuiToolBar::Create(wxWindow* parent,
