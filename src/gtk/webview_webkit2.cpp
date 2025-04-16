@@ -1322,7 +1322,7 @@ bool wxWebViewWebKit::AddScriptMessageHandler(const wxString& name)
         wxString js = wxString::Format("window.%s = window.webkit.messageHandlers.%s;",
                 name, name);
         AddUserScript(js);
-        RunScript(js);
+        RunScriptAsync(js);
     }
 
     return res;
