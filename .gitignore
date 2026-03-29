@@ -457,3 +457,4 @@
 
 /build/cmake/output/
 CMakeUserPresets.json
+build_win64
